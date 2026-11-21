@@ -46,7 +46,6 @@ fn main() {
             threads: config.threads,
         };
         match fast::run(&fast_config) {
-            Ok(fast::Outcome::Done) => std::process::exit(0),
             Ok(fast::Outcome::Fallback(reason)) => eprintln!("general path: {reason}"),
             Err(error) => {
                 eprintln!("error: {error}");

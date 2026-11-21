@@ -16,6 +16,28 @@ pub struct Part {
 }
 
 impl Part {
+    pub fn len(&self) -> usize {
+        self.persons.len()
+    }
+
+    pub fn clear(&mut self) {
+        self.persons.clear();
+        self.days.clear();
+        self.sessions.clear();
+        self.events.clear();
+        self.revenue.clear();
+        self.top.clear();
+    }
+
+    pub fn totals(&self) -> [u64; 4] {
+        [
+            self.persons.len() as u64,
+            self.sessions.iter().sum(),
+            self.events.iter().sum(),
+            self.revenue.iter().sum(),
+        ]
+    }
+
     #[inline]
     pub fn push(&mut self, person: u64, day: u32, row: [u64; 3], top: u8) {
         self.persons.push(person);
@@ -28,9 +50,6 @@ impl Part {
 }
 
 pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first_day: i64) -> Result<()> {
-    if part.persons.is_empty() && id != 0 {
-        return Ok(());
-    }
     let names = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
         for &person in &part.persons[a..b] {
             let at = out.len();
@@ -83,20 +102,29 @@ pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first
 
 pub fn campaign_table(
     dir: &Path,
-    parts: &[Part],
+    parts: &[&[[u64; 4]]],
     ids: &[&[u8]],
     channels: &[&[u8]],
     organic: &[u8],
     first_day: i64,
     days: usize,
-) -> Result<()> {
+) -> Result<[u64; 4]> {
     let slots = (ids.len() + 1) * days;
     let mut total = vec![[0u64; 4]; slots];
     for part in parts {
-        for (t, c) in total.iter_mut().zip(&part.cells) {
+        for (t, c) in total.iter_mut().zip(part.iter()) {
             for k in 0..4 {
                 t[k] += c[k];
             }
+        }
+    }
+    let mut sums = [0u64; 4];
+    for (i, cell) in total.iter().enumerate() {
+        sums[0] += cell[0];
+        sums[1] += cell[2];
+        sums[2] += cell[3];
+        if i / days.max(1) != ids.len() {
+            sums[3] += cell[0];
         }
     }
     let mut rows: Vec<(usize, usize, [u64; 4])> = Vec::new();
@@ -150,28 +178,13 @@ pub fn campaign_table(
         Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
         Column { name: "assisted_sessions", kind: Kind::I32, fill: &assisted },
     ];
-    parquet::write(&dir.join("part-00000.parquet"), &columns, rows.len())
+    parquet::write(&dir.join("part-00000.parquet"), &columns, rows.len())?;
+    Ok(sums)
 }
 
-pub fn report(parts: &[Part], days: usize, organic: usize) {
-    let rows: usize = parts.iter().map(|p| p.persons.len()).sum();
-    let user_sessions: u64 = parts.iter().flat_map(|p| &p.sessions).sum();
-    let user_events: u64 = parts.iter().flat_map(|p| &p.events).sum();
-    let user_revenue: u64 = parts.iter().flat_map(|p| &p.revenue).sum();
-    let mut sessions = 0u64;
-    let mut revenue = 0u64;
-    let mut assisted = 0u64;
-    let mut credited = 0u64;
-    for part in parts {
-        for (i, cell) in part.cells.iter().enumerate() {
-            sessions += cell[0];
-            revenue += cell[2];
-            assisted += cell[3];
-            if i / days.max(1) != organic {
-                credited += cell[0];
-            }
-        }
-    }
+pub fn report(users: [u64; 4], campaigns: [u64; 4]) {
+    let [rows, user_sessions, user_events, user_revenue] = users;
+    let [sessions, revenue, assisted, credited] = campaigns;
     eprintln!("surviving events {user_events}, user_daily rows {rows}");
     eprintln!("sessions {user_sessions} / {sessions}, revenue {user_revenue} / {revenue}, assisted {assisted} >= {credited}");
     if user_sessions != sessions || user_revenue != revenue || assisted < credited {

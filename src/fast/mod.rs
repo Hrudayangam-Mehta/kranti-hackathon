@@ -25,6 +25,7 @@ use sink::{Arena, Sink};
 use ts::Calendar;
 
 const WEEK_MS: i64 = 7 * DAY_MS;
+const FLUSH_ROWS: usize = 1 << 16;
 const GAP_MS: u32 = 30 * 60 * 1000;
 const INVALID: u32 = u32::MAX;
 const H1: u64 = 0x9e37_79b9_7f4a_7c15;
@@ -71,7 +72,6 @@ pub struct Config<'a> {
 }
 
 pub enum Outcome {
-    Done,
     Fallback(String),
 }
 
@@ -86,18 +86,22 @@ struct Ctx<'a> {
     organic: u32,
     p1_bits: u32,
     p2_bits: u32,
+    p1_block: usize,
+    click_block: usize,
+    p2_block: usize,
     first_day: i64,
     days: usize,
     day_shift: i64,
     link_files: &'a [&'static [u8]],
     units: Vec<Unit>,
+    mapped: Vec<&'static [u8]>,
 }
 
 #[derive(Clone, Copy)]
 enum Unit {
     Links,
-    Events(&'static [u8]),
-    Clicks(&'static [u8]),
+    Events(&'static [u8], usize, usize),
+    Clicks(&'static [u8], usize, usize),
 }
 
 fn map_file(path: &Path) -> Result<&'static [u8]> {
@@ -121,12 +125,60 @@ fn map_folder(dir: &Path) -> Result<Vec<&'static [u8]>> {
     paths.iter().map(|p| map_file(p)).collect()
 }
 
-fn chunks(files: &[&'static [u8]], target: usize, out: &mut Vec<&'static [u8]>) {
+fn chunks(files: &[&'static [u8]], target: usize, out: &mut Vec<(&'static [u8], usize, usize)>) {
     for &file in files {
-        for (start, end) in csv::data_chunks(file, target) {
-            out.push(&file[start..end]);
+        let mut start = 0;
+        while start < file.len() {
+            let end = start.saturating_add(target).min(file.len());
+            out.push((file, start, end));
+            start = end;
         }
     }
+}
+
+fn split_tail(units: &mut Vec<(&'static [u8], usize, usize)>, count: usize, pieces: usize) {
+    let from = units.len().saturating_sub(count);
+    let tail: Vec<_> = units.drain(from..).collect();
+    for (file, s, e) in tail {
+        let step = (e - s).div_ceil(pieces).max(1);
+        let mut at = s;
+        while at < e {
+            let next = (at + step).min(e);
+            units.push((file, at, next));
+            at = next;
+        }
+    }
+}
+
+#[inline]
+fn next_line(file: &[u8], at: usize) -> usize {
+    match file[at..].iter().position(|&b| b == b'\n') {
+        Some(offset) => at + offset + 1,
+        None => file.len(),
+    }
+}
+
+fn populate(file: &'static [u8], s: usize, e: usize) {
+    let page = 4096usize;
+    let base = file.as_ptr() as usize;
+    let from = (base + s) & !(page - 1);
+    let to = (base + e.min(file.len())).div_ceil(page) * page;
+    unsafe { libc::madvise(from as *mut libc::c_void, to - from, 22) };
+}
+
+fn line_range(file: &'static [u8], s: usize, e: usize) -> &'static [u8] {
+    populate(file, s, e);
+    let begin = next_line(file, s.saturating_sub(1));
+    let end = if e >= file.len() { file.len() } else { next_line(file, e - 1) };
+    if begin >= end {
+        &file[..0]
+    } else {
+        &file[begin..end]
+    }
+}
+
+fn block_for(records: usize, parts: usize, threads: usize, low: usize) -> usize {
+    (records / (parts * threads * 4)).clamp(low, 512) & !3
 }
 
 fn bits_for(records: usize, per_part: usize) -> u32 {
@@ -161,20 +213,39 @@ pub fn run(config: &Config) -> Result<Outcome> {
             .map_err(|e| format!("campaigns.csv: {e}"))?
             .into_boxed_slice(),
     );
-    let product_rows: Vec<[&[u8]; 2]> = csv::rows(products_file).filter_map(csv::fields::<2>).collect();
-    let mut categories: Vec<&'static [u8]> = product_rows.iter().map(|[_, c]| *c).collect();
-    categories.push(UNKNOWN_CATEGORY);
-    categories.sort_unstable();
-    categories.dedup();
-    if categories.len() > 255 {
-        return Ok(Outcome::Fallback("category count".into()));
+    let mut seen_categories: Vec<&'static [u8]> = vec![UNKNOWN_CATEGORY];
+    let mut category_ids: crate::hash::FastMap<&'static [u8], u32> = crate::hash::new_map(64);
+    category_ids.insert(UNKNOWN_CATEGORY, 0);
+    let mut product_entries: Vec<(u64, u32)> = Vec::with_capacity(products_file.len() / 16 + 1);
+    let mut last: (&[u8], u32) = (UNKNOWN_CATEGORY, 0);
+    for [p, c] in csv::rows(products_file).filter_map(csv::fields::<2>) {
+        let id = if c == last.0 {
+            last.1
+        } else {
+            let next = seen_categories.len() as u32;
+            let id = *category_ids.entry(c).or_insert(next);
+            if id == next {
+                seen_categories.push(c);
+                if seen_categories.len() > 255 {
+                    return Ok(Outcome::Fallback("category count".into()));
+                }
+            }
+            last = (c, id);
+            id
+        };
+        product_entries.push((keys::intern(p), id));
     }
-    let category_index = |name: &[u8]| categories.binary_search(&name).unwrap() as u32;
-    let product_entries: Vec<(u64, u32)> = product_rows
-        .iter()
-        .map(|[p, c]| (keys::intern(p), category_index(c)))
-        .collect();
-    let unknown = category_index(UNKNOWN_CATEGORY);
+    let mut by_name: Vec<u32> = (0..seen_categories.len() as u32).collect();
+    by_name.sort_unstable_by(|&a, &b| seen_categories[a as usize].cmp(seen_categories[b as usize]));
+    let categories: Vec<&'static [u8]> = by_name.iter().map(|&i| seen_categories[i as usize]).collect();
+    let mut rank = vec![0u32; by_name.len()];
+    for (sorted, &old) in by_name.iter().enumerate() {
+        rank[old as usize] = sorted as u32;
+    }
+    for entry in product_entries.iter_mut() {
+        entry.1 = rank[entry.1 as usize];
+    }
+    let unknown = rank[0];
     let mut campaign_ids: Vec<&'static [u8]> = Vec::new();
     let mut campaign_channels: Vec<&'static [u8]> = Vec::new();
     let mut campaign_entries: Vec<(u64, u32)> = Vec::new();
@@ -201,9 +272,14 @@ pub fn run(config: &Config) -> Result<Outcome> {
     chunks(&event_files, target, &mut event_chunks);
     let mut click_chunks = Vec::new();
     chunks(&click_files, target, &mut click_chunks);
+    if click_chunks.is_empty() {
+        split_tail(&mut event_chunks, 2 * threads, 4);
+    } else {
+        split_tail(&mut click_chunks, 2 * threads, 4);
+    }
     let mut units = vec![Unit::Links];
-    units.extend(event_chunks.iter().map(|&c| Unit::Events(c)));
-    units.extend(click_chunks.iter().map(|&c| Unit::Clicks(c)));
+    units.extend(event_chunks.iter().map(|&(f, s, e)| Unit::Events(f, s, e)));
+    units.extend(click_chunks.iter().map(|&(f, s, e)| Unit::Clicks(f, s, e)));
 
     let est_events = event_bytes / 60 + 1;
     let first_day = ws.div_euclid(DAY_MS);
@@ -219,11 +295,21 @@ pub fn run(config: &Config) -> Result<Outcome> {
         organic,
         p1_bits: bits_for(est_events, 12 << 10),
         p2_bits: bits_for(est_events, 12 << 10),
+        p1_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
+        click_block: block_for(click_bytes / 47, 1 << bits_for(est_events, 12 << 10), threads, 32),
+        p2_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
         first_day,
         days: (last_day - first_day + 1) as usize,
         day_shift: cws - first_day * DAY_MS,
         link_files: &link_files,
         units,
+        mapped: event_files
+            .iter()
+            .chain(&click_files)
+            .chain(&link_files)
+            .copied()
+            .filter(|f| !f.is_empty())
+            .collect(),
     };
     lap("setup");
 
@@ -232,12 +318,13 @@ pub fn run(config: &Config) -> Result<Outcome> {
     let queue = AtomicUsize::new(0);
     let dedup_queue = AtomicUsize::new(0);
     let person_queue = AtomicUsize::new(0);
+    let file_counter = AtomicUsize::new(0);
     let barrier = Barrier::new(threads);
     let p1_sinks: Vec<OnceLock<Sink<EventRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
     let click_sinks: Vec<OnceLock<Sink<ClickRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
     let p2_sinks: Vec<OnceLock<Sink<PersonRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
     let order: OnceLock<Vec<usize>> = OnceLock::new();
-    let results: Mutex<Vec<write::Part>> = Mutex::new(Vec::new());
+    let results: Mutex<Vec<(Vec<[u64; 4]>, [u64; 4])>> = Mutex::new(Vec::new());
     let stats = Stats {
         event_copies: AtomicUsize::new(0),
         winners: AtomicUsize::new(0),
@@ -257,6 +344,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
             let queue = &queue;
             let dedup_queue = &dedup_queue;
             let person_queue = &person_queue;
+            let file_counter = &file_counter;
             let barrier = &barrier;
             let p1_sinks = &p1_sinks;
             let click_sinks = &click_sinks;
@@ -266,13 +354,16 @@ pub fn run(config: &Config) -> Result<Outcome> {
             let stats = &stats;
             let lap = &lap;
             let user_dir = &user_dir;
+            let campaign_dir = &campaign_dir;
+            let campaign_ids = &campaign_ids;
+            let campaign_channels = &campaign_channels;
             let failure = &failure;
             let categories = &categories;
             scope.spawn(move || {
                 let mut arena = Arena::new();
                 let mut scratch = Scratch::new();
-                let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, 512);
-                let mut clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, 512);
+                let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, ctx.p1_block);
+                let mut clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, ctx.click_block);
                 let mut copies = 0usize;
                 let mut click_count = 0usize;
                 loop {
@@ -286,13 +377,21 @@ pub fn run(config: &Config) -> Result<Outcome> {
                             links_done.store(true, Ordering::Release);
                             eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
                         }
-                        Unit::Events(chunk) => copies += parse_events(ctx, chunk, &mut scratch, &mut arena, &mut p1),
-                        Unit::Clicks(chunk) => {
+                        Unit::Events(file, s, e) => {
+                            let chunk = line_range(file, s, e);
+                            if !chunk.is_empty() {
+                                copies += parse_events(ctx, chunk, &mut scratch, &mut arena, &mut p1);
+                            }
+                        }
+                        Unit::Clicks(file, s, e) => {
+                            let chunk = line_range(file, s, e);
                             while !links_done.load(Ordering::Acquire) {
                                 std::thread::yield_now();
                             }
                             let people = people.get().unwrap();
-                            click_count += parse_clicks(ctx, people, chunk, &mut scratch, &mut arena, &mut clicks);
+                            if !chunk.is_empty() {
+                                click_count += parse_clicks(ctx, people, chunk, &mut scratch, &mut arena, &mut clicks);
+                            }
                         }
                     }
                 }
@@ -311,12 +410,19 @@ pub fn run(config: &Config) -> Result<Outcome> {
 
                 let people = people.get().unwrap();
                 let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
-                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, 256);
+                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, ctx.p2_block);
                 let mut buf: Vec<EventRec> = Vec::new();
                 let mut table: Vec<(u64, u32)> = Vec::new();
                 let mut winners = 0usize;
+                let unmaps = ctx.mapped.len();
                 loop {
                     let q = dedup_queue.fetch_add(1, Ordering::Relaxed);
+                    if q < unmaps {
+                        let file = ctx.mapped[q];
+                        unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
+                        continue;
+                    }
+                    let q = q - unmaps;
                     if q >= 1 << ctx.p1_bits {
                         break;
                     }
@@ -345,16 +451,65 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
                 let order = order.get().unwrap();
                 let mut worker = Worker::new(ctx);
+                let mut flushed = [0u64; 4];
                 loop {
                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
                     let Some(&p) = order.get(i) else { break };
                     worker.partition(ctx, &all_p2, &all_clicks, p);
+                    if worker.rows.len() >= FLUSH_ROWS {
+                        let file = file_counter.fetch_add(1, Ordering::Relaxed);
+                        if let Err(e) = write::user_part(user_dir, file, &worker.rows, categories, ctx.first_day) {
+                            *failure.lock().unwrap() = Some(e.to_string());
+                        }
+                        let t = worker.rows.totals();
+                        for k in 0..4 {
+                            flushed[k] += t[k];
+                        }
+                        worker.rows.clear();
+                    }
                 }
-                let part = worker.finish();
-                if let Err(e) = write::user_part(user_dir, id, &part, categories, ctx.first_day) {
-                    *failure.lock().unwrap() = Some(e.to_string());
+                let mut part = worker.finish();
+                let cells = std::mem::take(&mut part.cells);
+                let mut totals = part.totals();
+                for k in 0..4 {
+                    totals[k] += flushed[k];
                 }
-                results.lock().unwrap().push(part);
+                let last = {
+                    let mut all = results.lock().unwrap();
+                    all.push((cells, totals));
+                    all.len() == threads
+                };
+                if last {
+                    let all = results.lock().unwrap();
+                    let cells: Vec<&[[u64; 4]]> = all.iter().map(|(c, _)| c.as_slice()).collect();
+                    match write::campaign_table(
+                        campaign_dir,
+                        &cells,
+                        campaign_ids,
+                        campaign_channels,
+                        ORGANIC,
+                        ctx.first_day,
+                        ctx.days,
+                    ) {
+                        Ok(campaign_totals) => {
+                            let mut users = [0u64; 4];
+                            for (_, t) in all.iter() {
+                                for k in 0..4 {
+                                    users[k] += t[k];
+                                }
+                            }
+                            write::report(users, campaign_totals);
+                        }
+                        Err(e) => *failure.lock().unwrap() = Some(e.to_string()),
+                    }
+                }
+                if id == 0 || part.len() > 0 {
+                    let file = file_counter.fetch_add(1, Ordering::Relaxed);
+                    if let Err(e) = write::user_part(user_dir, file, &part, categories, ctx.first_day) {
+                        *failure.lock().unwrap() = Some(e.to_string());
+                    }
+                }
+                drop(part);
                 if barrier.wait().is_leader() {
                     lap("people");
                 }
@@ -364,9 +519,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
     if let Some(e) = failure.into_inner().unwrap() {
         return Err(e.into());
     }
-    let parts = results.into_inner().unwrap();
-    write::campaign_table(&campaign_dir, &parts, &campaign_ids, &campaign_channels, ORGANIC, first_day, ctx.days)?;
-    write::report(&parts, ctx.days, organic as usize);
     eprintln!(
         "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
         stats.event_copies.load(Ordering::Relaxed),
@@ -376,7 +528,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
         keys::exotic_count()
     );
     lap("write");
-    Ok(Outcome::Done)
+    unsafe { libc::_exit(0) }
 }
 
 #[inline(always)]
@@ -678,6 +830,13 @@ fn dedup(
             buf.extend_from_slice(slice);
         }
     }
+    let piece = ctx.p2_block * std::mem::size_of::<PersonRec>();
+    for sink in sinks {
+        let bytes = sink.block_bytes();
+        for block in sink.blocks(q) {
+            arena.recycle(block, bytes, piece);
+        }
+    }
     let n = buf.len();
     if n == 0 {
         return 0;
@@ -802,7 +961,7 @@ struct Worker {
     campaigns: usize,
     credit: Vec<[u64; 3]>,
     assist: Vec<u32>,
-    rows: write::Part,
+    pub rows: write::Part,
     local_keys: Vec<u64>,
     local_ids: Vec<u32>,
     persons: Vec<u64>,
@@ -867,10 +1026,9 @@ impl Worker {
         if n == 0 {
             return;
         }
-        let size = (n * 2).next_power_of_two().max(16);
-        let tbits = size.trailing_zeros();
-        let mask = size - 1;
-        let shift = 64 - ctx.p2_bits - tbits;
+        let mut size = (n / 8).next_power_of_two().clamp(64, (n * 2).next_power_of_two().max(64));
+        let mut mask = size - 1;
+        let mut shift = 64 - ctx.p2_bits - size.trailing_zeros();
         self.local_keys.clear();
         self.local_keys.resize(size, 0);
         self.local_ids.clear();
@@ -893,6 +1051,12 @@ impl Worker {
                             self.local_keys[slot] = key;
                             self.persons.push(key);
                             self.counts.push(0);
+                            if self.persons.len() * 2 > size {
+                                size *= 2;
+                                mask = size - 1;
+                                shift -= 1;
+                                self.grow_local(size, shift);
+                            }
                             break id;
                         }
                         if unsafe { *self.local_keys.get_unchecked(slot) } == key {
@@ -1014,6 +1178,24 @@ impl Worker {
             let er = offsets[id] as usize..offsets[id + 1] as usize;
             let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
             self.person(self.persons[id], er, cr);
+        }
+    }
+
+    #[cold]
+    #[inline(never)]
+    fn grow_local(&mut self, size: usize, shift: u32) {
+        let mask = size - 1;
+        self.local_keys.clear();
+        self.local_keys.resize(size, 0);
+        self.local_ids.clear();
+        self.local_ids.resize(size, u32::MAX);
+        for (id, &key) in self.persons.iter().enumerate() {
+            let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+            while self.local_ids[slot] != u32::MAX {
+                slot = (slot + 1) & mask;
+            }
+            self.local_ids[slot] = id as u32;
+            self.local_keys[slot] = key;
         }
     }
 

@@ -6,6 +6,8 @@ const REGION: usize = 64 << 20;
 pub struct Arena {
     next: *mut u8,
     end: *mut u8,
+    free: Vec<*mut u8>,
+    free_size: usize,
 }
 
 unsafe impl Send for Arena {}
@@ -34,12 +36,34 @@ impl Arena {
         Arena {
             next: ptr::null_mut(),
             end: ptr::null_mut(),
+            free: Vec::new(),
+            free_size: 0,
+        }
+    }
+
+    pub fn recycle(&mut self, start: *mut u8, bytes: usize, piece: usize) {
+        if piece == 0 || piece % 64 != 0 || (start as usize) % 64 != 0 {
+            return;
+        }
+        if self.free_size != piece {
+            self.free.clear();
+            self.free_size = piece;
+        }
+        let mut at = 0;
+        while at + piece <= bytes {
+            self.free.push(unsafe { start.add(at) });
+            at += piece;
         }
     }
 
     #[inline]
     pub fn alloc(&mut self, bytes: usize) -> *mut u8 {
         let bytes = (bytes + 63) & !63;
+        if bytes == self.free_size {
+            if let Some(p) = self.free.pop() {
+                return p;
+            }
+        }
         if (self.end as usize) - (self.next as usize) < bytes {
             let size = REGION.max(bytes);
             self.next = map_anonymous(size);
@@ -154,6 +178,16 @@ impl<T: Copy> Sink<T> {
             self.block - (self.end[part] as usize - self.cur[part] as usize) / std::mem::size_of::<T>()
         };
         self.full[part].len() * self.block + partial
+    }
+
+    pub fn block_bytes(&self) -> usize {
+        self.block * std::mem::size_of::<T>()
+    }
+
+    pub fn blocks(&self, part: usize) -> impl Iterator<Item = *mut u8> + '_ {
+        let block = self.block;
+        let partial = (!self.cur[part].is_null()).then(|| unsafe { self.end[part].sub(block) as *mut u8 });
+        self.full[part].iter().map(|&p| p as *mut u8).chain(partial)
     }
 
     pub fn slices(&self, part: usize) -> impl Iterator<Item = &[T]> + '_ {
