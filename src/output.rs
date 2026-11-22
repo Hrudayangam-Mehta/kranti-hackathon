@@ -69,6 +69,12 @@ pub fn create_table_dir(output_dir: &Path, name: &str) -> Result<()> {
     let dir = output_dir.join(name);
     fs::create_dir_all(&dir)?;
     let _ = fs::set_permissions(&dir, Permissions::from_mode(0o777));
+    for entry in fs::read_dir(&dir)?.flatten() {
+        let path = entry.path();
+        if path.extension().is_some_and(|ext| ext == "parquet") && !entry.file_type().is_ok_and(|t| t.is_dir()) {
+            fs::remove_file(&path).map_err(|e| format!("{}: {e}", path.display()))?;
+        }
+    }
     Ok(())
 }
 

@@ -49,9 +49,18 @@ impl Part {
     }
 }
 
-pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first_day: i64) -> Result<()> {
+pub fn user_part(
+    dir: &Path,
+    id: usize,
+    part: &Part,
+    range: std::ops::Range<usize>,
+    categories: &[&[u8]],
+    first_day: i64,
+) -> Result<()> {
+    let base = range.start;
+    let rows = range.len();
     let names = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
-        for &person in &part.persons[a..b] {
+        for &person in &part.persons[base + a..base + b] {
             let at = out.len();
             out.extend_from_slice(&[0; 4]);
             keys::bytes_of(person, out);
@@ -60,27 +69,27 @@ pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first
         }
     };
     let days = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
-        for &d in &part.days[a..b] {
+        for &d in &part.days[base + a..base + b] {
             put_i32(out, (first_day + i64::from(d)) as i32);
         }
     };
     let sessions = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
-        for &v in &part.sessions[a..b] {
+        for &v in &part.sessions[base + a..base + b] {
             put_i32(out, v as i32);
         }
     };
     let events = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
-        for &v in &part.events[a..b] {
+        for &v in &part.events[base + a..base + b] {
             put_i32(out, v as i32);
         }
     };
     let revenue = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
-        for &v in &part.revenue[a..b] {
+        for &v in &part.revenue[base + a..base + b] {
             put_i64(out, v as i64);
         }
     };
     let top = |a: usize, b: usize, out: &mut Vec<u8>, defs: &mut Vec<u8>| {
-        for &t in &part.top[a..b] {
+        for &t in &part.top[base + a..base + b] {
             if t == u8::MAX {
                 defs.push(0);
             } else {
@@ -97,22 +106,26 @@ pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first
         Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
         Column { name: "top_category", kind: Kind::OptStr, fill: &top },
     ];
-    parquet::write(&dir.join(format!("part-{id:05}.parquet")), &columns, part.persons.len())
+    parquet::write(&dir.join(format!("part-{id:05}.parquet")), &columns, rows)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn campaign_table(
     dir: &Path,
+    file: usize,
     parts: &[&[[u64; 4]]],
+    campaigns: std::ops::Range<usize>,
     ids: &[&[u8]],
     channels: &[&[u8]],
     organic: &[u8],
     first_day: i64,
     days: usize,
 ) -> Result<[u64; 4]> {
-    let slots = (ids.len() + 1) * days;
-    let mut total = vec![[0u64; 4]; slots];
+    let from = campaigns.start * days;
+    let to = campaigns.end * days;
+    let mut total = vec![[0u64; 4]; to - from];
     for part in parts {
-        for (t, c) in total.iter_mut().zip(part.iter()) {
+        for (t, c) in total.iter_mut().zip(part[from..to].iter()) {
             for k in 0..4 {
                 t[k] += c[k];
             }
@@ -123,18 +136,21 @@ pub fn campaign_table(
         sums[0] += cell[0];
         sums[1] += cell[2];
         sums[2] += cell[3];
-        if i / days.max(1) != ids.len() {
+        if campaigns.start + i / days.max(1) != ids.len() {
             sums[3] += cell[0];
         }
     }
     let mut rows: Vec<(usize, usize, [u64; 4])> = Vec::new();
-    for campaign in 0..=ids.len() {
+    for campaign in campaigns.clone() {
         for day in 0..days {
-            let cell = total[campaign * days + day];
+            let cell = total[(campaign - campaigns.start) * days + day];
             if cell[0] > 0 || cell[3] > 0 {
                 rows.push((campaign, day, cell));
             }
         }
+    }
+    if rows.is_empty() && file > 0 {
+        return Ok(sums);
     }
     let rows = &rows;
     let id = |c: usize| if c < ids.len() { ids[c] } else { organic };
@@ -178,7 +194,7 @@ pub fn campaign_table(
         Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
         Column { name: "assisted_sessions", kind: Kind::I32, fill: &assisted },
     ];
-    parquet::write(&dir.join("part-00000.parquet"), &columns, rows.len())?;
+    parquet::write(&dir.join(format!("part-{file:05}.parquet")), &columns, rows.len())?;
     Ok(sums)
 }
 

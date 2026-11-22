@@ -1,16 +1,56 @@
 use std::marker::PhantomData;
 use std::ptr;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 const REGION: usize = 64 << 20;
+const HUGE: usize = 2 << 20;
+
+static RESERVED_NEXT: AtomicUsize = AtomicUsize::new(0);
+static RESERVED_END: AtomicUsize = AtomicUsize::new(0);
 
 pub struct Arena {
     next: *mut u8,
     end: *mut u8,
+    ready: *mut u8,
     free: Vec<*mut u8>,
     free_size: usize,
+    regions: Vec<(*mut u8, usize)>,
 }
 
 unsafe impl Send for Arena {}
+
+pub fn reserve(bytes: usize) {
+    let bytes = bytes.div_ceil(HUGE) * HUGE;
+    unsafe {
+        let p = libc::mmap(
+            ptr::null_mut(),
+            bytes + HUGE,
+            libc::PROT_READ | libc::PROT_WRITE,
+            libc::MAP_PRIVATE | libc::MAP_ANONYMOUS | libc::MAP_NORESERVE,
+            -1,
+            0,
+        );
+        if p == libc::MAP_FAILED {
+            return;
+        }
+        let start = (p as usize).div_ceil(HUGE) * HUGE;
+        libc::madvise(start as *mut libc::c_void, bytes, libc::MADV_HUGEPAGE);
+        RESERVED_NEXT.store(start, Ordering::Relaxed);
+        RESERVED_END.store(start + bytes, Ordering::Release);
+    }
+}
+
+pub fn region(bytes: usize) -> *mut u8 {
+    let bytes = bytes.div_ceil(HUGE) * HUGE;
+    let end = RESERVED_END.load(Ordering::Acquire);
+    if end != 0 {
+        let at = RESERVED_NEXT.fetch_add(bytes, Ordering::Relaxed);
+        if at <= end && end - at >= bytes {
+            return at as *mut u8;
+        }
+    }
+    map_anonymous(bytes)
+}
 
 pub fn map_anonymous(bytes: usize) -> *mut u8 {
     unsafe {
@@ -36,9 +76,21 @@ impl Arena {
         Arena {
             next: ptr::null_mut(),
             end: ptr::null_mut(),
+            ready: ptr::null_mut(),
             free: Vec::new(),
             free_size: 0,
+            regions: Vec::new(),
         }
+    }
+
+    pub fn release(&mut self) {
+        self.free.clear();
+        for (start, bytes) in self.regions.drain(..) {
+            unsafe { libc::munmap(start as *mut libc::c_void, bytes) };
+        }
+        self.next = ptr::null_mut();
+        self.end = ptr::null_mut();
+        self.ready = ptr::null_mut();
     }
 
     pub fn recycle(&mut self, start: *mut u8, bytes: usize, piece: usize) {
@@ -65,13 +117,30 @@ impl Arena {
             }
         }
         if (self.end as usize) - (self.next as usize) < bytes {
-            let size = REGION.max(bytes);
-            self.next = map_anonymous(size);
+            let size = REGION.max(bytes).div_ceil(HUGE) * HUGE;
+            self.next = region(size);
+            self.regions.push((self.next, size));
             self.end = unsafe { self.next.add(size) };
+            self.ready = self.next;
         }
         let p = self.next;
         self.next = unsafe { self.next.add(bytes) };
+        if self.next > self.ready {
+            self.prepare();
+        }
         p
+    }
+
+    #[cold]
+    #[inline(never)]
+    fn prepare(&mut self) {
+        let want = (self.next as usize).div_ceil(HUGE) * HUGE;
+        let upto = want.min(self.end as usize);
+        let from = self.ready as usize;
+        if upto > from {
+            unsafe { libc::madvise(from as *mut libc::c_void, upto - from, 23) };
+        }
+        self.ready = upto as *mut u8;
     }
 }
 

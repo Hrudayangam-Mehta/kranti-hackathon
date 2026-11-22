@@ -13,7 +13,6 @@ const IM1: u64 = inverse(M1);
 const IM2: u64 = inverse(M2);
 const INVALID: u16 = 0x8000;
 const U_CODE: u64 = keys::CODE[b'u' as usize] as u64;
-pub const E_CODE: u64 = keys::CODE[b'e' as usize] as u64;
 const ZERO_CODE: u64 = keys::CODE[b'0' as usize] as u64;
 const WHALES: u64 = 5;
 const SLOTS: u64 = 512;
@@ -83,12 +82,7 @@ static DIGIT_CODE: [u8; 36] = digit_code_table();
 
 #[inline(always)]
 pub fn mixed_value(packed: u64, len: usize) -> Option<u64> {
-    mixed_value_code(packed, len, U_CODE)
-}
-
-#[inline(always)]
-pub fn mixed_value_code(packed: u64, len: usize, code: u64) -> Option<u64> {
-    if !(2..=9).contains(&len) || packed >> 54 != code {
+    if !(2..=9).contains(&len) || packed >> 54 != U_CODE {
         return None;
     }
     let digits = len - 1;
@@ -125,7 +119,7 @@ pub fn unscramble(x: u64, key: u64) -> u64 {
     y.wrapping_mul(IM1) & MASK
 }
 
-pub fn key_for(x: u64, value: u64) -> u64 {
+fn key_for(x: u64, value: u64) -> u64 {
     (unshift(x.wrapping_mul(IM2) & MASK) ^ (value.wrapping_mul(M1) & MASK)) & MASK
 }
 
@@ -275,97 +269,6 @@ fn sample_lines<const N: usize>(files: &[&[u8]], per_file: usize, budget: usize,
 
 fn mixed_of(field: &[u8]) -> Option<u64> {
     keys::pack(field).and_then(|packed| mixed_value(packed, field.len()))
-}
-
-fn mixed_of_code(field: &[u8], code: u64) -> Option<u64> {
-    keys::pack(field).and_then(|packed| mixed_value_code(packed, field.len(), code))
-}
-
-type EventSample = (u64, Option<u64>, Option<i64>);
-
-fn ordered_events(samples: &[EventSample], key: u64, ncap: u64) -> bool {
-    let inside = samples.iter().filter(|s| unscramble(s.0, key) < ncap).count();
-    if inside * 100 < samples.len() * 99 {
-        return false;
-    }
-    let mut rows: Vec<(u64, u64, i64)> = samples
-        .iter()
-        .filter_map(|&(x, v, t)| Some((unscramble(x, key), v? >> 9, t?)))
-        .collect();
-    rows.sort_unstable();
-    let mut pairs = 0usize;
-    let mut good = 0usize;
-    for w in rows.windows(2) {
-        if w[0].0 == w[1].0 {
-            continue;
-        }
-        pairs += 1;
-        good += usize::from(w[0].1 < w[1].1 || (w[0].1 == w[1].1 && w[0].2 <= w[1].2));
-    }
-    pairs >= 1000 && good * 100 >= pairs * 99
-}
-
-pub fn recover_events(
-    event_files: &[&[u8]],
-    decoder: &Decoder,
-    calendar: &super::ts::Calendar,
-    window: (i64, i64),
-    ncap: u64,
-) -> Result<u64, String> {
-    let mut samples: Vec<EventSample> = Vec::new();
-    sample_lines::<3>(event_files, 1000, 6000, |f| {
-        let Some(x) = mixed_of_code(f[0], E_CODE) else { return };
-        let v = mixed_of(f[1]).map(|ux| decoder.of_mixed(ux));
-        let mut buf = [0u8; 64];
-        let n = f[2].len();
-        let t = if n <= 32 {
-            buf[..n].copy_from_slice(f[2]);
-            unsafe { calendar.parse(&buf[..n]) }.filter(|t| window.0 <= *t && *t < window.1)
-        } else {
-            None
-        };
-        samples.push((x, v, t));
-    });
-    let mut zero: Vec<(i64, u64)> = samples
-        .iter()
-        .filter_map(|&(x, v, t)| match (v, t) {
-            (Some(v), Some(t)) if v >> 9 == 0 => Some((t, x)),
-            _ => None,
-        })
-        .collect();
-    zero.sort_unstable();
-    zero.dedup_by_key(|z| z.1);
-    if samples.len() < 2000 || zero.len() < 12 {
-        return Err(format!("event sample too small ({} IDs, {} of person 0)", samples.len(), zero.len()));
-    }
-    let cap0 = (ncap / 16).max(1 << 16);
-    let limit = cap0.min(1 << 22);
-    let checks: Vec<u64> = zero.iter().skip(zero.len() / 2).take(4).map(|z| z.1).collect();
-    for anchor in zero.iter().take(3) {
-        let mut found = None;
-        for n in 0..limit {
-            let key = key_for(anchor.1, n);
-            let mut misses = 0;
-            for &c in &checks {
-                if unscramble(c, key) >= cap0 {
-                    misses += 1;
-                    if misses > 1 {
-                        break;
-                    }
-                }
-            }
-            if misses <= 1 {
-                found = Some(key);
-                break;
-            }
-        }
-        if let Some(key) = found {
-            if ordered_events(&samples, key, ncap) {
-                return Ok(key);
-            }
-        }
-    }
-    Err("no event key candidate passed".into())
 }
 
 pub fn recover(event_files: &[&[u8]], link_files: &[&[u8]], gcap: u64) -> Result<u64, String> {

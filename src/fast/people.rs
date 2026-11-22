@@ -34,7 +34,7 @@ impl People {
 
     pub fn build(pairs: &[(u64, u64)]) -> People {
         let size = (pairs.len() * 3).next_power_of_two().max(64);
-        let memory = super::sink::map_anonymous(size * 16);
+        let memory = super::sink::region(size * 16);
         let mut people = People {
             shift: 64 - size.trailing_zeros(),
             mask: size - 1,

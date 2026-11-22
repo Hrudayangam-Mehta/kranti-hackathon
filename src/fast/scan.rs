@@ -7,6 +7,7 @@ use crate::csv;
 
 pub const SLACK: usize = 16;
 const PAD: usize = 64 + SLACK;
+#[cfg(test)]
 const SEGMENT: usize = 32 << 10;
 
 pub trait Lines<const N: usize> {
@@ -24,7 +25,6 @@ pub trait Kernel {
     unsafe fn masks(p: *const u8) -> (u64, u64, u64);
     unsafe fn pack(p: *const u8, len: usize) -> Option<u64>;
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64>;
-    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64>;
 }
 
 pub struct Scalar;
@@ -53,11 +53,6 @@ impl Kernel for Scalar {
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
         keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value(k, len))
     }
-
-    #[inline(always)]
-    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64> {
-        keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value_code(k, len, ident::E_CODE))
-    }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -77,12 +72,7 @@ impl Kernel for Avx2 {
 
     #[inline(always)]
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
-        mixed_avx2(p, len, b'u')
-    }
-
-    #[inline(always)]
-    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64> {
-        mixed_avx2(p, len, b'e')
+        mixed_avx2(p, len)
     }
 }
 
@@ -105,8 +95,8 @@ static ALIGN: [[u8; 16]; 10] = align_table();
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
 #[inline]
-unsafe fn mixed_avx2(p: *const u8, len: usize, prefix: u8) -> Option<u64> {
-    if len.wrapping_sub(2) > 7 || *p != prefix || (len > 2 && *p.add(1) == b'0') {
+unsafe fn mixed_avx2(p: *const u8, len: usize) -> Option<u64> {
+    if len.wrapping_sub(2) > 7 || *p != b'u' || (len > 2 && *p.add(1) == b'0') {
         return None;
     }
     let v = _mm_loadu_si128(p as *const __m128i);
@@ -192,6 +182,7 @@ unsafe fn pack_avx2(p: *const u8, len: usize) -> Option<u64> {
     }
 }
 
+#[cfg(test)]
 pub struct Scratch {
     commas: Vec<u32>,
     lines: Vec<u32>,
@@ -199,6 +190,7 @@ pub struct Scratch {
     quote_rank: Vec<u32>,
 }
 
+#[cfg(test)]
 impl Scratch {
     pub fn new() -> Scratch {
         Scratch {
@@ -210,12 +202,14 @@ impl Scratch {
     }
 }
 
+#[cfg(test)]
 impl Default for Scratch {
     fn default() -> Self {
         Scratch::new()
     }
 }
 
+#[cfg(test)]
 #[inline(always)]
 unsafe fn flatten(out: *mut u32, mut bits: u64, base: u32) -> usize {
     let count = bits.count_ones() as usize;
@@ -238,6 +232,7 @@ unsafe fn flatten(out: *mut u32, mut bits: u64, base: u32) -> usize {
     count
 }
 
+#[cfg(test)]
 #[inline(always)]
 unsafe fn region<const N: usize, K: Kernel, F: Lines<N>>(
     p: *const u8,
@@ -357,6 +352,167 @@ fn long_line<const N: usize, F: Lines<N>>(text: &[u8], on_line: &mut F) {
 }
 
 #[inline(always)]
+unsafe fn window<K: Kernel, const WIDE: bool>(q: *const u8) -> (u128, u128, u128) {
+    let (c0, n0, q0) = K::masks(q);
+    if WIDE {
+        let (c1, n1, q1) = K::masks(q.add(64));
+        (
+            u128::from(c0) | u128::from(c1) << 64,
+            u128::from(n0) | u128::from(n1) << 64,
+            u128::from(q0) | u128::from(q1) << 64,
+        )
+    } else {
+        (u128::from(c0), u128::from(n0), u128::from(q0))
+    }
+}
+
+#[cold]
+#[inline(never)]
+unsafe fn spill<const N: usize, F: Lines<N>>(p: *const u8, pos: usize, len: usize, on_line: &mut F) -> usize {
+    let rest = std::slice::from_raw_parts(p.add(pos), len - pos);
+    let n = rest.iter().position(|&b| b == b'\n').unwrap_or(rest.len());
+    long_line::<N, F>(&rest[..n], on_line);
+    pos + n + 1
+}
+
+#[inline(always)]
+fn quotes(inner: u64, ends: u64, qt: u64) -> (u64, u64) {
+    let qs = qt & ((inner << 1) | 1);
+    let g = ends.wrapping_sub(qs) & !ends;
+    let z = g & (ends >> 1);
+    ((qt ^ (qs | z)) | (qs & z), qs)
+}
+
+#[inline(always)]
+unsafe fn take(base: *const u8, inner: u64, end: u32, qs: u64, out: &mut [&[u8]]) {
+    let k = out.len();
+    let mut x = inner;
+    let mut s = 0u32;
+    for (i, f) in out.iter_mut().enumerate() {
+        let e = if i + 1 < k { x.trailing_zeros() } else { end };
+        x &= x.wrapping_sub(1);
+        let w = (qs.wrapping_shr(s) & 1) as u32;
+        *f = std::slice::from_raw_parts(base.add((s + w) as usize), e.wrapping_sub(s).wrapping_sub(2 * w) as usize);
+        s = e + 1;
+    }
+}
+
+#[cold]
+#[inline(never)]
+unsafe fn general<const N: usize, K: Kernel, F: Lines<N>>(p: *const u8, pos: usize, len: usize, on_line: &mut F) -> usize {
+    let q = p.add(pos);
+    let (c, nl, qt) = window::<K, true>(q);
+    if nl == 0 {
+        return spill::<N, F>(p, pos, len, on_line);
+    }
+    let l = nl.trailing_zeros();
+    let m = (1u128 << l) - 1;
+    let c = c & m;
+    let qt = qt & m;
+    let d = c | (1u128 << l);
+    let qs = qt & ((c << 1) | 1);
+    let g = d.wrapping_sub(qs) & !d;
+    let z = g & (d >> 1);
+    let bad = (qt ^ (qs | z)) | (qs & z);
+    if (c.count_ones() == (N - 1) as u32) & (l > 0) & (bad == 0) {
+        let mut fields: [&[u8]; N] = [&[]; N];
+        let mut rest = c;
+        let mut start = 0u32;
+        for (i, f) in fields.iter_mut().enumerate() {
+            let end = if i + 1 < N { rest.trailing_zeros() } else { l };
+            rest &= rest.wrapping_sub(1);
+            let w = u32::from(*q.add(start as usize) == b'"');
+            *f = std::slice::from_raw_parts(q.add((start + w) as usize), (end - start - 2 * w) as usize);
+            start = end + 1;
+        }
+        on_line.line(&fields);
+    }
+    pos + l as usize + 1
+}
+
+#[inline(always)]
+unsafe fn fused_region<const N: usize, const SPLIT: usize, K: Kernel, F: Lines<N>>(p: *const u8, len: usize, on_line: &mut F) {
+    let mut pos = 0usize;
+    while pos < len {
+        let q = p.add(pos);
+        let (c0, n0, q0) = K::masks(q);
+        if SPLIT >= N {
+            if n0 == 0 {
+                pos = general::<N, K, F>(p, pos, len, on_line);
+                continue;
+            }
+            let l = n0.trailing_zeros();
+            let m = (1u64 << l) - 1;
+            let c = c0 & m;
+            let qt = q0 & m;
+            let (bad, qs) = quotes(c, c | (1u64 << l), qt);
+            if (c.count_ones() == (N - 1) as u32) & (l > 0) & (bad == 0) {
+                let mut fields: [&[u8]; N] = [&[]; N];
+                take(q, c, l, qs, &mut fields);
+                on_line.line(&fields);
+            }
+            pos += l as usize + 1;
+            continue;
+        }
+        let (c1, n1, q1) = K::masks(q.add(64));
+        let far = 0u64.wrapping_sub(u64::from(n0 == 0));
+        let l = n0.trailing_zeros() + (n1.trailing_zeros() & far as u32);
+        let lo_m = 1u64.wrapping_shl(l).wrapping_sub(1) | far;
+        let hi_m = 1u64.wrapping_shl(l.wrapping_sub(64)).wrapping_sub(1) & far;
+        let (cl, ch) = (c0 & lo_m, c1 & hi_m);
+        let (ql, qh) = (q0 & lo_m, q1 & hi_m);
+        let mut x = cl;
+        for _ in 1..SPLIT {
+            x &= x.wrapping_sub(1);
+        }
+        let cut = x.trailing_zeros();
+        let below = 1u64.wrapping_shl(cut).wrapping_sub(1);
+        let inner_a = cl & below;
+        let s3 = cut.wrapping_add(1);
+        let shift = |lo: u64, hi: u64| lo.wrapping_shr(cut).wrapping_shr(1) | hi.wrapping_shl(64u32.wrapping_sub(s3));
+        let cb = shift(cl, ch);
+        let qb = shift(ql, qh);
+        let lb = l.wrapping_sub(s3);
+        let shape = ((cl.count_ones() + ch.count_ones()) == (N - 1) as u32) & (cut < 64) & (s3 <= l) & (lb < 64);
+        if !shape {
+            pos = general::<N, K, F>(p, pos, len, on_line);
+            continue;
+        }
+        let (bad_a, qsa) = quotes(inner_a, inner_a | (1u64 << cut), ql & below);
+        let (bad_b, qsb) = quotes(cb, cb | (1u64 << lb), qb);
+        if (bad_a | bad_b) == 0 {
+            let mut fields: [&[u8]; N] = [&[]; N];
+            let (head, tail) = fields.split_at_mut(SPLIT);
+            take(q, inner_a, cut, qsa, head);
+            take(q.add(s3 as usize), cb, lb, qsb, tail);
+            on_line.line(&fields);
+        }
+        pos += l as usize + 1;
+    }
+}
+
+#[inline(always)]
+pub unsafe fn fused<const N: usize, const SPLIT: usize, K: Kernel, F: Lines<N>>(data: &[u8], on_line: &mut F) {
+    let len = data.len();
+    let safe = len.saturating_sub(2 * PAD);
+    let cut = match data[..safe].iter().rposition(|&b| b == b'\n') {
+        Some(i) => i + 1,
+        None => 0,
+    };
+    if cut > 0 {
+        fused_region::<N, SPLIT, K, F>(data.as_ptr(), cut, on_line);
+    }
+    if cut < len {
+        let rest = &data[cut..];
+        let mut tail: Vec<u8> = Vec::with_capacity(rest.len() + 2 * PAD);
+        tail.extend_from_slice(rest);
+        tail.resize(rest.len() + 2 * PAD, 0);
+        fused_region::<N, SPLIT, K, F>(tail.as_ptr(), rest.len(), on_line);
+    }
+}
+
+#[cfg(test)]
+#[inline(always)]
 pub unsafe fn scan<const N: usize, K: Kernel, F: Lines<N>>(data: &[u8], scratch: &mut Scratch, on_line: &mut F) {
     let len = data.len();
     let safe = len.saturating_sub(2 * PAD);
@@ -419,13 +575,78 @@ mod tests {
         out
     }
 
+    fn run_fused<const N: usize, const SPLIT: usize, K: Kernel>(data: &[u8]) -> Vec<Vec<Vec<u8>>> {
+        let mut out = Vec::new();
+        unsafe {
+            fused::<N, SPLIT, K, _>(data, &mut |fields: &[&[u8]; N]| {
+                out.push(fields.iter().map(|f| f.to_vec()).collect());
+            });
+        }
+        out
+    }
+
     fn check<const N: usize>(data: &[u8]) {
         let expected = reference::<N>(data);
         assert_eq!(run::<N, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
+        assert_eq!(run_fused::<N, 1, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
+        assert_eq!(run_fused::<N, N, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
+        assert_eq!(run_fused::<N, 3, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         #[cfg(target_arch = "x86_64")]
         if std::is_x86_feature_detected!("avx2") {
             assert_eq!(run::<N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, 1, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, 3, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
         }
+    }
+
+    fn diff_chunk<const N: usize>(chunk: &[u8]) -> usize {
+        let old = run::<N, Scalar>(chunk);
+        assert_eq!(run_fused::<N, 1, Scalar>(chunk), old);
+        assert_eq!(run_fused::<N, N, Scalar>(chunk), old);
+        assert_eq!(run_fused::<N, 3, Scalar>(chunk), old);
+        #[cfg(target_arch = "x86_64")]
+        if std::is_x86_feature_detected!("avx2") {
+            assert_eq!(run::<N, Avx2>(chunk), old);
+            assert_eq!(run_fused::<N, 1, Avx2>(chunk), old);
+            assert_eq!(run_fused::<N, N, Avx2>(chunk), old);
+            assert_eq!(run_fused::<N, 3, Avx2>(chunk), old);
+        }
+        old.len()
+    }
+
+    #[test]
+    fn differential_files() {
+        let Some(dir) = std::env::var_os("SCAN_DIFF") else { return };
+        let dir = std::path::PathBuf::from(dir);
+        let mut totals = [(0usize, 0usize); 3];
+        for (k, (folder, n)) in [("events", 7), ("clicks", 4), ("links", 2)].into_iter().enumerate() {
+            let mut files: Vec<_> = std::fs::read_dir(dir.join(folder))
+                .unwrap()
+                .map(|e| e.unwrap().path())
+                .filter(|p| p.extension().is_some_and(|x| x == "csv"))
+                .collect();
+            files.sort();
+            for path in files {
+                let data = std::fs::read(&path).unwrap();
+                totals[k].1 += data.iter().filter(|&&b| b == b'\n').count();
+                let mut at = 0;
+                while at < data.len() {
+                    let mut end = (at + (1 << 20)).min(data.len());
+                    while end < data.len() && data[end - 1] != b'\n' {
+                        end += 1;
+                    }
+                    let chunk = &data[at..end];
+                    totals[k].0 += match n {
+                        7 => diff_chunk::<7>(chunk),
+                        4 => diff_chunk::<4>(chunk),
+                        _ => diff_chunk::<2>(chunk),
+                    };
+                    at = end;
+                }
+            }
+        }
+        eprintln!("SCAN_DIFF {} identical field streams: events {:?} clicks {:?} links {:?}", dir.display(), totals[0], totals[1], totals[2]);
     }
 
     #[test]
@@ -613,17 +834,6 @@ mod tests {
                 #[cfg(target_arch = "x86_64")]
                 if std::is_x86_feature_detected!("avx2") {
                     assert_eq!(Avx2::mixed(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
-                }
-            }
-            if buf[0] == b'u' && round % 2 == 0 {
-                buf[0] = b'e';
-            }
-            let expected_e = keys::pack(&buf[..len]).and_then(|k| ident::mixed_value_code(k, len, ident::E_CODE));
-            unsafe {
-                assert_eq!(Scalar::mixed_e(buf.as_ptr(), len), expected_e);
-                #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
-                    assert_eq!(Avx2::mixed_e(buf.as_ptr(), len), expected_e, "{:?}", &buf[..len]);
                 }
             }
         }
