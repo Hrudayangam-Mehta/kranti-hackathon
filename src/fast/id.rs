@@ -4,6 +4,10 @@ use super::keys;
 use crate::csv;
 
 pub const ODD: u64 = u64::MAX;
+// hi=0 stores the original zero-free suffix, right-zero-padded, big-endian.
+// The full 64-bit low word is significant; no narrow person/event codec applies.
+pub const RAW_MAX: usize = 8;
+pub const EXTENDED_SHORT: u64 = u64::MAX - 1;
 pub const SHORT_MAX: usize = 11;
 pub const LONG_LEN: usize = 32;
 
@@ -71,6 +75,14 @@ pub fn short_scalar(rest: &[u8]) -> Option<u64> {
     if n == 0 || n > SHORT_MAX {
         return None;
     }
+    if n <= RAW_MAX {
+        if rest.contains(&0) {
+            return None;
+        }
+        let mut bytes = [0u8; RAW_MAX];
+        bytes[..n].copy_from_slice(rest);
+        return Some(u64::from_be_bytes(bytes));
+    }
     let mut rank = 0u64;
     let mut bad = 0u8;
     for (i, &b) in rest.iter().enumerate() {
@@ -79,6 +91,16 @@ pub fn short_scalar(rest: &[u8]) -> Option<u64> {
         rank += u64::from(d & 63) * POW36[11 - i];
     }
     (bad & 0xc0 == 0).then_some(rank + n as u64)
+}
+
+#[inline(always)]
+pub fn short_key(lo: u64, len: usize) -> Key {
+    Key { hi: if len <= RAW_MAX { 0 } else { EXTENDED_SHORT }, lo }
+}
+
+#[inline(always)]
+pub fn reserved_high(hi: u64) -> bool {
+    hi == 0 || hi == EXTENDED_SHORT || hi == ODD
 }
 
 #[inline(always)]
@@ -97,13 +119,36 @@ pub fn long_scalar(rest: &[u8]) -> Option<(u64, u64)> {
 }
 
 #[inline(always)]
-pub fn short_rank(lo: u64) -> u64 {
+fn extended_rank(lo: u64) -> u64 {
     lo - lo % 36
 }
 
 #[inline(always)]
 pub fn short_len(lo: u64) -> usize {
-    (lo % 36) as usize
+    // Every real byte is nonzero. The final real byte can have at most seven
+    // trailing zero bits, so division by eight counts only padding bytes.
+    RAW_MAX - (lo.trailing_zeros() / 8) as usize
+}
+
+#[inline]
+fn extended_prefix8(lo: u64) -> u64 {
+    let rank = extended_rank(lo) / POW36[4];
+    let mut bytes = [0u8; RAW_MAX];
+    for (k, quad) in [rank / POW36[4], rank % POW36[4]].into_iter().enumerate() {
+        let a = PAIRS[(quad / 1296) as usize];
+        let b = PAIRS[(quad % 1296) as usize];
+        bytes[4 * k..4 * k + 4].copy_from_slice(&[a[0], a[1], b[0], b[1]]);
+    }
+    u64::from_be_bytes(bytes)
+}
+
+#[inline]
+fn hex_prefix8(hi: u64) -> u64 {
+    let mut bytes = [0u8; RAW_MAX];
+    for (i, byte) in bytes.iter_mut().enumerate() {
+        *byte = CHARS[((hi >> (60 - 4 * i)) & 15) as usize];
+    }
+    u64::from_be_bytes(bytes)
 }
 
 fn long_rank12(hi: u64) -> u64 {
@@ -131,15 +176,15 @@ impl Domain {
 
     #[cfg(test)]
     pub fn exact(&self, bytes: &[u8]) -> Option<Key> {
-        if self.plen == 1 && bytes.first() != Some(&self.prefix) {
+        if self.plen == 1 && (self.prefix == 0 || bytes.first() != Some(&self.prefix)) {
             return None;
         }
         let rest = &bytes[self.plen.min(bytes.len())..];
         if rest.len() == LONG_LEN {
             let (hi, lo) = long_scalar(rest)?;
-            return (hi != 0 && hi != ODD).then_some(Key { hi, lo });
+            return (!reserved_high(hi)).then_some(Key { hi, lo });
         }
-        short_scalar(rest).map(|lo| Key { hi: 0, lo })
+        short_scalar(rest).map(|lo| short_key(lo, rest.len()))
     }
 
     #[cold]
@@ -177,7 +222,10 @@ impl Domain {
         }
         if key.hi == 0 {
             let n = short_len(key.lo);
-            let rank = short_rank(key.lo);
+            out.extend_from_slice(&key.lo.to_be_bytes()[..n]);
+        } else if key.hi == EXTENDED_SHORT {
+            let n = (key.lo % 36) as usize;
+            let rank = extended_rank(key.lo);
             let top = rank / POW36[8];
             let mid = (rank / POW36[4]) % POW36[4];
             let low = rank % POW36[4];
@@ -215,23 +263,35 @@ impl Domain {
             self.bytes_of(b, &mut y);
             return x.cmp(&y);
         }
-        match (a.hi == 0, b.hi == 0) {
-            (false, false) => (a.hi, a.lo).cmp(&(b.hi, b.lo)),
-            (true, false) => {
-                if short_rank(a.lo) <= long_rank12(b.hi) {
+        match (a.hi, b.hi) {
+            (0, 0) | (EXTENDED_SHORT, EXTENDED_SHORT) => a.lo.cmp(&b.lo),
+            (0, EXTENDED_SHORT) => {
+                if a.lo <= extended_prefix8(b.lo) {
                     Ordering::Less
                 } else {
                     Ordering::Greater
                 }
             }
-            (false, true) => {
-                if short_rank(b.lo) <= long_rank12(a.hi) {
+            (EXTENDED_SHORT, 0) => {
+                if b.lo <= extended_prefix8(a.lo) {
                     Ordering::Greater
                 } else {
                     Ordering::Less
                 }
             }
-            (true, true) => a.lo.cmp(&b.lo),
+            (0, _) => {
+                if a.lo <= hex_prefix8(b.hi) { Ordering::Less } else { Ordering::Greater }
+            }
+            (_, 0) => {
+                if b.lo <= hex_prefix8(a.hi) { Ordering::Greater } else { Ordering::Less }
+            }
+            (EXTENDED_SHORT, _) => {
+                if extended_rank(a.lo) <= long_rank12(b.hi) { Ordering::Less } else { Ordering::Greater }
+            }
+            (_, EXTENDED_SHORT) => {
+                if extended_rank(b.lo) <= long_rank12(a.hi) { Ordering::Greater } else { Ordering::Less }
+            }
+            _ => (a.hi, a.lo).cmp(&(b.hi, b.lo)),
         }
     }
 }
@@ -375,15 +435,16 @@ mod tests {
     #[test]
     fn classes() {
         let d = Domain::with_prefix(b'u');
-        assert_eq!(d.exact(b"u0"), Some(Key { hi: 0, lo: 1 }));
-        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: POW36[11] + 1 }));
+        assert_eq!(d.exact(b"u0"), Some(Key { hi: 0, lo: u64::from_be_bytes(*b"0\0\0\0\0\0\0\0") }));
+        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: u64::from_be_bytes(*b"1\0\0\0\0\0\0\0") }));
         assert!(d.exact(b"u").is_none());
         assert!(d.exact(b"x1").is_none());
         assert!(d.exact(b"u000000000000").is_none());
         assert!(d.exact(b"u00000000000").is_some());
         assert!(d.exact(b"u0000000000000000ffffffffffffffff").is_none());
         assert!(d.exact(b"uffffffffffffffff0000000000000000").is_none());
-        assert!(d.exact(b"ufffffffffffffffe0000000000000000").is_some());
+        assert!(d.exact(b"ufffffffffffffffe0000000000000000").is_none());
+        assert!(d.exact(b"ufffffffffffffffd0000000000000000").is_some());
         assert_eq!(
             d.exact(b"u0123456789abcdef0123456789abcdef"),
             Some(Key { hi: 0x0123_4567_89ab_cdef, lo: 0x0123_4567_89ab_cdef })
@@ -393,6 +454,134 @@ mod tests {
         let bare = Domain::bare();
         assert!(bare.exact(b"").is_none());
         assert!(bare.exact(b"abc").is_some());
+    }
+
+    #[test]
+    fn raw8_exhaustive_two_byte_order_and_prefix_roundtrip() {
+        let domain = Domain::bare();
+        let mut previous = 0u64;
+        for first in 1..=u8::MAX {
+            let one = [first];
+            let key = domain.exact(&one).unwrap();
+            assert_eq!(key.hi, 0);
+            assert!(key.lo > previous);
+            assert_eq!(short_len(key.lo), 1);
+            assert_eq!(roundtrip(&domain, &one), one);
+            previous = key.lo;
+            for second in 1..=u8::MAX {
+                let pair = [first, second];
+                let key = domain.exact(&pair).unwrap();
+                assert_eq!(key.hi, 0);
+                assert!(key.lo > previous);
+                assert_eq!(short_len(key.lo), 2);
+                assert_eq!(roundtrip(&domain, &pair), pair);
+                previous = key.lo;
+            }
+        }
+        for len in 1..=RAW_MAX {
+            for position in 0..len {
+                for byte in 0..=u8::MAX {
+                    let mut text = vec![0x80; len];
+                    text[position] = byte;
+                    let key = domain.exact(&text);
+                    assert_eq!(key.is_some(), byte != 0);
+                    if let Some(key) = key {
+                        assert_eq!(key.hi, 0);
+                        assert_ne!(key, Key::default());
+                        assert_eq!(short_len(key.lo), len);
+                        assert_eq!(roundtrip(&domain, &text), text);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw8_nul_and_reserved_tags_use_exact_fallback() {
+        for domain in [Domain::bare(), Domain::with_prefix(b'u'), Domain::with_prefix(0)] {
+            for suffix in [b"".as_slice(), b"\0", b"x\0", b"\0x", b"ab\0defgh", b"012345678\0"] {
+                let mut text = Vec::new();
+                if domain.plen == 1 { text.push(domain.prefix); }
+                text.extend_from_slice(suffix);
+                assert!(domain.exact(&text).is_none());
+                assert_eq!(domain.encode(&text).hi, ODD);
+                assert_eq!(roundtrip(&domain, &text), text);
+            }
+            if domain.plen == 1 && domain.prefix == 0 {
+                for suffix in [b"abc".as_slice(), b"012345678", b"0123456789abcdef0123456789abcdef"] {
+                    let mut text = vec![0];
+                    text.extend_from_slice(suffix);
+                    assert!(domain.exact(&text).is_none());
+                    assert_eq!(roundtrip(&domain, &text), text);
+                }
+            }
+        }
+        let domain = Domain::with_prefix(b'u');
+        for hi in [0, EXTENDED_SHORT, ODD] {
+            for lo in [0, 1, u64::MAX] {
+                let text = format!("u{hi:016x}{lo:016x}");
+                assert!(domain.exact(text.as_bytes()).is_none());
+                assert_eq!(domain.encode(text.as_bytes()).hi, ODD);
+                assert_eq!(roundtrip(&domain, text.as_bytes()), text.as_bytes());
+            }
+        }
+        for len in 1..=SHORT_MAX {
+            let mut text = vec![b'u'];
+            text.extend(std::iter::repeat_n(b'0', len));
+            let key = domain.exact(&text).unwrap();
+            assert_eq!(key.hi, if len <= RAW_MAX { 0 } else { EXTENDED_SHORT });
+            assert_eq!(roundtrip(&domain, &text), text);
+        }
+    }
+
+    #[test]
+    fn raw8_mixed_prefix_comparisons_match_original_bytes() {
+        for domain in [Domain::bare(), Domain::with_prefix(b'u')] {
+            let check = |left: &[u8], right: &[u8]| {
+                let mut a = Vec::new();
+                let mut b = Vec::new();
+                if domain.plen == 1 { a.push(domain.prefix); b.push(domain.prefix); }
+                a.extend_from_slice(left);
+                b.extend_from_slice(right);
+                let ka = domain.encode(&a);
+                let kb = domain.encode(&b);
+                assert_eq!(domain.cmp(ka, kb), a.cmp(&b), "{a:?} {b:?}");
+                assert_eq!(domain.cmp(kb, ka), b.cmp(&a), "{b:?} {a:?}");
+                assert_eq!(ka == kb, a == b);
+            };
+            for len in 1..=RAW_MAX {
+                for position in 0..len {
+                    for byte in 1..=u8::MAX {
+                        let mut raw = vec![b'0'; len];
+                        raw[position] = byte;
+                        for digit in [b'0', b'9', b'a', b'f', b'z'] {
+                            for extended_len in 9..=SHORT_MAX {
+                                let mut extended = vec![b'0'; extended_len];
+                                extended[position] = digit;
+                                extended[extended_len - 1] = b'1';
+                                check(&raw, &extended);
+                            }
+                            if digit <= b'f' {
+                                let mut hex = [b'0'; LONG_LEN];
+                                hex[position] = digit;
+                                hex[15] = b'1';
+                                hex[31] = b'f';
+                                check(&raw, &hex);
+                            }
+                        }
+                    }
+                }
+            }
+            for (a, b) in [
+                (b"zzzzzzzz".as_slice(), b"zzzzzzzzz".as_slice()),
+                (b"00000001", b"000000001"),
+                (b"01234567", b"01234567000"),
+                (b"\xff\xff\xff\xff\xff\xff\xff\xff", b"fffffffffffffffd0000000000000000"),
+                (b"abc", b"abc\0"),
+            ] {
+                check(a, b);
+            }
+        }
     }
 
     #[test]

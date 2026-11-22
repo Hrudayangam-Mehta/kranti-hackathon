@@ -103,14 +103,22 @@ impl People {
 
     #[inline(always)]
     pub fn name_of(&self, key: Key) -> Key {
+        self.resolve(key).0
+    }
+
+    /// Membership in the parsed link graph is distinct from having a different
+    /// canonical name: a component's smallest ID still has aliases. Self links
+    /// conservatively count as membership, too.
+    #[inline(always)]
+    pub fn resolve(&self, key: Key) -> (Key, bool) {
         let mut slot = self.home(key);
         loop {
             let entry = unsafe { self.slots.get_unchecked(slot) };
             if entry[0] == key {
-                return entry[1];
+                return (entry[1], true);
             }
             if entry[0] == Key::default() {
-                return key;
+                return (key, false);
             }
             slot = (slot + 1) & self.mask;
         }
@@ -124,6 +132,24 @@ impl People {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn resolve_distinguishes_unlinked_canonical_roots_and_self_links() {
+        let domain = Domain::with_prefix(b'u');
+        let key = |name: &[u8]| domain.encode(name);
+        let pairs = [
+            (key(b"alias-z"), key(b"alias-m")),
+            (key(b"alias-m"), key(b"0-link-only-root")),
+            (key(b"self"), key(b"self")),
+        ];
+        let people = People::build(&pairs, &domain);
+        let root = key(b"0-link-only-root");
+        assert_eq!(people.resolve(root), (root, true));
+        assert_eq!(people.resolve(key(b"alias-z")), (root, true));
+        assert_eq!(people.resolve(key(b"alias-m")), (root, true));
+        assert_eq!(people.resolve(key(b"self")), (key(b"self"), true));
+        assert_eq!(people.resolve(key(b"absent")), (key(b"absent"), false));
+    }
 
     #[test]
     fn names() {

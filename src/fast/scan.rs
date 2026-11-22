@@ -94,6 +94,16 @@ unsafe fn short_avx2(p: *const u8, len: usize) -> Option<u64> {
     if len.wrapping_sub(1) >= id::SHORT_MAX {
         return None;
     }
+    if len <= id::RAW_MAX {
+        // The scanner guarantees at least eight initialized readable bytes.
+        // Ignore bytes outside the field, filling them with 0xff for zero detection.
+        let mask = u64::MAX >> ((id::RAW_MAX - len) * 8);
+        let bytes = (p as *const u64).read_unaligned() & mask;
+        let filled = bytes | !mask;
+        let any_zero = filled.wrapping_sub(0x0101_0101_0101_0101)
+            & !filled & 0x8080_8080_8080_8080;
+        return (any_zero == 0).then_some(bytes.swap_bytes());
+    }
     let v = _mm_loadu_si128(p as *const __m128i);
     let iota = _mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
     let inside = _mm_cmpgt_epi8(_mm_set1_epi8(len as i8), iota);
@@ -609,7 +619,7 @@ mod tests {
         assert_eq!(run_fused::<N, N, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         assert_eq!(run_fused::<N, 3, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         #[cfg(target_arch = "x86_64")]
-        if std::is_x86_feature_detected!("avx2") {
+        if has_avx2() {
             assert_eq!(run::<N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, 1, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
@@ -623,7 +633,7 @@ mod tests {
         assert_eq!(run_fused::<N, N, Scalar>(chunk), old);
         assert_eq!(run_fused::<N, 3, Scalar>(chunk), old);
         #[cfg(target_arch = "x86_64")]
-        if std::is_x86_feature_detected!("avx2") {
+        if has_avx2() {
             assert_eq!(run::<N, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, 1, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, N, Avx2>(chunk), old);
@@ -810,8 +820,33 @@ mod tests {
             unsafe {
                 assert_eq!(Scalar::pack(buf.as_ptr(), len), expected);
                 #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
+                if has_avx2() {
                     assert_eq!(Avx2::pack(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw8_vector_acceptance_and_tail_mask_match_exact_slice() {
+        eprintln!("Raw8 vector feature gate: {}", has_avx2());
+        for len in 1..=id::RAW_MAX {
+            for position in 0..len {
+                for byte in 0..=u8::MAX {
+                    for poison in [0, 0xff] {
+                        let mut padded = [poison; 32];
+                        padded[..len].fill(0x80);
+                        padded[position] = byte;
+                        let scalar = id::short_scalar(&padded[..len]);
+                        assert_eq!(scalar.is_some(), byte != 0);
+                        unsafe {
+                            assert_eq!(Scalar::short(padded.as_ptr(), len), scalar);
+                            #[cfg(target_arch = "x86_64")]
+                            if has_avx2() {
+                                assert_eq!(Avx2::short(padded.as_ptr(), len), scalar);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -846,7 +881,7 @@ mod tests {
                 assert_eq!(Scalar::short(buf.as_ptr(), len), expected);
                 assert_eq!(Scalar::long(buf.as_ptr()), wide);
                 #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
+                if has_avx2() {
                     assert_eq!(Avx2::short(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
                     assert_eq!(Avx2::long(buf.as_ptr()), wide, "{:?}", &buf[..32]);
                 }
@@ -856,7 +891,7 @@ mod tests {
         unsafe {
             assert_eq!(Scalar::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
             #[cfg(target_arch = "x86_64")]
-            if std::is_x86_feature_detected!("avx2") {
+            if has_avx2() {
                 assert_eq!(Avx2::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
                 assert_eq!(Avx2::short(max.as_ptr(), 12), None);
                 assert_eq!(Avx2::short(max.as_ptr(), 0), None);
