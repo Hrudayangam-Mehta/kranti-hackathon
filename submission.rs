@@ -821,8 +821,18 @@ fn test_numbers(value: Option<&json::Value>, count: usize, sets: &[TestSet]) -> 
     Ok(numbers.into())
 }
 
-#[derive(Clone, Copy, Default, Debug)]
-struct FileAnalysis { syntax_error: bool, ast_equal: bool }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct Region { start: usize, end: usize }
+#[derive(Clone, Default, Debug)]
+struct FileAnalysis {
+    syntax_error: bool,
+    ast_equal: bool,
+    changed_functions: Option<Vec<usize>>,
+    precise_lines: Option<Vec<usize>>,
+    precise_regions: Option<Vec<Region>>,
+    equivalent_tests: Option<Vec<usize>>,
+    metadata_unaffected_tests: Option<Vec<usize>>,
+}
 #[derive(Default, Debug)]
 struct CommitAnalysis { force_all: bool, files: BTreeMap<String, FileAnalysis> }
 #[derive(Default, Debug)]
@@ -840,6 +850,11 @@ impl Analysis {
                     commit.files.insert(path.clone(), FileAnalysis {
                         syntax_error: optional_bool(analysis.object()?.get("syntax_error"))?,
                         ast_equal: optional_bool(analysis.object()?.get("ast_equal"))?,
+                        changed_functions: optional_lines(analysis.object()?.get("changed_functions"))?,
+                        precise_lines: optional_lines(analysis.object()?.get("precise_lines"))?,
+                        precise_regions: optional_regions(analysis.object()?.get("precise_regions"))?,
+                        equivalent_tests: optional_test_numbers(analysis.object()?.get("equivalent_tests"))?,
+                        metadata_unaffected_tests: optional_test_numbers(analysis.object()?.get("metadata_unaffected_tests"))?,
                     });
                 }
             }
@@ -853,8 +868,45 @@ fn optional_bool(value: Option<&json::Value>) -> Result<bool,String> {
     match value { None => Ok(false), Some(json::Value::Bool(v)) => Ok(*v), _ => Err("analysis flag must be boolean".into()) }
 }
 
+fn optional_lines(value: Option<&json::Value>) -> Result<Option<Vec<usize>>,String> {
+    let Some(value) = value else { return Ok(None); };
+    let mut lines = Vec::new();
+    for value in value.array()? {
+        let line = usize::try_from(value.u64()?).map_err(|_|"semantic line overflow")?;
+        if line == 0 { return Err("semantic lines must be one-based".into()); }
+        lines.push(line);
+    }
+    lines.sort_unstable(); lines.dedup();
+    Ok(Some(lines))
+}
+
+fn optional_regions(value: Option<&json::Value>) -> Result<Option<Vec<Region>>,String> {
+    let Some(value) = value else { return Ok(None); };
+    let mut regions = Vec::new();
+    for value in value.array()? {
+        let start = usize::try_from(value.get("start")?.u64()?).map_err(|_|"semantic region overflow")?;
+        let end = usize::try_from(value.get("end")?.u64()?).map_err(|_|"semantic region overflow")?;
+        if start == 0 || end < start { return Err("invalid semantic region".into()); }
+        regions.push(Region{start,end});
+    }
+    regions.sort_by_key(|r|(r.start,r.end)); regions.dedup();
+    Ok(Some(regions))
+}
+
+fn optional_test_numbers(value: Option<&json::Value>) -> Result<Option<Vec<usize>>,String> {
+    let Some(value) = value else { return Ok(None); };
+    let mut tests = Vec::new();
+    for value in value.array()? {
+        tests.push(usize::try_from(value.u64()?).map_err(|_|"test certificate number overflow")?);
+    }
+    tests.sort_unstable(); tests.dedup();
+    Ok(Some(tests))
+}
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 enum Policy { Line, Function }
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Precision { Function, Statement }
 
 fn extend(selected: &mut [bool], ids: &[usize]) { for id in ids { selected[*id] = true; } }
 
@@ -864,7 +916,7 @@ fn broad(selected: &mut [bool], info: &FileImpact) {
     extend(selected,&info.source_sensitive);
 }
 
-fn select(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, analysis: Option<&CommitAnalysis>, policy: Policy) -> Result<Vec<bool>,String> {
+fn select_with_precision(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, analysis: Option<&CommitAnalysis>, policy: Policy, precision: Precision) -> Result<Vec<bool>,String> {
     if analysis.is_some_and(|a| a.force_all) { return Err("analysis requested conservative fallback".into()); }
     let mut selected = vec![false;catalog.len()];
     for change in changes {
@@ -886,7 +938,8 @@ fn select(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, 
             }
             continue;
         }
-        let semantic = analysis.and_then(|a| a.files.get(path)).copied().unwrap_or_default();
+        let absent_analysis = FileAnalysis::default();
+        let semantic = analysis.and_then(|a| a.files.get(path)).unwrap_or(&absent_analysis);
         if semantic.syntax_error {
             // Import collection and lazy imports can reach a broken module
             // through paths absent from the baseline dynamic dependency graph.
@@ -895,6 +948,11 @@ fn select(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, 
         if semantic.ast_equal && path.ends_with(".py") {
             // The sidecar is optional and must prove AST equality against the pinned
             // source. Source-reading tests above are never discarded by this flag.
+            continue;
+        }
+        if semantic.changed_functions.is_some() || semantic.precise_lines.is_some() || semantic.precise_regions.is_some() {
+            if !path.ends_with(".py") { return Err("semantic scope certificate on non-Python file".into()); }
+            select_semantic_scopes(&mut selected,info,semantic,precision)?;
             continue;
         }
         let (removed, insertions) = change.edits();
@@ -909,7 +967,131 @@ fn select(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, 
             select_insertion(&mut selected,info,anchor,policy);
         }
     }
+    prune_equivalent_tests(&mut selected,changes,catalog,map,analysis)?;
+    prune_unaffected_metadata(&mut selected,changes,catalog,map,analysis)?;
     Ok(selected)
+}
+
+/// Runtime proof output may remove a test only after ordinary selection and
+/// scope validation succeeded. The Python verifier certifies every semantic
+/// delta from neutral, complete baseline observations; no proof is composed
+/// across files, structural edits or a raw-diff fallback here.
+fn prune_equivalent_tests(selected: &mut [bool], changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, analysis: Option<&CommitAnalysis>) -> Result<(),String> {
+    let [change] = changes else { return Ok(()); };
+    let Some(semantic) = analysis.and_then(|a|a.files.get(change.path())) else { return Ok(()); };
+    let Some(tests) = &semantic.equivalent_tests else { return Ok(()); };
+    if tests.iter().any(|test|*test >= catalog.len()) {
+        return Err("equivalence certificate contains unknown test".into());
+    }
+    if change.structural || change.old_path != change.new_path || !change.path().ends_with(".py")
+        || semantic.ast_equal || semantic.syntax_error
+        || !semantic.changed_functions.as_ref().is_some_and(|starts|!starts.is_empty()) {
+        return Ok(());
+    }
+    let info = map.files.get(change.path()).ok_or("equivalence certificate lacks mapped source")?;
+    for test in tests {
+        if !info.source_sensitive.contains(test)
+            && catalog.files[*test] != change.old_path && catalog.files[*test] != change.new_path {
+            selected[*test] = false;
+        }
+    }
+    Ok(())
+}
+
+/// A complete neutral metadata profile may refine the broad source-reader
+/// safety set, but only when ordinary execution is independently unchanged.
+/// The exemption is per test; it is never a blanket source-reader removal.
+fn prune_unaffected_metadata(selected: &mut [bool], changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, analysis: Option<&CommitAnalysis>) -> Result<(),String> {
+    let [change] = changes else { return Ok(()); };
+    let Some(semantic) = analysis.and_then(|a|a.files.get(change.path())) else { return Ok(()); };
+    let Some(tests) = &semantic.metadata_unaffected_tests else { return Ok(()); };
+    if tests.iter().any(|test|*test >= catalog.len()) {
+        return Err("metadata certificate contains unknown test".into());
+    }
+    if change.structural || change.old_path != change.new_path || !change.path().ends_with(".py")
+        || semantic.syntax_error {
+        return Ok(());
+    }
+    let equivalent = if semantic.changed_functions.as_ref().is_some_and(|starts|!starts.is_empty()) {
+        semantic.equivalent_tests.as_deref().unwrap_or(&[])
+    } else { &[] };
+    let info = map.files.get(change.path()).ok_or("metadata certificate lacks mapped source")?;
+    for test in tests {
+        if info.source_sensitive.contains(test)
+            && (semantic.ast_equal || equivalent.contains(test))
+            && catalog.files[*test] != change.old_path && catalog.files[*test] != change.new_path {
+            selected[*test] = false;
+        }
+    }
+    Ok(())
+}
+
+/// Narrow only when the sidecar has certified EVERY semantic change in this
+/// file. Unknown/invalid certificates are errors; the caller selects all tests.
+fn select_semantic_scopes(selected: &mut [bool], info: &FileImpact, semantic: &FileAnalysis, precision: Precision) -> Result<(),String> {
+    let starts = semantic.changed_functions.as_ref().ok_or("precise regions lack certified functions")?;
+    if starts.is_empty() { return Err("empty changed-function certificate".into()); }
+    let source = info.source.as_ref().ok_or("semantic scope lacks baseline source")?;
+    let source_lines = source.split_terminator('\n').count();
+    let mut functions = Vec::new();
+    for start in starts {
+        let matching: Vec<_> = info.functions.iter().filter(|f|f.start==*start).collect();
+        if matching.is_empty() { return Err("certified function absent from baseline map".into()); }
+        // A one-line lambda can share a def's start. Retain every matching
+        // range rather than accidentally choosing the smaller unrelated scope.
+        for function in matching {
+            if function.end > source_lines { return Err("certified function outside baseline source".into()); }
+            functions.push(function);
+        }
+    }
+    let regions = match (&semantic.precise_lines,&semantic.precise_regions) {
+        (None,None) => None,
+        (Some(lines),Some(regions)) => {
+            if lines.is_empty() || regions.is_empty() { return Err("empty precise certificate".into()); }
+            let mut flattened = BTreeSet::new();
+            let mut represented = BTreeSet::new();
+            for region in regions {
+                if region.end > source_lines { return Err("precise region outside baseline source".into()); }
+                let containing: Vec<_> = functions.iter().copied().filter(|f|f.header_end < region.start && region.end <= f.end).collect();
+                if containing.is_empty() { return Err("precise region outside certified function body".into()); }
+                for function in containing { represented.insert(function.start); }
+                flattened.extend(region.start..=region.end);
+            }
+            if flattened.iter().copied().collect::<Vec<_>>() != *lines {
+                return Err("precise lines disagree with complete statement regions".into());
+            }
+            if starts.iter().any(|start|!represented.contains(start)) {
+                return Err("changed function missing from precise regions".into());
+            }
+            Some(regions)
+        }
+        _ => return Err("precise lines and regions must be supplied together".into()),
+    };
+    if precision == Precision::Statement {
+        if let Some(regions) = regions {
+            for region in regions {
+                let mut has_readers = false;
+                for (_,tests) in info.lines.range(region.start..=region.end) {
+                    if !tests.is_empty() { has_readers = true; extend(selected,tests); }
+                }
+                if !has_readers {
+                    let mut has_function_readers = false;
+                    for function in &functions {
+                        if function.header_end < region.start && region.end <= function.end {
+                            if !function.tests.is_empty() { has_function_readers=true; extend(selected,&function.tests); }
+                        }
+                    }
+                    if !has_function_readers { broad(selected,info); }
+                }
+            }
+            return Ok(());
+        }
+    }
+    for function in functions {
+        if function.tests.is_empty() { broad(selected,info); }
+        else { extend(selected,&function.tests); }
+    }
+    Ok(())
 }
 
 fn function_at(info: &FileImpact,line: usize) -> Option<&FunctionImpact> {
@@ -971,10 +1153,10 @@ fn select_insertion(selected: &mut [bool], info: &FileImpact, anchor: usize, _po
     else { extend(selected,&function.tests); }
 }
 
-struct Options { data: PathBuf, map: PathBuf, analysis: Option<PathBuf>, policy: Policy, baseline_all: bool }
+struct Options { data: PathBuf, map: PathBuf, analysis: Option<PathBuf>, policy: Policy, precision: Precision, baseline_all: bool }
 
 fn options() -> Result<Options,String> {
-    let mut result = Options { data: "/data".into(), map: "/opt/impact-map.json".into(), analysis: None, policy: Policy::Function, baseline_all: false };
+    let mut result = Options { data: "/data".into(), map: "/opt/impact-map.json".into(), analysis: None, policy: Policy::Function, precision: Precision::Statement, baseline_all: false };
     let mut args = env::args().skip(1);
     while let Some(arg) = args.next() {
         match arg.as_str() {
@@ -982,9 +1164,10 @@ fn options() -> Result<Options,String> {
             "--map" => result.map = args.next().ok_or("--map needs a file")?.into(),
             "--analysis" => result.analysis = Some(args.next().ok_or("--analysis needs a file")?.into()),
             "--policy" => result.policy = match args.next().as_deref() { Some("line") => Policy::Line, Some("function") => Policy::Function, _ => return Err("--policy must be line or function".into()) },
+            "--precision" => result.precision = match args.next().as_deref() { Some("function") => Precision::Function, Some("statement") => Precision::Statement, _ => return Err("--precision must be function or statement".into()) },
             "--mode" => match args.next().as_deref() { Some("baseline-all") => result.baseline_all = true, Some("impact") => result.baseline_all = false, _ => return Err("--mode must be impact or baseline-all".into()) },
             "--help" | "-h" => {
-                eprintln!("blast-radius-selector [--data /data] [--map /opt/impact-map.json] [--analysis FILE] [--policy function|line] [--mode impact|baseline-all]\nFunction is the default policy. Line is experimental and can miss short-circuit effects.\nOutputs only one JSON line per patch. Invalid maps/patches widen to every test.");
+                eprintln!("blast-radius-selector [--data /data] [--map /opt/impact-map.json] [--analysis FILE] [--precision statement|function] [--policy function|line] [--mode impact|baseline-all]\nStatement precision requires a validated semantic certificate. Function is the default fallback policy. Raw line policy is experimental and can miss short-circuit effects.\nOutputs only one JSON line per patch. Invalid maps/patches widen to every test.");
                 std::process::exit(0);
             }
             _ => return Err(format!("unknown option: {arg}")),
@@ -1044,7 +1227,7 @@ fn run() -> Result<(),String> {
         let (selection,reserves) = if analysis_failed || missing_analysis || map.is_none() { (vec![true;catalog.len()],vec![false;catalog.len()]) } else {
             let attempt = read_limited(path,32_000_000).and_then(|s|diff::parse(&s)).and_then(|changes| {
                 let map = map.as_ref().unwrap();
-                select(&changes,&catalog,map,analysis.as_ref().and_then(|a|a.commits.get(id)),options.policy)
+                select_with_precision(&changes,&catalog,map,analysis.as_ref().and_then(|a|a.commits.get(id)),options.policy,options.precision)
                     .map(|selection|(selection,reserve_tests(&changes,&catalog,map)))
             });
             match attempt {
@@ -1072,6 +1255,9 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn select(changes: &[diff::FileChange], catalog: &TestCatalog, map: &ImpactMap, analysis: Option<&CommitAnalysis>, policy: Policy) -> Result<Vec<bool>,String> {
+        select_with_precision(changes,catalog,map,analysis,policy,Precision::Statement)
+    }
     fn catalog() -> TestCatalog {
         TestCatalog::parse(r#"{"tests":[{"number":0,"id":"t0","file":"tests/a.py","seconds":0.1},{"number":1,"id":"t1","file":"tests/a.py","seconds":0.2},{"number":2,"id":"t2","file":"tests/b.py","seconds":0.3}]}"#).unwrap()
     }
@@ -1093,12 +1279,12 @@ mod tests {
     }
     #[test] fn ast_equivalence_keeps_source_sensitive_tests() {
         let p="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return x # comment\n";
-        let a=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),FileAnalysis{syntax_error:false,ast_equal:true})])};
+        let a=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),FileAnalysis{syntax_error:false,ast_equal:true,..FileAnalysis::default()})])};
         assert_eq!(select(&diff::parse(p).unwrap(),&catalog(),&map(),Some(&a),Policy::Line).unwrap(),vec![false,false,true]);
     }
     #[test] fn syntax_error_includes_importers() {
         let p="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return (\n";
-        let a=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),FileAnalysis{syntax_error:true,ast_equal:false})])};
+        let a=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),FileAnalysis{syntax_error:true,ast_equal:false,..FileAnalysis::default()})])};
         let mut incomplete_map=map();
         let file=incomplete_map.files.get_mut("x.py").unwrap();
         file.importers=Arc::from([0]);
@@ -1151,5 +1337,182 @@ mod tests {
         assert_eq!(select(&changes,&catalog(),&map,None,Policy::Function).unwrap(),vec![true,true,true]);
         // Deliberately document why line mode is experimental, not the default.
         assert_eq!(select(&changes,&catalog(),&map,None,Policy::Line).unwrap(),vec![true,false,true]);
+    }
+    fn precise(start: usize,end: usize) -> FileAnalysis {
+        FileAnalysis { changed_functions:Some(vec![1]),precise_lines:Some((start..=end).collect()),
+            precise_regions:Some(vec![Region{start,end}]),..FileAnalysis::default() }
+    }
+    #[test] fn proven_statement_precision_and_function_ablation() {
+        let map=map(); let info=&map.files["x.py"]; let semantic=precise(3,3);
+        let mut selection=vec![false;3];
+        select_semantic_scopes(&mut selection,info,&semantic,Precision::Statement).unwrap();
+        assert_eq!(selection,vec![true,false,false]);
+        let mut selection=vec![false;3];
+        select_semantic_scopes(&mut selection,info,&semantic,Precision::Function).unwrap();
+        assert_eq!(selection,vec![true,true,false]);
+    }
+    #[test] fn complete_region_keeps_expected_exception_reader() {
+        let mut map=map(); let info=map.files.get_mut("x.py").unwrap();
+        info.lines.insert(3,Arc::from([0]));
+        info.lines.insert(4,Arc::from([0,1]));
+        let mut selection=vec![false;3];
+        select_semantic_scopes(&mut selection,info,&precise(3,4),Precision::Statement).unwrap();
+        assert_eq!(selection,vec![true,true,false]);
+    }
+    #[test] fn absent_coverage_falls_back_for_each_region() {
+        let mut map=map(); let info=map.files.get_mut("x.py").unwrap();
+        info.source=Some("def f():\n    x=1\n    return x\n    x=2\n    return x\ndef g():\n    x=2\n    return x\n    x=3\n    return x\n".into());
+        info.functions[0].tests=Arc::from([0]);
+        info.functions.push(FunctionImpact{start:6,end:10,header_end:6,tests:Arc::from([1])});
+        let semantic=FileAnalysis{changed_functions:Some(vec![1,6]),precise_lines:Some(vec![3,8]),precise_regions:Some(vec![Region{start:3,end:3},Region{start:8,end:8}]),..FileAnalysis::default()};
+        let mut selection=vec![false;3];
+        select_semantic_scopes(&mut selection,info,&semantic,Precision::Statement).unwrap();
+        assert_eq!(selection,vec![true,true,false]);
+    }
+    #[test] fn semantic_scope_ignores_unrelated_comment_broadening() {
+        let mut map=map(); map.files.get_mut("x.py").unwrap().functions[0].tests=Arc::from([0]);
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -0,0 +1 @@\n+# harmless context\n@@ -3 +4 @@\n-    return x\n+    return 2\n";
+        let semantic=FileAnalysis{changed_functions:Some(vec![1]),..FileAnalysis::default()};
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,false,true]);
+    }
+    #[test] fn malformed_semantic_regions_are_never_silent_empty() {
+        let map=map(); let info=&map.files["x.py"];
+        let mut cases=vec![precise(1,1),precise(5,7)];
+        let mut mismatch=precise(3,3); mismatch.precise_lines=Some(vec![4]); cases.push(mismatch);
+        let mut no_regions=precise(3,3); no_regions.precise_regions=None; cases.push(no_regions);
+        let mut unknown=precise(3,3); unknown.changed_functions=Some(vec![999]); cases.push(unknown);
+        let mut empty=precise(3,3); empty.changed_functions=Some(vec![]); cases.push(empty);
+        for semantic in cases {
+            assert!(select_semantic_scopes(&mut [false;3],info,&semantic,Precision::Statement).is_err());
+        }
+    }
+    #[test] fn malformed_sidecar_field_types_are_rejected() {
+        for fields in [r#""changed_functions":true"#,r#""precise_lines":[0]"#,r#""precise_regions":[{"start":4,"end":3}]"#,r#""changed_functions":[1.0]"#] {
+            let source=format!("{{\"commits\":{{\"x\":{{\"files\":{{\"x.py\":{{{fields}}}}}}}}}}}");
+            assert!(Analysis::parse(&source).is_err());
+        }
+    }
+    #[test] fn shared_function_start_does_not_choose_only_a_lambda() {
+        let mut map=map(); let info=map.files.get_mut("x.py").unwrap();
+        info.functions.insert(0,FunctionImpact{start:1,end:1,header_end:1,tests:Arc::from([0])});
+        let semantic=FileAnalysis{changed_functions:Some(vec![1]),..FileAnalysis::default()};
+        let mut selection=vec![false;3];
+        select_semantic_scopes(&mut selection,info,&semantic,Precision::Function).unwrap();
+        assert_eq!(selection,vec![true,true,false]);
+    }
+    #[test] fn precise_scope_preserves_edited_test_file_and_source_readers() {
+        let mut map=map(); let info=map.files.remove("x.py").unwrap();map.files.insert("tests/a.py".into(),info);
+        let patch="--- a/tests/a.py\n+++ b/tests/a.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("tests/a.py".into(),precise(3,3))])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    fn equivalent(tests: Vec<usize>) -> FileAnalysis {
+        FileAnalysis { changed_functions:Some(vec![1]),equivalent_tests:Some(tests),..FileAnalysis::default() }
+    }
+    #[test] fn equivalence_prunes_only_certified_test_numbers_after_selection() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),equivalent(vec![0,2]))])};
+        // Test 0 is certified equivalent; test 1 has no such proof; test 2
+        // observes source and remains selected even when listed by the sidecar.
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![false,true,true]);
+    }
+    #[test] fn equivalence_preserves_directly_edited_tests() {
+        let mut map=map(); let info=map.files.remove("x.py").unwrap();map.files.insert("tests/a.py".into(),info);
+        let patch="--- a/tests/a.py\n+++ b/tests/a.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("tests/a.py".into(),equivalent(vec![0,1,2]))])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn equivalence_never_composes_across_changed_files() {
+        let mut map=map();map.files.insert("y.py".into(),self::map().files.remove("x.py").unwrap());
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n--- a/y.py\n+++ b/y.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),equivalent(vec![0,1,2])),("y.py".into(),equivalent(vec![0,1,2]))])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn equivalence_without_scope_proof_keeps_diff_fallback() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let semantic=FileAnalysis{equivalent_tests:Some(vec![0,1,2]),..FileAnalysis::default()};
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn equivalence_never_weakens_syntax_or_force_all_fallbacks() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return (\n";
+        let mut semantic=equivalent(vec![0,1,2]);semantic.syntax_error=true;
+        let mut analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        let changes=diff::parse(patch).unwrap();
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+        analysis.force_all=true;
+        assert!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).is_err());
+    }
+    #[test] fn equivalence_never_weakens_structural_fallback() {
+        let mut changes=diff::parse("--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n").unwrap();
+        changes[0].structural=true;
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),equivalent(vec![0,1,2]))])};
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn equivalence_indices_are_zero_based_and_strictly_validated() {
+        let source=r#"{"commits":{"x":{"files":{"x.py":{"equivalent_tests":[2,0,0]}}}}}"#;
+        let analysis=Analysis::parse(source).unwrap();
+        assert_eq!(analysis.commits["x"].files["x.py"].equivalent_tests,Some(vec![0,2]));
+        for invalid in ["[true]","[-1]","[0.0]","[\"0\"]","null","{}"] {
+            assert!(Analysis::parse(&source.replace("[2,0,0]",invalid)).is_err());
+        }
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),equivalent(vec![3]))])};
+        assert!(select(&diff::parse(patch).unwrap(),&catalog(),&map(),Some(&analysis),Policy::Function).is_err());
+    }
+    #[test] fn metadata_proof_refines_only_ast_equal_source_readers() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return x # comment\n";
+        let mut semantic=FileAnalysis{ast_equal:true,metadata_unaffected_tests:Some(vec![0]),..FileAnalysis::default()};
+        let mut analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic.clone())])};
+        let changes=diff::parse(patch).unwrap();
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![false,false,true]);
+        semantic.metadata_unaffected_tests=Some(vec![2]);analysis.files.insert("x.py".into(),semantic);
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![false,false,false]);
+    }
+    #[test] fn metadata_proof_requires_individual_execution_equivalence() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let mut semantic=equivalent(vec![0]);semantic.metadata_unaffected_tests=Some(vec![2]);
+        let mut analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        let changes=diff::parse(patch).unwrap();
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![false,true,true]);
+        analysis.files.get_mut("x.py").unwrap().equivalent_tests=Some(vec![0,2]);
+        assert_eq!(select(&changes,&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![false,true,false]);
+    }
+    #[test] fn metadata_proof_without_semantic_or_scope_proof_is_ignored() {
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return 2\n";
+        let semantic=FileAnalysis{equivalent_tests:Some(vec![0,1,2]),metadata_unaffected_tests:Some(vec![0,1,2]),..FileAnalysis::default()};
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map(),Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn metadata_proof_preserves_direct_test_file_consumers() {
+        let mut map=map();let mut info=map.files.remove("x.py").unwrap();info.source_sensitive=Arc::from([0,1,2]);map.files.insert("tests/a.py".into(),info);
+        let patch="--- a/tests/a.py\n+++ b/tests/a.py\n@@ -3 +3 @@\n-    return x\n+    return x # comment\n";
+        let semantic=FileAnalysis{ast_equal:true,metadata_unaffected_tests:Some(vec![0,1,2]),..FileAnalysis::default()};
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("tests/a.py".into(),semantic)])};
+        assert_eq!(select(&diff::parse(patch).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,false]);
+    }
+    #[test] fn metadata_proof_never_clears_structural_multifile_or_syntax_fallback() {
+        let mut map=map();map.files.insert("y.py".into(),self::map().files.remove("x.py").unwrap());
+        let one="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return x # comment\n";
+        let semantic=FileAnalysis{ast_equal:true,metadata_unaffected_tests:Some(vec![0,1,2]),..FileAnalysis::default()};
+        let mut analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic.clone()),("y.py".into(),semantic)])};
+        let multiple=format!("{one}{}",one.replace("x.py","y.py"));
+        assert_eq!(select(&diff::parse(&multiple).unwrap(),&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![false,false,true]);
+        let mut changes=diff::parse(one).unwrap();changes[0].structural=true;
+        assert_eq!(select(&changes,&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+        changes[0].structural=false;analysis.files.get_mut("x.py").unwrap().syntax_error=true;
+        assert_eq!(select(&changes,&catalog(),&map,Some(&analysis),Policy::Function).unwrap(),vec![true,true,true]);
+    }
+    #[test] fn metadata_indices_are_strictly_validated() {
+        let source=r#"{"commits":{"x":{"files":{"x.py":{"metadata_unaffected_tests":[2,0,0]}}}}}"#;
+        assert_eq!(Analysis::parse(source).unwrap().commits["x"].files["x.py"].metadata_unaffected_tests,Some(vec![0,2]));
+        for invalid in ["[true]","[-1]","[0.0]","[\"0\"]","null","{}"] {
+            assert!(Analysis::parse(&source.replace("[2,0,0]",invalid)).is_err());
+        }
+        let patch="--- a/x.py\n+++ b/x.py\n@@ -3 +3 @@\n-    return x\n+    return x # comment\n";
+        let semantic=FileAnalysis{ast_equal:true,metadata_unaffected_tests:Some(vec![3]),..FileAnalysis::default()};
+        let analysis=CommitAnalysis{force_all:false,files:BTreeMap::from([("x.py".into(),semantic)])};
+        assert!(select(&diff::parse(patch).unwrap(),&catalog(),&map(),Some(&analysis),Policy::Function).is_err());
     }
 }
