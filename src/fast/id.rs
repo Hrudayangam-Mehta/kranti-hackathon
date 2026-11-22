@@ -4,6 +4,13 @@ use super::keys;
 use crate::csv;
 
 pub const ODD: u64 = u64::MAX;
+// hi=0 stores eight right-zero-padded six-bit digits (48 bits). Eligible bytes
+// are 0x20..=0x3f and 0x60..=0x7e, in that order; every real digit is nonzero.
+// The record layouts remain unchanged in this codec-only experiment.
+pub const RAW_MAX: usize = 8;
+pub const RAW_BITS: u32 = 48;
+pub const RAW_MASK: u64 = (1u64 << RAW_BITS) - 1;
+pub const EXTENDED_SHORT: u64 = u64::MAX - 1;
 pub const SHORT_MAX: usize = 11;
 pub const LONG_LEN: usize = 32;
 
@@ -66,10 +73,30 @@ impl Key {
 }
 
 #[inline(always)]
+fn raw_digit(byte: u8) -> u64 {
+    u64::from(((byte & 31) | ((byte & 64) >> 1)) + 1)
+}
+
+#[inline(always)]
+fn raw_eligible(byte: u8) -> bool {
+    byte & 0xa0 == 0x20 && byte != 0x7f
+}
+
+#[inline(always)]
 pub fn short_scalar(rest: &[u8]) -> Option<u64> {
     let n = rest.len();
     if n == 0 || n > SHORT_MAX {
         return None;
+    }
+    if n <= RAW_MAX {
+        let mut rank = 0u64;
+        for &byte in rest {
+            if !raw_eligible(byte) {
+                return None;
+            }
+            rank = (rank << 6) | raw_digit(byte);
+        }
+        return Some(rank << (6 * (RAW_MAX - n)));
     }
     let mut rank = 0u64;
     let mut bad = 0u8;
@@ -79,6 +106,16 @@ pub fn short_scalar(rest: &[u8]) -> Option<u64> {
         rank += u64::from(d & 63) * POW36[11 - i];
     }
     (bad & 0xc0 == 0).then_some(rank + n as u64)
+}
+
+#[inline(always)]
+pub fn short_key(lo: u64, len: usize) -> Key {
+    Key { hi: if len <= RAW_MAX { 0 } else { EXTENDED_SHORT }, lo }
+}
+
+#[inline(always)]
+pub fn reserved_high(hi: u64) -> bool {
+    hi == 0 || hi == EXTENDED_SHORT || hi == ODD
 }
 
 #[inline(always)]
@@ -97,13 +134,38 @@ pub fn long_scalar(rest: &[u8]) -> Option<(u64, u64)> {
 }
 
 #[inline(always)]
-pub fn short_rank(lo: u64) -> u64 {
+fn extended_rank(lo: u64) -> u64 {
     lo - lo % 36
 }
 
 #[inline(always)]
 pub fn short_len(lo: u64) -> usize {
-    (lo % 36) as usize
+    // The last real digit has at most five trailing zero bits. Zero is only a
+    // default table sentinel, never an encoded identity; preserve empty decode.
+    if lo == 0 { 0 } else { RAW_MAX - (lo.trailing_zeros() / 6) as usize }
+}
+
+#[inline]
+fn extended_prefix8(lo: u64) -> u64 {
+    let rank = extended_rank(lo) / POW36[4];
+    let mut bytes = [0u8; RAW_MAX];
+    for (k, quad) in [rank / POW36[4], rank % POW36[4]].into_iter().enumerate() {
+        let a = PAIRS[(quad / 1296) as usize];
+        let b = PAIRS[(quad % 1296) as usize];
+        bytes[4 * k..4 * k + 4].copy_from_slice(&[a[0], a[1], b[0], b[1]]);
+    }
+    // Extended keys contain only base36, which is a subset of Raw48's alphabet.
+    bytes.into_iter().fold(0, |rank, byte| (rank << 6) | raw_digit(byte))
+}
+
+#[inline]
+fn hex_prefix8(hi: u64) -> u64 {
+    let mut rank = 0u64;
+    for i in 0..RAW_MAX {
+        let byte = CHARS[((hi >> (60 - 4 * i)) & 15) as usize];
+        rank = (rank << 6) | raw_digit(byte);
+    }
+    rank
 }
 
 fn long_rank12(hi: u64) -> u64 {
@@ -131,15 +193,15 @@ impl Domain {
 
     #[cfg(test)]
     pub fn exact(&self, bytes: &[u8]) -> Option<Key> {
-        if self.plen == 1 && bytes.first() != Some(&self.prefix) {
+        if self.plen == 1 && (self.prefix == 0 || bytes.first() != Some(&self.prefix)) {
             return None;
         }
         let rest = &bytes[self.plen.min(bytes.len())..];
         if rest.len() == LONG_LEN {
             let (hi, lo) = long_scalar(rest)?;
-            return (hi != 0 && hi != ODD).then_some(Key { hi, lo });
+            return (!reserved_high(hi)).then_some(Key { hi, lo });
         }
-        short_scalar(rest).map(|lo| Key { hi: 0, lo })
+        short_scalar(rest).map(|lo| short_key(lo, rest.len()))
     }
 
     #[cold]
@@ -177,7 +239,15 @@ impl Domain {
         }
         if key.hi == 0 {
             let n = short_len(key.lo);
-            let rank = short_rank(key.lo);
+            let mut bytes = [0u8; RAW_MAX];
+            for (i, byte) in bytes[..n].iter_mut().enumerate() {
+                let code = (((key.lo >> (6 * (RAW_MAX - 1 - i))) & 63) as u8) - 1;
+                *byte = (code & 31) | ((code & 32) << 1) | 0x20;
+            }
+            out.extend_from_slice(&bytes[..n]);
+        } else if key.hi == EXTENDED_SHORT {
+            let n = (key.lo % 36) as usize;
+            let rank = extended_rank(key.lo);
             let top = rank / POW36[8];
             let mid = (rank / POW36[4]) % POW36[4];
             let low = rank % POW36[4];
@@ -215,23 +285,35 @@ impl Domain {
             self.bytes_of(b, &mut y);
             return x.cmp(&y);
         }
-        match (a.hi == 0, b.hi == 0) {
-            (false, false) => (a.hi, a.lo).cmp(&(b.hi, b.lo)),
-            (true, false) => {
-                if short_rank(a.lo) <= long_rank12(b.hi) {
+        match (a.hi, b.hi) {
+            (0, 0) | (EXTENDED_SHORT, EXTENDED_SHORT) => a.lo.cmp(&b.lo),
+            (0, EXTENDED_SHORT) => {
+                if a.lo <= extended_prefix8(b.lo) {
                     Ordering::Less
                 } else {
                     Ordering::Greater
                 }
             }
-            (false, true) => {
-                if short_rank(b.lo) <= long_rank12(a.hi) {
+            (EXTENDED_SHORT, 0) => {
+                if b.lo <= extended_prefix8(a.lo) {
                     Ordering::Greater
                 } else {
                     Ordering::Less
                 }
             }
-            (true, true) => a.lo.cmp(&b.lo),
+            (0, _) => {
+                if a.lo <= hex_prefix8(b.hi) { Ordering::Less } else { Ordering::Greater }
+            }
+            (_, 0) => {
+                if b.lo <= hex_prefix8(a.hi) { Ordering::Greater } else { Ordering::Less }
+            }
+            (EXTENDED_SHORT, _) => {
+                if extended_rank(a.lo) <= long_rank12(b.hi) { Ordering::Less } else { Ordering::Greater }
+            }
+            (_, EXTENDED_SHORT) => {
+                if extended_rank(b.lo) <= long_rank12(a.hi) { Ordering::Greater } else { Ordering::Less }
+            }
+            _ => (a.hi, a.lo).cmp(&(b.hi, b.lo)),
         }
     }
 }
@@ -375,15 +457,16 @@ mod tests {
     #[test]
     fn classes() {
         let d = Domain::with_prefix(b'u');
-        assert_eq!(d.exact(b"u0"), Some(Key { hi: 0, lo: 1 }));
-        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: POW36[11] + 1 }));
+        assert_eq!(d.exact(b"u0"), Some(Key { hi: 0, lo: 17u64 << 42 }));
+        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: 18u64 << 42 }));
         assert!(d.exact(b"u").is_none());
         assert!(d.exact(b"x1").is_none());
         assert!(d.exact(b"u000000000000").is_none());
         assert!(d.exact(b"u00000000000").is_some());
         assert!(d.exact(b"u0000000000000000ffffffffffffffff").is_none());
         assert!(d.exact(b"uffffffffffffffff0000000000000000").is_none());
-        assert!(d.exact(b"ufffffffffffffffe0000000000000000").is_some());
+        assert!(d.exact(b"ufffffffffffffffe0000000000000000").is_none());
+        assert!(d.exact(b"ufffffffffffffffd0000000000000000").is_some());
         assert_eq!(
             d.exact(b"u0123456789abcdef0123456789abcdef"),
             Some(Key { hi: 0x0123_4567_89ab_cdef, lo: 0x0123_4567_89ab_cdef })
@@ -393,6 +476,184 @@ mod tests {
         let bare = Domain::bare();
         assert!(bare.exact(b"").is_none());
         assert!(bare.exact(b"abc").is_some());
+    }
+
+    #[test]
+    fn raw48_exhaustive_two_byte_order_and_all_byte_positions() {
+        let domain = Domain::bare();
+        let alphabet: Vec<u8> = (0x20..=0x3f).chain(0x60..=0x7e).collect();
+        assert_eq!(alphabet.len(), 63);
+        let mut previous = 0u64;
+        for &first in &alphabet {
+            let one = [first];
+            let key = domain.exact(&one).unwrap();
+            assert_eq!(key.hi, 0);
+            assert!(key.lo > previous);
+            assert_eq!(short_len(key.lo), 1);
+            assert_eq!(roundtrip(&domain, &one), one);
+            previous = key.lo;
+            for &second in &alphabet {
+                let pair = [first, second];
+                let key = domain.exact(&pair).unwrap();
+                assert_eq!(key.hi, 0);
+                assert!(key.lo > previous);
+                assert_eq!(short_len(key.lo), 2);
+                assert_eq!(roundtrip(&domain, &pair), pair);
+                previous = key.lo;
+            }
+        }
+        for len in 1..=RAW_MAX {
+            for position in 0..len {
+                for byte in 0..=u8::MAX {
+                    let mut text = vec![b'0'; len];
+                    text[position] = byte;
+                    let key = domain.exact(&text);
+                    let eligible = (0x20..=0x3f).contains(&byte) || (0x60..=0x7e).contains(&byte);
+                    assert_eq!(key.is_some(), eligible, "len={len} position={position} byte={byte}");
+                    if let Some(key) = key {
+                        assert_eq!(key.hi, 0);
+                        assert_ne!(key, Key::default());
+                        assert!(key.lo <= RAW_MASK);
+                        assert_eq!(short_len(key.lo), len);
+                    } else {
+                        assert_eq!(domain.encode(&text).hi, ODD);
+                    }
+                    assert_eq!(roundtrip(&domain, &text), text);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw48_digit_boundaries_rank_extrema_and_zero_sentinel() {
+        assert_eq!(short_len(0), 0);
+        for (byte, digit) in [(0x20, 1), (b'0', 17), (b'9', 26), (0x3f, 32), (0x60, 33), (b'a', 34), (b'z', 59), (0x7e, 63)] {
+            for len in 1..=RAW_MAX {
+                let text = vec![byte; len];
+                let rank = (0..len).fold(0u64, |v, _| v * 64 + digit) << (6 * (RAW_MAX - len));
+                assert_eq!(short_scalar(&text), Some(rank));
+                assert_eq!(short_len(rank), len);
+                assert_eq!(roundtrip(&Domain::bare(), &text), text);
+            }
+        }
+        assert_eq!(short_scalar(b"        "), Some(0x0410_4104_1041));
+        assert_eq!(short_scalar(b"~~~~~~~~"), Some(RAW_MASK));
+        assert_eq!(short_scalar(b"?"), Some(32u64 << 42));
+        assert_eq!(short_scalar(b"`"), Some(33u64 << 42));
+        for text in [b"".as_slice(), b"\0", b"\x1f", b"@", b"A", b"_", b"\x7f", b"\x80", b"\xff", b"?????????", b"~~~~~~~~~"] {
+            assert_eq!(short_scalar(text), None, "{text:?}");
+        }
+    }
+
+    #[test]
+    fn raw48_all_lengths_match_independent_radix_oracle() {
+        let alphabet: Vec<u8> = (0x20..=0x3f).chain(0x60..=0x7e).collect();
+        let domain = Domain::bare();
+        let mut state = 0x8741_69c5_284e_b031u64;
+        for round in 0..40_000 {
+            let len = 1 + round % RAW_MAX;
+            let mut text = Vec::with_capacity(len);
+            let mut rank = 0u64;
+            for _ in 0..len {
+                state ^= state << 13; state ^= state >> 7; state ^= state << 17;
+                let index = state as usize % alphabet.len();
+                text.push(alphabet[index]);
+                rank = rank * 64 + index as u64 + 1;
+            }
+            rank *= 64u64.pow((RAW_MAX - len) as u32);
+            assert_eq!(domain.exact(&text), Some(Key { hi: 0, lo: rank }));
+            assert_eq!(short_len(rank), len);
+            assert!(rank > 0 && rank <= RAW_MASK);
+            assert_eq!(roundtrip(&domain, &text), text);
+        }
+    }
+
+    #[test]
+    fn raw48_nul_and_reserved_tags_use_exact_fallback() {
+        for domain in [Domain::bare(), Domain::with_prefix(b'u'), Domain::with_prefix(0)] {
+            for suffix in [b"".as_slice(), b"\0", b"x\0", b"\0x", b"ab\0defgh", b"012345678\0"] {
+                let mut text = Vec::new();
+                if domain.plen == 1 { text.push(domain.prefix); }
+                text.extend_from_slice(suffix);
+                assert!(domain.exact(&text).is_none());
+                assert_eq!(domain.encode(&text).hi, ODD);
+                assert_eq!(roundtrip(&domain, &text), text);
+            }
+            if domain.plen == 1 && domain.prefix == 0 {
+                for suffix in [b"abc".as_slice(), b"012345678", b"0123456789abcdef0123456789abcdef"] {
+                    let mut text = vec![0];
+                    text.extend_from_slice(suffix);
+                    assert!(domain.exact(&text).is_none());
+                    assert_eq!(roundtrip(&domain, &text), text);
+                }
+            }
+        }
+        let domain = Domain::with_prefix(b'u');
+        for hi in [0, EXTENDED_SHORT, ODD] {
+            for lo in [0, 1, u64::MAX] {
+                let text = format!("u{hi:016x}{lo:016x}");
+                assert!(domain.exact(text.as_bytes()).is_none());
+                assert_eq!(domain.encode(text.as_bytes()).hi, ODD);
+                assert_eq!(roundtrip(&domain, text.as_bytes()), text.as_bytes());
+            }
+        }
+        for len in 1..=SHORT_MAX {
+            let mut text = vec![b'u'];
+            text.extend(std::iter::repeat_n(b'0', len));
+            let key = domain.exact(&text).unwrap();
+            assert_eq!(key.hi, if len <= RAW_MAX { 0 } else { EXTENDED_SHORT });
+            assert_eq!(roundtrip(&domain, &text), text);
+        }
+    }
+
+    #[test]
+    fn raw48_mixed_prefix_comparisons_match_original_bytes() {
+        for domain in [Domain::bare(), Domain::with_prefix(b'u')] {
+            let check = |left: &[u8], right: &[u8]| {
+                let mut a = Vec::new();
+                let mut b = Vec::new();
+                if domain.plen == 1 { a.push(domain.prefix); b.push(domain.prefix); }
+                a.extend_from_slice(left);
+                b.extend_from_slice(right);
+                let ka = domain.encode(&a);
+                let kb = domain.encode(&b);
+                assert_eq!(domain.cmp(ka, kb), a.cmp(&b), "{a:?} {b:?}");
+                assert_eq!(domain.cmp(kb, ka), b.cmp(&a), "{b:?} {a:?}");
+                assert_eq!(ka == kb, a == b);
+            };
+            for len in 1..=RAW_MAX {
+                for position in 0..len {
+                    for byte in 1..=u8::MAX {
+                        let mut raw = vec![b'0'; len];
+                        raw[position] = byte;
+                        for digit in [b'0', b'9', b'a', b'f', b'z'] {
+                            for extended_len in 9..=SHORT_MAX {
+                                let mut extended = vec![b'0'; extended_len];
+                                extended[position] = digit;
+                                extended[extended_len - 1] = b'1';
+                                check(&raw, &extended);
+                            }
+                            if digit <= b'f' {
+                                let mut hex = [b'0'; LONG_LEN];
+                                hex[position] = digit;
+                                hex[15] = b'1';
+                                hex[31] = b'f';
+                                check(&raw, &hex);
+                            }
+                        }
+                    }
+                }
+            }
+            for (a, b) in [
+                (b"zzzzzzzz".as_slice(), b"zzzzzzzzz".as_slice()),
+                (b"00000001", b"000000001"),
+                (b"01234567", b"01234567000"),
+                (b"\xff\xff\xff\xff\xff\xff\xff\xff", b"fffffffffffffffd0000000000000000"),
+                (b"abc", b"abc\0"),
+            ] {
+                check(a, b);
+            }
+        }
     }
 
     #[test]

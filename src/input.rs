@@ -58,7 +58,7 @@ pub fn csv_files(folder: &Path) -> Result<Vec<PathBuf>> {
         let Some(name) = path.file_name().and_then(|n| n.to_str()) else {
             continue;
         };
-        if name.ends_with(".csv") && !name.starts_with('.') && path.is_file() {
+        if name.ends_with(".csv") && path.is_file() {
             paths.push(path);
         }
     }
