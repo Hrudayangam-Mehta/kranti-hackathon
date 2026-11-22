@@ -2,6 +2,7 @@ pub mod id;
 pub mod keys;
 pub mod parquet;
 pub mod people;
+mod ready;
 pub mod scan;
 pub mod sink;
 pub mod trace;
@@ -10,7 +11,7 @@ pub mod write;
 
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Barrier, Condvar, Mutex, OnceLock};
 use std::time::Instant;
 
@@ -452,9 +453,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
     lap("setup");
 
     let people: OnceLock<People> = OnceLock::new();
-    let links_done = AtomicBool::new(false);
     let queue = AtomicUsize::new(0);
-    let p1_ready = AtomicUsize::new(0);
+    let p1_ready = ready::Completion::new(threads);
     let person_queue = AtomicUsize::new(0);
     let file_counter = AtomicUsize::new(0);
     let barrier = Barrier::new(threads);
@@ -489,7 +489,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
         for id in 0..threads {
             let ctx = &ctx;
             let people = &people;
-            let links_done = &links_done;
             let queue = &queue;
             let p1_ready = &p1_ready;
             let person_queue = &person_queue;
@@ -532,7 +531,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
                         if let Some(mut sink) = p1.take() {
                             sink.finish(&mut arena);
                             let _ = p1_sinks[id].set(sink);
-                            p1_ready.fetch_add(1, Ordering::Release);
+                            p1_ready.arrive();
                         }
                     }
                     if i >= parse_units {
@@ -548,7 +547,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
                                 let t0 = Instant::now();
                                 let built = build_people(&ctx.link_files, &ctx.users);
                                 let _ = people.set(built);
-                                links_done.store(true, Ordering::Release);
                                 eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
                                 for file in ctx.link_files.iter().filter(|f| !f.is_empty()) {
                                     unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
@@ -567,15 +565,15 @@ pub fn run(config: &Config) -> Result<Outcome> {
                             Unit::Clicks(f, s, e) => {
                                 let file = ctx.files[f];
                                 let chunk = line_range(file, s, e);
-                                if !links_done.load(Ordering::Acquire) {
+                                let people = if let Some(ready) = people.get() {
+                                    ready
+                                } else {
                                     let w = tr.now();
-                                    while !links_done.load(Ordering::Acquire) {
-                                        std::thread::yield_now();
-                                    }
+                                    let ready = people.wait();
                                     tr.add(trace::WAIT_LINKS, w);
-                                }
+                                    ready
+                                };
                                 let t = tr.now();
-                                let people = people.get().unwrap();
                                 if !chunk.is_empty() {
                                     click_count += parse_clicks(ctx, people, chunk, &mut arena, clicks.as_mut().unwrap());
                                 }
@@ -591,12 +589,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
                     }
                     if all_p1.is_empty() {
                         let w = tr.now();
-                        while p1_ready.load(Ordering::Acquire) < threads {
-                            for _ in 0..64 {
-                                std::hint::spin_loop();
-                            }
-                            std::thread::yield_now();
-                        }
+                        p1_ready.wait();
                         tr.add(trace::BAR_PARSE, w);
                         all_p1 = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
                     }
@@ -804,7 +797,7 @@ unsafe fn exact_k<K: Kernel>(domain: &Domain, field: &[u8]) -> Option<Key> {
     let mut p = field.as_ptr();
     let plen = domain.plen;
     if plen == 1 {
-        if n == 0 || *p != domain.prefix {
+        if n == 0 || domain.prefix == 0 || *p != domain.prefix {
             return None;
         }
         p = p.add(1);
@@ -812,9 +805,9 @@ unsafe fn exact_k<K: Kernel>(domain: &Domain, field: &[u8]) -> Option<Key> {
     let rest = n.wrapping_sub(plen);
     if rest == id::LONG_LEN {
         let (hi, lo) = K::long(p)?;
-        return (hi != 0 && hi != id::ODD).then_some(Key { hi, lo });
+        return (!id::reserved_high(hi)).then_some(Key { hi, lo });
     }
-    K::short(p, rest).map(|lo| Key { hi: 0, lo })
+    K::short(p, rest).map(|lo| id::short_key(lo, rest))
 }
 
 #[inline(always)]
@@ -1717,5 +1710,146 @@ impl Worker {
             .map_or(u8::MAX, |&(c, _)| c as u8);
         self.category_sums.clear();
         self.rows.push(person, day as u32, row, top);
+    }
+}
+
+#[cfg(test)]
+mod raw8_tests {
+    use super::*;
+
+    fn context() -> Ctx<'static> {
+        let ws = crate::time::parse_timestamp(b"2028-03-01T00:00:00Z").unwrap();
+        Ctx {
+            calendar: Calendar::around(ws), ws, we: ws + 3 * DAY_MS, cws: ws - WEEK_MS,
+            products: SmallMap::new(&[]), unknown: 0,
+            campaigns: SmallMap::new(&[]), organic: 0,
+            p1_bits: 4, p2_bits: 4, p1_block: 48, click_block: 24, p2_block: 48,
+            first_day: ws.div_euclid(DAY_MS), days: 3, day_shift: -WEEK_MS,
+            link_files: Vec::new(), users: Domain::with_prefix(b'u'),
+            event_ids: Domain::with_prefix(b'e'), click_ids: Domain::with_prefix(b'k'),
+            units: Vec::new(), files: Vec::new(), remaining: Vec::new(), first_click: 0,
+            marker: std::marker::PhantomData,
+        }
+    }
+
+    #[test]
+    fn runtime_key_converters_match_tagged_scalar_identity() {
+        assert_eq!(std::mem::size_of::<EventSmall>(), 32);
+        assert_eq!(std::mem::size_of::<EventRec>(), 48);
+        let ids = [
+            b"u0".as_slice(), b"u00", b"u00000000", b"u000000000", b"u00000000000",
+            b"uzz", b"uzzzzzzzz", b"uzzzzzzzzz", b"uzzzzzzzzzzz",
+            b"u0123456789abcdef0123456789abcdef", b"u0000000000000000ffffffffffffffff",
+            b"ufffffffffffffffe0000000000000000", b"uffffffffffffffff0000000000000000",
+            b"ufffffffffffffffd0000000000000000", b"u", b"uA", b"u1 ", b" x",
+            b"u\xff", b"u\x80", b"u\x01", b"u!_A", b"u\0x", b"uabc\0",
+            b"u\xff\xff\xff\xff\xff\xff\xff\xff", b"\xff\xff\xff\xff\xff\xff\xff\xff",
+            b"", b"\0", b"\0abc", b"\0abcdefgh", b"\0abcdefghi",
+            b"\0abcdef0123456789abcdef0123456789",
+        ];
+        for domain in [Domain::bare(), Domain::with_prefix(b'u'), Domain::with_prefix(0)] {
+            for bytes in ids {
+                let expected = domain.encode(bytes);
+                let mut padded = bytes.to_vec();
+                padded.resize(bytes.len() + 64, 0xff);
+                let input = &padded[..bytes.len()];
+                unsafe {
+                    assert_eq!(encode_k::<Scalar>(&domain, input), expected);
+                    #[cfg(target_arch = "x86_64")]
+                    if scan::has_avx2() {
+                        assert_eq!(encode_k::<Avx2>(&domain, input), expected);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw8_parser_and_dedup_preserve_mixed_routes_and_invalid_winners() {
+        let ctx = context();
+        let input = concat!(
+            "e1,u000000001,2028-03-01T00:00:00Z,2028-03-01T00:00:00Z,view,p,ignored\n",
+            "e1,u1,2028-03-01T00:00:00Z,2028-03-01T00:00:01Z,purchase,p,99\n",
+            "e2,u1,invalid,2028-03-01T00:00:00Z,view,p,ignored\n",
+            "e2,u000000001,2028-03-01T00:00:00Z,2028-03-01T00:00:01Z,purchase,p,99\n",
+            "e000000001,u00,2028-03-01T00:00:00Z,2028-03-01T00:00:00Z,view,p,ignored\n",
+            "e000000001,u1,2028-03-01T00:00:00Z,2028-03-01T00:00:01Z,purchase,p,99\n",
+        );
+        let parts = 1 << ctx.p1_bits;
+        let mut arena = Arena::new();
+        let mut copies: Copies = Pair::new(parts, 48, 32);
+        assert_eq!(parse_events(&ctx, input.as_bytes(), &mut arena, &mut copies), 6);
+        copies.finish(&mut arena);
+        assert_eq!((0..parts).map(|p| copies.a.len(p)).sum::<usize>(), 2);
+        assert_eq!((0..parts).map(|p| copies.b.len(p)).sum::<usize>(), 4);
+        let people = People::build(&[], &ctx.users);
+        let mut out: Persons = Pair::new(parts, 48, 32);
+        let mut once = Vec::new();
+        let mut twice = Vec::new();
+        let mut candidates = Vec::new();
+        let mut table = Vec::new();
+        let mut winners = 0;
+        for part in 0..parts {
+            winners += dedup(&ctx, &people, &[&copies], part, &mut once, &mut twice, &mut candidates, &mut table, &mut arena, &mut out);
+        }
+        out.finish(&mut arena);
+        let mut actual = Vec::new();
+        for part in 0..parts {
+            for record in out.a.slices(part).flatten() {
+                let mut name = Vec::new();
+                ctx.users.bytes_of(Key { hi: 0, lo: record.person }, &mut name);
+                actual.push((name, record.ts, record.payload));
+            }
+            for record in out.b.slices(part).flatten() {
+                let mut name = Vec::new();
+                ctx.users.bytes_of(record.person, &mut name);
+                actual.push((name, record.ts, record.payload));
+            }
+        }
+        actual.sort();
+        assert_eq!(winners, 2);
+        assert_eq!(actual, vec![
+            (b"u00".to_vec(), WEEK_MS as u32, 0),
+            (b"u000000001".to_vec(), WEEK_MS as u32, 0),
+        ]);
+        arena.release();
+    }
+
+    #[test]
+    fn tied_click_attribution_uses_raw_byte_minimum_across_key_tags() {
+        let mut ctx = context();
+        let ids = [
+            b"k0".as_slice(), b"k00", b"k00000000", b"k000000000", b"k00000000000",
+            b"k00000000000000000000000000000000", b"k0123456789abcdef0123456789abcdef",
+            b"kfffffffffffffffe0000000000000000", b"kffffffffffffffff0000000000000000",
+            b"K0", b"k0 ",
+        ];
+        ctx.organic = ids.len() as u32;
+        let mut arena = Arena::new();
+        let parts = 1 << ctx.p2_bits;
+        let mut events: Persons = Pair::new(parts, 48, 32);
+        let mut clicks: Clicks = Pair::new(parts, 48, 32);
+        let person = ctx.users.encode(b"u0");
+        let part = part_of(person, ctx.p2_bits);
+        let ts = WEEK_MS as u32;
+        events.a.push(&mut arena, part, PersonSmall { person: person.lo, ts, payload: 0 });
+        for (campaign, bytes) in ids.iter().enumerate() {
+            let click = ctx.click_ids.encode(bytes);
+            if click.hi == 0 {
+                clicks.a.push(&mut arena, part, ClickSmall { person: person.lo, click: click.lo, ts, campaign: campaign as u32 });
+            } else {
+                clicks.b.push(&mut arena, part, ClickRec { person, click, ts, campaign: campaign as u32 });
+            }
+        }
+        events.finish(&mut arena);
+        clicks.finish(&mut arena);
+        let mut worker = Worker::new(&ctx);
+        worker.partition(&ctx, &[&events], &[&clicks], part);
+        let expected = ids.iter().enumerate().min_by_key(|(_, bytes)| **bytes).unwrap().0;
+        for campaign in 0..=ids.len() {
+            assert_eq!(worker.credit[campaign][0], u64::from(campaign == expected));
+        }
+        assert_eq!(&worker.assist[..ids.len()], vec![1; ids.len()]);
+        arena.release();
     }
 }
