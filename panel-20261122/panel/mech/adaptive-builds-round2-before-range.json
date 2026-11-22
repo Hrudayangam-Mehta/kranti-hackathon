@@ -1,0 +1,69 @@
+{
+  "built_utc": "2026-11-22T09:23:38.882140+00:00",
+  "status": "source held for final independent gates; no publish yet",
+  "base_commit": "099e7e392a863346575d7ef45bb9af3432544329",
+  "bun": "1.4.4",
+  "candidates": [
+    {
+      "candidate": "mech-adaptive",
+      "source_sha256": {
+        "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+        "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "lib/brain.js": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+        "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "lib/economy.js": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+        "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "lib/firecontrol.js": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+        "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+        "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "lib/params.js": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9",
+        "lib/prof.js": "b6f512bd79f615a64e58b24d8a6006f0edc55c0f3c4d62ca7138918b76762155",
+        "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+        "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "bundle_sha256": "0765e00b2fac1aa06deeebd3034319697a40906e2a7a9f7d80aa09c8713bcded",
+      "bundle_bytes": 261628,
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js"
+    },
+    {
+      "candidate": "mech-adaptive-weapons",
+      "source_sha256": {
+        "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+        "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "lib/brain.js": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e",
+        "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "lib/economy.js": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0",
+        "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "lib/firecontrol.js": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f",
+        "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "lib/lightning.js": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c",
+        "lib/loadout.js": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a",
+        "lib/mortar.js": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275",
+        "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+        "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "lib/params.js": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8",
+        "lib/prof.js": "b6f512bd79f615a64e58b24d8a6006f0edc55c0f3c4d62ca7138918b76762155",
+        "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "lib/senses.js": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6",
+        "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "bundle_sha256": "e6f8620db59781e77fd23951245b5749fbfa220161f8057eb41d3d4a8f59879d",
+      "bundle_bytes": 268386,
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js"
+    }
+  ]
+}

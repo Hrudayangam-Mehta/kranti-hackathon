@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-22T08:50:21.006318+00:00",
+  "created_utc": "2026-11-22T09:44:21.630903+00:00",
   "parent_handoff": "99fa3729182ecdb09c49b643c8c00fe167f8c483",
   "files": [
     {
@@ -2783,6 +2783,136 @@
       "sha256": "8073ac0c1a63d48de48e1e79c7e673c001322bed8081bfa8aa0be326151ec6fc"
     },
     {
+      "path": "experiments/bins/Cargo.lock",
+      "bytes": 15431,
+      "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
+    },
+    {
+      "path": "experiments/bins/Cargo.toml",
+      "bytes": 335,
+      "sha256": "71850f5d19e2ac3963bb9da514be249ecb2716557f5a7da7cd19c3d64b150436"
+    },
+    {
+      "path": "experiments/bins/Dockerfile",
+      "bytes": 612,
+      "sha256": "a918b2a54d2248899bfc29e424199cbf1ae12386c51baa1a1c36927b604b7c70"
+    },
+    {
+      "path": "experiments/bins/LICENSE",
+      "bytes": 1074,
+      "sha256": "2838d6d1f7a64a81cbb66d1056cd3425c46b0405b560744c0474f80837bf059e"
+    },
+    {
+      "path": "experiments/bins/src/clicks.rs",
+      "bytes": 964,
+      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0"
+    },
+    {
+      "path": "experiments/bins/src/csv.rs",
+      "bytes": 3137,
+      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e"
+    },
+    {
+      "path": "experiments/bins/src/events.rs",
+      "bytes": 4482,
+      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0"
+    },
+    {
+      "path": "experiments/bins/src/fast/id.rs",
+      "bytes": 13226,
+      "sha256": "f15b5035f4a29f7fa6caee20bc49327676846bbf59a82b6e6f04617eefb40c2a"
+    },
+    {
+      "path": "experiments/bins/src/fast/keys.rs",
+      "bytes": 7459,
+      "sha256": "717709c6e54dce7fef7b5f1267378b4f6cbb3f5f3a626de4bea6fb8775721843"
+    },
+    {
+      "path": "experiments/bins/src/fast/mod.rs",
+      "bytes": 66558,
+      "sha256": "f387bb17c4367bcab12b5dcc98679bbaf7ea44384c980aef4ba6a612feb2cca2"
+    },
+    {
+      "path": "experiments/bins/src/fast/parquet.rs",
+      "bytes": 7761,
+      "sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c"
+    },
+    {
+      "path": "experiments/bins/src/fast/people.rs",
+      "bytes": 5373,
+      "sha256": "a7fcff1cd778eef5cd4abef0abfdb7a2687d7cd52225f3f2dbbaa57f0634f73e"
+    },
+    {
+      "path": "experiments/bins/src/fast/scan.rs",
+      "bytes": 30621,
+      "sha256": "a89baf4f199a3feee7028b98a0c9cb2c98c3acddd21b242c99fe0fbd2143bb59"
+    },
+    {
+      "path": "experiments/bins/src/fast/sink.rs",
+      "bytes": 9691,
+      "sha256": "44068bc5c4affa5d66c035a3b641cb46eda2fcc00c0c7f5d72d9d05f6d0d1e48"
+    },
+    {
+      "path": "experiments/bins/src/fast/trace.rs",
+      "bytes": 2656,
+      "sha256": "ddc3c4abb9c8680f19a847950ed712ad7c9c4eade9cf13740e20a7fa930e21bb"
+    },
+    {
+      "path": "experiments/bins/src/fast/ts.rs",
+      "bytes": 12266,
+      "sha256": "b4ddc928e97ab5f3292510f4012721125b6d8a4cf7a860543065404d183c61fa"
+    },
+    {
+      "path": "experiments/bins/src/fast/write.rs",
+      "bytes": 6964,
+      "sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5"
+    },
+    {
+      "path": "experiments/bins/src/hash.rs",
+      "bytes": 1693,
+      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8"
+    },
+    {
+      "path": "experiments/bins/src/input.rs",
+      "bytes": 5010,
+      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113"
+    },
+    {
+      "path": "experiments/bins/src/links.rs",
+      "bytes": 4348,
+      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b"
+    },
+    {
+      "path": "experiments/bins/src/main.rs",
+      "bytes": 1824,
+      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37"
+    },
+    {
+      "path": "experiments/bins/src/manifest.rs",
+      "bytes": 6780,
+      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590"
+    },
+    {
+      "path": "experiments/bins/src/output.rs",
+      "bytes": 4750,
+      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8"
+    },
+    {
+      "path": "experiments/bins/src/sessions.rs",
+      "bytes": 7888,
+      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3"
+    },
+    {
+      "path": "experiments/bins/src/slow.rs",
+      "bytes": 9785,
+      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e"
+    },
+    {
+      "path": "experiments/bins/src/time.rs",
+      "bytes": 5851,
+      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
+    },
+    {
       "path": "experiments/bins-flat/Cargo.lock",
       "bytes": 15431,
       "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
@@ -3169,136 +3299,6 @@
     },
     {
       "path": "experiments/bins-purchases/src/time.rs",
-      "bytes": 5851,
-      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
-    },
-    {
-      "path": "experiments/bins/Cargo.lock",
-      "bytes": 15431,
-      "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
-    },
-    {
-      "path": "experiments/bins/Cargo.toml",
-      "bytes": 335,
-      "sha256": "71850f5d19e2ac3963bb9da514be249ecb2716557f5a7da7cd19c3d64b150436"
-    },
-    {
-      "path": "experiments/bins/Dockerfile",
-      "bytes": 612,
-      "sha256": "a918b2a54d2248899bfc29e424199cbf1ae12386c51baa1a1c36927b604b7c70"
-    },
-    {
-      "path": "experiments/bins/LICENSE",
-      "bytes": 1074,
-      "sha256": "2838d6d1f7a64a81cbb66d1056cd3425c46b0405b560744c0474f80837bf059e"
-    },
-    {
-      "path": "experiments/bins/src/clicks.rs",
-      "bytes": 964,
-      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0"
-    },
-    {
-      "path": "experiments/bins/src/csv.rs",
-      "bytes": 3137,
-      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e"
-    },
-    {
-      "path": "experiments/bins/src/events.rs",
-      "bytes": 4482,
-      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0"
-    },
-    {
-      "path": "experiments/bins/src/fast/id.rs",
-      "bytes": 13226,
-      "sha256": "f15b5035f4a29f7fa6caee20bc49327676846bbf59a82b6e6f04617eefb40c2a"
-    },
-    {
-      "path": "experiments/bins/src/fast/keys.rs",
-      "bytes": 7459,
-      "sha256": "717709c6e54dce7fef7b5f1267378b4f6cbb3f5f3a626de4bea6fb8775721843"
-    },
-    {
-      "path": "experiments/bins/src/fast/mod.rs",
-      "bytes": 66558,
-      "sha256": "f387bb17c4367bcab12b5dcc98679bbaf7ea44384c980aef4ba6a612feb2cca2"
-    },
-    {
-      "path": "experiments/bins/src/fast/parquet.rs",
-      "bytes": 7761,
-      "sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c"
-    },
-    {
-      "path": "experiments/bins/src/fast/people.rs",
-      "bytes": 5373,
-      "sha256": "a7fcff1cd778eef5cd4abef0abfdb7a2687d7cd52225f3f2dbbaa57f0634f73e"
-    },
-    {
-      "path": "experiments/bins/src/fast/scan.rs",
-      "bytes": 30621,
-      "sha256": "a89baf4f199a3feee7028b98a0c9cb2c98c3acddd21b242c99fe0fbd2143bb59"
-    },
-    {
-      "path": "experiments/bins/src/fast/sink.rs",
-      "bytes": 9691,
-      "sha256": "44068bc5c4affa5d66c035a3b641cb46eda2fcc00c0c7f5d72d9d05f6d0d1e48"
-    },
-    {
-      "path": "experiments/bins/src/fast/trace.rs",
-      "bytes": 2656,
-      "sha256": "ddc3c4abb9c8680f19a847950ed712ad7c9c4eade9cf13740e20a7fa930e21bb"
-    },
-    {
-      "path": "experiments/bins/src/fast/ts.rs",
-      "bytes": 12266,
-      "sha256": "b4ddc928e97ab5f3292510f4012721125b6d8a4cf7a860543065404d183c61fa"
-    },
-    {
-      "path": "experiments/bins/src/fast/write.rs",
-      "bytes": 6964,
-      "sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5"
-    },
-    {
-      "path": "experiments/bins/src/hash.rs",
-      "bytes": 1693,
-      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8"
-    },
-    {
-      "path": "experiments/bins/src/input.rs",
-      "bytes": 5010,
-      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113"
-    },
-    {
-      "path": "experiments/bins/src/links.rs",
-      "bytes": 4348,
-      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b"
-    },
-    {
-      "path": "experiments/bins/src/main.rs",
-      "bytes": 1824,
-      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37"
-    },
-    {
-      "path": "experiments/bins/src/manifest.rs",
-      "bytes": 6780,
-      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590"
-    },
-    {
-      "path": "experiments/bins/src/output.rs",
-      "bytes": 4750,
-      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8"
-    },
-    {
-      "path": "experiments/bins/src/sessions.rs",
-      "bytes": 7888,
-      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3"
-    },
-    {
-      "path": "experiments/bins/src/slow.rs",
-      "bytes": 9785,
-      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e"
-    },
-    {
-      "path": "experiments/bins/src/time.rs",
       "bytes": 5851,
       "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
     },
@@ -3819,6 +3819,136 @@
     },
     {
       "path": "experiments/deep24/src/time.rs",
+      "bytes": 5851,
+      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
+    },
+    {
+      "path": "experiments/dense/Cargo.lock",
+      "bytes": 15431,
+      "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
+    },
+    {
+      "path": "experiments/dense/Cargo.toml",
+      "bytes": 335,
+      "sha256": "71850f5d19e2ac3963bb9da514be249ecb2716557f5a7da7cd19c3d64b150436"
+    },
+    {
+      "path": "experiments/dense/Dockerfile",
+      "bytes": 612,
+      "sha256": "a918b2a54d2248899bfc29e424199cbf1ae12386c51baa1a1c36927b604b7c70"
+    },
+    {
+      "path": "experiments/dense/LICENSE",
+      "bytes": 1074,
+      "sha256": "2838d6d1f7a64a81cbb66d1056cd3425c46b0405b560744c0474f80837bf059e"
+    },
+    {
+      "path": "experiments/dense/src/clicks.rs",
+      "bytes": 964,
+      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0"
+    },
+    {
+      "path": "experiments/dense/src/csv.rs",
+      "bytes": 3137,
+      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e"
+    },
+    {
+      "path": "experiments/dense/src/events.rs",
+      "bytes": 4482,
+      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0"
+    },
+    {
+      "path": "experiments/dense/src/fast/id.rs",
+      "bytes": 14299,
+      "sha256": "558d24946bf72537d2cf29ac8d52389bc615e66e3166aa23ace6f6d0b00da104"
+    },
+    {
+      "path": "experiments/dense/src/fast/keys.rs",
+      "bytes": 7459,
+      "sha256": "717709c6e54dce7fef7b5f1267378b4f6cbb3f5f3a626de4bea6fb8775721843"
+    },
+    {
+      "path": "experiments/dense/src/fast/mod.rs",
+      "bytes": 76258,
+      "sha256": "76d3084966e3b00883f7ab89cd3a8285076736990ed71b9426a6f1d902d7a51b"
+    },
+    {
+      "path": "experiments/dense/src/fast/parquet.rs",
+      "bytes": 7761,
+      "sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c"
+    },
+    {
+      "path": "experiments/dense/src/fast/people.rs",
+      "bytes": 8529,
+      "sha256": "224be9934fb5952dcd1f8e0a7fcef2e4865bd316695a111cdaaabe2bcd38a42a"
+    },
+    {
+      "path": "experiments/dense/src/fast/scan.rs",
+      "bytes": 30752,
+      "sha256": "d14d6b913f6210c00f1ce7db6cff6fe5391d1a482125f22eaa6f7c88f9ec191f"
+    },
+    {
+      "path": "experiments/dense/src/fast/sink.rs",
+      "bytes": 9691,
+      "sha256": "44068bc5c4affa5d66c035a3b641cb46eda2fcc00c0c7f5d72d9d05f6d0d1e48"
+    },
+    {
+      "path": "experiments/dense/src/fast/trace.rs",
+      "bytes": 2656,
+      "sha256": "ddc3c4abb9c8680f19a847950ed712ad7c9c4eade9cf13740e20a7fa930e21bb"
+    },
+    {
+      "path": "experiments/dense/src/fast/ts.rs",
+      "bytes": 12266,
+      "sha256": "b4ddc928e97ab5f3292510f4012721125b6d8a4cf7a860543065404d183c61fa"
+    },
+    {
+      "path": "experiments/dense/src/fast/write.rs",
+      "bytes": 6964,
+      "sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5"
+    },
+    {
+      "path": "experiments/dense/src/hash.rs",
+      "bytes": 1693,
+      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8"
+    },
+    {
+      "path": "experiments/dense/src/input.rs",
+      "bytes": 5010,
+      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113"
+    },
+    {
+      "path": "experiments/dense/src/links.rs",
+      "bytes": 4348,
+      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b"
+    },
+    {
+      "path": "experiments/dense/src/main.rs",
+      "bytes": 1824,
+      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37"
+    },
+    {
+      "path": "experiments/dense/src/manifest.rs",
+      "bytes": 6780,
+      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590"
+    },
+    {
+      "path": "experiments/dense/src/output.rs",
+      "bytes": 4750,
+      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8"
+    },
+    {
+      "path": "experiments/dense/src/sessions.rs",
+      "bytes": 7888,
+      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3"
+    },
+    {
+      "path": "experiments/dense/src/slow.rs",
+      "bytes": 9785,
+      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e"
+    },
+    {
+      "path": "experiments/dense/src/time.rs",
       "bytes": 5851,
       "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
     },
@@ -5243,134 +5373,464 @@
       "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
     },
     {
-      "path": "experiments/dense/Cargo.lock",
-      "bytes": 15431,
-      "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
+      "path": "experiments/mech-adaptive/bot/Dockerfile",
+      "bytes": 496,
+      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
     },
     {
-      "path": "experiments/dense/Cargo.toml",
-      "bytes": 335,
-      "sha256": "71850f5d19e2ac3963bb9da514be249ecb2716557f5a7da7cd19c3d64b150436"
+      "path": "experiments/mech-adaptive/bot/bot.js",
+      "bytes": 9494,
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
     },
     {
-      "path": "experiments/dense/Dockerfile",
-      "bytes": 612,
-      "sha256": "a918b2a54d2248899bfc29e424199cbf1ae12386c51baa1a1c36927b604b7c70"
+      "path": "experiments/mech-adaptive/bot/lib/aim.js",
+      "bytes": 6866,
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
     },
     {
-      "path": "experiments/dense/LICENSE",
-      "bytes": 1074,
-      "sha256": "2838d6d1f7a64a81cbb66d1056cd3425c46b0405b560744c0474f80837bf059e"
+      "path": "experiments/mech-adaptive/bot/lib/aimcal.js",
+      "bytes": 4803,
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
     },
     {
-      "path": "experiments/dense/src/clicks.rs",
-      "bytes": 964,
-      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0"
+      "path": "experiments/mech-adaptive/bot/lib/brain.js",
+      "bytes": 45779,
+      "sha256": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c"
     },
     {
-      "path": "experiments/dense/src/csv.rs",
-      "bytes": 3137,
-      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e"
+      "path": "experiments/mech-adaptive/bot/lib/counters.js",
+      "bytes": 51014,
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
     },
     {
-      "path": "experiments/dense/src/events.rs",
-      "bytes": 4482,
-      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0"
+      "path": "experiments/mech-adaptive/bot/lib/economy.js",
+      "bytes": 20470,
+      "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
     },
     {
-      "path": "experiments/dense/src/fast/id.rs",
-      "bytes": 14299,
-      "sha256": "558d24946bf72537d2cf29ac8d52389bc615e66e3166aa23ace6f6d0b00da104"
+      "path": "experiments/mech-adaptive/bot/lib/ffa.js",
+      "bytes": 30286,
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
     },
     {
-      "path": "experiments/dense/src/fast/keys.rs",
-      "bytes": 7459,
-      "sha256": "717709c6e54dce7fef7b5f1267378b4f6cbb3f5f3a626de4bea6fb8775721843"
+      "path": "experiments/mech-adaptive/bot/lib/firecontrol.js",
+      "bytes": 23876,
+      "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb"
     },
     {
-      "path": "experiments/dense/src/fast/mod.rs",
-      "bytes": 76258,
-      "sha256": "76d3084966e3b00883f7ab89cd3a8285076736990ed71b9426a6f1d902d7a51b"
+      "path": "experiments/mech-adaptive/bot/lib/hunt.js",
+      "bytes": 16534,
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
     },
     {
-      "path": "experiments/dense/src/fast/parquet.rs",
-      "bytes": 7761,
-      "sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c"
+      "path": "experiments/mech-adaptive/bot/lib/io.js",
+      "bytes": 1784,
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
     },
     {
-      "path": "experiments/dense/src/fast/people.rs",
-      "bytes": 8529,
-      "sha256": "224be9934fb5952dcd1f8e0a7fcef2e4865bd316695a111cdaaabe2bcd38a42a"
+      "path": "experiments/mech-adaptive/bot/lib/mover.js",
+      "bytes": 29516,
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
     },
     {
-      "path": "experiments/dense/src/fast/scan.rs",
-      "bytes": 30752,
-      "sha256": "d14d6b913f6210c00f1ce7db6cff6fe5391d1a482125f22eaa6f7c88f9ec191f"
+      "path": "experiments/mech-adaptive/bot/lib/nav.js",
+      "bytes": 45801,
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
     },
     {
-      "path": "experiments/dense/src/fast/sink.rs",
-      "bytes": 9691,
-      "sha256": "44068bc5c4affa5d66c035a3b641cb46eda2fcc00c0c7f5d72d9d05f6d0d1e48"
+      "path": "experiments/mech-adaptive/bot/lib/params.js",
+      "bytes": 33246,
+      "sha256": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9"
     },
     {
-      "path": "experiments/dense/src/fast/trace.rs",
-      "bytes": 2656,
-      "sha256": "ddc3c4abb9c8680f19a847950ed712ad7c9c4eade9cf13740e20a7fa930e21bb"
+      "path": "experiments/mech-adaptive/bot/lib/prof.js",
+      "bytes": 50272,
+      "sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06"
     },
     {
-      "path": "experiments/dense/src/fast/ts.rs",
-      "bytes": 12266,
-      "sha256": "b4ddc928e97ab5f3292510f4012721125b6d8a4cf7a860543065404d183c61fa"
+      "path": "experiments/mech-adaptive/bot/lib/scan.js",
+      "bytes": 6962,
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
     },
     {
-      "path": "experiments/dense/src/fast/write.rs",
-      "bytes": 6964,
-      "sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5"
+      "path": "experiments/mech-adaptive/bot/lib/senses.js",
+      "bytes": 26659,
+      "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
     },
     {
-      "path": "experiments/dense/src/hash.rs",
-      "bytes": 1693,
-      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8"
+      "path": "experiments/mech-adaptive/bot/lib/stance.js",
+      "bytes": 15191,
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
     },
     {
-      "path": "experiments/dense/src/input.rs",
-      "bytes": 5010,
-      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113"
+      "path": "experiments/mech-adaptive/bot/lib/steal.js",
+      "bytes": 26968,
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
     },
     {
-      "path": "experiments/dense/src/links.rs",
-      "bytes": 4348,
-      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b"
+      "path": "experiments/mech-adaptive/bot/lib/tactics.js",
+      "bytes": 44134,
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
     },
     {
-      "path": "experiments/dense/src/main.rs",
-      "bytes": 1824,
-      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37"
+      "path": "experiments/mech-adaptive/bot/lib/world.js",
+      "bytes": 31404,
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
     },
     {
-      "path": "experiments/dense/src/manifest.rs",
-      "bytes": 6780,
-      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590"
+      "path": "experiments/mech-adaptive-r2/UNPROMOTED.txt",
+      "bytes": 182,
+      "sha256": "4a350ce3a7bcdcb7f0e3ede000ec784dde5b6b25288b38b3e498f790658495ca"
     },
     {
-      "path": "experiments/dense/src/output.rs",
-      "bytes": 4750,
-      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8"
+      "path": "experiments/mech-adaptive-r2/bot/Dockerfile",
+      "bytes": 496,
+      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
     },
     {
-      "path": "experiments/dense/src/sessions.rs",
-      "bytes": 7888,
-      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3"
+      "path": "experiments/mech-adaptive-r2/bot/bot.js",
+      "bytes": 9494,
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
     },
     {
-      "path": "experiments/dense/src/slow.rs",
-      "bytes": 9785,
-      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e"
+      "path": "experiments/mech-adaptive-r2/bot/lib/aim.js",
+      "bytes": 6866,
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
     },
     {
-      "path": "experiments/dense/src/time.rs",
-      "bytes": 5851,
-      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
+      "path": "experiments/mech-adaptive-r2/bot/lib/aimcal.js",
+      "bytes": 4803,
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/brain.js",
+      "bytes": 45779,
+      "sha256": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/counters.js",
+      "bytes": 51014,
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/economy.js",
+      "bytes": 20470,
+      "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/ffa.js",
+      "bytes": 30286,
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/firecontrol.js",
+      "bytes": 23876,
+      "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/hunt.js",
+      "bytes": 16534,
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/io.js",
+      "bytes": 1784,
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/mover.js",
+      "bytes": 29516,
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/nav.js",
+      "bytes": 45801,
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/params.js",
+      "bytes": 33246,
+      "sha256": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/prof.js",
+      "bytes": 49111,
+      "sha256": "b6f512bd79f615a64e58b24d8a6006f0edc55c0f3c4d62ca7138918b76762155"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/scan.js",
+      "bytes": 6962,
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/senses.js",
+      "bytes": 26659,
+      "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/stance.js",
+      "bytes": 15191,
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/steal.js",
+      "bytes": 26968,
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/tactics.js",
+      "bytes": 44134,
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+    },
+    {
+      "path": "experiments/mech-adaptive-r2/bot/lib/world.js",
+      "bytes": 31404,
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/Dockerfile",
+      "bytes": 496,
+      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/bot.js",
+      "bytes": 9494,
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/aim.js",
+      "bytes": 6866,
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/aimcal.js",
+      "bytes": 4803,
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/brain.js",
+      "bytes": 45867,
+      "sha256": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/counters.js",
+      "bytes": 51014,
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/economy.js",
+      "bytes": 20658,
+      "sha256": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/ffa.js",
+      "bytes": 30286,
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/firecontrol.js",
+      "bytes": 24089,
+      "sha256": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/hunt.js",
+      "bytes": 16534,
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/io.js",
+      "bytes": 1784,
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/lightning.js",
+      "bytes": 2181,
+      "sha256": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/loadout.js",
+      "bytes": 7657,
+      "sha256": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/mortar.js",
+      "bytes": 1636,
+      "sha256": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/mover.js",
+      "bytes": 29516,
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/nav.js",
+      "bytes": 45801,
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/params.js",
+      "bytes": 33273,
+      "sha256": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/prof.js",
+      "bytes": 50272,
+      "sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/scan.js",
+      "bytes": 6962,
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/senses.js",
+      "bytes": 26806,
+      "sha256": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/stance.js",
+      "bytes": 15191,
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/steal.js",
+      "bytes": 26968,
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/tactics.js",
+      "bytes": 44134,
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons/bot/lib/world.js",
+      "bytes": 31404,
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/UNPROMOTED.txt",
+      "bytes": 182,
+      "sha256": "4a350ce3a7bcdcb7f0e3ede000ec784dde5b6b25288b38b3e498f790658495ca"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/Dockerfile",
+      "bytes": 496,
+      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/bot.js",
+      "bytes": 9494,
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/aim.js",
+      "bytes": 6866,
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/aimcal.js",
+      "bytes": 4803,
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/brain.js",
+      "bytes": 45867,
+      "sha256": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/counters.js",
+      "bytes": 51014,
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/economy.js",
+      "bytes": 20658,
+      "sha256": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/ffa.js",
+      "bytes": 30286,
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/firecontrol.js",
+      "bytes": 24089,
+      "sha256": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/hunt.js",
+      "bytes": 16534,
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/io.js",
+      "bytes": 1784,
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/lightning.js",
+      "bytes": 2181,
+      "sha256": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/loadout.js",
+      "bytes": 7657,
+      "sha256": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/mortar.js",
+      "bytes": 1636,
+      "sha256": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/mover.js",
+      "bytes": 29516,
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/nav.js",
+      "bytes": 45801,
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/params.js",
+      "bytes": 33273,
+      "sha256": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/prof.js",
+      "bytes": 49111,
+      "sha256": "b6f512bd79f615a64e58b24d8a6006f0edc55c0f3c4d62ca7138918b76762155"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/scan.js",
+      "bytes": 6962,
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/senses.js",
+      "bytes": 26806,
+      "sha256": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/stance.js",
+      "bytes": 15191,
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/steal.js",
+      "bytes": 26968,
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/tactics.js",
+      "bytes": 44134,
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+    },
+    {
+      "path": "experiments/mech-adaptive-weapons-r2/bot/lib/world.js",
+      "bytes": 31404,
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
     },
     {
       "path": "experiments/mech-burst-cycle/bot/Dockerfile",
@@ -6253,6 +6713,116 @@
       "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
     },
     {
+      "path": "experiments/mech-pressure/bot/Dockerfile",
+      "bytes": 496,
+      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/bot.js",
+      "bytes": 9494,
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/aim.js",
+      "bytes": 6866,
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/aimcal.js",
+      "bytes": 4803,
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/brain.js",
+      "bytes": 46307,
+      "sha256": "e9b2b9ef5fa18c3b97024afbf906b931d491bbbb720d1eb31837587dacb9044f"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/counters.js",
+      "bytes": 51014,
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/economy.js",
+      "bytes": 20470,
+      "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/ffa.js",
+      "bytes": 30286,
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/firecontrol.js",
+      "bytes": 23897,
+      "sha256": "af9eac6e3970d566d38c1119154d523905c51f7fe8feeec4b86d16a822c5cd47"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/hunt.js",
+      "bytes": 16534,
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/io.js",
+      "bytes": 1784,
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/mover.js",
+      "bytes": 29516,
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/nav.js",
+      "bytes": 45801,
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/params.js",
+      "bytes": 33110,
+      "sha256": "34f9fff0b131ec3dacc0c761d3eb8602fc794cd5cd7ba48cfad53bc0b3f9d713"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/pressure.js",
+      "bytes": 13574,
+      "sha256": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/prof.js",
+      "bytes": 34129,
+      "sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/scan.js",
+      "bytes": 6962,
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/senses.js",
+      "bytes": 26659,
+      "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/stance.js",
+      "bytes": 15191,
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/steal.js",
+      "bytes": 26968,
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/tactics.js",
+      "bytes": 44134,
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+    },
+    {
+      "path": "experiments/mech-pressure/bot/lib/world.js",
+      "bytes": 31404,
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    },
+    {
       "path": "experiments/mech-pressure-cycle/bot/Dockerfile",
       "bytes": 496,
       "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
@@ -6483,116 +7053,6 @@
       "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
     },
     {
-      "path": "experiments/mech-pressure/bot/Dockerfile",
-      "bytes": 496,
-      "sha256": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/bot.js",
-      "bytes": 9494,
-      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/aim.js",
-      "bytes": 6866,
-      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/aimcal.js",
-      "bytes": 4803,
-      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/brain.js",
-      "bytes": 46307,
-      "sha256": "e9b2b9ef5fa18c3b97024afbf906b931d491bbbb720d1eb31837587dacb9044f"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/counters.js",
-      "bytes": 51014,
-      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/economy.js",
-      "bytes": 20470,
-      "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/ffa.js",
-      "bytes": 30286,
-      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/firecontrol.js",
-      "bytes": 23897,
-      "sha256": "af9eac6e3970d566d38c1119154d523905c51f7fe8feeec4b86d16a822c5cd47"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/hunt.js",
-      "bytes": 16534,
-      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/io.js",
-      "bytes": 1784,
-      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/mover.js",
-      "bytes": 29516,
-      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/nav.js",
-      "bytes": 45801,
-      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/params.js",
-      "bytes": 33110,
-      "sha256": "34f9fff0b131ec3dacc0c761d3eb8602fc794cd5cd7ba48cfad53bc0b3f9d713"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/pressure.js",
-      "bytes": 13574,
-      "sha256": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/prof.js",
-      "bytes": 34129,
-      "sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/scan.js",
-      "bytes": 6962,
-      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/senses.js",
-      "bytes": 26659,
-      "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/stance.js",
-      "bytes": 15191,
-      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/steal.js",
-      "bytes": 26968,
-      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/tactics.js",
-      "bytes": 44134,
-      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
-    },
-    {
-      "path": "experiments/mech-pressure/bot/lib/world.js",
-      "bytes": 31404,
-      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
-    },
-    {
       "path": "experiments/people/Cargo.lock",
       "bytes": 15431,
       "sha256": "436e780cc42a71242bd8f384873c6b9431fb77393ac1498e4a71398b3ba44594"
@@ -6724,8 +7184,8 @@
     },
     {
       "path": "panel/RELEASES.md",
-      "bytes": 8250,
-      "sha256": "7c56154dd9846e12f3a4f0cb279ca8f859d508bcd88dece2bcddafe4174f9f8c"
+      "bytes": 7335,
+      "sha256": "8906681f2353a945b47ef232f8cf2b6f76735396c8302aa724f4db661a3707e6"
     },
     {
       "path": "panel/RESEARCH_NOTES.md",
@@ -7523,9 +7983,34 @@
       "sha256": "edc6c9a3d893a46f069e058a628f4688d1b0f2149b980a501f866a44ecbb54e3"
     },
     {
-      "path": "panel/mech-announcements.md",
-      "bytes": 9556,
-      "sha256": "cb150180d324d9ae75369a7670ceb8e6e4802f5b2cf4f1248c012a50cabe30e5"
+      "path": "panel/evidence-fresh-clone.json",
+      "bytes": 737,
+      "sha256": "d34a9bc9a188acd34c2c2dd41f9375eeed7054c42ddaab74ba015b89d6dd3841"
+    },
+    {
+      "path": "panel/evidence-preflight.json",
+      "bytes": 446,
+      "sha256": "d434c818a40e7d3be71dcb6be5390d70802b2d58f418fe2556628db426211523"
+    },
+    {
+      "path": "panel/evidence-published.json",
+      "bytes": 385,
+      "sha256": "06d2ed03ffcc66a018755f7e1fe29121f6d58ef163f1e550a04bece11545586d"
+    },
+    {
+      "path": "panel/mech/ADAPTIVE_FINAL_REVIEW.md",
+      "bytes": 14928,
+      "sha256": "82e4c40348aae740041cdf5e0651437012a88a0686bcb1c26fb7f595b0e40379"
+    },
+    {
+      "path": "panel/mech/ADAPTIVE_POLICY_REVIEW.md",
+      "bytes": 14699,
+      "sha256": "f23904fdf62c1bf443015fbe37b132754bfef992036351fe30f33ffd48d80c3f"
+    },
+    {
+      "path": "panel/mech/ADAPTIVE_RELEASE.md",
+      "bytes": 21173,
+      "sha256": "4f4f0cd029c6d6838cb30090c30198aa5bfac806b1c2b2d818658da224b01acd"
     },
     {
       "path": "panel/mech/FINAL_MECH_COMPARISON.md",
@@ -7556,6 +8041,646 @@
       "path": "panel/mech/WEAPON_REVIEW.md",
       "bytes": 21918,
       "sha256": "e54cc0aa206256570f5c5e01f617a5c436a33263f5b03fd611085ee2305993ee"
+    },
+    {
+      "path": "panel/mech/adaptive-active300-complete.json",
+      "bytes": 15471,
+      "sha256": "7d60a02324cf11bfc1e0ff89a8ecf6bf81e06a5edb928ddcb458ebb07a60431b"
+    },
+    {
+      "path": "panel/mech/adaptive-active300-complete.jsonl.gz",
+      "bytes": 11965,
+      "sha256": "8c2ebd77e1a8c6a1dc749aa270c8971e6444534c87fe680b542fded266268322"
+    },
+    {
+      "path": "panel/mech/adaptive-active300-complete.observations.jsonl",
+      "bytes": 477213,
+      "sha256": "2e205758b76543af3eda22834f8ef38c682daef84bf764fe03c321daa04dcb5e"
+    },
+    {
+      "path": "panel/mech/adaptive-active300-complete.protocol-schema.json",
+      "bytes": 656,
+      "sha256": "081227113407260fdf5f2d009ab2d5e729a4f0702944e2c15b34c759600cbccd"
+    },
+    {
+      "path": "panel/mech/adaptive-backend-acceptance.json",
+      "bytes": 25255,
+      "sha256": "eb07a888ed4963a498e6f430580005b0984ec7685eea6ae5ce2a62020f634dd3"
+    },
+    {
+      "path": "panel/mech/adaptive-builds-round2-before-range.json",
+      "bytes": 4965,
+      "sha256": "46fda4cb389ab0f0b8ebce55fcc20d38f5978b25403d050f1c0972c1ea111532"
+    },
+    {
+      "path": "panel/mech/adaptive-builds.json",
+      "bytes": 4962,
+      "sha256": "0a911a2a0ac022c2dadf00c5a57a02e230fd0859c9788dfc6cd06d6349b305fa"
+    },
+    {
+      "path": "panel/mech/adaptive-contact-stream.json",
+      "bytes": 14647,
+      "sha256": "944804a4c93c96bde7d890525192b08078b3cb321c41c29a3ec2d69471caf1f4"
+    },
+    {
+      "path": "panel/mech/adaptive-contact-stream.jsonl.gz",
+      "bytes": 15556,
+      "sha256": "2db53d3edff1c4170796a4069bfb67316477ff7f6aa2e13ed1edfe1a9fc54ff8"
+    },
+    {
+      "path": "panel/mech/adaptive-contact-stream.observations.jsonl",
+      "bytes": 477213,
+      "sha256": "2e205758b76543af3eda22834f8ef38c682daef84bf764fe03c321daa04dcb5e"
+    },
+    {
+      "path": "panel/mech/adaptive-contact-stream.schema.json",
+      "bytes": 504,
+      "sha256": "381daf8f4834dfd959a86500db327704cef757c364a1ad0efa95610d99ca8ab5"
+    },
+    {
+      "path": "panel/mech/adaptive-corrected-active-gate.py",
+      "bytes": 7461,
+      "sha256": "8997dbae0af1aae8177bc71eefe38894d134f529a76536c0b27111f52cb02f19"
+    },
+    {
+      "path": "panel/mech/adaptive-cross-mode-cases.json",
+      "bytes": 48149,
+      "sha256": "832bf2c4a16d8472c96cdf75c9d25fcf375ad6f6be0873b339c91f28ae6b8135"
+    },
+    {
+      "path": "panel/mech/adaptive-cross-mode-cases.mjs",
+      "bytes": 9296,
+      "sha256": "99ebeeb509aa9a6e56e0b6e9eeb7fba2beb466be74f2d4e24f2402a5ecef19c6"
+    },
+    {
+      "path": "panel/mech/adaptive-evidence-preflight.json",
+      "bytes": 756,
+      "sha256": "510f274f167937887fc633ac54acf2377d3cd3131cb73a325dcd50eafc14873f"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/CORRECTION.md",
+      "bytes": 1765,
+      "sha256": "7bd28e88b06cd0a0d914d1ac33b6f942a06a9fe8b17b42f6771346b2515e5fc3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/results.json",
+      "bytes": 40200,
+      "sha256": "c1399735460d9503627bfde86c1a3d8eb43ba463bf11ddac883a9abd92843a53"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-active-bot.log",
+      "bytes": 163,
+      "sha256": "b3ba5648ba4e6094a126b7258528cf08f517f6a75f5f630776ff0c419e6a65fa"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-active.log",
+      "bytes": 747,
+      "sha256": "5f6cf051d4e96bd7da8b56a870cede34be4eacb20ab94b975ff4dfe614d83d73"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-weapons-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-weapons-active-bot.log",
+      "bytes": 162,
+      "sha256": "b9ae28c3168b25b01adb4f44770fe0be2761aad3a17aced42c1423be01e75da1"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-adaptive-weapons-active.log",
+      "bytes": 757,
+      "sha256": "5260271fa7456472167ccfb3e05e9bd10b5b339bb4684e7f7ac6301a59d7a17b"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-capture-active-actions.jsonl",
+      "bytes": 27375,
+      "sha256": "fd39092a5dc25c73c4bdb552d04ad08592df9d611659a55a35aa4504714a1c06"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-capture-active-bot.log",
+      "bytes": 162,
+      "sha256": "01d93ea59603ea07ca81e6f9e043f1ebc1b070e56b3e93bfa5e56e0ae21d7010"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round1-capture-active.log",
+      "bytes": 748,
+      "sha256": "85737f52ff8a480944b4c7d650216c129274a3b3ff3719f10ac69f5d4cd30e6a"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-active-bot.log",
+      "bytes": 163,
+      "sha256": "0b9396b0cc00428cb4dca285f61eac33d7f8c31c1a673646ce2413d19811d992"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-active.log",
+      "bytes": 749,
+      "sha256": "6ce456ac730a6303ba8e20d4528147a9c9e3539195d0997c75345a5293e7afef"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-weapons-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-weapons-active-bot.log",
+      "bytes": 162,
+      "sha256": "9d614a8127fda166bce1a7062c141bae5d68f1a7a086c390939c3119473bb14b"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-adaptive-weapons-active.log",
+      "bytes": 756,
+      "sha256": "4cd26b97a02455a2f5147fb179315cae1fffb71e87638958c0c418c7c5d59e8d"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-capture-active-actions.jsonl",
+      "bytes": 27375,
+      "sha256": "fd39092a5dc25c73c4bdb552d04ad08592df9d611659a55a35aa4504714a1c06"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-capture-active-bot.log",
+      "bytes": 163,
+      "sha256": "4317ac0138ab342ddcd23c0fe92e109382fcff8387e45f22f721eb77142c555f"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/corrected-active/round2-capture-active.log",
+      "bytes": 748,
+      "sha256": "464ca31eb9f1f24cb265203606814e48bdbd04ebe4c55d25a610d05453d6df38"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/organizer-adaptive-weapons.log",
+      "bytes": 712,
+      "sha256": "6ed998b47d20b1fbbf2b238861255144d0ec99c15c764291d5256d8bf17052ee"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/organizer-adaptive.log",
+      "bytes": 704,
+      "sha256": "f3e4e20d12d57205eedcec0618bd58888bbbec7059f0c694471b1c3daa2c5029"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/release-validation-status.json",
+      "bytes": 13032,
+      "sha256": "9930313d28bbedf9c82e33c15764ebfc1a318b7f8072b91b694581fe4f4543fc"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/results.json",
+      "bytes": 82052,
+      "sha256": "c8d1f21280f0a84ffaae20ff5e8b37ac120e1b884f4621b8f84c865fca684515"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-active-bot.log",
+      "bytes": 98,
+      "sha256": "306c6d4bf6a9ba8840c7a861d7c9c711c57d367f082d5c3a4371d651e3fb7821"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-active.log",
+      "bytes": 853,
+      "sha256": "2de45198e33641f63cca59ea7246bd3ad52430dcb4d169c053881ef8c1695a9c"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-official-actions.jsonl",
+      "bytes": 27809,
+      "sha256": "eafa473d29ebddd93980f988fa62edd8df80256d575e605c0f562c9e16ed3b53"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-official-bot.log",
+      "bytes": 226,
+      "sha256": "e9358c6c9f5106cef0a9b735f67be2d19ff93befb0cd1ac0ecb91426fb83318b"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-official.log",
+      "bytes": 748,
+      "sha256": "0fe1a681c4df5cf372af39f29463f8fe3cd2bd646cacc282bc51889151fadeed"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-active-bot.log",
+      "bytes": 97,
+      "sha256": "e4920668f2951bce1b2887c19bd197edb04f6b441f37aba8fa63ebf033d20119"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-active.log",
+      "bytes": 861,
+      "sha256": "f1d074faa6b8169352bc86cf0285c4b2d5ad927ce839aeb2629ef0abd65c8abf"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-official-actions.jsonl",
+      "bytes": 27809,
+      "sha256": "eafa473d29ebddd93980f988fa62edd8df80256d575e605c0f562c9e16ed3b53"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-official-bot.log",
+      "bytes": 225,
+      "sha256": "4dd372cb02d6da1a24de9705fd0dedadc79be8c0d73e2c52bff57f59f8344d54"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-adaptive-weapons-official.log",
+      "bytes": 757,
+      "sha256": "e2b6f55913ff1b7667377d56f890ac24868146fee60b2e784623823862defafb"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-active-actions.jsonl",
+      "bytes": 27375,
+      "sha256": "fd39092a5dc25c73c4bdb552d04ad08592df9d611659a55a35aa4504714a1c06"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-active-bot.log",
+      "bytes": 97,
+      "sha256": "ed5ec35f9b519c0a6bb793ac93a79c888156263f26a42995ab8abec5743e3cba"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-active.log",
+      "bytes": 853,
+      "sha256": "042705755b1f7465ab43894abc7f7d6112892ea9695720f6fe5f0882c1d16c99"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-official-actions.jsonl",
+      "bytes": 27818,
+      "sha256": "a532e7b6ce2183a26e9541ca8bc306df6ca1401e3caa4c6873af8d7873f54d20"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-official-bot.log",
+      "bytes": 225,
+      "sha256": "7c7bee122a4a6d4bcdc29417b091163c3b657669bbb56277e8e974de70e5d50f"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round1-capture-official.log",
+      "bytes": 748,
+      "sha256": "9aeac8f96baf0f39c186e6adefa54017e61bbedc3b8ddbc1f9998f00dad016ef"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-active-bot.log",
+      "bytes": 97,
+      "sha256": "652c62b8803c2d493b27dd95517db2b075aa67513af5b57898085c9670cc9fee"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-active.log",
+      "bytes": 856,
+      "sha256": "3a9a4342ccea37d62bbc1996a09652f5271e60044eeea2ec9103fffe657fb147"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-official-actions.jsonl",
+      "bytes": 27809,
+      "sha256": "eafa473d29ebddd93980f988fa62edd8df80256d575e605c0f562c9e16ed3b53"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-official-bot.log",
+      "bytes": 226,
+      "sha256": "79308953340daa42ba0c70e91ed06562e2e49509640d2e233da19936018a4c2d"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-official.log",
+      "bytes": 750,
+      "sha256": "a53ccaefd4b89cdc3256538d0c90bdc8d43de657f9f9df72fd537efe49c452b3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-active-actions.jsonl",
+      "bytes": 27967,
+      "sha256": "b92aa2223e1d0abe4e6c6d7994f4f6fb99781d88b377a7524b1c758cea5ef6f3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-active-bot.log",
+      "bytes": 97,
+      "sha256": "23bd5e85652b3b081c674e912a24bdf261d5b6d189f80ec74f1dd57082dac7b3"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-active.log",
+      "bytes": 862,
+      "sha256": "71767c36700ddd0c8ba5eca16e27d2355ffb9c6e9147e341f616b0b306d03a12"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-official-actions.jsonl",
+      "bytes": 27809,
+      "sha256": "eafa473d29ebddd93980f988fa62edd8df80256d575e605c0f562c9e16ed3b53"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-official-bot.log",
+      "bytes": 226,
+      "sha256": "3d900f4fe21ad5588b6fed28dfef1261dbbdec6f7e9550935468b0a61f83e019"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-adaptive-weapons-official.log",
+      "bytes": 758,
+      "sha256": "85afee8c4eea6845c23f9de2c98ff0e6a68b8ddb6d3460847d362ee127bd8877"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-active-actions.jsonl",
+      "bytes": 27375,
+      "sha256": "fd39092a5dc25c73c4bdb552d04ad08592df9d611659a55a35aa4504714a1c06"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-active-bot.log",
+      "bytes": 97,
+      "sha256": "b16a44cffb6cf643a52c9e0a7ffba37832330b04e489044408710cafea59fa09"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-active.log",
+      "bytes": 854,
+      "sha256": "efec736dfa43b20d60e18eb583594f7c87c38664d54c4a31d09dee0fd9525b16"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-official-actions.jsonl",
+      "bytes": 27818,
+      "sha256": "a532e7b6ce2183a26e9541ca8bc306df6ca1401e3caa4c6873af8d7873f54d20"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-official-bot.log",
+      "bytes": 226,
+      "sha256": "b39e5f2d599e967ad4f4f88dd4fd598957767dc12da51a965bbd72eef0409968"
+    },
+    {
+      "path": "panel/mech/adaptive-final-validation/round2-capture-official.log",
+      "bytes": 749,
+      "sha256": "660ee4086c72dbab2afd05fcfc556b39f922c96fbbd1680545ace50b18121f6b"
+    },
+    {
+      "path": "panel/mech/adaptive-fixtures.mjs",
+      "bytes": 9843,
+      "sha256": "799dae1b9b0a09231d7b4ea3fb01755925efe19e22d7598b40d27f75c053bc46"
+    },
+    {
+      "path": "panel/mech/adaptive-fresh-build.json",
+      "bytes": 3450,
+      "sha256": "5404b461099c4fec6d49a56504e9b8e1feb47a8e09b37617831974620724d79b"
+    },
+    {
+      "path": "panel/mech/adaptive-fresh-clone.json",
+      "bytes": 907,
+      "sha256": "0a27f593249b3aee3aa0e2b7f96d8a085511e826b91f2f4f9c71b50b45cfad37"
+    },
+    {
+      "path": "panel/mech/adaptive-function-inventory.json",
+      "bytes": 98511,
+      "sha256": "a637b5474447970fd56faa3f6ca1927a94f154c4af24a214c2e9002d5cab9e54"
+    },
+    {
+      "path": "panel/mech/adaptive-goal-cases.mjs",
+      "bytes": 15410,
+      "sha256": "88c9930afc9ab4880268686ecb6190d0c89c76a4db85217f1eb8316d1ed8c9c0"
+    },
+    {
+      "path": "panel/mech/adaptive-lightning-cases.json",
+      "bytes": 2130,
+      "sha256": "3655facb50b5d00f8f15132e561d8f290dd4064e6f7e60df804472bbeadccf1f"
+    },
+    {
+      "path": "panel/mech/adaptive-loadout-cases.json",
+      "bytes": 2426,
+      "sha256": "d78ba518f4fd4d97394d062cdb448560709dc9463bc743f711605cb7840a7bcc"
+    },
+    {
+      "path": "panel/mech/adaptive-local-releases.json",
+      "bytes": 1204,
+      "sha256": "90b93055d22c1ee5e24eba67a746b9f5cf58ab47e754167bc3ac47f5c53eb9d2"
+    },
+    {
+      "path": "panel/mech/adaptive-macro-source.json",
+      "bytes": 1672,
+      "sha256": "cf7f9e20ad26243389e025cc336ab62031f9ab05a47dd783e2157aba5c2dd3bc"
+    },
+    {
+      "path": "panel/mech/adaptive-mortar-cases.json",
+      "bytes": 2943,
+      "sha256": "77f88ba469a524bcac4621cdab2379ce816136e29c990c9a69d40cf7e23ccba8"
+    },
+    {
+      "path": "panel/mech/adaptive-plan.json",
+      "bytes": 1605,
+      "sha256": "e07252473c8a3a627d5a11521bb42e24dff519f9510d2448ab5410d9f56ab2a4"
+    },
+    {
+      "path": "panel/mech/adaptive-preflight.json",
+      "bytes": 686,
+      "sha256": "6b82da013626c2f24ea1b9be3cb0c2a7beb7cdc0c487dc18b28afadd98b9c4b4"
+    },
+    {
+      "path": "panel/mech/adaptive-published-releases.json",
+      "bytes": 3404,
+      "sha256": "cf68a24e4f80a1a16b54918ae3731332c7e78bc350a615a083c689b94713264e"
+    },
+    {
+      "path": "panel/mech/adaptive-range-counterexample.json",
+      "bytes": 1732,
+      "sha256": "283fdd94042e9524781726f1a5ec1d0e1fd6edad368a576866bed90bdc8ef6cf"
+    },
+    {
+      "path": "panel/mech/adaptive-range-counterexample.mjs",
+      "bytes": 2966,
+      "sha256": "01d4d1dc3a60018e528d9c1fe82e03f597230bc4fd1e2471033dd93f74fa0551"
+    },
+    {
+      "path": "panel/mech/adaptive-range-regression.json",
+      "bytes": 2944,
+      "sha256": "d7313539dc60d98e4dd64a6fc9ef49f8522706e8fb7cc4ac48f236a6b066fdd0"
+    },
+    {
+      "path": "panel/mech/adaptive-range-regression.mjs",
+      "bytes": 3219,
+      "sha256": "a8ce3b7a6f7f35ab840b23583e39a2d01b6a9e2987360b6c7bed63ad8b16f6f9"
+    },
+    {
+      "path": "panel/mech/adaptive-root-verification.json",
+      "bytes": 1527,
+      "sha256": "c97a994873387ab3d1de8e7aa01c765c0d53a0629165e05d250333a0e6c27357"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-cases.json",
+      "bytes": 5500,
+      "sha256": "aa9271749dc1cc671d94dbeadb5738577bec011ce895b53f2d0bc4565b000ef3"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-competitors.md",
+      "bytes": 17199,
+      "sha256": "46a536983393a030498419aeed424ef125ed88876d4ed3660a97e36d7cdc8c29"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-competitors.sources.json",
+      "bytes": 2623,
+      "sha256": "a996e910427309f697c6af4955785e1aa816bce00ef70503a585ca2be47c4cad"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-fixtures.json",
+      "bytes": 6372,
+      "sha256": "5ebd65c44d9d98de85be2bdbcd23b06a7b265fda38de207946fc0ad704953f13"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-initial-config.json",
+      "bytes": 11229,
+      "sha256": "df44fc0064249eef36c8dcb34d3475527d28c6fe839038de464ce563707961b3"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-mechanics.md",
+      "bytes": 16083,
+      "sha256": "a071ce15b4f0a66f4c39a625533e0b65cc6a608868cd66c6a022c52a2de03501"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-mechanics.sources.json",
+      "bytes": 3513,
+      "sha256": "020f160eb4ed840f3d96678c92167ad7daeea0b2c818e2f23ba4f1ce5a968016"
+    },
+    {
+      "path": "panel/mech/adaptive-round1-rust.md",
+      "bytes": 13617,
+      "sha256": "ae04ca154b59ebc1bfa0a3b25c0a3448d5ee97e06f374d5950b576c88e2aa70a"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-backend-review.md",
+      "bytes": 14779,
+      "sha256": "34ef5c3edc05cf79884fd242c241a539454d905624ce8084ce141bea782f2ed5"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive-weapons.json",
+      "bytes": 97785,
+      "sha256": "b20516dd3800ff3f6479e622f91cbf10735a3cdcabad0a0115df9dabcdc0063e"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive-weapons.observations.jsonl",
+      "bytes": 64636,
+      "sha256": "d02fcaaa496ddc4dadcea87c6060c6816e9ff8542c31547930560bf100b9b144"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive-weapons.schema.json",
+      "bytes": 522,
+      "sha256": "695fa973dbd9229ea36873450dff94c4fdf54a681151abe997160d5b90294f81"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive.json",
+      "bytes": 97777,
+      "sha256": "ccffd15230d36d67b5abf76c4519d2611a1cce493f6991813dfb46e97920dc89"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive.observations.jsonl",
+      "bytes": 64636,
+      "sha256": "d02fcaaa496ddc4dadcea87c6060c6816e9ff8542c31547930560bf100b9b144"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-goals-mech-adaptive.schema.json",
+      "bytes": 514,
+      "sha256": "37c02d1026c39dc7bd50baa65c30203c366f2966bb0cd9026d117093903d950d"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-review.md",
+      "bytes": 17265,
+      "sha256": "c68fa3b2b1bd72e8ea4bf44ac913eee1eb990d151fbd440fa49d70950659f701"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive-weapons.json",
+      "bytes": 58841,
+      "sha256": "c638e0ea4975a85d218762431540e9029cef4eeb115e491b8f527a0242cff561"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive-weapons.observations.jsonl",
+      "bytes": 467372,
+      "sha256": "72a5da24dc62a83cc95064144ad290181059d99ea763ea5509b7c1db5023d997"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive-weapons.schema.json",
+      "bytes": 523,
+      "sha256": "988d5286d503d7e602b4a5c5a89c7f6a00483e9decbf972ae494d393ee40db50"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive.json",
+      "bytes": 58833,
+      "sha256": "cf1f2eee9b8105d5ff8b6004b59c6ffd9b5701fa7e03f79a066f81a24d0f94ac"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive.observations.jsonl",
+      "bytes": 467372,
+      "sha256": "72a5da24dc62a83cc95064144ad290181059d99ea763ea5509b7c1db5023d997"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-adaptive.schema.json",
+      "bytes": 515,
+      "sha256": "7f311d9949944c2ed6ec4056b2c2773f4ecdffb1200ce941f4b3b6b9641e6b3c"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-capture.json",
+      "bytes": 44929,
+      "sha256": "536a58f3969b474c6d4d33e7369bd7d187ba7b0d3e2af074cb76983c65532cb1"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-capture.observations.jsonl",
+      "bytes": 466046,
+      "sha256": "910e5f4839b4674182c2c76145e6cbbaeec1124566e8ca986dc60c5c1741e6e3"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-state-mech-capture.schema.json",
+      "bytes": 129,
+      "sha256": "44c236f6e12be53db22763c22d805e4811db0b9536bc65b4ca4e833ad789fd6d"
+    },
+    {
+      "path": "panel/mech/adaptive-round2-unit.json",
+      "bytes": 4755,
+      "sha256": "b9d2541c278276f0f57609e4d6e0ebd67e3e0108305c24ee8ce1a67f0f940011"
+    },
+    {
+      "path": "panel/mech/adaptive-round3-runtime-plan.md",
+      "bytes": 4054,
+      "sha256": "344323131096f8eaa0da1bb7d626a64df582b66abcfc30fb1e9ebbbeb9390a48"
+    },
+    {
+      "path": "panel/mech/adaptive-runtime-gate.py",
+      "bytes": 12116,
+      "sha256": "ec1acac81bedfb97bd18ef02cb060d0576bb64fa46714c593e67f54959c7cbdc"
+    },
+    {
+      "path": "panel/mech/adaptive-state-cases.mjs",
+      "bytes": 11162,
+      "sha256": "1b5f2d929ccd1d47b920eb8764f03a68937d29cab9f344e780e74164201e5bf4"
+    },
+    {
+      "path": "panel/mech/adaptive-validate-receipts.py",
+      "bytes": 3397,
+      "sha256": "9cea6eb5292d366b0b2b4f044dbe7bbee75b8fd2a427b9eab02c68891b4be762"
+    },
+    {
+      "path": "panel/mech/adaptive_lightning_cases.mjs",
+      "bytes": 6676,
+      "sha256": "e4aa3a3a03aa665768b7ec087abda814db27244613b0a2d62ced6c9a77cd6a21"
+    },
+    {
+      "path": "panel/mech/adaptive_loadout_cases.mjs",
+      "bytes": 7393,
+      "sha256": "bc59f81efada70e6698ae0714cb7122e8a46628c12179c931a668239249df805"
+    },
+    {
+      "path": "panel/mech/adaptive_mortar_cases.mjs",
+      "bytes": 8938,
+      "sha256": "5bdcd120efed8c79b4789d2be36ae072edd34386c6ec9a4a9e2fc68c04ef5187"
+    },
+    {
+      "path": "panel/mech/adaptive_round1_cases.mjs",
+      "bytes": 9176,
+      "sha256": "8d3aee603b31cc6c0cdbb6aee32239172bfe8b7299df189a83a1c1440218e5c6"
+    },
+    {
+      "path": "panel/mech/adaptive_round2_cases.mjs",
+      "bytes": 14499,
+      "sha256": "a23948c889aba9617f253f230193d4de43df9a0587c6fbbd25d0b543b61391af"
     },
     {
       "path": "panel/mech/aggressive-fresh-clone-verification.json",
@@ -7943,9 +9068,19 @@
       "sha256": "b4002a982d609a1e8d015a34ef0e1c26369b0f715dd99584b5f4cd3317946402"
     },
     {
+      "path": "panel/mech/make_adaptive_contact_stream.mjs",
+      "bytes": 7402,
+      "sha256": "88b300e2a7ec8d4486f1b67391ad0415ed7637555f6ff0c925e51a244ef831b1"
+    },
+    {
       "path": "panel/mech/make_pressure_contact_stream.mjs",
       "bytes": 9381,
       "sha256": "52a77f2f2e2078d0b5cdceaf08b74228250613d073674c411e88fadd1f02cbce"
+    },
+    {
+      "path": "panel/mech/mech-adaptive-macro.patch",
+      "bytes": 27482,
+      "sha256": "81816f722ff748770ba140fbf8b280d0cdcf959d13e8a0cd8117ffa8ee274d05"
     },
     {
       "path": "panel/mech/mech-burst-cycle-integrated-protocol.log",
@@ -8079,8 +9214,8 @@
     },
     {
       "path": "panel/mech/official-owner-results.json",
-      "bytes": 772,
-      "sha256": "47218c486ac0363ab135e6f8c6728b4207298fffd14d683f8551969049ea67d0"
+      "bytes": 1468,
+      "sha256": "d6244279fb3aa470452073b532d04d43dfdf5108923dc7593bfe51bf39393a60"
     },
     {
       "path": "panel/mech/pressure-backend-review.md",
@@ -8288,6 +9423,11 @@
       "sha256": "ab8b3f866c0d401ecd99c531aa930ec0f7e3b19eadc22761ff492b9d10815dd9"
     },
     {
+      "path": "panel/mech-announcements.md",
+      "bytes": 9556,
+      "sha256": "cb150180d324d9ae75369a7670ceb8e6e4802f5b2cf4f1248c012a50cabe30e5"
+    },
+    {
       "path": "panel/merged-build.json",
       "bytes": 2231,
       "sha256": "0478e4de9a5b0861c3674bb08d9aa022fa6bfe3474ee9f05c547b5fe3c97e45e"
@@ -8468,8 +9608,8 @@
       "sha256": "ae7bd234a251287ba2c25757f952b7b6d5a6884ba98243e5f8d66eeeb612cb3e"
     }
   ],
-  "file_count": 1693,
-  "bytes": 15601313,
+  "file_count": 1921,
+  "bytes": 21803945,
   "omitted": [
     "generated CSV and Parquet datasets",
     "native binaries and compiler caches",
@@ -8477,5 +9617,7 @@
     "credentials",
     "new or changed README files"
   ],
-  "history_note": "RELEASES.md and the explicit timing correction identify final pins; prior failures and checkpoints remain."
+  "history_note": "Adaptive source, independent reviews, original fixture failures, terminal-only correction, frozen runtime and publication receipts added. RELEASES.md and PANEL_STATUS.md supersede the earlier pressure/burst recommendation. Unpromoted round-2 sources are retained as diagnostics. Post-push evidence receipt is necessarily external to this commit.",
+  "previous_checkpoint_created_utc": "2026-11-22T08:50:21.006318+00:00",
+  "parent_evidence": "b01c8ed82c481d5c023ddf7b6c14268deee08bfa"
 }

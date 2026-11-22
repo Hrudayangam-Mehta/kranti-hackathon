@@ -1,0 +1,3008 @@
+{
+  "started_utc": "2026-11-22T09:30:17.873468+00:00",
+  "runtime_version": "1.4.4",
+  "cpu_affinity": [
+    0
+  ],
+  "runtime_flags": {
+    "BUN_JSC_useFTLJIT": "0",
+    "BUN_JSC_useConcurrentJIT": "1",
+    "BUN_JSC_useConcurrentGC": "0",
+    "BUN_JSC_numberOfGCMarkers": "1",
+    "BUN_JSC_numberOfBaselineCompilerThreads": "1",
+    "BUN_JSC_numberOfDFGCompilerThreads": "1",
+    "BUN_JSC_numberOfFTLCompilerThreads": "1",
+    "BUN_JSC_minNumberOfWorklistThreads": "1",
+    "BUN_JSC_maxNumberOfWorklistThreads": "1"
+  },
+  "baseline_commit": "099e7e392a863346575d7ef45bb9af3432544329",
+  "bundles": {
+    "capture": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+      "sha256": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+      "bytes": 251278
+    },
+    "adaptive": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+      "sha256": "a372e8a3a8b6ac19faf58b3e227440b594b25238ef9d02f31be3728323a6c45d",
+      "bytes": 262183
+    },
+    "adaptive-weapons": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+      "sha256": "0f49821cae2ea53dcbe7d4eccf6ca9b2a6c29fb509c78d19cec7d89e1b3b51e5",
+      "bytes": 268939
+    }
+  },
+  "source_sha256": {
+    "mech-adaptive": {
+      "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+      "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+      "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+      "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+      "lib/brain.js": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+      "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+      "lib/economy.js": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+      "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+      "lib/firecontrol.js": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+      "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+      "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+      "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+      "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+      "lib/params.js": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9",
+      "lib/prof.js": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+      "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+      "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+      "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+      "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+      "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    },
+    "mech-adaptive-weapons": {
+      "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+      "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+      "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+      "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+      "lib/brain.js": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e",
+      "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+      "lib/economy.js": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0",
+      "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+      "lib/firecontrol.js": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f",
+      "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+      "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+      "lib/lightning.js": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c",
+      "lib/loadout.js": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a",
+      "lib/mortar.js": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275",
+      "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+      "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+      "lib/params.js": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8",
+      "lib/prof.js": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+      "lib/senses.js": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6",
+      "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+      "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+      "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+      "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    }
+  },
+  "inputs": {
+    "official": {
+      "path": "/workspace/scratch/bde29dc281e6/handoff/.cache/ws/mechbot/kit/check/stream.jsonl.gz",
+      "sha256": "884a1bbb2afe288ea5b2d60ce20c74274ba37351ec31bf3334c160f13ec48a95",
+      "hello_budget_ms": 20000,
+      "decision_budget_ms": 50
+    },
+    "active": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/adaptive-contact-stream.jsonl.gz",
+      "sha256": "2db53d3edff1c4170796a4069bfb67316477ff7f6aa2e13ed1edfe1a9fc54ff8",
+      "hello_budget_ms": 20000,
+      "decision_budget_ms": 50
+    }
+  },
+  "planned_organizer_checks": [
+    "adaptive",
+    "adaptive-weapons"
+  ],
+  "predetermined_rounds": [
+    {
+      "order": [
+        "capture",
+        "adaptive",
+        "adaptive-weapons"
+      ],
+      "streams": [
+        "official",
+        "active"
+      ]
+    },
+    {
+      "order": [
+        "adaptive-weapons",
+        "adaptive",
+        "capture"
+      ],
+      "streams": [
+        "active",
+        "official"
+      ]
+    }
+  ],
+  "planned_processes": 14,
+  "scope": "Root-coordinated quiet window, one CPU affinity, normal frozen bundles and real arena. Organizer checker runs twice. Twelve independent lockstep replays use the exact kit schema with no internal retry. Active input is a stitched, individually constrained counterfactual stream, not a simulated reactive match. No Docker, cgroup limit, or placement guarantee is claimed.",
+  "runs": [
+    {
+      "exit": 0,
+      "stdout": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\nready in 1917 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.9  p99 4.3  max 5.0  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 923 ms, 24 body warm-ups\n[bot] init 1905 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.0ms\n",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:17.873554+00:00",
+      "finished_utc": "2026-11-22T09:30:20.005133+00:00",
+      "wall_s": 2.131594925005629,
+      "child_cpu_s": 1.536806,
+      "stage": "organizer",
+      "candidate": "adaptive",
+      "stream": "official",
+      "counts": {
+        "attempts": [
+          {
+            "observations": 300,
+            "in_time": 300,
+            "missed": 0,
+            "late": 0
+          }
+        ],
+        "internal_retries": [],
+        "wrong_tick_bad_lines": [
+          [
+            "0",
+            "0"
+          ]
+        ],
+        "ready_ms": 1917.0,
+        "max_ms": [
+          5.0
+        ],
+        "strict_counts_accept": true
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "organizer_accepts": true,
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\nready in 1909 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.8  p99 3.4  max 4.3  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 980 ms, 24 body warm-ups\n[bot] init 1901 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.0ms\n",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:20.006890+00:00",
+      "finished_utc": "2026-11-22T09:30:22.128756+00:00",
+      "wall_s": 2.1218788550031604,
+      "child_cpu_s": 1.5276239999999999,
+      "stage": "organizer",
+      "candidate": "adaptive-weapons",
+      "stream": "official",
+      "counts": {
+        "attempts": [
+          {
+            "observations": 300,
+            "in_time": 300,
+            "missed": 0,
+            "late": 0
+          }
+        ],
+        "internal_retries": [],
+        "wrong_tick_bad_lines": [
+          [
+            "0",
+            "0"
+          ]
+        ],
+        "ready_ms": 1909.0,
+        "max_ms": [
+          4.3
+        ],
+        "strict_counts_accept": true
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "organizer_accepts": true,
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 81988, \"vmrss_kb_max\": 77260, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1774.8, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 4.1, \"answered\": 300, \"p50_ms\": 0.28, \"p90_ms\": 0.75, \"p95_ms\": 1.11, \"p99_ms\": 2.59, \"max_ms\": 3.47, \"wall_s\": 1.9, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:22.129858+00:00",
+      "finished_utc": "2026-11-22T09:30:24.101780+00:00",
+      "wall_s": 1.9719380070018815,
+      "child_cpu_s": 1.3733430000000002,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "capture",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 81988,
+        "vmrss_kb_max": 77260,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1774.8,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 4.1,
+        "answered": 300,
+        "p50_ms": 0.28,
+        "p90_ms": 0.75,
+        "p95_ms": 1.11,
+        "p99_ms": 2.59,
+        "max_ms": 3.47,
+        "wall_s": 1.9,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 87908, \"vmrss_kb_max\": 81956, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1998.6, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"JSCWarmUp\": 1, \"mi-scavenger\": 1}, \"exit_code\": 0, \"exit_ms\": 5.3, \"answered\": 300, \"p50_ms\": 0.39, \"p90_ms\": 1.06, \"p95_ms\": 2.13, \"p99_ms\": 4.3, \"max_ms\": 5.21, \"wall_s\": 2.2, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:24.103544+00:00",
+      "finished_utc": "2026-11-22T09:30:26.364763+00:00",
+      "wall_s": 2.261230762997002,
+      "child_cpu_s": 1.6757800000000005,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "adaptive",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 87908,
+        "vmrss_kb_max": 81956,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1998.6,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 5.3,
+        "answered": 300,
+        "p50_ms": 0.39,
+        "p90_ms": 1.06,
+        "p95_ms": 2.13,
+        "p99_ms": 4.3,
+        "max_ms": 5.21,
+        "wall_s": 2.2,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 86336, \"vmrss_kb_max\": 79572, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1881.6, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"JSCWarmUp\": 1, \"mi-scavenger\": 1}, \"exit_code\": 0, \"exit_ms\": 4.2, \"answered\": 300, \"p50_ms\": 0.33, \"p90_ms\": 0.81, \"p95_ms\": 1.23, \"p99_ms\": 3.99, \"max_ms\": 4.65, \"wall_s\": 2.1, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:26.369216+00:00",
+      "finished_utc": "2026-11-22T09:30:28.481548+00:00",
+      "wall_s": 2.112358205995406,
+      "child_cpu_s": 1.5188309999999987,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "adaptive-weapons",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 86336,
+        "vmrss_kb_max": 79572,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1881.6,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 4.2,
+        "answered": 300,
+        "p50_ms": 0.33,
+        "p90_ms": 0.81,
+        "p95_ms": 1.23,
+        "p99_ms": 3.99,
+        "max_ms": 4.65,
+        "wall_s": 2.1,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 108, \"threads_max\": 4, \"vmhwm_kb_max\": 78360, \"vmrss_kb_max\": 75756, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1849.1, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 22.6, \"answered\": 300, \"p50_ms\": 0.27, \"p90_ms\": 0.6, \"p95_ms\": 1.65, \"p99_ms\": 4.33, \"max_ms\": 7.73, \"wall_s\": 2.0, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:28.483512+00:00",
+      "finished_utc": "2026-11-22T09:30:30.567119+00:00",
+      "wall_s": 2.08361710900499,
+      "child_cpu_s": 1.4634400000000003,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "capture",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 108,
+        "threads_max": 4,
+        "vmhwm_kb_max": 78360,
+        "vmrss_kb_max": 75756,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1849.1,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 22.6,
+        "answered": 300,
+        "p50_ms": 0.27,
+        "p90_ms": 0.6,
+        "p95_ms": 1.65,
+        "p99_ms": 4.33,
+        "max_ms": 7.73,
+        "wall_s": 2.0,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 87916, \"vmrss_kb_max\": 84000, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1996.7, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 25.3, \"answered\": 300, \"p50_ms\": 0.34, \"p90_ms\": 1.0, \"p95_ms\": 2.04, \"p99_ms\": 4.6, \"max_ms\": 5.91, \"wall_s\": 2.2, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:30.568827+00:00",
+      "finished_utc": "2026-11-22T09:30:32.844666+00:00",
+      "wall_s": 2.275867989999824,
+      "child_cpu_s": 1.6620630000000016,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "adaptive",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 87916,
+        "vmrss_kb_max": 84000,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1996.7,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 25.3,
+        "answered": 300,
+        "p50_ms": 0.34,
+        "p90_ms": 1.0,
+        "p95_ms": 2.04,
+        "p99_ms": 4.6,
+        "max_ms": 5.91,
+        "wall_s": 2.2,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 85520, \"vmrss_kb_max\": 80616, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1955.8, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 25.1, \"answered\": 300, \"p50_ms\": 0.33, \"p90_ms\": 0.9, \"p95_ms\": 1.99, \"p99_ms\": 3.29, \"max_ms\": 4.6, \"wall_s\": 2.2, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:32.851431+00:00",
+      "finished_utc": "2026-11-22T09:30:35.075973+00:00",
+      "wall_s": 2.2245526979968417,
+      "child_cpu_s": 1.6096679999999992,
+      "stage": "strict_driver",
+      "round": 1,
+      "candidate": "adaptive-weapons",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 85520,
+        "vmrss_kb_max": 80616,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1955.8,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 25.1,
+        "answered": 300,
+        "p50_ms": 0.33,
+        "p90_ms": 0.9,
+        "p95_ms": 1.99,
+        "p99_ms": 3.29,
+        "max_ms": 4.6,
+        "wall_s": 2.2,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 89136, \"vmrss_kb_max\": 84584, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1934.9, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 22.7, \"answered\": 300, \"p50_ms\": 0.34, \"p90_ms\": 1.29, \"p95_ms\": 2.36, \"p99_ms\": 5.93, \"max_ms\": 7.6, \"wall_s\": 2.2, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:35.084275+00:00",
+      "finished_utc": "2026-11-22T09:30:37.317012+00:00",
+      "wall_s": 2.232752246003656,
+      "child_cpu_s": 1.6193679999999997,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "adaptive-weapons",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 89136,
+        "vmrss_kb_max": 84584,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1934.9,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 22.7,
+        "answered": 300,
+        "p50_ms": 0.34,
+        "p90_ms": 1.29,
+        "p95_ms": 2.36,
+        "p99_ms": 5.93,
+        "max_ms": 7.6,
+        "wall_s": 2.2,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 88004, \"vmrss_kb_max\": 82920, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1848.0, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 25.9, \"answered\": 300, \"p50_ms\": 0.33, \"p90_ms\": 0.87, \"p95_ms\": 2.52, \"p99_ms\": 6.14, \"max_ms\": 11.56, \"wall_s\": 2.1, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:37.319696+00:00",
+      "finished_utc": "2026-11-22T09:30:39.460907+00:00",
+      "wall_s": 2.141211616995861,
+      "child_cpu_s": 1.5326429999999984,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "adaptive",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 88004,
+        "vmrss_kb_max": 82920,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1848.0,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 25.9,
+        "answered": 300,
+        "p50_ms": 0.33,
+        "p90_ms": 0.87,
+        "p95_ms": 2.52,
+        "p99_ms": 6.14,
+        "max_ms": 11.56,
+        "wall_s": 2.1,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [\"after end: b'{\\\"tick\\\":3448,\\\"move\\\":[-0.9939,-0.1104],\\\"boost\\\":true,\\\"aim\\\":[-2.2625,-0.0134],\\\"fire'\"], \"stale_answers\": 0, \"unsolicited\": 1, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 108, \"threads_max\": 4, \"vmhwm_kb_max\": 79488, \"vmrss_kb_max\": 75188, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1806.7, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 25.3, \"answered\": 300, \"p50_ms\": 0.31, \"p90_ms\": 0.83, \"p95_ms\": 2.22, \"p99_ms\": 5.84, \"max_ms\": 7.53, \"wall_s\": 2.0, \"verdict\": \"FAIL\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:39.464033+00:00",
+      "finished_utc": "2026-11-22T09:30:41.542319+00:00",
+      "wall_s": 2.078302445996087,
+      "child_cpu_s": 1.4617570000000022,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "capture",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [
+          "after end: b'{\"tick\":3448,\"move\":[-0.9939,-0.1104],\"boost\":true,\"aim\":[-2.2625,-0.0134],\"fire'"
+        ],
+        "stale_answers": 0,
+        "unsolicited": 1,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 108,
+        "threads_max": 4,
+        "vmhwm_kb_max": 79488,
+        "vmrss_kb_max": 75188,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1806.7,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 25.3,
+        "answered": 300,
+        "p50_ms": 0.31,
+        "p90_ms": 0.83,
+        "p95_ms": 2.22,
+        "p99_ms": 5.84,
+        "max_ms": 7.53,
+        "wall_s": 2.0,
+        "verdict": "FAIL"
+      },
+      "internal_errors": {
+        "parsed": false,
+        "end_error_counts": [],
+        "stage_failures": [],
+        "clean": false
+      },
+      "strict_accepts": false
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 89924, \"vmrss_kb_max\": 82872, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1925.2, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 1.1, \"answered\": 300, \"p50_ms\": 0.43, \"p90_ms\": 1.53, \"p95_ms\": 2.83, \"p99_ms\": 5.69, \"max_ms\": 30.27, \"wall_s\": 2.2, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:41.546045+00:00",
+      "finished_utc": "2026-11-22T09:30:43.817114+00:00",
+      "wall_s": 2.2710520139953587,
+      "child_cpu_s": 1.6791820000000008,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "adaptive-weapons",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 89924,
+        "vmrss_kb_max": 82872,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1925.2,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 1.1,
+        "answered": 300,
+        "p50_ms": 0.43,
+        "p90_ms": 1.53,
+        "p95_ms": 2.83,
+        "p99_ms": 5.69,
+        "max_ms": 30.27,
+        "wall_s": 2.2,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 83532, \"vmrss_kb_max\": 79548, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1927.1, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 4.9, \"answered\": 300, \"p50_ms\": 0.42, \"p90_ms\": 1.22, \"p95_ms\": 2.27, \"p99_ms\": 7.83, \"max_ms\": 29.44, \"wall_s\": 2.2, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:43.826473+00:00",
+      "finished_utc": "2026-11-22T09:30:46.083630+00:00",
+      "wall_s": 2.257186045004346,
+      "child_cpu_s": 1.662005999999998,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "adaptive",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 83532,
+        "vmrss_kb_max": 79548,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1927.1,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 4.9,
+        "answered": 300,
+        "p50_ms": 0.42,
+        "p90_ms": 1.22,
+        "p95_ms": 2.27,
+        "p99_ms": 7.83,
+        "max_ms": 29.44,
+        "wall_s": 2.2,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 82412, \"vmrss_kb_max\": 78004, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1887.6, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 5.2, \"answered\": 300, \"p50_ms\": 0.35, \"p90_ms\": 1.23, \"p95_ms\": 2.24, \"p99_ms\": 6.83, \"max_ms\": 28.51, \"wall_s\": 2.1, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "started_utc": "2026-11-22T09:30:46.094578+00:00",
+      "finished_utc": "2026-11-22T09:30:48.287008+00:00",
+      "wall_s": 2.1924401610012865,
+      "child_cpu_s": 1.5995209999999993,
+      "stage": "strict_driver",
+      "round": 2,
+      "candidate": "capture",
+      "stream": "official",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 82412,
+        "vmrss_kb_max": 78004,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1887.6,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 5.2,
+        "answered": 300,
+        "p50_ms": 0.35,
+        "p90_ms": 1.23,
+        "p95_ms": 2.24,
+        "p99_ms": 6.83,
+        "max_ms": 28.51,
+        "wall_s": 2.1,
+        "verdict": "PASS"
+      },
+      "internal_errors": {
+        "parsed": true,
+        "end_error_counts": [
+          0
+        ],
+        "stage_failures": [],
+        "clean": true
+      },
+      "strict_accepts": true
+    }
+  ],
+  "action_comparisons": [
+    {
+      "round": 1,
+      "stream": "official",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 86,
+      "changed_fields": {
+        "move": 86,
+        "boost": 4,
+        "aim": 14,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 49,
+          "t": 4.9,
+          "tick": 98,
+          "reference": {
+            "tick": 98,
+            "move": [
+              0.8321,
+              -0.5547
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 98,
+            "move": [
+              0.1941,
+              0.981
+            ],
+            "boost": true,
+            "aim": [
+              1.3755,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 50,
+          "t": 5,
+          "tick": 100,
+          "reference": {
+            "tick": 100,
+            "move": [
+              0.7778,
+              -0.6285
+            ],
+            "boost": false,
+            "aim": [
+              1.144,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 100,
+            "move": [
+              0.1947,
+              0.9809
+            ],
+            "boost": true,
+            "aim": [
+              1.3749,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 51,
+          "t": 5.1,
+          "tick": 102,
+          "reference": {
+            "tick": 102,
+            "move": [
+              0.747,
+              -0.6649
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 102,
+            "move": [
+              0.196,
+              0.9806
+            ],
+            "boost": true,
+            "aim": [
+              1.3735,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "t": 5.2,
+          "tick": 104,
+          "reference": {
+            "tick": 104,
+            "move": [
+              0.7389,
+              -0.6738
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 104,
+            "move": [
+              0.7071,
+              -0.7071
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "t": 5.3,
+          "tick": 106,
+          "reference": {
+            "tick": 106,
+            "move": [
+              0.7544,
+              -0.6564
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 106,
+            "move": [
+              0.7229,
+              -0.6909
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 54,
+          "t": 5.4,
+          "tick": 108,
+          "reference": {
+            "tick": 108,
+            "move": [
+              0.7906,
+              -0.6123
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 108,
+            "move": [
+              0.7596,
+              -0.6504
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "stream": "official",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 86,
+      "changed_fields": {
+        "move": 86,
+        "boost": 4,
+        "aim": 14,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 49,
+          "t": 4.9,
+          "tick": 98,
+          "reference": {
+            "tick": 98,
+            "move": [
+              0.8321,
+              -0.5547
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 98,
+            "move": [
+              0.1941,
+              0.981
+            ],
+            "boost": true,
+            "aim": [
+              1.3755,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 50,
+          "t": 5,
+          "tick": 100,
+          "reference": {
+            "tick": 100,
+            "move": [
+              0.7778,
+              -0.6285
+            ],
+            "boost": false,
+            "aim": [
+              1.144,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 100,
+            "move": [
+              0.1947,
+              0.9809
+            ],
+            "boost": true,
+            "aim": [
+              1.3749,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 51,
+          "t": 5.1,
+          "tick": 102,
+          "reference": {
+            "tick": 102,
+            "move": [
+              0.747,
+              -0.6649
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 102,
+            "move": [
+              0.196,
+              0.9806
+            ],
+            "boost": true,
+            "aim": [
+              1.3735,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "t": 5.2,
+          "tick": 104,
+          "reference": {
+            "tick": 104,
+            "move": [
+              0.7389,
+              -0.6738
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 104,
+            "move": [
+              0.7071,
+              -0.7071
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "t": 5.3,
+          "tick": 106,
+          "reference": {
+            "tick": 106,
+            "move": [
+              0.7544,
+              -0.6564
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 106,
+            "move": [
+              0.7229,
+              -0.6909
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 54,
+          "t": 5.4,
+          "tick": 108,
+          "reference": {
+            "tick": 108,
+            "move": [
+              0.7906,
+              -0.6123
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 108,
+            "move": [
+              0.7596,
+              -0.6504
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "stream": "active",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "stream": "active",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "stream": "official",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 86,
+      "changed_fields": {
+        "move": 86,
+        "boost": 4,
+        "aim": 14,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 49,
+          "t": 4.9,
+          "tick": 98,
+          "reference": {
+            "tick": 98,
+            "move": [
+              0.8321,
+              -0.5547
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 98,
+            "move": [
+              0.1941,
+              0.981
+            ],
+            "boost": true,
+            "aim": [
+              1.3755,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 50,
+          "t": 5,
+          "tick": 100,
+          "reference": {
+            "tick": 100,
+            "move": [
+              0.7778,
+              -0.6285
+            ],
+            "boost": false,
+            "aim": [
+              1.144,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 100,
+            "move": [
+              0.1947,
+              0.9809
+            ],
+            "boost": true,
+            "aim": [
+              1.3749,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 51,
+          "t": 5.1,
+          "tick": 102,
+          "reference": {
+            "tick": 102,
+            "move": [
+              0.747,
+              -0.6649
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 102,
+            "move": [
+              0.196,
+              0.9806
+            ],
+            "boost": true,
+            "aim": [
+              1.3735,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "t": 5.2,
+          "tick": 104,
+          "reference": {
+            "tick": 104,
+            "move": [
+              0.7389,
+              -0.6738
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 104,
+            "move": [
+              0.7071,
+              -0.7071
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "t": 5.3,
+          "tick": 106,
+          "reference": {
+            "tick": 106,
+            "move": [
+              0.7544,
+              -0.6564
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 106,
+            "move": [
+              0.7229,
+              -0.6909
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 54,
+          "t": 5.4,
+          "tick": 108,
+          "reference": {
+            "tick": 108,
+            "move": [
+              0.7906,
+              -0.6123
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 108,
+            "move": [
+              0.7596,
+              -0.6504
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "stream": "official",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 86,
+      "changed_fields": {
+        "move": 86,
+        "boost": 4,
+        "aim": 14,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 49,
+          "t": 4.9,
+          "tick": 98,
+          "reference": {
+            "tick": 98,
+            "move": [
+              0.8321,
+              -0.5547
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 98,
+            "move": [
+              0.1941,
+              0.981
+            ],
+            "boost": true,
+            "aim": [
+              1.3755,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 50,
+          "t": 5,
+          "tick": 100,
+          "reference": {
+            "tick": 100,
+            "move": [
+              0.7778,
+              -0.6285
+            ],
+            "boost": false,
+            "aim": [
+              1.144,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 100,
+            "move": [
+              0.1947,
+              0.9809
+            ],
+            "boost": true,
+            "aim": [
+              1.3749,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 51,
+          "t": 5.1,
+          "tick": 102,
+          "reference": {
+            "tick": 102,
+            "move": [
+              0.747,
+              -0.6649
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 102,
+            "move": [
+              0.196,
+              0.9806
+            ],
+            "boost": true,
+            "aim": [
+              1.3735,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "t": 5.2,
+          "tick": 104,
+          "reference": {
+            "tick": 104,
+            "move": [
+              0.7389,
+              -0.6738
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 104,
+            "move": [
+              0.7071,
+              -0.7071
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "t": 5.3,
+          "tick": 106,
+          "reference": {
+            "tick": 106,
+            "move": [
+              0.7544,
+              -0.6564
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 106,
+            "move": [
+              0.7229,
+              -0.6909
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 54,
+          "t": 5.4,
+          "tick": 108,
+          "reference": {
+            "tick": 108,
+            "move": [
+              0.7906,
+              -0.6123
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 108,
+            "move": [
+              0.7596,
+              -0.6504
+            ],
+            "boost": false,
+            "aim": [
+              1.8326,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "stream": "active",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "stream": "active",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "repeat_action_comparisons": [
+    {
+      "stream": "official",
+      "candidate": "capture",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "stream": "official",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "stream": "official",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "stream": "active",
+      "candidate": "capture",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "stream": "active",
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "stream": "active",
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    }
+  ],
+  "source_and_bundles_unchanged": true,
+  "finished_utc": "2026-11-22T09:30:48.310178+00:00",
+  "all_planned_runs_completed": true,
+  "strict_passes": 8,
+  "release_gate_passed": false
+}

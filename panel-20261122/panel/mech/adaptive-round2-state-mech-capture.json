@@ -1,0 +1,1881 @@
+{
+  "candidate": "mech-capture",
+  "recorded_utc": "2026-11-22T09:13:19.488Z",
+  "reviewer": "independent database/backend correctness reviewer",
+  "scope": "Correctness/state/geometry fixtures; no latency/engine simulation/score claim",
+  "source_sha256": {
+    "lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+    "lib/params.js": "492b8670c45fdc17d3c2e735095990ac8542a80d92067e67bdffa79187f043a9",
+    "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+    "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+  },
+  "fixture_helper_sha256": "d060ef15b48a70caf75a109ff4967b2461b82a982891286d83f158d0c1c7a490",
+  "layout": {
+    "self": {
+      "x": 92.62,
+      "y": -88.08999999999997,
+      "z": 4.2087578773498535
+    },
+    "yaw": 0,
+    "points": {
+      "8": {
+        "x": 100.62,
+        "y": -88.08999999999997,
+        "z": 4.1143999099731445
+      },
+      "16": {
+        "x": 108.62,
+        "y": -88.08999999999997,
+        "z": 4.212100028991699
+      },
+      "25": {
+        "x": 118.62,
+        "y": -88.08999999999997,
+        "z": 4.094099998474121
+      },
+      "35": {
+        "x": 128.62,
+        "y": -88.08999999999997,
+        "z": 4.320658206939697
+      },
+      "55": {
+        "x": 148.62,
+        "y": -88.08999999999997,
+        "z": 4.980057716369629
+      },
+      "75": {
+        "x": 168.62,
+        "y": -88.08999999999997,
+        "z": 5.33015775680542
+      },
+      "110": {
+        "x": 202.62,
+        "y": -88.08999999999997,
+        "z": 5.233042240142822
+      },
+      "130": {
+        "x": 222.62,
+        "y": -88.08999999999997,
+        "z": 4.978841781616211
+      }
+    },
+    "side": {
+      "1": {
+        "x": 128.62,
+        "y": -98.08999999999997,
+        "z": 4.257200241088867
+      },
+      "-1": {
+        "x": 128.62,
+        "y": -78.08999999999997,
+        "z": 4.548473834991455
+      }
+    }
+  },
+  "counts": {
+    "cases": 32,
+    "pass": 32,
+    "fail": 0,
+    "observations": 331
+  },
+  "results": [
+    {
+      "id": "authoritative_self_not_reapplied_from_damage_event",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            -0.7071067811865475,
+            0.7071067811865475
+          ],
+          "boost": true,
+          "aim": [
+            0,
+            -0.022723360841641064
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "DISENGAGE",
+        "leg": "retreat",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": true,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": true,
+          "latchT": 100,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": true,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "crate_hit_updates_dealt_clock",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "lastDealtT": 100
+    },
+    {
+      "id": "laser_short_reads_authoritative_zero_charge_and_timer",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "effect_cookoff_keeps_authoritative_resources",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "effect_concuss_keeps_authoritative_resources",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "cube_pickup_uses_self_total_once",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ],
+          "pick": 1
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "actual_applied_upgrade_changes_live_regen_and_armor",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "liveArmor": 0.08,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "drop_event_refreshes_resources_without_local_increment",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ],
+          "pick": 1
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "queued_offers_answer_current_choices",
+      "scope": "Individually config/map-checked scripted transition; no reactive-engine claim",
+      "passed": true,
+      "actions": [
+        {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ],
+          "pick": 1
+        },
+        {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ],
+          "pick": 0
+        }
+      ]
+    },
+    {
+      "id": "own_kill_removes_track_and_records_credit",
+      "scope": "Individually config/map-checked scripted transition; no reactive-engine claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "FIGHT",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 99.9,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "take_failed_gone_does_not_invent_inventory",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "take_failed_have_does_not_invent_inventory",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "take_failed_full_does_not_invent_inventory",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "take_failed_range_does_not_invent_inventory",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "take_failed_busy_does_not_invent_inventory",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "took_and_dropped_resolve_from_observed_slots",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "all_weapon_gun_live_state",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            -0.7071067811865475,
+            0.7071067811865475
+          ],
+          "boost": true,
+          "aim": [
+            -0.002864385148447113,
+            -0.06604960180617674
+          ],
+          "fire": [
+            true,
+            false
+          ]
+        },
+        "mode": "FIGHT",
+        "leg": "p26standoff",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": 1,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 100,
+          "gunTgt": 1,
+          "fight": true,
+          "finishing": false,
+          "ttk": 14.11225658648339,
+          "ttd": 15.209876543209875,
+          "inc": 92.04545454545456,
+          "hot": 0,
+          "shooters": 1,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "all_weapon_laser_live_state",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            -0.7071067811865475,
+            0.7071067811865475
+          ],
+          "boost": true,
+          "aim": [
+            -0.002864385148447113,
+            -0.06604960180617674
+          ],
+          "fire": [
+            true,
+            true
+          ]
+        },
+        "mode": "FIGHT",
+        "leg": "p26standoff",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": 1,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 100,
+          "gunTgt": 1,
+          "fight": true,
+          "finishing": false,
+          "ttk": 6.0749506903353065,
+          "ttd": 6.420679591411298,
+          "inc": 218.04545454545456,
+          "hot": 0,
+          "shooters": 1,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "all_weapon_lightning_live_state",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            -0.7071067811865475,
+            0.7071067811865475
+          ],
+          "boost": true,
+          "aim": [
+            -0.002864385148447113,
+            -0.06604960180617674
+          ],
+          "fire": [
+            true,
+            true
+          ]
+        },
+        "mode": "FIGHT",
+        "leg": "p26standoff",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": 1,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 100,
+          "gunTgt": 1,
+          "fight": true,
+          "finishing": false,
+          "ttk": 4.253708875059732,
+          "ttd": 4.348292589267058,
+          "inc": 321.9654545454546,
+          "hot": 0,
+          "shooters": 1,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "all_weapon_mortar_live_state",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            -0.0026739167952567477,
+            -0.06644190555668322
+          ],
+          "fire": [
+            true,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": 1,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 100,
+          "gunTgt": 1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 14.11225658648339,
+          "ttd": 9.20777279521674,
+          "inc": 152.04545454545456,
+          "hot": 0,
+          "shooters": 1,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "charging_laser_pickup_does_not_drop_charge",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            0.7546055221635046,
+            0.6561787149247866
+          ],
+          "boost": false,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "HOLD",
+        "leg": "roam",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": false,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": false,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      }
+    },
+    {
+      "id": "zone_interpolation_59.95",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          41.3,
+          -72.8
+        ],
+        "radius": 560,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_60",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          41.3,
+          -72.8
+        ],
+        "radius": 560,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_60.05",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          41.21658,
+          -72.72009
+        ],
+        "radius": 559.82,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_99.95",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          -25.352580000000003,
+          -8.951909999999998
+        ],
+        "radius": 416.17999999999995,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_100",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          -25.435999999999993,
+          -8.872
+        ],
+        "radius": 416,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_109.95",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          -42.03658,
+          7.030090000000001
+        ],
+        "radius": 380.17999999999995,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 380,
+        "shrink_start": 60,
+        "shrink_end": 110,
+        "dps": 20
+      }
+    },
+    {
+      "id": "zone_interpolation_110",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "observedZone": {
+        "center": [
+          -42.12,
+          7.11
+        ],
+        "radius": 380,
+        "next_center": [
+          -42.12,
+          7.11
+        ],
+        "next_radius": 240,
+        "shrink_start": 155,
+        "shrink_end": 195,
+        "dps": 35
+      }
+    },
+    {
+      "id": "zone_damage_event_restarts_hurt_clock",
+      "scope": "Individually config/map-checked counterfactual snapshot; no complete-history claim",
+      "passed": true,
+      "state": {
+        "action": {
+          "move": [
+            -0.9991330730923519,
+            -0.04163054471218133
+          ],
+          "boost": true,
+          "aim": [
+            0.16800000000000015,
+            0
+          ],
+          "fire": [
+            false,
+            false
+          ]
+        },
+        "mode": "ZONE",
+        "leg": "zone",
+        "p26on": true,
+        "env": "SQUAD",
+        "foreignDeaths": 0,
+        "zoneUrgent": true,
+        "holdFire": false,
+        "losing": false,
+        "finish": false,
+        "target": null,
+        "dropTask": null,
+        "loot": null,
+        "S": {
+          "on": false,
+          "phase": "open",
+          "gateEndT": 100,
+          "hold": 0,
+          "shot": null,
+          "gunTgt": -1,
+          "fight": false,
+          "finishing": false,
+          "ttk": 99,
+          "ttd": 99,
+          "inc": 0,
+          "hot": 0,
+          "shooters": 0,
+          "latch": false,
+          "latchT": -99,
+          "avoid": false,
+          "avoidTr": null,
+          "leg": "",
+          "grab": null,
+          "grabT0": -99,
+          "grabId": "",
+          "lootId": "",
+          "lootT0": -99,
+          "lootD0": 0,
+          "nearT": -1,
+          "dropId": -1,
+          "keepT": -99,
+          "underFire": true,
+          "unseenT": -99
+        },
+        "errors": {},
+        "counters": {
+          "errors": 0,
+          "fuse": 0
+        }
+      },
+      "note": "Current position is 0.1..0.8 m inside the real phase circle with inward walk velocity, permitting recent reentry. No claimed preceding simulated trajectory."
+    },
+    {
+      "id": "skip_merge_keeps_credit_and_ages_transients",
+      "scope": "Synthetic transport contract; not engine history",
+      "passed": true,
+      "events": [
+        {
+          "type": "kill",
+          "target": 1
+        },
+        {
+          "type": "damaged",
+          "amount": 45,
+          "weapon": "gun",
+          "bearing": 0,
+          "by": 2
+        }
+      ],
+      "agedSound": 0.25000000000000283,
+      "agedBeam": 0.3000000000000028
+    },
+    {
+      "id": "skip_merge_event_cap_limit_is_explicit",
+      "scope": "Deliberately synthetic oversized transport stress; expected limitation",
+      "passed": true,
+      "knownLimitation": "Old event lost at 64-event cap; no claim this caused an official score drop."
+    },
+    {
+      "id": "official_recording_source_regression",
+      "scope": "Official recorded observations; non-reactive replay",
+      "passed": true,
+      "decisions": 300,
+      "final": {
+        "mode": "ZONE",
+        "stance": "DEFENSIVE",
+        "env": "FFA",
+        "ffaLatchT": 24.9,
+        "target": 10,
+        "goal": [
+          116.62,
+          -96.08999999999997
+        ],
+        "hp": 9.5,
+        "counters": {
+          "ticks": 300,
+          "errors": 0,
+          "plans": 27,
+          "evals": 27,
+          "jinks": 1,
+          "dodges": 0,
+          "bulletDodges": 14,
+          "stuck": 0,
+          "abandons": 1,
+          "shots": 24,
+          "laserShots": 0,
+          "laserHits": 0,
+          "kills": 0,
+          "dmgIn": 1665,
+          "dmgOut": 472.5,
+          "modeSwitches": 12,
+          "targetSwitches": 2,
+          "overruns": 0,
+          "fuse": 0,
+          "noProgress": 1,
+          "hops": 0,
+          "pfCrateShot": 10,
+          "pfAvoid": 132,
+          "losing": 5,
+          "stanceSwitches": 1,
+          "flightGated": 64,
+          "boostSpend": 3,
+          "ffaBreaks": 1
+        },
+        "leg": "zone",
+        "aim": "gun",
+        "A": 150,
+        "n1": 1,
+        "losing": true,
+        "hide": "found",
+        "zoneMargin": 43.95115775265881,
+        "errors": {},
+        "gun": {
+          "shots": [
+            0,
+            0,
+            1,
+            4,
+            3,
+            10,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "hits": [
+            0,
+            0,
+            2,
+            1,
+            0,
+            5,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "F": 3,
+        "Q": 0,
+        "selected": {
+          "laserRange": "far",
+          "healExit": "70",
+          "farmHp": "90",
+          "strafe": "d4",
+          "ffaPair": "on",
+          "beamClue": "off",
+          "gunlessClue": "off",
+          "idlePull": "off",
+          "env": "auto",
+          "ffaCounters": "on",
+          "ffaRules": "on",
+          "aimDwell": "off",
+          "R1": "on",
+          "crateGate": "ffa",
+          "R2": "on",
+          "R3": "on",
+          "aimCal": "off",
+          "openFarm": "on",
+          "cxFinish": "on",
+          "cxKiterRamp": "on",
+          "cxBrawler": "off",
+          "ffaThirdFix": "on",
+          "ffaBreakFix": "on",
+          "hidePlanCap": "on",
+          "pass2b": "on",
+          "fightEarly": "on",
+          "laserEcon": "off",
+          "focus": "mult",
+          "retreat": "d3",
+          "boost": "spend",
+          "upg": "std",
+          "ffaDropGate": "on",
+          "finalPoint": "on",
+          "ffaTwo": "on",
+          "ffaThree": "on",
+          "ffaGate": "on",
+          "hunt": "off",
+          "seek": "on",
+          "aggr": "any70f",
+          "r3a2": "on",
+          "pocketCfg": "on",
+          "io": "v4",
+          "ioMerge": "on",
+          "loseExit": "off",
+          "loseCover": "never",
+          "oneHit": "off",
+          "fightOn": "off",
+          "finish": "off",
+          "isolate": "any",
+          "seekCrowd": "off",
+          "laserGrab": "std",
+          "anchorCfg": "on",
+          "warmPocket": "on",
+          "fb": "on",
+          "healDoc": "off",
+          "prof": "p26"
+        },
+        "rehearsal": null,
+        "cx": null,
+        "ffaBreak": true,
+        "ffaBreaks": 1,
+        "steal": {
+          "watch": 3,
+          "deaths": 0,
+          "task": ""
+        },
+        "scan": {
+          "forced": 0,
+          "sweeps": 0,
+          "maxBlind": 0
+        },
+        "cal": {
+          "yaw": 0,
+          "pitch": 0,
+          "lat": 0,
+          "beams": 0,
+          "used": 0,
+          "blocked": 0,
+          "noBeam": 0,
+          "outliers": 0,
+          "missLat": 0,
+          "missV": 0,
+          "lastT": 36.8
+        },
+        "openFarm": false,
+        "openFarmEndT": -1,
+        "p26": {
+          "on": false,
+          "phase": "unsure",
+          "hold": 100,
+          "fight": false,
+          "finishing": false,
+          "latch": false,
+          "leg": "",
+          "ttk": 14.827485380116958,
+          "ttd": 3.855925389934073,
+          "shot": 10
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "recorded_utc": "2026-11-22T09:28:12.165564+00:00",
+  "baseline_commit": "099e7e392a863346575d7ef45bb9af3432544329",
+  "source_tree": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive/bot",
+  "switch": "pfAdaptive",
+  "files": {
+    "lib/prof.js": {
+      "baseline_sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+      "candidate_sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06"
+    },
+    "lib/params.js": {
+      "baseline_sha256": "492b8670c45fdc17d3c2e735095990ac8542a80d92067e67bdffa79187f043a9",
+      "candidate_sha256": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9"
+    }
+  },
+  "changed_files_only": [
+    "lib/prof.js",
+    "lib/params.js"
+  ],
+  "own_unit_receipt": "panel/mech/adaptive-round2-unit.json",
+  "own_unit_script_sha256": "a23948c889aba9617f253f230193d4de43df9a0587c6fbbd25d0b543b61391af",
+  "own_unit_passed": 28,
+  "status": "source frozen; independent correctness/fallback gates and corrected active runtime gate accepted; root owns publication",
+  "scope": "Existing practice-profile envelope; no brain, firecontrol, economy or FFA dispatch changes.",
+  "independent_final_cases": {
+    "state": 33,
+    "goals": 32,
+    "cross_mode": 16,
+    "state_goal_observations": 375
+  },
+  "runtime_receipts": [
+    "panel/mech/adaptive-final-validation/results.json",
+    "panel/mech/adaptive-final-validation/corrected-active/results.json"
+  ],
+  "runtime_attempts": {
+    "total": 20,
+    "strict_passes": 14,
+    "original_active_fixture_terminal_contract_failures": 6,
+    "all_observation_answers_timely": true,
+    "candidate_source_unchanged": true
+  }
+}

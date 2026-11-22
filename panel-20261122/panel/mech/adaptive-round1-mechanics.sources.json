@@ -1,0 +1,58 @@
+{
+  "reviewed_utc": "2026-11-22T09:05:52.129494+00:00",
+  "scope": "Independent mechanics/state/reward audit, no production edits; fixture specifications are not executed policy results.",
+  "official_sources": [
+    {
+      "url": "https://www.joinbuilders.org/buildathon/tracks/builders",
+      "web_ref": "turn387747042view0",
+      "notes": "Current builders-4 track explicitly says 96 matches; higher authority than stale protocol submission paragraph."
+    },
+    {
+      "url": "https://www.joinbuilders.org/buildathon/tracks/builders/files/protocol.md?inline=1",
+      "web_ref": "turn114118833view0",
+      "followup_refs": [
+        "turn167843518view0",
+        "turn167843518view1"
+      ],
+      "notes": "Fresh direct open initially errored; official page link succeeded. Reviewed scoring, observations, events, weapon/regen/drop/cube/zone mechanics."
+    }
+  ],
+  "owner_results": [
+    {
+      "commit_prefix": "099e7e3",
+      "score": 5.47,
+      "policy": "capture"
+    },
+    {
+      "commit_prefix": "69ed181",
+      "score": 4.74,
+      "policy": "pressure"
+    },
+    {
+      "commit_prefix": "26f382e",
+      "score": 4.67,
+      "policy": "burst"
+    }
+  ],
+  "owner_results_scope": "Reported in owner chat via root, not authenticated receipts or paired-seed experimental results.",
+  "files_sha256": {
+    "handoff/.cache/ws/mechbot/kit/protocol.md": "fa27ac191f6623d3a979e8d85389e5a18c373a41fcc832f4d08551ddcfb69e77",
+    "handoff/.cache/ws/mechbot/kit/mechfight.schema.json": "134a617995240b25866b57dbe8eaf7786e9a2c09f6b980ad7964e88b63719ccf",
+    "handoff/.cache/ws/mechbot/kit/check/stream.jsonl.gz": "884a1bbb2afe288ea5b2d60ce20c74274ba37351ec31bf3334c160f13ec48a95",
+    "experiments/mech-capture/bot/lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+    "experiments/mech-capture/bot/lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+    "experiments/mech-capture/bot/lib/economy.js": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+    "experiments/mech-capture/bot/lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+    "experiments/mech-capture/bot/lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+    "experiments/mech-capture/bot/lib/brain.js": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+    "experiments/mech-capture/bot/lib/firecontrol.js": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+    "experiments/mech-capture/bot/lib/params.js": "492b8670c45fdc17d3c2e735095990ac8542a80d92067e67bdffa79187f043a9",
+    "experiments/mech-pressure-cycle/bot/lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+    "experiments/mech-pressure-cycle/bot/lib/pressure.js": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+    "experiments/mech-pressure-cycle/bot/lib/weapon_policy.js": "84e082f5fccd68e395756191538ac922e289f5e31449bc622415a343136ab8c2",
+    "experiments/mech-pressure-cycle/bot/lib/brain.js": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+    "experiments/mech-pressure-cycle/dist/bot.js": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+    "experiments/mech-burst-cycle/dist/bot.js": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+    "panel/mech/adaptive-round1-initial-config.json": "df44fc0064249eef36c8dcb34d3475527d28c6fe839038de464ce563707961b3"
+  }
+}

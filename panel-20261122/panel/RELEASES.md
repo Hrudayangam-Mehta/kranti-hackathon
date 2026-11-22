@@ -1,57 +1,57 @@
-# Published submission commits
+# Published submission commits — current checkpoint
 
 Repository: https://github.com/Hrudayangam-Mehta/kranti-hackathon
 
-| Track / tactic | Branch | Commit |
-|---|---|---|
-| Shopping, final reviewed Rust pipeline | `optimize/shopping-rust-v1` | `3d8fe30157e655ef6109c17205a8d8b530e1ccfb` |
-| Mech, continuous pressure and adaptive weapons | `optimize/mech-pressure-cycle-v1` | `69ed1814707634fb4b5e5953082f3d67ac9e52f8` |
-| Mech, burst pursuit, adaptive weapons and varied dodge ties | `optimize/mech-burst-cycle-v1` | `26f382eab378e1193ab9203bb4ec7e706c6780bf` |
+## Ready to submit
 
-All three are pushed and independently checked through anonymous public clones. The GitHub connector also confirmed the branches. Shopping's fresh source clone rebuilt to a byte-identical tested executable. Each Mech public clone contains the exact tested bundle. Each commit message is `Update`, with the ChatGPT co-author footer.
+| Order | Track / tactic | Branch | Commit |
+|---|---|---|---|
+| 1 | Mech adaptive engagement, recovery, economy and range | `optimize/mech-adaptive-v1` | `398ba96e34ee1d7875b62afce78c3cf3b2745676` |
+| 2 | Mech adaptive plus equipment and weapon physics | `optimize/mech-adaptive-weapons-v1` | `f3743067ae98c3a583a98fb5489ede10531451a6` |
+| Separate track | Shopping reviewed Rust pipeline | `optimize/shopping-rust-v1` | `3d8fe30157e655ef6109c17205a8d8b530e1ccfb` |
 
-Shopping changes seven Rust source files and preserves README, Dockerfile, dependency pins and LICENSE. The Mech branches are children of the selected capture commit and change only `bot.js`; README, Dockerfile and LICENSE are unchanged. `main`, `exp`, `blast`, `handoff`, and previously published submission branches were checked around publication and were unchanged by these pushes. No token, other team's source, generated dataset or native compiled executable was added to a submission branch.
+All three are pushed and verified through fresh anonymous public clones. The Mech bundles and the Shopping rebuilt executable match their tested hashes. README files and existing branch heads were preserved. The owner submits through the official track page; no game submission or final-pick change was performed.
 
-## Suggested submission order and known scores
+The new primary Mech commit is a child of selected capture `099e7e392a863346575d7ef45bb9af3432544329`. The equipment commit is a child of that primary. Each changes only the bundled `bot.js` in its minimal four-file submission tree. Source, test scripts and reviews are archived separately. Shopping changes seven Rust source files with build/dependency/README pins preserved.
 
-For Mech, try continuous pressure first and burst pursuit second. They express different tactical hypotheses, with a shared reviewed mechanics implementation. The owner-reported selected baseline is capture `099e7e392a863346575d7ef45bb9af3432544329`, score **5.47**. Earlier geometry `b92af4e563ec1f86aac29b8e1116ba85453dfe5a` scored **5.31**. The new hashes have **no official score** in this session. The target **7.5** corresponds to mean placement 8.5 under the current formula; the selected baseline corresponds to 10.53. There is no calibrated probability of reaching that target from these tests.
+## Official score reference and rejected earlier hypotheses
 
-For Shopping, submit the Rust hash above to obtain its official result. The owner's C baseline is **1.0598 seconds**. The latest local five-run batch measured the new build at **1.8814s**, C at **2.4551s**, and the pinned public Team 67 comparator at **1.1340s**. Those are same-batch local medians, not hidden-data forecasts. The new build is still slower than the comparator. The final full-size output agrees exactly with it, and smaller complete outputs also agree with independent semantic references.
+| Entry | Owner-reported score | Current interpretation |
+|---|---:|---|
+| Mech capture `099e7e392a863346575d7ef45bb9af3432544329` | 5.47 | Retain as selected reference until a new official score improves it |
+| Mech geometry `b92af4e563ec1f86aac29b8e1116ba85453dfe5a` | 5.31 | Earlier control |
+| Mech continuous pressure `69ed1814707634fb4b5e5953082f3d67ac9e52f8` | 4.74 | Lower result; earlier recommendation superseded |
+| Mech burst `26f382eab378e1193ab9203bb4ec7e706c6780bf` | 4.67 | Lower result; earlier recommendation superseded |
+| New Mech adaptive pair | Unscored | Local correctness/runtime gates passed; no performance claim |
+| Shopping C `ad8526b3410bfb6b8b8febff35affe6bd5b42499` | 1.0598 s | Owner-reported selected baseline |
+| New Shopping Rust | Unscored | Local improvement over C, still behind pinned public Team 67 comparator |
 
-No game-server connection, submission action, or final-pick change was performed. The owner submits these hashes through the official track pages. Identical Mech code retains its first builders-4 score, so resubmitting a hash does not produce a fresh independent score sample under the current announcement.
+Mech target 7.5 is unmeasured. Fresh private seeds and absent paired match-level outcomes prevent isolating which component caused the pressure/burst loss. Identical code retains its first builders-4 score under the current announcement. Keep the raw failures and use distinct, meaningful code hypotheses.
 
-## What the Mech pair changes
+## Current Mech behavior and evidence
 
-Setup completes at a laser/lightning weapon plus an actual upgrade or qualifying live offer. Deadlines prevent indefinite setup: an upgraded gun at 60 seconds, or any weapon at 90 seconds. After commitment, low health and unfavorable combat estimates do not restore passive healing or farming. The bot pursues reachable opponents, uses modeled sustained damage or a 1.5-second burst estimate, keeps target hysteresis, and selects upgrades for its carried weapons. It may finish an already-held uncontested capture with at most 0.6 seconds remaining; it does not start a remote supply trip after commitment.
+The primary updates the existing `prof` owner, with no pressure wrapper. It uses observed ready damage, reversible early setup eligibility, a common exchange budget for nominal/fallback ranges, useful resource completion, current-state goal revalidation and quiet recovery. It fixes the distant-range refusal found in independent review. The equipment variant shares the same readiness helper for pickup/upgrade utility and adds nearest-recipient lightning and full-arc mortar checks. Dynamic mortar acquisition remains unchanged. Existing late/FFA dispatch stays in place, including its documented one-decision transition lag.
 
-The shared weapon controller accounts for actual torso slew, cooldown, ammo/reload, held laser charge and lightning energy. It preserves compatible independent triggers, models the nearest lightning object, evaluates nearby equipment over a common horizon, allows pressure to replace the gun in either posture, and prevents immediately reversing a swap. Charging-slot protection, physical take bounds and equip costs remain. Burst changes valid bullet-dodge tie ordering through a separate bounded seeded stream; this is reproducible variation, not cryptographic unpredictability.
+Three review rounds are complete. The primary implementation suite passed 28 cases. Independent backend tests passed 33 state/event/IO and 32 goal/readiness cases per candidate, with 375 schema-valid observations each. The cross-mode suite passed 16 cases including 900 recorded-action identities. Equipment tests passed 18 mortar, 20 lightning and 19 loadout cases.
 
-Cross-review corrected the old defensive laser predicate, a reload command that could cancel a valid shot, a firing-distance/flight-cap mismatch, nearer lightning blockers, pickup dwell while moving, and a dropped-gun reacquisition hole. Source, equations and function-level reviews are in `mech/PRESSURE_POLICY_REVIEW.md`, `mech/weapon-control-implementation-review.md`, and `mech/pressure-backend-review.md`.
+The runtime evidence has 20 process attempts: 14 valid-stream passes and six retained fixture-termination failures. The input-only correction appended the missing end record; all 300 observations and all source/bundle hashes were preserved. All 4,200 requested decisions in the 14 complete-input runs were timely and valid. Maximum measured action latency was 29.44 ms for primary and 30.27 ms for equipment, below the 50 ms budget on this one-CPU-affinity host. Full Docker/cgroup sandbox behavior was not reproduced.
 
-The Shopping engine is Rust 1.97.0. Mech uses the existing pinned Bun 1.4.4 runner with the new JavaScript decision modules. This release does not claim a full Rust port of the Mech bot, a full rewrite of Team 67's architecture, or formal verification of every existing function.
+The primary and equipment variants produced identical actions on the two runtime streams. Equipment-specific behavior is supported by crafted cases, not a demonstrated match advantage. Nonreactive, stitched counterfactual observations cannot establish score, survival or optimal play.
 
-## Tests and material limits
+Read [the complete release report](mech/ADAPTIVE_RELEASE.md), [independent final review](mech/ADAPTIVE_FINAL_REVIEW.md), [function-level policy review](mech/ADAPTIVE_POLICY_REVIEW.md), [independent function audit](mech/adaptive-round2-review.md), [backend review](mech/adaptive-round2-backend-review.md) and [superseding runtime receipt](mech/adaptive-final-validation/release-validation-status.json).
 
-Shopping's final executable passed 35 Rust unit tests, 320 adversarial reference/readback runs, all 36 official fixtures, and six complete independent 1M-event comparisons. A successful 60M-event/15M-click run matched all **6,629,125 user-day and 28,014 campaign-day rows** against the pinned competitor output. Earlier signal-9 and ENOSPC failures remain recorded; only one final full-size run after disk remediation is claimed. See `SHOPPING_RELEASE.md`.
+## Ahmad and the remaining comparison boundary
 
-Mech's exact pair passed 34 macro cases per candidate, 22 integrated cases, 5,100 feature-disabled identity decisions per candidate and 2,400 enabled malformed/low-energy/zone decisions per candidate. The controller suite has 48 cases. These are overlapping behavioral checks, not thousands of independent scored matches.
+The attributable public project is `ahmad-ovh/Buildathon`. Inspected head `f29e4d3b8316aefb42d4b5848bf1c0e60a7d2675` uses Go. Exact binding of the public 6.74 score to a source revision remains unresolved. The panel extracted contracts for reversible combat, resource detours and range consistency, then challenged current-head dead flags, discarded range choices and simplified aim logic. No competitor code, constants or fitted tables were included. See [the source-specific report](mech/adaptive-round1-competitors.md).
 
-The first later burst timing run had **two late answers out of 300**, with **243.3ms** maximum, despite the official checker's tolerant PASS label. The raw result and explicit correction are retained. A predetermined two-round diagnostic then ran **12 processes** across capture and the two candidates on the normal and contact streams; all 12 answered all 300 observations within budget. Contact maximums were 8.17/5.23ms for pressure and 6.12/7.84ms for burst. This does not erase or explain the earlier outlier.
+## Shopping comparison
 
-The contact fixture demonstrably executes actual aggressive movement on all 300 frames, with movement different from capture on 297 frames, including 45 frames with 15 charging opponents. It is schema-valid and map-checked **counterfactual stress**, not a reactive match simulation or proof of engine-reachable history. Its synthetic zone schedule and one synthetic laser cooldown are explicitly documented. Docker/cgroup-equivalent runtime enforcement was unavailable here. The 50ms official budget still applies on the organizer's machine.
+The final five-run 20M batch measured median wall time 1.881402 s for our Rust build, 2.455066 s for C and 1.134012 s for the pinned public Team 67 comparator. Our build improved 23.4% over C, but remained approximately 1.66 times the comparator's wall time. These are local measurements, not official hidden-data scores. Full 60M/15M outputs matched exactly; 35 unit tests, 320 adversarial checks, 36 official fixtures and six independent complete 1M comparisons passed. Earlier signal-9 and disk-full failures remain documented; the final full-size success is one run, not a median. See [SHOPPING_RELEASE.md](SHOPPING_RELEASE.md).
 
-The missing active-pressure startup rehearsal and the isolated mortar-arc correction are documented, unpromoted experiments. They are absent from these hashes. Neither the startup coverage gap nor the host conditions have been established as the cause of the late burst answers.
+## Language, research and historical material
 
-## Evidence map
+Shopping uses Rust 1.97.0. Mech retains pinned Bun 1.4.4 and JavaScript modules. No full Rust port or rewrite of every existing function is claimed. [RESEARCH_NOTES.md](RESEARCH_NOTES.md) maps relevant author/publisher books, primary papers, official language/format docs and open-source projects to reviewed decisions; cited research gains are not transferred to these builds.
 
-- `SHOPPING_RELEASE.md`: final source/function map, three rounds, performance, exactness and environment limitations.
-- `RESEARCH_NOTES.md`: primary papers, author/publisher book chapters, official Rust/Parquet docs and open-source resources mapped to specific implementation questions.
-- `mech/PRESSURE_POLICY_REVIEW.md`: every new macro function, equations, tactical tradeoffs and three rounds.
-- `mech/WEAPON_REVIEW.md` and `mech/weapon-control-implementation-review.md`: control functions and test mapping.
-- `mech/pressure-source-acceptance.json`: independent source/bundle pins.
-- `mech/final-validation/strict-diagnostic/results.json`: every predetermined runtime result.
-- `mech/contact-fixture-review.md`: independent fixture scope and path-coverage audit.
-- `mech/aggressive-prescore-hypotheses.json`: written before publication and official scoring.
-- `shopping-published.json`, `shopping-fresh-public-clone.json`, `mech/aggressive-published-releases.json`, and `mech/aggressive-fresh-clone-verification.json`: publication and clone receipts.
+Older pressure/burst reports remain historical evidence, including the prior two late burst responses and diagnostic correction. Their source and branches remain available as controls. The isolated mortar correction remains absent from those earlier pressure/burst hashes but is included in the new equipment variant. The unpublished round-2 adaptive snapshots preserve the subsequently repaired range defect and are not submission recommendations.
 
-Earlier reports remain historical evidence. Where an earlier candidate selection, publication block or tentative test summary conflicts with these final pinned receipts, use this release index and the explicit correction rather than discarding the earlier raw record.
+The archive mirrors workspace-relative paths. Some harnesses contain the original absolute root `/workspace/scratch/bde29dc281e6`; reproduce under that path or map a working copy to a new root without changing the preserved evidence files. The original `handoff` kit/ref dependency and pinned runtimes must be supplied separately. Compiler caches, native executables, large generated datasets, credentials, competitor source and README additions are excluded.

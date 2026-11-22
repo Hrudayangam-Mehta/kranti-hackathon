@@ -1,38 +1,43 @@
 # Current panel checkpoint — 22 November 2026
 
-This branch preserves the original handoff and adds the completed panel work under `panel-20261122/`. It is an evidence branch, not a track submission. README files are unchanged.
+This evidence branch preserves the original handoff and the previous panel checkpoint, then records the completed adaptive Mech work under `panel-20261122/`. It is not a track submission. README files are unchanged.
 
 ## Submission commits
 
-| Track / tactic | Branch | Commit |
-|---|---|---|
-| Shopping Rust | `optimize/shopping-rust-v1` | `3d8fe30157e655ef6109c17205a8d8b530e1ccfb` |
-| Mech continuous pressure | `optimize/mech-pressure-cycle-v1` | `69ed1814707634fb4b5e5953082f3d67ac9e52f8` |
-| Mech burst pursuit | `optimize/mech-burst-cycle-v1` | `26f382eab378e1193ab9203bb4ec7e706c6780bf` |
+| Order | Track / tactic | Branch | Commit |
+|---|---|---|---|
+| 1 | Mech adaptive | `optimize/mech-adaptive-v1` | `398ba96e34ee1d7875b62afce78c3cf3b2745676` |
+| 2 | Mech adaptive plus equipment/physics | `optimize/mech-adaptive-weapons-v1` | `f3743067ae98c3a583a98fb5489ede10531451a6` |
+| Separate track | Shopping Rust | `optimize/shopping-rust-v1` | `3d8fe30157e655ef6109c17205a8d8b530e1ccfb` |
 
-All three were pushed and verified through fresh anonymous public clones. No game submission or final-pick action was performed. Owner-reported current picks before these tries are Shopping C at 1.0598 s and Mech capture at 5.47. New official results are pending. Suggested Mech order is continuous pressure, then burst pursuit. Target 7.5 is unmeasured.
+These are pushed and verified through anonymous public clones. Fresh rebuilds match the tested artifacts. Capture `099e7e392a863346575d7ef45bb9af3432544329`, owner-reported 5.47, remains the selected Mech reference. Pressure scored 4.74 and burst 4.67; the earlier recommendation to submit them is superseded. The two new adaptive candidates have no official score. Shopping C's owner-reported pick is 1.0598 s; the new Rust hash is unscored. No game submission or final-pick action was performed.
+
+The primary is a child of capture. The equipment candidate is a child of the primary. Both minimal Mech packages change only `bot.js`; earlier branches and README files were preserved. Use the primary first and evaluate the equipment additions as a separate hypothesis. The goal of 7.5 is not a measured result.
 
 ## Read first
 
-- [Release index](panel-20261122/panel/RELEASES.md): hashes, behavior, honest comparison and verification limits.
-- [Shopping report](panel-20261122/panel/SHOPPING_RELEASE.md): exact final Rust changes, three rounds, tests, timing and remaining gap to 67.
-- [Mech policy review](panel-20261122/panel/mech/PRESSURE_POLICY_REVIEW.md): equations, every new macro function and three rounds.
-- [Weapon review](panel-20261122/panel/mech/weapon-control-implementation-review.md): controller functions and corrected composition.
-- [Research map](panel-20261122/panel/RESEARCH_NOTES.md): book chapters, primary papers, official docs and open-source references.
-- [Artifact manifest](panel-20261122/MANIFEST.json): file sizes and SHA-256 pins.
+- [Current release index](panel-20261122/panel/RELEASES.md).
+- [Complete adaptive release report](panel-20261122/panel/mech/ADAPTIVE_RELEASE.md).
+- [Independent final review](panel-20261122/panel/mech/ADAPTIVE_FINAL_REVIEW.md).
+- [Tactical function review](panel-20261122/panel/mech/ADAPTIVE_POLICY_REVIEW.md) and [independent function audit](panel-20261122/panel/mech/adaptive-round2-review.md).
+- [Backend/state review](panel-20261122/panel/mech/adaptive-round2-backend-review.md) and [source acceptance](panel-20261122/panel/mech/adaptive-backend-acceptance.json).
+- [Superseding runtime receipt](panel-20261122/panel/mech/adaptive-final-validation/release-validation-status.json), with the original fixture failures retained alongside the corrected batch.
+- [Public Ahmad source audit](panel-20261122/panel/mech/adaptive-round1-competitors.md); exact 6.74 source revision remains unverified.
+- [Shopping report](panel-20261122/panel/SHOPPING_RELEASE.md) and [research resources](panel-20261122/panel/RESEARCH_NOTES.md).
+- [Artifact manifest](panel-20261122/MANIFEST.json).
 
-The new Mech source is in `panel-20261122/experiments/mech-pressure-cycle/bot/` and `panel-20261122/experiments/mech-burst-cycle/bot/`. The new Shopping source is in `panel-20261122/experiments/dense-wide42/`. Other experiments are controls, rejected alternatives or explicitly unpromoted prototypes; do not submit them by folder name. The published branches contain the minimal scored packages.
+The final adaptive source trees are `panel-20261122/experiments/mech-adaptive/bot/` and `panel-20261122/experiments/mech-adaptive-weapons/bot/`. Only the listed submission commits are proposed for scoring. Earlier pressure/burst, isolated prototypes and round-2 snapshots remain diagnostic history. The mortar correction is included in the new equipment candidate, but was absent from the earlier pressure pair.
 
 ## Evidence interpretation
 
-Shopping final gates: 35 Rust unit tests,320 adversarial runs,36 official fixtures,6 independent complete 1M comparisons, and exact 60M differential comparison. Earlier ENOSPC and signal-9 failures remain in the reports. Final 60M after disk cleanup is one success, not a three-run median.
+Three rounds completed: mechanics/source forensics; implementation and independent contract tests; adversarial range/physics integration and frozen runtime. Independent backend checks passed 65 contracts and 375 schema-valid observations per candidate. The primary own suite passed 28 cases, cross-mode review passed 16 cases with 900 action identities, and equipment-specific tests passed 57 cases.
 
-Mech final gates include 48 controller cases,34 macro cases per candidate,22 integration cases, identity/stress sequences, official checks and 12 predetermined strict diagnostic processes. One earlier burst check had 2 late answers/maximum 243.3 ms despite tolerant PASS; later clean runs do not erase it. Contact fixtures are counterfactual schema/map-checked inputs, not reactive matches. The active-warmup prototype and isolated mortar correction remain unpromoted.
+The final runtime gate has 14 passing complete-input processes and 4,200 timely valid decisions. Six earlier active-stream attempts failed termination because the fixture omitted its end message; those raw failures remain. Only the terminal fixture record changed before the six affected processes passed. Maxima across valid runs were 29.44 ms for adaptive and 30.27 ms for equipment. Local one-CPU-affinity replay is not an official reactive score or full Docker/cgroup reproduction. The equipment and primary bundles make identical actions on the two runtime streams; focused cases establish the extra mechanics, not a score gain.
 
-Older handoff and panel reports remain historical context. This checkpoint and final source/bundle pins supersede stale candidate picks, temporary publication blocks and the corrected zero-late summary.
+Shopping local median wall time improved 23.4% from C, but remains about 1.66 times the pinned public Team 67 comparator. Its final 60M/15M output matches exactly. See the Shopping report for complete correctness gates, memory/CPU evidence and retained failures.
 
-## Reproduction notes
+## Reproduction and preservation
 
-The archived layout mirrors the session workspace. Run harnesses from `panel-20261122/`. Their `handoff/` dependency can be a checkout of the original handoff commit, or a link to this branch's root after materializing the required original kit/ref paths. Rebuild binaries into `bench/bin/`; generated inputs and output tables were deliberately omitted. Rust is pinned 1.97.0 with the recorded static-CRT locked build; Bun is pinned 1.4.4 with the Dockerfile JSC flags. The competitor's binary/source is not archived; its recorded public revision and hash identify the earlier differential comparison, whose future fetchability is unverified. All logs record original paths for provenance.
+The archive mirrors the session workspace. Some harnesses retain the original absolute root `/workspace/scratch/bde29dc281e6`; running only from `panel-20261122/` is insufficient for those files. Supply a compatible root mapping or adapt a separate working copy. Preserve the original sources and receipts byte-for-byte. The `handoff/` dependency can be a checkout of original handoff commit `99fa3729182ecdb09c49b643c8c00fe167f8c483`, with required kit/ref paths materialized. Rebuild excluded native binaries with the recorded pins. Rust is 1.97.0; Bun is 1.4.4.
 
-The supplied credential was used only transiently for this owner's repository. It is absent from new files and persistent git configuration. Preserve the owner instructions: new branches only, no README changes, no other teams' code in entries, and owner-operated game submission.
+New credential and competitor-source files are excluded. The owner token was used transiently only for this repository, and is absent from release files and persistent Git configuration. Preserve new-branch-only publishing, unchanged README files and owner-operated game submission.

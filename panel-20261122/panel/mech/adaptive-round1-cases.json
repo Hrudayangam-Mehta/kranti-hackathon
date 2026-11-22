@@ -1,0 +1,227 @@
+{
+  "scope": "Decision-unit counterfactual states using unmodified own source; no map simulation, engine-reachability or placement claim.",
+  "cases": 11,
+  "passed": 11,
+  "results": [
+    {
+      "name": "pressure_rank_is_identical_across_own_hp_and_alive",
+      "passed": true,
+      "cases": [
+        {
+          "policy": "push",
+          "hp": 1,
+          "alive": 2,
+          "score": 7.003720462543992,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "push",
+          "hp": 1,
+          "alive": 16,
+          "score": 7.003720462543992,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "push",
+          "hp": 1400,
+          "alive": 2,
+          "score": 7.003720462543992,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "push",
+          "hp": 1400,
+          "alive": 16,
+          "score": 7.003720462543992,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "burst",
+          "hp": 1,
+          "alive": 2,
+          "score": 6.544035674470457,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "burst",
+          "hp": 1,
+          "alive": 16,
+          "score": 6.544035674470457,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "burst",
+          "hp": 1400,
+          "alive": 2,
+          "score": 6.544035674470457,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        },
+        {
+          "policy": "burst",
+          "hp": 1400,
+          "alive": 16,
+          "score": 6.544035674470457,
+          "mode": "FIGHT",
+          "hold": false,
+          "ttk": 6.149019607843137
+        }
+      ]
+    },
+    {
+      "name": "capture_risk_estimate_changes_with_own_hp",
+      "passed": true,
+      "cases": [
+        {
+          "hp": 1,
+          "mode": "DISENGAGE",
+          "fight": true,
+          "ttk": 6.699293094072865,
+          "ttd": 0.007075092458594629,
+          "latch": true
+        },
+        {
+          "hp": 1400,
+          "mode": "FIGHT",
+          "fight": true,
+          "ttk": 6.699293094072865,
+          "ttd": 9.90512944203248,
+          "latch": false
+        }
+      ]
+    },
+    {
+      "name": "pressure_treats_support_as_ranking_only",
+      "passed": true,
+      "pressure": {
+        "mode": "FIGHT",
+        "support": 9.001713844660506,
+        "ttk": 10.980392156862745
+      },
+      "capture": {
+        "mode": "DISENGAGE",
+        "ttd": 0.043463551120297726,
+        "shooters": 12
+      }
+    },
+    {
+      "name": "pressure_prefers_lightning_range_without_energy_to_fire",
+      "passed": true,
+      "energy": 6,
+      "reserve": 6,
+      "pulseCost": 3,
+      "range": 30.6,
+      "modelRateWithLightning": 341.78571428571433,
+      "modelRateWithoutLightning": 101.7857142857143,
+      "energyGate": false
+    },
+    {
+      "name": "pressure_clears_safe_cube_route_to_next_upgrade",
+      "passed": true,
+      "cases": [
+        {
+          "name": "capture",
+          "planned": "cube",
+          "mode": "LOOT",
+          "grab": "cube",
+          "leg": "",
+          "loot": "cube"
+        },
+        {
+          "name": "pressure",
+          "planned": "cube",
+          "mode": "HOLD",
+          "grab": null,
+          "leg": "pressure-seek",
+          "loot": null
+        }
+      ],
+      "firstThreshold": 1
+    },
+    {
+      "name": "capture_nominal_finish_ignores_observed_readiness",
+      "passed": true,
+      "mode": "FIGHT",
+      "finishing": true,
+      "nominalTtk": 0.47852093529091894,
+      "gunFirst": 2.638095238095238,
+      "laserFirst": 2.4,
+      "finishHorizon": 1.6,
+      "ttd": 0.707509245859463
+    },
+    {
+      "name": "capture_drop_precedes_retreat_latch_even_if_completion_exceeds_ttd",
+      "passed": true,
+      "mode": "DROP",
+      "latch": true,
+      "completion": 12.034188034188034,
+      "ttd": 0.707509245859463,
+      "dropX": 100
+    },
+    {
+      "name": "capture_grab_precedes_retreat_latch",
+      "passed": true,
+      "mode": "LOOT",
+      "latch": true,
+      "ttd": 3.183791606367583,
+      "grab": "cube"
+    },
+    {
+      "name": "capture_full_hp_drop_still_exists_as_lower_priority_loot",
+      "passed": true,
+      "mode": "LOOT",
+      "dropTask": null,
+      "loot": "drop",
+      "energy": 1
+    },
+    {
+      "name": "capture_opportunistic_crate_shot_has_no_regen_guard",
+      "passed": true,
+      "mode": "HEAL",
+      "hp": 800,
+      "regenDelay": 5,
+      "quietTime": 4.900000000000006,
+      "crateOffered": 901,
+      "scope": "hook result only; final firecontrol may still veto"
+    },
+    {
+      "name": "pressure_upgrade_order_is_invariant_to_health_and_survivors",
+      "passed": true,
+      "cases": [
+        {
+          "hp": 1,
+          "alive": 2,
+          "pick": "laser_damage"
+        },
+        {
+          "hp": 1,
+          "alive": 16,
+          "pick": "laser_damage"
+        },
+        {
+          "hp": 1400,
+          "alive": 2,
+          "pick": "laser_damage"
+        },
+        {
+          "hp": 1400,
+          "alive": 16,
+          "pick": "laser_damage"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "scope": "Own-source decision-unit tests; no simulated placement claim.",
+  "cases": 28,
+  "passed": 28,
+  "results": [
+    {
+      "name": "unready_finish_no_longer_overrides_retreat",
+      "passed": true,
+      "mode": "DISENGAGE",
+      "ttk": 2.53125,
+      "finish": false,
+      "reason": "exposure-budget"
+    },
+    {
+      "name": "favorable_ready_exchange_remains_active",
+      "passed": true,
+      "mode": "FIGHT",
+      "margin": 1103.4080255681818,
+      "ttk": 1.734375,
+      "reason": "exchange-admitted"
+    },
+    {
+      "name": "first_projectile_opportunity_bounds_ttk",
+      "passed": true,
+      "ttk": 3.046875
+    },
+    {
+      "name": "unsupported_mortar_has_zero_finish_capacity",
+      "passed": true,
+      "damage": 0
+    },
+    {
+      "name": "lightning_reserve_matches_ordinary_policy_budget",
+      "passed": true,
+      "reserve": 35,
+      "readyDamage": 919.68
+    },
+    {
+      "name": "raw_pitch_and_unsteady_long_flight_fail_closed",
+      "passed": true,
+      "laserHigh": 0,
+      "gunUnsteady": 0
+    },
+    {
+      "name": "full_hp_low_energy_drop_is_explicit_reward",
+      "passed": true,
+      "mode": "DROP",
+      "value": 0.8465,
+      "completion": 4.769230769230769
+    },
+    {
+      "name": "unneeded_extra_size_drop_is_rejected",
+      "passed": true,
+      "mode": "HOLD",
+      "value": 0
+    },
+    {
+      "name": "safe_owned_capture_can_restore_low_hp",
+      "passed": true,
+      "mode": "DROP",
+      "completion": 0.20000000000000018
+    },
+    {
+      "name": "contested_capture_never_invents_completion",
+      "passed": true,
+      "dropTask": null,
+      "mode": "DISENGAGE"
+    },
+    {
+      "name": "lethal_drop_no_longer_precedes_retreat",
+      "passed": true,
+      "mode": "DISENGAGE",
+      "reason": "outside-completion-horizon"
+    },
+    {
+      "name": "cached_grab_is_revalidated_after_new_danger",
+      "passed": true,
+      "mode": "DISENGAGE",
+      "goalReason": "exposure-budget"
+    },
+    {
+      "name": "separate_calm_retreat_grab_cannot_bypass_budget",
+      "passed": true,
+      "mode": "DISENGAGE",
+      "goalReason": "exposure-budget"
+    },
+    {
+      "name": "recovery_does_not_farm_before_regen_starts",
+      "passed": true,
+      "mode": "HEAL",
+      "recoverWait": 0.09999999999999432,
+      "hold": true
+    },
+    {
+      "name": "live_dealt_damage_resets_recovery_wait",
+      "passed": true,
+      "recoverWait": 4.900000000000006
+    },
+    {
+      "name": "positive_ammo_fire_is_not_overwritten_by_quiet_reload",
+      "passed": true,
+      "positiveAmmo": false,
+      "emptyAmmo": true
+    },
+    {
+      "name": "actual_firecontrol_keeps_ready_gun_shot_without_reload",
+      "passed": true,
+      "mode": "FIGHT",
+      "finish": true,
+      "fire": true,
+      "reload": false
+    },
+    {
+      "name": "different_shot_target_cannot_grant_finish_privilege",
+      "passed": true,
+      "target": 1,
+      "shot": 2,
+      "finish": false
+    },
+    {
+      "name": "known_live_armor_changes_incoming_not_zone_rules",
+      "passed": true,
+      "plain": 166.9090909090909,
+      "armored": 126.85090909090908,
+      "armor": 0.24
+    },
+    {
+      "name": "observed_upgrade_and_ready_secondary_can_open_early",
+      "passed": true,
+      "readyMode": "FIGHT",
+      "readyPhase": "open",
+      "gateEndT": -1,
+      "noUpgradePhase": "gate"
+    },
+    {
+      "name": "secondary_energy_loss_returns_to_early_gate",
+      "passed": true,
+      "phase": "gate",
+      "energy": 0,
+      "gateEndT": -1
+    },
+    {
+      "name": "early_open_still_rejects_losing_exchange",
+      "passed": true,
+      "phase": "open",
+      "mode": "DISENGAGE",
+      "margin": -1512.1567556818181,
+      "reason": "exposure-budget"
+    },
+    {
+      "name": "adaptive_off_preserves_pre75_gate",
+      "passed": true,
+      "phase": "gate"
+    },
+    {
+      "name": "far_target_uses_admissible_existing_range_fallback",
+      "passed": true,
+      "nominal": 28,
+      "chosen": 160,
+      "executed": 160,
+      "margin": 1167.5775240384614,
+      "mode": "FIGHT"
+    },
+    {
+      "name": "admissible_close_band_is_retained_without_fallback",
+      "passed": true,
+      "chosen": 28,
+      "margin": 1085.6762456293707
+    },
+    {
+      "name": "all_unsafe_bands_still_decline",
+      "passed": true,
+      "mode": "DISENGAGE",
+      "reason": "exposure-budget"
+    },
+    {
+      "name": "range_fallback_cannot_bypass_zone_budget",
+      "passed": true,
+      "fight": false,
+      "reason": "zone-budget"
+    },
+    {
+      "name": "charging_escape_energy_uses_effective_boost_speed",
+      "passed": true,
+      "charged": 8.547008547008547,
+      "released": 2.5641025641025643,
+      "energy": 80,
+      "boostDrain": 17
+    }
+  ]
+}

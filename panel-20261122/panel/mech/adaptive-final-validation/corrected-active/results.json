@@ -1,0 +1,1454 @@
+{
+  "started_utc": "2026-11-22T09:32:46.000750+00:00",
+  "planned_processes": 6,
+  "predetermined_round_orders": [
+    [
+      "capture",
+      "adaptive",
+      "adaptive-weapons"
+    ],
+    [
+      "adaptive-weapons",
+      "adaptive",
+      "capture"
+    ]
+  ],
+  "source_batch": "/workspace/scratch/bde29dc281e6/panel/mech/adaptive-final-validation/results.json",
+  "original_input_sha256": "2db53d3edff1c4170796a4069bfb67316477ff7f6aa2e13ed1edfe1a9fc54ff8",
+  "corrected_input": "/workspace/scratch/bde29dc281e6/panel/mech/adaptive-active300-complete.jsonl.gz",
+  "corrected_input_sha256": "8c2ebd77e1a8c6a1dc749aa270c8971e6444534c87fe680b542fded266268322",
+  "only_appended_terminal_message": true,
+  "source_sha256": {
+    "mech-adaptive": {
+      "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+      "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+      "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+      "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+      "lib/brain.js": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+      "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+      "lib/economy.js": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+      "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+      "lib/firecontrol.js": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+      "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+      "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+      "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+      "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+      "lib/params.js": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9",
+      "lib/prof.js": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+      "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+      "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+      "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+      "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+      "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    },
+    "mech-adaptive-weapons": {
+      "Dockerfile": "e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a",
+      "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+      "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+      "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+      "lib/brain.js": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e",
+      "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+      "lib/economy.js": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0",
+      "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+      "lib/firecontrol.js": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f",
+      "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+      "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+      "lib/lightning.js": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c",
+      "lib/loadout.js": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a",
+      "lib/mortar.js": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275",
+      "lib/mover.js": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+      "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+      "lib/params.js": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8",
+      "lib/prof.js": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+      "lib/senses.js": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6",
+      "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+      "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+      "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+      "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+    }
+  },
+  "bundles": {
+    "capture": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+      "sha256": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+      "bytes": 251278
+    },
+    "adaptive": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+      "sha256": "a372e8a3a8b6ac19faf58b3e227440b594b25238ef9d02f31be3728323a6c45d",
+      "bytes": 262183
+    },
+    "adaptive-weapons": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+      "sha256": "0f49821cae2ea53dcbe7d4eccf6ca9b2a6c29fb509c78d19cec7d89e1b3b51e5",
+      "bytes": 268939
+    }
+  },
+  "runtime_version": "1.4.4",
+  "cpu_affinity": [
+    0
+  ],
+  "runtime_flags": {
+    "BUN_JSC_useFTLJIT": "0",
+    "BUN_JSC_useConcurrentJIT": "1",
+    "BUN_JSC_useConcurrentGC": "0",
+    "BUN_JSC_numberOfGCMarkers": "1",
+    "BUN_JSC_numberOfBaselineCompilerThreads": "1",
+    "BUN_JSC_numberOfDFGCompilerThreads": "1",
+    "BUN_JSC_numberOfFTLCompilerThreads": "1",
+    "BUN_JSC_minNumberOfWorklistThreads": "1",
+    "BUN_JSC_maxNumberOfWorklistThreads": "1"
+  },
+  "scope": "Bounded correction for the missing terminal end in the original active fixture. All earlier failures are preserved. These six processes repeat only the affected active input; no ranking or reactive-gameplay claim.",
+  "runs": [
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 108, \"threads_max\": 4, \"vmhwm_kb_max\": 80696, \"vmrss_kb_max\": 78040, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1891.1, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 3.8, \"answered\": 300, \"p50_ms\": 0.26, \"p90_ms\": 0.56, \"p95_ms\": 1.71, \"p99_ms\": 3.84, \"max_ms\": 5.32, \"wall_s\": 2.0, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 1,
+      "candidate": "capture",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 108,
+        "threads_max": 4,
+        "vmhwm_kb_max": 80696,
+        "vmrss_kb_max": 78040,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1891.1,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 3.8,
+        "answered": 300,
+        "p50_ms": 0.26,
+        "p90_ms": 0.56,
+        "p95_ms": 1.71,
+        "p99_ms": 3.84,
+        "max_ms": 5.32,
+        "wall_s": 2.0,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:46.000892+00:00",
+      "finished_utc": "2026-11-22T09:32:48.093430+00:00",
+      "wall_s": 2.0925584079959663
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 90348, \"vmrss_kb_max\": 83008, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1964.8, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"JSCWarmUp\": 1, \"mi-scavenger\": 1}, \"exit_code\": 0, \"exit_ms\": 4.5, \"answered\": 300, \"p50_ms\": 0.3, \"p90_ms\": 1.1, \"p95_ms\": 2.34, \"p99_ms\": 5.19, \"max_ms\": 7.04, \"wall_s\": 2.2, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 1,
+      "candidate": "adaptive",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 90348,
+        "vmrss_kb_max": 83008,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1964.8,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 4.5,
+        "answered": 300,
+        "p50_ms": 0.3,
+        "p90_ms": 1.1,
+        "p95_ms": 2.34,
+        "p99_ms": 5.19,
+        "max_ms": 7.04,
+        "wall_s": 2.2,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:48.094996+00:00",
+      "finished_utc": "2026-11-22T09:32:50.322247+00:00",
+      "wall_s": 2.2272722970010363
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 86392, \"vmrss_kb_max\": 80504, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1837.2, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 2.9, \"answered\": 300, \"p50_ms\": 0.33, \"p90_ms\": 0.95, \"p95_ms\": 2.07, \"p99_ms\": 3.99, \"max_ms\": 5.28, \"wall_s\": 2.0, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 1,
+      "candidate": "adaptive-weapons",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 86392,
+        "vmrss_kb_max": 80504,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1837.2,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 2.9,
+        "answered": 300,
+        "p50_ms": 0.33,
+        "p90_ms": 0.95,
+        "p95_ms": 2.07,
+        "p99_ms": 3.99,
+        "max_ms": 5.28,
+        "wall_s": 2.0,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:50.323615+00:00",
+      "finished_utc": "2026-11-22T09:32:52.408860+00:00",
+      "wall_s": 2.0852672809996875
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 86220, \"vmrss_kb_max\": 80864, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1925.7, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"JSCWarmUp\": 1, \"mi-scavenger\": 1}, \"exit_code\": 0, \"exit_ms\": 4.7, \"answered\": 300, \"p50_ms\": 0.33, \"p90_ms\": 0.89, \"p95_ms\": 2.1, \"p99_ms\": 4.78, \"max_ms\": 6.19, \"wall_s\": 2.1, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 2,
+      "candidate": "adaptive-weapons",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 86220,
+        "vmrss_kb_max": 80864,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1925.7,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 4.7,
+        "answered": 300,
+        "p50_ms": 0.33,
+        "p90_ms": 0.89,
+        "p95_ms": 2.1,
+        "p99_ms": 4.78,
+        "max_ms": 6.19,
+        "wall_s": 2.1,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:52.411020+00:00",
+      "finished_utc": "2026-11-22T09:32:54.579985+00:00",
+      "wall_s": 2.1689836740042665
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 107, \"threads_max\": 4, \"vmhwm_kb_max\": 83864, \"vmrss_kb_max\": 80144, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 2020.8, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"mi-scavenger\": 1, \"JSCWarmUp\": 1}, \"exit_code\": 0, \"exit_ms\": 3.8, \"answered\": 300, \"p50_ms\": 0.31, \"p90_ms\": 1.11, \"p95_ms\": 1.89, \"p99_ms\": 4.03, \"max_ms\": 6.47, \"wall_s\": 2.2, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 2,
+      "candidate": "adaptive",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-adaptive/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 83864,
+        "vmrss_kb_max": 80144,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2020.8,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 3.8,
+        "answered": 300,
+        "p50_ms": 0.31,
+        "p90_ms": 1.11,
+        "p95_ms": 1.89,
+        "p99_ms": 4.03,
+        "max_ms": 6.47,
+        "wall_s": 2.2,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:54.581522+00:00",
+      "finished_utc": "2026-11-22T09:32:56.837200+00:00",
+      "wall_s": 2.2556988779979292
+    },
+    {
+      "exit": 0,
+      "stdout": "{\"cmd\": \"/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\", \"observations\": 300, \"problems\": [], \"stale_answers\": 0, \"unsolicited\": 0, \"bad_lines\": 0, \"schema_errors\": 0, \"debug_actions\": 0, \"wrong_tick\": 0, \"no_answer\": 0, \"late\": 0, \"max_line\": 108, \"threads_max\": 4, \"vmhwm_kb_max\": 81808, \"vmrss_kb_max\": 77936, \"backlog_tests\": 0, \"stall_tests\": 0, \"ready_ms\": 1984.3, \"name\": \"aegis-16\", \"skipped_by_design\": 0, \"thread_names\": {\"bun\": 1, \"JITWorker\": 1, \"JSCWarmUp\": 1, \"mi-scavenger\": 1}, \"exit_code\": 0, \"exit_ms\": 5.1, \"answered\": 300, \"p50_ms\": 0.27, \"p90_ms\": 0.63, \"p95_ms\": 1.82, \"p99_ms\": 3.49, \"max_ms\": 4.99, \"wall_s\": 2.1, \"verdict\": \"PASS\"}\n",
+      "stderr": "",
+      "timed_out": false,
+      "round": 2,
+      "candidate": "capture",
+      "stream": "active",
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 108,
+        "threads_max": 4,
+        "vmhwm_kb_max": 81808,
+        "vmrss_kb_max": 77936,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 1984.3,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 5.1,
+        "answered": 300,
+        "p50_ms": 0.27,
+        "p90_ms": 0.63,
+        "p95_ms": 1.82,
+        "p99_ms": 3.49,
+        "max_ms": 4.99,
+        "wall_s": 2.1,
+        "verdict": "PASS"
+      },
+      "internal_end_errors": [
+        0
+      ],
+      "strict_accepts": true,
+      "started_utc": "2026-11-22T09:32:56.839233+00:00",
+      "finished_utc": "2026-11-22T09:32:59.037875+00:00",
+      "wall_s": 2.198662652001076
+    }
+  ],
+  "action_comparisons": [
+    {
+      "round": 1,
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 212,
+      "changed_fields": {
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 0,
+          "t": 30,
+          "tick": 600,
+          "reference": {
+            "tick": 600,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 600,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "t": 30.1,
+          "tick": 602,
+          "reference": {
+            "tick": 602,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 602,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "t": 30.2,
+          "tick": 604,
+          "reference": {
+            "tick": 604,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 604,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "t": 30.3,
+          "tick": 606,
+          "reference": {
+            "tick": 606,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 606,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "t": 30.4,
+          "tick": 608,
+          "reference": {
+            "tick": 608,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 608,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0014,
+              -0.0227
+            ],
+            "fire": [
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "t": 30.5,
+          "tick": 610,
+          "reference": {
+            "tick": 610,
+            "move": [
+              0.7546,
+              0.6562
+            ],
+            "boost": false,
+            "aim": [
+              0,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 610,
+            "move": [
+              -0.7071,
+              0.7071
+            ],
+            "boost": false,
+            "aim": [
+              -0.0041,
+              0.0186
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "repeat_action_comparisons": [
+    {
+      "candidate": "capture",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "candidate": "adaptive",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "candidate": "adaptive-weapons",
+      "complete": true,
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    }
+  ],
+  "source_and_bundles_unchanged": true,
+  "finished_utc": "2026-11-22T09:32:59.047697+00:00",
+  "strict_passes": 6,
+  "corrected_active_gate_passed": true
+}

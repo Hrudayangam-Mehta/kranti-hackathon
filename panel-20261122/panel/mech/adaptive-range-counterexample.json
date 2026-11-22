@@ -1,0 +1,73 @@
+{
+  "utc": "2026-11-22T09:24:24.062Z",
+  "profSha256": "b6f512bd79f615a64e58b24d8a6006f0edc55c0f3c4d62ca7138918b76762155",
+  "scope": "Flat-space source-unit observations with no map. Demonstrates a range-selection inconsistency under the same candidate model, not actual combat success or score.",
+  "finding": "The greedy highest-output band is refused after approach risk is evaluated, while an already enumerated farther band passes that same implementation.",
+  "original": {
+    "ranges": [
+      28,
+      40,
+      55,
+      75,
+      100,
+      130,
+      160,
+      190
+    ],
+    "mode": "DISENGAGE",
+    "chosen": 28,
+    "fight": false,
+    "reason": "exposure-budget",
+    "margin": -173.06501311188822,
+    "approach": 13.846153846153847,
+    "completion": 1.21875,
+    "incoming": 92.04545454545456,
+    "ready": 1443.48,
+    "finishing": false,
+    "action": {
+      "move": [
+        0.4338156187729,
+        -0.9010016697590999
+      ],
+      "boost": false,
+      "aim": [
+        0.0006590664497307941,
+        -0.012503312288446408
+      ],
+      "fire": [
+        true,
+        false
+      ]
+    }
+  },
+  "existingAlternative": {
+    "ranges": [
+      130
+    ],
+    "mode": "FIGHT",
+    "chosen": 130,
+    "fight": true,
+    "reason": "exchange-admitted",
+    "margin": 1158.4590253496503,
+    "approach": 5.128205128205129,
+    "completion": 6.65625,
+    "incoming": 6.136363636363637,
+    "ready": 353.6545715074235,
+    "finishing": false,
+    "action": {
+      "move": [
+        0.9010016697590999,
+        0.4338156187729
+      ],
+      "boost": false,
+      "aim": [
+        -0.0003174368061835686,
+        -0.012507588249059318
+      ],
+      "fire": [
+        true,
+        false
+      ]
+    }
+  }
+}

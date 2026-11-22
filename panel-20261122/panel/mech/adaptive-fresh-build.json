@@ -1,0 +1,81 @@
+{
+  "recorded_utc": "2026-11-22T09:39:17.311052+00:00",
+  "purpose": "Reproducibility verification only; no gameplay retests or production edits.",
+  "bun": {
+    "path": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun",
+    "version": "1.4.4",
+    "sha256": "10702245766b225e70bbf6235fd6b47214fd94b4760d00ffaed8ab0df57ac235"
+  },
+  "reference_manifest": "/workspace/scratch/bde29dc281e6/panel/mech/adaptive-builds.json",
+  "reference_manifest_sha256": "0a911a2a0ac022c2dadf00c5a57a02e230fd0859c9788dfc6cd06d6349b305fa",
+  "temporary_output_directory": "/workspace/scratch/bde29dc281e6/adaptive-fresh-build-c0q8trwf",
+  "candidates": [
+    {
+      "candidate": "mech-adaptive",
+      "cwd": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive/bot",
+      "command": [
+        "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun",
+        "build",
+        "bot.js",
+        "--minify",
+        "--target=bun",
+        "--outfile",
+        "/workspace/scratch/bde29dc281e6/adaptive-fresh-build-c0q8trwf/mech-adaptive.js"
+      ],
+      "exit_code": 0,
+      "stdout": "Bundled 20 modules in 15ms\n\n  mech-adaptive.js  0.26 MB  (entry point)\n\n",
+      "stderr": "",
+      "source_manifest_comparison": {
+        "expected_files": 21,
+        "actual_files": 21,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "source_unchanged_during_build": true,
+        "matches_reference": true,
+        "observed_manifest_sha256": "b8d5e65940927f4ae88ef7a49103aa0e39e813502f5f270961e76bf67337ea68"
+      },
+      "output": "/workspace/scratch/bde29dc281e6/adaptive-fresh-build-c0q8trwf/mech-adaptive.js",
+      "output_bytes": 262183,
+      "expected_sha256": "a372e8a3a8b6ac19faf58b3e227440b594b25238ef9d02f31be3728323a6c45d",
+      "rebuilt_sha256": "a372e8a3a8b6ac19faf58b3e227440b594b25238ef9d02f31be3728323a6c45d",
+      "byte_sha256_matches": true,
+      "verified": true
+    },
+    {
+      "candidate": "mech-adaptive-weapons",
+      "cwd": "/workspace/scratch/bde29dc281e6/experiments/mech-adaptive-weapons/bot",
+      "command": [
+        "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun",
+        "build",
+        "bot.js",
+        "--minify",
+        "--target=bun",
+        "--outfile",
+        "/workspace/scratch/bde29dc281e6/adaptive-fresh-build-c0q8trwf/mech-adaptive-weapons.js"
+      ],
+      "exit_code": 0,
+      "stdout": "Bundled 23 modules in 21ms\n\n  mech-adaptive-weapons.js  0.27 MB  (entry point)\n\n",
+      "stderr": "",
+      "source_manifest_comparison": {
+        "expected_files": 24,
+        "actual_files": 24,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "source_unchanged_during_build": true,
+        "matches_reference": true,
+        "observed_manifest_sha256": "36549a3d67514928e52d17ed509c04f90df8e91dc625e4e90d082844a54e7b9f"
+      },
+      "output": "/workspace/scratch/bde29dc281e6/adaptive-fresh-build-c0q8trwf/mech-adaptive-weapons.js",
+      "output_bytes": 268939,
+      "expected_sha256": "0f49821cae2ea53dcbe7d4eccf6ca9b2a6c29fb509c78d19cec7d89e1b3b51e5",
+      "rebuilt_sha256": "0f49821cae2ea53dcbe7d4eccf6ca9b2a6c29fb509c78d19cec7d89e1b3b51e5",
+      "byte_sha256_matches": true,
+      "verified": true
+    }
+  ],
+  "bun_unchanged": true,
+  "all_verified": true,
+  "source_manifest_digest_format": "UTF-8 JSON mapping of relative path to file SHA256, sorted keys, separators comma and colon, no whitespace"
+}

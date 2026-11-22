@@ -1,0 +1,68 @@
+{
+  "verified_utc": "2026-11-22T09:33:54.728995+00:00",
+  "verifier": "root direct raw JSON/checker-count inspection",
+  "release_gate_passed": true,
+  "required_valid_processes": 14,
+  "valid_timely_decisions": 4200,
+  "total_process_attempts": 20,
+  "retained_fixture_failures": [
+    {
+      "candidate": "capture",
+      "round": 1,
+      "unsolicited": 1,
+      "late": 0
+    },
+    {
+      "candidate": "adaptive",
+      "round": 1,
+      "unsolicited": 1,
+      "late": 0
+    },
+    {
+      "candidate": "adaptive-weapons",
+      "round": 1,
+      "unsolicited": 1,
+      "late": 0
+    },
+    {
+      "candidate": "adaptive-weapons",
+      "round": 2,
+      "unsolicited": 1,
+      "late": 0
+    },
+    {
+      "candidate": "adaptive",
+      "round": 2,
+      "unsolicited": 1,
+      "late": 0
+    },
+    {
+      "candidate": "capture",
+      "round": 2,
+      "unsolicited": 1,
+      "late": 0
+    }
+  ],
+  "metrics": {
+    "adaptive": {
+      "valid_processes": 5,
+      "timely_answers": 1500,
+      "max_ms": 29.44,
+      "max_vmhwm_kib": 90348
+    },
+    "adaptive-weapons": {
+      "valid_processes": 5,
+      "timely_answers": 1500,
+      "max_ms": 30.27,
+      "max_vmhwm_kib": 89924
+    },
+    "capture": {
+      "valid_processes": 4,
+      "timely_answers": 1200,
+      "max_ms": 28.51,
+      "max_vmhwm_kib": 82412
+    }
+  },
+  "frozen_sources_and_bundles_unchanged": true,
+  "scope": "Local 1CPU affinity and pinned runtime; not full Docker/cgroup match sandbox; nonreactive input cannot establish score."
+}

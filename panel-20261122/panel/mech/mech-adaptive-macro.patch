@@ -1,0 +1,463 @@
+--- a/lib/prof.js
++++ b/lib/prof.js
+@@ -14,9 +14,9 @@
+ //   legs()         drop / grab / fight / loot legs (false: the base legs of B.mode)
+ //   fireTarget(), crateShot(), wantReload(), laserVeto(), rungs   hooks of firecontrol.js
+ 
+-import { angDiff, clamp, wrapPi } from './aim.js'
++import { angDiff, clamp, intercept, wrapPi } from './aim.js'
+ import { MODE } from './params.js'
+-import { zoneSlack } from './senses.js'
++import { ringSum, zoneSlack } from './senses.js'
+ import { setTarget } from './tactics.js'
+ 
+ const RANK = { laser: 3, lightning: 2.6, mortar: 0, gun: 0 }
+@@ -27,6 +27,8 @@
+     on: false, phase: '', gateEndT: -1, hold: 0, shot: null, gunTgt: -1, fight: false, finishing: false, ttk: 99, ttd: 99,
+     inc: 0, hot: 0, shooters: 0, latch: false, latchT: -99, avoid: false, avoidTr: null, leg: '', grab: null, grabT0: -99, grabId: '',
+     lootId: '', lootT0: -99, lootD0: 0, nearT: -1, dropId: -1, keepT: -99, underFire: false, unseenT: -99,
++    reason: '', incoming: 0, escapeS: 0, margin: 0, ready: 0, finishDamage: 0, recoverWait: 0, recovering: false,
++    dropValue: 0, dropCompletion: Infinity, goalReason: '', armor: 0, boostDrain: 17, energyRegen: 18, energyDelay: 0.6,
+   }
+   B.p26 = S
+   const mem = new Map()        // mech id -> { hos, until, x, y, z, t, shots, hits }
+@@ -57,6 +59,15 @@
+    *  damaged us 25 s. Gun shots / hits per target (3.3 hit-rate learning). Sightings kept 25 s (hunt objective). */
+   function update(obs) {
+     const me = B.me, t = me.t, L = B.trackList
++    if (P.pfAdaptive) {
++      const st = obs && obs.self && obs.self.stats || {}, base = cfg.mech
++      const live = (key, fallback, lo, hi) => clamp(Number.isFinite(st[key]) ? st[key] : Number.isFinite(base[key]) ? base[key] : fallback, lo, hi)
++      S.armor = live('armor', 0, 0, 0.95)
++      S.boostDrain = live('boost_drain', 17, 0, 1e4)
++      S.energyRegen = live('energy_regen', 18, 0, 1e4)
++      S.energyDelay = live('energy_regen_delay', 0.6, 0, 100)
++      S.recoverWait = me.inZone ? Math.max(0, me.regenDelay - (t - Math.max(me.lastHurtT, me.lastDealtT))) : Infinity
++    }
+     for (let k = 0; k < L.length; k++) {
+       const tr = L[k]
+       if (tr.npc) continue
+@@ -105,12 +116,167 @@
+   /** Our damage per second on tr at range r: sustained gun (magazine + reload) x hit chance, laser flat to its range,
+    *  lightning inside range + 4 m; cube bonus. */
+   function ownDps(r, tr) {
++    if (P.pfAdaptive) {
++      let total = 0
++      for (const w of B.me.weapons) total += readyDamage(w, r, tr, P.pfReadyHorizon)
++      return total / P.pfReadyHorizon
++    }
+     const me = B.me, g = me.gun, lz = me.laser, li = me.lightning, k = me.dmgMult
+     let d = 0
+     if (g && r <= g.range) d += g.damage * g.mag / Math.max(0.05, g.mag * g.cd + g.reloadS) * hitOwn(r, tr) * k
+     if (lz && r <= lz.range) d += lz.damage / Math.max(0.1, lz.full + lz.cd) * k
+     if (li && r <= li.range + P.pfLightPad) d += P.pfLightK * li.damage / Math.max(0.05, li.cd) * k
+     return d
++  }
++  function readyDamage(w, r, tr, horizon) {
++    const me = B.me, H = clamp(Number.isFinite(horizon) ? horizon : 0, 0, 12)
++    if (!w || !Number.isFinite(r) || r < 0 || H <= 0 || w.kind === 'mortar') return 0
++    const tz = tr && Number.isFinite(tr.z) ? tr.z + (Number.isFinite(tr.height) ? tr.height : 9) * 0.5 : me.z + me.muzzleH
++    const dz = tz - me.z - me.muzzleH
++    let distance = Math.hypot(r, dz), pitch = Math.atan2(dz, r)
++    if (pitch < me.minPitch || pitch > me.maxPitch || distance > w.range) return 0
++    let yaw = tr && Number.isFinite(tr.bearing) ? tr.bearing : me.yaw, flight = 0
++    if (w.kind === 'gun') {
++      const v = (key) => tr && Number.isFinite(tr[key]) ? tr[key] : 0
++      const solution = intercept(me.x, me.y, me.z + me.muzzleH, me.x + Math.cos(yaw) * r, me.y + Math.sin(yaw) * r, tz, v('vx'), v('vy'), v('vz'), Math.max(1, w.speed))
++      if (!solution || solution.pitch < me.minPitch || solution.pitch > me.maxPitch || solution.dist > w.range * P.gunRangeFrac) return 0
++      const steady = !tr || me.t - tr.steadySince >= P.steadyS || (tr.airborne && !(me.t - tr.airT0 < 1.5 && tr.vz >= 0))
++      if (solution.t > P.gunFlightMax && !steady) return 0
++      yaw = solution.yaw; pitch = solution.pitch; distance = solution.dist; flight = solution.t
++    } else if (w.kind === 'laser') {
++      if (distance > w.range - 5 || (w.charge <= 0 && tr && B.p26on && laserVeto(tr))) return 0
++    }
++    const mult = me.laser && me.laser.charge > 0 && Number.isFinite(me.laser.st.charge_turn_mult) ? Math.max(0.05, me.laser.st.charge_turn_mult) : 1
++    const turn = Math.max(Math.abs(angDiff(me.yaw, yaw)) / Math.max(0.01, me.turnRate * mult), Math.abs(pitch - me.pitch) / Math.max(0.01, me.pitchRate * mult))
++    const guard = P.tickS * Math.max(1, cfg.match.decide_every || 2), cd = Math.max(0.01, w.cd)
++    let first = Infinity, shots = 0, chance = 1, extra = 1
++    if (w.kind === 'gun') {
++      const mag = Math.max(1, Math.floor(w.mag)), ammo = w.reload > 0 || w.ammo <= 0 ? mag : Math.max(0, Math.floor(w.ammo))
++      const refill = w.reload > 0 ? w.reload : w.ammo <= 0 ? w.reloadS : 0
++      first = Math.max(w.cooldown, refill, turn) + flight + guard
++      if (first <= H) {
++        shots = Math.min(ammo, 1 + Math.floor((H - first) / cd))
++        if (shots === ammo) {
++          const next = first + Math.max(0, ammo - 1) * cd + Math.max(w.reloadS, cd)
++          if (next <= H) {
++            const cycle = (mag - 1) * cd + Math.max(w.reloadS, cd), left = H - next, full = Math.floor(left / cycle)
++            shots += full * mag + Math.min(mag, 1 + Math.floor((left - full * cycle) / cd))
++          }
++        }
++      }
++      chance = hitOwn(distance, tr)
++    } else if (w.kind === 'laser') {
++      const charge = Math.max(0, w.full - w.charge)
++      first = Math.max(turn, w.charge > 0 ? Math.max(w.cooldown, charge) : w.cooldown + charge) + guard
++      if (first <= H) shots = 1 + Math.floor((H - first) / Math.max(0.01, w.full + cd))
++      if (tr && tr.hasMortar) extra += w.cookoff
++    } else if (w.kind === 'lightning') {
++      if (distance > w.range * P.lightRangeFrac) return 0
++      first = Math.max(w.cooldown, turn) + guard
++      if (first <= H) shots = Math.min(1 + Math.floor((H - first) / cd), Math.floor(Math.max(0, me.energy - P.lightReserve) / Math.max(0.01, w.energy)))
++      chance = P.pfLightK
++    }
++    const armor = 1 - clamp(Number.isFinite(cfg.mech.armor) ? cfg.mech.armor : 0, 0, 1)
++    const result = shots * Math.max(0, w.damage) * me.dmgMult * chance * extra * armor
++    return Number.isFinite(result) ? Math.max(0, result) : 0
++  }
++  function readyTotal(tr, r, horizon, single = false) {
++    let amount = 0
++    for (const w of B.me.weapons) {
++      const d = readyDamage(w, r, tr, horizon)
++      amount = single ? Math.max(amount, d) : amount + d
++    }
++    return amount
++  }
++  function killTime(tr, r, limit, single = false) {
++    if (!tr || !(tr.hp > 0) || readyTotal(tr, r, limit, single) < tr.hp) return Infinity
++    let lo = 0, hi = limit
++    for (let i = 0; i < 8; i++) {
++      const mid = (lo + hi) * 0.5
++      if (readyTotal(tr, r, mid, single) >= tr.hp) hi = mid
++      else lo = mid
++    }
++    return hi
++  }
++  function freshShot(tr) {
++    if (!tr || !tr.listed || !tr.losOut || B.me.t - tr.lastSeen > P.pfSeenS) return false
++    const me = B.me
++    return !B.world || B.world.shotClear(me.x, me.y, me.z + me.muzzleH, tr.x, tr.y, tr.z + tr.height * 0.5)
++  }
++  function escapeTime() {
++    const me = B.me, hide = B.hide
++    if (!hide || hide.state !== 'found' || !Number.isFinite(hide.dist)) return P.tCoverUnknown
++    const d = Math.max(0, hide.dist) * P.pathFactor
++    const mult = me.laser && me.laser.charge > 0 ? me.chargeMoveMult : 1
++    let speed = me.walk * mult
++    const boosted = me.boostSpeed * mult
++    if (me.grounded && boosted > speed && me.energy - P.boostReserve >= d / boosted * S.boostDrain) speed = boosted
++    return d / Math.max(1, speed)
++  }
++  function incomingAt(target, range) {
++    const me = B.me, t = me.t, window = Math.max(0.1, P.dmgWindow)
++    let total = 0, own = 0, current = 0, n = 0
++    for (const tr of B.trackList) {
++      if (tr.hp <= 0 || tr.conf < 0.3) continue
++      const observed = tr.dmgIn ? ringSum(tr.dmgIn, t - window) / window : 0
++      const relevant = tr === target || hostile(tr) || observed > 0 || tr.aimAtMe
++      if (!relevant) continue
++      const visible = tr.losIn || t - tr.losInT <= 1
++      const here = visible ? foeDps(Math.hypot(tr.x - me.x, tr.y - me.y), tr) * (1 - S.armor) : 0
++      const there = tr === target ? foeDps(range, tr) * (1 - S.armor) : here
++      const estimate = Math.max(observed, here, there)
++      current += Math.max(observed, here)
++      total += estimate
++      if (estimate > 0) n++
++      if (tr === target) own = estimate
++    }
++    return { total, other: Math.max(0, total - own), current, n }
++  }
++  function exchangeAt(tr, range, exit, previous) {
++    const me = B.me, t = me.t, d = Math.hypot(tr.x - me.x, tr.y - me.y)
++    const at = incomingAt(tr, range), ready = readyTotal(tr, range, P.pfReadyHorizon)
++    const ttl = ready > 0 ? killTime(tr, range, 12) : Infinity
++    const approach = Math.max(0, d - range - P.pfDrift) / Math.max(1, me.walk * (me.laser && me.laser.charge > 0 ? me.chargeMoveMult : 1))
++    const alive = Number.isFinite(B.aliveN) ? B.aliveN : 16
++    const reserve = me.maxHp * P.pfRiskReserve * (alive <= 6 ? 1.25 : 1)
++    const margin = Number.isFinite(ttl) ? me.hp - at.total * (approach + ttl + P.pfRiskReactionS) - at.other * exit - reserve : -Infinity
++    const keep = B.mode === MODE.FIGHT && tr === previous ? -reserve * (1 - P.pfRiskLeave) : 0
++    const zoneSafe = Number.isFinite(ttl) && zoneSlack(B, me.x, me.y, t + approach + ttl + exit) >= me.radius && zoneSlack(B, tr.x, tr.y, t + approach + ttl) >= me.radius
++    const ok = ready > 0 && margin >= keep && zoneSafe
++    const reason = !ready ? 'unready' : !Number.isFinite(ttl) ? 'outside-completion-horizon' : !zoneSafe ? 'zone-budget' : ok ? 'exchange-admitted' : 'exposure-budget'
++    return { range, at, ready, ttl, approach, margin, ok, reason }
++  }
++  function recoveryWanted() {
++    const me = B.me
++    return P.pfAdaptive && me.inZone && me.hpf < P.pfRecoveryHpf && !S.finishing && S.hot <= 0 && me.t - me.lastHurtT > P.pfFireS
++  }
++  function cubeValue(amount) {
++    const cubes = B.me.cubes, count = Math.max(0, amount), stats = Math.min(count, Math.max(0, cap - cubes))
++    const thresholds = Array.isArray(cfg.cubes.upgrade_thresholds) ? cfg.cubes.upgrade_thresholds : []
++    let upgrades = 0
++    for (const q of thresholds) if (Number.isFinite(q) && q > cubes && q <= cubes + count) upgrades++
++    return Math.max(0, stats * 0.06 + upgrades * 0.16 - (count - stats) * 0.025)
++  }
++  function dropValue() {
++    const me = B.me, count = Number.isFinite(cfg.drops.cubes) ? cfg.drops.cubes : 3
++    return Math.max(0, 1 - me.hpf) + 0.35 * Math.max(0, 1 - me.energy / me.maxEnergy) + cubeValue(count)
++  }
++  function goalBudget(x, y, seconds, restored = 0) {
++    const me = B.me, t = me.t
++    if (!Number.isFinite(seconds) || seconds < 0 || seconds > P.pfGoalHorizon) return { ok: false, reason: 'completion-budget' }
++    if (B.zoneUrgent || zoneSlack(B, x, y, t + seconds + S.escapeS + P.pfRiskReactionS) < me.radius) return { ok: false, reason: 'zone-budget' }
++    let route = 0
++    for (const tr of B.trackList) {
++      if (tr.hp <= 0 || tr.conf < 0.3 || !(tr === B.target || hostile(tr) || tr.aimAtMe)) continue
++      const mx = (x + me.x) * 0.5, my = (y + me.y) * 0.5
++      const a = foeDps(Math.hypot(tr.x - x, tr.y - y), tr), b = foeDps(Math.hypot(tr.x - mx, tr.y - my), tr)
++      route += Math.max(a, b) * (1 - S.armor)
++    }
++    const incoming = Math.max(S.hot, route), loss = incoming * (seconds + P.pfRiskReactionS)
++    const reserve = Math.min(me.maxHp * P.pfRiskReserve, me.hp * 0.25)
++    const before = me.hp - loss, after = Math.min(me.maxHp, before + restored) - incoming * S.escapeS
++    const ok = before > Math.max(1, reserve) && after > reserve
++    return { ok, reason: ok ? 'reward-admitted' : 'exposure-budget', incoming, margin: Math.min(before, after) - reserve }
+   }
+   /** Its damage per second on us at range r (house weapons from the config, its cubes). */
+   function foeDps(r, tr) {
+@@ -126,6 +292,17 @@
+    *  pfStepWin better. */
+   function prefRange(tr) {
+     const R = P.pfRanges
++    if (P.pfAdaptive) {
++      const min = tr && tr.hasLightning && !B.me.lightning ? P.pfLightKeep + P.pfDrift : 0
++      let best = Math.max(R[0], min), score = -Infinity
++      for (const raw of R) {
++        const r = Math.max(raw, min), damage = ownDps(r, tr)
++        if (damage <= 0) continue
++        const next = damage - P.pfInK * foeDps(r, tr) * (1 - S.armor)
++        if (next > score + P.pfStepWin) { score = next; best = r }
++      }
++      return best
++    }
+     let best = R[0], bs = ownDps(R[0], tr) - P.pfInK * foeDps(R[0], tr)
+     for (let i = 1; i < R.length; i++) {
+       const s = ownDps(R[i], tr) - P.pfInK * foeDps(R[i], tr)
+@@ -152,7 +329,10 @@
+   function selectTarget() {
+     const me = B.me, t = me.t, L = B.trackList
+     if (S.gateEndT < 0 && t >= P.pfUnsureS && (me.cubes >= P.pfOpenCubes || t >= P.pfOpenT)) S.gateEndT = t
+-    S.phase = t < P.pfUnsureS ? 'unsure' : S.gateEndT < 0 ? 'gate' : 'open'
++    S.setupEligible = !!(P.pfAdaptive && t >= P.pfUnsureS && me.upgrades > 0 &&
++      ((me.laser && readyDamage(me.laser, Math.min(60, me.laser.range * 0.6), null, P.pfReadyHorizon) > 0) ||
++        (me.lightning && readyDamage(me.lightning, me.lightning.range * 0.7, null, P.pfReadyHorizon) > 0)))
++    S.phase = t < P.pfUnsureS ? 'unsure' : S.gateEndT < 0 && !S.setupEligible ? 'gate' : 'open'
+     if (S.phase === 'gate') cnt('pfGate')
+     B.ofGate = false; B.ofBreak = false; B.fpTarget = null
+     const cur = B.target
+@@ -197,6 +377,8 @@
+     const tg = B.target
+     S.hold = tg ? prefRange(tg) : 0
+     let inc = 0, n = 0, hot = 0
++    S.underFire = t - me.lastHurtT <= P.pfFireS
++    if (!P.pfAdaptive) {
+     for (let k = 0; k < L.length; k++) {
+       const tr = L[k]
+       if (tr.npc || tr.hp <= 0 || tr.conf < 0.3) continue
+@@ -206,7 +388,6 @@
+       if (tr !== tg) { inc += f; n++ }
+     }
+     S.hot = hot
+-    S.underFire = t - me.lastHurtT <= P.pfFireS
+     if (tg) {
+       const d = tg.dist
+       const dx = me.x - tg.x, dy = me.y - tg.y, h = Math.hypot(dx, dy) || 1
+@@ -223,6 +404,39 @@
+       tg.finishable = S.finishing; tg.secure = S.finishing
+     }
+     S.inc = inc; S.shooters = n
++    }
++    if (P.pfAdaptive) {
++      const d = tg ? Math.hypot(tg.x - me.x, tg.y - me.y) : 0
++      const exit = escapeTime(), current = incomingAt(tg, d)
++      let chosen = tg ? exchangeAt(tg, S.hold, exit, cur) : null
++      S.nominalHold = S.hold; S.rangeFallback = false
++      if (chosen && !chosen.ok) {
++        const min = tg.hasLightning && !me.lightning ? P.pfLightKeep + P.pfDrift : 0
++        let alternate = null
++        for (const raw of P.pfRanges) {
++          const r = Math.max(raw, min)
++          if (r === chosen.range) continue
++          const next = exchangeAt(tg, r, exit, cur)
++          if (next.ok && (!alternate || next.approach + next.ttl < alternate.approach + alternate.ttl)) alternate = next
++        }
++        if (alternate) { chosen = alternate; S.hold = alternate.range; S.rangeFallback = true }
++      }
++      const at = chosen ? chosen.at : current
++      S.inc = at.total; S.hot = current.current; S.incoming = at.total; S.escapeS = exit; S.shooters = at.n
++      S.ttd = at.total > 0 ? me.hp / at.total : Infinity
++      S.ready = chosen ? chosen.ready : 0
++      S.finishDamage = tg ? readyTotal(tg, d, P.pfFinishS, true) : 0
++      const finishS = tg && S.shot === tg && freshShot(tg) ? killTime(tg, d, P.pfFinishS, true) : Infinity
++      const finishSafe = Number.isFinite(finishS) && me.hp > current.total * (finishS + P.pfRiskReactionS) && zoneSlack(B, me.x, me.y, t + finishS + P.pfRiskReactionS) >= me.radius
++      S.finishing = finishSafe
++      S.finishS = finishS
++      S.ttk = chosen ? chosen.ttl : Infinity; S.approachS = chosen ? chosen.approach : 0
++      S.margin = chosen ? chosen.margin : -Infinity
++      S.fight = !!(chosen && chosen.ok)
++      S.reason = chosen ? chosen.reason : 'no-target'
++      if (S.finishing) S.reason = 'ready-finish'
++      if (tg) { tg.finishable = S.finishing; tg.secure = S.finishing }
++    }
+     B.killSecure = S.finishing
+   }
+   function fireTarget() {
+@@ -234,6 +448,7 @@
+   // ------------------------------------------------------------------ economy (3.10, 3.13)
+   function cubesWanted() {
+     const me = B.me
++    if (P.pfAdaptive) return cubeValue(1) > 0 || (Array.isArray(cfg.cubes.upgrade_thresholds) && cfg.cubes.upgrade_thresholds.some(q => q > me.cubes && q - me.cubes <= 3))
+     if (me.cubes < cap) return true
+     const th = Array.isArray(cfg.cubes.upgrade_thresholds) ? cfg.cubes.upgrade_thresholds : [15, 21, 28, 36, 45]
+     for (let i = 0; i < th.length; i++) if (th[i] > me.cubes) return th[i] - me.cubes <= 3
+@@ -299,7 +514,7 @@
+     let best = null
+     for (let k = 0; k < B.drops.length; k++) {
+       const d = B.drops[k]
+-      if (me.hp >= me.maxHp - 0.5 && d.holder !== me.id) continue
++      if (!P.pfAdaptive && me.hp >= me.maxHp - 0.5 && d.holder !== me.id) continue
+       const dist = Math.hypot(d.x - me.x, d.y - me.y)
+       if (dist > P.pfDropR) continue
+       if (z.known && Math.hypot(d.x - z.nx, d.y - z.ny) > z.nr) continue
+@@ -308,9 +523,15 @@
+       // the arrival test chooses a drop; once chosen it is kept (walking / boosting at it would otherwise make it "too early")
+       if (d.landsIn > tArr + P.pfDropLate && !(B.dropTask && B.dropTask.id === d.id)) continue
+       const plan = dropPlan(d)
+-      if (plan && (!best || (plan.ours && !best.ours) || (plan.ours === best.ours && plan.completion < best.completion))) best = plan
++      if (P.pfAdaptive && plan) {
++        const benefit = dropValue(), budget = goalBudget(plan.x, plan.y, plan.completion, me.maxHp)
++        if (!budget.ok || benefit / (1 + 0.08 * plan.completion) < P.pfRewardMin) continue
++        plan.value = benefit; plan.utility = benefit / (1 + plan.completion)
++        if (!best || plan.utility > best.utility) best = plan
++      } else if (plan && (!best || (plan.ours && !best.ours) || (plan.ours === best.ours && plan.completion < best.completion))) best = plan
+     }
+     B.dropTask = best
++    if (P.pfAdaptive) { S.dropValue = best ? best.value : 0; S.dropCompletion = best ? best.completion : Infinity }
+     if (best && best.id !== S.dropId) { S.dropId = best.id; cnt('pfDropTasks') }
+   }
+   /** Grab mode (3.10): a laser within 45 m, a wanted weapon within 25 m with an empty slot, or a cube within 18 m; path
+@@ -324,6 +545,7 @@
+         const d = Math.hypot(o.x - me.x, o.y - me.y)
+         if (mechNear(o.x, o.y, clearR) || zoneSlack(B, o.x, o.y, t + d / me.walk + 3) < 0) return
+         if (!econ.reachable(o.x, o.y, o.z) || !pathOk(key, o.x, o.y)) return
++        if (P.pfAdaptive && !goalBudget(o.x, o.y, d * P.pathFactor / me.walk + P.tickS * 2).ok) return
+         const s = v - d
+         if (s > gv) { gv = s; g = { key, type, id: o.id, x: o.x, y: o.y, z: o.z } }
+       }
+@@ -358,12 +580,14 @@
+       const v = value - P.pfPerM * path + (key === cur ? P.pfKeep : 0)
+       if (v <= bv) return
+       if (zoneSlack(B, o.x, o.y, t + path / me.walk + P.pfZoneArrive) < 0) return
++      if (P.pfAdaptive && !goalBudget(o.x, o.y, path / me.walk + P.tickS * 2).ok) return
+       bv = v; best = { key, type, id: o.id, x: o.x, y: o.y, z: o.z }
+     }
+     const reach = (o) => !mover.isAbandoned(o.x, o.y) && econ.reachable(o.x, o.y, o.z)
+-    if (cubesWanted()) for (const c of B.cubes.values()) { if (reach(c)) consider('c:' + c.id, 'cube', c, P.pfCube, econ.pathEst(c.x, c.y)) }
+-    if (me.gun && me.hpf > P.pfCrateHpf) for (const c of B.crates.values()) { if (reach(c)) consider('k:' + c.id, 'crate', c, P.pfCrate, econ.pathEst(c.x, c.y)) }
+-    if (me.gun && me.hpf > P.pfDroneHpf && !view) for (let k = 0; k < B.trackList.length; k++) {
++    if (cubesWanted()) for (const c of B.cubes.values()) { if (reach(c)) consider('c:' + c.id, 'cube', c, P.pfCube * (P.pfAdaptive ? 1 + 2 * cubeValue(1) : 1), econ.pathEst(c.x, c.y)) }
++    const farming = !P.pfAdaptive || !recoveryWanted()
++    if (farming && me.gun && me.hpf > P.pfCrateHpf) for (const c of B.crates.values()) { if (reach(c)) consider('k:' + c.id, 'crate', c, P.pfCrate, econ.pathEst(c.x, c.y)) }
++    if (farming && me.gun && me.hpf > P.pfDroneHpf && !view) for (let k = 0; k < B.trackList.length; k++) {
+       const tr = B.trackList[k]
+       if (tr.npc && tr.listed && tr.hp > 0) consider('d:' + tr.id, 'drone', tr, P.pfDrone, tr.dist)
+     }
+@@ -378,6 +602,7 @@
+     }
+     for (let k = 0; k < B.drops.length; k++) {
+       const d = B.drops[k], dist = Math.hypot(d.x - me.x, d.y - me.y)
++      if (P.pfAdaptive) continue
+       if (dist / me.walk > d.landsIn + P.pfDropWait || !sameComp(d.x, d.y) || !dropPlan(d)) continue
+       consider('s:' + d.id, 'drop', { id: d.id, x: d.x, y: d.y, z: me.z }, d.holder >= 0 && d.holder !== me.id ? P.pfDropHeldV : P.pfDropV, dist * 1.1)
+     }
+@@ -405,7 +630,8 @@
+       let bd = P.pfCalmCubeR
+       for (const c of B.cubes.values()) {
+         const d = Math.hypot(c.x - me.x, c.y - me.y)
+-        if (d < bd && t - c.seen <= P.cubeMemS && econ.reachable(c.x, c.y, c.z) && !mover.isAbandoned(c.x, c.y)) { bd = d; B.grab = { type: 'cube', id: c.id, x: c.x, y: c.y, z: c.z, rush: false } }
++        if (d < bd && t - c.seen <= P.cubeMemS && econ.reachable(c.x, c.y, c.z) && !mover.isAbandoned(c.x, c.y) &&
++          (!P.pfAdaptive || goalBudget(c.x, c.y, d * P.pathFactor / me.walk + 2 * P.tickS).ok)) { bd = d; B.grab = { type: 'cube', id: c.id, x: c.x, y: c.y, z: c.z, rush: false } }
+       }
+     }
+     B.lgKnown = false
+@@ -442,14 +668,47 @@
+     const unseen = t - B.unseenHurtT <= P.pfFireS
+     const view = mechInView()
+     const hurt = me.hpf < P.pfHurtHpf && t - me.lastHurtT <= P.pfHurtS && view
++    if (P.pfAdaptive) {
++      S.goalReason = ''
++      if (B.dropTask) {
++        const live = B.drops.find(d => d.id === B.dropTask.id), plan = live ? dropPlan(live) : null
++        const budget = plan ? goalBudget(plan.x, plan.y, plan.completion, me.maxHp) : { ok: false, reason: 'missing-reward' }
++        if (!budget.ok || dropValue() / (1 + 0.08 * (plan ? plan.completion : Infinity)) < P.pfRewardMin) {
++          B.dropTask = null; S.goalReason = budget.reason
++        } else { plan.value = dropValue(); B.dropTask = plan; S.goalReason = budget.reason }
++      }
++      if (S.grab) {
++        const g = S.grab, time = Math.hypot(g.x - me.x, g.y - me.y) * P.pathFactor / me.walk + 2 * P.tickS
++        const budget = goalBudget(g.x, g.y, time)
++        if (!stillThere(g) || !budget.ok) { S.grab = null; B.grab = null; S.goalReason = budget.reason }
++      }
++      if (B.grab) {
++        const g = B.grab, time = Math.hypot(g.x - me.x, g.y - me.y) * P.pathFactor / me.walk + 2 * P.tickS
++        const budget = goalBudget(g.x, g.y, time)
++        if (!stillThere(g) || !budget.ok) { B.grab = null; S.goalReason = budget.reason }
++      }
++      S.recovering = recoveryWanted()
++      if (B.loot) {
++        const l = B.loot, farming = l.type === 'crate' || l.type === 'drone'
++        const time = Math.hypot(l.x - me.x, l.y - me.y) * P.pathFactor / me.walk + (farming ? P.pfReadyHorizon : 2 * P.tickS)
++        const budget = goalBudget(l.x, l.y, time)
++        if (!stillThere(l) || !budget.ok || (S.recovering && farming)) {
++          B.loot = null; B.farmNpc = -1; B.shootCrate = null; S.goalReason = S.recovering && farming ? 'recovery-clock' : budget.reason
++        }
++      }
++      S.dropValue = B.dropTask ? B.dropTask.value : 0
++      S.dropCompletion = B.dropTask ? B.dropTask.completion : Infinity
++    }
+     S.leg = ''
+     let want
+     if (B.zoneUrgent) want = MODE.ZONE
+     else if (S.finishing && tgt && !(B.dropTask && B.dropTask.ours)) { want = MODE.FIGHT; cnt('pfFinish') }
+     else if (B.dropTask) { want = MODE.DROP; S.leg = 'drop'; cnt('pfDrop') }
++    else if (P.pfAdaptive && S.latch) { want = MODE.DISENGAGE; cnt('pfLatchDec') }
+     else if (S.grab) { want = MODE.LOOT; S.leg = 'grab'; cnt('pfGrab') }
+     else if (S.latch) { want = MODE.DISENGAGE; cnt('pfLatchDec') }
+     else if (S.avoid) { want = MODE.DISENGAGE; cnt('pfAvoid') }
++    else if (P.pfAdaptive && S.recovering) { want = MODE.HEAL; S.goalReason = 'recovery-clock' }
+     else if (tgt && S.fight) { want = MODE.FIGHT; cnt('pfFight') }
+     else if (tgt && (S.underFire || incoming)) { want = MODE.DISENGAGE; cnt('pfNoFight') }
+     else if (S.phase === 'gate' && S.underFire && me.hpf <= P.pfGateHideHpf) { want = MODE.DISENGAGE; cnt('pfGateHide') }
+@@ -471,7 +730,7 @@
+     if (B.mode !== MODE.LOOT) S.leg = S.leg === 'grab' ? '' : S.leg
+     if (B.mode !== MODE.DROP && S.leg === 'drop') S.leg = ''
+     // holds fire while latched and not under fire (lets the regeneration start)
+-    B.holdFire = S.latch && !S.underFire && !S.finishing
++    B.holdFire = (S.latch || (P.pfAdaptive && S.recovering)) && !S.underFire && !S.finishing
+     if (B.holdFire) cnt('pfHoldFire')
+   }
+ 
+@@ -573,6 +832,7 @@
+    *  1.7 s spawn look. */
+   function crateShot() {
+     const me = B.me, t = me.t, w = B.world
++    if (P.pfAdaptive && (S.recovering || recoveryWanted() || (B.mode === MODE.HEAL && me.hpf < P.pfRecoveryHpf))) return null
+     if (t < P.pfSpawnLookS || !me.gun || B.mode === MODE.DROP) return null
+     let lastSeen = -99
+     for (const m of mem.values()) if (m.t > lastSeen) lastSeen = m.t
+@@ -597,6 +857,7 @@
+   function wantReload(shootObj) {
+     const me = B.me, g = me.gun, t = me.t
+     if (g.ammo === 0) return true
++    if (P.pfAdaptive && g.ammo > 0 && B.out.fire[g.slot]) return false
+     const quiet = t - Math.max(me.lastHurtT, me.lastShotT)
+     const view = mechInView()
+     if (!view && !shootObj && !S.shot && g.ammo <= g.mag / 3) return true
+@@ -617,5 +878,5 @@
+     return false
+   }
+ 
+-  return { isLegal: (tr) => legalSet.has(tr), update, selectTarget, econ: econUpdate, decideMode, legs, afterLegs, fireTarget, crateShot, wantReload, laserVeto, rungs, hostile, prefRange, ownDps, foeDps, strength, S }
++  return { isLegal: (tr) => legalSet.has(tr), update, selectTarget, econ: econUpdate, decideMode, legs, afterLegs, fireTarget, crateShot, wantReload, laserVeto, rungs, hostile, prefRange, ownDps, readyDamage, foeDps, strength, S }
+ }
+--- a/lib/params.js
++++ b/lib/params.js
+@@ -201,6 +201,8 @@
+   // ---- practice profile 'p26' (lib/prof.js, preset prof): clean-room rebuild from notes/intel/top_2696_v2.md sections
+   // 2-3 (reference sub-profile). SQUAD only: every rule runs only while hunt.firewall() holds (B.p26on); 'off' = base
+   prof: 'off',
++  pfAdaptive: true, pfReadyHorizon: 4, pfRiskReserve: 0.12, pfRiskReactionS: 0.2, pfRiskLeave: 0.75,
++  pfGoalHorizon: 18, pfRewardMin: 0.05, pfRecoveryHpf: 0.72,
+   pfUnsureS: 20, pfOpenT: 75, pfOpenCubes: 10, pfAnswerR: 100, pfAnswerS: 4, pfGateHideHpf: 0.7,       // 3.4 timeline
+   pfAtkR: 220, pfAtkHpf: 0.35, pfWeakHpf: 0.4, pfWeakR: 150, pfWeakMyHpf: 0.6, pfSeenS: 0.3, pfKeepS: 6,
+   pfHuntHpf: 0.8, pfHuntS: 20, pfHuntV: 120, pfHuntAgeK: 3, pfMemS: 25,

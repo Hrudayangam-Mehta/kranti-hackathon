@@ -1,0 +1,3967 @@
+{
+  "utc": "2026-11-22T09:29:18.687134+00:00",
+  "base": "099e7e392a863346575d7ef45bb9af3432544329",
+  "scope": "Lexical inventory of named declarations/methods/top-level or factory arrows. Inline callbacks remain part of their parent. Inventory and byte identity are not a formal proof or a claim every function was rewritten.",
+  "candidates": [
+    {
+      "candidate": "mech-adaptive",
+      "modules": [
+        {
+          "file": "bot.js",
+          "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+          "status": "identical to capture",
+          "role": "JSONL protocol, fallback/sanitizer, dynamic initialization, newest-observation handling and process exit.",
+          "named_functions": [
+            {
+              "name": "log",
+              "line": 13
+            },
+            {
+              "name": "send",
+              "line": 14
+            },
+            {
+              "name": "fallbackAct",
+              "line": 30
+            },
+            {
+              "name": "num",
+              "line": 70
+            },
+            {
+              "name": "r4",
+              "line": 71
+            },
+            {
+              "name": "sanitize",
+              "line": 73
+            },
+            {
+              "name": "init",
+              "line": 100
+            },
+            {
+              "name": "decide",
+              "line": 126
+            },
+            {
+              "name": "handle",
+              "line": 160
+            },
+            {
+              "name": "pump",
+              "line": 185
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/aim.js",
+          "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+          "status": "identical to capture",
+          "role": "Pure ballistics, angular arithmetic, body gates and deterministic RNG.",
+          "named_functions": [
+            {
+              "name": "wrapPi",
+              "line": 10
+            },
+            {
+              "name": "angDiff",
+              "line": 17
+            },
+            {
+              "name": "clamp",
+              "line": 21
+            },
+            {
+              "name": "intercept",
+              "line": 32
+            },
+            {
+              "name": "aimAt",
+              "line": 56
+            },
+            {
+              "name": "mortarSolve",
+              "line": 68
+            },
+            {
+              "name": "shellImpact",
+              "line": 98
+            },
+            {
+              "name": "closestApproach",
+              "line": 119
+            },
+            {
+              "name": "slewTime",
+              "line": 129
+            },
+            {
+              "name": "onTarget",
+              "line": 137
+            },
+            {
+              "name": "dirOf",
+              "line": 144
+            },
+            {
+              "name": "laserFrac",
+              "line": 154
+            },
+            {
+              "name": "makeRng",
+              "line": 159
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/aimcal.js",
+          "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+          "status": "identical to capture",
+          "role": "Bounded online aim/latency calibration from observed releases and hits.",
+          "named_functions": [
+            {
+              "name": "ok3",
+              "line": 15
+            },
+            {
+              "name": "makeAimCal",
+              "line": 17
+            },
+            {
+              "name": "onRelease",
+              "line": 22
+            },
+            {
+              "name": "yaw",
+              "line": 23
+            },
+            {
+              "name": "pitch",
+              "line": 24
+            },
+            {
+              "name": "lat",
+              "line": 25
+            },
+            {
+              "name": "sense",
+              "line": 27
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/brain.js",
+          "sha256": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+          "status": "identical to capture",
+          "role": "Config normalization, startup, state construction, stage arbitration, leg priorities, exception safety and action output.",
+          "named_functions": [
+            {
+              "name": "isObj",
+              "line": 49
+            },
+            {
+              "name": "mergeNum",
+              "line": 50
+            },
+            {
+              "name": "normalizeConfig",
+              "line": 55
+            },
+            {
+              "name": "warmBodies",
+              "line": 70
+            },
+            {
+              "name": "warmUp",
+              "line": 84
+            },
+            {
+              "name": "wp",
+              "line": 105
+            },
+            {
+              "name": "saltHash",
+              "line": 136
+            },
+            {
+              "name": "anchorToConfig",
+              "line": 152
+            },
+            {
+              "name": "has",
+              "line": 153
+            },
+            {
+              "name": "set",
+              "line": 154
+            },
+            {
+              "name": "createBrain",
+              "line": 182
+            },
+            {
+              "name": "log",
+              "line": 187
+            },
+            {
+              "name": "now",
+              "line": 271
+            },
+            {
+              "name": "fuse",
+              "line": 278
+            },
+            {
+              "name": "evalMaybe",
+              "line": 284
+            },
+            {
+              "name": "nearCalm",
+              "line": 294
+            },
+            {
+              "name": "counterAdvice",
+              "line": 304
+            },
+            {
+              "name": "postLegs",
+              "line": 325
+            },
+            {
+              "name": "holdLegs",
+              "line": 357
+            },
+            {
+              "name": "retreatLegs",
+              "line": 402
+            },
+            {
+              "name": "fightLegs",
+              "line": 446
+            },
+            {
+              "name": "applyVetoes",
+              "line": 544
+            },
+            {
+              "name": "legs",
+              "line": 550
+            },
+            {
+              "name": "finishLegs",
+              "line": 595
+            },
+            {
+              "name": "stage",
+              "line": 606
+            },
+            {
+              "name": "build",
+              "line": 610
+            },
+            {
+              "name": "chargeHold",
+              "line": 632
+            },
+            {
+              "name": "act",
+              "line": 637
+            },
+            {
+              "name": "debugState",
+              "line": 691
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/counters.js",
+          "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+          "status": "identical to capture",
+          "role": "Bounded behavior features, heuristic archetypes and FFA-only advice.",
+          "named_functions": [
+            {
+              "name": "num",
+              "line": 148
+            },
+            {
+              "name": "fin",
+              "line": 149
+            },
+            {
+              "name": "vec",
+              "line": 150
+            },
+            {
+              "name": "ramp",
+              "line": 155
+            },
+            {
+              "name": "wrapPi",
+              "line": 160
+            },
+            {
+              "name": "clamp",
+              "line": 164
+            },
+            {
+              "name": "newSlot",
+              "line": 166
+            },
+            {
+              "name": "newAdvice",
+              "line": 195
+            },
+            {
+              "name": "createCounters",
+              "line": 201
+            },
+            {
+              "name": "slotOf",
+              "line": 226
+            },
+            {
+              "name": "slotFor",
+              "line": 227
+            },
+            {
+              "name": "update",
+              "line": 235
+            },
+            {
+              "name": "step",
+              "line": 239
+            },
+            {
+              "name": "observe",
+              "line": 351
+            },
+            {
+              "name": "rate",
+              "line": 483
+            },
+            {
+              "name": "features",
+              "line": 484
+            },
+            {
+              "name": "score",
+              "line": 504
+            },
+            {
+              "name": "classify",
+              "line": 578
+            },
+            {
+              "name": "liveConf",
+              "line": 601
+            },
+            {
+              "name": "archetypeOf",
+              "line": 607
+            },
+            {
+              "name": "ctxBool",
+              "line": 617
+            },
+            {
+              "name": "ctxNum",
+              "line": 618
+            },
+            {
+              "name": "neutralBand",
+              "line": 620
+            },
+            {
+              "name": "fillNeutral",
+              "line": 627
+            },
+            {
+              "name": "counter",
+              "line": 637
+            },
+            {
+              "name": "adviceFor",
+              "line": 710
+            },
+            {
+              "name": "threatRank",
+              "line": 751
+            },
+            {
+              "name": "debugState",
+              "line": 787
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/economy.js",
+          "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+          "status": "identical to capture",
+          "role": "Weapon desirability, loot/grab/drop planning, movement, pickup/drop actions and upgrade selection.",
+          "named_functions": [
+            {
+              "name": "rankOf",
+              "line": 8
+            },
+            {
+              "name": "makeEconomy",
+              "line": 10
+            },
+            {
+              "name": "wantPickup",
+              "line": 17
+            },
+            {
+              "name": "reachable",
+              "line": 45
+            },
+            {
+              "name": "nearDrone",
+              "line": 56
+            },
+            {
+              "name": "pathEst",
+              "line": 61
+            },
+            {
+              "name": "nearestMechD",
+              "line": 65
+            },
+            {
+              "name": "ffaBlocked",
+              "line": 76
+            },
+            {
+              "name": "chooseLoot",
+              "line": 90
+            },
+            {
+              "name": "cubesWanted",
+              "line": 154
+            },
+            {
+              "name": "isKillCube",
+              "line": 161
+            },
+            {
+              "name": "killReachOk",
+              "line": 172
+            },
+            {
+              "name": "chooseGrab",
+              "line": 179
+            },
+            {
+              "name": "chooseDrop",
+              "line": 223
+            },
+            {
+              "name": "update",
+              "line": 253
+            },
+            {
+              "name": "lootStillThere",
+              "line": 261
+            },
+            {
+              "name": "lootLegs",
+              "line": 268
+            },
+            {
+              "name": "grabLegs",
+              "line": 301
+            },
+            {
+              "name": "dropLegs",
+              "line": 317
+            },
+            {
+              "name": "hands",
+              "line": 324
+            },
+            {
+              "name": "pick",
+              "line": 340
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/ffa.js",
+          "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+          "status": "identical to capture",
+          "role": "Final free-for-all timing, threat/duel/counter rules, exposure breaks and end-zone positioning.",
+          "named_functions": [
+            {
+              "name": "makeFfa",
+              "line": 22
+            },
+            {
+              "name": "on",
+              "line": 28
+            },
+            {
+              "name": "chargeTime",
+              "line": 31
+            },
+            {
+              "name": "hideLeft",
+              "line": 39
+            },
+            {
+              "name": "hideReach",
+              "line": 51
+            },
+            {
+              "name": "laserReady",
+              "line": 60
+            },
+            {
+              "name": "peekRef",
+              "line": 61
+            },
+            {
+              "name": "peekOpen",
+              "line": 62
+            },
+            {
+              "name": "peekIn",
+              "line": 75
+            },
+            {
+              "name": "prox",
+              "line": 83
+            },
+            {
+              "name": "offAim",
+              "line": 85
+            },
+            {
+              "name": "othersNear",
+              "line": 86
+            },
+            {
+              "name": "readIs",
+              "line": 95
+            },
+            {
+              "name": "isHider",
+              "line": 100
+            },
+            {
+              "name": "isRusher",
+              "line": 101
+            },
+            {
+              "name": "reverser",
+              "line": 104
+            },
+            {
+              "name": "update",
+              "line": 117
+            },
+            {
+              "name": "nominalDps",
+              "line": 176
+            },
+            {
+              "name": "twoUpdate",
+              "line": 189
+            },
+            {
+              "name": "closeOpening",
+              "line": 199
+            },
+            {
+              "name": "duelP",
+              "line": 217
+            },
+            {
+              "name": "gateOk",
+              "line": 222
+            },
+            {
+              "name": "exitT",
+              "line": 227
+            },
+            {
+              "name": "finalPick",
+              "line": 234
+            },
+            {
+              "name": "pointSide",
+              "line": 251
+            },
+            {
+              "name": "gatePost",
+              "line": 269
+            },
+            {
+              "name": "firstShotOk",
+              "line": 287
+            },
+            {
+              "name": "breakUpdate",
+              "line": 319
+            },
+            {
+              "name": "threatsForBreak",
+              "line": 374
+            },
+            {
+              "name": "hiddenAt",
+              "line": 384
+            },
+            {
+              "name": "fillCand",
+              "line": 393
+            },
+            {
+              "name": "settleStep",
+              "line": 407
+            },
+            {
+              "name": "relocStep",
+              "line": 420
+            },
+            {
+              "name": "breakLegs",
+              "line": 441
+            },
+            {
+              "name": "lightLegs",
+              "line": 481
+            },
+            {
+              "name": "beamHideLegs",
+              "line": 511
+            },
+            {
+              "name": "boostVeto",
+              "line": 524
+            },
+            {
+              "name": "raceOn",
+              "line": 532
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/firecontrol.js",
+          "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+          "status": "identical to capture",
+          "role": "Predicted shooter/target positions, torso slew, line checks, weapon gates, laser ownership and reload.",
+          "named_functions": [
+            {
+              "name": "makeFireControl",
+              "line": 6
+            },
+            {
+              "name": "predictSelf",
+              "line": 19
+            },
+            {
+              "name": "airZ",
+              "line": 42
+            },
+            {
+              "name": "gunLatency",
+              "line": 53
+            },
+            {
+              "name": "gunSolve",
+              "line": 56
+            },
+            {
+              "name": "muzzleClear",
+              "line": 91
+            },
+            {
+              "name": "predYaw",
+              "line": 104
+            },
+            {
+              "name": "predPitch",
+              "line": 105
+            },
+            {
+              "name": "scan",
+              "line": 107
+            },
+            {
+              "name": "pitchTo",
+              "line": 142
+            },
+            {
+              "name": "ffaR",
+              "line": 147
+            },
+            {
+              "name": "run",
+              "line": 149
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/hunt.js",
+          "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+          "status": "identical to capture",
+          "role": "Squad firewall, burst/TTK model, pursuit and sound/kill objectives.",
+          "named_functions": [
+            {
+              "name": "makeHunt",
+              "line": 16
+            },
+            {
+              "name": "on",
+              "line": 19
+            },
+            {
+              "name": "firewall",
+              "line": 29
+            },
+            {
+              "name": "laserIn",
+              "line": 33
+            },
+            {
+              "name": "lightZaps",
+              "line": 34
+            },
+            {
+              "name": "gunOk",
+              "line": 39
+            },
+            {
+              "name": "burst3",
+              "line": 44
+            },
+            {
+              "name": "ttk",
+              "line": 57
+            },
+            {
+              "name": "hitAt",
+              "line": 83
+            },
+            {
+              "name": "reserveOk",
+              "line": 87
+            },
+            {
+              "name": "readSounds",
+              "line": 93
+            },
+            {
+              "name": "pre",
+              "line": 106
+            },
+            {
+              "name": "post",
+              "line": 155
+            },
+            {
+              "name": "loaded",
+              "line": 163
+            },
+            {
+              "name": "spent",
+              "line": 167
+            },
+            {
+              "name": "finishLine",
+              "line": 171
+            },
+            {
+              "name": "killCube",
+              "line": 172
+            },
+            {
+              "name": "pulseUpdate",
+              "line": 178
+            },
+            {
+              "name": "preyOk",
+              "line": 206
+            },
+            {
+              "name": "reachable",
+              "line": 209
+            },
+            {
+              "name": "preyCostOf",
+              "line": 220
+            },
+            {
+              "name": "updatePrey",
+              "line": 235
+            },
+            {
+              "name": "soundGoal",
+              "line": 249
+            },
+            {
+              "name": "ringGoal",
+              "line": 274
+            },
+            {
+              "name": "seekLegs",
+              "line": 301
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/io.js",
+          "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+          "status": "identical to capture",
+          "role": "Merge transient observation events when backlog is collapsed.",
+          "named_functions": [
+            {
+              "name": "aged",
+              "line": 10
+            },
+            {
+              "name": "mergeSkipped",
+              "line": 20
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/mover.js",
+          "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+          "status": "identical to capture",
+          "role": "Bounded path following, strafing, acceleration-aware bullet dodge, zone feasibility, hop/jet and stuck handling.",
+          "named_functions": [
+            {
+              "name": "makeMover",
+              "line": 10
+            },
+            {
+              "name": "isAbandoned",
+              "line": 22
+            },
+            {
+              "name": "plan",
+              "line": 25
+            },
+            {
+              "name": "clampArena",
+              "line": 47
+            },
+            {
+              "name": "moveTo",
+              "line": 57
+            },
+            {
+              "name": "walkable",
+              "line": 95
+            },
+            {
+              "name": "flip",
+              "line": 110
+            },
+            {
+              "name": "standoff",
+              "line": 121
+            },
+            {
+              "name": "bulletMiss",
+              "line": 165
+            },
+            {
+              "name": "dodgeScore",
+              "line": 182
+            },
+            {
+              "name": "bulletDodge",
+              "line": 194
+            },
+            {
+              "name": "dodgeHeld",
+              "line": 238
+            },
+            {
+              "name": "dodgeW",
+              "line": 240
+            },
+            {
+              "name": "blend",
+              "line": 241
+            },
+            {
+              "name": "zoneGoal",
+              "line": 252
+            },
+            {
+              "name": "lateLeash",
+              "line": 298
+            },
+            {
+              "name": "leashStrafe",
+              "line": 307
+            },
+            {
+              "name": "hopPlanCfg",
+              "line": 321
+            },
+            {
+              "name": "inPocket",
+              "line": 334
+            },
+            {
+              "name": "zoneCheck",
+              "line": 342
+            },
+            {
+              "name": "pocketExit",
+              "line": 389
+            },
+            {
+              "name": "boostOk",
+              "line": 432
+            },
+            {
+              "name": "zoneLegs",
+              "line": 439
+            },
+            {
+              "name": "shellDodge",
+              "line": 449
+            },
+            {
+              "name": "stuckCheck",
+              "line": 492
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/nav.js",
+          "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+          "status": "identical to capture",
+          "role": "Terrain/clearance graph, body-size updates, component labeling, bounded A-star, line and hop queries.",
+          "named_functions": [
+            {
+              "name": "constructor",
+              "line": 34
+            },
+            {
+              "name": "cx",
+              "line": 85
+            },
+            {
+              "name": "cy",
+              "line": 86
+            },
+            {
+              "name": "idx",
+              "line": 88
+            },
+            {
+              "name": "cellX",
+              "line": 93
+            },
+            {
+              "name": "cellY",
+              "line": 94
+            },
+            {
+              "name": "_build",
+              "line": 99
+            },
+            {
+              "name": "_buildGround",
+              "line": 113
+            },
+            {
+              "name": "_buildCover",
+              "line": 139
+            },
+            {
+              "name": "_blockedAt",
+              "line": 182
+            },
+            {
+              "name": "_buildLevels",
+              "line": 193
+            },
+            {
+              "name": "_buildRefLevels",
+              "line": 243
+            },
+            {
+              "name": "_buildWalls",
+              "line": 273
+            },
+            {
+              "name": "_edgePass",
+              "line": 321
+            },
+            {
+              "name": "_buildSlopes",
+              "line": 348
+            },
+            {
+              "name": "setBody",
+              "line": 416
+            },
+            {
+              "name": "_label",
+              "line": 441
+            },
+            {
+              "name": "passable",
+              "line": 479
+            },
+            {
+              "name": "canStep",
+              "line": 485
+            },
+            {
+              "name": "wallDistAt",
+              "line": 497
+            },
+            {
+              "name": "levelAt",
+              "line": 510
+            },
+            {
+              "name": "passableAt",
+              "line": 515
+            },
+            {
+              "name": "nearestPassableIdx",
+              "line": 521
+            },
+            {
+              "name": "nearestPassable",
+              "line": 543
+            },
+            {
+              "name": "component",
+              "line": 553
+            },
+            {
+              "name": "reachable",
+              "line": 574
+            },
+            {
+              "name": "_line",
+              "line": 587
+            },
+            {
+              "name": "walkLine",
+              "line": 637
+            },
+            {
+              "name": "_search",
+              "line": 646
+            },
+            {
+              "name": "findPath",
+              "line": 737
+            },
+            {
+              "name": "pathLength",
+              "line": 852
+            },
+            {
+              "name": "_hopCandidates",
+              "line": 865
+            },
+            {
+              "name": "hopPlan",
+              "line": 917
+            },
+            {
+              "name": "nextWaypoint",
+              "line": 956
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/params.js",
+          "sha256": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9",
+          "status": "modified",
+          "role": "Defaults, named preset composition and override resolution.",
+          "named_functions": [
+            {
+              "name": "resolveParams",
+              "line": 340
+            }
+          ],
+          "review_evidence": [
+            "ADAPTIVE_POLICY_REVIEW.md",
+            "adaptive-round1-mechanics.md",
+            "adaptive-round1-competitors.md"
+          ]
+        },
+        {
+          "file": "lib/prof.js",
+          "sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+          "status": "modified",
+          "role": "P26 hostility, target/range/TTK heuristics, economy, mode and fire hooks.",
+          "named_functions": [
+            {
+              "name": "makeProf",
+              "line": 24
+            },
+            {
+              "name": "cnt",
+              "line": 47
+            },
+            {
+              "name": "memOf",
+              "line": 49
+            },
+            {
+              "name": "ign",
+              "line": 54
+            },
+            {
+              "name": "update",
+              "line": 60
+            },
+            {
+              "name": "hostile",
+              "line": 102
+            },
+            {
+              "name": "hitOwnCurve",
+              "line": 109
+            },
+            {
+              "name": "hitFoe",
+              "line": 110
+            },
+            {
+              "name": "hitOwn",
+              "line": 111
+            },
+            {
+              "name": "ownDps",
+              "line": 118
+            },
+            {
+              "name": "readyDamage",
+              "line": 131
+            },
+            {
+              "name": "readyTotal",
+              "line": 183
+            },
+            {
+              "name": "killTime",
+              "line": 191
+            },
+            {
+              "name": "freshShot",
+              "line": 201
+            },
+            {
+              "name": "escapeTime",
+              "line": 206
+            },
+            {
+              "name": "incomingAt",
+              "line": 216
+            },
+            {
+              "name": "exchangeAt",
+              "line": 235
+            },
+            {
+              "name": "recoveryWanted",
+              "line": 249
+            },
+            {
+              "name": "cubeValue",
+              "line": 253
+            },
+            {
+              "name": "dropValue",
+              "line": 260
+            },
+            {
+              "name": "goalBudget",
+              "line": 264
+            },
+            {
+              "name": "foeDps",
+              "line": 282
+            },
+            {
+              "name": "prefRange",
+              "line": 293
+            },
+            {
+              "name": "strength",
+              "line": 314
+            },
+            {
+              "name": "legal",
+              "line": 321
+            },
+            {
+              "name": "selectTarget",
+              "line": 329
+            },
+            {
+              "name": "fireTarget",
+              "line": 442
+            },
+            {
+              "name": "cubesWanted",
+              "line": 449
+            },
+            {
+              "name": "mechNear",
+              "line": 457
+            },
+            {
+              "name": "mechInView",
+              "line": 462
+            },
+            {
+              "name": "pathOk",
+              "line": 468
+            },
+            {
+              "name": "sameComp",
+              "line": 481
+            },
+            {
+              "name": "dropPlan",
+              "line": 489
+            },
+            {
+              "name": "chooseDrop",
+              "line": 512
+            },
+            {
+              "name": "chooseGrab",
+              "line": 539
+            },
+            {
+              "name": "chooseLoot",
+              "line": 571
+            },
+            {
+              "name": "econUpdate",
+              "line": 622
+            },
+            {
+              "name": "stillThere",
+              "line": 639
+            },
+            {
+              "name": "decideMode",
+              "line": 648
+            },
+            {
+              "name": "boostIf",
+              "line": 738
+            },
+            {
+              "name": "legs",
+              "line": 739
+            },
+            {
+              "name": "fightLegs",
+              "line": 769
+            },
+            {
+              "name": "lootLegs",
+              "line": 790
+            },
+            {
+              "name": "afterLegs",
+              "line": 825
+            },
+            {
+              "name": "crateShot",
+              "line": 833
+            },
+            {
+              "name": "wantReload",
+              "line": 857
+            },
+            {
+              "name": "laserVeto",
+              "line": 869
+            }
+          ],
+          "review_evidence": [
+            "ADAPTIVE_POLICY_REVIEW.md",
+            "adaptive-round1-mechanics.md",
+            "adaptive-round1-competitors.md"
+          ]
+        },
+        {
+          "file": "lib/scan.js",
+          "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+          "status": "identical to capture",
+          "role": "Sector memory, late sweeping, look hints and rear-hit facing.",
+          "named_functions": [
+            {
+              "name": "centre",
+              "line": 14
+            },
+            {
+              "name": "secOf",
+              "line": 15
+            },
+            {
+              "name": "makeScanner",
+              "line": 17
+            },
+            {
+              "name": "half",
+              "line": 26
+            },
+            {
+              "name": "sense",
+              "line": 28
+            },
+            {
+              "name": "late",
+              "line": 54
+            },
+            {
+              "name": "active",
+              "line": 58
+            },
+            {
+              "name": "look",
+              "line": 61
+            },
+            {
+              "name": "rearPick",
+              "line": 114
+            },
+            {
+              "name": "reset",
+              "line": 124
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/senses.js",
+          "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+          "status": "identical to capture",
+          "role": "Sanitized live self/track/event/beam/projectile/loot/drop/zone state and bounded rolling statistics.",
+          "named_functions": [
+            {
+              "name": "cnum",
+              "line": 8
+            },
+            {
+              "name": "vecOk",
+              "line": 12
+            },
+            {
+              "name": "newRing",
+              "line": 18
+            },
+            {
+              "name": "ringPush",
+              "line": 19
+            },
+            {
+              "name": "ringSum",
+              "line": 21
+            },
+            {
+              "name": "newSelf",
+              "line": 29
+            },
+            {
+              "name": "newTrack",
+              "line": 44
+            },
+            {
+              "name": "senseSelf",
+              "line": 63
+            },
+            {
+              "name": "senseTracks",
+              "line": 156
+            },
+            {
+              "name": "senseEvents",
+              "line": 238
+            },
+            {
+              "name": "senseBeams",
+              "line": 305
+            },
+            {
+              "name": "laserBeamSeen",
+              "line": 327
+            },
+            {
+              "name": "remember",
+              "line": 340
+            },
+            {
+              "name": "forget",
+              "line": 358
+            },
+            {
+              "name": "senseShells",
+              "line": 373
+            },
+            {
+              "name": "attribute",
+              "line": 402
+            },
+            {
+              "name": "senseSounds",
+              "line": 420
+            },
+            {
+              "name": "senseZone",
+              "line": 438
+            },
+            {
+              "name": "zoneSlack",
+              "line": 454
+            },
+            {
+              "name": "timeUntilOutside",
+              "line": 465
+            },
+            {
+              "name": "sense",
+              "line": 482
+            },
+            {
+              "name": "byDist",
+              "line": 518
+            },
+            {
+              "name": "makeGunStat",
+              "line": 521
+            },
+            {
+              "name": "band",
+              "line": 523
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/stance.js",
+          "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+          "status": "identical to capture",
+          "role": "Environment latch, combat stance hysteresis, first-shot restraint, ambush and covered escape.",
+          "named_functions": [
+            {
+              "name": "makeStance",
+              "line": 11
+            },
+            {
+              "name": "environment",
+              "line": 29
+            },
+            {
+              "name": "advantage",
+              "line": 73
+            },
+            {
+              "name": "chooseStance",
+              "line": 84
+            },
+            {
+              "name": "setStance",
+              "line": 132
+            },
+            {
+              "name": "applyStance",
+              "line": 137
+            },
+            {
+              "name": "update",
+              "line": 169
+            },
+            {
+              "name": "idleLegs",
+              "line": 176
+            },
+            {
+              "name": "ambushUpdate",
+              "line": 190
+            },
+            {
+              "name": "fightLegs",
+              "line": 222
+            },
+            {
+              "name": "escapeLegs",
+              "line": 240
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/steal.js",
+          "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+          "status": "identical to capture",
+          "role": "Observed farming/death/loot opportunities, capture races, third-party decisions and state cleanup.",
+          "named_functions": [
+            {
+              "name": "fin",
+              "line": 20
+            },
+            {
+              "name": "vec3",
+              "line": 21
+            },
+            {
+              "name": "makeSteal",
+              "line": 24
+            },
+            {
+              "name": "sense",
+              "line": 39
+            },
+            {
+              "name": "note",
+              "line": 109
+            },
+            {
+              "name": "seesPoint",
+              "line": 127
+            },
+            {
+              "name": "senseDeaths",
+              "line": 137
+            },
+            {
+              "name": "mechNear",
+              "line": 177
+            },
+            {
+              "name": "gateOn",
+              "line": 183
+            },
+            {
+              "name": "farmOk",
+              "line": 185
+            },
+            {
+              "name": "crateFireOk",
+              "line": 193
+            },
+            {
+              "name": "race",
+              "line": 197
+            },
+            {
+              "name": "dropOk",
+              "line": 217
+            },
+            {
+              "name": "deathItem",
+              "line": 243
+            },
+            {
+              "name": "thirdParty",
+              "line": 267
+            },
+            {
+              "name": "gatesOk",
+              "line": 277
+            },
+            {
+              "name": "speedFor",
+              "line": 292
+            },
+            {
+              "name": "choose",
+              "line": 298
+            },
+            {
+              "name": "start",
+              "line": 338
+            },
+            {
+              "name": "planSpot",
+              "line": 347
+            },
+            {
+              "name": "stillValid",
+              "line": 386
+            },
+            {
+              "name": "abandon",
+              "line": 394
+            },
+            {
+              "name": "legs",
+              "line": 402
+            },
+            {
+              "name": "keep",
+              "line": 457
+            },
+            {
+              "name": "busyWith",
+              "line": 466
+            },
+            {
+              "name": "beingShot",
+              "line": 471
+            },
+            {
+              "name": "aimExplained",
+              "line": 477
+            },
+            {
+              "name": "debug",
+              "line": 489
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/tactics.js",
+          "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+          "status": "identical to capture",
+          "role": "Threat estimates, non-P26 targets/modes, finishing, hide search and position scoring.",
+          "named_functions": [
+            {
+              "name": "rangeBin",
+              "line": 10
+            },
+            {
+              "name": "assess",
+              "line": 16
+            },
+            {
+              "name": "bandFor",
+              "line": 105
+            },
+            {
+              "name": "ofAnswer",
+              "line": 128
+            },
+            {
+              "name": "burstDamage",
+              "line": 134
+            },
+            {
+              "name": "finUpdate",
+              "line": 151
+            },
+            {
+              "name": "closingV",
+              "line": 179
+            },
+            {
+              "name": "engaged",
+              "line": 184
+            },
+            {
+              "name": "selectTarget",
+              "line": 202
+            },
+            {
+              "name": "setTarget",
+              "line": 373
+            },
+            {
+              "name": "losing",
+              "line": 391
+            },
+            {
+              "name": "losingRaw",
+              "line": 406
+            },
+            {
+              "name": "pulseLosing",
+              "line": 436
+            },
+            {
+              "name": "decideMode",
+              "line": 453
+            },
+            {
+              "name": "fillThreats",
+              "line": 512
+            },
+            {
+              "name": "put",
+              "line": 538
+            },
+            {
+              "name": "newThreats",
+              "line": 543
+            },
+            {
+              "name": "inArena",
+              "line": 545
+            },
+            {
+              "name": "exposure",
+              "line": 553
+            },
+            {
+              "name": "makeHideSearch",
+              "line": 563
+            },
+            {
+              "name": "start",
+              "line": 576
+            },
+            {
+              "name": "isBad",
+              "line": 582
+            },
+            {
+              "name": "markBad",
+              "line": 586
+            },
+            {
+              "name": "hidden",
+              "line": 591
+            },
+            {
+              "name": "awaySide",
+              "line": 601
+            },
+            {
+              "name": "okStatic",
+              "line": 611
+            },
+            {
+              "name": "run",
+              "line": 625
+            },
+            {
+              "name": "maintain",
+              "line": 654
+            },
+            {
+              "name": "makePosEval",
+              "line": 680
+            },
+            {
+              "name": "evaluate",
+              "line": 688
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/world.js",
+          "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43",
+          "status": "identical to capture",
+          "role": "Map loading, terrain decoding, spatial indexing, collision/vision rays and terrain traversal.",
+          "named_functions": [
+            {
+              "name": "pointInEdges",
+              "line": 20
+            },
+            {
+              "name": "pointInPrism2D",
+              "line": 33
+            },
+            {
+              "name": "distToPrismEdge2D",
+              "line": 40
+            },
+            {
+              "name": "toHeights",
+              "line": 56
+            },
+            {
+              "name": "loadSync",
+              "line": 74
+            },
+            {
+              "name": "constructor",
+              "line": 103
+            },
+            {
+              "name": "_buildTerrainBlocks",
+              "line": 202
+            },
+            {
+              "name": "_buildCSR",
+              "line": 226
+            },
+            {
+              "name": "_cellOf",
+              "line": 243
+            },
+            {
+              "name": "_nextStamp",
+              "line": 249
+            },
+            {
+              "name": "ground",
+              "line": 259
+            },
+            {
+              "name": "surfaceZ",
+              "line": 270
+            },
+            {
+              "name": "surfacePrism",
+              "line": 285
+            },
+            {
+              "name": "ceilingZ",
+              "line": 300
+            },
+            {
+              "name": "prismAt",
+              "line": 315
+            },
+            {
+              "name": "inSolid",
+              "line": 329
+            },
+            {
+              "name": "bodyBlocked",
+              "line": 339
+            },
+            {
+              "name": "rayShot",
+              "line": 374
+            },
+            {
+              "name": "raySight",
+              "line": 377
+            },
+            {
+              "name": "shotClear",
+              "line": 380
+            },
+            {
+              "name": "canSee",
+              "line": 383
+            },
+            {
+              "name": "sightClear",
+              "line": 386
+            },
+            {
+              "name": "transmittance",
+              "line": 389
+            },
+            {
+              "name": "_cast",
+              "line": 398
+            },
+            {
+              "name": "canopyChord",
+              "line": 551
+            },
+            {
+              "name": "_rayTerrain",
+              "line": 612
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        }
+      ],
+      "modules_count": 20,
+      "named_function_count": 421,
+      "modified_or_added_modules": [
+        "lib/params.js",
+        "lib/prof.js"
+      ]
+    },
+    {
+      "candidate": "mech-adaptive-weapons",
+      "modules": [
+        {
+          "file": "bot.js",
+          "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+          "status": "identical to capture",
+          "role": "JSONL protocol, fallback/sanitizer, dynamic initialization, newest-observation handling and process exit.",
+          "named_functions": [
+            {
+              "name": "log",
+              "line": 13
+            },
+            {
+              "name": "send",
+              "line": 14
+            },
+            {
+              "name": "fallbackAct",
+              "line": 30
+            },
+            {
+              "name": "num",
+              "line": 70
+            },
+            {
+              "name": "r4",
+              "line": 71
+            },
+            {
+              "name": "sanitize",
+              "line": 73
+            },
+            {
+              "name": "init",
+              "line": 100
+            },
+            {
+              "name": "decide",
+              "line": 126
+            },
+            {
+              "name": "handle",
+              "line": 160
+            },
+            {
+              "name": "pump",
+              "line": 185
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/aim.js",
+          "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+          "status": "identical to capture",
+          "role": "Pure ballistics, angular arithmetic, body gates and deterministic RNG.",
+          "named_functions": [
+            {
+              "name": "wrapPi",
+              "line": 10
+            },
+            {
+              "name": "angDiff",
+              "line": 17
+            },
+            {
+              "name": "clamp",
+              "line": 21
+            },
+            {
+              "name": "intercept",
+              "line": 32
+            },
+            {
+              "name": "aimAt",
+              "line": 56
+            },
+            {
+              "name": "mortarSolve",
+              "line": 68
+            },
+            {
+              "name": "shellImpact",
+              "line": 98
+            },
+            {
+              "name": "closestApproach",
+              "line": 119
+            },
+            {
+              "name": "slewTime",
+              "line": 129
+            },
+            {
+              "name": "onTarget",
+              "line": 137
+            },
+            {
+              "name": "dirOf",
+              "line": 144
+            },
+            {
+              "name": "laserFrac",
+              "line": 154
+            },
+            {
+              "name": "makeRng",
+              "line": 159
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/aimcal.js",
+          "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+          "status": "identical to capture",
+          "role": "Bounded online aim/latency calibration from observed releases and hits.",
+          "named_functions": [
+            {
+              "name": "ok3",
+              "line": 15
+            },
+            {
+              "name": "makeAimCal",
+              "line": 17
+            },
+            {
+              "name": "onRelease",
+              "line": 22
+            },
+            {
+              "name": "yaw",
+              "line": 23
+            },
+            {
+              "name": "pitch",
+              "line": 24
+            },
+            {
+              "name": "lat",
+              "line": 25
+            },
+            {
+              "name": "sense",
+              "line": 27
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/brain.js",
+          "sha256": "f5c00120ec965ca614526eace46caaf26f0e65ad194df459240c1661dcef3f9e",
+          "status": "modified",
+          "role": "Config normalization, startup, state construction, stage arbitration, leg priorities, exception safety and action output.",
+          "named_functions": [
+            {
+              "name": "isObj",
+              "line": 49
+            },
+            {
+              "name": "mergeNum",
+              "line": 50
+            },
+            {
+              "name": "normalizeConfig",
+              "line": 55
+            },
+            {
+              "name": "warmBodies",
+              "line": 71
+            },
+            {
+              "name": "warmUp",
+              "line": 85
+            },
+            {
+              "name": "wp",
+              "line": 106
+            },
+            {
+              "name": "saltHash",
+              "line": 137
+            },
+            {
+              "name": "anchorToConfig",
+              "line": 153
+            },
+            {
+              "name": "has",
+              "line": 154
+            },
+            {
+              "name": "set",
+              "line": 155
+            },
+            {
+              "name": "createBrain",
+              "line": 183
+            },
+            {
+              "name": "log",
+              "line": 188
+            },
+            {
+              "name": "now",
+              "line": 272
+            },
+            {
+              "name": "fuse",
+              "line": 279
+            },
+            {
+              "name": "evalMaybe",
+              "line": 285
+            },
+            {
+              "name": "nearCalm",
+              "line": 295
+            },
+            {
+              "name": "counterAdvice",
+              "line": 305
+            },
+            {
+              "name": "postLegs",
+              "line": 326
+            },
+            {
+              "name": "holdLegs",
+              "line": 358
+            },
+            {
+              "name": "retreatLegs",
+              "line": 403
+            },
+            {
+              "name": "fightLegs",
+              "line": 447
+            },
+            {
+              "name": "applyVetoes",
+              "line": 545
+            },
+            {
+              "name": "legs",
+              "line": 551
+            },
+            {
+              "name": "finishLegs",
+              "line": 596
+            },
+            {
+              "name": "stage",
+              "line": 607
+            },
+            {
+              "name": "build",
+              "line": 611
+            },
+            {
+              "name": "chargeHold",
+              "line": 633
+            },
+            {
+              "name": "act",
+              "line": 638
+            },
+            {
+              "name": "debugState",
+              "line": 692
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/counters.js",
+          "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+          "status": "identical to capture",
+          "role": "Bounded behavior features, heuristic archetypes and FFA-only advice.",
+          "named_functions": [
+            {
+              "name": "num",
+              "line": 148
+            },
+            {
+              "name": "fin",
+              "line": 149
+            },
+            {
+              "name": "vec",
+              "line": 150
+            },
+            {
+              "name": "ramp",
+              "line": 155
+            },
+            {
+              "name": "wrapPi",
+              "line": 160
+            },
+            {
+              "name": "clamp",
+              "line": 164
+            },
+            {
+              "name": "newSlot",
+              "line": 166
+            },
+            {
+              "name": "newAdvice",
+              "line": 195
+            },
+            {
+              "name": "createCounters",
+              "line": 201
+            },
+            {
+              "name": "slotOf",
+              "line": 226
+            },
+            {
+              "name": "slotFor",
+              "line": 227
+            },
+            {
+              "name": "update",
+              "line": 235
+            },
+            {
+              "name": "step",
+              "line": 239
+            },
+            {
+              "name": "observe",
+              "line": 351
+            },
+            {
+              "name": "rate",
+              "line": 483
+            },
+            {
+              "name": "features",
+              "line": 484
+            },
+            {
+              "name": "score",
+              "line": 504
+            },
+            {
+              "name": "classify",
+              "line": 578
+            },
+            {
+              "name": "liveConf",
+              "line": 601
+            },
+            {
+              "name": "archetypeOf",
+              "line": 607
+            },
+            {
+              "name": "ctxBool",
+              "line": 617
+            },
+            {
+              "name": "ctxNum",
+              "line": 618
+            },
+            {
+              "name": "neutralBand",
+              "line": 620
+            },
+            {
+              "name": "fillNeutral",
+              "line": 627
+            },
+            {
+              "name": "counter",
+              "line": 637
+            },
+            {
+              "name": "adviceFor",
+              "line": 710
+            },
+            {
+              "name": "threatRank",
+              "line": 751
+            },
+            {
+              "name": "debugState",
+              "line": 787
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/economy.js",
+          "sha256": "ae19349258cc8b337b519186a9fd7f8baf14f57a8e00b3ad82d04d2b4e783cf0",
+          "status": "modified",
+          "role": "Weapon desirability, loot/grab/drop planning, movement, pickup/drop actions and upgrade selection.",
+          "named_functions": [
+            {
+              "name": "rankOf",
+              "line": 9
+            },
+            {
+              "name": "makeEconomy",
+              "line": 11
+            },
+            {
+              "name": "wantPickup",
+              "line": 19
+            },
+            {
+              "name": "baselinePickup",
+              "line": 20
+            },
+            {
+              "name": "reachable",
+              "line": 48
+            },
+            {
+              "name": "nearDrone",
+              "line": 59
+            },
+            {
+              "name": "pathEst",
+              "line": 64
+            },
+            {
+              "name": "nearestMechD",
+              "line": 68
+            },
+            {
+              "name": "ffaBlocked",
+              "line": 79
+            },
+            {
+              "name": "chooseLoot",
+              "line": 93
+            },
+            {
+              "name": "cubesWanted",
+              "line": 157
+            },
+            {
+              "name": "isKillCube",
+              "line": 164
+            },
+            {
+              "name": "killReachOk",
+              "line": 175
+            },
+            {
+              "name": "chooseGrab",
+              "line": 182
+            },
+            {
+              "name": "chooseDrop",
+              "line": 226
+            },
+            {
+              "name": "update",
+              "line": 256
+            },
+            {
+              "name": "lootStillThere",
+              "line": 264
+            },
+            {
+              "name": "lootLegs",
+              "line": 271
+            },
+            {
+              "name": "grabLegs",
+              "line": 304
+            },
+            {
+              "name": "dropLegs",
+              "line": 320
+            },
+            {
+              "name": "hands",
+              "line": 327
+            },
+            {
+              "name": "pick",
+              "line": 343
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/ffa.js",
+          "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+          "status": "identical to capture",
+          "role": "Final free-for-all timing, threat/duel/counter rules, exposure breaks and end-zone positioning.",
+          "named_functions": [
+            {
+              "name": "makeFfa",
+              "line": 22
+            },
+            {
+              "name": "on",
+              "line": 28
+            },
+            {
+              "name": "chargeTime",
+              "line": 31
+            },
+            {
+              "name": "hideLeft",
+              "line": 39
+            },
+            {
+              "name": "hideReach",
+              "line": 51
+            },
+            {
+              "name": "laserReady",
+              "line": 60
+            },
+            {
+              "name": "peekRef",
+              "line": 61
+            },
+            {
+              "name": "peekOpen",
+              "line": 62
+            },
+            {
+              "name": "peekIn",
+              "line": 75
+            },
+            {
+              "name": "prox",
+              "line": 83
+            },
+            {
+              "name": "offAim",
+              "line": 85
+            },
+            {
+              "name": "othersNear",
+              "line": 86
+            },
+            {
+              "name": "readIs",
+              "line": 95
+            },
+            {
+              "name": "isHider",
+              "line": 100
+            },
+            {
+              "name": "isRusher",
+              "line": 101
+            },
+            {
+              "name": "reverser",
+              "line": 104
+            },
+            {
+              "name": "update",
+              "line": 117
+            },
+            {
+              "name": "nominalDps",
+              "line": 176
+            },
+            {
+              "name": "twoUpdate",
+              "line": 189
+            },
+            {
+              "name": "closeOpening",
+              "line": 199
+            },
+            {
+              "name": "duelP",
+              "line": 217
+            },
+            {
+              "name": "gateOk",
+              "line": 222
+            },
+            {
+              "name": "exitT",
+              "line": 227
+            },
+            {
+              "name": "finalPick",
+              "line": 234
+            },
+            {
+              "name": "pointSide",
+              "line": 251
+            },
+            {
+              "name": "gatePost",
+              "line": 269
+            },
+            {
+              "name": "firstShotOk",
+              "line": 287
+            },
+            {
+              "name": "breakUpdate",
+              "line": 319
+            },
+            {
+              "name": "threatsForBreak",
+              "line": 374
+            },
+            {
+              "name": "hiddenAt",
+              "line": 384
+            },
+            {
+              "name": "fillCand",
+              "line": 393
+            },
+            {
+              "name": "settleStep",
+              "line": 407
+            },
+            {
+              "name": "relocStep",
+              "line": 420
+            },
+            {
+              "name": "breakLegs",
+              "line": 441
+            },
+            {
+              "name": "lightLegs",
+              "line": 481
+            },
+            {
+              "name": "beamHideLegs",
+              "line": 511
+            },
+            {
+              "name": "boostVeto",
+              "line": 524
+            },
+            {
+              "name": "raceOn",
+              "line": 532
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/firecontrol.js",
+          "sha256": "7bfc369dbf2fec0c582135069abb46fdbb1f85a2aa2eec4ed29daadbb7a4758f",
+          "status": "modified",
+          "role": "Predicted shooter/target positions, torso slew, line checks, weapon gates, laser ownership and reload.",
+          "named_functions": [
+            {
+              "name": "makeFireControl",
+              "line": 8
+            },
+            {
+              "name": "predictSelf",
+              "line": 21
+            },
+            {
+              "name": "airZ",
+              "line": 44
+            },
+            {
+              "name": "gunLatency",
+              "line": 55
+            },
+            {
+              "name": "gunSolve",
+              "line": 58
+            },
+            {
+              "name": "muzzleClear",
+              "line": 93
+            },
+            {
+              "name": "predYaw",
+              "line": 106
+            },
+            {
+              "name": "predPitch",
+              "line": 107
+            },
+            {
+              "name": "scan",
+              "line": 109
+            },
+            {
+              "name": "pitchTo",
+              "line": 144
+            },
+            {
+              "name": "ffaR",
+              "line": 149
+            },
+            {
+              "name": "run",
+              "line": 151
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/hunt.js",
+          "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+          "status": "identical to capture",
+          "role": "Squad firewall, burst/TTK model, pursuit and sound/kill objectives.",
+          "named_functions": [
+            {
+              "name": "makeHunt",
+              "line": 16
+            },
+            {
+              "name": "on",
+              "line": 19
+            },
+            {
+              "name": "firewall",
+              "line": 29
+            },
+            {
+              "name": "laserIn",
+              "line": 33
+            },
+            {
+              "name": "lightZaps",
+              "line": 34
+            },
+            {
+              "name": "gunOk",
+              "line": 39
+            },
+            {
+              "name": "burst3",
+              "line": 44
+            },
+            {
+              "name": "ttk",
+              "line": 57
+            },
+            {
+              "name": "hitAt",
+              "line": 83
+            },
+            {
+              "name": "reserveOk",
+              "line": 87
+            },
+            {
+              "name": "readSounds",
+              "line": 93
+            },
+            {
+              "name": "pre",
+              "line": 106
+            },
+            {
+              "name": "post",
+              "line": 155
+            },
+            {
+              "name": "loaded",
+              "line": 163
+            },
+            {
+              "name": "spent",
+              "line": 167
+            },
+            {
+              "name": "finishLine",
+              "line": 171
+            },
+            {
+              "name": "killCube",
+              "line": 172
+            },
+            {
+              "name": "pulseUpdate",
+              "line": 178
+            },
+            {
+              "name": "preyOk",
+              "line": 206
+            },
+            {
+              "name": "reachable",
+              "line": 209
+            },
+            {
+              "name": "preyCostOf",
+              "line": 220
+            },
+            {
+              "name": "updatePrey",
+              "line": 235
+            },
+            {
+              "name": "soundGoal",
+              "line": 249
+            },
+            {
+              "name": "ringGoal",
+              "line": 274
+            },
+            {
+              "name": "seekLegs",
+              "line": 301
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/io.js",
+          "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+          "status": "identical to capture",
+          "role": "Merge transient observation events when backlog is collapsed.",
+          "named_functions": [
+            {
+              "name": "aged",
+              "line": 10
+            },
+            {
+              "name": "mergeSkipped",
+              "line": 20
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/lightning.js",
+          "sha256": "5c786e8deb48a4d107b96dd1550ae5299e54be392b4c0646301828a4209afa7c",
+          "status": "added",
+          "role": "Physical nearest-recipient and combined energy admission.",
+          "named_functions": [
+            {
+              "name": "lightningRecipient",
+              "line": 6
+            },
+            {
+              "name": "consider",
+              "line": 13
+            },
+            {
+              "name": "lightningEnergy",
+              "line": 26
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/loadout.js",
+          "sha256": "24a18a5c8323dbddb712144c4ada18c17c26fc9cbd9b0404a3b0b88b229f1a4a",
+          "status": "added",
+          "role": "Contextual equipment and upgrade utility; shares prof readiness math, no tactical ownership.",
+          "named_functions": [
+            {
+              "name": "num",
+              "line": 5
+            },
+            {
+              "name": "makeLoadout",
+              "line": 7
+            },
+            {
+              "name": "active",
+              "line": 11
+            },
+            {
+              "name": "target",
+              "line": 12
+            },
+            {
+              "name": "horizon",
+              "line": 13
+            },
+            {
+              "name": "normalize",
+              "line": 15
+            },
+            {
+              "name": "prospective",
+              "line": 28
+            },
+            {
+              "name": "damage",
+              "line": 45
+            },
+            {
+              "name": "pickup",
+              "line": 50
+            },
+            {
+              "name": "utility",
+              "line": 78
+            },
+            {
+              "name": "pick",
+              "line": 117
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/mortar.js",
+          "sha256": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275",
+          "status": "added",
+          "role": "Bounded analytical trajectory and conservative self-blast admission.",
+          "named_functions": [
+            {
+              "name": "mortarArcClear",
+              "line": 1
+            },
+            {
+              "name": "mortarSelfClear",
+              "line": 23
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/mover.js",
+          "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+          "status": "identical to capture",
+          "role": "Bounded path following, strafing, acceleration-aware bullet dodge, zone feasibility, hop/jet and stuck handling.",
+          "named_functions": [
+            {
+              "name": "makeMover",
+              "line": 10
+            },
+            {
+              "name": "isAbandoned",
+              "line": 22
+            },
+            {
+              "name": "plan",
+              "line": 25
+            },
+            {
+              "name": "clampArena",
+              "line": 47
+            },
+            {
+              "name": "moveTo",
+              "line": 57
+            },
+            {
+              "name": "walkable",
+              "line": 95
+            },
+            {
+              "name": "flip",
+              "line": 110
+            },
+            {
+              "name": "standoff",
+              "line": 121
+            },
+            {
+              "name": "bulletMiss",
+              "line": 165
+            },
+            {
+              "name": "dodgeScore",
+              "line": 182
+            },
+            {
+              "name": "bulletDodge",
+              "line": 194
+            },
+            {
+              "name": "dodgeHeld",
+              "line": 238
+            },
+            {
+              "name": "dodgeW",
+              "line": 240
+            },
+            {
+              "name": "blend",
+              "line": 241
+            },
+            {
+              "name": "zoneGoal",
+              "line": 252
+            },
+            {
+              "name": "lateLeash",
+              "line": 298
+            },
+            {
+              "name": "leashStrafe",
+              "line": 307
+            },
+            {
+              "name": "hopPlanCfg",
+              "line": 321
+            },
+            {
+              "name": "inPocket",
+              "line": 334
+            },
+            {
+              "name": "zoneCheck",
+              "line": 342
+            },
+            {
+              "name": "pocketExit",
+              "line": 389
+            },
+            {
+              "name": "boostOk",
+              "line": 432
+            },
+            {
+              "name": "zoneLegs",
+              "line": 439
+            },
+            {
+              "name": "shellDodge",
+              "line": 449
+            },
+            {
+              "name": "stuckCheck",
+              "line": 492
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/nav.js",
+          "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+          "status": "identical to capture",
+          "role": "Terrain/clearance graph, body-size updates, component labeling, bounded A-star, line and hop queries.",
+          "named_functions": [
+            {
+              "name": "constructor",
+              "line": 34
+            },
+            {
+              "name": "cx",
+              "line": 85
+            },
+            {
+              "name": "cy",
+              "line": 86
+            },
+            {
+              "name": "idx",
+              "line": 88
+            },
+            {
+              "name": "cellX",
+              "line": 93
+            },
+            {
+              "name": "cellY",
+              "line": 94
+            },
+            {
+              "name": "_build",
+              "line": 99
+            },
+            {
+              "name": "_buildGround",
+              "line": 113
+            },
+            {
+              "name": "_buildCover",
+              "line": 139
+            },
+            {
+              "name": "_blockedAt",
+              "line": 182
+            },
+            {
+              "name": "_buildLevels",
+              "line": 193
+            },
+            {
+              "name": "_buildRefLevels",
+              "line": 243
+            },
+            {
+              "name": "_buildWalls",
+              "line": 273
+            },
+            {
+              "name": "_edgePass",
+              "line": 321
+            },
+            {
+              "name": "_buildSlopes",
+              "line": 348
+            },
+            {
+              "name": "setBody",
+              "line": 416
+            },
+            {
+              "name": "_label",
+              "line": 441
+            },
+            {
+              "name": "passable",
+              "line": 479
+            },
+            {
+              "name": "canStep",
+              "line": 485
+            },
+            {
+              "name": "wallDistAt",
+              "line": 497
+            },
+            {
+              "name": "levelAt",
+              "line": 510
+            },
+            {
+              "name": "passableAt",
+              "line": 515
+            },
+            {
+              "name": "nearestPassableIdx",
+              "line": 521
+            },
+            {
+              "name": "nearestPassable",
+              "line": 543
+            },
+            {
+              "name": "component",
+              "line": 553
+            },
+            {
+              "name": "reachable",
+              "line": 574
+            },
+            {
+              "name": "_line",
+              "line": 587
+            },
+            {
+              "name": "walkLine",
+              "line": 637
+            },
+            {
+              "name": "_search",
+              "line": 646
+            },
+            {
+              "name": "findPath",
+              "line": 737
+            },
+            {
+              "name": "pathLength",
+              "line": 852
+            },
+            {
+              "name": "_hopCandidates",
+              "line": 865
+            },
+            {
+              "name": "hopPlan",
+              "line": 917
+            },
+            {
+              "name": "nextWaypoint",
+              "line": 956
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/params.js",
+          "sha256": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8",
+          "status": "modified",
+          "role": "Defaults, named preset composition and override resolution.",
+          "named_functions": [
+            {
+              "name": "resolveParams",
+              "line": 341
+            }
+          ],
+          "review_evidence": [
+            "ADAPTIVE_POLICY_REVIEW.md",
+            "adaptive-round1-mechanics.md",
+            "adaptive-round1-competitors.md"
+          ]
+        },
+        {
+          "file": "lib/prof.js",
+          "sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+          "status": "modified",
+          "role": "P26 hostility, target/range/TTK heuristics, economy, mode and fire hooks.",
+          "named_functions": [
+            {
+              "name": "makeProf",
+              "line": 24
+            },
+            {
+              "name": "cnt",
+              "line": 47
+            },
+            {
+              "name": "memOf",
+              "line": 49
+            },
+            {
+              "name": "ign",
+              "line": 54
+            },
+            {
+              "name": "update",
+              "line": 60
+            },
+            {
+              "name": "hostile",
+              "line": 102
+            },
+            {
+              "name": "hitOwnCurve",
+              "line": 109
+            },
+            {
+              "name": "hitFoe",
+              "line": 110
+            },
+            {
+              "name": "hitOwn",
+              "line": 111
+            },
+            {
+              "name": "ownDps",
+              "line": 118
+            },
+            {
+              "name": "readyDamage",
+              "line": 131
+            },
+            {
+              "name": "readyTotal",
+              "line": 183
+            },
+            {
+              "name": "killTime",
+              "line": 191
+            },
+            {
+              "name": "freshShot",
+              "line": 201
+            },
+            {
+              "name": "escapeTime",
+              "line": 206
+            },
+            {
+              "name": "incomingAt",
+              "line": 216
+            },
+            {
+              "name": "exchangeAt",
+              "line": 235
+            },
+            {
+              "name": "recoveryWanted",
+              "line": 249
+            },
+            {
+              "name": "cubeValue",
+              "line": 253
+            },
+            {
+              "name": "dropValue",
+              "line": 260
+            },
+            {
+              "name": "goalBudget",
+              "line": 264
+            },
+            {
+              "name": "foeDps",
+              "line": 282
+            },
+            {
+              "name": "prefRange",
+              "line": 293
+            },
+            {
+              "name": "strength",
+              "line": 314
+            },
+            {
+              "name": "legal",
+              "line": 321
+            },
+            {
+              "name": "selectTarget",
+              "line": 329
+            },
+            {
+              "name": "fireTarget",
+              "line": 442
+            },
+            {
+              "name": "cubesWanted",
+              "line": 449
+            },
+            {
+              "name": "mechNear",
+              "line": 457
+            },
+            {
+              "name": "mechInView",
+              "line": 462
+            },
+            {
+              "name": "pathOk",
+              "line": 468
+            },
+            {
+              "name": "sameComp",
+              "line": 481
+            },
+            {
+              "name": "dropPlan",
+              "line": 489
+            },
+            {
+              "name": "chooseDrop",
+              "line": 512
+            },
+            {
+              "name": "chooseGrab",
+              "line": 539
+            },
+            {
+              "name": "chooseLoot",
+              "line": 571
+            },
+            {
+              "name": "econUpdate",
+              "line": 622
+            },
+            {
+              "name": "stillThere",
+              "line": 639
+            },
+            {
+              "name": "decideMode",
+              "line": 648
+            },
+            {
+              "name": "boostIf",
+              "line": 738
+            },
+            {
+              "name": "legs",
+              "line": 739
+            },
+            {
+              "name": "fightLegs",
+              "line": 769
+            },
+            {
+              "name": "lootLegs",
+              "line": 790
+            },
+            {
+              "name": "afterLegs",
+              "line": 825
+            },
+            {
+              "name": "crateShot",
+              "line": 833
+            },
+            {
+              "name": "wantReload",
+              "line": 857
+            },
+            {
+              "name": "laserVeto",
+              "line": 869
+            }
+          ],
+          "review_evidence": [
+            "ADAPTIVE_POLICY_REVIEW.md",
+            "adaptive-round1-mechanics.md",
+            "adaptive-round1-competitors.md"
+          ]
+        },
+        {
+          "file": "lib/scan.js",
+          "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+          "status": "identical to capture",
+          "role": "Sector memory, late sweeping, look hints and rear-hit facing.",
+          "named_functions": [
+            {
+              "name": "centre",
+              "line": 14
+            },
+            {
+              "name": "secOf",
+              "line": 15
+            },
+            {
+              "name": "makeScanner",
+              "line": 17
+            },
+            {
+              "name": "half",
+              "line": 26
+            },
+            {
+              "name": "sense",
+              "line": 28
+            },
+            {
+              "name": "late",
+              "line": 54
+            },
+            {
+              "name": "active",
+              "line": 58
+            },
+            {
+              "name": "look",
+              "line": 61
+            },
+            {
+              "name": "rearPick",
+              "line": 114
+            },
+            {
+              "name": "reset",
+              "line": 124
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/senses.js",
+          "sha256": "3bc5bb8cc7c0ee38ae4b1cfb85f1a403e5238cf2471554d072cedddce925f3f6",
+          "status": "modified",
+          "role": "Sanitized live self/track/event/beam/projectile/loot/drop/zone state and bounded rolling statistics.",
+          "named_functions": [
+            {
+              "name": "cnum",
+              "line": 8
+            },
+            {
+              "name": "vecOk",
+              "line": 12
+            },
+            {
+              "name": "newRing",
+              "line": 18
+            },
+            {
+              "name": "ringPush",
+              "line": 19
+            },
+            {
+              "name": "ringSum",
+              "line": 21
+            },
+            {
+              "name": "newSelf",
+              "line": 29
+            },
+            {
+              "name": "newTrack",
+              "line": 44
+            },
+            {
+              "name": "senseSelf",
+              "line": 63
+            },
+            {
+              "name": "senseTracks",
+              "line": 158
+            },
+            {
+              "name": "senseEvents",
+              "line": 240
+            },
+            {
+              "name": "senseBeams",
+              "line": 307
+            },
+            {
+              "name": "laserBeamSeen",
+              "line": 329
+            },
+            {
+              "name": "remember",
+              "line": 342
+            },
+            {
+              "name": "forget",
+              "line": 360
+            },
+            {
+              "name": "senseShells",
+              "line": 375
+            },
+            {
+              "name": "attribute",
+              "line": 404
+            },
+            {
+              "name": "senseSounds",
+              "line": 422
+            },
+            {
+              "name": "senseZone",
+              "line": 440
+            },
+            {
+              "name": "zoneSlack",
+              "line": 456
+            },
+            {
+              "name": "timeUntilOutside",
+              "line": 467
+            },
+            {
+              "name": "sense",
+              "line": 484
+            },
+            {
+              "name": "byDist",
+              "line": 520
+            },
+            {
+              "name": "makeGunStat",
+              "line": 523
+            },
+            {
+              "name": "band",
+              "line": 525
+            }
+          ],
+          "review_evidence": [
+            "adaptive-loadout-cases.json",
+            "adaptive-lightning-cases.json",
+            "adaptive-mortar-cases.json"
+          ]
+        },
+        {
+          "file": "lib/stance.js",
+          "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+          "status": "identical to capture",
+          "role": "Environment latch, combat stance hysteresis, first-shot restraint, ambush and covered escape.",
+          "named_functions": [
+            {
+              "name": "makeStance",
+              "line": 11
+            },
+            {
+              "name": "environment",
+              "line": 29
+            },
+            {
+              "name": "advantage",
+              "line": 73
+            },
+            {
+              "name": "chooseStance",
+              "line": 84
+            },
+            {
+              "name": "setStance",
+              "line": 132
+            },
+            {
+              "name": "applyStance",
+              "line": 137
+            },
+            {
+              "name": "update",
+              "line": 169
+            },
+            {
+              "name": "idleLegs",
+              "line": 176
+            },
+            {
+              "name": "ambushUpdate",
+              "line": 190
+            },
+            {
+              "name": "fightLegs",
+              "line": 222
+            },
+            {
+              "name": "escapeLegs",
+              "line": 240
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/steal.js",
+          "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+          "status": "identical to capture",
+          "role": "Observed farming/death/loot opportunities, capture races, third-party decisions and state cleanup.",
+          "named_functions": [
+            {
+              "name": "fin",
+              "line": 20
+            },
+            {
+              "name": "vec3",
+              "line": 21
+            },
+            {
+              "name": "makeSteal",
+              "line": 24
+            },
+            {
+              "name": "sense",
+              "line": 39
+            },
+            {
+              "name": "note",
+              "line": 109
+            },
+            {
+              "name": "seesPoint",
+              "line": 127
+            },
+            {
+              "name": "senseDeaths",
+              "line": 137
+            },
+            {
+              "name": "mechNear",
+              "line": 177
+            },
+            {
+              "name": "gateOn",
+              "line": 183
+            },
+            {
+              "name": "farmOk",
+              "line": 185
+            },
+            {
+              "name": "crateFireOk",
+              "line": 193
+            },
+            {
+              "name": "race",
+              "line": 197
+            },
+            {
+              "name": "dropOk",
+              "line": 217
+            },
+            {
+              "name": "deathItem",
+              "line": 243
+            },
+            {
+              "name": "thirdParty",
+              "line": 267
+            },
+            {
+              "name": "gatesOk",
+              "line": 277
+            },
+            {
+              "name": "speedFor",
+              "line": 292
+            },
+            {
+              "name": "choose",
+              "line": 298
+            },
+            {
+              "name": "start",
+              "line": 338
+            },
+            {
+              "name": "planSpot",
+              "line": 347
+            },
+            {
+              "name": "stillValid",
+              "line": 386
+            },
+            {
+              "name": "abandon",
+              "line": 394
+            },
+            {
+              "name": "legs",
+              "line": 402
+            },
+            {
+              "name": "keep",
+              "line": 457
+            },
+            {
+              "name": "busyWith",
+              "line": 466
+            },
+            {
+              "name": "beingShot",
+              "line": 471
+            },
+            {
+              "name": "aimExplained",
+              "line": 477
+            },
+            {
+              "name": "debug",
+              "line": 489
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/tactics.js",
+          "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+          "status": "identical to capture",
+          "role": "Threat estimates, non-P26 targets/modes, finishing, hide search and position scoring.",
+          "named_functions": [
+            {
+              "name": "rangeBin",
+              "line": 10
+            },
+            {
+              "name": "assess",
+              "line": 16
+            },
+            {
+              "name": "bandFor",
+              "line": 105
+            },
+            {
+              "name": "ofAnswer",
+              "line": 128
+            },
+            {
+              "name": "burstDamage",
+              "line": 134
+            },
+            {
+              "name": "finUpdate",
+              "line": 151
+            },
+            {
+              "name": "closingV",
+              "line": 179
+            },
+            {
+              "name": "engaged",
+              "line": 184
+            },
+            {
+              "name": "selectTarget",
+              "line": 202
+            },
+            {
+              "name": "setTarget",
+              "line": 373
+            },
+            {
+              "name": "losing",
+              "line": 391
+            },
+            {
+              "name": "losingRaw",
+              "line": 406
+            },
+            {
+              "name": "pulseLosing",
+              "line": 436
+            },
+            {
+              "name": "decideMode",
+              "line": 453
+            },
+            {
+              "name": "fillThreats",
+              "line": 512
+            },
+            {
+              "name": "put",
+              "line": 538
+            },
+            {
+              "name": "newThreats",
+              "line": 543
+            },
+            {
+              "name": "inArena",
+              "line": 545
+            },
+            {
+              "name": "exposure",
+              "line": 553
+            },
+            {
+              "name": "makeHideSearch",
+              "line": 563
+            },
+            {
+              "name": "start",
+              "line": 576
+            },
+            {
+              "name": "isBad",
+              "line": 582
+            },
+            {
+              "name": "markBad",
+              "line": 586
+            },
+            {
+              "name": "hidden",
+              "line": 591
+            },
+            {
+              "name": "awaySide",
+              "line": 601
+            },
+            {
+              "name": "okStatic",
+              "line": 611
+            },
+            {
+              "name": "run",
+              "line": 625
+            },
+            {
+              "name": "maintain",
+              "line": 654
+            },
+            {
+              "name": "makePosEval",
+              "line": 680
+            },
+            {
+              "name": "evaluate",
+              "line": 688
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        },
+        {
+          "file": "lib/world.js",
+          "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43",
+          "status": "identical to capture",
+          "role": "Map loading, terrain decoding, spatial indexing, collision/vision rays and terrain traversal.",
+          "named_functions": [
+            {
+              "name": "pointInEdges",
+              "line": 20
+            },
+            {
+              "name": "pointInPrism2D",
+              "line": 33
+            },
+            {
+              "name": "distToPrismEdge2D",
+              "line": 40
+            },
+            {
+              "name": "toHeights",
+              "line": 56
+            },
+            {
+              "name": "loadSync",
+              "line": 74
+            },
+            {
+              "name": "constructor",
+              "line": 103
+            },
+            {
+              "name": "_buildTerrainBlocks",
+              "line": 202
+            },
+            {
+              "name": "_buildCSR",
+              "line": 226
+            },
+            {
+              "name": "_cellOf",
+              "line": 243
+            },
+            {
+              "name": "_nextStamp",
+              "line": 249
+            },
+            {
+              "name": "ground",
+              "line": 259
+            },
+            {
+              "name": "surfaceZ",
+              "line": 270
+            },
+            {
+              "name": "surfacePrism",
+              "line": 285
+            },
+            {
+              "name": "ceilingZ",
+              "line": 300
+            },
+            {
+              "name": "prismAt",
+              "line": 315
+            },
+            {
+              "name": "inSolid",
+              "line": 329
+            },
+            {
+              "name": "bodyBlocked",
+              "line": 339
+            },
+            {
+              "name": "rayShot",
+              "line": 374
+            },
+            {
+              "name": "raySight",
+              "line": 377
+            },
+            {
+              "name": "shotClear",
+              "line": 380
+            },
+            {
+              "name": "canSee",
+              "line": 383
+            },
+            {
+              "name": "sightClear",
+              "line": 386
+            },
+            {
+              "name": "transmittance",
+              "line": 389
+            },
+            {
+              "name": "_cast",
+              "line": 398
+            },
+            {
+              "name": "canopyChord",
+              "line": 551
+            },
+            {
+              "name": "_rayTerrain",
+              "line": 612
+            }
+          ],
+          "review_evidence": [
+            "Prior function-inventory.json; source byte identity; current integrated source and runtime gates."
+          ]
+        }
+      ],
+      "modules_count": 23,
+      "named_function_count": 438,
+      "modified_or_added_modules": [
+        "lib/brain.js",
+        "lib/economy.js",
+        "lib/firecontrol.js",
+        "lib/lightning.js",
+        "lib/loadout.js",
+        "lib/mortar.js",
+        "lib/params.js",
+        "lib/prof.js",
+        "lib/senses.js"
+      ]
+    }
+  ]
+}

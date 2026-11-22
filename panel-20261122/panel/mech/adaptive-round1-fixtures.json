@@ -1,0 +1,137 @@
+{
+  "status": "design only; not executed",
+  "fixture_origin": "official initial hello, schema and recorded positions, or phase-derived counterfactual snapshots with individual geometry/state checks",
+  "no_claims": [
+    "reactive simulation",
+    "feasible complete match history",
+    "official placement improvement"
+  ],
+  "cases": [
+    {
+      "id": "D01",
+      "name": "full_hp_low_energy_drop",
+      "construction": "Full HP, low live energy, landed safe reachable drop; no current incoming line.",
+      "assertion": "Drop benefit can be positive; full HP is not an automatic rejection.",
+      "scope": "individual counterfactual; phase-derived zone and within-config equipment"
+    },
+    {
+      "id": "D02",
+      "name": "full_hp_full_energy_negative",
+      "construction": "Same as D01, energy full, stat cap reached and next threshold remote.",
+      "assertion": "Do not gain utility from nonexistent healing/energy or uncapped damage bonus.",
+      "scope": "paired counterfactual"
+    },
+    {
+      "id": "D03",
+      "name": "threshold_crossing",
+      "construction": "Same geometry, cube counts 0/2/9/10/12 and +3 reward; derived size/stats and attainable upgrade counts.",
+      "assertion": "Count newly crossed cumulative thresholds, do not spend or reset cubes.",
+      "scope": "individual counterfactual"
+    },
+    {
+      "id": "D04",
+      "name": "capture_progress_contest_exit",
+      "construction": "Owner progress 2 s inside ring; second occupant enters; then self leaves; authoritative progress resets; reentry starts fresh.",
+      "assertion": "Freeze is not completion; old progress is not kept after empty/different sole occupant.",
+      "scope": "scripted state contract; no reactive history claim"
+    },
+    {
+      "id": "D05",
+      "name": "drop_loss_or_capture_event",
+      "construction": "Selected drop disappears; self HP/energy/cubes updated with drop event; variant disappears without own reward.",
+      "assertion": "Replan both; never grant local reward from disappearance alone.",
+      "scope": "state reconciliation"
+    },
+    {
+      "id": "D06",
+      "name": "drop_safety_new_damage",
+      "construction": "Accepted safe drop, then new observed damaging lines/low HP; geometry unchanged.",
+      "assertion": "Goal reevaluates; resource priority cannot blindly override survival admission.",
+      "scope": "scripted counterfactual"
+    },
+    {
+      "id": "Z01",
+      "name": "phase_boundary_hold_shrink",
+      "construction": "Times shrink_start-.05/equality/+.05 and shrink_end; observed current circle already interpolated.",
+      "assertion": "Correct physical slack and DPS; no double interpolation.",
+      "scope": "independent config-derived oracle"
+    },
+    {
+      "id": "Z02",
+      "name": "moving_center_route",
+      "construction": "Nested shifted next circle; endpoint safe now, overtaken during walk/capture.",
+      "assertion": "Reject or reprioritize before spending capture/loot time.",
+      "scope": "individual geometric counterfactual"
+    },
+    {
+      "id": "Z03",
+      "name": "zone_reentry_regen",
+      "construction": "Outside damaged event, then legal inside position and healing quiet window.",
+      "assertion": "Last zone damage delays regen; armor never discounts zone DPS.",
+      "scope": "short scripted physical-boundary contract"
+    },
+    {
+      "id": "R01",
+      "name": "crate_hit_resets_regen",
+      "construction": "Inside zone, low HP, safe quiet state then hit event target crate ID.",
+      "assertion": "lastDealt clock updates; do not predict uninterrupted healing.",
+      "scope": "authoritative event reconciliation"
+    },
+    {
+      "id": "R02",
+      "name": "live_upgraded_regen",
+      "construction": "Actual nanites/plating/armor/servos effects applied to self.stats and upgrade array with consistent cube thresholds.",
+      "assertion": "Read live rate/delay/armor/speed; do not use base values or apply armor to zone.",
+      "scope": "individual upgraded state"
+    },
+    {
+      "id": "E01",
+      "name": "energy_spend_delay",
+      "construction": "Low energy, lightning-ready vs cooling; grounded boost and airborne jet variants with live upgraded drains.",
+      "assertion": "Combined energy budget; no immediate regen credit after spending.",
+      "scope": "individual transient state"
+    },
+    {
+      "id": "W01",
+      "name": "actual_readiness",
+      "construction": "One opponent, live cooldown/reload/charge just below/equal/above decision horizon and off-axis torso.",
+      "assertion": "Nominal DPS does not certify ready damage; physical fire gates remain.",
+      "scope": "state-boundary cases"
+    },
+    {
+      "id": "W02",
+      "name": "inventory_swap_authority",
+      "construction": "Charging laser plus full slots and a nearby pickup; then accepted took/dropped events and fresh self weapons.",
+      "assertion": "No charged-slot drop; apply inventory once from authoritative observation; equip delay respected.",
+      "scope": "scripted action/observation contract"
+    },
+    {
+      "id": "O01",
+      "name": "offer_queue",
+      "construction": "Reward crosses multiple cumulative thresholds; sequential distinct pending offers then applied upgrade observation.",
+      "assertion": "Valid current index, no double-spend or treating pending as already-applied stat.",
+      "scope": "scripted reward/offer contract"
+    },
+    {
+      "id": "I01",
+      "name": "skipped_observation_merge",
+      "construction": "Two or more official-shaped queued observations with hurt/hit/kill and sound/beam ages.",
+      "assertion": "Latest tick response retains bounded event credit; ages use elapsed time.",
+      "scope": "transport counterfactual"
+    },
+    {
+      "id": "I02",
+      "name": "event_cap_eviction",
+      "construction": "One early kill then enough later legal-shaped damage entries to exceed 64 merged events.",
+      "assertion": "Expose loss limit explicitly; do not call it engine-observed or scoring cause.",
+      "scope": "deliberately synthetic transport stress"
+    },
+    {
+      "id": "S01",
+      "name": "recorded_regression",
+      "construction": "Unchanged official 300 observations and config.",
+      "assertion": "Source-off identity and exact protocol/late/error checks.",
+      "scope": "recorded real observations, non-reactive replay"
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "recorded_utc": "2026-11-22T09:28:34.232Z",
+  "scope": "300 individually config/map/zone-constrained counterfactual observations, stitched into a monotone runtime stimulus. Resource/equipment/position/contact transitions between and within blocks are not a generated or claimed feasible complete match. No score or causal-performance evidence.",
+  "input": "/workspace/scratch/bde29dc281e6/panel/mech/adaptive-contact-stream.jsonl.gz",
+  "gzip_sha256": "2db53d3edff1c4170796a4069bfb67316477ff7f6aa2e13ed1edfe1a9fc54ff8",
+  "jsonl_sha256": "9a8b9a42b9aa1dbb4660312c6d92e4f4e37038d85e12dc518aedb213b2ec49ca",
+  "observations": 300,
+  "hello_config_sha256": "3923dc2249564f4b2836a05aa48a6f2c0ce77046d4a39f2ee7b02ef5a86a0f8c",
+  "fixture_helper_sha256": "799dae1b9b0a09231d7b4ea3fb01755925efe19e22d7598b40d27f75c053bc46",
+  "constructor_sha256": "7f3dce1cf00f46aa63ca733d5b2fae28f7bbea7ed6fdae4c3703f234cdef9966",
+  "time_min": 30,
+  "time_max": 172.4,
+  "groups": {
+    "early_ready_secondary": 25,
+    "early_reserved_lightning_capacity": 25,
+    "early_losing_exchange": 25,
+    "farther_admissible_range": 25,
+    "full_hp_energy_threshold_drop": 25,
+    "owned_capture_progress": 25,
+    "contested_capture": 25,
+    "recovery_farming_suppression": 25,
+    "reload_and_laser_short": 25,
+    "charged_laser_finish": 25,
+    "mortar_with_busy_gun": 25,
+    "actual_phase_zone_exit": 25
+  },
+  "coverage": [
+    {
+      "candidate": "mech-capture",
+      "prof_sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+      "params_sha256": "492b8670c45fdc17d3c2e735095990ac8542a80d92067e67bdffa79187f043a9",
+      "calls": {
+        "selectTarget": 300,
+        "decideMode": 300,
+        "legs": 300,
+        "legsHandled": 175
+      },
+      "active": 300,
+      "zone": 25,
+      "early": 0,
+      "rangeFallback": 0,
+      "finishing": 25,
+      "recovering": 0,
+      "modes": {
+        "HOLD": 75,
+        "DISENGAGE": 25,
+        "FIGHT": 125,
+        "DROP": 50,
+        "ZONE": 25
+      },
+      "phases": {
+        "gate": 75,
+        "open": 225
+      },
+      "reasons": {
+        "legacy": 300
+      },
+      "groups": {
+        "early_ready_secondary": {
+          "count": 25,
+          "modes": {
+            "HOLD": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_reserved_lightning_capacity": {
+          "count": 25,
+          "modes": {
+            "HOLD": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_losing_exchange": {
+          "count": 25,
+          "modes": {
+            "DISENGAGE": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "farther_admissible_range": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "full_hp_energy_threshold_drop": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "owned_capture_progress": {
+          "count": 25,
+          "modes": {
+            "DROP": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "contested_capture": {
+          "count": 25,
+          "modes": {
+            "DROP": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "recovery_farming_suppression": {
+          "count": 25,
+          "modes": {
+            "HOLD": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "reload_and_laser_short": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "charged_laser_finish": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "mortar_with_busy_gun": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "actual_phase_zone_exit": {
+          "count": 25,
+          "modes": {
+            "ZONE": 25
+          },
+          "reasons": {
+            "legacy": 25
+          },
+          "active": 25,
+          "zone": 25,
+          "rangeFallback": 0
+        }
+      },
+      "action_sha256": "96595073b5190de63118753a87a464936c475fea23dc049224f477ce4af6277f"
+    },
+    {
+      "candidate": "mech-adaptive",
+      "prof_sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "params_sha256": "ff597ff51e9f059a1ebe197c424e6969f145bb03b019e30d8e88ac3498c898d9",
+      "calls": {
+        "selectTarget": 300,
+        "decideMode": 300,
+        "legs": 300,
+        "legsHandled": 188
+      },
+      "active": 300,
+      "zone": 25,
+      "early": 113,
+      "rangeFallback": 26,
+      "finishing": 30,
+      "recovering": 71,
+      "modes": {
+        "FIGHT": 153,
+        "HOLD": 5,
+        "DISENGAGE": 50,
+        "DROP": 42,
+        "HEAL": 25,
+        "ZONE": 25
+      },
+      "phases": {
+        "open": 288,
+        "gate": 12
+      },
+      "reasons": {
+        "ready-finish": 30,
+        "exchange-admitted": 158,
+        "no-target": 62,
+        "exposure-budget": 25,
+        "outside-completion-horizon": 25
+      },
+      "groups": {
+        "early_ready_secondary": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "ready-finish": 5,
+            "exchange-admitted": 20
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_reserved_lightning_capacity": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 20,
+            "HOLD": 5
+          },
+          "reasons": {
+            "exchange-admitted": 13,
+            "no-target": 12
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_losing_exchange": {
+          "count": 25,
+          "modes": {
+            "DISENGAGE": 25
+          },
+          "reasons": {
+            "exposure-budget": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "farther_admissible_range": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 25
+        },
+        "full_hp_energy_threshold_drop": {
+          "count": 25,
+          "modes": {
+            "DROP": 17,
+            "FIGHT": 8
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "owned_capture_progress": {
+          "count": 25,
+          "modes": {
+            "DROP": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "contested_capture": {
+          "count": 25,
+          "modes": {
+            "DISENGAGE": 25
+          },
+          "reasons": {
+            "outside-completion-horizon": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "recovery_farming_suppression": {
+          "count": 25,
+          "modes": {
+            "HEAL": 25
+          },
+          "reasons": {
+            "no-target": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "reload_and_laser_short": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 1
+        },
+        "charged_laser_finish": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "ready-finish": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "mortar_with_busy_gun": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "actual_phase_zone_exit": {
+          "count": 25,
+          "modes": {
+            "ZONE": 25
+          },
+          "reasons": {
+            "no-target": 25
+          },
+          "active": 25,
+          "zone": 25,
+          "rangeFallback": 0
+        }
+      },
+      "action_sha256": "6161ebffabf5eb0e5fdd8c44558486039ff2eaf264fe521ad7eeea1d1219dfe0",
+      "changed": {
+        "any": 212,
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "take": 0,
+        "drop": 0,
+        "pick": 0
+      }
+    },
+    {
+      "candidate": "mech-adaptive-weapons",
+      "prof_sha256": "e85059ee5c3772d241ffac407b45c763c8f14f8e46c32cbbc759c79eb646ad06",
+      "params_sha256": "332b1e118c5099711d06eae6a2c808d8c1ce2d9d6ae9c9b33919858e8c53ddd8",
+      "calls": {
+        "selectTarget": 300,
+        "decideMode": 300,
+        "legs": 300,
+        "legsHandled": 188
+      },
+      "active": 300,
+      "zone": 25,
+      "early": 113,
+      "rangeFallback": 26,
+      "finishing": 30,
+      "recovering": 71,
+      "modes": {
+        "FIGHT": 153,
+        "HOLD": 5,
+        "DISENGAGE": 50,
+        "DROP": 42,
+        "HEAL": 25,
+        "ZONE": 25
+      },
+      "phases": {
+        "open": 288,
+        "gate": 12
+      },
+      "reasons": {
+        "ready-finish": 30,
+        "exchange-admitted": 158,
+        "no-target": 62,
+        "exposure-budget": 25,
+        "outside-completion-horizon": 25
+      },
+      "groups": {
+        "early_ready_secondary": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "ready-finish": 5,
+            "exchange-admitted": 20
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_reserved_lightning_capacity": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 20,
+            "HOLD": 5
+          },
+          "reasons": {
+            "exchange-admitted": 13,
+            "no-target": 12
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "early_losing_exchange": {
+          "count": 25,
+          "modes": {
+            "DISENGAGE": 25
+          },
+          "reasons": {
+            "exposure-budget": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "farther_admissible_range": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 25
+        },
+        "full_hp_energy_threshold_drop": {
+          "count": 25,
+          "modes": {
+            "DROP": 17,
+            "FIGHT": 8
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "owned_capture_progress": {
+          "count": 25,
+          "modes": {
+            "DROP": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "contested_capture": {
+          "count": 25,
+          "modes": {
+            "DISENGAGE": 25
+          },
+          "reasons": {
+            "outside-completion-horizon": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "recovery_farming_suppression": {
+          "count": 25,
+          "modes": {
+            "HEAL": 25
+          },
+          "reasons": {
+            "no-target": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "reload_and_laser_short": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 1
+        },
+        "charged_laser_finish": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "ready-finish": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "mortar_with_busy_gun": {
+          "count": 25,
+          "modes": {
+            "FIGHT": 25
+          },
+          "reasons": {
+            "exchange-admitted": 25
+          },
+          "active": 25,
+          "zone": 0,
+          "rangeFallback": 0
+        },
+        "actual_phase_zone_exit": {
+          "count": 25,
+          "modes": {
+            "ZONE": 25
+          },
+          "reasons": {
+            "no-target": 25
+          },
+          "active": 25,
+          "zone": 25,
+          "rangeFallback": 0
+        }
+      },
+      "action_sha256": "6161ebffabf5eb0e5fdd8c44558486039ff2eaf264fe521ad7eeea1d1219dfe0",
+      "changed": {
+        "any": 212,
+        "move": 154,
+        "boost": 37,
+        "aim": 177,
+        "fire": 78,
+        "take": 0,
+        "drop": 0,
+        "pick": 0
+      }
+    }
+  ]
+}

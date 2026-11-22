@@ -1,0 +1,99 @@
+{
+  "scope": "Decision-unit projections using actual shared readyDamage, live rule config and analytic positions; no reactive match or score claim.",
+  "count": 19,
+  "passed": 19,
+  "results": [
+    {
+      "name": "upgrade_effect_descriptors_survive_normalization",
+      "passed": true
+    },
+    {
+      "name": "prospective_weapon_preserves_owned_upgrade_once",
+      "passed": true
+    },
+    {
+      "name": "unknown_dropped_gun_is_not_a_free_refill",
+      "passed": true,
+      "equip": 1,
+      "conservativeFirstReload": 3.4
+    },
+    {
+      "name": "same_kind_is_never_equipped_twice",
+      "passed": true
+    },
+    {
+      "name": "horizontal_distance_is_not_double_counted",
+      "passed": true,
+      "damage": 516.8814225461927,
+      "feetDistance": 44.721359549995796,
+      "horizontal": 40
+    },
+    {
+      "name": "newly_reachable_lightning_upgrade_has_positive_value",
+      "passed": true,
+      "utility": 1
+    },
+    {
+      "name": "energy_efficiency_can_enable_an_unaffordable_pulse",
+      "passed": true,
+      "utility": 1,
+      "energy": 37
+    },
+    {
+      "name": "absent_weapon_upgrade_has_no_invented_output",
+      "passed": true
+    },
+    {
+      "name": "unknown_or_unmodeled_upgrade_retains_stable_fallback",
+      "passed": true
+    },
+    {
+      "name": "plating_and_armor_use_current_configured_ratios",
+      "passed": true,
+      "plating": 0.1499999999999999,
+      "armor": 0.08695652173913038
+    },
+    {
+      "name": "projection_does_not_mutate_authoritative_stats",
+      "passed": true
+    },
+    {
+      "name": "far_lightning_does_not_displace_ranged_pair",
+      "passed": true
+    },
+    {
+      "name": "close_cooling_pair_can_replace_gun_after_confirmation",
+      "passed": true,
+      "decision": {
+        "drop": 0
+      }
+    },
+    {
+      "name": "charging_laser_slot_is_locked",
+      "passed": true,
+      "decision": {
+        "drop": 0
+      }
+    },
+    {
+      "name": "target_change_restarts_confirmation",
+      "passed": true
+    },
+    {
+      "name": "observed_equipment_change_starts_four_second_cooldown",
+      "passed": true
+    },
+    {
+      "name": "urgent_zone_or_losing_state_invalidates_swap",
+      "passed": true
+    },
+    {
+      "name": "fresh_foreign_death_and_ffa_firewall_preserve_fallback",
+      "passed": true
+    },
+    {
+      "name": "explicit_disable_preserves_baseline_choice",
+      "passed": true
+    }
+  ]
+}
