@@ -34,15 +34,10 @@ pub fn reserve(bytes: usize) {
             return;
         }
         let start = (p as usize).div_ceil(HUGE) * HUGE;
+        libc::madvise(start as *mut libc::c_void, bytes, libc::MADV_HUGEPAGE);
         RESERVED_NEXT.store(start, Ordering::Relaxed);
         RESERVED_END.store(start + bytes, Ordering::Release);
     }
-}
-
-pub fn huge_region(bytes: usize) -> *mut u8 {
-    let p = region(bytes);
-    unsafe { libc::madvise(p as *mut libc::c_void, bytes.div_ceil(HUGE) * HUGE, libc::MADV_HUGEPAGE) };
-    p
 }
 
 pub fn region(bytes: usize) -> *mut u8 {
@@ -166,18 +161,30 @@ pub struct Sink<T: Copy> {
 unsafe impl<T: Copy> Send for Sink<T> {}
 unsafe impl<T: Copy> Sync for Sink<T> {}
 
+const fn gcd(a: usize, b: usize) -> usize {
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
+
 impl<T: Copy> Sink<T> {
-    const PER_LINE: usize = 64 / std::mem::size_of::<T>();
-    const STREAM: bool = 64 % std::mem::size_of::<T>() == 0 && std::mem::size_of::<T>() <= 64;
+    const SIZE: usize = std::mem::size_of::<T>();
+    const STAGE: usize = Self::SIZE / gcd(Self::SIZE, 64) * 64;
+    const LINES: usize = Self::STAGE / 64;
+    const PER_STAGE: usize = Self::STAGE / Self::SIZE;
+    const STREAM: bool = Self::STAGE <= 512 && Self::PER_STAGE < 256;
 
     pub fn new(parts: usize, block: usize) -> Sink<T> {
-        let block = block.div_ceil(Self::PER_LINE.max(1)) * Self::PER_LINE.max(1);
+        let per = if Self::STREAM { Self::PER_STAGE } else { 1 };
+        let block = block.div_ceil(per) * per;
         Sink {
             cur: vec![ptr::null_mut(); parts],
             end: vec![ptr::null_mut(); parts],
             full: (0..parts).map(|_| Vec::new()).collect(),
             block,
-            stage: if Self::STREAM { vec![Line([0; 64]); parts] } else { Vec::new() },
+            stage: if Self::STREAM { vec![Line([0; 64]); parts * Self::LINES] } else { Vec::new() },
             staged: if Self::STREAM { vec![0; parts] } else { Vec::new() },
             _marker: PhantomData,
         }
@@ -188,16 +195,18 @@ impl<T: Copy> Sink<T> {
         unsafe {
             if Self::STREAM {
                 let n = *self.staged.get_unchecked(part) as usize;
-                let line = self.stage.as_mut_ptr().add(part) as *mut T;
+                let line = self.stage.as_mut_ptr().add(part * Self::LINES) as *mut T;
                 line.add(n).write(value);
-                if n + 1 == Self::PER_LINE {
+                if n + 1 == Self::PER_STAGE {
                     *self.staged.get_unchecked_mut(part) = 0;
                     if *self.cur.get_unchecked(part) == *self.end.get_unchecked(part) {
                         self.refill(arena, part);
                     }
                     let cur = self.cur.get_unchecked_mut(part);
-                    stream_line(line as *const u8, *cur as *mut u8);
-                    *cur = cur.add(Self::PER_LINE);
+                    for k in 0..Self::LINES {
+                        stream_line((line as *const u8).add(64 * k), (*cur as *mut u8).add(64 * k));
+                    }
+                    *cur = cur.add(Self::PER_STAGE);
                 } else {
                     *self.staged.get_unchecked_mut(part) = (n + 1) as u8;
                 }
@@ -218,7 +227,7 @@ impl<T: Copy> Sink<T> {
             for part in 0..self.cur.len() {
                 let n = self.staged[part] as usize;
                 for i in 0..n {
-                    let value = unsafe { (self.stage.as_ptr().add(part) as *const T).add(i).read() };
+                    let value = unsafe { (self.stage.as_ptr().add(part * Self::LINES) as *const T).add(i).read() };
                     if self.cur[part] == self.end[part] {
                         self.refill(arena, part);
                     }

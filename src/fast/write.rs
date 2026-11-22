@@ -1,11 +1,12 @@
 use std::path::Path;
 
+use super::id::{Domain, Key};
 use super::parquet::{self, put_i32, put_i64, put_str, Column, Kind};
 use crate::input::Result;
 
 #[derive(Default)]
 pub struct Part {
-    persons: Vec<u64>,
+    persons: Vec<Key>,
     days: Vec<u32>,
     sessions: Vec<u64>,
     events: Vec<u64>,
@@ -38,7 +39,7 @@ impl Part {
     }
 
     #[inline]
-    pub fn push(&mut self, person: u64, day: u32, row: [u64; 3], top: u8) {
+    pub fn push(&mut self, person: Key, day: u32, row: [u64; 3], top: u8) {
         self.persons.push(person);
         self.days.push(day);
         self.sessions.push(row[0]);
@@ -55,7 +56,7 @@ pub fn user_part(
     range: std::ops::Range<usize>,
     categories: &[&[u8]],
     first_day: i64,
-    name_of: &(dyn Fn(u64, &mut Vec<u8>) + Sync),
+    domain: &Domain,
 ) -> Result<()> {
     let base = range.start;
     let rows = range.len();
@@ -63,7 +64,7 @@ pub fn user_part(
         for &person in &part.persons[base + a..base + b] {
             let at = out.len();
             out.extend_from_slice(&[0; 4]);
-            name_of(person, out);
+            domain.bytes_of(person, out);
             let len = (out.len() - at - 4) as u32;
             out[at..at + 4].copy_from_slice(&len.to_le_bytes());
         }
