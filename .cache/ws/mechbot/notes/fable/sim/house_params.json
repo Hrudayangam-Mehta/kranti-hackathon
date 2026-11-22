@@ -1,0 +1,19 @@
+{
+ "_about": "Level-calibrated house-bot table 'e2' for sim/run.js --params (calibration analyst, Fable panel, Sun 22 Nov). Only the keys 'house' and 'squad' are read by the simulator; keys starting with _ are notes.",
+ "_fit": "Fitted to ONE number: the official level of KB salt 1 (5.23; KB/KS family mean 5.14). Simulator, seeds 1-48: default table 4.04, e1 (easy tier only) 4.69, this table 5.19; mean life 85 s. Under this table the seven KB-family builds average 5.13 against 5.15 official.",
+ "_not_validated": "It does NOT rank changes: on 9 official paired steps simulated under it sign agreement is 5 of 8 (default table 5 of 9), Spearman +0.12; held-out half 2 of 3. Level transfer fails for the older C3 builds (4.18 simulated against 4.87 official). Use it as a second, weaker-opponent world for robustness checks next to the default table, never as proof of a small gain. See calibration.md.",
+ "_fuse": "Run with the simcal copy of the simulator (fable_work/simcal/sim: ourbot.js passes fuseMs 1e12 so wall-clock load cannot change a match; 20/20 matches identical to fuse-0 runs of the stock simulator).",
+ "house": {
+  "easy": {
+   "aimSigmaDeg": 8,
+   "fireProb": 0.15,
+   "reactionS": 3.0,
+   "lead": 0.2
+  },
+  "medium": {
+   "aimSigmaDeg": 3.5,
+   "fireProb": 0.35,
+   "reactionS": 1.6
+  }
+ }
+}

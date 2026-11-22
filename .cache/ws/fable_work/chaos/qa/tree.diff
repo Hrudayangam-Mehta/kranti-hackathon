@@ -1,0 +1,485 @@
+diff -u tree.orig_switch/lib/brain.js tree/lib/brain.js
+--- tree.orig_switch/lib/brain.js	2026-11-22 02:22:51.208714131 +0000
++++ tree/lib/brain.js	2026-11-22 03:29:38.073244429 +0000
+@@ -271,7 +271,17 @@
+         for (const id of ups) if (!fixed.includes(id)) fixed.push(id)
+         B.upgOrder = fixed
+       }
++      // Fable chaos R8 (upg 'laser'): the SQUAD order, fixed the same way under upgFix (duplicates kept: they are a sequence)
++      if (Array.isArray(P.upgradeOrderSq)) {
++        if (P.upgFix === true) {
++          const alias = { mortar_damage: 'mortar_reload', mortar_rate: 'mortar_velocity' }, fixed = []
++          for (const id of P.upgradeOrderSq) { const v = ups.includes(id) ? id : alias[id]; if (v && ups.includes(v) && !(v !== 'plating' && fixed.includes(v))) fixed.push(v) }
++          for (const id of ups) if (!fixed.includes(id)) fixed.push(id)
++          B.upgOrderSq = fixed
++        } else B.upgOrderSq = P.upgradeOrderSq
++      }
+     }
++    if (!B.upgOrderSq && Array.isArray(P.upgradeOrderSq)) B.upgOrderSq = P.upgradeOrderSq
+   }
+   const stance = makeStance(B, mover, hideSearch, posEval)
+   // pass 2b counter changes (addendum 6.2): C1 finish rail, C2 kiter ramp 70 / 100 m, C3 LASER_BRAWLER (off)
+@@ -484,6 +494,10 @@
+       else if (B.rush && (me.energy < P.lightReserve || me.hpf < 0.4 || !lone)) B.rush = false
+     } else B.rush = false
+     if (B.rush) { hold = P.rushR; lo = P.rushR - 8; hi = P.rushR + 6 }
++    // Fable chaos R1 finish walk-in (focus 'kill', SQUAD posture + hunt.firewall): target under fkWalkTgtHpf, our hp above
++    // fkWalkHpf, at most fkWalkLines lines on us: hold fkWalkR m, walking (no boost of this function, boostSpend or boostCharge)
++    const fkW = P.focusKill === true && !ffa && !tgt.npc && tgt.hp < P.fkWalkTgtHpf * tgt.maxHp && me.hpf > P.fkWalkHpf && B.nLos <= P.fkWalkLines && hunt.firewall()
++    if (fkW) { hold = P.fkWalkR; lo = Math.max(6, P.fkWalkR - P.fkWalkBand); hi = P.fkWalkR + P.fkWalkBand; B.fkWalk = true; B.counters.fkWalk = (B.counters.fkWalk || 0) + 1 }
+     // their reload (12 bullets, then 2.5 s silent): close in to the hold distance
+     const reloading = tgt.magN >= P.magSize && t - tgt.lastBulletT < P.magReloadS
+     if (reloading && !me.laser) hi = Math.min(hi, hold + 5)
+@@ -542,7 +556,7 @@
+       const chase = !ffa && (B.winning || tgt.hp < tgt.maxHp * P.chaseHpf || B.A === 0 || tgt.hostile) && (t - tgt.losOutT < P.chaseS || t - B.targetSince < P.chaseS || tgt.listed)
+       if (chase && tgt.dist > 12) {
+         mover.moveTo(tgt.x, tgt.y, 1, 6)
+-        if (B.killSecure && me.energy >= P.boostReserve + 10 && me.grounded) cmd.boost = true
++        if (B.killSecure && me.energy >= P.boostReserve + 10 && me.grounded && !fkW) cmd.boost = true
+       } else postLegs(false)
+       return
+     }
+@@ -570,7 +584,7 @@
+         }
+       }
+     }
+-    if (B.A - tgt.a > 20 && B.nLos >= 2 && nav && world) {
++    if (B.A - tgt.a > 20 && B.nLos >= 2 && nav && world && !fkW) {
+       if (evalMaybe('fight') && B.posGoal.kind === 'fight' && Math.hypot(B.posGoal.x - me.x, B.posGoal.y - me.y) > 3) {
+         // R7a ISO (isolate 'near', R5 3.1 / GP I3, hunt.js firewall): the cell only within isoNear and with no exposure to the
+         // non-target threats (posEval xOther 0); otherwise the stand-off below
+@@ -593,8 +607,8 @@
+       else { const ax = me.x - tgt.x, ay = me.y - tgt.y, l = Math.hypot(ax, ay) || 1; mover.moveTo(me.x + ax / l * 20, me.y + ay / l * 20, 1, 1) }
+     }
+     // laser band: boost away when a mech is inside 90 m with energy > 30
+-    if (bd.kind === 'laser' && bd.boostAway > 0 && tgt.dist < bd.boostAway && me.energy > P.laserBoostEnergy && !tgt.npc) cmd.boost = true
+-    if (B.rush && tgt.dist > P.rushR + 15 && tgt.dist < P.rushBoostR && me.energy >= P.rushEnergy) cmd.boost = true
++    if (bd.kind === 'laser' && bd.boostAway > 0 && tgt.dist < bd.boostAway && me.energy > P.laserBoostEnergy && !tgt.npc && !fkW) cmd.boost = true
++    if (B.rush && tgt.dist > P.rushR + 15 && tgt.dist < P.rushBoostR && me.energy >= P.rushEnergy && !fkW) cmd.boost = true
+   }
+ 
+   /** Stance outcomes that override the mode chosen from the layer 4 rules (last stand). */
+@@ -610,6 +624,7 @@
+     B.hasGoal = false; B.dodging = false; B.hidePhase = false; B.noCharge = false; B.shootCrate = null; B.lookHint = false; B.peekSoon = false; B.ambushAim = false
+     B.legKind = ''
+     B.wantJet = false
++    B.fkWalk = false
+     // a hop out of a pocket is finished whatever the mode
+     if (mover.hop.air && mover.pocketExit(B.zone.nx, B.zone.ny)) { B.legKind = 'hop'; B.noCharge = true; mover.stuckCheck(); return }
+     if (!(B.mode === MODE.ZONE && B.zoneMargin < 1) && mover.shellDodge()) { B.noCharge = true; B.legKind = 'dodge'; finishLegs(); return }
+@@ -637,12 +652,17 @@
+     // R3a2 P5 (SQUAD posture): spend energy in a fight: boost while charging the laser or under fire (energy > 30), or
+     // while a bullet dodge is held (> 25), when moving; set before bulletDodge so the dodge plans at boost speed.
+     // Not during a lightning rush, and a lightning holder keeps its arc reserve (lightReserve + 10)
+-    if (P.boostSpend === true && B.env !== 'FFA' && B.mode === MODE.FIGHT && me.grounded && B.target && !B.target.npc && !cmd.boost && !B.rush &&
++    if (P.boostSpend === true && B.env !== 'FFA' && B.mode === MODE.FIGHT && me.grounded && B.target && !B.target.npc && !cmd.boost && !B.rush && !B.fkWalk &&
+       Math.hypot(cmd.mx, cmd.my) >= P.bsMoveMin) {
+       const hot = (me.laser && me.laser.charge > 0) || B.nLos >= 1 || me.t - me.lastHurtT <= P.bsHurtS
+       const floor = me.lightning ? P.lightReserve + 10 : 0
+       if (me.energy > floor && ((hot && me.energy > P.bsEnergy) || (mover.dodgeHeld() && me.energy > P.bsDodgeEnergy))) { cmd.boost = true; B.counters.boostSpend = (B.counters.boostSpend || 0) + 1 }
+     }
++    // Fable chaos R5 boostCharge (SQUAD posture + hunt.firewall): boost while the laser charges under fire (a line on us or hurt
++    // within bsHurtS) with energy > bcEnergy, in any mode but ZONE, whenever the legs move; not in a rush or the finish walk-in
++    if (P.boostCharge === true && B.env !== 'FFA' && B.mode !== MODE.ZONE && me.grounded && !cmd.boost && !B.rush && !B.fkWalk && me.laser && me.laser.charge > 0 &&
++      (B.nLos >= 1 || me.t - me.lastHurtT <= P.bsHurtS) && me.energy > P.bcEnergy && me.energy > (me.lightning ? P.lightReserve + 10 : 0) &&
++      Math.hypot(cmd.mx, cmd.my) >= 0.05 && hunt.firewall()) { cmd.boost = true; B.counters.boostCharge = (B.counters.boostCharge || 0) + 1 }
+     // D4 bullet-aware dodge on top of the tactical move (not while the zone needs every metre)
+     if (!(B.mode === MODE.ZONE && (!me.inZone || B.zoneMargin < 2)) && B.legKind !== 'hop' && B.legKind !== 'beamhide') mover.bulletDodge()
+     finishLegs()
+diff -u tree.orig_switch/lib/economy.js tree/lib/economy.js
+--- tree.orig_switch/lib/economy.js	2026-11-22 02:26:52.214626500 +0000
++++ tree/lib/economy.js	2026-11-22 03:33:12.625343628 +0000
+@@ -12,6 +12,25 @@
+   const crateObj = { x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, radius: 1.4, height: 2.4, revs: 0, id: -1, steadySince: -99, airborne: false }
+   let lootT = -9, grabT = -9, offerIds = new Set(), offersSeen = 0, lastOfferId = null, betterSeenT = 0
+   const dropWatch = { id: -1, landed: false }
++  // Fable chaos: SQUAD posture + hunt.firewall (every chaos rule of this file)
++  const sqOk = () => B.env !== 'FFA' && !!B.hunt && B.hunt.firewall()
++  const lgs = { t0: -1, rot: 0, prevYaw: 0, stop: false, sweepDone: false }
++  /** R2 laserGrab 'spawn': B.lgsOn (laser run) and B.lgsSweep (torso turn) for this decision. */
++  function lgsUpdate() {
++    const me = B.me, t = me.t
++    B.lgsOn = false; B.lgsSweep = false
++    if (lgs.t0 < 0) { lgs.t0 = t; lgs.prevYaw = me.yaw }
++    lgs.rot += Math.abs(Math.atan2(Math.sin(me.yaw - lgs.prevYaw), Math.cos(me.yaw - lgs.prevYaw))); lgs.prevYaw = me.yaw
++    if (!lgs.stop) for (let k = 0; k < B.trackList.length; k++) {
++      const tr = B.trackList[k]
++      if (!tr.npc && tr.lastDmgInT === t && tr.dist <= P.lgsDmgR) { lgs.stop = true; B.counters.lgsStopDmg = (B.counters.lgsStopDmg || 0) + 1; break }
++    }
++    if (lgs.stop || me.laser || t >= P.lgsEndS || !sqOk()) return
++    B.lgsOn = true
++    if (!lgs.sweepDone && (lgs.rot >= 2 * Math.PI - 0.15 || t - lgs.t0 >= P.lgsSweepS + 0.6)) lgs.sweepDone = true
++    if (!lgs.sweepDone) { B.lgsSweep = true; B.counters.lgsSweep = (B.counters.lgsSweep || 0) + 1 }
++    B.counters.lgsOn = (B.counters.lgsOn || 0) + 1
++  }
+ 
+   /** D7: do we want this pickup, and which slot would it replace (-1 = goes into the empty slot)? */
+   function wantPickup(kind) {
+@@ -28,6 +47,8 @@
+         if (!(me.laser && me.laser.charge > 0)) return { drop: gs }
+       }
+     }
++    // Fable chaos R2 (laserGrab 'spawn', SQUAD + firewall): never a mortar; a lightning only once laser-less at lgsLightS
++    if (P.lgSpawn === true && (kind === 'mortar' || (kind === 'lightning' && !me.laser && t < P.lgsLightS)) && sqOk()) return null
+     if (!w0 || !w1) {
+       if (r > 1) return { drop: -1 }
+       // a mortar only when nothing better has been seen for 60 s (cook-off risk); R3a2 P2: never in the SQUAD posture
+@@ -100,7 +121,8 @@
+     }
+     const ffa = B.env === 'FFA'
+     const ffaR = ffa && P.ffaRules === true
+-    const farm = me.hpf >= P.farmHp && t < P.farmStopT && !(me.cubes >= P.farmStopCubes && me.laser) && (!ffa || nearestMechD(ffaR) > P.ffaFarmClear)
++    const sq = (P.sqFarmHp > 0 || P.sqCratePath > 0) && sqOk()          // Fable chaos R8 farmHp '50sq' / cratePath '80'
++    const farm = me.hpf >= (sq && P.sqFarmHp > 0 ? P.sqFarmHp : P.farmHp) && t < P.farmStopT && !(me.cubes >= P.farmStopCubes && me.laser) && (!ffa || nearestMechD(ffaR) > P.ffaFarmClear)
+     let best = null, bestV = 0
+     const consider = (type, o, value, extraT, maxPath) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+@@ -124,18 +146,18 @@
+       consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? (killReachOk(c) ? P.killCubeR : P.grabCubeHi) : P.lootCubePath)
+     }
+     // R3a2 P2 (SQUAD posture): while we hold no laser a laser pickup outranks every other loot out to laserSeekPath
+-    const seekL = P.laserEcon === true && !ffa && !me.laser
++    const seekL = (P.laserEcon === true && !ffa && !me.laser) || B.lgsOn === true      // Fable chaos R2: the spawn laser run
+     for (const p of B.pickups.values()) {
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+       const sl = seekL && p.kind === 'laser'
+-      if (wantPickup(p.kind)) consider('pickup', p, sl ? P.laserSeekValue : P.weaponValue * (p.kind === 'laser' ? 1.5 : 1), 1, sl ? P.laserSeekPath : P.lootPickupPath)
++      if (wantPickup(p.kind)) consider('pickup', p, sl ? (B.lgsOn === true ? P.lgsValue : P.laserSeekValue) : P.weaponValue * (p.kind === 'laser' ? 1.5 : 1), 1, sl ? (B.lgsOn === true ? Math.max(P.lgsPath, P.laserEcon === true ? P.laserSeekPath : 0) : P.laserSeekPath) : P.lootPickupPath)
+     }
+     if (farm) {
+       const wantW = !me.weapons[0] || !me.weapons[1]
+       if (me.gun && !(ffa && nearestMechD() < 320) && (!S || S.farmOk('crate'))) for (const c of B.crates.values()) {
+         if (S && S.beingShot(c.id)) continue                              // R1a: someone else spends the ammunition (steal instead)
+         const shootT = Math.max(1, c.hp) / Math.max(1, me.gun.damage * me.dmgMult) * me.gun.cd + 1
+-        consider('crate', c, 1 + (wantW ? 0.5 * P.weaponValue : 0), shootT, P.lootCratePath)
++        consider('crate', c, 1 + (wantW ? 0.5 * P.weaponValue : 0), shootT, sq && P.sqCratePath > 0 ? P.sqCratePath : P.lootCratePath)
+       }
+       if (me.gun && (!S || S.farmOk('drone'))) for (let k = 0; k < B.trackList.length; k++) {
+         const tr = B.trackList[k]
+@@ -169,7 +191,7 @@
+    * seeds 10 / 11: a 100 m walk into three hunters).
+    */
+   function killReachOk(c) {
+-    if (B.threats > P.killCubeThreats) return false
++    if (B.threats > (P.cubeSnow === true && sqOk() ? P.snThreats : P.killCubeThreats)) return false       // Fable chaos R4
+     const L = B.trackList
+     for (let k = 0; k < L.length; k++) { const tr = L[k]; if (!tr.npc && tr.hp > 0 && tr.conf > 0.3 && Math.hypot(tr.x - c.x, tr.y - c.y) < P.killCubeClear) return false }
+     return true
+@@ -180,10 +202,16 @@
+     B.grab = null
+     if (B.mode === 'ZONE' || B.lastStand || B.zoneUrgent) return
+     const lose = B.losing
+-    const cubeR = lose ? P.grabCubeLose : me.hpf > P.grabHpf ? P.grabCubeHi : P.grabCubeLo
++    // Fable chaos R4 (cubes 'snow', SQUAD + firewall): grab floor snGrabHpf, reach snCubeHi; after our kill (snKillS) the corpse
++    // (cubes / a laser we lack within snCorpseR of it) by boost out to snCorpsePath with at most snLines lines on us
++    const sn = P.cubeSnow === true && sqOk()
++    const gHpf = sn ? P.snGrabHpf : P.grabHpf, gHi = sn ? P.snCubeHi : P.grabCubeHi
++    const cubeR = lose ? P.grabCubeLose : me.hpf > gHpf ? gHi : P.grabCubeLo
++    const corpse = sn && !lose && t - B.lastKillT <= P.snKillS && B.nLos <= P.snLines
++    const nearCorpse = (o) => corpse && Math.hypot(o.x - B.lastKillX, o.y - B.lastKillY) <= P.snCorpseR
+     let best = null, bestV = 0
+     const S = B.steal
+-    const tryOne = (type, o, value, maxPath) => {
++    const tryOne = (type, o, value, maxPath, rush) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+       const d = pathEst(o.x, o.y)
+       const di = S ? S.deathItem(o.x, o.y, d) : 0                       // R1b kill drops: first by path time, else leave them
+@@ -194,13 +222,18 @@
+       if (nearDrone(o.x, o.y) || !reachable(o.x, o.y, o.z)) return
+       let v = di > 0 ? value / (d / me.walk + 0.5) * 1.5 : value / (d / me.walk + 0.5)
+       if (S && di === 0) { const r = S.race(o.x, o.y, d / me.walk); if (r < 0) return; if (r > 0) v *= P.raceBonus }     // R1d
+-      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
++      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 || rush === true } }
+     }
+     // D6 "collect the cubes of our kills at once": our kills happen at the D2 ranges (gun 55-95 m, laser 125-185 m),
+     // so at hp > grabHpf the cubes of our kills reach killCubeR (the low-hp and LOSING limits still apply)
+-    const killR = cubeR === P.grabCubeHi ? Math.max(cubeR, P.killCubeR) : cubeR
++    const killR = cubeR === gHi ? Math.max(cubeR, P.killCubeR) : cubeR
+     // R1c: with stealOn the cubes of a death (ours or another mech's, B.killDrops) are remembered deathCubeMemS (90 s)
+-    if (cubesWanted()) for (const c of B.cubes.values()) { const kc = isKillCube(c); if (t - c.seen <= (kc && P.stealOn ? P.deathCubeMemS : P.cubeMemS)) tryOne('cube', c, kc ? 1.5 : 1, kc && killReachOk(c) ? killR : cubeR) }
++    if (cubesWanted()) for (const c of B.cubes.values()) {
++      const kc = isKillCube(c)
++      if (t - c.seen > (kc && P.stealOn ? P.deathCubeMemS : P.cubeMemS)) continue
++      if (corpse && nearCorpse(c)) { tryOne('cube', c, 1.5, Math.max(P.snCorpsePath, kc && killReachOk(c) ? killR : cubeR), true); continue }
++      tryOne('cube', c, kc ? 1.5 : 1, kc && killReachOk(c) ? killR : cubeR)
++    }
+     // R7a LG (laserGrab 'wide', R5 3.2 / GP I1, build_spec_r7 3.2 #8): SQUAD (hunt.js firewall), no laser held: the laser grab
+     // reaches lgGrabR of path at hp >= lgHpf with at most one line on us and the target not finishable; it yields to a new
+     // attacker (B.topAttacker other than the target that hit us within lgYieldS)
+@@ -212,6 +245,7 @@
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+       if (t - p.seen > 60 || !wantPickup(p.kind)) continue
+       if (p.kind === 'laser' && !me.laser && P.grabLaserWide === true && !lgKnown && pathEst(p.x, p.y) <= P.lgKnownPath) lgKnown = true
++      if (corpse && p.kind === 'laser' && !me.laser && nearCorpse(p)) { tryOne('pickup', p, P.weaponValue * 2, Math.max(P.snCorpsePath, lgWide ? P.lgGrabR : P.grabLaserR), true); continue }
+       tryOne('pickup', p, P.weaponValue * 2, p.kind === 'laser' && !me.laser ? (lgWide ? P.lgGrabR : P.grabLaserR) : P.grabOtherR)
+     }
+     B.lgKnown = lgKnown
+@@ -324,6 +358,7 @@
+ 
+   function update() {
+     const t = B.me.t
++    if (P.lgSpawn === true) lgsUpdate()
+     if (P.dropLife === true) dlUpdate()
+     for (const p of B.pickups.values()) if (p.kind === 'laser' || p.kind === 'lightning') betterSeenT = t
+     if (B.me.laser || B.me.lightning) betterSeenT = t
+@@ -353,6 +388,24 @@
+       else { B.cmd.mx = 0; B.cmd.my = 0 }
+       return
+     }
++    // Fable chaos R2: the spawn laser run boosts (energy above boostReserve) and shoots crates within lgsCrateR on the way
++    if (B.lgsOn === true && l.type === 'pickup' && l.obj && l.obj.kind === 'laser') {
++      const w = B.world
++      let cb = null, cbd = P.lgsCrateR
++      if (me.gun) for (const c of B.crates.values()) {
++        const dc = Math.hypot(c.x - me.x, c.y - me.y)
++        if (dc < cbd && me.t - c.seen <= 1 && c.hp > 0 && (!w || w.shotClear(me.x, me.y, me.z + me.muzzleH, c.x, c.y, c.z + 1.2))) { cbd = dc; cb = c }
++      }
++      if (cb) {
++        crateObj.x = cb.x; crateObj.y = cb.y; crateObj.z = cb.z; crateObj.id = cb.id
++        crateObj.radius = (B.cfg.crates && B.cfg.crates.radius) || 1.4; crateObj.height = (B.cfg.crates && B.cfg.crates.height) || 2.4
++        B.shootCrate = crateObj
++        B.lookHint = false
++      }
++      mover.moveTo(l.x, l.y, 1, 1.2)
++      if (d > 8 && me.grounded && me.energy > P.boostReserve) { B.cmd.boost = true; B.counters.lgsBoost = (B.counters.lgsBoost || 0) + 1 }
++      return
++    }
+     if (l.type === 'crate') {
+       const w = B.world
+       const clear = !w || w.shotClear(me.x, me.y, me.z + me.muzzleH, l.x, l.y, l.z + 1.2)
+@@ -416,13 +469,21 @@
+     const of = obs.offer
+     if (!of || typeof of !== 'object' || !Array.isArray(of.choices) || of.choices.length === 0) return
+     if (of.id !== lastOfferId) { lastOfferId = of.id; if (!offerIds.has(of.id)) { offerIds.add(of.id); offersSeen++ } }
+-    const order = B.upgOrder && B.env !== 'FFA' && B.hunt && B.hunt.firewall() ? B.upgOrder : Array.isArray(P.upgradeOrder) ? P.upgradeOrder : []   // Fable upgFix (SQUAD posture + hunt.firewall)
++    const sqO = B.upgOrderSq && sqOk()                                   // Fable chaos R8 upg 'laser' (SQUAD posture + hunt.firewall)
++    const order = sqO ? B.upgOrderSq : B.upgOrder && B.env !== 'FFA' && B.hunt && B.hunt.firewall() ? B.upgOrder : Array.isArray(P.upgradeOrder) ? P.upgradeOrder : []   // Fable upgFix (SQUAD posture + hunt.firewall)
++    const taken = sqO && obs.self && Array.isArray(obs.self.upgrades) ? obs.self.upgrades : null
+     let best = 0, bestScore = Infinity
+     const n = Math.min(3, of.choices.length)
+     for (let i = 0; i < n; i++) {
+       const c = of.choices[i]
+       const id = c && typeof c === 'object' && typeof c.id === 'string' ? c.id : ''
+       let s = order.indexOf(id)
++      if (taken && s >= 0) {
++        // a sequence: the (k+1)-th entry of an id once k of it are taken (the last entry when the order holds no more)
++        let k = 0
++        for (let j = 0; j < taken.length; j++) if (taken[j] === id) k++
++        for (let j = s + 1, m = 0; j < order.length && m < k; j++) if (order[j] === id) { s = j; m++ }
++      }
+       if (s < 0) s = 100
+       if ((id === 'laser_damage' || id === 'laser_charge' || id === 'laser_pierce') && !me.laser) s = 60 + s
+       if (id.startsWith('lightning') && !me.lightning) s = 60 + s
+diff -u tree.orig_switch/lib/firecontrol.js tree/lib/firecontrol.js
+--- tree.orig_switch/lib/firecontrol.js	2026-11-22 01:55:29.588242484 +0000
++++ tree/lib/firecontrol.js	2026-11-22 03:29:17.225342191 +0000
+@@ -110,6 +110,8 @@
+     const at = B.topAttacker
+     if (at) { out.aim[0] = Math.atan2(at.y - me.y, at.x - me.x); out.aim[1] = pitchTo(at.x, at.y, at.z + at.height * 0.5); return 'attacker' }
+     if (t - B.unseenHurtT <= P.faceAttackerS) { out.aim[0] = B.unseenHurtBearing; out.aim[1] = 0; return 'bearing' }
++    // Fable chaos R2 (laserGrab 'spawn'): one full torso turn at spawn (economy.lgsUpdate sets B.lgsSweep) to see the ground loot
++    if (B.lgsSweep === true) { out.aim[0] = wrapPi(me.yaw + Math.min(2.5, me.turnRate * 0.3)); out.aim[1] = 0; return 'lgsweep' }
+     // R2 late game: sector sweep; the corner pre-aim, the look hint and the nearest-mech track look (with the FFA rule 8
+     // courtesy offset) become wishes inside it (pass 2b: the track look is a wish too, so rule 8 keeps working)
+     if (B.scanner && B.scanner.active()) {
+@@ -154,6 +156,10 @@
+     out.fire[0] = false; out.fire[1] = false; out.reload = false
+     let tgt = B.target
+     const hold = B.holdFire
++    // Fable chaos R1 (focus 'kill', SQUAD posture + hunt.firewall): lethal partial release at fkRelK x estimate (no rear factor),
++    // and a charge on a target that just dropped out of the picture is kept (fkBlinkS)
++    const fkR = P.focusKill === true && B.env !== 'FFA' && !!B.hunt && B.hunt.firewall()
++    let fkBlink = false
+     B.aimKind = 'none'
+     let shootObj = null
+     const blind = tgt && !tgt.listed && !tgt.phantom && t - tgt.lastSeen <= P.blindFireS
+@@ -161,6 +167,7 @@
+       // remembered only: pre-aim where it should be, never shoot
+       out.aim[0] = Math.atan2(tgt.y - me.y, tgt.x - me.x); out.aim[1] = pitchTo(tgt.x, tgt.y, tgt.z + tgt.height * 0.5)
+       B.aimKind = 'memory'
++      if (fkR && lz && (lz.charge > 0 || wasHolding) && !hold && !B.noCharge && t - tgt.lastSeen <= P.fkBlinkS) fkBlink = true
+       tgt = null
+     } else if (!tgt && B.shootCrate && !hold && (!B.steal || B.steal.crateFireOk())) shootObj = B.shootCrate
+ 
+@@ -265,7 +272,9 @@
+           // pitch gate: the room above / below the chosen rung (at the 0.5 rung the pass 2a symmetric gate)
+           const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * (1 - frac) * P.laserGateK, lR) && -ep <= Math.atan2(tgt.height * frac * P.laserGateK, lR)
+           const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
+-          const killNow = charge >= (lz.st.min_charge || 0.15) && laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp
++          const killNow = charge >= (lz.st.min_charge || 0.15) && (fkR
++            ? P.fkRelK * laserFrac(charge, lz.full, lz.minFrac) * lz.damage * me.dmgMult * (tgt.hasMortar ? 1 + lz.cookoff : 1) >= tgt.hp
++            : laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp)
+           if (takeAim || killNow) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
+           if (AC) { rel.t = t; rel.id = tgt.id; rel.tl = ltl; rel.frac = frac; rel.yaw = lyaw; rel.pitch = lpitch; rel.x = tgt.x; rel.y = tgt.y; rel.z = tgt.z; rel.vx = tgt.vx; rel.vy = tgt.vy }
+           if (gate && clear && (full || killNow)) laserRelease = true
+@@ -322,6 +331,11 @@
+         if (B.noCharge && lz.charge >= lz.full - 0.1) laserKeep = true
+       }
+     }
++    if (fkBlink && !laserRelease) {
++      const full = lz.charge >= P.laserFullFrac * lz.full
++      if (full) { if (lz.fullSince < 0) lz.fullSince = t } else lz.fullSince = -1
++      if (!(full && t - lz.fullSince >= P.laserForceS)) { laserKeep = true; B.counters.fkBlink = (B.counters.fkBlink || 0) + 1 }
++    }
+     if (lz) {
+       if (laserKeep && !laserRelease) { out.fire[lz.slot] = true; lz.heldT = t }
+       else if (laserRelease) {
+diff -u tree.orig_switch/lib/params.js tree/lib/params.js
+--- tree.orig_switch/lib/params.js	2026-11-22 02:26:52.226597663 +0000
++++ tree/lib/params.js	2026-11-22 03:28:46.258446159 +0000
+@@ -206,6 +206,25 @@
+   // upgFix: upgrade order checked against config.upgrades at match start (unknown ids replaced / dropped, missing ids appended)
+   upgFix: false,
+ 
++  // ---- Fable chaos (notes/fable/chaos/BUILD_LOG.md). Every key below is inert at its PARAMS value; every rule runs only in
++  // the SQUAD posture behind hunt.firewall() (no foreign death, next radius > zoneLateR, more than 3 alive)
++  // R1 focus 'kill': additive target cost (fk*), lethal partial laser at fkRelK x estimate, charge kept through a line blink, finish walk-in
++  focusKill: false, fkHp: 0.1, fkLowHpf: 0.3, fkLow: 200, fkCurS: 2, fkCur: 200, fkHitS: 4, fkHit: 40, fkRelK: 0.7, fkBlinkS: 1.5,
++  fkWalkTgtHpf: 0.38, fkWalkHpf: 0.42, fkWalkLines: 2, fkWalkR: 20, fkWalkBand: 6,
++  // R2 laserGrab 'spawn': torso sweep at spawn, then the nearest ground laser by boost; crates on the way; stop rules
++  lgSpawn: false, lgsSweepS: 1.6, lgsPath: 240, lgsEndS: 25, lgsDmgR: 100, lgsCrateR: 45, lgsLightS: 40, lgsValue: 100,
++  // R4 cubes 'snow': kill-cube reach under more threats, lower hp floor of the grab, corpse rush after our kill
++  cubeSnow: false, snThreats: 3, snGrabHpf: 0.25, snCubeHi: 70, snCorpsePath: 120, snLines: 3, snKillS: 8, snCorpseR: 25,
++  // R5 laserRange 'midsq' (the 'mid' band in the SQUAD posture only) and boostCharge 'on'
++  sqLaserMid: false, sqRPrefLaser: 115, sqLaserLo: 100, sqLaserHi: 130, sqLaserBoostAway: 70,
++  boostCharge: false, bcEnergy: 30,
++  // R8 farmHp '50sq', cratePath '80', upg 'laser' (0 / null = the plain value)
++  sqFarmHp: 0, sqCratePath: 0, upgradeOrderSq: null,
++  // R6 alpha
++  alpha: false, alReloadQuiet: 0.4, alReloadAmmo: 11, alOpenR: 130, alRearMult: 1.5, alPushS: 2.5, alMag: 12,
++  // R7 strafe 'fast75': the fast strafe beyond strafeFarR of the target
++  strafeFarR: 0, strafeFarLo: 0.45, strafeFarHi: 1.15,
++
+   upgradeOrder: ['plating', 'armor', 'nanites', 'laser_damage', 'laser_charge', 'lightning_efficiency', 'gun_damage', 'gun_rate',
+     'lightning_range', 'lightning_chain', 'gyros', 'servos', 'gun_mag', 'capacitor', 'reactor', 'jets', 'gun_velocity', 'sensors',
+     'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'],
+@@ -217,10 +236,11 @@
+     far: { rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90 },
+     mid: { rPrefLaser: 115, laserLo: 100, laserHi: 130, laserBackOff: 100, laserBoostAway: 70 },
+     far170: { rPrefLaser: 170, laserLo: 145, laserHi: 195, laserBackOff: 145, laserBoostAway: 90 },     // addendum section 4 item 2 (one-change option)
++    midsq: { rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90, sqLaserMid: true },   // Fable chaos R5: 'mid' in SQUAD + firewall, 'far' otherwise
+   },
+   healExit: { '70': { healExit: 0.7 }, '90': { healExit: 0.9 } },
+-  farmHp: { '90': { farmHp: 0.9 }, '50': { farmHp: 0.5 } },
+-  strafe: { d4: { strafeLo: 0.8, strafeHi: 1.6 }, fast: { strafeLo: 0.45, strafeHi: 1.15 } },
++  farmHp: { '90': { farmHp: 0.9 }, '50': { farmHp: 0.5 }, '50sq': { farmHp: 0.9, sqFarmHp: 0.5 } },
++  strafe: { d4: { strafeLo: 0.8, strafeHi: 1.6 }, fast: { strafeLo: 0.45, strafeHi: 1.15 }, fast75: { strafeLo: 0.8, strafeHi: 1.6, strafeFarR: 75 } },
+   ffaPair: { on: { ffaPair: true }, off: { ffaPair: false } },
+   beamClue: { off: { beamClue: false }, on: { beamClue: true } },
+   gunlessClue: { off: { gunlessClue: false }, on: { gunlessClue: true } },
+@@ -245,12 +265,16 @@
+   // build R3a2 (notes/build_spec_r3a2.md): one string per item; the first option of each is the 5.02 behaviour
+   fightEarly: { off: { fightEarly: false }, on: { fightEarly: true, openFarm: false } },                         // P1 (on also turns openFarm off)
+   laserEcon: { off: { laserEcon: false }, on: { laserEcon: true } },                                            // P2 (with laserRange mid)
+-  focus: { mult: { focusAdd: false }, add: { focusAdd: true } },                                                // P3
++  focus: { mult: { focusAdd: false }, add: { focusAdd: true }, kill: { focusAdd: false, focusKill: true } },                                                // P3
+   retreat: { d3: { pulseRetreat: false }, pulse: { pulseRetreat: true } },                                      // P4
+   boost: { off: { boostSpend: false }, spend: { boostSpend: true } },                                           // P5
+   upg: { std: { upgradeOrder: PARAMS.upgradeOrder }, speed: { upgradeOrder: ['plating', 'armor', 'servos', 'nanites', 'laser_damage', 'laser_charge', 'jets',
+     'lightning_efficiency', 'gun_damage', 'gun_rate', 'lightning_range', 'lightning_chain', 'gyros', 'gun_mag', 'capacitor', 'reactor', 'gun_velocity', 'sensors',
+-    'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'] } },                                          // P7
++    'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'] },
++    // Fable chaos R8: SQUAD posture + firewall only; plating is ranked twice (the second entry counts once one plating is taken)
++    laser: { upgradeOrder: PARAMS.upgradeOrder, upgradeOrderSq: ['plating', 'armor', 'laser_damage', 'laser_charge', 'plating', 'nanites', 'gun_rate', 'gun_damage',
++      'lightning_efficiency', 'lightning_range', 'lightning_chain', 'gyros', 'servos', 'gun_mag', 'capacitor', 'reactor', 'jets', 'gun_velocity', 'sensors',
++      'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'] } },                                          // P7
+   ffaDropGate: { off: { ffaDropGate: false }, on: { ffaDropGate: true } },                                      // F1 (FFA only)
+   finalPoint: { off: { finalPoint: false }, on: { finalPoint: true } },                                         // Z5 (FFA only)
+   ffaTwo: { off: { ffaTwo: false }, on: { ffaTwo: true } },                                                     // Z8 (FFA only)
+@@ -280,7 +304,7 @@
+   // build R7a CR (build_spec_r7 3.2 #9): the seek's prey crowd radius
+   seekCrowd: { off: {}, wide: { h50CrowdR: 120 } },
+   // build R7a LG (R5 3.2, GP I1, with the r7 grab-yield amendment); 'wide45' = the red-team cap (suppression share > 30%)
+-  laserGrab: { std: { grabLaserWide: false }, wide: { grabLaserWide: true }, wide45: { grabLaserWide: true, lgUntilT: 45 } },
++  laserGrab: { std: { grabLaserWide: false }, wide: { grabLaserWide: true }, wide45: { grabLaserWide: true, lgUntilT: 45 }, spawn: { grabLaserWide: false, lgSpawn: true } },
+   // build R7a ISO (R5 3.1, GP I3)
+   isolate: { any: { isoNear: 0 }, near: { isoNear: 12 } },
+   // build R7a (moderator 21:58): heal doctrine preset, applied last
+@@ -293,6 +317,11 @@
+   pauseMove: { off: { pauseMove: false }, on: { pauseMove: true } },
+   isoDwell: { off: { isoDwell: false }, on: { isoDwell: true } },
+   upgFix: { off: { upgFix: false }, on: { upgFix: true } },
++  // Fable chaos presets (old value first; see PARAMS)
++  cubes: { off: {}, snow: { cubeSnow: true } },
++  boostCharge: { off: {}, on: { boostCharge: true } },
++  cratePath: { std: {}, '80': { sqCratePath: 80 } },
++  alpha: { off: {}, on: { alpha: true } },
+   // every R3a2 switch at once (applied last): 'off' = the 5.02 build (S01-full)
+   r3a2: { on: {}, off: { fightEarly: false, openFarm: true, openFarmAim: false, laserEcon: false, rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90,
+     focusAdd: false, pulseRetreat: false, boostSpend: false, farmHp: 0.9, upgradeOrder: PARAMS.upgradeOrder,
+@@ -310,7 +339,7 @@
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'off', aggr: 'off',
+   r3a2: 'on', pocketCfg: 'on', io: 'v4', ioMerge: 'on', loseExit: 'off', loseCover: 'off', oneHit: 'off', fightOn: 'off', finish: 'off', isolate: 'any', seekCrowd: 'off', laserGrab: 'std', anchorCfg: 'on', warmPocket: 'on', fb: 'off',
+-  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'off', healDoc: 'off' }
++  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'off', cubes: 'off', boostCharge: 'off', cratePath: 'std', alpha: 'off', healDoc: 'off' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }
+diff -u tree.orig_switch/lib/tactics.js tree/lib/tactics.js
+--- tree.orig_switch/lib/tactics.js	2026-11-22 02:26:52.218624376 +0000
++++ tree/lib/tactics.js	2026-11-22 03:29:01.634635137 +0000
+@@ -107,6 +107,10 @@
+   if (me.laser) {
+     o.kind = 'laser'; o.hold = P.rPrefLaser; o.lo = Math.min(P.laserLo, P.rPrefLaser); o.hi = Math.max(P.laserHi, P.rPrefLaser)
+     o.backStick = 1; o.boostAway = P.laserBoostAway
++    // Fable chaos R5 (laserRange 'midsq'): the 'mid' band in the SQUAD posture behind hunt.firewall(), 'far' otherwise
++    if (P.sqLaserMid === true && B.env !== 'FFA' && !!B.hunt && B.hunt.firewall()) {
++      o.hold = P.sqRPrefLaser; o.lo = Math.min(P.sqLaserLo, P.sqRPrefLaser); o.hi = Math.max(P.sqLaserHi, P.sqRPrefLaser); o.boostAway = P.sqLaserBoostAway
++    }
+   } else if (me.lightning && !me.laser) {
+     o.kind = 'lightning'; o.hold = P.rPrefGun; o.lo = Math.min(P.bandLo, P.rPrefGun); o.hi = Math.max(P.bandHi, P.rPrefGun); o.backStick = P.gunBackStick; o.boostAway = 0
+   } else {
+@@ -215,6 +219,10 @@
+   const fe = P.fightEarly === true && !ffa
+   const opening = t < (fe && B.foreignDeaths === 0 ? P.earlyOpenS : P.openingS)
+   const fa = P.focusAdd === true && !ffa                           // R3a2 P3: additive focus cost (SQUAD posture)
++  // Fable chaos R1 (focus 'kill', SQUAD posture + hunt.firewall): additive cost dist + 0.1 hp, -200 at <= 30% hp, -200 for our
++  // target of the last fkCurS s, -40 when it hit us within fkHitS s (lowest wins); off the firewall the 'mult' pick of today
++  const fk = P.focusKill === true && !ffa && !!B.hunt && B.hunt.firewall()
++  if (fk && B.target) B.target.fkTgtT = t
+   const h5 = B.h50.on === true                                     // R4a hunt50 this decision (lib/hunt.js firewall)
+   // R7a LG (laserGrab 'wide'): no laser held, t < lgUntilT and a wanted laser known within lgKnownPath of path (B.lgKnown, set
+   // by economy.chooseGrab): the engaged() clause is off (hostile mechs are still candidates through tr.hostile)
+@@ -289,6 +297,26 @@
+   let best = null, bestS = -Infinity, bestMech = null, bestMechS = -Infinity
+   for (let k = 0; k < candBuf.length; k++) {
+     const tr = candBuf[k]
++    if (fk) {
++      let c
++      if (tr.npc) {
++        tr.finishable = me.gun ? tr.hp <= P.killSecureHits * me.gun.damage * me.dmgMult : false
++        c = (tr.dist + 20) / P.wDrone - 20 + P.fkHp * tr.hp
++        if (tr.finishable) c -= P.fkLow
++      } else {
++        c = tr.dist + P.fkHp * tr.hp
++        if (tr.hp <= P.fkLowHpf * tr.maxHp) c -= P.fkLow
++        if (t - tr.lastDmgInT <= P.fkHitS) c -= P.fkHit
++      }
++      if (tr === cur || t - (tr.fkTgtT === undefined ? -99 : tr.fkTgtT) <= P.fkCurS) c -= P.fkCur
++      if (!tr.losOut) c += P.fcNoLos
++      const s = 1000 - c
++      tr.secure = tr.finishable && tr.losOut
++      tr.index = s
++      if (s > bestS) { bestS = s; best = tr }
++      if (!tr.npc && s > bestMechS) { bestMechS = s; bestMech = tr }
++      continue
++    }
+     if (fa) {
+       // R3a2 P3: cost in metres, lowest wins (distance + 0.1 / hp, -200 weak or finishable, -200 current, -40 hit us, -15 closing)
+       let c
+@@ -356,12 +384,12 @@
+     // D5: a target under 25% hp is never left for a fresh one; a finishable one is kept for vetoKeepS
+     // R3a2 P3: under the additive focus the target is also kept under 38% hp or while we hit it in the last 2 s
+     const keep = pick.hp < P.keepTargetHpf * pick.maxHp || (pick.finishable && t - B.vetoT <= P.vetoKeepS) ||
+-      (fa && (pick.hp < P.fcVetoHpf * pick.maxHp || t - pick.lastDmgOutT < P.fcVetoHitS))
++      ((fa || fk) && (pick.hp < P.fcVetoHpf * pick.maxHp || t - pick.lastDmgOutT < P.fcVetoHitS))
+     if (!keep && !uOwn && (candBuf.includes(att) || att.listed || att.phantom)) pick = att
+     B.counters.aimVetoes = (B.counters.aimVetoes || 0) + 1
+   } else B.vetoT = -1
+   if (att && pick && pick.npc) pick = att
+-  if (B.scanner && !fa) {
++  if (B.scanner && !fa && !fk) {
+     // R2: face a mech that hits our rear (in the farm-first opening only one we would answer)
+     const rp = B.scanner.rearPick(pick)
+     if (!(gate && rp && rp !== pick && !ofAnswer(B, rp, t))) pick = rp

@@ -1,0 +1,50 @@
+## hit rate vs bullet flight time (range / 140 m/s); all shots at mechs, and unblocked + grounded-target subset
+| flight time s | range in replay (140 m/s) | same flight time at 252 m/s | shots | hit % | grounded tgt shots | hit % | airborne tgt shots | hit % |
+|---|---|---|---|---|---|---|---|---|
+| 0.0-0.2 | 0-28 | 0-50 | 7 | 100.00 | 3 | 100.00 | 4 | 100.00 |
+| 0.2-0.3 | 28-42 | 50-75 | 63 | 98.41 | 38 | 100.00 | 24 | 100.00 |
+| 0.3-0.4 | 42-56 | 75-100 | 143 | 87.41 | 96 | 86.46 | 42 | 100.00 |
+| 0.4-0.5 | 56-70 | 100-126 | 110 | 75.45 | 44 | 56.82 | 63 | 92.06 |
+| 0.5-0.6 | 70-84 | 126-151 | 91 | 52.75 | 47 | 31.91 | 43 | 76.74 |
+| 0.6-0.7 | 84-98 | 151-176 | 55 | 38.18 | 31 | 19.35 | 21 | 71.43 |
+| 0.7-0.8 | 98-112 | 176-201 | 101 | 28.71 | 60 | 25.00 | 30 | 46.67 |
+| 0.8-0.9 | 112-126 | 201-226 | 78 | 26.92 | 37 | 29.73 | 32 | 31.25 |
+| 0.9-1.0 | 126-140 | 226-252 | 75 | 22.67 | 55 | 16.36 | 14 | 57.14 |
+| 1.0-1.2 | 140-168 | 252-302 | 85 | 12.94 | 61 | 18.03 | 9 | 0.00 |
+| 1.2-1.7 | 168-238 | 302-428 | 43 | 20.93 | 32 | 28.12 | 7 | 0.00 |
+
+## grounded targets, unblocked, flight time 0.3-1.0 s: hit rate by target manoeuvre during flight
+| target manoeuvre between fire and arrival | shots | hits | hit % |
+|---|---|---|---|
+| turned 25-60 deg / changed speed | 133 | 70 | 52.63 |
+| reversed (>120 deg turn) | 77 | 17 | 22.08 |
+| turned 60-120 deg | 76 | 18 | 23.68 |
+| kept velocity (<25 deg turn) | 56 | 47 | 83.93 |
+| started moving | 15 | 6 | 40.00 |
+| stopped | 13 | 6 | 46.15 |
+
+## attacker outside the victim FOV at first hit, by how sustained the attack was
+| attack size (hits by that attacker within 10 s) | n | victim turned to attacker | median s | max s | returned fire | median s | victim died within 10 s |
+|---|---|---|---|---|---|---|---|
+| 1-2 hits | 17 | 5 | 1.55 | 5.90 | 4 | 8.73 | 3 |
+| 3-5 hits | 6 | 3 | 1.50 | 2.60 | 2 | 4.12 | 2 |
+| >= 6 hits | 9 | 8 | 2.25 | 9.65 | 8 | 2.40 | 3 |
+  free hits before the victim faced the attacker (sustained cases): [(1, 9, 8, 9.65, 9.700000000000001), (6, 15, 13, 0.4, 0.9500000000000001), (7, 0, 4, 2.6, None), (10, 8, 5, 1.5, 7.65), (6, 12, 4, 0.55, 0.6000000000000001), (14, 13, 4, None, None), (13, 15, 10, 3.2, 3.5500000000000003), (13, 3, 6, None, None), (10, 8, 8, 1.1, 1.25), (4, 7, 10, 7.6000000000000005, 8.85), (15, 3, 3, None, None), (8, 3, 8, 1.6, 1.85), (3, 8, 17, 2.9000000000000004, 2.95), (5, 12, 10, 1.55, 1.6), (12, 2, 3, None, None)]
+  attacker inside victim FOV at first hit: n=49 ; damage dealt before the victim first shoots back (or 10 s): median 61 mean 110
+  attacker OUTSIDE victim FOV at first hit: n=32 ; damage dealt before the victim first shoots back (or 10 s): median 189 mean 383
+
+## fire discipline: shots at mechs fired with a clear muzzle line to some part of the target (feet/centre/top): 848 of 851 (99.6%)
+  shots without a clear line by type: {'thirdparty': 1, 'medium': 2} ; of those that hit anyway: 0
+
+## realised gun damage rate: damage dealt to mechs with the gun per second of engagement (shot within 2 s)
+| type | shots at mechs | engaged s | shots/s | gun damage to mechs | damage per engaged s |
+|---|---|---|---|---|---|
+| expert | 125 | 100.70 | 1.24 | 3996.56 | 39.69 |
+| hard | 182 | 133.90 | 1.36 | 3773.27 | 28.18 |
+| medium | 77 | 66.00 | 1.17 | 3349.50 | 50.75 |
+| brawler | 168 | 116.40 | 1.44 | 4875.24 | 41.88 |
+| sniper | 114 | 96.10 | 1.19 | 4012.31 | 41.75 |
+| thirdparty | 57 | 46.40 | 1.23 | 1894.28 | 40.82 |
+| farmer | 128 | 93.90 | 1.36 | 1951.20 | 20.78 |
+| ALL | 851 | 653.40 | 1.30 | 23852.36 | 36.50 |
+  (replay build: one shot per 0.40 s, 12-round magazine, 2.5 s reload -> at most 1.74 shots/s sustained)

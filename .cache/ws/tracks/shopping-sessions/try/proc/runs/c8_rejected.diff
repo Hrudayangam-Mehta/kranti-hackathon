@@ -1,0 +1,70 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index a06c3a5..27c2763 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -520,6 +520,10 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 if barrier.wait().is_leader() {
+                     lap("people");
+                 }
++                unsafe { arena.release() };
++                if id == 0 {
++                    unsafe { people.release() };
++                }
+                 let all: Vec<&write::Part> = results.iter().map(|r| r.get().unwrap()).collect();
+                 let campaigns = ctx.organic as usize + 1;
+                 let range = campaigns * id / threads..campaigns * (id + 1) / threads;
+diff --git a/src/fast/people.rs b/src/fast/people.rs
+index a30b059..097bb1d 100644
+--- a/src/fast/people.rs
++++ b/src/fast/people.rs
+@@ -116,6 +116,10 @@ impl People {
+         }
+     }
+ 
++    pub unsafe fn release(&self) {
++        libc::munmap(self.slots.as_ptr() as *mut libc::c_void, self.slots.len() * 16);
++    }
++
+     pub fn linked(&self) -> usize {
+         self.linked
+     }
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index 31a54f9..b8b0791 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -6,6 +6,7 @@ const REGION: usize = 64 << 20;
+ pub struct Arena {
+     next: *mut u8,
+     end: *mut u8,
++    regions: Vec<(usize, usize)>,
+ }
+ 
+ unsafe impl Send for Arena {}
+@@ -34,9 +35,19 @@ impl Arena {
+         Arena {
+             next: ptr::null_mut(),
+             end: ptr::null_mut(),
++            regions: Vec::new(),
+         }
+     }
+ 
++    pub unsafe fn release(&mut self) {
++        for &(start, size) in &self.regions {
++            libc::munmap(start as *mut libc::c_void, size);
++        }
++        self.regions.clear();
++        self.next = ptr::null_mut();
++        self.end = ptr::null_mut();
++    }
++
+     #[inline]
+     pub fn alloc(&mut self, bytes: usize) -> *mut u8 {
+         let bytes = (bytes + 63) & !63;
+@@ -44,6 +55,7 @@ impl Arena {
+             let size = REGION.max(bytes);
+             self.next = map_anonymous(size);
+             self.end = unsafe { self.next.add(size) };
++            self.regions.push((self.next as usize, size));
+         }
+         let p = self.next;
+         self.next = unsafe { self.next.add(bytes) };

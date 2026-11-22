@@ -1,0 +1,122 @@
+{
+ "args": {
+  "bot": "proc:/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r6/maps/botcmd.sh /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants6/S_s1/dist/bot.js",
+  "mode": "squad",
+  "matches": 2,
+  "seed": 4001,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r7/stress/out/maps/S_s1_mirx.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r6/maps/mirx/hello.json",
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": null,
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r7/stress/out/maps/logs/S_s1_mirx",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r6/maps/mirx",
+  "trace": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r7/stress/trace_maps",
+  "traceTag": "S_s1_mirx"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 6,
+  "stdErr": 1,
+  "sd": 1.414,
+  "winFrac": 0,
+  "meanKills": 6,
+  "meanTimeAlive": 92.8,
+  "meanDmgDealt": 9670,
+  "meanDmgTaken": 2176,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 2
+  },
+  "meanWallMs": 3744,
+  "wallS": 7.9
+ },
+ "matches": [
+  {
+   "seed": 4001,
+   "slot": 0,
+   "name": "aegis-16",
+   "place": 11,
+   "score": 5,
+   "kills": 5,
+   "timeAlive": 65.65,
+   "alive": false,
+   "dmgDealt": 7862,
+   "dmgTaken": 1615,
+   "cause": "laser",
+   "killedBy": 2,
+   "killRange": 90.9,
+   "killerRole": "hunt",
+   "hunters": 6,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 3,
+   "upgrades": [
+    "gyros",
+    "gun_rate"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 65.65,
+   "wallMs": 3408,
+   "deadOthers": 5,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 37.9,
+   "meanMs": 0
+  },
+  {
+   "seed": 4002,
+   "slot": 11,
+   "name": "aegis-16",
+   "place": 9,
+   "score": 7,
+   "kills": 7,
+   "timeAlive": 119.95,
+   "alive": false,
+   "dmgDealt": 11478,
+   "dmgTaken": 2736,
+   "cause": "laser",
+   "killedBy": 8,
+   "killRange": 122.6,
+   "killerRole": "hunt",
+   "hunters": 8,
+   "killerName": "squad:hard",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 10,
+   "upgrades": [
+    "nanites",
+    "servos",
+    "plating",
+    "plating"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 119.95,
+   "wallMs": 4080,
+   "deadOthers": 7,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 16.3,
+   "meanMs": 0
+  }
+ ]
+}

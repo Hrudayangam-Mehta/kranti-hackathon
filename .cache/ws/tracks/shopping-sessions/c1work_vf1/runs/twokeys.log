@@ -1,0 +1,16 @@
+[B20k Alast] twokeys_B20k_Alast: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xf55596d079, person cap 8400, 1.0 ms | lane F winners 57156, lane G share 27.20% (above 10%)
+  n2_G: MATCH 0.08s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n5_auto: MATCH 0.04s | lane F on: user key 0xf55596d079, person cap 8400, 0.8 ms | lane F winners 57156, lane G share 27.20% (above 10%)
+[B20k Bfirst] twokeys_B20k_Bfirst: MATCH
+  n2_auto: MATCH 0.05s | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  n2_G: MATCH 0.06s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n5_auto: MATCH 0.05s | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+[B300k Alast] twokeys_B300k_Alast: MATCH
+  n2_auto: MATCH 0.10s | lane F on: user key 0xf55596d079, person cap 34226, 0.9 ms | lane F winners 57156, lane G share 83.84% (above 10%)
+  n2_G: MATCH 0.12s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n5_auto: MATCH 0.19s | lane F on: user key 0xf55596d079, person cap 34226, 1.1 ms | lane F winners 57156, lane G share 83.84% (above 10%)
+[B300k Bfirst] twokeys_B300k_Bfirst: MATCH
+  n2_auto: MATCH 0.19s | lane F on: user key 0xf52a45279b, person cap 34226, 1.0 ms | lane F winners 289641, lane G share 18.11% (above 10%)
+  n2_G: MATCH 0.10s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n5_auto: MATCH 0.24s | lane F on: user key 0xf52a45279b, person cap 34226, 0.9 ms | lane F winners 289641, lane G share 18.11% (above 10%)

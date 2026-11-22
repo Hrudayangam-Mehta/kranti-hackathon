@@ -1,0 +1,509 @@
+diff -ruN chaos/builds/CH1_s1/bot/lib/brain.js w2/C/tree/lib/brain.js
+--- chaos/builds/CH1_s1/bot/lib/brain.js	2026-11-22 03:29:38.073244429 +0000
++++ w2/C/tree/lib/brain.js	2026-11-22 04:19:56.539528068 +0000
+@@ -23,6 +23,7 @@
+ import { makeAimCal } from './aimcal.js'
+ import { makeHunt } from './hunt.js'
+ import { makeUtil } from './util.js'
++import { makeMove2, mvWanted } from './move2.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -254,6 +255,7 @@
+   const hunt = makeHunt(B, mover, econ)
+   B.hunt = hunt
+   if (P.utilTgt === true || P.utilWait === true) B.util = makeUtil(B, hunt, mover)      // Fable util: undefined at 'off'
++  if (mvWanted(P)) B.mv2 = makeMove2(B, mover, hunt, seed)                         // wave-2 C movement (move2.js): undefined when every mv_ preset is off
+   // Fable upgFix: the upgrade order against config.upgrades, checked at match start in every preset value (counted + logged);
+   // 'on' (SQUAD posture + hunt.firewall): unknown ids are replaced by their real id (mortar_damage -> mortar_reload, mortar_rate ->
+   // mortar_velocity) or dropped, and config ids missing from the order are appended in config order
+@@ -389,7 +391,7 @@
+     if (stance.idleLegs()) return
+     if (!z.known) { postLegs(false); B.legKind = 'hold'; return }
+     const ffa = B.env === 'FFA'
+-    const frac = ffa ? (P.ffaBandLo + P.ffaBandHi) / 2 : P.zoneGoalFrac
++    const frac = ffa ? (P.ffaBandLo + P.ffaBandHi) / 2 : B.mv2 ? B.mv2.goalFrac() : P.zoneGoalFrac     // wave-2 C F5: idle band on the rim
+     let R = Math.max(10, (z.nr <= P.zoneLateR ? z.nr * 0.3 : z.nr * frac)), cx = z.nx, cy = z.ny, lim = z.nrEff - 4
+     if (z.nr <= P.zoneLateR) {
+       // D9 late zone: idle inside the same leash the fight legs use; stand on the anchor when it is small
+@@ -483,6 +485,8 @@
+     const ffa = B.env === 'FFA', ffaR = ffa && P.ffaRules
+     const bd = bandFor(B)
+     let hold = bd.hold, lo = bd.lo, hi = bd.hi
++    const mvb = B.mv2 ? B.mv2.band(bd, tgt) : null                                     // wave-2 C F2: gun-only band
++    if (mvb) { hold = mvb.hold; lo = mvb.lo; hi = mvb.hi }
+     // FFA counter advice (counters_hookup.md step 6): the band toward this mech, unless we are finishing it
+     const adv = ffa && cx && !tgt.npc ? cx.adviceFor(tgt.id, B.cxCtx) : null
+     const cxOn = !!(adv && adv.active) && !(B.killSecure || B.finishing)
+@@ -523,6 +527,7 @@
+     let pmGrab = false
+     if (pmOn && B.grab && !B.rush && B.nLos >= 2 && !(B.grab.type === 'pickup' && B.grab.kind === 'laser' && !me.laser) &&
+       Math.hypot(B.grab.x - me.x, B.grab.y - me.y) > P.pmGrabNear && !mover.pmWalkClean(B.grab.x, B.grab.y)) { pmGrab = true; B.counters.pmGrabWait = (B.counters.pmGrabWait || 0) + 1 }
++    if (B.mv2 && B.mv2.closeLegs(tgt)) return                                         // wave-2 C F2: back off a close gun
+     if (B.grab && !B.rush && !pmGrab && econ.grabLegs(0.35)) return
+     // D9: from next_radius <= 70 the legs belong to the zone: converge on the next centre and fight from there
+     if (z.known && z.nr <= P.zoneLateR) {
+@@ -591,8 +596,10 @@
+         let isoNo = P.isoNear > 0 && hunt.firewall() && !(Math.hypot(B.posGoal.x - me.x, B.posGoal.y - me.y) <= P.isoNear && B.posGoal.xOther === 0)
+         // Fable pauseMove walk test: the cell only with no exposure to the others and a walk that opens no new line
+         if (!isoNo && pmOn && !(B.posGoal.xOther === 0 && mover.pmWalkClean(B.posGoal.x, B.posGoal.y))) { isoNo = true; B.counters.pmIsoNo = (B.counters.pmIsoNo || 0) + 1 }
++        if (!isoNo && B.mv2 && B.mv2.isoVeto(B.posGoal)) isoNo = true                     // wave-2 C F4: near cover only
+         if (!isoNo) {
+           mover.moveTo(B.posGoal.x, B.posGoal.y, 1, 1); B.legKind = 'isolate'
++          if (B.mv2) B.mv2.isoTaken()
+           if (isoD) { iso.on = true; iso.tgt = tgt.id; iso.since = t; iso.last = t; iso.x = B.posGoal.x; iso.y = B.posGoal.y; iso.cellT = t; iso.arrT = -1 }
+           return
+         }
+@@ -605,7 +612,7 @@
+       if (tgt.dist > hi) mover.moveTo(tgt.x, tgt.y, 1, 5)
+       else if (evalMaybe('fight') && B.posGoal.ok) mover.moveTo(B.posGoal.x, B.posGoal.y, 1, 1)
+       else { const ax = me.x - tgt.x, ay = me.y - tgt.y, l = Math.hypot(ax, ay) || 1; mover.moveTo(me.x + ax / l * 20, me.y + ay / l * 20, 1, 1) }
+-    }
++    } else if (B.mv2) B.mv2.standPost(tgt)                                             // wave-2 C F4 arc back, F5 rim pull
+     // laser band: boost away when a mech is inside 90 m with energy > 30
+     if (bd.kind === 'laser' && bd.boostAway > 0 && tgt.dist < bd.boostAway && me.energy > P.laserBoostEnergy && !tgt.npc && !fkW) cmd.boost = true
+     if (B.rush && tgt.dist > P.rushR + 15 && tgt.dist < P.rushBoostR && me.energy >= P.rushEnergy && !fkW) cmd.boost = true
+@@ -649,6 +656,7 @@
+         if (mover.inPocket() && B.zone.known && mover.pocketExit(B.zone.nx, B.zone.ny)) break
+         holdLegs()
+     }
++    if (B.mv2) B.mv2.zig()                                                               // wave-2 C F3: zigzag goal walks under fire
+     // R3a2 P5 (SQUAD posture): spend energy in a fight: boost while charging the laser or under fire (energy > 30), or
+     // while a bullet dodge is held (> 25), when moving; set before bulletDodge so the dodge plans at boost speed.
+     // Not during a lightning rush, and a lightning holder keeps its arc reserve (lightReserve + 10)
+@@ -664,7 +672,7 @@
+       (B.nLos >= 1 || me.t - me.lastHurtT <= P.bsHurtS) && me.energy > P.bcEnergy && me.energy > (me.lightning ? P.lightReserve + 10 : 0) &&
+       Math.hypot(cmd.mx, cmd.my) >= 0.05 && hunt.firewall()) { cmd.boost = true; B.counters.boostCharge = (B.counters.boostCharge || 0) + 1 }
+     // D4 bullet-aware dodge on top of the tactical move (not while the zone needs every metre)
+-    if (!(B.mode === MODE.ZONE && (!me.inZone || B.zoneMargin < 2)) && B.legKind !== 'hop' && B.legKind !== 'beamhide') mover.bulletDodge()
++    if (!(B.mode === MODE.ZONE && (!me.inZone || B.zoneMargin < 2)) && B.legKind !== 'hop' && B.legKind !== 'beamhide' && !(B.mv2 && B.mv2.noDodge())) mover.bulletDodge()
+     finishLegs()
+   }
+   function finishLegs() {
+@@ -736,6 +744,7 @@
+         selectTarget(B)
+         hunt.post()
+         finUpdate(B)                                     // R7a FIN (inert unless P.finTtk)
++        if (B.mv2) B.mv2.pre(obs)                        // wave-2 C: shooter scan, new bullets, measurement counters
+       })
+       stage('econ', () => econ.update())
+       stage('zone', () => mover.zoneCheck())
+diff -ruN chaos/builds/CH1_s1/bot/lib/move2.js w2/C/tree/lib/move2.js
+--- chaos/builds/CH1_s1/bot/lib/move2.js	1970-01-01 00:00:00.000000000 +0000
++++ w2/C/tree/lib/move2.js	2026-11-22 04:27:15.330389120 +0000
+@@ -0,0 +1,316 @@
++// Wave-2 engineer C: movement, dodging, cover, zone (notes/fable/redesign/q3_move.md, variant 'f').
++//
++// Five rules, each behind its own preset (old value 'off' first, so the default build is byte-identical):
++//   mv_flip  F1 strafe reversal on the bullet-flight clock beyond mvFlipMinR (plus a flip on each new enemy bullet while our
++//            laser charges)
++//   mv_close F2 inside mvCloseIn of a gun shooter: no strafe, no bullet dodge, full back stick (boost) until mvCloseOut;
++//            gun-only band mvGunLo-mvGunHi (hold mvGunHold)
++//   mv_zig   F3 goal walks under fire (grab / isolate / regain in FIGHT, the ZONE walk) as a +-mvZigDeg zigzag on the F1 clock
++//   mv_arc   F4 a line holder more than mvArcIn deg off the target bearing (or a rear hit): back along -(uT + uA) with the
++//            strafe kept until under mvArcOut; the isolate cell only when near, keeping the target line and cutting a line
++//   mv_rim   F5 zone phase dps <= mvRimDps: ZONE urgency only outside or at tOut - mvRimPathK x path time < mvRimUrgS; zone
++//            goal, idle band and fight anchor on the rim (mvRimLo-mvRimHi of the next radius, goal at mvRimFrac)
++// and one measurement-only preset (mv_meas: counters, no action changes).
++//
++// Contract: every rule acts only in the SQUAD posture behind hunt.firewall() (tested at each hook call, P read live); every
++// hook returns its neutral value otherwise. New randomness comes from rng2 (its own seed): B.rng() is never called here.
++// B.mv2 exists only when one of the mv_ presets is on (brain.js), so the default build never reaches this file.
++
++import { angDiff, clamp, makeRng } from './aim.js'
++import { MODE } from './params.js'
++
++/** true when any mv_ preset asks for the module (brain.js creates B.mv2 only then). */
++export function mvWanted(P) {
++  return P.mvMeas === true || P.mvFlip === true || P.mvClose === true || P.mvZig === true || P.mvArc === true || P.mvRim === true
++}
++
++const ROT = [0, 0.45, -0.45, 0.9, -0.9, 1.3, -1.3]            // back-off headings tried in turn (rad off straight away)
++
++export function makeMove2(B, mover, hunt, seed) {
++  const P = B.P, C = B.counters
++  const rng2 = makeRng(((seed >>> 0) ^ 0x3c6ef372) >>> 0)
++  const vB = (B.cfg.weapons && B.cfg.weapons.gun && B.cfg.weapons.gun.speed) || 252
++  const gunR = (B.cfg.weapons && B.cfg.weapons.gun && B.cfg.weapons.gun.range) || 230
++  const st = { tick: -1, R: Infinity, sh: null, jit: 1, newBulT: -99, bulFlipT: -99, closeOn: false, closeTick: -1,
++    arcOn: false, rimUrg: false, rearT: -99, rearB: 0, isoBoost: false, isoTick: -1, lastLeg: '' }
++  const zz = { sign: 1, until: -1 }
++  const seen = new Map()
++  const bandO = { hold: 0, lo: 0, hi: 0 }
++  const arcV = { x: 0, y: 0 }
++  const inc = (k, v = 1) => { C[k] = (C[k] || 0) + v }
++
++  function live() { return B.env !== 'FFA' && hunt.firewall() }
++
++  /** Nearest hostile gun holder with a line on us within gun range (once per decision). */
++  function scan() {
++    if (st.tick === B.tick) return
++    st.tick = B.tick
++    const L = B.trackList
++    let R = Infinity, sh = null
++    for (let k = 0; k < L.length; k++) {
++      const tr = L[k]
++      if (tr.npc || !tr.hasGun || !tr.losIn || !tr.hostile || !(tr.conf > 0.3) || tr.hp <= 0 || tr.dist > gunR) continue
++      if (tr.dist < R) { R = tr.dist; sh = tr }
++    }
++    st.R = R; st.sh = sh
++  }
++
++  // ------------------------------------------------------------------ measurement (every preset, actions untouched)
++  const bin = (d) => (d < 80 ? '0' : d < 110 ? '80' : d < 140 ? '110' : '140')
++  const lineBin = (d) => (d < 70 ? '70' : d < 95 ? '95' : d < 130 ? '130' : 'Far')
++  function shooterOf(b) {
++    const sp = Math.hypot(b.vx, b.vy, b.vz) || 1, ux = b.vx / sp, uy = b.vy / sp, L = B.trackList
++    let best = null, bestE = 6
++    for (let k = 0; k < L.length; k++) {
++      const tr = L[k]
++      if (tr.npc || !tr.listed || !tr.hasGun) continue
++      const dx = b.x - tr.x, dy = b.y - tr.y, along = dx * ux + dy * uy
++      if (along < -3 || along > gunR + 30) continue                 // bullets may come into view far from the muzzle
++      const e = Math.abs(dx * uy - dy * ux)
++      if (e < bestE) { bestE = e; best = tr }
++    }
++    return best
++  }
++  /** Assess stage, after target selection: new enemy bullets, rear hits, intake by the last leg kind, line seconds by range. */
++  function pre(obs) {
++    scan()
++    const me = B.me, t = me.t
++    for (const [id, s] of seen) if (s < t - 0.5) seen.delete(id)
++    for (const b of B.bullets.values()) {
++      if (b.npc) continue
++      if (seen.has(b.id)) { seen.set(b.id, t); continue }
++      seen.set(b.id, t)
++      const rx = b.x - me.x, ry = b.y - me.y, bv2 = b.vx * b.vx + b.vy * b.vy
++      if (bv2 < 1) continue
++      const ta = -(rx * b.vx + ry * b.vy) / bv2
++      if (ta <= 0 || ta > 1.2) continue                        // passed us or far out
++      st.newBulT = t
++      const tr = shooterOf(b)
++      if (tr && tr.aimAtMe) inc('mvGunSeen' + bin(tr.dist))
++    }
++    const ev = obs && Array.isArray(obs.events) ? obs.events : null
++    if (ev) for (let k = 0; k < ev.length && k < 64; k++) {
++      const e = ev[k]
++      if (!e || e.type !== 'damaged') continue
++      const amt = typeof e.amount === 'number' && e.amount > 0 && e.amount < 1e5 ? e.amount : 0
++      inc('mvIn_' + (st.lastLeg || 'none'), amt)
++      if (e.rear === true) { inc('mvRearDmg', amt); st.rearT = t; if (typeof e.bearing === 'number' && e.bearing === e.bearing) st.rearB = e.bearing }
++      if (e.weapon === 'gun' && Number.isInteger(e.by)) { const tr = B.tracks.get(e.by); if (tr && !tr.npc && tr.listed) inc('mvGunHit' + bin(tr.dist)) }   // listed, as the seen count
++    }
++    if (st.R < Infinity) inc('mvLine' + lineBin(st.R))
++    if (B.mode === MODE.ZONE && t < 110) inc('mvZoneEarly')
++    st.lastLeg = B.legKind
++  }
++
++  // ------------------------------------------------------------------ F1 mv_flip (mover.flip / mover.standoff hooks)
++  const dtFor = (R) => clamp(P.mvFlipK * R / vB, P.mvFlipLo, P.mvFlipHi)
++  function flipOn() {
++    if (P.mvFlip !== true || B.mode !== MODE.FIGHT || !live()) return false
++    scan()
++    return st.R >= P.mvFlipMinR && st.R < Infinity
++  }
++  /** mover.flip: the next strafe interval under F1 (drawn from rng2), or -1 for the legacy U(strafeLo, strafeHi) draw. */
++  function flipDt() {
++    if (!flipOn()) return -1
++    st.jit = 1 + P.mvFlipJit * (2 * rng2() - 1)
++    st.bulFlipT = st.newBulT
++    inc('mvFlip')
++    return dtFor(st.R) * st.jit
++  }
++  /** mover.standoff: reverse now (F1 clock after a range change, or a new enemy bullet while our laser charges). */
++  function flipNow(t, jink) {
++    if (!flipOn()) return false
++    const since = t - jink.lastFlip
++    if (since >= dtFor(st.R) * st.jit) return true
++    const lz = B.me.laser
++    if (lz && lz.charge > 0 && st.newBulT > st.bulFlipT && since >= P.mvFlipBulFloor) { inc('mvFlipBul'); return true }
++    return false
++  }
++
++  // ------------------------------------------------------------------ F2 mv_close (fightLegs / legs hooks)
++  /** fightLegs band hook: the gun-only band (target a mech), or null for the legacy band. */
++  function band(bd, tgt) {
++    if (P.mvClose !== true || bd.kind !== 'gun' || !tgt || tgt.npc || !live()) return null
++    bandO.hold = P.mvGunHold; bandO.lo = P.mvGunLo; bandO.hi = P.mvGunHi
++    return bandO
++  }
++  function closeOk(tgt) {
++    const me = B.me, g = B.grab
++    if (B.finishing || B.killSecure || B.fkWalk || B.rush || me.lightning) return false
++    if (tgt && !tgt.npc && tgt.finishable) return false
++    if (g && Math.hypot(g.x - me.x, g.y - me.y) <= P.mvCloseGrabR) return false
++    if (g && g.type === 'pickup' && g.obj && g.obj.kind === 'laser' && !me.laser) return false     // a laser we lack still wins
++    return true
++  }
++  /** fightLegs, before the grab legs: back straight away from a gun shooter inside mvCloseIn until mvCloseOut. */
++  function closeLegs(tgt) {
++    if (P.mvClose !== true) return false
++    if (B.mode !== MODE.FIGHT || !live()) { st.closeOn = false; return false }
++    scan()
++    const sh = st.sh
++    if (!sh || !closeOk(tgt)) { st.closeOn = false; return false }
++    if (st.closeOn && B.tick - st.closeTick > 3) st.closeOn = false                       // the legs were elsewhere: re-enter at mvCloseIn
++    if (!st.closeOn) { if (st.R < P.mvCloseIn) st.closeOn = true } else if (st.R > P.mvCloseOut) st.closeOn = false
++    if (!st.closeOn) return false
++    const me = B.me, cmd = B.cmd
++    const ax0 = me.x - sh.x, ay0 = me.y - sh.y, l = Math.hypot(ax0, ay0) || 1, ax = ax0 / l, ay = ay0 / l
++    for (let k = 0; k < ROT.length; k++) {
++      const c = Math.cos(ROT[k]), s = Math.sin(ROT[k]), vx = ax * c - ay * s, vy = ax * s + ay * c
++      if (!mover.walkable(vx, vy, P.dodgeProbe)) continue
++      cmd.mx = vx; cmd.my = vy
++      if (me.grounded && me.energy > P.mvCloseBoostE) cmd.boost = true
++      B.legKind = 'backoff'; st.closeTick = B.tick
++      inc('backOff70')
++      return true
++    }
++    return false
++  }
++  /** legs: the bullet dodge is skipped on a decision whose legs F2 backed off (no pattern dodges at that range). */
++  function noDodge() { return st.closeTick === B.tick }
++
++  // ------------------------------------------------------------------ F3 mv_zig (legs hook, after the mode switch)
++  function zoneRoom() {
++    const me = B.me
++    if (!me.inZone) return false
++    const tO = B.zoneTOut
++    if (!(tO < Infinity)) return true
++    const pathT = Math.max(0, tO - B.zoneMargin)
++    return tO - 1.45 * pathT > P.mvZigZonePad
++  }
++  function zig() {
++    if (P.mvZig !== true || !live()) return
++    const k = B.legKind, mode = B.mode
++    const fightWalk = mode === MODE.FIGHT && (k === 'grab' || k === 'isolate' || k === 'regain')
++    if (!fightWalk && !(mode === MODE.ZONE && k === 'zone' && zoneRoom())) return
++    scan()
++    if (!(st.R >= P.mvZigMinR && st.R < Infinity)) return
++    const me = B.me, cmd = B.cmd, t = me.t
++    if (!B.hasGoal || !me.grounded || Math.hypot(B.goalX - me.x, B.goalY - me.y) < P.mvZigLeg) return
++    const m = Math.hypot(cmd.mx, cmd.my)
++    if (m < 0.5) return
++    if (t >= zz.until) { zz.sign = -zz.sign; zz.until = t + dtFor(st.R) * (1 + P.mvFlipJit * (2 * rng2() - 1)) }
++    const a = P.mvZigDeg * Math.PI / 180, ux = cmd.mx / m, uy = cmd.my / m, ca = Math.cos(a), sa = Math.sin(a)
++    for (let j = 0; j < 2; j++) {
++      const sg = j ? -zz.sign : zz.sign, s = sa * sg
++      const vx = ux * ca - uy * s, vy = ux * s + uy * ca
++      if (!mover.walkable(vx, vy, P.mvZigProbe)) continue
++      if (j) { zz.sign = sg; zz.until = t + dtFor(st.R) * (1 + P.mvFlipJit * (2 * rng2() - 1)) }   // the other side: its own leg
++      cmd.mx = vx * m; cmd.my = vy * m
++      inc('zigWalk')
++      return
++    }
++  }
++
++  // ------------------------------------------------------------------ F4 mv_arc (fightLegs hooks: isolate cell, stand-off)
++  /** Unit vector to the hostile line holder (or the last rear hit) farthest off the target bearing, with the in / out
++   *  hysteresis; null when every line is inside the arc. */
++  function arcFind(tgt) {
++    const me = B.me, t = me.t, L = B.trackList
++    const bT = Math.atan2(tgt.y - me.y, tgt.x - me.x)
++    let best = -1, bx = 0, by = 0
++    for (let k = 0; k < L.length; k++) {
++      const tr = L[k]
++      if (tr === tgt || tr.npc || !tr.losIn || !tr.hostile || !(tr.conf > 0.3) || tr.hp <= 0) continue
++      const off = Math.abs(angDiff(bT, tr.bearing))
++      if (off > best) { best = off; bx = tr.x - me.x; by = tr.y - me.y }
++    }
++    if (t - st.rearT <= P.mvArcRearS) { const off = Math.abs(angDiff(bT, st.rearB)); if (off > best) { best = off; bx = Math.cos(st.rearB); by = Math.sin(st.rearB) } }
++    st.arcOn = best > (st.arcOn ? P.mvArcOut : P.mvArcIn) * Math.PI / 180
++    if (!st.arcOn) return null
++    const l = Math.hypot(bx, by) || 1
++    arcV.x = bx / l; arcV.y = by / l
++    return arcV
++  }
++  function linesFrom(tgt, x, y, z) {
++    const me = B.me, w = B.world, L = B.trackList
++    let n = 0
++    for (let k = 0; k < L.length; k++) {
++      const tr = L[k]
++      if (tr === tgt || tr.npc || !tr.losIn || !tr.hostile || !(tr.conf > 0.3) || tr.hp <= 0) continue
++      if (x === me.x && y === me.y) { n++; continue }
++      const tmz = tr.z + tr.muzzleH
++      if (!w || w.shotClear(tr.x, tr.y, tmz, x, y, z + me.height * 0.5) || w.shotClear(tr.x, tr.y, tmz, x, y, z + me.height * 0.9)) n++
++    }
++    return n
++  }
++  /** fightLegs isolate branch: true refuses the cell (F4 live): farther than mvCoverWalk (mvCoverBoost with energy), no
++   *  line to the target from it, or no fewer other lines than here. */
++  function isoVeto(pg) {
++    st.isoBoost = false
++    if (P.mvArc !== true || B.mode !== MODE.FIGHT || !live()) return false
++    const tgt = B.target
++    if (!tgt || tgt.npc || !arcFind(tgt)) return false
++    const me = B.me, d = Math.hypot(pg.x - me.x, pg.y - me.y), boostOk = me.grounded && me.energy > P.mvCoverBoostE
++    let veto = d > (boostOk ? P.mvCoverBoost : P.mvCoverWalk) || !pg.los
++    if (!veto) {
++      const z = B.nav ? B.nav.levelAt(pg.x, pg.y) : me.z
++      veto = linesFrom(tgt, pg.x, pg.y, z) >= linesFrom(tgt, me.x, me.y, me.z)
++    }
++    if (veto) { inc('coverRefused'); if (d > P.mvCoverWalk) inc('coverRefusedFar') } else { inc('coverNear'); st.isoBoost = d > P.mvCoverWalk; st.isoTick = B.tick }
++    return veto
++  }
++  /** fightLegs, after the isolate moveTo: boost to an accepted cell beyond the walking reach. */
++  function isoTaken() { if (st.isoBoost && st.isoTick === B.tick && B.me.grounded) B.cmd.boost = true }
++  function arcPost(tgt) {
++    if (tgt.npc) { st.arcOn = false; return }
++    const uA = arcFind(tgt)
++    if (!uA) return
++    const me = B.me, cmd = B.cmd
++    const tx = tgt.x - me.x, ty = tgt.y - me.y, tl = Math.hypot(tx, ty) || 1, ux = tx / tl, uy = ty / tl
++    const s = mover.jink.sign * P.strafeGain, px = -uy * s, py = ux * s
++    let wx = -(ux + uA.x), wy = -(uy + uA.y), wl = Math.hypot(wx, wy)
++    if (wl < 0.2) { wx = px; wy = py; wl = Math.hypot(wx, wy) || 1 }        // nearly opposite: the strafe alone closes them
++    wx /= wl; wy /= wl
++    let vx = wx + px, vy = wy + py
++    const vl = Math.hypot(vx, vy)
++    if (vl > 0.05 && mover.walkable(vx / vl, vy / vl, P.dodgeProbe)) { vx /= vl; vy /= vl } else if (mover.walkable(wx, wy, P.dodgeProbe)) { vx = wx; vy = wy } else return
++    cmd.mx = vx; cmd.my = vy
++    B.legKind = 'arcback'
++    inc('arcBack')
++  }
++
++  // ------------------------------------------------------------------ F5 mv_rim (mover.zoneGoal / zoneCheck, holdLegs, stand-off)
++  function rimOn() {
++    const z = B.zone
++    return P.mvRim === true && z.known && z.dps <= P.mvRimDps && z.nr > P.zoneLateR && live()
++  }
++  /** mover.zoneGoal and the idle band: the radius fraction of the next circle. */
++  function goalFrac() { return rimOn() ? P.mvRimFrac : P.zoneGoalFrac }
++  /** End of mover.zoneCheck: replaces B.zoneUrgent under F5 (outside, or the padded leave-by time). */
++  function zoneUrg(tOut, len, inGoal, pocket) {
++    if (pocket || !rimOn()) { st.rimUrg = B.zoneUrgent; return }
++    const me = B.me, legacy = B.zoneUrgent
++    const m2 = tOut === Infinity ? Infinity : tOut - P.mvRimPathK * len / Math.max(1, me.walk)
++    let u
++    if (!me.inZone) u = true
++    else if (st.rimUrg) u = !inGoal && m2 < P.mvRimUrgS + P.mvRimHysS
++    else u = !inGoal && m2 < P.mvRimUrgS
++    if (legacy && !u) inc('zoneFarSkipped')
++    if (u && !legacy) inc('rimUrgOnly')
++    st.rimUrg = u
++    B.zoneUrgent = u
++  }
++  function rimPost() {
++    if (!rimOn()) return
++    const me = B.me, z = B.zone, cmd = B.cmd
++    const dx = me.x - z.nx, dy = me.y - z.ny, d = Math.hypot(dx, dy) || 1, f = d / z.nr
++    if (f >= P.mvRimLo && f <= P.mvRimHi) { inc('rimHold'); return }
++    const sg = f < P.mvRimLo ? 1 : -1, bx = dx / d * sg, by = dy / d * sg, w = P.mvRimW
++    let mx = cmd.mx * (1 - w) + bx * w, my = cmd.my * (1 - w) + by * w
++    const l = Math.hypot(mx, my)
++    if (l < 0.05) return
++    mx /= l; my /= l
++    if (!mover.walkable(mx, my, P.dodgeProbe)) return
++    cmd.mx = mx; cmd.my = my
++    inc('rimPull')
++  }
++
++  /** fightLegs, after a successful open-ground stand-off: F4 arc back, then the F5 rim pull. */
++  function standPost(tgt) {
++    if (B.mode !== MODE.FIGHT || !tgt || !live()) return
++    if (P.mvArc === true) arcPost(tgt)
++    if (P.mvRim === true) rimPost()
++  }
++
++  return { pre, flipDt, flipNow, band, closeLegs, noDodge, zig, isoVeto, isoTaken, standPost, goalFrac, zoneUrg, state: () => st }
++}
+diff -ruN chaos/builds/CH1_s1/bot/lib/mover.js w2/C/tree/lib/mover.js
+--- chaos/builds/CH1_s1/bot/lib/mover.js	2026-11-22 02:01:54.727797431 +0000
++++ w2/C/tree/lib/mover.js	2026-11-22 04:24:10.094420022 +0000
+@@ -146,7 +146,8 @@
+   /** Strafe reversal (D4): seeded U(strafeLo, strafeHi), plus one extra at an enemy magazine start or a laser charge at us. */
+   function flip(t) {
+     jink.sign = -jink.sign; jink.lastFlip = t
+-    jink.until = t + P.strafeLo + (P.strafeHi - P.strafeLo) * B.rng()
++    const dt2 = B.mv2 ? B.mv2.flipDt() : -1                                   // wave-2 C F1: bullet-flight clock (rng2)
++    jink.until = t + (dt2 > 0 ? dt2 : P.strafeLo + (P.strafeHi - P.strafeLo) * B.rng())
+     B.counters.jinks++
+   }
+ 
+@@ -166,7 +167,7 @@
+       const extra = (B.magStartT > jink.magT && t - B.magStartT < 0.3) || (B.chargeAtMeT > jink.chargeT && t - B.chargeAtMeT < 0.3)
+       if (B.magStartT > jink.magT) jink.magT = B.magStartT
+       if (B.chargeAtMeT > jink.chargeT) jink.chargeT = B.chargeAtMeT
+-      if (t >= jink.until || (extra && t - jink.lastFlip >= 0.4)) flip(t)
++      if (t >= jink.until || (extra && t - jink.lastFlip >= 0.4) || (B.mv2 && B.mv2.flipNow(t, jink))) flip(t)
+     }
+     let s = strafeOn ? jink.sign * P.strafeGain : 0
+     // Fable pauseMove (pause_ambush.md section 3; SQUAD posture + hunt.firewall): do not strafe into the line of a mech that has
+@@ -295,8 +296,9 @@
+   // ------------------------------------------------------------------ zone (D9)
+   function zoneGoal() {
+     const me = B.me, z = B.zone, nav = B.nav, t = me.t
+-    if (zg.ok && t - zg.t < 1.0) return zg
+-    zg.t = t; zg.ok = true
++    const gf = B.mv2 ? B.mv2.goalFrac() : P.zoneGoalFrac                        // wave-2 C F5: goal on the rim (part of the cache key)
++    if (zg.ok && t - zg.t < 1.0 && zg.gf === gf) return zg
++    zg.t = t; zg.ok = true; zg.gf = gf
+     const late = z.nr <= P.zoneLateR
+     const shrinking = t >= z.t0 && t < z.t1
+     if (late && z.nr <= 0.5 && B.ffa && B.ffa.raceOn()) {
+@@ -314,7 +316,7 @@
+       zg.x = z.cx + (z.nx - z.cx) * u; zg.y = z.cy + (z.ny - z.cy) * u
+       return zg
+     }
+-    let rg = late ? 0 : z.nr * P.zoneGoalFrac
++    let rg = late ? 0 : z.nr * gf
+     const dcx = me.x - z.nx, dcy = me.y - z.ny, dc = Math.hypot(dcx, dcy)
+     if (dc <= rg) { zg.x = me.x; zg.y = me.y; return zg }
+     let ux = dc > 1e-6 ? dcx / dc : 1, uy = dc > 1e-6 ? dcy / dc : 0
+@@ -424,6 +426,7 @@
+     if (!me.inZone) B.zoneUrgent = true
+     else if (B.zoneUrgent) B.zoneUrgent = !inGoal && (trig || dNext > z.nrEff * 0.6 + 2 || margin < P.zoneMargin * 2.5)
+     else B.zoneUrgent = trig && !inGoal
++    if (B.mv2) B.mv2.zoneUrg(tOut, len, inGoal, pocket)                         // wave-2 C F5: rim urgency
+     if (pocket && hop.air) B.zoneUrgent = true
+   }
+ 
+diff -ruN chaos/builds/CH1_s1/bot/lib/params.js w2/C/tree/lib/params.js
+--- chaos/builds/CH1_s1/bot/lib/params.js	2026-11-22 03:35:52.800792614 +0000
++++ w2/C/tree/lib/params.js	2026-11-22 04:19:33.068396493 +0000
+@@ -225,6 +225,20 @@
+   // R7 strafe 'fast75': the fast strafe beyond strafeFarR of the target
+   strafeFarR: 0, strafeFarLo: 0.45, strafeFarHi: 1.15,
+ 
++  // ---- wave-2 C movement (lib/move2.js; notes/fable/redesign/q3_move.md variant 'f'). Inert at these values (B.mv2 is not
++  // created); each rule acts only in the SQUAD posture behind hunt.firewall()
++  mvMeas: false, mvFlip: false, mvClose: false, mvZig: false, mvArc: false, mvRim: false,
++  // F1 flip clock: interval clamp(mvFlipK x R / bullet speed, mvFlipLo, mvFlipHi) x (1 +- mvFlipJit) beyond mvFlipMinR
++  mvFlipMinR: 80, mvFlipK: 1.12, mvFlipLo: 0.44, mvFlipHi: 0.74, mvFlipJit: 0.14, mvFlipBulFloor: 0.4,
++  // F2 close shooter: back off inside mvCloseIn until mvCloseOut; gun-only band
++  mvCloseIn: 70, mvCloseOut: 95, mvCloseBoostE: 30, mvCloseGrabR: 12, mvGunHold: 105, mvGunLo: 90, mvGunHi: 125,
++  // F3 zigzag goal walks
++  mvZigMinR: 80, mvZigLeg: 15, mvZigDeg: 45, mvZigProbe: 5, mvZigZonePad: 4,
++  // F4 front arc and near cover
++  mvArcIn: 80, mvArcOut: 70, mvArcRearS: 1.5, mvCoverWalk: 25, mvCoverBoost: 45, mvCoverBoostE: 50,
++  // F5 rim zone
++  mvRimDps: 35, mvRimPathK: 1.3, mvRimUrgS: 6, mvRimHysS: 4, mvRimFrac: 0.83, mvRimLo: 0.75, mvRimHi: 0.92, mvRimW: 0.4,
++
+   upgradeOrder: ['plating', 'armor', 'nanites', 'laser_damage', 'laser_charge', 'lightning_efficiency', 'gun_damage', 'gun_rate',
+     'lightning_range', 'lightning_chain', 'gyros', 'servos', 'gun_mag', 'capacitor', 'reactor', 'jets', 'gun_velocity', 'sensors',
+     'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'],
+@@ -322,6 +336,13 @@
+   boostCharge: { off: {}, on: { boostCharge: true } },
+   cratePath: { std: {}, '80': { sqCratePath: 80 } },
+   alpha: { off: {}, on: { alpha: true } },
++  // wave-2 C movement presets (lib/move2.js; old value first)
++  mv_meas: { off: {}, on: { mvMeas: true } },
++  mv_flip: { off: {}, on: { mvFlip: true } },
++  mv_close: { off: {}, on: { mvClose: true } },
++  mv_zig: { off: {}, on: { mvZig: true } },
++  mv_arc: { off: {}, on: { mvArc: true } },
++  mv_rim: { off: {}, on: { mvRim: true } },
+   // every R3a2 switch at once (applied last): 'off' = the 5.02 build (S01-full)
+   r3a2: { on: {}, off: { fightEarly: false, openFarm: true, openFarmAim: false, laserEcon: false, rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90,
+     focusAdd: false, pulseRetreat: false, boostSpend: false, farmHp: 0.9, upgradeOrder: PARAMS.upgradeOrder,
+@@ -339,7 +360,8 @@
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'on', aggr: 'any70f',
+   r3a2: 'on', pocketCfg: 'on', io: 'v4', ioMerge: 'on', loseExit: 'off', loseCover: 'never', oneHit: 'off', fightOn: 'off', finish: 'off', isolate: 'any', seekCrowd: 'off', laserGrab: 'spawn', anchorCfg: 'on', warmPocket: 'on', fb: 'on',
+-  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', healDoc: 'off' }
++  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off',
++  mv_meas: 'off', mv_flip: 'off', mv_close: 'off', mv_zig: 'off', mv_arc: 'off', mv_rim: 'off', healDoc: 'off' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }

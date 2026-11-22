@@ -1,0 +1,40 @@
+| victim | type | t s | place | killer | weapon | # mech attackers (10 s) | dmg taken in last 10 s | by weapon | by source | median dist to main attacker | % dmg from rear | HP 10 s before | continuous-fight duration s | wall dist at death m | mean wall dist 10 s | % airborne | victim's gun targets (shots) | attackers the victim never shot at |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | hard | 41.7 | 16 | 9 brawler | gun | 2 | 707.86 | gun:708 | 9:595 5:112 | 72 | 21.38 | 708 | 3.1 | 33 | 26 | 35.00 | {9: 16} | [5] |
+| 13 | expert | 66.1 | 15 | 15 medium | gun | 2 | 884.40 | gun:884 | 15:463 3:421 | 47 | 62.89 | 810 | 8.3 | 22 | 23 | 76.00 | {14: 5, 15: 7} | [3] |
+| 15 | medium | 67.7 | 14 | 3 sniper | gun | 2 | 531.05 | gun:531 | 13:340 3:191 | 39 | 35.94 | 529 | 6.1 | 40 | 18 | 31.00 | {13: 9} | [3] |
+| 11 | thirdparty | 67.8 | 13 | 0 expert | laser | 1 | 650.32 | laser:650 | 0:650 | 49 | 100.00 | 236 | 0.0 | 12 | 21 | 58.00 | {10: 1, 8: 2} | [0] |
+| 10 | sniper | 69.5 | 12 | 8 medium | laser | 1 | 393.44 | gun:328 laser:66 | 8:393 | 61 | 19.22 | 393 | 17.0 | 40 | 40 | 23.00 | {8: 14, 0: 2} | [] |
+| 14 | hard | 81.3 | 11 | 9 brawler | gun | 2 | 1185.73 | gun:1067 lightning:119 | 9:1139 3:47 | 62 | 96.05 | 1186 | 13.6 | 28 | 30 | 0.00 | {3: 3} | [9] |
+| 0 | expert | 98.5 | 10 | 3 sniper | gun | 2 | 702.18 | gun:702 | 3:547 9:155 | 66 | 13.27 | 702 | 13.2 | 12 | 22 | 70.00 | {3: 7} | [9] |
+| 6 | expert | 125.1 | 9 | 9 brawler | gun | 1 | 1614.60 | lightning:1030 gun:585 | 9:1615 | 31 | 0.00 | 1615 | 11.4 | 12 | 13 | 23.00 | {9: 12} | [] |
+| 4 | thirdparty | 136.5 | 8 | 7 hard | gun | 1 | 980.00 | gun:648 mortar:332 | 7:980 | 75 | 10.97 | 980 | 20.5 | 22 | 10 | 75.00 | {7: 16} | [] |
+| 7 | hard | 136.8 | 7 | 4 thirdparty | gun | 1 | 700.97 | gun:646 mortar:55 | 4:701 | 74 | 0.00 | 701 | 20.7 | 28 | 20 | 79.00 | {4: 18} | [] |
+| 8 | medium | 137.8 | 6 | 3 sniper | gun | 1 | 838.23 | gun:838 | 3:838 | 40 | 0.00 | 838 | 10.8 | 10 | 15 | 30.00 | {3: 15} | [] |
+| 5 | farmer | 160.7 | 5 | 12 farmer | mortar | 2 | 1018.15 | gun:930 mortar:88 | 9:542 12:477 | 103 | 12.28 | 1018 | 21.8 | 26 | 12 | 4.00 | {9: 10, 12: 8} | [] |
+| 12 | farmer | 168.6 | 4 | 2 brawler | laser | 2 | 1550.25 | laser:1037 gun:351 mortar:163 | 2:1117 5:433 | 168 | 37.50 | 1512 | 1.9 | 7 | 14 | 22.00 | {5: 3, 9: 3} | [2] |
+| 3 | sniper | 198.0 | 3 | 9 brawler | lightning | 1 | 2184.78 | lightning:1852 gun:333 | 9:2185 | 35 | 0.00 | 2185 | 11.9 | 40 | 27 | 52.00 | {9: 9} | [] |
+| 2 | brawler | 209.7 | 2 | None zone | zone | 0 | 602.50 | zone:602 | zone:602 | - | 0.00 | 603 | 0.0 | 16 | 12 | 43.00 | {} | [] |
+
+summary over 15 mech deaths:
+  killing blow weapon: {'gun': 9, 'laser': 3, 'mortar': 1, 'lightning': 1, 'zone': 1}
+  damage in the last 10 s by weapon: {'gun': '8551 (59%)', 'lightning': '2999 (21%)', 'laser': '1752 (12%)', 'mortar': '637 (4%)', 'zone': '602 (4%)'}
+  number of mech attackers in last 10 s: [(0, 1), (1, 7), (2, 7)]
+  deaths with >= 2 attackers: 7 ; with an attacker the victim never shot back at: 7
+  rear damage share: mean 27% ; deaths with >= 30% rear damage: 5
+  median distance to main attacker: p25 42 p50 62 p75 74
+  wall distance at death: p25 12 p50 22 p75 30 ; in the open (> 20 m from any wall >= 4 m tall): 9 of 15
+  HP 10 s before death: median 810 ; fight duration to death: median 11.4 s (p25 4.6 p75 15.3)
+  airborne share in last 10 s: mean 41%
+
+all damage to mechs by weapon (whole match):
+| weapon | hits | damage | % of total | % of that from rear hits |
+|---|---|---|---|---|
+| gun | 433 | 23852.36 | 61.08 | 19.95 |
+| laser | 11 | 7386.07 | 18.91 | 65.98 |
+| lightning | 33 | 2999.90 | 7.68 | 3.96 |
+| mortar | 18 | 2425.01 | 6.21 | 30.10 |
+| zone | 623 | 1456.00 | 3.73 | 0.00 |
+| npc | 35 | 929.50 | 2.38 | 20.17 |
+rear hits: 76 of 530 weapon hits (14%)
+kills / damage dealt / place by mech: [(9, 'brawler', 4, 7794, 1), (2, 'brawler', 1, 1117, 2), (3, 'sniper', 3, 4083, 3), (12, 'farmer', 1, 914, 4), (5, 'farmer', 0, 1414, 5), (8, 'medium', 1, 4410, 6), (7, 'hard', 1, 2876, 7), (4, 'thirdparty', 1, 2201, 8), (6, 'expert', 0, 1915, 9), (0, 'expert', 1, 3823, 10), (14, 'hard', 0, 1438, 11), (10, 'sniper', 0, 770, 12), (11, 'thirdparty', 0, 659, 13), (15, 'medium', 1, 1408, 14), (13, 'expert', 0, 1166, 15), (1, 'hard', 0, 675, 16)]

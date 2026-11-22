@@ -1,0 +1,64 @@
+Exchange rates: lam_t contested 0.014 / free 0.003 pt/s (life average 0.062); lam_hp abundant 0.0005 / average 0.0024 / scarce 0.0036 pt/hp; V_fut 2.5; V_cube 0.10; V_laser 0.50; kill drop 0.14; 1450 dmg per point; house laser 35 dps; P(next episode multi-line) 0.55
+family             action                                                pts   T s     HP  Pdie   pt/s pt/kHP U/event  freq U/match  tag / note
+A engage 1 hunter  gun vs gun @40 m                                     1.13  15.2    776  0.01  0.074   1.45    0.51     -       -  [A] 
+A engage 1 hunter  gun vs gun @75 m                                     1.07  17.9    915  0.03  0.059   1.16    0.28     -       -  [A] 
+A engage 1 hunter  gun vs gun @110 m                                    1.14  19.7    532  0.00  0.058   2.14    0.60     -       -  [A] 
+A engage 1 hunter  gun vs gun @150 m                                    0.00  10.0    110  0.00  0.000   0.00   -0.20     -       -  [A] gun silent beyond the 0.55 s flight gate
+A engage 1 hunter  gun vs gun+laser @40 m                               0.66  15.2   1309  0.21  0.043   0.50   -0.73     -       -  [A] 
+A engage 1 hunter  gun vs gun+laser @75 m                               0.45  17.9   1400  0.30  0.025   0.32   -1.26     -       -  [A] 
+A engage 1 hunter  gun vs gun+laser @110 m                              0.75  19.7   1223  0.17  0.038   0.62   -0.56     -       -  [A] 
+A engage 1 hunter  gun vs gun+laser @150 m                              0.00  10.0    460  0.00  0.000   0.00   -0.37     -       -  [A] gun silent beyond the 0.55 s flight gate
+A engage 1 hunter  gun+laser vs gun @40 m                               1.14   6.9    350  0.00  0.166   3.26    0.87     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun @75 m                               1.14   7.4    376  0.00  0.155   3.03    0.85     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun @110 m                              1.14   7.7    207  0.00  0.149   5.52    0.93     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun @150 m                              1.14  12.5    138  0.00  0.091   8.29    0.90     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun+laser @40 m                         1.14   6.9    590  0.00  0.166   1.93    0.75     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun+laser @75 m                         1.14   7.4    634  0.00  0.155   1.80    0.72     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun+laser @110 m                        1.14   7.7    474  0.00  0.149   2.40    0.80     -       -  [A] 
+A engage 1 hunter  gun+laser vs gun+laser @150 m                        1.14  12.5    575  0.00  0.091   1.98    0.68     -       -  [A] 
+A engage 1 hunter  gun+laser vs lightning holder inside 45 m            0.38   6.9   1400  0.33  0.055   0.27   -1.26  0.50   -0.63  [A, S lightning = 20-25% of damage taken] 
+A engage (sim)     episode with 1 attacker (V4, n 36)                   0.75   6.9    221  0.06  0.109   3.39    0.39  0.90    0.35  [S] 
+A engage (sim)     episode with 2 attackers (n 23)                      1.04  11.6    893  0.70  0.090   1.16   -4.09  0.60   -2.45  [S] 
+A engage (sim)     episode with 3+ attackers (n 37)                     2.78  27.3   1214  0.59  0.102   2.29   -3.45  0.90   -3.10  [S] 
+B finish           near kill, 2 lines (IN 150): finish vs leave         0.52   1.8    140  0.03  0.291   3.74    0.09  1.15    0.11  [S, M G01 +0.39, A32 +0.34] HP net of the 72 hp/s retreat walk it replaces
+B finish           target under 25% with 1 line                         1.08   1.5     40  0.00  0.722  26.74    1.04  1.00    1.04  [A] 
+C retreat          LOSING, cover <= 7 m (0.6 s): hide, then heal        0.05   4.0    106  0.20  0.013   0.47    0.20  0.65    0.13  [A, M A05 -0.41 when low-hp hiding was removed] vs fighting on; share of LOSING events with cover that near assumed 0.3
+C retreat          LOSING, cover 30 m (2.6 s walk at 72 hp/s)           0.00   4.0    247  0.30  0.000   0.00   -0.17  1.50   -0.25  [S legs, A] walking to cover takes more fire than standing (72 vs 42 hp/s)
+C retreat          LOSING, no cover within 1.5 s: fight on              0.34   4.0    600  0.30  0.085   0.57    0.00  0.00    0.00  [S] baseline
+C retreat          NOT losing (1 line, 72% hp) to cover 30 m           -0.60   7.6    187  0.00 -0.079  -3.21   -1.45  0.00   -0.00  [M A25 -1.10, S] a 94%-won fight given up; the target regenerates
+D heal             45% -> 70%, completes (free lull)                    0.72  12.8   -350  0.00  0.057    inf    0.86  0.55    0.47  [A] 12.8 s for +350 hp
+D heal             45% -> 70%, real lulls (P done 0.14)                 0.24   7.9   -116  0.00  0.030    inf    0.27  0.55    0.15  [S lulls, A] expected +116 hp
+D heal             45% -> 90%, completes (free lull)                    1.30  19.0   -630  0.00  0.069    inf    1.56  0.55    0.86  [A] 19.0 s for +630 hp
+D heal             45% -> 90%, real lulls (P done 0.05)                 0.29   7.9   -140  0.00  0.037    inf    0.34  0.55    0.18  [S lulls, A] expected +140 hp
+D heal             45% -> 100%, completes (free lull)                   1.59  22.1   -770  0.00  0.072    inf    1.91  0.55    1.05  [A] 22.1 s for +770 hp
+D heal             45% -> 100%, real lulls (P done 0.02)                0.30   7.9   -145  0.00  0.038    inf    0.35  0.55    0.19  [S lulls, A] expected +145 hp
+D heal             one more heal second at 45-85% (no line on us)       0.09   1.0    -45  0.00  0.093    inf    0.10  0.00    0.00  [A] the hunter was coming anyway: the extra time is waiting, not walking
+D heal             one more heal second at 90-100%                      0.09   1.0    -45  0.00  0.093    inf    0.10  0.00    0.00  [A] 
+D heal             the 5 s regen delay (dead time)                      0.00   5.0      0  0.00  0.000    inf   -0.07  0.00   -0.00  [A, R regen rule] 
+E farm             crate 40 m, gun only (cube + 50% weapon, 1/3 laser)   0.18   7.9      0  0.00  0.023    inf    0.16  0.40    0.06  [A, M E01 +0.27, E04 +0.37, E12 -0.65] 
+E farm             crate 40 m, laser held (one beam breaks it)          0.11   7.0      0  0.00  0.016    inf    0.09  0.40    0.04  [A] 
+E farm             crate at 10+ cubes                                   0.02   7.9      0  0.00  0.003    inf   -0.00  0.10   -0.00  [A] 
+E farm             drone (2 cubes; ~60 hp; resets regen)                0.20   8.5     60  0.00  0.024   3.33    0.03  0.40    0.01  [S drone hp 68 per match, A] 
+E farm             crate 150 m away                                     0.18  17.6      0  0.00  0.010    inf   -0.06  0.00   -0.00  [M E05 -0.12, E09 -0.09, E15 -0.17] 
+F grab             cube 40-70 m in contact (4 s)                        0.39   4.0     56  0.00  0.097   6.96    0.17  1.00    0.17  [S legs, T 5.58 bot] 
+F grab             kill-drop cubes (2+ within 5 m, 3 s)                 0.40   3.0     42  0.00  0.132   9.46    0.23  1.50    0.35  [T kyoto 56 of 84] 
+F grab             laser 60-130 m, gun only, t < 60 s (7 s)             1.01   7.0    294  0.02  0.144   3.42    0.11  0.30    0.03  [A, T x3; M L01 -0.11 long detours] 
+G supply drop      at 50% hp, 0 line, 12 s trip, P(capture) 0.5         0.87  16.0      0  0.05  0.055    inf    0.53  0.12    0.06  [A, M E03 -0.21, E10 +0.02, E11 -0.08] 
+G supply drop      at 90% hp, 0 line, 12 s trip, P(capture) 0.5         0.29  16.0      0  0.05  0.018    inf   -0.05  0.12   -0.01  [A, M E03 -0.21, E10 +0.02, E11 -0.08] 
+G supply drop      at 50% hp, 1 line, 12 s trip, P(capture) 0.5         0.87  16.0    240  0.20  0.055   3.64   -0.42  0.12   -0.05  [A, M E03 -0.21, E10 +0.02, E11 -0.08] 
+G supply drop      at 50% hp, 0 line, 21 s trip, P(capture) 0.5         0.87  25.0      0  0.05  0.035    inf    0.40  0.12    0.05  [A, M E03 -0.21, E10 +0.02, E11 -0.08] 
+H outside zone     20 dps: 3 s out of a losing fight                   -0.30   3.0     60  0.61  0.000   0.00   -0.11  0.05   -0.01  [A, N] out of a fight 420 hp; pays only if it removes > 33 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     20 dps: 6 s out of a losing fight                   -0.30   6.0    120  0.52  0.000   0.00    0.08  0.05    0.00  [A, N] out of a fight 615 hp; pays only if it removes > 33 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     20 dps: 10 s out of a losing fight                  -0.30  10.0    200  0.52  0.000   0.00    0.04  0.05    0.00  [A, N] out of a fight 875 hp; pays only if it removes > 33 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     35 dps: 3 s out of a losing fight                   -0.30   3.0    105  0.61  0.000   0.00   -0.13  0.05   -0.01  [A, N] out of a fight 465 hp; pays only if it removes > 58 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     35 dps: 6 s out of a losing fight                   -0.30   6.0    210  0.52  0.000   0.00    0.03  0.05    0.00  [A, N] out of a fight 705 hp; pays only if it removes > 58 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     35 dps: 10 s out of a losing fight                  -0.30  10.0    350  0.52  0.000   0.00   -0.04  0.05   -0.00  [A, N] out of a fight 1025 hp; pays only if it removes > 58 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     60 dps: 3 s out of a losing fight                   -0.30   3.0    180  0.61  0.000   0.00   -0.17  0.00   -0.00  [A, N] out of a fight 540 hp; pays only if it removes > 100 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     60 dps: 6 s out of a losing fight                   -0.30   6.0    360  0.52  0.000   0.00   -0.04  0.00   -0.00  [A, N] out of a fight 855 hp; pays only if it removes > 100 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     60 dps: 10 s out of a losing fight                  -0.30  10.0    600  0.52  0.000   0.00   -0.16  0.00   -0.00  [A, N] out of a fight 1275 hp; pays only if it removes > 100 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     100 dps: 3 s out of a losing fight                  -0.30   3.0    300  0.61  0.000   0.00   -0.23  0.00   -0.00  [A, N] out of a fight 660 hp; pays only if it removes > 167 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     100 dps: 6 s out of a losing fight                  -0.30   6.0    600  0.52  0.000   0.00   -0.16  0.00   -0.00  [A, N] out of a fight 1095 hp; pays only if it removes > 167 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+H outside zone     100 dps: 10 s out of a losing fight                 -0.30  10.0   1000  0.52  0.000   0.00   -0.36  0.00   -0.00  [A, N] out of a fight 1675 hp; pays only if it removes > 167 dps of lines; P(escape) 0.25 (0.4 if hunters stop at the edge)
+I rotate           early on the empty side vs late through the squad    0.06   0.0      0  0.00  0.000    inf    0.06  1.00    0.06  [M Z01 +0.06; Z02 +0.29 in a 4-change bundle] V4 already does this (D9: 0 zone deaths)
+J idle             full hp, nothing in view (10 s)                      0.06  10.0      0  0.00  0.006    inf   -0.08  0.85   -0.07  [S] the seek preset S targets this
+J idle             hurt (60%), nothing in view (10 s) = free heal       0.47  10.0   -225  0.00  0.047    inf    0.55  0.30    0.16  [A] 

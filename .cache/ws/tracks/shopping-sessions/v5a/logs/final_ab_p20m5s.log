@@ -1,0 +1,12 @@
+round 0 base17r: exit 0 wall 10.816 user 4.904 sys 3.620 cpu 8.524 maxrss 1.04 GB minflt 40212 majflt 0 in 0MB stdout 0
+round 0 a10: exit 0 wall 5.551 user 5.549 sys 0.732 cpu 6.281 maxrss 2.96 GB minflt 312932 majflt 0 in 0MB stdout 0
+round 1 a10: exit 0 wall 4.952 user 5.304 sys 0.648 cpu 5.952 maxrss 3.00 GB minflt 322676 majflt 0 in 0MB stdout 0
+round 1 base17r: exit 0 wall 7.162 user 3.727 sys 3.350 cpu 7.077 maxrss 1.06 GB minflt 39981 majflt 0 in 0MB stdout 0
+round 2 base17r: exit 0 wall 7.229 user 3.746 sys 1.233 cpu 4.979 maxrss 1.04 GB minflt 39975 majflt 0 in 0MB stdout 0
+round 2 a10: exit 0 wall 9.767 user 5.633 sys 0.831 cpu 6.464 maxrss 2.96 GB minflt 312709 majflt 0 in 0MB stdout 0
+SUMMARY base17r n=3/3: cpu median 7.077 (min 4.979) user 3.746 sys 3.350 wall 7.229 maxrss 1.04 GB
+  stages (thread CPU s, median): events/sys=2.297 events=1.543 dedup=0.842 people=0.718 clicks/sys=0.411 clicks=0.410 dedup/sys=0.223 user_write/sys=0.201 links=0.153 user_write=0.129 links/sys=0.072 unmap/sys=0.055 unmap=0.053 people/sys=0.011 campaign=0.002 bar_dedup=0.001 wait_jobs=0.000 wait_jobs/sys=0.000 release/sys=0.000 wait_events=0.000 wait_events/sys=0.000 bar_dedup/sys=0.000 order=0.000 order/sys=0.000 campaign/sys=0.000 last_write=0.000 last_write/sys=0.000 release=0.000
+SUMMARY a10 n=3/3: cpu median 6.281 (min 5.952) user 5.549 sys 0.732 wall 5.551 maxrss 2.96 GB
+  stages (thread CPU s, median): events=2.837 people=0.862 dedup=0.713 events/sys=0.375 clicks=0.360 links=0.277 user_write=0.136 merge=0.097 reclick=0.094 clicks/sys=0.075 release/sys=0.062 user_write/sys=0.052 links/sys=0.039 dedup/sys=0.031 people/sys=0.030 persons=0.026 unmap/sys=0.023 reclick/sys=0.018 merge/sys=0.015 release=0.005 bar_parse=0.003 unmap=0.003 last_write/sys=0.002 last_write=0.002 wait_jobs=0.002 bar_dedup=0.001 bar_merge=0.001 persons/sys=0.001 wait_jobs/sys=0.000 bar_dedup/sys=0.000 bar_parse/sys=0.000 bar_merge/sys=0.000 wait_events=0.000 wait_events/sys=0.000 order=0.000 order/sys=0.000 campaign=0.000 campaign/sys=0.000
+PAIRED a10 - base17r cpu: median -1.125 s, lower in 2/3
+PAIRED a10 - base17r wall: median -2.211 s, lower in 2/3

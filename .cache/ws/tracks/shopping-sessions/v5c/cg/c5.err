@@ -1,0 +1,20 @@
+==4414== Cachegrind, a high-precision tracing profiler
+==4414== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==4414== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==4414== Command: bin/c5
+==4414== 
+setup       239.5 ms
+links        93.0 ms on one thread
+dedup      5127.0 ms
+people     6183.7 ms
+surviving events 978090, user_daily rows 118107
+sessions 181032 / 181032, revenue 352767593 / 352767593, assisted 1958238 >= 111113
+id prefixes: user Some('u'), event Some('e'), click Some('k')
+event copies 1071379, winners 978090, clicks 252246, linked 60396, exotic 53
+write      6186.9 ms
+==4414== 
+==4414== I refs:        1,362,755,356
+==4414== 
+==4414== Branches:        186,215,425  (185,911,755 cond + 303,670 ind)
+==4414== Mispredicts:       7,229,781  (  7,229,252 cond +     529 ind)
+==4414== Mispred rate:            3.9% (        3.9%     +     0.2%   )

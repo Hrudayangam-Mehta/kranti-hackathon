@@ -1,0 +1,133 @@
+## weapon timeline per mech (t s: op kind [distance of that pickup from spawn point / nearest other pickup kind])
+| mech | type | died at s | first weapon s | kind | nearest ground pickup at spawn | dist spawn->first taken | sequence |
+|---|---|---|---|---|---|---|---|
+| 0 | expert | 98.5 | 6.7 | laser | 53 m laser | 53 | 6.7s take laser; 98.5s drop laser |
+| 1 | hard | 41.7 | never | - | 89 m laser | - |  |
+| 2 | brawler | 209.7 | 5.4 | laser | 60 m laser | 60 | 5.4s take laser; 209.7s drop laser |
+| 3 | sniper | 198.0 | 110.9 | laser | 151 m laser | 34 | 110.9s take laser; 198.0s drop laser |
+| 4 | thirdparty | 136.5 | 5.4 | mortar | 47 m mortar | 47 | 5.4s take mortar; 136.5s drop mortar |
+| 5 | farmer | 160.7 | 80.0 | laser | 55 m mortar | 100 | 80.0s take laser; 92.1s drop laser; 92.1s take mortar; 160.7s drop mortar |
+| 6 | expert | 125.1 | never | - | 52 m lightning | - |  |
+| 7 | hard | 136.8 | 7.7 | mortar | 79 m lightning | 77 | 7.7s take mortar; 136.8s drop mortar |
+| 8 | medium | 137.8 | 1.7 | laser | 24 m laser | 24 | 1.7s take laser; 89.1s drop laser; 89.1s take mortar; 137.8s drop mortar |
+| 9 | brawler | 209.7 | 10.4 | lightning | 103 m lightning | 103 | 10.4s take lightning |
+| 10 | sniper | 69.5 | never | - | 152 m mortar | - |  |
+| 11 | thirdparty | 67.8 | 7.0 | mortar | 57 m lightning | 63 | 7.0s take mortar; 67.8s drop mortar |
+| 12 | farmer | 168.6 | 3.2 | lightning | 38 m lightning | 38 | 3.2s take lightning; 4.5s drop lightning; 4.5s take mortar; 36.6s drop mortar; 36.6s take lightning; 119.6s drop lightning; 119.6s take mortar; 168.6s drop mortar |
+| 13 | expert | 66.1 | never | - | 97 m laser | - |  |
+| 14 | hard | 81.3 | 4.2 | laser | 49 m lightning | 48 | 4.2s take laser; 81.3s drop laser |
+| 15 | medium | 67.7 | never | - | 49 m mortar | - |  |
+
+swaps (take with a drop on the same tick): kept/dropped
+   t=4.5 mech 12 (farmer) dropped lightning and took mortar
+   t=36.6 mech 12 (farmer) dropped mortar and took lightning
+   t=67.8 mech 11 (thirdparty) dropped mortar (death drop)
+   t=81.3 mech 14 (hard) dropped laser (death drop)
+   t=89.1 mech 8 (medium) dropped laser and took mortar
+   t=92.1 mech 5 (farmer) dropped laser and took mortar
+   t=98.5 mech 0 (expert) dropped laser (death drop)
+   t=119.6 mech 12 (farmer) dropped lightning and took mortar
+   t=136.5 mech 4 (thirdparty) dropped mortar (death drop)
+   t=136.8 mech 7 (hard) dropped mortar (death drop)
+   t=137.8 mech 8 (medium) dropped mortar (death drop)
+   t=160.7 mech 5 (farmer) dropped mortar (death drop)
+   t=168.6 mech 12 (farmer) dropped mortar (death drop)
+   t=198.0 mech 3 (sniper) dropped laser (death drop)
+   t=209.7 mech 2 (brawler) dropped laser (death drop)
+takes by type and kind: {('medium', 'laser'): 1, ('farmer', 'lightning'): 2, ('hard', 'laser'): 1, ('farmer', 'mortar'): 3, ('thirdparty', 'mortar'): 2, ('brawler', 'laser'): 1, ('expert', 'laser'): 1, ('hard', 'mortar'): 1, ('brawler', 'lightning'): 1, ('farmer', 'laser'): 1, ('medium', 'mortar'): 1, ('sniper', 'laser'): 1}
+initial floor pickups by kind: Counter({'mortar': 16, 'lightning': 13, 'laser': 11})  total takes: 16
+loadout at death/end by type: {'expert': Counter({('gun',): 2, ('gun', 'laser'): 1}), 'hard': Counter({('gun',): 1, ('gun', 'mortar'): 1, ('gun', 'laser'): 1}), 'medium': Counter({('gun', 'mortar'): 1, ('gun',): 1}), 'brawler': Counter({('gun', 'laser'): 1, ('gun', 'lightning'): 1}), 'sniper': Counter({('gun', 'laser'): 1, ('gun',): 1}), 'thirdparty': Counter({('gun', 'mortar'): 2}), 'farmer': Counter({('gun', 'mortar'): 2})}
+ground pickups approached within 15 m and never taken by that mech (type, slot-1 state, pickup kind): n
+   total with an empty slot: 1 ; while holding another kind: 14 ; while holding the same kind: 4
+    ('brawler', 'had lightning', 'laser') 2
+    ('brawler', 'had lightning', 'mortar') 2
+    ('expert', 'empty slot', 'lightning') 1
+    ('expert', 'had laser', 'mortar') 1
+    ('farmer', 'had lightning', 'mortar') 1
+    ('farmer', 'had mortar', 'laser') 3
+    ('farmer', 'had mortar', 'lightning') 2
+    ('farmer', 'had mortar', 'mortar') 1
+    ('hard', 'had laser', 'laser') 1
+    ('hard', 'had mortar', 'mortar') 1
+    ('medium', 'had laser', 'laser') 1
+    ('medium', 'had mortar', 'laser') 1
+    ('sniper', 'had laser', 'mortar') 1
+    ('thirdparty', 'had mortar', 'lightning') 1
+
+## crates
+| type | gun shots at crates | crate hits (all weapons) | crates destroyed | crates/min alive | crate shots/min alive |
+|---|---|---|---|---|---|
+| expert | 6 | 6 | 0 | 0.00 | 1.24 |
+| hard | 26 | 25 | 4 | 0.92 | 6.01 |
+| medium | 15 | 12 | 1 | 0.29 | 4.38 |
+| brawler | 12 | 18 | 4 | 0.57 | 1.72 |
+| sniper | 14 | 12 | 1 | 0.22 | 3.14 |
+| thirdparty | 14 | 14 | 2 | 0.59 | 4.11 |
+| farmer | 55 | 29 | 4 | 0.73 | 10.02 |
+range when shooting crates: p10 18 p50 56 p90 170 max 244
+
+## cubes: spawned 87 ({'crate': 16, 'npc': 18, 'mech': 53}) ; picked up 48
+| cube source | cubes | picked up | % | median delay s | p90 delay s | picked by the killer |
+|---|---|---|---|---|---|---|
+| crate | 16 | 14 | 87.50 | 3.33 | 4.72 | 14 |
+| npc | 18 | 16 | 88.89 | 5.10 | 20.18 | 14 |
+| mech | 53 | 18 | 33.96 | 12.30 | 64.00 | 12 |
+cubes never picked up: 39 ; heights above terrain: [0.0, 0.0, 0.0, 0.0, 0.0, -0.0, 0.0, -0.0, -0.0, -0.0, -0.0, 0.0, -0.0, -0.0, 0.0, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, 0.0, -0.0, 0.0, 0.0, -0.0, -0.0, 4.8]
+| type | cube pickups | mean cubes_max | max | upgrades per mech |
+|---|---|---|---|---|
+| expert | 8 | 2.67 | 4 | 0:gun_damage+reactor, 6:plating, 13:reactor |
+| hard | 6 | 2.00 | 3 | 1:-, 7:gun_mag+nanites, 14:plating+plating |
+| medium | 8 | 4.00 | 8 | 8:armor+reactor+laser_damage, 15:- |
+| brawler | 14 | 8.50 | 16 | 2:gun_damage, 9:gun_damage+lightning_efficiency+gun_damage+lightning_efficiency+lightning_chain |
+| sniper | 8 | 5.50 | 9 | 3:gyros+plating+plating, 10:gyros |
+| thirdparty | 2 | 1.00 | 1 | 4:mortar_splash, 11:nanites |
+| farmer | 2 | 1.00 | 2 | 5:-, 12:mortar_reload |
+upgrade picks overall: [('plating', 5), ('gun_damage', 4), ('reactor', 3), ('gyros', 2), ('nanites', 2), ('lightning_efficiency', 2), ('gun_mag', 1), ('mortar_splash', 1), ('mortar_reload', 1), ('armor', 1), ('laser_damage', 1), ('lightning_chain', 1)]
+
+## NPC drones
+| type | gun shots at drones | damage dealt to drones | drones killed | damage taken from drones |
+|---|---|---|---|---|
+| expert | 32 | 1385.34 | 3 | 437.50 |
+| hard | 10 | 364.66 | 2 | 100 |
+| medium | 8 | 350.00 | 1 | 92 |
+| brawler | 0 | 350 | 1 | 237.50 |
+| sniper | 8 | 350 | 1 | 25 |
+| thirdparty | 0 | 0 | 0 | 0 |
+| farmer | 10 | 350 | 1 | 37.50 |
+   drone 106 killed by 6 (expert) at 3.1s: fight lasted 2.6 s, first-hit range 51 m, killer took 25 dmg from drones meanwhile
+   drone 109 killed by 13 (expert) at 3.2s: fight lasted 2.9 s, first-hit range 5 m, killer took 100 dmg from drones meanwhile
+   drone 105 killed by 10 (sniper) at 3.3s: fight lasted 2.6 s, first-hit range 85 m, killer took 25 dmg from drones meanwhile
+   drone 103 killed by 0 (expert) at 5.7s: fight lasted 2.8 s, first-hit range 34 m, killer took 75 dmg from drones meanwhile
+   drone 100 killed by 9 (brawler) at 14.4s: fight lasted 2.9 s, first-hit range 15 m, killer took 238 dmg from drones meanwhile
+   drone 107 killed by 8 (medium) at 29.4s: fight lasted 5.2 s, first-hit range 47 m, killer took 92 dmg from drones meanwhile
+   drone 101 killed by 14 (hard) at 44.7s: fight lasted 5.5 s, first-hit range 58 m, killer took 100 dmg from drones meanwhile
+   drone 104 killed by 7 (hard) at 47.7s: fight lasted 16.2 s, first-hit range 57 m, killer took 0 dmg from drones meanwhile
+   drone 111 killed by 5 (farmer) at 96.9s: fight lasted 3.1 s, first-hit range 158 m, killer took 0 dmg from drones meanwhile
+drones alive at end: [102, 108, 110]  homes distance from final zone centre: {102: 479, 108: 454, 110: 476}
+drone hits on mechs: {'victim had NOT attacked that drone': 8, 'victim had attacked that drone in the last 10 s': 27}
+
+## supply drops
+ drop 20000 at (97,-48) called 70s lands 95s ; events: [('call', 70.05, None), ('land', 95.05000000000001, None), ('take', 107.25, 3)]
+   alive at call: (mech, type, dist at call, min dist until take, at s, first inside ring s)
+      (3, 'sniper', 77, 2, 107.0, 103.3)
+      (0, 'expert', 149, 4, 86.2, 85.7)
+      (9, 'brawler', 309, 48, 104.9, None)
+      (6, 'expert', 237, 67, 107.2, None)
+      (8, 'medium', 149, 105, 105.7, None)
+      (12, 'farmer', 270, 180, 88.9, None)
+      (14, 'hard', 226, 180, 78.4, None)
+      (7, 'hard', 236, 196, 93.4, None)
+      (4, 'thirdparty', 274, 263, 106.3, None)
+      (5, 'farmer', 279, 279, 70.0, None)
+      (2, 'brawler', 338, 333, 77.5, None)
+   frame states (state, holder): frames {(0, -1): 250, (1, -1): 82, (2, 3): 40}
+ drop 20001 at (-36,-70) called 140s lands 165s ; events: [('call', 140.05, None), ('land', 165.05, None), ('take', 173.05, 9)]
+   alive at call: (mech, type, dist at call, min dist until take, at s, first inside ring s)
+      (9, 'brawler', 93, 3, 169.8, 169.1)
+      (12, 'farmer', 236, 56, 168.5, None)
+      (3, 'sniper', 133, 63, 173.0, None)
+      (5, 'farmer', 82, 66, 152.9, None)
+      (2, 'brawler', 235, 205, 172.3, None)
+   frame states (state, holder): frames {(0, -1): 250, (1, -1): 40, (2, 9): 40}
+ drop 20002 at (124,-94) called 210s lands 235s ; events: []
+   (match ended before call)

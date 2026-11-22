@@ -1,0 +1,1349 @@
+{
+ "meta": {
+  "source": "P/replay/mech16.jsonl.gz (one 16 house-bot free-for-all, 209.65 s, seed 16) + P/kit/check/stream.jsonl.gz (300 observations of one mech on the current build)",
+  "generated_by": "P/tools/forensics/build_model.py",
+  "caveats": [
+   "ONE match: per-type numbers come from 2-3 mechs each and 50-140 s of engagement; treat per-type rows as indicative, ALL-type rows as solid.",
+   "The replay was recorded on an OLDER balance build than P/notes/hello_example.json (see replay_build_vs_current). Behaviour is given in build-independent form where possible (fractions of walk speed, flight time, ticks).",
+   "The replay is a free-for-all. Practice scoring uses a squad (easy/medium/hard/expert) that shares vision and hunts one bot; target selection, tunnel vision and third-party findings need not transfer. Type \"easy\" is not in the replay; brawler/sniper/thirdparty/farmer may not be in practice.",
+   "The current-build cross-check (kit stream) confirms the gun aim model, the fire cadence rule, the 15 m hop and shows the laser being tracked during charge (unlike the replay)."
+  ]
+ },
+ "replay_build_vs_current": {
+  "note": "measured in the replay vs P/notes/hello_example.json; \"same\" = verified equal",
+  "gun_speed": [
+   140.0,
+   252
+  ],
+  "gun_cooldown_s": [
+   "in (0.25, 0.35] (one shot per 8 ticks)",
+   0.24
+  ],
+  "gun_reload_s": [
+   "2.4 (same; 50 ticks between last and next shot)",
+   2.4
+  ],
+  "gun_mag": [
+   12,
+   12
+  ],
+  "gun_damage": [
+   45,
+   45
+  ],
+  "gun_range": [
+   "230 (same)",
+   230
+  ],
+  "gun_spread_deg": [
+   "0.6 per axis (same)",
+   0.6
+  ],
+  "walk_speed": [
+   9.0,
+   11.7
+  ],
+  "boost_speed": [
+   15.0,
+   19.5
+  ],
+  "ground_accel": [
+   45,
+   58.5
+  ],
+  "charge_move_mult": [
+   0.5,
+   0.5
+  ],
+  "boost_drain_per_s": [
+   26,
+   17
+  ],
+  "jet_drain_per_s": [
+   20,
+   15
+  ],
+  "energy_regen_per_s": [
+   18,
+   18
+  ],
+  "energy_regen_delay_s": [
+   0.6,
+   0.6
+  ],
+  "jump_speed": [
+   11,
+   11
+  ],
+  "gravity": [
+   22,
+   22
+  ],
+  "jet_climb_m_per_s": [
+   8.9,
+   "8.9 (max_rise 10 minus gravity*dt)"
+  ],
+  "laser_damage": [
+   420,
+   315
+  ],
+  "laser_charge_s": [
+   0.65,
+   0.75
+  ],
+  "laser_cooldown_s": [
+   "in (2.5, 2.6]",
+   1.65
+  ],
+  "laser_aim_during_charge": [
+   "locked at charge start",
+   "free (charge_turn_mult 1); house bot tracks"
+  ],
+  "mortar_speed": [
+   72,
+   72
+  ],
+  "mortar_cooldown_s": [
+   "in (2.65, 2.74]",
+   2.6
+  ],
+  "lightning_damage": [
+   60,
+   60
+  ],
+  "lightning_energy_per_shot": [
+   5.5,
+   3
+  ],
+  "lightning_cooldown_s": [
+   "<= 0.25 (one zap per 6 ticks)",
+   0.25
+  ],
+  "size_per_cube": [
+   "0 (muzzle stays at 7.0 m, hit radius stays 2.8 m at 16 cubes)",
+   0.05
+  ],
+  "pickup_take_distance_m": [
+   "bots take at <= 3.5 m",
+   4
+  ],
+  "turn_rate": [
+   4.0,
+   4
+  ],
+  "pitch_rate": [
+   3.0,
+   3
+  ],
+  "hp": [
+   1400,
+   1400
+  ],
+  "regen_per_s": [
+   45,
+   45
+  ],
+  "regen_delay_s": [
+   5,
+   5
+  ],
+  "rear_mult": [
+   1.5,
+   1.5
+  ],
+  "npc_bullet_speed": [
+   90,
+   90
+  ],
+  "npc_damage": [
+   25,
+   25
+  ],
+  "crate_hp": [
+   300,
+   300
+  ]
+ },
+ "mechanics_verified": {
+  "tick_semantics": "fire events only on odd ticks = first tick after a decision; action from obs at even tick E takes effect at E+1 (no extra latency: best-fit reference tick for aim is E, stale-obs hypothesis is worse: sd 1.35 vs 0.73 deg)",
+  "bullet": {
+   "inherits_shooter_velocity": false,
+   "speed_sd_m_s": 0.011,
+   "origin": "feet + (0,0,muzzle_height) + 3.0 m along aim; at the end of the fire tick the bullet is already 3.0 + speed*0.05 m out",
+   "hit_radius_m": 2.8,
+   "expires_after_m": 230,
+   "amt_is_clamped_to_remaining_hp": true
+  },
+  "damage_formula": "base * (1 + 0.04*min(cubes,10)) * 1.15^gun_damage_ups * (1.5 if rear) * (1 - 0.08*armor_ups) * (1.6 laser cook-off vs mortar holder); 573 of 604 gun hits exact to 0.01, the rest are clamps or cube changes in flight",
+  "max_hp": "1400 * (1 + 0.04*min(cubes,10)) * 1.15^plating",
+  "hp_regen": {
+   "rate_per_s": 45,
+   "with_nanites": 72,
+   "delay_s": 5.0,
+   "delay_with_nanites": 3.5,
+   "reset_by": [
+    "taking any damage",
+    "dealing damage to a mech",
+    "dealing damage to a drone"
+   ],
+   "not_reset_by": [
+    "dealing damage to a crate (150 regen frames inside the window vs 8 without)"
+   ],
+   "no_regen_outside_zone": true
+  },
+  "energy": {
+   "regen_per_s": 18,
+   "reactor_mult": 1.3,
+   "regen_delay_s": 0.6
+  },
+  "jump": {
+   "v0": 11,
+   "apex_m": 2.5
+  },
+  "jet": {
+   "climb_m_per_s": 8.9
+  },
+  "ground_accel_note": "velocity changes by accel*0.05 per tick: full reversal of walk velocity takes 2*walk/accel = 0.40 s in both builds",
+  "mortar": {
+   "direct_hit_base": 200,
+   "splash_base": 160,
+   "falloff": "f = 1 - 0.7*d/R, d = distance from blast to the mech body surface (axis distance minus 2.5 m); rms error 0.04 on 17 events",
+   "concussion": "v_horizontal = 16 f, v_up = 9 f, energy drain = min(45 f, energy left)",
+   "origin_height_above_feet_m": 9.5
+  },
+  "lightning": {
+   "origin": "mech axis at 7.0 m, no forward offset",
+   "max_hit_distance_seen_m": 42.1,
+   "chains_seen": 0
+  },
+  "laser": {
+   "origin": "3.0 m along aim at 7.0 m",
+   "max_beam_m": 280.0
+  },
+  "npc": {
+   "speed_wander": 3.0,
+   "speed_chase": 5.0,
+   "bullet_speed": 90.0,
+   "cooldown_ticks": 20,
+   "max_distance_from_home_seen_m": 29.9,
+   "proximity_aggro_first_shot_at_m": [
+    39.8,
+    41.8,
+    40.6,
+    46.7
+   ],
+   "retaliates_at_up_to_m": 84.7,
+   "hit_rate_vs_mechs_pct": 66
+  },
+  "zone_dps_seen": {
+   "110-195s": 35,
+   "after_195s": 60
+  },
+  "supply_drop": "+3 cubes, HP to new maximum, 4.0 s capture",
+  "turn_rate_rad_s": {
+   "base": 4.0,
+   "with_gyros": 5.2
+  },
+  "pitch_rate_rad_s": 3.0,
+  "pitch_range_rad": [
+   -0.7,
+   1.3
+  ]
+ },
+ "fire_control": {
+  "gun": {
+   "aim_model": "first-order intercept: aim at target_centre(z + 4.5) + velocity * time_of_flight, solved with the gun projectile speed, from the latest observation; no shooter-velocity compensation needed (bullets do not inherit it)",
+   "lead_slope_all_types": 0.97,
+   "residual_sd_deg": 0.73,
+   "residual_sd_deg_constant_velocity_targets": "0.5-0.7 (= weapon spread 0.6; no extra aim noise for any type)",
+   "vertical_model_airborne_target": "ballistic: z + vz*t - 0.5*22*t^2, clamped at the ground under the predicted point (median |residual| 0.52 deg, n=301)",
+   "current_build_check": "kit stream: own aim vs 252 m/s intercept residual sd 0.02 deg, slope 1.00 (n=141)",
+   "trigger": "fires only with a clear muzzle line to the target (848 of 851 shots); fires on the first decision whose observation shows cooldown 0 -> one shot per 8 ticks in the replay, per 6 ticks (0.30 s) on the current build; 12 shots then 50 ticks to the next shot",
+   "trigger_duty_while_engaged": 0.75,
+   "opens_fire_at_up_to_m": 197,
+   "first_shot_delay_after_clear_line_s": {
+    "p10": 0.25,
+    "p25": 0.65,
+    "p50": 1.15,
+    "p75": 3.05,
+    "min": 0.15
+   },
+   "hit_rate_vs_flight_time": [
+    {
+     "tau_s": [
+      0,
+      0.2
+     ],
+     "range_m_at_252": [
+      0,
+      50
+     ],
+     "n": 7,
+     "hit": 7,
+     "n_grounded_unblocked": 3,
+     "hit_grounded_unblocked": 3
+    },
+    {
+     "tau_s": [
+      0.2,
+      0.3
+     ],
+     "range_m_at_252": [
+      50,
+      76
+     ],
+     "n": 63,
+     "hit": 62,
+     "n_grounded_unblocked": 38,
+     "hit_grounded_unblocked": 38
+    },
+    {
+     "tau_s": [
+      0.3,
+      0.4
+     ],
+     "range_m_at_252": [
+      76,
+      101
+     ],
+     "n": 143,
+     "hit": 125,
+     "n_grounded_unblocked": 96,
+     "hit_grounded_unblocked": 83
+    },
+    {
+     "tau_s": [
+      0.4,
+      0.5
+     ],
+     "range_m_at_252": [
+      101,
+      126
+     ],
+     "n": 110,
+     "hit": 83,
+     "n_grounded_unblocked": 44,
+     "hit_grounded_unblocked": 25
+    },
+    {
+     "tau_s": [
+      0.5,
+      0.6
+     ],
+     "range_m_at_252": [
+      126,
+      151
+     ],
+     "n": 91,
+     "hit": 48,
+     "n_grounded_unblocked": 47,
+     "hit_grounded_unblocked": 15
+    },
+    {
+     "tau_s": [
+      0.6,
+      0.7
+     ],
+     "range_m_at_252": [
+      151,
+      176
+     ],
+     "n": 55,
+     "hit": 21,
+     "n_grounded_unblocked": 31,
+     "hit_grounded_unblocked": 6
+    },
+    {
+     "tau_s": [
+      0.7,
+      0.8
+     ],
+     "range_m_at_252": [
+      176,
+      202
+     ],
+     "n": 101,
+     "hit": 29,
+     "n_grounded_unblocked": 60,
+     "hit_grounded_unblocked": 15
+    },
+    {
+     "tau_s": [
+      0.8,
+      0.9
+     ],
+     "range_m_at_252": [
+      202,
+      227
+     ],
+     "n": 78,
+     "hit": 21,
+     "n_grounded_unblocked": 37,
+     "hit_grounded_unblocked": 11
+    },
+    {
+     "tau_s": [
+      0.9,
+      1.0
+     ],
+     "range_m_at_252": [
+      227,
+      252
+     ],
+     "n": 75,
+     "hit": 17,
+     "n_grounded_unblocked": 55,
+     "hit_grounded_unblocked": 9
+    },
+    {
+     "tau_s": [
+      1.0,
+      1.2
+     ],
+     "range_m_at_252": [
+      252,
+      302
+     ],
+     "n": 85,
+     "hit": 11,
+     "n_grounded_unblocked": 61,
+     "hit_grounded_unblocked": 11
+    },
+    {
+     "tau_s": [
+      1.2,
+      1.7
+     ],
+     "range_m_at_252": [
+      302,
+      428
+     ],
+     "n": 43,
+     "hit": 9,
+     "n_grounded_unblocked": 32,
+     "hit_grounded_unblocked": 9
+    }
+   ],
+   "hit_rate_by_target_manoeuvre_tau_0.3_1.0": {
+    "kept_velocity": [
+     47,
+     56
+    ],
+    "turned_25_60_or_speed_change": [
+     70,
+     133
+    ],
+    "turned_60_120": [
+     18,
+     76
+    ],
+    "reversed": [
+     17,
+     77
+    ],
+    "stopped": [
+     6,
+     13
+    ],
+    "started_moving": [
+     6,
+     15
+    ]
+   },
+   "airborne_targets_are_easier": {
+    "tau_0.4_0.5": {
+     "grounded": [
+      25,
+      44
+     ],
+     "airborne": [
+      58,
+      63
+     ]
+    },
+    "tau_0.5_0.6": {
+     "grounded": [
+      15,
+      47
+     ],
+     "airborne": [
+      33,
+      43
+     ]
+    }
+   },
+   "missed_bullets": "at 80+ m 52% pass ahead of the target by > 2.8 m, 10-16% behind"
+  },
+  "laser": {
+   "replay_build": {
+    "charge_ticks": 13,
+    "aim": "direction fixed at charge start = linear prediction of the target 0.65 s ahead; torso does not turn during the charge",
+    "beams": 39,
+    "hits": 11,
+    "hit_pct": 28,
+    "median_range_m": 110,
+    "median_range_hits_m": 82,
+    "median_range_misses_m": 114,
+    "victim_lateral_speed_median_hits_vs_misses": [
+     3.6,
+     6.7
+    ]
+   },
+   "current_build_from_kit_stream": {
+    "aim": "torso keeps tracking during the charge (gun-style lead while the gun fires, direct bearing on the release decision)",
+    "charge_frames": 8,
+    "laser_shots": 6,
+    "hits": 4,
+    "misses": "one fired as line of sight was lost, one released early during its own hop",
+    "range_m": "56-151",
+    "shortest_gap_between_beams_ticks": 54,
+    "releases_early_when_target_lost": "one beam released after about 0.2 s with the aim swung 22 deg away"
+   },
+   "cookoff_seen": 6,
+   "victims_do_not_react_to_charge": "direction flips / jumps / boost starts during the charge: 21% / 5% / 44% vs 33% / 10% / 52% in ordinary 0.7 s windows under gun fire"
+  },
+  "mortar": {
+   "aim_model": "linear lead to a ground point (median boom-to-lead-point 2.2 m vs 11.0 m to the target position at fire)",
+   "shells": 57,
+   "damaging": 18,
+   "direct": 4,
+   "range_m": {
+    "min": 34,
+    "p10": 51,
+    "p50": 72,
+    "p90": 141,
+    "max": 182
+   },
+   "damaging_by_range_m": {
+    "40-80": [
+     13,
+     31
+    ],
+    "80-130": [
+     4,
+     14
+    ],
+    "130-240": [
+     0,
+     8
+    ]
+   },
+   "needs_los": "46 of 54 fired with a clear line",
+   "self_damage_incidents": 0,
+   "cadence_ticks": 56
+  },
+  "lightning": {
+   "zaps": 47,
+   "zaps_without_target": 0,
+   "cadence_ticks": 6,
+   "burst": "zaps until energy is exhausted (11 zaps 43->1 energy, 18 zaps 78->2)",
+   "holder_closing_speed_frac_of_walk": 0.59,
+   "time_within_45m_of_enemy_s": 18.0,
+   "held_s": 199
+  }
+ },
+ "perception_and_reaction": {
+  "new_attacker_inside_fov": {
+   "n": 49,
+   "returns_fire_pct": 94,
+   "median_s_to_first_return_shot": {
+    "attacker_was_already_my_target_n38": 0.35,
+    "attacker_in_view_but_not_my_target_n11": 0.95
+   },
+   "damage_taken_before_first_return_shot_median": 61,
+   "mean": 110
+  },
+  "new_attacker_outside_fov": {
+   "n": 32,
+   "turned_within_10s_pct": 50,
+   "median_turn_delay_s": 1.58,
+   "returned_fire_pct": 44,
+   "damage_taken_before_first_return_shot_median": 189,
+   "mean": 383,
+   "sustained_attacks_ge6_hits": {
+    "n": 9,
+    "turned": 8,
+    "median_s": 2.25,
+    "max_s": 9.65
+   }
+  },
+  "travel_scan": {
+   "aim_offset_from_heading_deg": {
+    "p50": 20,
+    "p90": 73
+   },
+   "sweep_amplitude_deg": 46,
+   "sweep_period_s": 4.7,
+   "share_of_time_direct_rear_is_in_view_pct": 1,
+   "share_at_90_120_deg_pct": 12
+  },
+  "reaction_to_first_hit": "no speed change (8.3 -> 8.1 m/s), airborne share 29% -> 38%"
+ },
+ "target_selection": {
+  "new_target_decisions_with_2plus_candidates": 45,
+  "chose_nearest_pct": 67,
+  "chose_lowest_hp_pct": 42,
+  "random_baseline_pct": 44,
+  "chose_last_attacker_pct": 50,
+  "run_on_same_target": {
+   "median_shots": 4,
+   "median_s": 1.9,
+   "p90_s": 11.5
+  },
+  "switch_reasons": {
+   "out_of_sight": 22,
+   "to_drone_or_crate": 18,
+   "closer_target": 15,
+   "target_died": 14,
+   "farther_target": 14
+  }
+ },
+ "movement_common": {
+  "hop": {
+   "description": "jump then jet for 1.5 s, coast: apex 14.9 m above take-off, 3.1 s airborne; energy cost = 1.5 s of jet drain (30 in replay, 22.5 on current build)",
+   "share_of_all_airborne_segments": "93 of 206 are this exact hop",
+   "obstacle_ahead_pct": 25,
+   "obstacle_baseline_pct": 28,
+   "started_within_1s_of_being_hit_pct": 22,
+   "lands_on_roof_pct": 7
+  },
+  "strafe": {
+   "reversal_interval_s": {
+    "p10": 0.4,
+    "p25": 0.6,
+    "p50": 1.1,
+    "p75": 1.8,
+    "p90": 2.7
+   },
+   "reversals_per_min": 31,
+   "current_build_stream_median_s": 0.6
+  },
+  "engaged_all_types": {
+   "mean_ground_speed_frac_of_walk": 0.85,
+   "pct_airborne": 31.8,
+   "pct_standing": 4.0,
+   "distance_m": {
+    "p10": 43,
+    "p50": 90,
+    "p90": 152
+   }
+  },
+  "not_engaged": {
+   "mean_speed_frac_of_walk": 0.88,
+   "pct_standing": 3.0,
+   "pct_heading_within_45deg_of_next_zone_centre": 35
+  },
+  "retreat": "none: at HP < 20% they still fire in 77% of frames and mean closing speed is +0.5 m/s; no hide-and-heal (during the 5 s before regeneration started they moved at 8.8 m/s and were out of every enemy line only 41% of the time)",
+  "roof_time_pct": 2.2,
+  "max_roof_height_visited_m": 14.0
+ },
+ "types": {
+  "expert": {
+   "sample": {
+    "mechs": 3,
+    "alive_s": 289.6,
+    "engaged_s": 109.3,
+    "gun_shots_at_mechs": 125,
+    "places": [
+     10,
+     9,
+     15
+    ],
+    "kills": [
+     1,
+     0,
+     0
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 60.8,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 20,
+      "hits": 20
+     },
+     "40-80": {
+      "n": 62,
+      "hits": 45
+     },
+     "80-130": {
+      "n": 34,
+      "hits": 8
+     },
+     "130-230": {
+      "n": 9,
+      "hits": 3
+     }
+    },
+    "lead_slope": 1.01,
+    "aim_residual_sd_deg": 0.65,
+    "signed_lead_error_m_vs_true_path": 1.73
+   },
+   "engage_distance_m_replay": {
+    "p10": 33.0,
+    "p50": 67.0,
+    "p90": 136.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.89,
+    "pct_standing": 1.1,
+    "pct_airborne": 41.8,
+    "mean_abs_lateral_frac_of_walk": 0.62,
+    "mean_closing_frac_of_walk": 0.03,
+    "pct_frames_closing": 33.6,
+    "pct_frames_opening": 29.7,
+    "pct_frames_strafing": 53.8,
+    "strafe_reversal_interval_s": {
+     "p10": 0.4,
+     "p50": 0.9,
+     "p90": 2.4
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": -0.16,
+     "30-50": -0.11,
+     "50-70": -0.15,
+     "70-100": -0.05,
+     "100-140": 0.25,
+     "140-240": 0.61
+    },
+    "hops_per_min_engaged": 7.7,
+    "hops_per_min_idle": 4.3
+   },
+   "style": "holds 70-100 m: closes when farther than 100 m, backs off when nearer than 70 m; strafes and hops a lot (42% of engaged time airborne); shoots drones at spawn",
+   "secondary_weapons_seen": [
+    "laser (1 of 3)",
+    "none (2 of 3)"
+   ],
+   "upgrades_seen": [
+    "gun_damage",
+    "reactor",
+    "plating",
+    "reactor"
+   ]
+  },
+  "hard": {
+   "sample": {
+    "mechs": 3,
+    "alive_s": 259.8,
+    "engaged_s": 139.7,
+    "gun_shots_at_mechs": 182,
+    "places": [
+     16,
+     7,
+     11
+    ],
+    "kills": [
+     0,
+     1,
+     0
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 41.8,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 1,
+      "hits": 1
+     },
+     "40-80": {
+      "n": 71,
+      "hits": 50
+     },
+     "80-130": {
+      "n": 62,
+      "hits": 20
+     },
+     "130-230": {
+      "n": 48,
+      "hits": 5
+     }
+    },
+    "lead_slope": 0.96,
+    "aim_residual_sd_deg": 0.66,
+    "signed_lead_error_m_vs_true_path": 2.47
+   },
+   "engage_distance_m_replay": {
+    "p10": 50.0,
+    "p50": 86.0,
+    "p90": 146.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.86,
+    "pct_standing": 0.8,
+    "pct_airborne": 28.6,
+    "mean_abs_lateral_frac_of_walk": 0.62,
+    "mean_closing_frac_of_walk": 0.23,
+    "pct_frames_closing": 45.1,
+    "pct_frames_opening": 13.7,
+    "pct_frames_strafing": 52.2,
+    "strafe_reversal_interval_s": {
+     "p10": 0.4,
+     "p50": 1.1,
+     "p90": 2.51
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": null,
+     "30-50": 0.07,
+     "50-70": 0.03,
+     "70-100": 0.24,
+     "100-140": 0.31,
+     "140-240": 0.35
+    },
+    "hops_per_min_engaged": 5.6,
+    "hops_per_min_idle": 5.0
+   },
+   "style": "slow approach (+2 m/s) with strafing; shoots crates between fights",
+   "secondary_weapons_seen": [
+    "mortar",
+    "laser",
+    "none"
+   ],
+   "upgrades_seen": [
+    "plating",
+    "plating",
+    "gun_mag",
+    "nanites"
+   ]
+  },
+  "medium": {
+   "sample": {
+    "mechs": 2,
+    "alive_s": 205.6,
+    "engaged_s": 68.8,
+    "gun_shots_at_mechs": 77,
+    "places": [
+     6,
+     14
+    ],
+    "kills": [
+     1,
+     1
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 77.9,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 13,
+      "hits": 12
+     },
+     "40-80": {
+      "n": 55,
+      "hits": 47
+     },
+     "80-130": {
+      "n": 4,
+      "hits": 1
+     },
+     "130-230": {
+      "n": 4,
+      "hits": 0
+     }
+    },
+    "lead_slope": 0.9,
+    "aim_residual_sd_deg": 1.05,
+    "signed_lead_error_m_vs_true_path": 0.23
+   },
+   "engage_distance_m_replay": {
+    "p10": 36.0,
+    "p50": 49.0,
+    "p90": 127.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.89,
+    "pct_standing": 0.0,
+    "pct_airborne": 28.3,
+    "mean_abs_lateral_frac_of_walk": 0.7,
+    "mean_closing_frac_of_walk": 0.35,
+    "pct_frames_closing": 52.3,
+    "pct_frames_opening": 3.4,
+    "pct_frames_strafing": 67.3,
+    "strafe_reversal_interval_s": {
+     "p10": 0.35,
+     "p50": 0.9,
+     "p90": 2.0
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": null,
+     "30-50": 0.15,
+     "50-70": 0.45,
+     "70-100": null,
+     "100-140": 0.53,
+     "140-240": 0.81
+    },
+    "hops_per_min_engaged": 4.4,
+    "hops_per_min_idle": 3.1
+   },
+   "style": "approaches to about 45-65 m while strafing hard (67% of frames above 5 m/s lateral)",
+   "secondary_weapons_seen": [
+    "laser then swapped to mortar",
+    "none"
+   ],
+   "upgrades_seen": [
+    "armor",
+    "reactor",
+    "laser_damage"
+   ]
+  },
+  "brawler": {
+   "sample": {
+    "mechs": 2,
+    "alive_s": 419.3,
+    "engaged_s": 118.9,
+    "gun_shots_at_mechs": 168,
+    "places": [
+     2,
+     1
+    ],
+    "kills": [
+     1,
+     4
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 39.9,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 11,
+      "hits": 11
+     },
+     "40-80": {
+      "n": 33,
+      "hits": 22
+     },
+     "80-130": {
+      "n": 84,
+      "hits": 24
+     },
+     "130-230": {
+      "n": 40,
+      "hits": 10
+     }
+    },
+    "lead_slope": 0.95,
+    "aim_residual_sd_deg": 0.65,
+    "signed_lead_error_m_vs_true_path": 2.49
+   },
+   "engage_distance_m_replay": {
+    "p10": 40.0,
+    "p50": 105.0,
+    "p90": 158.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.93,
+    "pct_standing": 0.3,
+    "pct_airborne": 20.4,
+    "mean_abs_lateral_frac_of_walk": 0.42,
+    "mean_closing_frac_of_walk": 0.63,
+    "pct_frames_closing": 74.8,
+    "pct_frames_opening": 4.0,
+    "pct_frames_strafing": 34.3,
+    "strafe_reversal_interval_s": {
+     "p10": 0.4,
+     "p50": 1.4,
+     "p90": 2.76
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": 0.2,
+     "30-50": 0.63,
+     "50-70": 0.63,
+     "70-100": 0.62,
+     "100-140": 0.54,
+     "140-240": 0.9
+    },
+    "hops_per_min_engaged": 6.6,
+    "hops_per_min_idle": 7.2
+   },
+   "style": "rushes: closes at 5-8 m/s at every distance, least strafing; with lightning runs straight into 45 m and zaps until energy is empty",
+   "secondary_weapons_seen": [
+    "lightning",
+    "laser"
+   ],
+   "upgrades_seen": [
+    "gun_damage",
+    "lightning_efficiency",
+    "gun_damage",
+    "lightning_efficiency",
+    "lightning_chain",
+    "gun_damage"
+   ]
+  },
+  "sniper": {
+   "sample": {
+    "mechs": 2,
+    "alive_s": 267.4,
+    "engaged_s": 98.6,
+    "gun_shots_at_mechs": 114,
+    "places": [
+     3,
+     12
+    ],
+    "kills": [
+     3,
+     0
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 64.9,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 14,
+      "hits": 14
+     },
+     "40-80": {
+      "n": 51,
+      "hits": 49
+     },
+     "80-130": {
+      "n": 14,
+      "hits": 6
+     },
+     "130-230": {
+      "n": 35,
+      "hits": 5
+     }
+    },
+    "lead_slope": 0.99,
+    "aim_residual_sd_deg": 0.71,
+    "signed_lead_error_m_vs_true_path": 1.66
+   },
+   "engage_distance_m_replay": {
+    "p10": 42.0,
+    "p50": 101.0,
+    "p90": 178.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.68,
+    "pct_standing": 21.2,
+    "pct_airborne": 22.4,
+    "mean_abs_lateral_frac_of_walk": 0.39,
+    "mean_closing_frac_of_walk": 0.0,
+    "pct_frames_closing": 23.9,
+    "pct_frames_opening": 25.8,
+    "pct_frames_strafing": 30.1,
+    "strafe_reversal_interval_s": {
+     "p10": 0.4,
+     "p50": 1.0,
+     "p90": 3.06
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": null,
+     "30-50": -0.16,
+     "50-70": -0.17,
+     "70-100": 0.36,
+     "100-140": -0.06,
+     "140-240": 0.11
+    },
+    "hops_per_min_engaged": 6.1,
+    "hops_per_min_idle": 7.1
+   },
+   "style": "long range (first shot median 126 m), stands still for 21% of engaged time, backs off inside 70 m, often picks a far target over a near one",
+   "secondary_weapons_seen": [
+    "laser (late)",
+    "none"
+   ],
+   "upgrades_seen": [
+    "gyros",
+    "gyros",
+    "plating",
+    "plating"
+   ]
+  },
+  "thirdparty": {
+   "sample": {
+    "mechs": 2,
+    "alive_s": 204.3,
+    "engaged_s": 50.1,
+    "gun_shots_at_mechs": 57,
+    "places": [
+     8,
+     13
+    ],
+    "kills": [
+     1,
+     0
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 70.2,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 1,
+      "hits": 1
+     },
+     "40-80": {
+      "n": 39,
+      "hits": 32
+     },
+     "80-130": {
+      "n": 11,
+      "hits": 7
+     },
+     "130-230": {
+      "n": 6,
+      "hits": 0
+     }
+    },
+    "lead_slope": 0.99,
+    "aim_residual_sd_deg": 0.89,
+    "signed_lead_error_m_vs_true_path": 1.29
+   },
+   "engage_distance_m_replay": {
+    "p10": 51.0,
+    "p50": 72.0,
+    "p90": 143.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.88,
+    "pct_standing": 1.6,
+    "pct_airborne": 50.7,
+    "mean_abs_lateral_frac_of_walk": 0.51,
+    "mean_closing_frac_of_walk": -0.31,
+    "pct_frames_closing": 12.1,
+    "pct_frames_opening": 40.1,
+    "pct_frames_strafing": 45.7,
+    "strafe_reversal_interval_s": {
+     "p10": 0.48,
+     "p50": 1.1,
+     "p90": 2.88
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": null,
+     "30-50": -0.62,
+     "50-70": -0.47,
+     "70-100": -0.08,
+     "100-140": null,
+     "140-240": -0.36
+    },
+    "hops_per_min_engaged": 12.0,
+    "hops_per_min_idle": 7.8
+   },
+   "style": "kites: opens distance at 3-6 m/s when the target is within 70 m, half of engaged time airborne; mortar from 40-140 m",
+   "secondary_weapons_seen": [
+    "mortar",
+    "mortar"
+   ],
+   "upgrades_seen": [
+    "mortar_splash",
+    "nanites"
+   ]
+  },
+  "farmer": {
+   "sample": {
+    "mechs": 2,
+    "alive_s": 329.3,
+    "engaged_s": 99.7,
+    "gun_shots_at_mechs": 128,
+    "places": [
+     5,
+     4
+    ],
+    "kills": [
+     0,
+     1
+    ]
+   },
+   "gun": {
+    "hit_pct_vs_mechs": 31.2,
+    "hit_by_range_replay_m": {
+     "0-40": {
+      "n": 0,
+      "hits": 0
+     },
+     "40-80": {
+      "n": 19,
+      "hits": 14
+     },
+     "80-130": {
+      "n": 78,
+      "hits": 17
+     },
+     "130-230": {
+      "n": 31,
+      "hits": 9
+     }
+    },
+    "lead_slope": 0.95,
+    "aim_residual_sd_deg": 0.62,
+    "signed_lead_error_m_vs_true_path": 2.45
+   },
+   "engage_distance_m_replay": {
+    "p10": 61.0,
+    "p50": 118.0,
+    "p90": 149.0
+   },
+   "movement_engaged": {
+    "mean_ground_speed_frac_of_walk": 0.84,
+    "pct_standing": 0.7,
+    "pct_airborne": 41.1,
+    "mean_abs_lateral_frac_of_walk": 0.52,
+    "mean_closing_frac_of_walk": -0.06,
+    "pct_frames_closing": 28.1,
+    "pct_frames_opening": 36.3,
+    "pct_frames_strafing": 44.0,
+    "strafe_reversal_interval_s": {
+     "p10": 0.59,
+     "p50": 1.55,
+     "p90": 3.12
+    },
+    "closing_speed_frac_of_walk_by_distance_m": {
+     "0-30": null,
+     "30-50": null,
+     "50-70": 0.24,
+     "70-100": 0.73,
+     "100-140": -0.2,
+     "140-240": -0.23
+    },
+    "hops_per_min_engaged": 8.4,
+    "hops_per_min_idle": 5.5
+   },
+   "style": "shoots crates (10 shots per minute alive, 28% of its gun shots), keeps about 100-135 m from enemies, swaps secondaries and ends on mortar",
+   "secondary_weapons_seen": [
+    "mortar",
+    "mortar"
+   ],
+   "upgrades_seen": [
+    "mortar_reload"
+   ]
+  }
+ },
+ "loot": {
+  "took_a_secondary_within_11s": "10 of 16 (nearest ground pickup 24-103 m from spawn)",
+  "never_took_one": 5,
+  "roof_pickups_taken": [
+   0,
+   10
+  ],
+  "roof_crates_destroyed": [
+   2,
+   9
+  ],
+  "ground_pickups_taken": [
+   11,
+   30
+  ],
+  "ground_crates_destroyed": [
+   14,
+   27
+  ],
+  "crate_shooting_range_m": {
+   "p10": 18,
+   "p50": 56,
+   "p90": 170
+  },
+  "cube_pickup": {
+   "crate": {
+    "picked": [
+     14,
+     16
+    ],
+    "median_delay_s": 3.3
+   },
+   "drone": {
+    "picked": [
+     16,
+     18
+    ],
+    "median_delay_s": 5.1
+   },
+   "dead_mech": {
+    "picked": [
+     18,
+     53
+    ],
+    "median_delay_s": 12.3
+   }
+  },
+  "upgrades_taken": {
+   "plating": 5,
+   "gun_damage": 4,
+   "reactor": 3,
+   "gyros": 2,
+   "nanites": 2,
+   "lightning_efficiency": 2,
+   "gun_mag": 1,
+   "mortar_splash": 1,
+   "mortar_reload": 1,
+   "armor": 1,
+   "laser_damage": 1,
+   "lightning_chain": 1
+  }
+ },
+ "drones": {
+  "killed": [
+   9,
+   12
+  ],
+  "killed_in_first_60s": 8,
+  "kill_duration_s": {
+   "min": 2.6,
+   "median": 2.9,
+   "max": 16.2
+  },
+  "damage_taken_by_killer": [
+   0,
+   238
+  ],
+  "hits_on_mechs_that_had_not_attacked_them": [
+   8,
+   35
+  ]
+ },
+ "supply_drops": {
+  "captured": [
+   2,
+   2
+  ],
+  "contested": 1,
+  "mechs_entering_ring": [
+   2,
+   1
+  ],
+  "alive_at_call": [
+   11,
+   5
+  ],
+  "note": "the nearest 1-2 bots walk in; one stood in the ring 9 s before landing and was killed there"
+ },
+ "zone": {
+  "r_over_R": {
+   "p10": 0.22,
+   "p50": 0.41,
+   "p90": 0.71
+  },
+  "starts_rotating": "at announcement (previous shrink_end)",
+  "inside_next_circle_before_shrink_start_s": [
+   33,
+   58
+  ],
+  "zone_damage_total": 1456,
+  "zone_deaths": 1,
+  "trap": "mech 2 hopped around the stadium bowl (x -190..-260, y 48..83) for 80 s with empty energy and died to the zone"
+ },
+ "deaths": {
+  "n": 15,
+  "killing_weapon": {
+   "gun": 9,
+   "laser": 3,
+   "mortar": 1,
+   "lightning": 1,
+   "zone": 1
+  },
+  "damage_share_last_10s_pct": {
+   "gun": 59,
+   "lightning": 21,
+   "laser": 12,
+   "mortar": 4,
+   "zone": 4
+  },
+  "two_attackers": 7,
+  "never_shot_back_at_one_attacker": 7,
+  "rear_damage_share_pct": 27,
+  "median_distance_to_main_attacker_m": 62,
+  "died_in_open_gt20m_from_wall": [
+   9,
+   15
+  ],
+  "median_fight_duration_s": 11.4
+ }
+}

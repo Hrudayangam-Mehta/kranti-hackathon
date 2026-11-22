@@ -1,0 +1,28 @@
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree)
+warning: unused variable: `parse_units`
+   --> src/fast/mod.rs:510:9
+    |
+510 |     let parse_units = ctx.units.len();
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_parse_units`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `first_click` is never read
+   --> src/fast/mod.rs:113:5
+    |
+ 87 | struct Ctx<'a> {
+    |        --- field in this struct
+...
+113 |     first_click: usize,
+    |     ^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `WAIT_LINKS` is never used
+  --> src/fast/trace.rs:12:11
+   |
+12 | pub const WAIT_LINKS: usize = 4;
+   |           ^^^^^^^^^^
+
+warning: `sessions` (bin "sessions") generated 3 warnings (run `cargo fix --bin "sessions" -p sessions` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 24.76s

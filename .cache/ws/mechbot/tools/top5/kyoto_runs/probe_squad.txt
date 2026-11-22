@@ -1,0 +1,117 @@
+== kyoto43: per match
+seed 1: score 6 kills 6 alive 63.75s died gun:hard@110.3m; first mech shot 22.9s, first farm hit 3.2s, moved 157.9 m by 30 s
+   economy 30/60/90/120/180: 4c/2u/gl  8c/3u/gl  dead  dead  dead; cubes at end 8
+   takes 3:lightning 30:laser | upgrades 7:armor 28:nanites 44:armor
+   kills at 26,34,41,50,56,61 by {"lightning":1,"laser":4,"gun":1} | fatal fight from 39.1s at hp 0.9, attackers 6, alive 10, hunters 7, zone margin 470.3
+seed 2: score 8 kills 8 alive 118.25s died gun:expert@93.9m; first mech shot 31.8s, first farm hit 4.8s, moved 172.3 m by 30 s
+   economy 30/60/90/120/180: 4c/2u/gli  7c/3u/gl  14c/4u/gl  dead  dead; cubes at end 21
+   takes 3:lightning 50:laser | upgrades 10:armor 20:gun_velocity 37:armor 68:servos 97:laser_charge 110:servos
+   kills at 35,54,62,70,91,96,101,113 by {"lightning":1,"laser":7} | fatal fight from 111.4s at hp 0.7, attackers 4, alive 8, hunters 7, zone margin 148
+seed 3: score 2 kills 2 alive 82.65s died mortar:easy@50.7m; first mech shot 26.4s, first farm hit 26.6s, moved 220.5 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/g  1c/1u/g  dead  dead  dead; cubes at end 5
+   takes  | upgrades 60:gun_rate 60:armor
+   kills at 50,66 by {"gun":2} | fatal fight from 81.9s at hp 0.1, attackers 2, alive 14, hunters 3, zone margin 292.4
+seed 4: score 6 kills 6 alive 92.05s died gun:hard@39.3m; first mech shot 35.2s, first farm hit 0.7s, moved 160.4 m by 30 s
+   economy 30/60/90/120/180: 3c/2u/gli  7c/3u/gli  12c/4u/gli  dead  dead; cubes at end 12
+   takes 5:lightning | upgrades 5:plating 22:reactor 55:servos 80:servos
+   kills at 43,53,62,73,81,89 by {"lightning":5,"gun":1} | fatal fight from 70.2s at hp 0.7, attackers 5, alive 10, hunters 7, zone margin 312.9
+seed 5: score 7 kills 7 alive 90.05s died lightning:easy@34.2m; first mech shot 14.9s, first farm hit 0.2s, moved 156.2 m by 30 s
+   economy 30/60/90/120/180: 4c/2u/gl  8c/3u/gl  16c/5u/gl  dead  dead; cubes at end 16
+   takes 24:laser | upgrades 4:jets 29:gun_rate 36:laser_damage 62:laser_charge 84:capacitor
+   kills at 26,33,51,66,72,79,83 by {"laser":7} | fatal fight from 82.8s at hp 0.7, attackers 3, alive 9, hunters 8, zone margin 234.2
+seed 6: score 7 kills 7 alive 128.35s died laser:hard@124.5m; first mech shot 30.3s, first farm hit 4.8s, moved 29.1 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/g  5c/2u/gl  10c/4u/gl  22c/6u/gl  dead; cubes at end 22
+   takes 32:laser | upgrades 32:nanites 43:armor 78:servos 86:laser_damage 101:servos 112:jets
+   kills at 38,67,78,83,90,107,115 by {"gun":2,"laser":5} | fatal fight from 114.6s at hp 1, attackers 4, alive 9, hunters 8, zone margin 82.2
+== kyoto43: pooled
+first mech shot s: p25 22.9 med 30.3 p75 31.8 (n 6) | first mech damage s: p25 22.9 med 30.5 p75 31.9 (n 6) | first farm hit s: p25 0.7 med 4.8 p75 4.8 (n 6)
+displacement from spawn at 30 s (m): p25 156.2 med 160.4 p75 172.3 (n 6) | farming share of first 60 s: p25 0.2 med 0.2 p75 0.2 (n 6)
+hit distance m  laser: p25 55.5 med 90.9 p75 116 (n 57)  gun: p25 44.5 med 63 p75 94 (n 510)  lightning: p25 23.7 med 28.1 p75 32.7 (n 77)
+nearest enemy in fights, loadout g: p25 39.1 med 53.5 p75 70.8 (n 122)
+nearest enemy in fights, loadout gl: p25 68.6 med 91.8 p75 109.3 (n 334)
+nearest enemy in fights, loadout gli: p25 27.5 med 35.4 p75 48.4 (n 140)
+hp fraction while retreating from last attacker (>3 m/s away): p25 0.4 med 0.7 p75 0.9 (n 81) | while closing (>3 m/s in): p25 0.5 med 0.7 p75 0.8 (n 134)
+retreat samples with hp<0.4: 21 of 81 ; closing samples with hp<0.4: 25 of 134
+boost start energy: p25 28 med 30 p75 42 (n 300) | boost stop energy: p25 27 med 30 p75 32 (n 297)
+boost while charging laser: 55.6% of 403 frames | while charging and hit in last 2 s: 45.7% of 188 frames | moving, hit in last 2 s, not charging: 31.5% of 1319 frames | calm (no damage either way 2 s): 8.1% of 2787 frames
+move-direction flips per s in fights: p25 0.5 med 0.8 p75 0.9 (n 6)
+laser releases: 70 charge frac p25 0.8 med 1 p75 1 (n 70) partial 27 partial that killed 16
+zone margin m (frames): p25 190.8 med 279.3 p75 380.4 (n 5748) min 82.2
+== magic558: per match
+seed 1: score 4 kills 4 alive 85.25s died gun:easy@18.7m; first mech shot 0.2s, first farm hit 0.4s, moved 164.7 m by 30 s
+   economy 30/60/90/120/180: 3c/2u/gli  5c/2u/gli  dead  dead  dead; cubes at end 5
+   takes 3:lightning | upgrades 6:armor 24:jets
+   kills at 21,31,56,81 by {"gun":2,"lightning":2} | fatal fight from 80.5s at hp 0.1, attackers 2, alive 12, hunters 5, zone margin 370.9
+seed 2: score 8 kills 8 alive 129.55s died laser:hard@45.5m; first mech shot 9.8s, first farm hit 5.9s, moved 192.6 m by 30 s
+   economy 30/60/90/120/180: 2c/1u/gli  8c/3u/gli  15c/5u/gli  18c/5u/gli  dead; cubes at end 18
+   takes 3:lightning | upgrades 10:armor 34:armor 48:gun_damage 79:capacitor 81:armor
+   kills at 30,45,65,69,78,94,106,122 by {"lightning":4,"gun":4} | fatal fight from 119.9s at hp 0.3, attackers 4, alive 8, hunters 7, zone margin 170.6
+seed 3: score 3 kills 3 alive 79.55s died gun:medium@35.2m; first mech shot 31.4s, first farm hit -s, moved 15.3 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/g  2c/1u/g  dead  dead  dead; cubes at end 4
+   takes  | upgrades 51:gun_damage 65:nanites
+   kills at 47,59,77 by {"gun":3} | fatal fight from 65.4s at hp 0.5, attackers 4, alive 13, hunters 4, zone margin 365.1
+seed 4: score 3 kills 3 alive 58.45s died lightning:easy@31.2m; first mech shot 11.4s, first farm hit 0.6s, moved 236.3 m by 30 s
+   economy 30/60/90/120/180: 4c/2u/gli  dead  dead  dead  dead; cubes at end 10
+   takes 3:lightning | upgrades 3:plating 23:capacitor 44:capacitor 52:nanites
+   kills at 41,48,56 by {"gun":2,"lightning":1} | fatal fight from 49.2s at hp 0.9, attackers 2, alive 13, hunters 4, zone margin 434.1
+seed 5: score 7 kills 7 alive 83.6s died gun:expert@71m; first mech shot 0.3s, first farm hit -s, moved 202.5 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/gli  7c/3u/gl  dead  dead  dead; cubes at end 7
+   takes 19:lightning 33:laser | upgrades 33:reactor 33:capacitor 50:laser_damage
+   kills at 17,30,38,44,62,66,74 by {"gun":2,"lightning":1,"laser":4} | fatal fight from 65.9s at hp 0.9, attackers 4, alive 9, hunters 8, zone margin 202.8
+seed 6: score 2 kills 2 alive 143.55s died npc:npc@nullm; first mech shot 3.8s, first farm hit 3.9s, moved 177.9 m by 30 s
+   economy 30/60/90/120/180: 1c/1u/gm  1c/1u/gm  1c/1u/gm  1c/1u/gm  dead; cubes at end 1
+   takes 2:mortar 126:lightning | upgrades 7:plating
+   kills at 30,102 by {"gun":2} | fatal fight from 142.6s at hp 0.2, attackers 1, alive 14, hunters 3, zone margin 227.2
+== magic558: pooled
+first mech shot s: p25 0.3 med 9.8 p75 11.4 (n 6) | first mech damage s: p25 10.5 med 14.4 p75 29.5 (n 6) | first farm hit s: p25 0.6 med 3.9 p75 5.9 (n 6)
+displacement from spawn at 30 s (m): p25 164.7 med 192.6 p75 202.5 (n 6) | farming share of first 60 s: p25 0 med 0.2 p75 0.2 (n 6)
+hit distance m  laser: p25 124.2 med 158.5 p75 175.8 (n 14)  gun: p25 41.8 med 54 p75 87.1 (n 561)  lightning: p25 32.5 med 38.3 p75 39.7 (n 183)
+nearest enemy in fights, loadout g: p25 42.8 med 57.3 p75 71.8 (n 269)
+nearest enemy in fights, loadout gl: p25 105.7 med 115.8 p75 136.6 (n 79)
+nearest enemy in fights, loadout gli: p25 41.8 med 55.1 p75 81.1 (n 359)
+hp fraction while retreating from last attacker (>3 m/s away): p25 0.1 med 0.3 p75 0.4 (n 107) | while closing (>3 m/s in): p25 0.3 med 0.6 p75 0.9 (n 143)
+retreat samples with hp<0.4: 79 of 107 ; closing samples with hp<0.4: 54 of 143
+boost start energy: p25 30 med 60 p75 100 (n 120) | boost stop energy: p25 31 med 39 p75 81 (n 118)
+boost while charging laser: 0% of 145 frames | while charging and hit in last 2 s: 0% of 49 frames | moving, hit in last 2 s, not charging: 34.5% of 1540 frames | calm (no damage either way 2 s): 5.7% of 2302 frames
+move-direction flips per s in fights: p25 0.3 med 0.5 p75 0.5 (n 6)
+laser releases: 16 charge frac p25 1 med 1 p75 1 (n 16) partial 4 partial that killed 4
+zone margin m (frames): p25 258.3 med 374.6 p75 405.8 (n 5796) min 128.2
+== ours: per match
+seed 1: score 6 kills 6 alive 100.25s died laser:hard@39.8m; first mech shot 12.5s, first farm hit 3.1s, moved 117.1 m by 30 s
+   economy 30/60/90/120/180: 3c/2u/gli  5c/2u/gl  7c/3u/gl  dead  dead; cubes at end 7
+   takes 3:lightning 41:laser | upgrades 7:armor 29:nanites 63:nanites
+   kills at 27,50,63,69,82,93 by {"lightning":1,"laser":5} | fatal fight from 96.6s at hp 0.4, attackers 3, alive 10, hunters 7, zone margin 183.6
+seed 2: score 5 kills 5 alive 134.45s died gun:hard@68.3m; first mech shot 77.8s, first farm hit 7.2s, moved 169.3 m by 30 s
+   economy 30/60/90/120/180: 4c/2u/gli  4c/2u/gli  4c/2u/gli  13c/4u/gli  dead; cubes at end 13
+   takes 3:lightning | upgrades 11:gun_rate 23:lightning_efficiency 102:plating 117:lightning_chain
+   kills at 90,107,113,129,134 by {"gun":3,"lightning":2} | fatal fight from 112.6s at hp 1, attackers 5, alive 11, hunters 6, zone margin 298.4
+seed 3: score 2 kills 2 alive 81.35s died gun:medium@35.5m; first mech shot 59.3s, first farm hit 4.4s, moved 89.9 m by 30 s
+   economy 30/60/90/120/180: 1c/1u/g  1c/1u/gl  dead  dead  dead; cubes at end 1
+   takes 55:laser | upgrades 22:gun_rate
+   kills at 65,73 by {"laser":1,"gun":1} | fatal fight from 67.6s at hp 0.9, attackers 3, alive 14, hunters 3, zone margin 262.8
+seed 4: score 4 kills 4 alive 86s died lightning:medium@18.2m; first mech shot 27.8s, first farm hit 0.6s, moved 240.8 m by 30 s
+   economy 30/60/90/120/180: 1c/1u/gli  7c/3u/gli  dead  dead  dead; cubes at end 11
+   takes 5:lightning | upgrades 5:plating 36:lightning_chain 54:lightning_efficiency 69:gun_damage
+   kills at 33,51,66,69 by {"lightning":3,"gun":1} | fatal fight from 63.1s at hp 1, attackers 4, alive 12, hunters 5, zone margin 313.2
+seed 5: score 1 kills 1 alive 70.45s died lightning:easy@39.3m; first mech shot 36.5s, first farm hit 46.4s, moved 214.7 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/g  2c/1u/g  dead  dead  dead; cubes at end 4
+   takes  | upgrades 49:nanites 64:gun_damage
+   kills at 44 by {"gun":1} | fatal fight from 62.3s at hp 1, attackers 1, alive 15, hunters 2, zone margin 281.2
+seed 6: score 2 kills 0 alive 93.3s died gun:expert@20m; first mech shot 75.1s, first farm hit 3.1s, moved 153.5 m by 30 s
+   economy 30/60/90/120/180: 0c/0u/g  0c/0u/g  0c/0u/g  dead  dead; cubes at end 0
+   takes  | upgrades 
+   kills at  by {} | fatal fight from 77.6s at hp 1, attackers 2, alive 14, hunters 3, zone margin 266.9
+== ours: pooled
+first mech shot s: p25 27.8 med 59.3 p75 75.1 (n 6) | first mech damage s: p25 27.8 med 59.5 p75 75.1 (n 6) | first farm hit s: p25 3.1 med 4.4 p75 7.2 (n 6)
+displacement from spawn at 30 s (m): p25 117.1 med 169.3 p75 214.7 (n 6) | farming share of first 60 s: p25 0.1 med 0.2 p75 0.2 (n 6)
+hit distance m  laser: p25 32.1 med 52.7 p75 61.1 (n 22)  gun: p25 36.3 med 47.7 p75 62.4 (n 349)  lightning: p25 31.4 med 34.3 p75 38.1 (n 103)
+nearest enemy in fights, loadout g: p25 35.8 med 44.5 p75 55.1 (n 68)
+nearest enemy in fights, loadout gl: p25 34.2 med 44.9 p75 61.3 (n 121)
+nearest enemy in fights, loadout gli: p25 38.2 med 54.6 p75 77.5 (n 175)
+hp fraction while retreating from last attacker (>3 m/s away): p25 0.4 med 0.8 p75 0.9 (n 68) | while closing (>3 m/s in): p25 0.4 med 0.8 p75 0.9 (n 95)
+retreat samples with hp<0.4: 22 of 68 ; closing samples with hp<0.4: 26 of 95
+boost start energy: p25 83 med 100 p75 100 (n 83) | boost stop energy: p25 72 med 85 p75 93 (n 83)
+boost while charging laser: 34.9% of 192 frames | while charging and hit in last 2 s: 51.3% of 115 frames | moving, hit in last 2 s, not charging: 19.5% of 1243 frames | calm (no damage either way 2 s): 3.4% of 3813 frames
+move-direction flips per s in fights: p25 0.9 med 1 p75 1 (n 6)
+laser releases: 25 charge frac p25 1 med 1 p75 1 (n 25) partial 7 partial that killed 6
+zone margin m (frames): p25 281.8 med 334.7 p75 367.6 (n 5654) min 135.7

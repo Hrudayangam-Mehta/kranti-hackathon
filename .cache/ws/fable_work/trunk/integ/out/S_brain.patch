@@ -1,0 +1,57 @@
+--- survive/ref_ch1/lib/brain.js	2026-11-22 03:29:38.073244429 +0000
++++ survive/tree/lib/brain.js	2026-11-22 04:10:59.684921243 +0000
+@@ -23,6 +23,7 @@
+ import { makeAimCal } from './aimcal.js'
+ import { makeHunt } from './hunt.js'
+ import { makeUtil } from './util.js'
++import { makeSurvive } from './survive.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -254,6 +255,8 @@
+   const hunt = makeHunt(B, mover, econ)
+   B.hunt = hunt
+   if (P.utilTgt === true || P.utilWait === true) B.util = makeUtil(B, hunt, mover)      // Fable util: undefined at 'off'
++  // HB2 Fable trunk S (lib/survive.js): undefined with every sv preset off, so every B.sv hook below is a no-op
++  if (P.svDropOn === true || P.svRegenOn === true || P.svFireOn === true || P.svFarmOn === true) B.sv = makeSurvive(B, hunt, mover, hideSearch, econ)
+   // Fable upgFix: the upgrade order against config.upgrades, checked at match start in every preset value (counted + logged);
+   // 'on' (SQUAD posture + hunt.firewall): unknown ids are replaced by their real id (mortar_damage -> mortar_reload, mortar_rate ->
+   // mortar_velocity) or dropped, and config ids missing from the order are appended in config order
+@@ -385,6 +388,7 @@
+   function holdLegs() {
+     const me = B.me, t = me.t, z = B.zone
+     if (B.util && B.util.waitLegs()) return                                      // Fable util 'wait'
++    if (B.sv && B.sv.holdLegs()) return                                          // HB11 (survive.js; reserved, neutral)
+     if ((P.hunt50 === true || P.seekOn === true) && hunt.seekLegs()) return     // R4a seek (firewall inside)
+     if (stance.idleLegs()) return
+     if (!z.known) { postLegs(false); B.legKind = 'hold'; return }
+@@ -429,6 +433,7 @@
+ 
+   /** D3 retreat (LOSING: break the line, keep shooting) and HEAL (in cover, stand or creep, fetch cubes within 40 m). */
+   function retreatLegs() {
++    if (B.sv && B.sv.retreatLegs()) return                                       // HB10 (survive.js; reserved, neutral)
+     const me = B.me, t = me.t, h = B.hide, cmd = B.cmd
+     const top = B.topAttacker || B.target || B.nearestMech
+     const exposed = t - B.lastLosInT <= 0.5 || t - me.lastShotAtT <= 1.0
+@@ -663,6 +668,7 @@
+     if (P.boostCharge === true && B.env !== 'FFA' && B.mode !== MODE.ZONE && me.grounded && !cmd.boost && !B.rush && !B.fkWalk && me.laser && me.laser.charge > 0 &&
+       (B.nLos >= 1 || me.t - me.lastHurtT <= P.bsHurtS) && me.energy > P.bcEnergy && me.energy > (me.lightning ? P.lightReserve + 10 : 0) &&
+       Math.hypot(cmd.mx, cmd.my) >= 0.05 && hunt.firewall()) { cmd.boost = true; B.counters.boostCharge = (B.counters.boostCharge || 0) + 1 }
++    if (B.sv) B.sv.boost()                                                       // HB12 (survive.js svDrop: boost to our drop)
+     // D4 bullet-aware dodge on top of the tactical move (not while the zone needs every metre)
+     if (!(B.mode === MODE.ZONE && (!me.inZone || B.zoneMargin < 2)) && B.legKind !== 'hop' && B.legKind !== 'beamhide') mover.bulletDodge()
+     finishLegs()
+@@ -733,11 +739,12 @@
+         ffaM.update(obs)
+         hunt.pre(obs)
+         if (B.util) B.util.pre()                         // Fable util (inert outside SQUAD + firewall)
++        if (B.sv) B.sv.pre(obs)                          // HB4 Fable trunk S (survive.js; inert outside SQUAD + firewall)
+         selectTarget(B)
+         hunt.post()
+         finUpdate(B)                                     // R7a FIN (inert unless P.finTtk)
+       })
+-      stage('econ', () => econ.update())
++      stage('econ', () => { econ.update(); if (B.sv) B.sv.post() })      // HB6 (survive.js: svDrop latch -> B.dl, regen hold)
+       stage('zone', () => mover.zoneCheck())
+       stage('mode', () => {
+         const heading = B.mode === MODE.HEAL || B.mode === MODE.DISENGAGE || B.legKind === 'beamhide'

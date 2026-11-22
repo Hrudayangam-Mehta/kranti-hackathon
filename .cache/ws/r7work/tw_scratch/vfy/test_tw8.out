@@ -1,0 +1,17 @@
+PASS  rehearsal with an override runs; main P untouched before the first decision  ::  rehearsal 1752 ms, failures 0, lose3Hpf 0.6
+PASS  tw preset: only "off" (empty), SELECT tw "off", placed just before healDoc (still the last key)  ::  tw {"off":{}}, last keys fb,tw,healDoc
+PASS  tw off: resolved params identical to the reference tree, no sqOverrides key (DEF / KS / KB / KSF)  ::  DEF same (516 keys), KS same (516 keys), KB same (516 keys), KSF same (516 keys)
+PASS  collection: merged in SELECT order (aggr < tw < healDoc), later wins; plain preset keys still go to P; frozen copy  ::  tw tA {"lose3Hpf":0.5,"h50SeekFromS":10}; aggr tC + tw tA + healDoc tB {"h50SeekFromS":10,"killCubeR":150,"lose3Hpf":0.45}, P.healEnte
+PASS  a plain overrides.sqOverrides replaces the preset set (the rehearsal copies P this way)  ::  {"killCubeR":120}
+PASS  refusal: every SQ_REFUSED key (27) throws at resolve time  ::  warmup rehearseN rehearseFfaN warmPocket rngSalt salt anchorCfg arenaMargin hideMaxR hideStep aimLadder gunLadderTop ffaCounters counterParams cxFinish cxKiterRamp cxBrawler env h50ForeignMax
+PASS  refusal through a preset value, a typo key, a string / NaN number, a scalar for an array key  ::  sqOverrides refused: hideMaxR: refused (init: hide-cell lattice) | sqOverrides refused: lose3hpf: not a PARAMS key | sqOverrides refused: lose3Hpf: "0.5" is
+PASS  the init-only list covers the init reads found by the P-read trace (warmup ... anchorCfg) and the firewall keys  ::  27 refused keys
+PASS  (a) SQUAD: the override changes the decisions (lose3Hpf 0.6 -> 0.5 at 58% hp, three lines: no LOSING retreat)  ::  modes base DDDDDDDDDDDDDD / override FFFFFFFFFFFFFF; layer on 11111111111111; flips 1
+PASS  (b) forced FFA: with the override byte-identical to no override (actions, modes, legs), P never written  ::  FFA modes DDDDDDDDDDDDDD / DDDDDDDDDDDDDD, identical true, flips 0
+PASS  control (forced FFA, ffaRules off): as a plain preset the value acts in FFA, as a SQUAD-only override it does not  ::  FFA modes base DDDDDDDDDDDDDD / plain preset FFFFFFFFFFFFFF / override DDDDDDDDDDDDDD; P.lose3Hpf 0.5 / 0.6
+PASS  (c) foreign death: reverted at the death decision (P back to base, every key), FIGHT until it, LOSING retreat from the next decision as without override  ::  layer on 11111100000000, lose3Hpf 0.5,0.5,0.5,0.5,0.5,0.5,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6, modes
+PASS  (c2) late zone (next radius 400 -> 60 at decision 6) and 3 alive close the firewall: reverted in that decision  ::  zone: on 11111100000000 lose3Hpf@6 0.6; alive 3: on 11111100000000 lose3Hpf@6 0.6
+PASS  (c3) O(keys): one write per key per flip (flips 1 on, 1 off), no per-decision writes  ::  flips 1 / 2
+PASS  empty override set {} = no layer (no flips, identical stream)  ::  identical true
+
+15/15 TW checks passed

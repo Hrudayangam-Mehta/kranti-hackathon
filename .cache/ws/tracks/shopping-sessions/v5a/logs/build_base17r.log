@@ -1,0 +1,41 @@
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/base_tree)
+warning: function `lookup` is never used
+   --> src/fast/keys.rs:131:8
+    |
+131 | pub fn lookup(bytes: &[u8]) -> Option<u64> {
+    |        ^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `BAR_ALL` is never used
+  --> src/fast/trace.rs:24:11
+   |
+24 | pub const BAR_ALL: usize = 16;
+   |           ^^^^^^^
+
+warning: constant `MERGE` is never used
+  --> src/fast/trace.rs:25:11
+   |
+25 | pub const MERGE: usize = 17;
+   |           ^^^^^
+
+warning: constant `BAR_MERGE` is never used
+  --> src/fast/trace.rs:26:11
+   |
+26 | pub const BAR_MERGE: usize = 18;
+   |           ^^^^^^^^^
+
+warning: constant `PERSONS` is never used
+  --> src/fast/trace.rs:27:11
+   |
+27 | pub const PERSONS: usize = 19;
+   |           ^^^^^^^
+
+warning: constant `RECLICK` is never used
+  --> src/fast/trace.rs:28:11
+   |
+28 | pub const RECLICK: usize = 20;
+   |           ^^^^^^^
+
+warning: `sessions` (bin "sessions") generated 6 warnings
+    Finished `release` profile [optimized] target(s) in 26.21s

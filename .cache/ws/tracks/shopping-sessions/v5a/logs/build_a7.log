@@ -1,0 +1,23 @@
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree)
+warning: function `radix_by_ts` is never used
+    --> src/fast/mod.rs:1399:4
+     |
+1399 | fn radix_by_ts<T: Copy + Default>(data: &mut Vec<T>, spare: &mut Vec<T>, low: u32, high: u32, ts: impl Fn(&T) -> u32) {
+     |    ^^^^^^^^^^^
+     |
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `spare` and `click_spare` are never read
+    --> src/fast/mod.rs:1454:5
+     |
+1440 | struct Worker {
+     |        ------ fields in this struct
+...
+1454 |     spare: Vec<Rec>,
+     |     ^^^^^
+1455 |     click_recs: Vec<ClickTmp>,
+1456 |     click_spare: Vec<ClickTmp>,
+     |     ^^^^^^^^^^^
+
+warning: `sessions` (bin "sessions") generated 2 warnings
+    Finished `release` profile [optimized] target(s) in 45.51s

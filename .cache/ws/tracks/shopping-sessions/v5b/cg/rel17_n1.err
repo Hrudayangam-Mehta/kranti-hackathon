@@ -1,0 +1,17 @@
+==498== Cachegrind, a high-precision tracing profiler
+==498== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==498== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==498== Command: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/rel17
+==498== 
+lane F off: no key candidate passed
+setup       805.4 ms
+links       277.1 ms on one thread
+dedup     10580.3 ms
+people    13238.2 ms
+surviving events 975921, user_daily rows 117561
+sessions 179934 / 179934, revenue 371100134 / 371100134, assisted 1945357 >= 111430
+lane F winners 0, lane G share 100.00%
+event copies 1039805, winners 975921, clicks 254222, linked 60076, exotic 0
+write     13279.3 ms
+==498== 
+==498== I refs:        1,218,650,152

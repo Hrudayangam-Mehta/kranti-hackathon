@@ -1,0 +1,11 @@
+--- survive/ref_ch1/lib/params.js	2026-11-22 03:35:52.800792614 +0000
++++ survive/tree/lib/params.js	2026-11-22 04:41:09.258006168 +0000
+@@ -367,7 +395,7 @@
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'on', aggr: 'any70f',
+   r3a2: 'on', pocketCfg: 'on', io: 'v4', ioMerge: 'on', loseExit: 'off', loseCover: 'never', oneHit: 'off', fightOn: 'off', finish: 'off', isolate: 'any', seekCrowd: 'off', laserGrab: 'spawn', anchorCfg: 'on', warmPocket: 'on', fb: 'on',
+-  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', healDoc: 'off' }
++  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', svDrop: 'off', svRegen: 'off', svFire: 'off', svFarm: 'off', healDoc: 'off' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }

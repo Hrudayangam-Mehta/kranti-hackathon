@@ -1,0 +1,1579 @@
+// Tests for bot/lib/brain.js. DEV ONLY (not shipped logic).
+// Run:  taskset -c 0 bun tools/test_brain.js        (or node tools/test_brain.js)      --quick = shorter fuzz
+// a. stream replay (with and without the map): no exception, valid actions, decision time
+// b. closed-loop scenarios in the micro-arena (tools/arena_micro.js)
+// c. the full simulator, if P/sim/run.js exists, is driven separately (see notes/brain_checkpoint.md)
+
+import { readFileSync, existsSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { Arena, rng32 } from './arena_micro.js'
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+const { World } = await import('../bot/lib/world.js')
+const { Nav } = await import('../bot/lib/nav.js')
+const { createBrain: createBrain0 } = await import('../bot/lib/brain.js')
+// pass 2b: the checks before group `pass2b` script fights with mechs inside the first 75 s (the arena clock starts at 0),
+// which the farm-first opening (preset openFarm, default on) forbids by design; they run with openFarm off and every
+// other default. TB_SELECT='{}' runs them with the plain defaults; any JSON adds preset choices (explicit selects win).
+// Group `pass2b` (and everything built through tools/review_tactics/scen.js) uses the plain defaults.
+const TB_SELECT = process.env.TB_SELECT ? JSON.parse(process.env.TB_SELECT) : { openFarm: 'off' }
+const createBrain = (h, c, o) => TB_SELECT ? createBrain0(h, c, { ...(o || {}), select: { ...TB_SELECT, ...((o && o.select) || {}) } }) : createBrain0(h, c, o)
+const QUICK = process.argv.includes('--quick')
+const ONLY = (process.argv.find((a) => a.startsWith('--only=')) || '').slice(7)
+
+const lines = gunzipSync(readFileSync(join(ROOT, 'kit/check/stream.jsonl.gz'))).toString('utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l))
+const hello = lines.find((l) => l.type === 'hello')
+const streamObs = lines.filter((l) => l.type === 'obs')
+const cfg = hello.config
+const world = World.loadSync(join(ROOT, 'kit', 'arena'))
+const nav = new Nav(world, { cell: 2, stepUp: cfg.mech.step_up, maxSlopeDeg: cfg.mech.max_slope_deg })
+const logs = []
+const ctxMap = { world, nav, log: (...a) => logs.push(a.join(' ')) }
+const ctxNone = { world: null, nav: null, log: (...a) => logs.push(a.join(' ')) }
+// the first brain of the process runs the start-up rehearsal (D10); its record is checked below
+const firstBrainState = createBrain(hello, ctxMap).debugState()
+
+const results = []
+function check(name, passed, detail) {
+  results.push({ name, passed: !!passed })
+  console.log((passed ? 'PASS  ' : 'FAIL  ') + name + '  ::  ' + detail)
+}
+const want = (name) => !ONLY || name.includes(ONLY)
+const fx = (v, n = 2) => (typeof v === 'number' ? v.toFixed(n) : String(v))
+
+function validAction(a) {
+  if (!a || typeof a !== 'object') return 'not an object'
+  if (!Array.isArray(a.move) || a.move.length !== 2 || !a.move.every(Number.isFinite)) return 'move'
+  if (Math.hypot(a.move[0], a.move[1]) > 1 + 1e-9) return 'move length'
+  if (!Array.isArray(a.aim) || a.aim.length !== 2 || !a.aim.every(Number.isFinite)) return 'aim'
+  if (!Array.isArray(a.fire) || a.fire.length !== 2 || !a.fire.every((f) => typeof f === 'boolean')) return 'fire'
+  if (typeof a.boost !== 'boolean') return 'boost'
+  if ('jump' in a && typeof a.jump !== 'boolean') return 'jump'
+  if ('reload' in a && typeof a.reload !== 'boolean') return 'reload'
+  if ('pick' in a && !(Number.isInteger(a.pick) && a.pick >= 0 && a.pick <= 2)) return 'pick'
+  if ('take' in a && !(Number.isInteger(a.take) && a.take >= 0)) return 'take'
+  if ('drop' in a && !(a.drop === 0 || a.drop === 1)) return 'drop'
+  return null
+}
+const quant = (arr, p) => { const s = Float64Array.from(arr).sort(); return s[Math.min(s.length - 1, Math.floor(s.length * p))] }
+
+/** Drive an arena with a brain for `seconds`. hook(arena, obs, action, brain) runs every decision. */
+function drive(arena, brain, seconds, hook) {
+  const n = Math.round(seconds * 10)
+  let bad = null
+  for (let k = 0; k < n; k++) {
+    const obs = arena.obs()
+    const t0 = performance.now()
+    const a = brain.act(obs, t0 + 27.5)
+    allTimes.push(performance.now() - t0)
+    const v = validAction(a)
+    if (v && !bad) bad = `tick ${obs.tick}: ${v}`
+    if (hook) hook(arena, obs, a, brain)
+    arena.step(a)
+  }
+  return bad
+}
+const allTimes = []
+const { resolveParams } = await import('../bot/lib/params.js')
+const HEAL_EXIT = resolveParams({}).healExit
+const BIGHP = 1e7
+const face = (e, ar) => { e.yaw = Math.atan2(ar.me.y - e.y, ar.me.x - e.x) }
+
+// ============================================================================ a. stream replay
+if (want('stream')) {
+  for (const [label, ctx] of [['map', ctxMap], ['no map', ctxNone]]) {
+    // three passes: the first includes JIT warm-up of a cold process, the best pass is what a warmed bot does
+    const passes = []
+    let bad = null, threw = null
+    for (let pass = 0; pass < 3; pass++) {
+      const brain = createBrain(hello, ctx)
+      const times = []
+      for (const o of streamObs) {
+        const t0 = performance.now()
+        let a
+        try { a = brain.act(o, t0 + 27.5) } catch (e) { threw = threw || String(e && e.stack) }
+        times.push(performance.now() - t0)
+        const v = validAction(a)
+        if (v && !bad) bad = `tick ${o.tick}: ${v}`
+      }
+      const st = brain.debugState()
+      passes.push({ mean: times.reduce((a, b) => a + b, 0) / times.length, p99: quant(times, 0.99), max: Math.max(...times), errors: st.counters.errors, overruns: st.counters.overruns })
+    }
+    const cold = passes[0], warm = passes[2]
+    const worst = { mean: Math.max(...passes.map((p) => p.mean)), p99: Math.max(...passes.map((p) => p.p99)), max: Math.max(...passes.map((p) => p.max)) }
+    check(`stream replay (${label}): no exception, valid actions`, !threw && !bad && passes.every((p) => p.errors === 0), threw || bad || `300 obs x 3 passes, internal stage errors ${passes.map((p) => p.errors).join('/')}`)
+    check(`stream replay (${label}): decision time mean<=4 p99<=15 max<=25 ms`, worst.mean <= 4 && worst.p99 <= 15 && worst.max <= 25,
+      `cold pass mean ${fx(cold.mean)} p99 ${fx(cold.p99)} max ${fx(cold.max)} | warm pass mean ${fx(warm.mean)} p99 ${fx(warm.p99)} max ${fx(warm.max)} ms`)
+  }
+}
+
+// ============================================================================ b. gun hit rates (flat ground)
+const erf = (x) => { const t = 1 / (1 + 0.3275911 * Math.abs(x)); const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x); return x >= 0 ? y : -y }
+function ceiling(R, spreadMul = 1) {
+  const sd = cfg.weapons.gun.spread_deg * Math.PI / 180 * spreadMul
+  if (sd === 0) return 1
+  return erf((cfg.mech.radius + 0.3) / (R * sd * Math.SQRT2)) * erf((cfg.mech.height / 2 + 0.3) / (R * sd * Math.SQRT2))
+}
+function crossing(D, half, speed) {
+  let dir = 1
+  return (e, t, ar, dt) => {
+    if (e.y > half) dir = -1; else if (e.y < -half) dir = 1
+    const tv = dir * speed, dv = tv - e.vy, acc = cfg.mech.ground_accel * dt
+    e.vy += Math.abs(dv) <= acc ? dv : Math.sign(dv) * acc
+    e.vx = 0; e.x = D; e.y += e.vy * dt
+    face(e, ar)
+  }
+}
+function strafer(D, period, speed) {
+  return (e, t, ar, dt) => {
+    const dir = Math.floor(t / period) % 2 === 0 ? 1 : -1
+    const tv = dir * speed, dv = tv - e.vy, acc = cfg.mech.ground_accel * dt
+    e.vy += Math.abs(dv) <= acc ? dv : Math.sign(dv) * acc
+    e.vx = 0; e.x = D; e.y += e.vy * dt
+    face(e, ar)
+  }
+}
+function gunRun(name, D, script, y0, opts = {}) {
+  const ar = new Arena({ cfg, seed: 7 + D, spread: opts.spread ?? 1, fireDelayTicks: opts.fireDelayTicks ?? 0, me: { x: 0, y: 0, yaw: 0, pinned: opts.pinned },
+    enemies: [{ id: 10, x: D, y: y0, hp: BIGHP, script }] })
+  const brain = createBrain(hello, ctxNone, { rPrefGun: D, bandLo: D - 10, bandHi: D + 10, ...(opts.over || {}) })
+  let sumR = 0, n = 0
+  const bad = drive(ar, brain, 31.5, (a) => { a.countShots = a.t < 30; sumR += Math.hypot(a.enemies[0].x - a.me.x, a.enemies[0].y - a.me.y); n++ })
+  const s = ar.stats
+  return { rate: s.shots ? s.hits / s.shots : 0, shots: s.shots, hits: s.hits, meanR: sumR / n, bad, errors: brain.debugState().counters.errors }
+}
+if (want('gun')) {
+  const walk = cfg.mech.walk_speed
+  for (const [D, thr] of [[60, 0.9], [100, 0.85], [150, 0.7]]) {
+    const r = gunRun('cross', D, crossing(D, 60, walk), -60)
+    const r0 = gunRun('cross', D, crossing(D, 60, walk), -60, { spread: 0 })
+    const rl = gunRun('cross', D, crossing(D, 60, walk), -60, { fireDelayTicks: 1 })
+    check(`gun: target walking across at ${D} m, hit rate >= ${thr}`, r.rate >= thr && !r.bad && r.errors === 0,
+      `${fx(r.rate, 3)} (${r.hits}/${r.shots}, mean range ${fx(r.meanR, 0)} m, spread ceiling ${fx(ceiling(r.meanR), 2)}) | no spread ${fx(r0.rate, 3)} | shot one tick later ${fx(rl.rate, 3)}`)
+  }
+  {
+    const r = gunRun('strafe', 100, strafer(100, 2, walk), 0), r0 = gunRun('strafe', 100, strafer(100, 2, walk), 0, { spread: 0 })
+    check('gun: target strafing with reversals every 2 s at 100 m, hit rate >= 0.6', r.rate >= 0.6 && !r.bad, `${fx(r.rate, 3)} (${r.hits}/${r.shots}) | no spread ${fx(r0.rate, 3)}`)
+  }
+  {
+    const still = (e, t, ar) => face(e, ar)
+    const r = gunRun('still', 200, still, 0), r0 = gunRun('still', 200, still, 0, { spread: 0 })
+    const c = ceiling(r.meanR)
+    // The task asks for >= 0.9. With the measured dispersion (sigma 0.6 deg per axis) a perfect aim hits a 2.5 m
+    // body at 200 m only ~80% of the time, so 0.9 is checked on the fire-control error alone (no spread) and
+    // the run with real spread must reach 92% of its physical ceiling.
+    check('gun: stationary target at 200 m (>= 0.9 without spread, >= 0.92 x ceiling with spread)', r0.rate >= 0.9 && r.rate >= 0.92 * c,
+      `no spread ${fx(r0.rate, 3)} (${r0.hits}/${r0.shots}) | spread 0.6 deg ${fx(r.rate, 3)} (${r.hits}/${r.shots}), physical ceiling ${fx(c, 3)} at ${fx(r.meanR, 0)} m`)
+  }
+}
+
+// ============================================================================ b. zone
+if (want('zone')) {
+  {
+    const zone = { center: [41.3, -72.8], radius: 560, next_center: [-42.12, 7.11], next_radius: 380, shrink_start: 5, shrink_end: 55, dps: 20 }
+    const ar = new Arena({ cfg, world, nav, seed: 3, me: { x: 320.21, y: -280.29, yaw: 2.5 }, zone })
+    const brain = createBrain(hello, ctxMap)
+    const d0 = Math.hypot(ar.me.x - zone.next_center[0], ar.me.y - zone.next_center[1])
+    const bad = drive(ar, brain, 60)
+    const d1 = Math.hypot(ar.me.x - zone.next_center[0], ar.me.y - zone.next_center[1])
+    check('zone: outside the next circle, shrink in 5 s -> reaches it, never outside the current circle', ar.stats.outsideTicks === 0 && d1 <= zone.next_radius && !bad,
+      `distance to next centre ${fx(d0, 0)} -> ${fx(d1, 0)} m (next radius ${zone.next_radius}), ticks outside ${ar.stats.outsideTicks}, hp ${fx(ar.me.hp, 0)}`)
+  }
+  {
+    const zone = { center: [-42.12, 7.11], radius: 330, next_center: [-42.12, 7.11], next_radius: 240, shrink_start: 30, shrink_end: 70, dps: 35 }
+    const ar = new Arena({ cfg, world, nav, seed: 4, me: { x: 320.21, y: -280.29, yaw: 2.5 }, zone })
+    const brain = createBrain(hello, ctxMap)
+    // (finding 0.4: the tank is spent, refilled to PARAMS.boostRefill, then spent again: no 15% duty pulsing)
+    let canBoost = 0, didBoost = 0, tIn = -1, pulses = 0, prevB = false
+    const d0 = Math.hypot(ar.me.x - zone.center[0], ar.me.y - zone.center[1]) - zone.radius
+    const bad = drive(ar, brain, 40, (a, obs, act) => {
+      if (obs.self.in_zone === false) { if (obs.self.energy >= 60) { canBoost++; if (act.boost) didBoost++ } if (act.boost && !prevB) pulses++; prevB = act.boost } else if (tIn < 0) tIn = a.t
+    })
+    check('zone: outside the zone -> boosts in', tIn > 0 && tIn <= 0.8 * d0 / cfg.mech.walk_speed && didBoost >= 0.9 * canBoost && canBoost > 10 && pulses <= 4 && !bad,
+      `${fx(d0, 0)} m outside, inside after ${fx(tIn, 1)} s (walking alone: ${fx(d0 / cfg.mech.walk_speed, 1)} s), boost on ${didBoost}/${canBoost} decisions with energy >= 60, boost bursts ${pulses}, hp left ${fx(ar.me.hp, 0)}`)
+  }
+}
+
+// ============================================================================ b. heal
+function findHealSpot() {
+  const rnd = rng32(99), B = world.bounds
+  for (let k = 0; k < 4000; k++) {
+    const x = B.minX + 60 + rnd() * (B.maxX - B.minX - 120), y = B.minY + 60 + rnd() * (B.maxY - B.minY - 120)
+    if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent) continue
+    const wd = nav.wallDistAt(x, y)
+    if (wd < 8 || wd > 20) continue
+    const a = rnd() * Math.PI * 2, ex = x + 100 * Math.cos(a), ey = y + 100 * Math.sin(a)
+    if (!nav.passableAt(ex, ey) || nav.component(ex, ey) !== nav.mainComponent) continue
+    const z = nav.levelAt(x, y), ez = nav.levelAt(ex, ey)
+    if (Math.abs(z - ez) > 3) continue
+    if (!world.shotClear(x, y, z + 7, ex, ey, ez + 4.5) || !world.shotClear(ex, ey, ez + 7, x, y, z + 4.5)) continue
+    // a hidden standable cell within 30 m that can be walked to
+    let hide = null
+    for (let r = 8; r <= 30 && !hide; r += 4) for (let q = 0; q < 16 && !hide; q++) {
+      const hx = x + r * Math.cos(q * Math.PI / 8), hy = y + r * Math.sin(q * Math.PI / 8)
+      if (!nav.passableAt(hx, hy)) continue
+      const hz = nav.levelAt(hx, hy)
+      if (world.shotClear(ex, ey, ez + 7, hx, hy, hz + 4.5) || world.shotClear(ex, ey, ez + 7, hx, hy, hz + 8.1)) continue
+      const p = nav.findPath(x, y, hx, hy)
+      if (p.ok && p.len < 60) hide = [hx, hy]
+    }
+    if (hide) return { x, y, ex, ey, hide }
+  }
+  return null
+}
+if (want('heal')) {
+  const spot = findHealSpot()
+  if (!spot) check('heal: scenario location found', false, 'no location')
+  else {
+    const ar = new Arena({ cfg, world, nav, seed: 5, me: { x: spot.x, y: spot.y, yaw: Math.atan2(spot.ey - spot.y, spot.ex - spot.x), hp: 0.3 * cfg.mech.hp },
+      enemies: [{ id: 10, x: spot.ex, y: spot.ey, hp: 1400, dps: 60, script: (e, t, a) => face(e, a) }] })
+    const brain = createBrain(hello, ctxMap)
+    let tHidden = -1, shotsWhileHealing = 0, tHealed = -1, shotsAtHealed = 0, exposedAfter = 0, lastShots = 0, tResume = -1, modes = {}
+    const bad = drive(ar, brain, 110, (a, obs, act, br) => {
+      const e = a.enemies[0], me = a.me
+      const los = world.shotClear(e.x, e.y, e.z + 7, me.x, me.y, me.z + 4.5)
+      const st = br.debugState(); modes[st.mode] = (modes[st.mode] || 0) + 1
+      if (!los && tHidden < 0) tHidden = a.t
+      const newShots = a.stats.shots + a.stats.beams - lastShots; lastShots = a.stats.shots + a.stats.beams
+      if (tHidden >= 0 && tHealed < 0) {
+        if (a.t > tHidden + 1) { shotsWhileHealing += newShots; if (los) exposedAfter++ }
+        if (me.hp >= HEAL_EXIT * me.maxHp) { tHealed = a.t; shotsAtHealed = lastShots }
+      } else if (tHealed >= 0 && tResume < 0 && newShots > 0) tResume = a.t
+    })
+    const ok = tHidden >= 0 && tHidden <= 15 && shotsWhileHealing === 0 && tHealed > 0 && tResume > 0 && !bad && ar.me.hp > 0
+    check(`heal: at 30% hp breaks the line of fire, holds fire, resumes at healExit (${HEAL_EXIT * 100}%)`, ok,
+      `line of fire broken at ${fx(tHidden, 1)} s, shots while healing ${shotsWhileHealing}, decisions re-exposed ${exposedAfter}, ${HEAL_EXIT * 100}% hp at ${fx(tHealed, 1)} s, firing again at ${fx(tResume, 1)} s, ` +
+      `damage taken ${fx(ar.stats.dmgTaken, 0)}, enemy hp ${fx(ar.enemies[0].hp, 0)}, modes ${JSON.stringify(modes)}`)
+  }
+}
+
+// ============================================================================ b. shell dodge
+if (want('dodge')) {
+  const splash = cfg.weapons.mortar.splash_radius
+  let all = [], lead = []
+  for (const D of [60, 90, 130]) {
+    for (const leadShot of [false, true]) {
+      const ar = new Arena({ cfg, seed: 11 + D, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: D, y: 0, hp: BIGHP, weapons: ['gun', 'mortar'], script: (e, t, a) => face(e, a) }] })
+      const brain = createBrain(hello, ctxNone)
+      let next = 2.0
+      drive(ar, brain, 30, (a) => {
+        if (a.t >= next) {
+          next += 3.7
+          const e = a.enemies[0], me = a.me
+          const fl = Math.hypot(me.x - e.x, me.y - e.y) / (cfg.weapons.mortar.speed * 0.95)
+          a.lob(e, me.x + (leadShot ? me.vx * fl : 0), me.y + (leadShot ? me.vy * fl : 0))
+        }
+      })
+      for (const s of ar.stats.shellImpacts) (leadShot ? lead : all).push(s.d)
+    }
+  }
+  const minD = Math.min(...all), evaded = all.filter((d) => d >= splash + 2).length
+  const evLead = lead.filter((d) => d >= splash + 2).length
+  check(`shell dodge: shells aimed at our position land >= ${splash + 2} m away`, all.length >= 15 && evaded === all.length,
+    `${evaded}/${all.length} evaded, closest ${fx(minD, 1)} m | shells led on our velocity: ${evLead}/${lead.length} evaded, closest ${fx(Math.min(...lead), 1)} m`)
+}
+
+// ============================================================================ b. laser
+if (want('laser')) {
+  const ar = new Arena({ cfg, seed: 21, me: { x: 0, y: 0, yaw: 0, weapons: ['gun', 'laser'] }, enemies: [{ id: 10, x: 110, y: -60, hp: BIGHP, script: crossing(110, 60, cfg.mech.walk_speed) }] })
+  const brain = createBrain(hello, ctxNone, { rPrefGun: 110, rPrefLaser: 110, bandLo: 100, bandHi: 120 })
+  const bad = drive(ar, brain, 31.5, (a) => { a.countShots = a.t < 30 })
+  const s = ar.stats, full = cfg.weapons.laser.charge
+  const minCharge = s.beamCharge.length ? Math.min(...s.beamCharge) : 0
+  check('laser: holds to full charge and releases on target', s.beams >= 8 && s.beamHits >= 0.9 * s.beams && minCharge >= 0.97 * full && !bad,
+    `${s.beamHits}/${s.beams} beams through the target body, smallest charge at release ${fx(minCharge)} s of ${full} s, gun alongside ${s.hits}/${s.shots}`)
+}
+
+// ============================================================================ b. offers and pickups
+if (want('offer')) {
+  const base = JSON.parse(JSON.stringify(streamObs[0]))
+  const mk = (ids, weapons, n = 1) => {
+    const brain = createBrain(hello, ctxNone)
+    let a = null
+    for (let k = 0; k < n; k++) {
+      const o = JSON.parse(JSON.stringify(base))
+      o.tick = k * 2; o.t = k * 0.1
+      if (weapons) o.self.weapons[1] = { kind: weapons, cooldown: 0, charge: 0, stats: cfg.weapons[weapons] }
+      o.offer = { id: k + 1, expires: 99, choices: ids.map((id) => ({ id, name: id, desc: '' })) }
+      a = brain.act(o, performance.now() + 27)
+    }
+    return a.pick
+  }
+  // DOCTRINE V4 D7: plating > armor > nanites > laser_damage > laser_charge (laser held) > lightning_efficiency
+  // (lightning held) > gun_damage > gun_rate > lightning_range > lightning_chain > gyros > servos > gun_mag > capacitor >
+  // reactor > jets > gun_velocity > sensors > mortar_* > laser_pierce
+  const cases = [
+    [['gun_rate', 'armor', 'sensors'], null, 1, 1, 'armor over gun_rate and sensors'],
+    [['servos', 'nanites', 'gun_damage'], null, 1, 1, 'nanites over gun_damage'],
+    [['servos', 'nanites', 'gun_damage'], null, 3, 1, 'nanites over gun_damage in later offers too'],
+    [['plating', 'gun_damage', 'armor'], null, 1, 0, 'plating first'],
+    [['laser_damage', 'plating', 'gyros'], 'laser', 1, 1, 'plating over laser_damage'],
+    [['laser_damage', 'gun_damage', 'gyros'], 'laser', 1, 0, 'laser_damage when holding a laser'],
+    [['laser_charge', 'gun_damage', 'gyros'], null, 1, 1, 'no laser_charge without a laser'],
+    [['lightning_efficiency', 'servos', 'gyros'], 'lightning', 1, 0, 'lightning_efficiency with lightning'],
+    [['lightning_efficiency', 'servos', 'gyros'], null, 1, 2, 'gyros over servos and lightning_efficiency without lightning'],
+    [['jets', 'mortar_splash', 'sensors'], null, 1, 0, 'jets over sensors over mortar'],
+  ]
+  const fails = cases.filter((c) => mk(c[0], c[1], c[2]) !== c[3]).map((c) => c[4])
+  check('offer: picks by the priority list', fails.length === 0, fails.length ? 'wrong: ' + fails.join('; ') : `${cases.length} cases`)
+}
+if (want('pickup')) {
+  const run = (weapons, kind, dist) => {
+    const ar = new Arena({ cfg, seed: 31, me: { x: 0, y: 0, yaw: 0, weapons }, pickups: [{ id: 8001, kind, pos: [dist, 0, 0] }] })
+    const brain = createBrain(hello, ctxNone)
+    drive(ar, brain, 12)
+    return { takes: ar.stats.takes, weapons: ar.me.weapons.map((w) => (w ? w.kind : null)), first: ar.stats.takes[0] || null, ar }
+  }
+  const a = run(['gun', null], 'laser', 3), b = run(['gun', 'lightning'], 'laser', 3), c = run(['gun', 'laser'], 'lightning', 3)
+  const d = run(['gun', null], 'mortar', 3), e = run(['gun', null], 'lightning', 30), f = run(['gun', 'mortar'], 'lightning', 3)
+  const ok = a.weapons[1] === 'laser' && a.first.drop === null && b.weapons[1] === 'laser' && b.first && b.first.drop === 1 &&
+    c.takes.length === 0 && d.takes.length === 0 && e.weapons[1] === 'lightning' && f.weapons[1] === 'lightning' && f.first.drop === 1
+  check('pickup: take within reach, drop only when both slots are full and the new weapon ranks higher', ok,
+    `empty+laser -> ${a.weapons} (${a.takes.length} take) | lightning+laser -> ${b.weapons} drop ${b.first && b.first.drop} | laser+lightning -> ${c.takes.length} takes | ` +
+    `empty+mortar -> ${d.takes.length} takes | walked 30 m to a lightning -> ${e.weapons} | mortar+lightning -> ${f.weapons}`)
+}
+
+// ============================================================================ b. stuck / path following on the real map
+function findWallCase() {
+  const rnd = rng32(1234), B = world.bounds, out = []
+  for (let k = 0; k < 200000 && out.length < 3; k++) {
+    const x = B.minX + 40 + rnd() * (B.maxX - B.minX - 80), y = B.minY + 40 + rnd() * (B.maxY - B.minY - 80)
+    if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent) continue
+    const wd = nav.wallDistAt(x, y)
+    if (wd > 4.5) continue
+    const a = rnd() * Math.PI * 2
+    const d = 26 + rnd() * 12, gx = x + d * Math.cos(a), gy = y + d * Math.sin(a)
+    if (!nav.passableAt(gx, gy) || nav.component(gx, gy) !== nav.mainComponent || nav.wallDistAt(gx, gy) < 3.5) continue
+    if (nav.walkLine(x, y, gx, gy)) continue
+    // a building must stand on the straight line
+    const mx = (x + gx) / 2, my = (y + gy) / 2
+    if (!world.bodyBlocked(mx, my, nav.levelAt(mx, my), 2.5, 9, 1.2)) continue
+    if (Math.abs(nav.levelAt(x, y) - nav.levelAt(gx, gy)) > 2.5) continue
+    const p = nav.findPath(x, y, gx, gy)
+    if (!p.ok || p.len < d * 1.5 || p.len > 110) continue
+    out.push({ x, y, gx, gy, yaw: a, len: p.len, d })
+  }
+  return out
+}
+if (want('stuck')) {
+  const cases = findWallCase()
+  let ok = cases.length === 3, detail = []
+  for (const c of cases) {
+    const zone = { center: [c.x, c.y], radius: 3000, next_center: [c.x, c.y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 }
+    const ar = new Arena({ cfg, world, nav, seed: 41, me: { x: c.x, y: c.y, yaw: c.yaw }, zone, cubes: [{ id: 5001, pos: [c.gx, c.gy, nav.levelAt(c.gx, c.gy)] }] })
+    const brain = createBrain(hello, ctxMap)
+    let tGot = -1
+    const bad = drive(ar, brain, 30, (a) => { if (tGot < 0 && a.stats.cubesTaken) tGot = a.t })
+    const st = brain.debugState()
+    if (tGot < 0 || bad) ok = false
+    detail.push(`${fx(c.d, 0)} m straight / ${fx(c.len, 0)} m path: ${tGot < 0 ? 'NOT reached (' + fx(Math.hypot(ar.me.x - c.gx, ar.me.y - c.gy), 0) + ' m left, ' + st.mode + '/' + st.leg + ')' : 'reached in ' + fx(tGot, 1) + ' s'} (stuck events ${st.counters.stuck})`)
+  }
+  check('stuck: facing a wall with the goal behind it -> path following reaches the goal (real map)', ok, detail.join(' | ') || 'no case found')
+}
+
+// stuck ladder: without navigation the bot walks straight into the wall; it must jump / sidestep and finally
+// give the goal up instead of pushing forever
+if (want('ladder')) {
+  const cases = findWallCase()
+  const c = cases[0]
+  if (!c) check('stuck ladder', false, 'no case')
+  else {
+    const zone = { center: [c.x, c.y], radius: 3000, next_center: [c.x, c.y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 }
+    const ar = new Arena({ cfg, world, nav, seed: 42, me: { x: c.x, y: c.y, yaw: c.yaw }, zone, cubes: [{ id: 5001, pos: [c.gx, c.gy, nav.levelAt(c.gx, c.gy)] }] })
+    const brain = createBrain(hello, ctxNone)
+    let jumps = 0
+    const bad = drive(ar, brain, 25, (a, obs, act) => { if (act.jump) jumps++ })
+    const st = brain.debugState()
+    check('stuck ladder (no nav, wall in the way): jump + sidestep, then the goal is abandoned', st.counters.stuck >= 1 && jumps >= 1 && (st.counters.abandons >= 1 || ar.stats.cubesTaken) && !bad && st.counters.errors === 0,
+      `stuck events ${st.counters.stuck}, jumps ${jumps}, goals abandoned ${st.counters.abandons}, cube ${ar.stats.cubesTaken ? 'reached anyway' : 'not reached'}, final mode ${st.mode}/${st.leg}`)
+  }
+}
+
+// ============================================================================ b. duel against a scripted hunter (layers 2-4 together, real map)
+function hunter(script) {
+  let path = null, pt = -9, wp = 1
+  return (e, t, ar, dt) => {
+    const me = ar.me, d = Math.hypot(me.x - e.x, me.y - e.y)
+    const los = world.shotClear(e.x, e.y, e.z + 7, me.x, me.y, me.z + 4.5) && (world.canSee(e.x, e.y, e.z + 8, me.x, me.y, me.z + 4.5) || world.canSee(e.x, e.y, e.z + 8, me.x, me.y, me.z + 9))
+    e.yaw = Math.atan2(me.y - e.y, me.x - e.x)
+    // linear-lead shooter: accuracy by range, reduced when we are moving sideways beyond 60 m
+    const moving = me.vx * me.vx + me.vy * me.vy > 30 && d > 60
+    e.dps = los && d < 230 ? 107 * (d < 40 ? 0.85 : d < 90 ? 0.7 : d < 160 ? 0.45 : 0.25) * (moving ? 0.6 : 1) : 0
+    if (los && d < 75) { e.vx = 0; e.vy = 0; return }
+    if (t - pt > 1) { pt = t; const r = nav.findPath(e.x, e.y, me.x, me.y, { maxExpand: 6000 }); path = r.pts; wp = 1 }
+    if (path && path.length > 1) {
+      while (wp < path.length - 1 && Math.hypot(path[wp][0] - e.x, path[wp][1] - e.y) < 2) wp++
+      const tx = path[wp][0] - e.x, ty = path[wp][1] - e.y, l = Math.hypot(tx, ty) || 1
+      e.vx = tx / l * cfg.mech.walk_speed; e.vy = ty / l * cfg.mech.walk_speed
+      e.x += e.vx * dt; e.y += e.vy * dt
+    }
+  }
+}
+function duel(seed, nEn) {
+  const rnd = rng32(seed), Bd = world.bounds
+  let mx = 0, my = 0
+  for (let k = 0; k < 5000; k++) {
+    mx = Bd.minX + 80 + rnd() * (Bd.maxX - Bd.minX - 160); my = Bd.minY + 80 + rnd() * (Bd.maxY - Bd.minY - 160)
+    if (nav.passableAt(mx, my) && nav.component(mx, my) === nav.mainComponent && nav.wallDistAt(mx, my) > 4) break
+  }
+  const enemies = []
+  for (let i = 0; i < nEn; i++) {
+    let ex = mx, ey = my
+    for (let k = 0; k < 2000; k++) { const a = rnd() * 6.283, d = 150 + rnd() * 80; ex = mx + d * Math.cos(a); ey = my + d * Math.sin(a); if (nav.passableAt(ex, ey) && nav.component(ex, ey) === nav.mainComponent) break }
+    enemies.push({ id: 10 + i, x: ex, y: ey, hp: cfg.mech.hp, script: hunter() })
+  }
+  const ar = new Arena({ cfg, world, nav, seed, me: { x: mx, y: my, yaw: 0 }, enemies, zone: { center: [mx, my], radius: 3000, next_center: [mx, my], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 } })
+  const brain = createBrain(hello, ctxMap)
+  let tKill = -1, bad = null
+  for (let k = 0; k < 900 && ar.me.hp > 0; k++) {
+    bad = bad || drive(ar, brain, 0.1)
+    if (tKill < 0 && ar.enemies.every((e) => !e.alive)) tKill = ar.t
+    if (tKill >= 0 && ar.me.hp >= 0.9 * ar.me.maxHp) break
+  }
+  const st = brain.debugState()
+  return { kills: ar.enemies.filter((e) => !e.alive).length, hp: ar.me.hp, tKill, t: ar.t, shots: ar.stats.shots, hits: ar.stats.hits, sw: st.counters.modeSwitches, err: st.counters.errors, bad }
+}
+if (want('duel')) {
+  const rs = [1, 2, 3, 4, 5, 6].map((s) => duel(s, 1))
+  const won = rs.filter((r) => r.kills === 1 && r.hp > 0).length
+  check('duel: one hunter walking in on the real map is killed and we survive (6 seeds)', won === 6 && rs.every((r) => !r.bad && r.err === 0),
+    rs.map((r) => `${r.kills ? 'kill ' + fx(r.tKill, 0) + ' s' : 'no kill'} hp ${fx(r.hp, 0)} acc ${r.hits}/${r.shots}`).join(' | '))
+  const r2s = [1, 2, 3, 4, 5, 6].map((s) => duel(s, 2))
+  console.log('INFO  two hunters at once (no pass criterion): ' + r2s.map((r) => `${r.kills}/2 kills hp ${fx(Math.max(0, r.hp), 0)}`).join(' | '))
+}
+
+// ============================================================================ layer 6: corner ambush, last stand
+function findAmbushCase() {
+  const rnd = rng32(4321), Bd = world.bounds
+  for (let k = 0; k < 300000; k++) {
+    const x = Bd.minX + 60 + rnd() * (Bd.maxX - Bd.minX - 120), y = Bd.minY + 60 + rnd() * (Bd.maxY - Bd.minY - 120)
+    if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent || nav.wallDistAt(x, y) < 5) continue
+    const a = rnd() * 6.283, d = 110 + rnd() * 60, hx = x + d * Math.cos(a), hy = y + d * Math.sin(a)
+    if (!nav.passableAt(hx, hy) || nav.component(hx, hy) !== nav.mainComponent) continue
+    const z = nav.levelAt(x, y), hz = nav.levelAt(hx, hy)
+    if (world.shotClear(x, y, z + 7, hx, hy, hz + 4.5) || world.shotClear(x, y, z + 7, hx, hy, hz + 8)) continue
+    const p = nav.findPath(hx, hy, x, y)
+    if (!p.ok || p.len > 260) continue
+    // the pursuer must come into view at 40-110 m, not at point blank
+    let acc = 0, emerge = -1
+    for (let i = 1; i < p.pts.length && emerge < 0; i++) {
+      const seg = Math.hypot(p.pts[i][0] - p.pts[i - 1][0], p.pts[i][1] - p.pts[i - 1][1])
+      for (let q = 1; q <= 8; q++) {
+        const px = p.pts[i - 1][0] + (p.pts[i][0] - p.pts[i - 1][0]) * q / 8, py = p.pts[i - 1][1] + (p.pts[i][1] - p.pts[i - 1][1]) * q / 8
+        if (world.shotClear(x, y, z + 7, px, py, nav.levelAt(px, py) + 4.5)) { emerge = Math.hypot(px - x, py - y); break }
+      }
+      acc += seg
+    }
+    if (emerge < 45 || emerge > 110 || acc < 60) continue
+    return { x, y, hx, hy, emerge }
+  }
+  return null
+}
+if (want('ambush')) {
+  const c = findAmbushCase()
+  if (!c) check('ambush: scenario found', false, 'no location')
+  else {
+    const run = (over) => {
+      const ar = new Arena({ cfg, world, nav, seed: 61, me: { x: c.x, y: c.y, yaw: 0 }, enemies: [{ id: 10, x: c.hx, y: c.hy, hp: cfg.mech.hp, script: hunter() }],
+        zone: { center: [c.x, c.y], radius: 3000, next_center: [c.x, c.y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 } })
+      ar.t = 45                                     // after the D0 opening guard (a pursuer that has not aimed at us yet is not hostile)
+      const brain = createBrain(hello, ctxMap, over)
+      let tLos = -1, aimErr = -1, tShot = -1, moved = 0, tHit = -1
+      const x0 = ar.me.x, y0 = ar.me.y
+      const bad = drive(ar, brain, 60, (a, obs, act) => {
+        const e = a.enemies[0], me = a.me
+        if (e.alive) e.lastSeen = a.t                       // the server keeps sending its true position (memory / squad chatter)
+        const los = e.alive && world.shotClear(me.x, me.y, me.z + 7, e.x, e.y, e.z + 4.5)
+        if (los && tLos < 0) { tLos = a.t; aimErr = Math.abs(Math.atan2(Math.sin(Math.atan2(e.y - me.y, e.x - me.x) - me.yaw), Math.cos(Math.atan2(e.y - me.y, e.x - me.x) - me.yaw))); moved = Math.hypot(me.x - x0, me.y - y0) }
+        if (tLos >= 0 && tShot < 0 && a.stats.shots > 0) tShot = a.t
+        if (tLos >= 0 && tHit < 0 && a.stats.hits > 0) tHit = a.t
+        if (process.env.DBG_AMB && obs.tick % 20 === 0) { const s = brain.debugState(); console.log(a.t.toFixed(1), s.mode, s.leg, s.aim, 'tgt', s.target, 'd', Math.hypot(e.x - me.x, e.y - me.y).toFixed(0), 'los', los, 'ehp', e.hp.toFixed(0), 'shots', a.stats.shots, a.stats.hits, 'fire', act.fire, 'ammo', obs.self.weapons[0].ammo) }
+      })
+      const st = brain.debugState()
+      return { tLos, aimErr, tShot, tHit, kill: !ar.enemies[0].alive, hp: ar.me.hp, amb: st.counters.ambushTicks || 0, bad, err: st.counters.errors, moved }
+    }
+    const r = run({})
+    check('ambush (M2): pre-aimed at the corner, first shot on first sight, pursuer killed', r.amb >= 5 && r.tLos > 0 && r.aimErr <= 0.35 && r.tShot >= 0 && r.tShot - r.tLos <= 0.5 && r.kill && r.hp > 0 && !r.bad && r.err === 0,
+      `emergence at ${fx(c.emerge, 0)} m; ambush decisions ${r.amb}; aim error at first sight ${fx(r.aimErr, 3)} rad; first shot ${fx(r.tShot - r.tLos, 2)} s and first hit ${fx(r.tHit - r.tLos, 2)} s after first sight; kill ${r.kill}, hp left ${fx(r.hp, 0)}`)
+  }
+}
+if (want('laststand')) {
+  // DOCTRINE V4 D3 replaced the old "doomed" rule: 18% hp, two attackers with a line of fire and cover 8-30 m away
+  // -> LOSING retreat that keeps shooting (never LAST-STAND while cover is reachable); without any cover (no map)
+  // -> LAST-STAND, firing at the quickest kill until death.
+  const spot = findHealSpot()
+  const mk = (ctx) => new Arena({ cfg, world: ctx === ctxMap ? world : null, nav: ctx === ctxMap ? nav : null, seed: 71, me: { x: spot.x, y: spot.y, yaw: Math.atan2(spot.ey - spot.y, spot.ex - spot.x), hp: 0.18 * cfg.mech.hp },
+    enemies: [{ id: 10, x: spot.ex, y: spot.ey, hp: 500, dps: 45, script: (e, t, a) => face(e, a) }, { id: 11, x: spot.ex + 6, y: spot.ey + 6, hp: 1400, dps: 45, script: (e, t, a) => face(e, a) }] })
+  const runLS = (ctx) => {
+    const ar = mk(ctx), brain = createBrain(hello, ctx)
+    let ls = 0, n = 0, modes = {}, still = 0
+    for (let k = 0; k < 80 && ar.me.hp > 0; k++) drive(ar, brain, 0.1, (a, obs, act, br) => { const st = br.debugState(); n++; if (st.stance === 'LAST-STAND') ls++; modes[st.mode] = (modes[st.mode] || 0) + 1; if (Math.hypot(act.move[0], act.move[1]) < 0.05) still++ })
+    return { ar, ls, n, modes, still }
+  }
+  const m = runLS(ctxMap), x = runLS(ctxNone)
+  const ok = m.ls === 0 && (m.modes.DISENGAGE || 0) >= 0.5 * m.n && m.ar.stats.shots >= 1 &&
+    x.ls >= 0.5 * x.n && x.ar.stats.shots >= 3 && x.ar.enemies[0].hp < 500 && x.ar.enemies[1].hp >= 1400 - 5 * 45 && x.still <= 0.2 * x.n
+  check('last stand (D3): low hp with cover near -> LOSING retreat, still shooting; no cover -> LAST-STAND at the quickest kill, never standing still', ok,
+    `cover: ${fx(m.n / 10, 1)} s, LAST-STAND ${m.ls}/${m.n}, modes ${JSON.stringify(m.modes)}, shots ${m.ar.stats.shots} | no cover: LAST-STAND ${x.ls}/${x.n}, shots ${x.ar.stats.shots}, hits ${x.ar.stats.hits}, ` +
+    `weak enemy 500 -> ${fx(x.ar.enemies[0].hp, 0)}, strong 1400 -> ${fx(x.ar.enemies[1].hp, 0)} (shots while still retreating), still ${x.still}/${x.n}`)
+}
+
+// ============================================================================ layer 7: stance, environment, torso veto
+if (want('stance')) {
+  // SQUAD default: healthy with one hunter -> OPPORTUNIST; below half hp -> DEFENSIVE (immediately)
+  const mkAr = (hp) => new Arena({ cfg, seed: 81, me: { x: 0, y: 0, yaw: 0, hp }, enemies: [{ id: 10, x: 110, y: 0, hp: 1400, script: (e, t, a) => face(e, a) }] })
+  const a1 = mkAr(1400), b1 = createBrain(hello, ctxNone); drive(a1, b1, 4)
+  const a2 = mkAr(600), b2 = createBrain(hello, ctxNone); drive(a2, b2, 2)
+  const s1 = b1.debugState(), s2 = b2.debugState()
+  check('stance: SQUAD healthy with one hunter is OPPORTUNIST and fires first; under half hp is DEFENSIVE', s1.stance === 'OPPORTUNIST' && s1.env === 'SQUAD' && a1.stats.shots > 5 && s2.stance === 'DEFENSIVE',
+    `healthy: ${s1.stance}/${s1.env}, shots ${a1.stats.shots} | 43% hp: ${s2.stance}`)
+}
+if (want('env')) {
+  // DOCTRINE V4 D12: latch FFA only when (16 - alive) - ourKills >= 3 before 200 s; beams alone do nothing unless the
+  // beamClue preset is on; deaths matched by our kills never latch; PARAMS.env overrides.
+  const base = JSON.parse(JSON.stringify(streamObs[0]))
+  const [x, y, z] = base.self.pos
+  const feed = (brain, o2) => {
+    const { beams = false, deaths = 0, kills = 0, n = 40, late = false } = o2
+    let killed = 0
+    for (let k = 0; k < n; k++) {
+      const o = JSON.parse(JSON.stringify(base))
+      o.tick = k * 2; o.t = (late ? 205 : 10) + k * 0.1
+      const dead = Math.min(deaths, Math.floor(k / 8))
+      o.alive = 16 - dead
+      o.events = []
+      if (killed < Math.min(kills, dead)) { o.events.push({ type: 'kill', target: 40 + killed }); killed++ }
+      o.mechs = [{ id: 5, kind: 'mech', pos: [x + 150, y, z], vel: [0, 0, 0], aim: [1.57, 0], hp: 1400 - (beams ? 100 * Math.floor(k / 10) : 0), max_hp: 1400, cubes: 0, weapons: ['gun', 'laser'], charging: false },
+        { id: 6, kind: 'mech', pos: [x + 150, y + 60, z], vel: [0, 0, 0], aim: [-1.57, 0], hp: 1400 - (beams ? 100 * Math.floor(k / 10) : 0), max_hp: 1400, cubes: 0, weapons: ['gun', 'laser'], charging: false }]
+      if (beams && k % 10 === 5) o.beams = [{ by: k % 20 === 5 ? 5 : 6, kind: 'laser', path: k % 20 === 5 ? [[x + 150, y, z + 7], [x + 150, y + 60, z + 5]] : [[x + 150, y + 60, z + 7], [x + 150, y, z + 5]], age: 0.05 }]
+      brain.act(o, performance.now() + 27)
+    }
+    return brain.debugState()
+  }
+  const sB = feed(createBrain(hello, ctxNone), { beams: true }), sBC = feed(createBrain(hello, ctxNone, { select: { beamClue: 'on' } }), { beams: true, n: 60 })
+  const s2 = feed(createBrain(hello, ctxNone), { deaths: 2 }), s3 = feed(createBrain(hello, ctxNone), { deaths: 3 })
+  const sK = feed(createBrain(hello, ctxNone), { deaths: 4, kills: 2 }), sL = feed(createBrain(hello, ctxNone), { deaths: 4, late: true })
+  const sO = feed(createBrain(hello, ctxNone, { env: 'squad' }), { deaths: 4 }), sX = feed(createBrain(hello, ctxNone, { env: 'ffa' }), { n: 5 })
+  const ok = sB.env === 'SQUAD' && sBC.env === 'FFA' && s2.env === 'SQUAD' && s3.env === 'FFA' && sK.env === 'SQUAD' && sL.env === 'SQUAD' && sO.env === 'SQUAD' && sX.env === 'FFA'
+  check('environment (D12): 3 foreign deaths before 200 s latch FFA; beams alone, 2 deaths, our own kills, late deaths do not; overrides', ok,
+    `beams: ${sB.env} | beams + beamClue: ${sBC.env} (clues ${sBC.Q}) | 2 deaths: ${s2.env} | 3 deaths: ${s3.env} (latch ${fx(s3.ffaLatchT, 1)} s) | 4 deaths, 2 ours: ${sK.env} | after 200 s: ${sL.env} | env squad: ${sO.env} | env ffa: ${sX.env} (${sX.stance})`)
+}
+if (want('veto')) {
+  // target in front, a second mech hitting us hard from behind: the torso may not leave it more than 80 deg off
+  const ar = new Arena({ cfg, seed: 91, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 100, y: 0, hp: 300, script: (e, t, a) => face(e, a) }, { id: 11, x: -90, y: 10, hp: BIGHP, dps: 110, script: (e, t, a) => face(e, a) }] })
+  const brain = createBrain(hello, ctxNone)
+  let worst = 0, n = 0
+  drive(ar, brain, 8, (a, obs, act) => {
+    if (a.t < 3 || !a.enemies[1].alive) return
+    const me = a.me, e = a.enemies[1]
+    const off = Math.abs(Math.atan2(Math.sin(Math.atan2(e.y - me.y, e.x - me.x) - act.aim[0]), Math.cos(Math.atan2(e.y - me.y, e.x - me.x) - act.aim[0])))
+    worst = Math.max(worst, off); n++
+  })
+  check('torso veto: an attacker of >= 60 dps is never left more than 80 deg off the commanded yaw', n > 20 && worst <= 80 * Math.PI / 180 + 0.02, `worst offset ${fx(worst * 180 / Math.PI, 1)} deg over ${n} decisions, vetoes ${brain.debugState().counters.aimVetoes || 0}`)
+}
+
+// ============================================================================ second weapons and kill drops (sanity, closed loop)
+if (want('weapons')) {
+  // lightning: a lone target and a full tank -> rush to arc range and hold the trigger there
+  const ar = new Arena({ cfg, seed: 95, me: { x: 0, y: 0, yaw: 0, weapons: ['gun', 'lightning'] }, enemies: [{ id: 10, x: 120, y: 0, hp: BIGHP, script: (e, t, a) => face(e, a) }] })
+  const brain = createBrain(hello, ctxNone)
+  let minD = 1e9, zapTicks = 0
+  const bad = drive(ar, brain, 14, (a, obs, act) => { const d = Math.hypot(a.enemies[0].x - a.me.x, a.enemies[0].y - a.me.y); minD = Math.min(minD, d); if (act.fire[1] && d <= cfg.weapons.lightning.range) zapTicks++ })
+  // mortar in the second slot: must not break the gun (the mortar only fires while the gun reloads)
+  const ar2 = new Arena({ cfg, seed: 96, me: { x: 0, y: 0, yaw: 0, weapons: ['gun', 'mortar'] }, enemies: [{ id: 10, x: 55, y: 0, hp: BIGHP, script: (e, t, a) => face(e, a) }] })
+  const brain2 = createBrain(hello, ctxNone, { rPrefGun: 55, bandLo: 45, bandHi: 65 })
+  let mortarTicks = 0
+  const bad2 = drive(ar2, brain2, 14, (a, obs, act) => { if (act.fire[1]) mortarTicks++ })
+  const e1 = brain.debugState().counters.errors, e2 = brain2.debugState().counters.errors
+  check('second weapons: lightning rush closes to arc range and fires; mortar does not disturb the gun', minD <= 45 && zapTicks >= 10 && ar2.stats.hits >= 0.85 * ar2.stats.shots && ar2.stats.shots > 20 && !bad && !bad2 && e1 + e2 === 0,
+    `lightning: closest ${fx(minD, 0)} m, trigger held in range on ${zapTicks} decisions | mortar slot: gun ${ar2.stats.hits}/${ar2.stats.shots}, mortar trigger on ${mortarTicks} decisions`)
+}
+if (want('killdrop')) {
+  // after a kill at range the bot is hurt: it must fetch the dropped cubes while it regenerates
+  const ar = new Arena({ cfg, seed: 97, me: { x: 0, y: 0, yaw: 0, hp: 900 }, enemies: [{ id: 10, x: 110, y: 0, hp: 200, script: (e, t, a) => face(e, a) }] })
+  const brain = createBrain(hello, ctxNone)
+  let dropped = false, shotsAfter = -1
+  const bad = drive(ar, brain, 30, (a) => {
+    if (!dropped && !a.enemies[0].alive) { dropped = true; shotsAfter = a.stats.shots; a.cubes.push({ id: 5100, pos: [a.enemies[0].x, a.enemies[0].y, 0] }, { id: 5101, pos: [a.enemies[0].x + 2, a.enemies[0].y + 1, 0] }) }
+  })
+  check('kill drop: cubes of our kill are collected while healing, without firing', ar.me.cubes === 2 && ar.stats.shots === shotsAfter && !bad, `cubes ${ar.me.cubes}/2, hp ${fx(ar.me.hp, 0)}/${fx(ar.me.maxHp, 0)}, shots after the kill ${ar.stats.shots - shotsAfter}`)
+}
+
+// ============================================================================ b. loot crate (layer 5 sanity)
+if (want('crate')) {
+  const ar = new Arena({ cfg, seed: 51, me: { x: 0, y: 0, yaw: 1 }, crates: [{ id: 1001, pos: [40, 30, 0], hp: 300 }] })
+  const brain = createBrain(hello, ctxNone)
+  const bad = drive(ar, brain, 25)
+  check('loot: shoots a crate open and collects its cube', ar.me.cubes === 1 && !bad, `cubes ${ar.me.cubes}, shots ${ar.stats.shots}, crates left ${ar.crates.length}`)
+}
+
+// ============================================================================ integration pass 1: one check per fix
+// (reviewer findings 0.x = safety review, 1.x = tactics review; Dn = DOCTRINE V4 item)
+const obsAt = (o2) => {
+  const o = JSON.parse(JSON.stringify(streamObs[0]))
+  const c0 = [o.self.pos[0], o.self.pos[1]]
+  Object.assign(o, { mechs: [], projectiles: [], events: [], beams: [], crates: [], cubes: [], pickups: [], drops: [], offer: null, sounds: [],
+    zone: { center: c0, radius: 2000, next_center: c0, next_radius: 1500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 } }, o2.top || {})
+  Object.assign(o.self, o2.self || {})
+  return o
+}
+const t45 = (ar) => { ar.t = 45; return ar }
+if (want('fix')) {
+  // 0.0 pocket exit: start inside the stadium bowl (nav component 16) in the dev simulator, zone elsewhere
+  {
+    let detail = 'sim not found', ok = false
+    if (existsSync(join(ROOT, 'sim', 'sim.js'))) {
+      const { makeContext } = await import('../sim/run.js'), { Match } = await import('../sim/sim.js'), { HouseBot, FFA_TYPES } = await import('../sim/house.js')
+      const sctx = makeContext({ quiet: true }), nav0 = sctx.nav
+      const bowl = []
+      for (let c = 0; c < nav0.n; c++) if (nav0.comp[c] === 16 && nav0.wallDist[c] > 8) bowl.push(c)
+      const res = []
+      for (const seed of [2, 11]) {
+        let brain = null, leftAt = -1, zoneDmg = 0
+        const navB = new Nav(sctx.world, { cell: 2, stepUp: cfg.mech.step_up, maxSlopeDeg: cfg.mech.max_slope_deg })
+        const ours = { name: 'ours', hello(h) { brain = createBrain(h, { world: sctx.world, nav: navB, log: () => {} }); return { type: 'ready', name: 'ours' } },
+          act(obs) { const a = brain.act(obs, performance.now() + 27.5); a.tick = obs.tick
+            if (leftAt < 0 && obs.self.grounded && nav0.component(obs.self.pos[0], obs.self.pos[1]) === nav0.mainComponent) leftAt = obs.t
+            for (const e of obs.events) if (e.type === 'damaged' && e.weapon === 'zone') zoneDmg += e.amount
+            return a } }
+        const bots = [ours]
+        for (let i = 1; i < sctx.cfg.match.mechs; i++) bots.push(new HouseBot(FFA_TYPES[(i + seed) % FFA_TYPES.length], { world: sctx.world, nav: sctx.nav, params: sctx.merged.house }))
+        const match = new Match({ world: sctx.world, nav: sctx.nav, collider: sctx.collider, seed, config: sctx.cfg, bots, mode: 'ffa', mapDir: sctx.mapDir, focus: 0 })
+        const c = bowl[(seed * 7919) % bowl.length], me = match.mechs[0]
+        me.x = nav0.cellX(c); me.y = nav0.cellY(c); me.z = nav0.level[c]
+        match.runSync()
+        res.push({ seed, leftAt, zoneDmg })
+      }
+      ok = res.every((r) => r.leftAt >= 0 && r.leftAt <= 45 && r.zoneDmg === 0)
+      detail = res.map((r) => `seed ${r.seed}: out of the bowl at ${fx(r.leftAt, 1)} s, zone damage ${fx(r.zoneDmg, 0)}`).join(' | ')
+    }
+    check('fix 0.0 pocket exit: a start in the stadium bowl hops out via nav.hopPlan, no zone damage', ok, detail)
+  }
+  // 0.1 selectTarget: wounded attacker hides (still listed by memory) while an unseen drone hits us -> no stage error
+  {
+    const b = createBrain(hello, ctxNone)
+    let err = 0
+    for (let k = 0; k < 60; k++) {
+      const ev = []
+      if (k < 6 && k % 2 === 0) ev.push({ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0.2, by: 5 })
+      if (k % 10 === 3) ev.push({ type: 'damaged', amount: 25, weapon: 'npc', bearing: 2.5, by: 130 })
+      const [x, y, z] = streamObs[0].self.pos
+      const o = obsAt({ top: { tick: k * 2, t: 50 + k * 0.1, events: ev, mechs: [{ id: 5, kind: 'mech', pos: [x + 60, y + 10, z], vel: [0, 3, 0], aim: [3.1, 0], hp: 400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }] } })
+      b.act(o, performance.now() + 27)
+    }
+    err = b.debugState().counters.errors
+    check('fix 0.1 selectTarget: wounded hidden attacker plus an unseen drone never throws', err === 0, `stage errors ${err}, target ${b.debugState().target}`)
+  }
+  // 0.2 no running boost in the air (boost is the jet there)
+  {
+    const b = createBrain(hello, ctxNone)
+    let airBoost = 0
+    for (let k = 0; k < 30; k++) {
+      const o = obsAt({ top: { tick: k * 2, t: 60 + k * 0.1, zone: { center: [0, 0], radius: 50, next_center: [0, 0], next_radius: 30, shrink_start: 0, shrink_end: 1, dps: 20 } }, self: { grounded: k % 3 !== 0, in_zone: false, energy: 90 } })
+      const p0 = streamObs[0].self.pos, l0 = Math.hypot(p0[0], p0[1]) || 1
+      o.self.pos = [p0[0] - p0[0] / l0 * k * 1.2, p0[1] - p0[1] / l0 * k * 1.2, p0[2]]      // walking in (no stuck jet)
+      const a = b.act(o, performance.now() + 27)
+      if (!o.self.grounded && a.boost) airBoost++
+    }
+    check('fix 0.2 airborne: no boost while not grounded (outside the zone)', airBoost === 0, `airborne decisions with boost ${airBoost}/10`)
+  }
+  // 0.3 / 1.11 / D10 determinism: same observations, normal deadline vs a deadline already passed -> same actions, fuse 0
+  {
+    const run = (late) => { const b = createBrain(hello, ctxMap); const out = []; for (const o of streamObs.slice(0, 250)) { const t0 = performance.now(); out.push(JSON.stringify(b.act(o, late ? t0 - 5 : t0 + 27.5))) } return { s: out.join('\n'), fuse: b.debugState().counters.fuse } }
+    const r1 = run(false), r2 = run(true)
+    check('fix 0.3/1.11 (D10) no wall-clock behaviour: identical actions with a normal or an expired deadline, fuse never trips', r1.s === r2.s && r1.fuse === 0 && r2.fuse === 0, `identical ${r1.s === r2.s}, fuse trips ${r1.fuse}/${r2.fuse}`)
+  }
+  // 0.5 setBody warm-up for cubes 1..12 (twice), base body restored
+  {
+    const { warmBodies } = await import('../bot/lib/brain.js')
+    const calls = []
+    const spy = { setBody: (r, h) => calls.push([r, h]) }
+    const n = warmBodies(spy, { mech: cfg.mech, cubes: cfg.cubes })
+    const last = calls[calls.length - 1]
+    check('fix 0.5 nav.setBody warmed at start-up for 12 cube sizes, base body restored', n === 24 && last[0] === cfg.mech.radius && last[1] === cfg.mech.height && nav.radius === cfg.mech.radius,
+      `${n} warm-up resizes, last call ${last}, shared nav body ${nav.radius}`)
+  }
+  // 0.6 own body: never smaller than the cube formula
+  {
+    const b = createBrain(hello, ctxNone)
+    b.act(obsAt({ top: { t: 70 }, self: { cubes: 10, stats: { ...streamObs[0].self.stats, radius: 2.5, height: 9 } } }), performance.now() + 27)
+    const r = b._B.me.radius, h = b._B.me.height
+    check('fix 0.6 own body size from the cube formula when stats are not scaled', Math.abs(r - 3.75) < 1e-6 && Math.abs(h - 13.5) < 1e-6, `radius ${fx(r)} height ${fx(h)} at 10 cubes`)
+  }
+  // 0.7 tracks far outside the map are clamped (no km-long rays)
+  {
+    const b = createBrain(hello, ctxMap)
+    const [x, y, z] = streamObs[0].self.pos
+    const ts = []
+    for (let k = 0; k < 40; k++) {
+      const mechs = []
+      for (let i = 0; i < 10; i++) mechs.push({ id: 20 + i, kind: 'mech', pos: [world.bounds.maxX + 90000, y + i * 10, z], vel: [0, 0, 0], aim: [0, 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false })
+      const t0 = performance.now(); b.act(obsAt({ top: { tick: k * 2, t: 80 + k * 0.1, mechs } }), t0 + 27); ts.push(performance.now() - t0)
+    }
+    check('fix 0.7 ten mechs 90 km outside the map: decisions stay fast (were 6-22 ms each)', quant(ts, 0.5) < 2 && Math.max(...ts) < 15, `median ${fx(quant(ts, 0.5))} ms, slowest ${fx(Math.max(...ts))} ms`)
+  }
+  // 0.8 bot.js: hello + obs + end in one write -> the obs is answered
+  {
+    const { spawnSync } = await import('node:child_process')
+    const input = [JSON.stringify(hello), JSON.stringify(streamObs[0]), JSON.stringify({ type: 'end', place: 3, kills: 1 })].join('\n') + '\n'
+    const r = spawnSync(process.execPath, [join(ROOT, 'bot', 'bot.js')], { input, encoding: 'utf8', timeout: 30000 })
+    const outL = (r.stdout || '').split('\n').filter(Boolean).map((l) => { try { return JSON.parse(l) } catch { return null } })
+    const ans = outL.filter((m) => m && m.tick === streamObs[0].tick)
+    check('fix 0.8 bot.js: an obs in the same chunk as end is answered; ready first', outL[0] && outL[0].type === 'ready' && ans.length === 1, `lines ${outL.length}, answers ${ans.length}`)
+  }
+  // 1.0 trigger down at cooldown <= 0.1: one shot per 0.24 s inside a magazine
+  {
+    const ar = t45(new Arena({ cfg, seed: 101, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 70, y: 0, hp: BIGHP, dps: 1, script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    const ts = []
+    let prev = 0
+    drive(ar, b, 20, (a) => { if (a.stats.shots > prev) { ts.push(a.t); prev = a.stats.shots } })
+    const gaps = []; for (let i = 1; i < ts.length; i++) { const g = ts[i] - ts[i - 1]; if (g < 1) gaps.push(g) }
+    const mg = gaps.reduce((s, g) => s + g, 0) / Math.max(1, gaps.length)
+    check('fix 1.0 (D8) gun cadence: mean gap inside a magazine <= 0.26 s', gaps.length > 20 && mg <= 0.26, `shots ${ar.stats.shots} in 20 s, mean in-magazine gap ${fx(mg, 3)} s`)
+  }
+  // 1.1 / 1.2 (D3): one hunter, we at 60% and it at 100%: never LOSING, never LAST-STAND; two hunters at 45%: LOSING
+  {
+    const mk = (hp, n) => t45(new Arena({ cfg, seed: 102, me: { x: 0, y: 0, yaw: 0, hp: hp * 1400 }, enemies: Array.from({ length: n }, (_, i) => ({ id: 10 + i, x: 80, y: i * 20, hp: 1400, dps: 20, script: (e, t, a) => face(e, a) })) }))
+    const run = (hp, n) => { const ar = mk(hp, n), b = createBrain(hello, ctxNone); let lose = 0, ls = 0, dis = 0, k = 0; drive(ar, b, 4, (a, o, act, br) => { const s = br.debugState(); k++; if (s.losing) lose++; if (s.stance === 'LAST-STAND') ls++; if (s.mode === 'DISENGAGE' || s.mode === 'HEAL') dis++ }); return { lose, ls, dis, k } }
+    const a = run(0.6, 1), c = run(0.45, 2)
+    check('fix 1.1/1.2 (D3) LOSING table: 1 hunter at 60% hp fights on; 2 hunters at 45% -> LOSING retreat; no LAST-STAND', a.lose === 0 && a.dis === 0 && a.ls === 0 && c.lose >= 0.8 * c.k && c.ls === 0,
+      `1 v 1 at 60%: losing ${a.lose}/${a.k}, retreat/heal ${a.dis}, last stand ${a.ls} | 2 v 1 at 45%: losing ${c.lose}/${c.k}, last stand ${c.ls}`)
+  }
+  // 1.3 strafe reversals continue through our reload against a gun + laser target
+  {
+    const ar = t45(new Arena({ cfg, seed: 103, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 80, y: 0, hp: BIGHP, dps: 30, weapons: ['gun', 'laser'], script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    let flips = 0, last = b._B.counters.jinks, rel = 0
+    drive(ar, b, 15, (a, o) => { const j = b._B.counters.jinks; if (o.self.weapons[0].reload > 0) { rel++; flips += j - last } last = j })
+    check('fix 1.3 strafe reversals continue during our reload against a laser holder', rel > 10 && flips >= 2, `reload decisions ${rel}, reversals during them ${flips}`)
+  }
+  // 1.4 (D6) power grab: a laser pickup 35 m away is taken during a fight
+  {
+    const ar = t45(new Arena({ cfg, seed: 104, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 80, y: 0, hp: BIGHP, dps: 20, script: (e, t, a) => face(e, a) }], pickups: [{ id: 8101, kind: 'laser', pos: [0, 35, 0] }] }))
+    const b = createBrain(hello, ctxNone)
+    drive(ar, b, 15)
+    check('fix 1.4 (D6) power grab: laser pickup 35 m away taken while fighting', ar.me.weapons[1] && ar.me.weapons[1].kind === 'laser', `slot 1: ${ar.me.weapons[1] ? ar.me.weapons[1].kind : 'empty'}, shots ${ar.stats.shots}`)
+  }
+  // 1.5 a drone hitting us does not take the target from a mech in a duel
+  {
+    const ar = t45(new Arena({ cfg, seed: 105, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 75, y: 0, hp: BIGHP, dps: 30, script: (e, t, a) => face(e, a) }, { id: 120, kind: 'npc', x: -35, y: 0, hp: 350, radius: 1.8, height: 3.5, dps: 25, script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    let onMech = 0, n = 0
+    drive(ar, b, 10, (a) => { const s = b.debugState(); if (a.t > 46) { n++; if (s.target === 10) onMech++ } })
+    check('fix 1.5 drone touching us during a duel: the mech stays the target', onMech >= 0.9 * n, `target on the mech ${onMech}/${n}`)
+  }
+  // 1.6 partial paths: the flip-flop spot of seed 156 gets a complete path (full A* budget)
+  {
+    const b = createBrain(hello, ctxMap)
+    b.act(obsAt({ top: { t: 100 }, self: { pos: [49, 222, nav.levelAt(49, 222)] } }), performance.now() + 27)
+    const B = b._B
+    B.planTick = -1
+    const mv = (await import('../bot/lib/mover.js')).makeMover(B)
+    mv.moveTo(11, 178, 1, 1)
+    check('fix 1.6 partial path: the 439 m detour from the seed-156 spot is planned completely', mv.path.ok && mv.path.len > 300, `path ok ${mv.path.ok}, length ${fx(mv.path.len, 0)} m`)
+  }
+  // 1.7 (D6) cubes of our kill are fetched although another mech has a line on us
+  {
+    const ar = t45(new Arena({ cfg, seed: 107, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 60, y: 0, hp: 100, dps: 10, script: (e, t, a) => face(e, a) }, { id: 11, x: -130, y: 40, hp: BIGHP, dps: 15, script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    let dropped = false
+    drive(ar, b, 20, (a) => { if (!dropped && !a.enemies[0].alive) { dropped = true; a.cubes.push({ id: 5200, pos: [a.enemies[0].x, a.enemies[0].y, 0] }, { id: 5201, pos: [a.enemies[0].x + 2, a.enemies[0].y + 1, 0] }) } })
+    check('fix 1.7 (D6) kill cubes collected in contact', dropped && ar.me.cubes === 2, `killed ${dropped}, cubes ${ar.me.cubes}/2`)
+  }
+  // 1.8 (D3) HEAL: not at 65% hp out of contact; at 50% heals and leaves at 70%
+  {
+    const run = (hp, s) => { const ar = new Arena({ cfg, seed: 108, me: { x: 0, y: 0, yaw: 0, hp: hp * 1400 } }); const b = createBrain(hello, ctxNone); let heal = 0, exitHp = -1, was = false; drive(ar, b, s, (a, o, act, br) => { const m = br.debugState().mode; if (m === 'HEAL') heal++; if (was && m !== 'HEAL' && exitHp < 0) exitHp = a.me.hp / a.me.maxHp; was = m === 'HEAL' }); return { heal, exitHp } }
+    const a = run(0.65, 4), c = run(0.5, 20)
+    check('fix 1.8 (D3) HEAL only below 55% out of contact, leaves at healExit', a.heal === 0 && c.heal > 20 && c.exitHp >= HEAL_EXIT - 0.01 && c.exitHp <= HEAL_EXIT + 0.06, `65%: heal decisions ${a.heal} | 50%: heal ${c.heal}, left at ${fx(c.exitHp, 3)}`)
+  }
+  // 1.9 torso veto as a target rule: kill-secure mech east is finished although a shooter stands west
+  {
+    const ar = t45(new Arena({ cfg, seed: 109, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 70, y: 0, hp: 120, dps: 5, script: (e, t, a) => face(e, a) }, { id: 11, x: -70, y: 5, hp: BIGHP, dps: 90, script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    let tKill = -1
+    drive(ar, b, 8, (a) => { if (tKill < 0 && !a.enemies[0].alive) tKill = a.t - 45 })
+    check('fix 1.9 torso veto: a kill-secure target is finished (not parked between two enemies)', tKill >= 0 && tKill <= 3, `kill after ${fx(tKill, 1)} s`)
+  }
+  // 1.12 (D9) final phases: next radius 25 with a mech on the centre -> converge, almost no zone damage
+  {
+    const zone = { center: [0, 0], radius: 70, next_center: [10, 5], next_radius: 25, shrink_start: 46, shrink_end: 71, dps: 100 }
+    const ar = t45(new Arena({ cfg, seed: 112, me: { x: 55, y: -20, yaw: 0 }, zone, enemies: [{ id: 10, x: 10, y: 5, hp: BIGHP, dps: 8, script: (e, t, a) => face(e, a) }] }))
+    const b = createBrain(hello, ctxNone)
+    drive(ar, b, 30)
+    check('fix 1.12 (D9) late zone with an enemy on the centre: converge, <= 3 ticks outside', ar.stats.outsideTicks <= 3, `ticks outside ${ar.stats.outsideTicks}, end distance to centre ${fx(Math.hypot(ar.me.x - 10, ar.me.y - 5), 1)} m`)
+  }
+  // 1.13 idle: nothing in sight on the real map -> walks (no standing at a wall)
+  {
+    const spot = findHealSpot()
+    const ar = new Arena({ cfg, world, nav, seed: 113, me: { x: spot.x, y: spot.y, yaw: 0 }, zone: { center: [spot.x, spot.y], radius: 560, next_center: [spot.x + 50, spot.y], next_radius: 380, shrink_start: 1e6, shrink_end: 2e6, dps: 20 } })
+    const b = createBrain(hello, ctxMap)
+    let still = 0, n = 0
+    const hist = {}
+    drive(ar, b, 30, (a, o, act) => { n++; if (Math.hypot(o.self.vel[0], o.self.vel[1]) < 0.5) { still++; const s = b.debugState(), k = s.mode + '/' + s.leg + (Math.hypot(act.move[0], act.move[1]) < 0.1 ? ' stop' : ' go'); hist[k] = (hist[k] || 0) + 1 } })
+    check('fix 1.13 idle: no standing still when nothing is in sight', still <= 0.15 * n, `still ${still}/${n} ${JSON.stringify(hist)}, stuck events ${b.debugState().counters.stuck}, at (${fx(spot.x, 0)}, ${fx(spot.y, 0)})`)
+  }
+  // 1.14 hide cell lies away from the attacker
+  {
+    const spot = findHealSpot()
+    const ar = new Arena({ cfg, world, nav, seed: 114, me: { x: spot.x, y: spot.y, yaw: 0, hp: 0.3 * 1400 }, enemies: [{ id: 10, x: spot.ex, y: spot.ey, hp: 1400, dps: 40, script: (e, t, a) => face(e, a) }] })
+    const b = createBrain(hello, ctxMap)
+    let cosMax = -2, seen = 0
+    drive(ar, b, 6, (a) => { const h = b._B.hide; if (h.state === 'found') { seen++; const dx = h.x - spot.x, dy = h.y - spot.y, d = Math.hypot(dx, dy); if (d > 6) { const ex = spot.ex - spot.x, ey = spot.ey - spot.y; cosMax = Math.max(cosMax, (dx * ex + dy * ey) / (d * Math.hypot(ex, ey))) } } })
+    check('fix 1.14 hide cell never toward the attacker (within 60 deg)', seen > 0 && cosMax <= 0.5 + 0.1, `decisions with a cell ${seen}, max cos to the attacker ${fx(cosMax, 2)}`)
+  }
+  // 1.15 (D0 / D5 / D2): a quiet mech at 180 m in the opening is not engaged; a strafer at 170 m: no unsteady long shots
+  {
+    const ar = new Arena({ cfg, seed: 115, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 180, y: 0, hp: 1400, script: (e, t, a) => { e.yaw = Math.atan2(e.y - a.me.y, e.x - a.me.x) } }],
+      zone: { center: [0, 0], radius: 300, next_center: [0, 0], next_radius: 200, shrink_start: 1e6, shrink_end: 2e6, dps: 20 } })
+    const b = createBrain(hello, ctxNone)
+    let minD = 1e9, tg = 0
+    drive(ar, b, 20, (a) => { minD = Math.min(minD, Math.hypot(a.enemies[0].x - a.me.x, a.enemies[0].y - a.me.y)); if (b.debugState().target !== null) tg++ })
+    const ar2 = t45(new Arena({ cfg, seed: 116, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 170, y: 0, hp: BIGHP, dps: 20, script: (e, t, a, dt) => { face(e, a); const s = Math.floor(t / 0.45) % 2 ? 1 : -1; e.vx = 0; e.vy = s * 9; e.y += e.vy * dt } }] }))
+    const b2 = createBrain(hello, ctxNone, { rPrefGun: 170, bandLo: 160, bandHi: 180 })
+    drive(ar2, b2, 10)
+    const g = b2.debugState().counters.flightGated || 0
+    check('fix 1.15 (D0/D5/D2) no fight with a quiet mech in the opening; no long shots at an unsteady target', ar.stats.shots === 0 && tg === 0 && g > 0 && ar2.stats.shots <= 6,
+      `opening: shots ${ar.stats.shots}, decisions with it as target ${tg}, closest ${fx(minD, 0)} m | strafer at 170 m: gated ${g} decisions, shots ${ar2.stats.shots}`)
+  }
+  // 1.16 (D2) ranges by loadout: gun only holds 55-95 m, laser (preset far) 125-185 m
+  {
+    const run = (weapons) => { const ar = t45(new Arena({ cfg, seed: 117, me: { x: 0, y: 0, yaw: 0, weapons }, enemies: [{ id: 10, x: 150, y: 0, hp: BIGHP, dps: 10, script: (e, t, a) => face(e, a) }] })); const b = createBrain(hello, ctxNone); const ds = []; drive(ar, b, 20, (a) => { if (a.t > 55) ds.push(Math.hypot(a.enemies[0].x - a.me.x, a.enemies[0].y - a.me.y)) }); return ds.reduce((s, d) => s + d, 0) / ds.length }
+    const dg = run(['gun', null]), dl = run(['gun', 'laser'])
+    check('fix 1.16 (D2) stand-off by loadout: gun 55-95 m, laser 125-185 m', dg >= 55 && dg <= 95 && dl >= 125 && dl <= 185, `gun only mean ${fx(dg, 0)} m | gun + laser mean ${fx(dl, 0)} m`)
+  }
+  // 1.17 (D4) bullet-aware dodge: a bullet on a collision course changes our velocity perpendicular to it
+  {
+    const b = createBrain(hello, ctxNone)
+    const [x, y, z] = streamObs[0].self.pos
+    let side = 0
+    for (let k = 0; k < 5; k++) {
+      const proj = [{ id: 700 + k, kind: 'gun', pos: [x + 60, y, z + 4.5], vel: [-252, 0, 0] }]
+      const a = b.act(obsAt({ top: { tick: k * 2, t: 120 + k * 0.1, projectiles: proj }, self: { vel: [0, 0, 0] } }), performance.now() + 27)
+      side = Math.max(side, Math.abs(a.move[1]))
+    }
+    check('fix 1.17 (D4) bullet-aware dodge sidesteps a bullet aimed at us', side >= 0.8 && b.debugState().counters.bulletDodges > 0, `largest sideways stick ${fx(side)}, dodges ${b.debugState().counters.bulletDodges}`)
+  }
+  // 1.18 a running laser charge is released when a shell forces the dodge
+  {
+    const b = createBrain(hello, ctxNone)
+    const [x, y, z] = streamObs[0].self.pos
+    const tgt = { id: 10, kind: 'mech', pos: [x + 90, y, z], vel: [0, 0, 0], aim: [Math.PI, 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }
+    const lw = (c) => [streamObs[0].self.weapons[0], { kind: 'laser', cooldown: 0, charge: c, stats: cfg.weapons.laser }]
+    b.act(obsAt({ top: { tick: 0, t: 130, mechs: [tgt], events: [{ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0, by: 10 }] }, self: { weapons: lw(0.3) } }), performance.now() + 27)
+    const a = b.act(obsAt({ top: { tick: 2, t: 130.1, mechs: [tgt], projectiles: [{ id: 901, kind: 'mortar', pos: [x + 10, y, z + 12], vel: [-10, 0, 0] }] }, self: { weapons: lw(0.4) } }), performance.now() + 27)
+    check('fix 1.18 laser charge released when the shell dodge needs full speed', a.fire[1] === false && b.debugState().leg === 'dodge', `fire ${a.fire}, leg ${b.debugState().leg}`)
+  }
+  // 1.19 (D6) supply drop: no walking into the ring long before the landing
+  {
+    const b = createBrain(hello, ctxNone)
+    const [x, y, z] = streamObs[0].self.pos
+    let firstDrop = -1
+    for (let k = 0; k < 200 && firstDrop < 0; k++) {
+      const landsIn = 20 - k * 0.1
+      b.act(obsAt({ top: { tick: k * 2, t: 140 + k * 0.1, drops: [{ id: 20000, pos: [x + 30, y, z], radius: 8, lands_in: landsIn, capture_s: 4, progress: 0, holder: null }] } }), performance.now() + 27)
+      if (b.debugState().mode === 'DROP') firstDrop = landsIn
+    }
+    check('fix 1.19 (D6) drop: start for it no earlier than 3 s plus the walk before landing', firstDrop >= 0 && firstDrop <= 3 + 30 * 1.3 / cfg.mech.walk_speed + 0.3, `DROP mode first with lands_in ${fx(firstDrop, 1)} s`)
+  }
+  // 1.22 lightning held, mech inside 60 m: no boost below the lightning reserve
+  {
+    const b = createBrain(hello, ctxNone)
+    const [x, y, z] = streamObs[0].self.pos
+    let boosts = 0
+    for (let k = 0; k < 10; k++) {
+      const tgt = { id: 10, kind: 'mech', pos: [x + 40, y, z], vel: [0, 0, 0], aim: [Math.PI, 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun', 'laser'], charging: false }
+      const a = b.act(obsAt({ top: { tick: k * 2, t: 150 + k * 0.1, mechs: [tgt], events: [{ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0, by: 10 }] }, self: { hp: 200, energy: 40, weapons: [streamObs[0].self.weapons[0], { kind: 'lightning', cooldown: 0, stats: cfg.weapons.lightning }] } }), performance.now() + 27)
+      if (a.boost) boosts++
+    }
+    check('fix 1.22 lightning energy: no boost below lightReserve + 10 with a mech inside 60 m', boosts === 0, `boost decisions ${boosts}/10`)
+  }
+  // D10 rehearsal: a few hundred synthetic decisions at start-up
+  {
+    const r = firstBrainState && firstBrainState.rehearsal
+    check('D10 start-up rehearsal: >= 300 synthetic decisions, under 5 s, base body restored', !!r && r.ms < 5000 && nav.radius === cfg.mech.radius && resolveParams({}).rehearseN >= 300, `rehearsal ${r ? fx(r.ms, 0) + ' ms, ' + r.bodies + ' body warm-ups' : 'missing'}`)
+  }
+  // presets: one string changes exactly the preset's numbers
+  {
+    const base = resolveParams({}), mid = resolveParams({ select: { laserRange: 'mid' } })
+    const diff = Object.keys(base).filter((k) => k !== 'selected' && JSON.stringify(base[k]) !== JSON.stringify(mid[k]))
+    check('presets: selecting laserRange "mid" changes only the laser band numbers', diff.length > 0 && diff.every((k) => k.startsWith('laser') || k === 'rPrefLaser'), `changed: ${diff.join(', ')}`)
+  }
+}
+
+// ============================================================================ fix round after verify1 (F1-F4)
+if (want('fix2')) {
+  // F1 (D4): a bullet led exactly on our velocity (house-bot aim, D1) from 100 / 130 m: the dodge turns hits into misses
+  {
+    const HITR = cfg.mech.radius + cfg.projectile.gun_radius
+    const still = (e, t, a) => { e.x = 80; e.y = 0; e.vx = 0; e.vy = 0; face(e, a) }
+    const pair = (K, fromD) => {
+      const mk = () => { const ar = new Arena({ cfg, seed: 41, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 80, y: 0, hp: BIGHP, dps: 6, script: still }] }); ar.t = 60; return ar }
+      const A = mk(), Bq = mk(), bA = createBrain(hello, ctxNone, { warmup: false }), bB = createBrain(hello, ctxNone, { warmup: false })
+      let bullet = null, minA = 1e9, minB = 1e9
+      for (let k = 0; k < K + 14; k++) {
+        const oA = A.obs(), oB = Bq.obs()
+        if (k === K) {
+          const me = Bq.me, v = cfg.weapons.gun.speed, ex = me.x + fromD, ey = me.y
+          let tf = fromD / v
+          for (let i = 0; i < 6; i++) tf = Math.hypot(me.x + me.vx * tf - ex, me.y + me.vy * tf - ey) / v
+          const tx = me.x + me.vx * tf, ty = me.y + me.vy * tf, d = Math.hypot(tx - ex, ty - ey)
+          bullet = { pos: [ex, ey, me.z + 4.5], vel: [(tx - ex) / d * v, (ty - ey) / d * v, 0], t0: Bq.t, life: tf + 0.2 }
+        }
+        if (bullet && Bq.t - bullet.t0 < bullet.life) { const dt = Bq.t - bullet.t0; oB.projectiles = [{ id: 777, kind: 'gun', pos: [bullet.pos[0] + bullet.vel[0] * dt, bullet.pos[1] + bullet.vel[1] * dt, bullet.pos[2]], vel: bullet.vel }] }
+        const aA = bA.act(oA, performance.now() + 27), aB = bB.act(oB, performance.now() + 27)
+        for (const [ar, act, w] of [[A, aA, 0], [Bq, aB, 1]]) {
+          if (act.aim) { ar.me.cmdYaw = act.aim[0]; ar.me.cmdPitch = act.aim[1] }
+          for (let s = 0; s < 2; s++) {
+            ar._tick(act, s)
+            if (!bullet) continue
+            const dt = ar.t - bullet.t0
+            if (dt < 0 || dt > bullet.life) continue
+            for (let q = 0; q <= 10; q++) { const tt = dt - 0.05 + q * 0.005; if (tt < 0) continue; const dd = Math.hypot(bullet.pos[0] + bullet.vel[0] * tt - ar.me.x, bullet.pos[1] + bullet.vel[1] * tt - ar.me.y); if (w) minB = Math.min(minB, dd); else minA = Math.min(minA, dd) }
+          }
+        }
+      }
+      return [minA < HITR, minB < HITR]
+    }
+    let hA = 0, hB = 0, n = 0
+    for (const R of [100, 130]) for (let K = 30; K < 42; K++) { const [a, b] = pair(K, R); n++; if (a) hA++; if (b) hB++ }
+    check('fix2 F1 (D4) bullet dodge vs a bullet led on our motion (100 / 130 m): hits become misses', hA >= 6 && hB <= Math.floor(hA / 4), `hits without seeing the bullet ${hA}/${n}, with the dodge ${hB}/${n}`)
+  }
+  // F2 (D5): a target under 25% is never left for a fresh attacker behind us; a full-hp target still is
+  {
+    const H = cfg.mech.hp
+    const mk = (id, x, y, hp) => ({ id, kind: 'mech', pos: [x, y, 0], vel: [0, 0, 0], aim: [Math.atan2(-y, -x), 0], hp, max_hp: H, cubes: 0, weapons: ['gun'], charging: false })
+    const base = streamObs[0]
+    const run = (hp10, firstAlone) => {
+      const b = createBrain(hello, ctxNone, { warmup: false })
+      const tl = []
+      for (let k = 0; k < 40; k++) {
+        const mechs = [mk(10, 80, 0, hp10)], events = []
+        if (k % 10 === 0) events.push({ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0, by: 10 })
+        if (!firstAlone || k >= 10) { mechs.push(mk(11, -80, 0, H)); if (k % 3 === 0) events.push({ type: 'damaged', amount: 45, weapon: 'gun', bearing: Math.PI, by: 11 }) }
+        const o = JSON.parse(JSON.stringify(base))
+        Object.assign(o, { tick: k * 2, t: 100 + k * 0.1, mechs, events, projectiles: [], crates: [], cubes: [], pickups: [], beams: [], drops: [], offer: null, alive: 16 })
+        o.self.pos = [0, 0, 0]; o.self.vel = [0, 0, 0]; o.self.hp = 0.8 * o.self.max_hp; o.self.grounded = true; o.self.in_zone = true
+        o.zone = { center: [0, 0], radius: 2000, next_center: [0, 0], next_radius: 1500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 }
+        b.act(o, performance.now() + 27)
+        tl.push(b.debugState().target)
+      }
+      return tl
+    }
+    const s = (tl) => tl.map((x) => (x === 10 ? 'a' : x === 11 ? 'B' : '-')).join('')
+    const r1 = run(0.15 * H, true), r2 = run(0.15 * H, false), r3 = run(H, false)
+    const ok = r1.slice(10).every((x) => x === 10) && r2.every((x) => x === 10) && r3.filter((x) => x === 11).length >= 20
+    check('fix2 F2 (D5) a target under 25% hp is never left for a fresh attacker behind us (the veto still takes a full-hp target most of the time)', ok, `15% first: ${s(r1)} | 15% both: ${s(r2)} | full hp: ${s(r3)}`)
+  }
+  // F3 (D6): the cubes of our kills at the D2 ranges are collected; not by walking into the next hunters
+  {
+    const runK = (weapons, D, others) => {
+      const enemies = [{ id: 10, x: D, y: 0, hp: 250, dps: 15, script: (e, t, a) => { e.x = D; e.y = 0; face(e, a) } }]
+      for (const [id, x, y] of others) enemies.push({ id, x, y, hp: BIGHP, dps: 4, script: (e, t, a) => { e.x = x; e.y = y; face(e, a) } })
+      const ar = new Arena({ cfg, seed: 61, me: { x: 0, y: 0, yaw: 0, weapons }, enemies })
+      ar.t = 60
+      const b = createBrain(hello, ctxNone, { warmup: false, ...(weapons[1] === 'laser' ? {} : { rPrefGun: D, bandLo: D - 10, bandHi: D + 10 }) })
+      let killedAt = -1, got = -1, far = 0
+      for (let k = 0; k < 350; k++) {
+        const a = b.act(ar.obs(), performance.now() + 27); ar.step(a)
+        if (killedAt < 0 && !ar.enemies[0].alive) { killedAt = ar.t; ar.cubes.push({ id: 6001, pos: [D + 1.5, 0, 0] }, { id: 6002, pos: [D - 1, 1.5, 0] }) }
+        if (killedAt > 0 && got < 0 && ar.me.cubes >= 2) got = ar.t - killedAt
+        if (killedAt > 0) { const g = b._B.grab; if (g && g.type === 'cube' && Math.hypot(g.x - ar.me.x, g.y - ar.me.y) > 70) far++ }
+        if (ar.me.hp < 700) ar.me.hp = 1400
+        if (killedAt > 0 && ar.t - killedAt > 22) break
+      }
+      return { killedAt, got, far }
+    }
+    const g = runK(['gun', null], 90, []), l = runK(['gun', 'laser'], 150, [[11, -60, 90]]), crowd = runK(['gun', 'laser'], 150, [[11, 160, 20], [12, 165, -25]])
+    check('fix2 F3 (D6) kill cubes collected after a gun kill at 90 m and a laser kill at 150 m; no 70+ m grab into two hunters at the kill spot',
+      g.killedAt > 0 && g.got >= 0 && g.got < 15 && l.killedAt > 0 && l.got >= 0 && l.got < 20 && crowd.killedAt > 0 && crowd.far === 0,
+      `gun 90 m: ${g.got >= 0 ? fx(g.got, 1) + ' s' : 'not collected'} | laser 150 m + far hunter: ${l.got >= 0 ? fx(l.got, 1) + ' s' : 'not collected'} | two hunters at the kill spot: ${crowd.far} long grab decisions`)
+  }
+  // F4 (D9): the last phases (70 -> 25 -> 0 m) on the real map: inside, no ZONE <-> fight flapping
+  {
+    const { brainBot, runScenario, scripted, OPEN } = await import('./review_tactics/scen.js')
+    const C0 = { x: OPEN.x, y: OPEN.y, r: 70 }, C1 = { x: OPEN.x + 30, y: OPEN.y + 5, r: 25 }, C2 = { x: OPEN.x + 38, y: OPEN.y + 10, r: 0 }
+    const zone = { start_center: [C0.x, C0.y], start_radius: 70, phases: [{ hold_s: 10, shrink_s: 25, radius: 25, dps: 160 }, { hold_s: 15, shrink_s: 25, radius: 0, dps: 260 }] }
+    const late = (withEnemy) => {
+      let M = null
+      const ours = brainBot({}, () => { if (M) { if (M.mechs[1].alive) M.mechs[1].hp = 1400; M.mechs[0].hp = Math.max(M.mechs[0].hp, 1400); M.mechs[2].hp = 1e9 } })
+      const enemy = scripted('enemy', (obs) => { const c = obs.zone.next_center, p = obs.self.pos, dx = c[0] - p[0], dy = c[1] - p[1], d = Math.hypot(dx, dy); return { move: d > 2 ? [dx / d, dy / d] : [0, 0] } })
+      const idle = scripted('idle', () => ({ move: [0, 0] }))
+      const place = [{ x: C0.x - 35, y: C0.y - 30 }, withEnemy ? { x: C1.x, y: C1.y + 10 } : { x: OPEN.x + 700, y: OPEN.y + 420 }, { x: OPEN.x + 760, y: OPEN.y + 420 }]
+      runScenario({ bots: [ours, withEnemy ? enemy : idle, idle], seed: 5, maxT: 76, zone, zoneFixed: [C0, C1, C2], place, setup(m) { M = m; if (!withEnemy) m.mechs[1].hp = 1e9 } })
+      let dmg = 0, sw = 0, prev = ''
+      for (const r of ours.rows) {
+        if (prev && prev !== r.mode && (prev === 'ZONE' || r.mode === 'ZONE')) sw++
+        prev = r.mode
+        if (r.t < 74.5) for (const e of r.evs) if (e.type === 'damaged' && e.weapon === 'zone') dmg += e.amount
+      }
+      return { dmg, sw }
+    }
+    const A = late(false), Bz = late(true)
+    check('fix2 F4 (D9) late zone: alone <= 30 hp and <= 6 mode switches; enemy on the centre <= 400 hp and <= 16 switches', A.dmg <= 30 && A.sw <= 6 && Bz.dmg <= 400 && Bz.sw <= 16,
+      `alone: ${fx(A.dmg, 0)} hp zone damage, ${A.sw} ZONE<->other switches | enemy on the centre: ${fx(Bz.dmg, 0)} hp, ${Bz.sw} switches`)
+  }
+}
+
+// ============================================================================ pass 2a: FFA rules (env forced to FFA), SQUAD bit-identity
+if (want('ffa')) {
+  const FFA = { env: 'ffa', warmup: false }
+  const ffaB = (ctx, over) => createBrain(hello, ctx, { ...FFA, ...(over || {}) })
+  const sqB = (ctx, over) => createBrain(hello, ctx, { env: 'squad', warmup: false, ...(over || {}) })
+  const offAim = (yaw, ax, ay, bx, by) => Math.abs(Math.atan2(Math.sin(yaw - Math.atan2(by - ay, bx - ax)), Math.cos(yaw - Math.atan2(by - ay, bx - ax))))
+  // a spot on the real map with walls near us and a mech position 110-150 m away with a line both ways
+  function ffaSpot(seed, dLo = 110, dHi = 150) {
+    const rnd = rng32(seed), Bd = world.bounds
+    for (let k = 0; k < 200000; k++) {
+      const x = Bd.minX + 90 + rnd() * (Bd.maxX - Bd.minX - 180), y = Bd.minY + 90 + rnd() * (Bd.maxY - Bd.minY - 180)
+      if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent || nav.wallDistAt(x, y) > 8 || nav.wallDistAt(x, y) < 4) continue
+      const a = rnd() * 6.283, d = dLo + rnd() * (dHi - dLo), ex = x + d * Math.cos(a), ey = y + d * Math.sin(a)
+      if (!nav.passableAt(ex, ey) || nav.component(ex, ey) !== nav.mainComponent) continue
+      const z = nav.levelAt(x, y), ez = nav.levelAt(ex, ey)
+      if (!sees(ex, ey, x, y) || !sees(x, y, ex, ey)) continue
+      return { x, y, ex, ey }
+    }
+    return null
+  }
+  const bigZone = (x, y) => ({ center: [x, y], radius: 3000, next_center: [x, y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 })
+  // drive with an observation mutator (e.g. a 16-mech alive count instead of the micro-arena's 1 + enemies)
+  const driveO = (ar, br, seconds, mut, hook) => { for (let k = 0; k < Math.round(seconds * 10); k++) { const o = ar.obs(); if (mut) mut(o); const t0 = performance.now(); const a = br.act(o, t0 + 27.5); allTimes.push(performance.now() - t0); if (hook) hook(ar, o, a, br); ar.step(a) } }
+  const sees = (ax, ay, bx, by) => { const az = nav.levelAt(ax, ay), bz = nav.levelAt(bx, by); return world.shotClear(ax, ay, az + 7, bx, by, bz + 4.5) && world.canSee(ax, ay, az + 8, bx, by, bz + 4.5) }
+  // a spot with a mech position at dLo-dHi m that has no line to us either way (listed for 5 s after sight is lost), plus a free point near us
+  function hiddenSpot(seed, dLo, dHi, nearLo, nearHi, nearFromHid) {
+    const rnd = rng32(seed), Bd = world.bounds
+    for (let k = 0; k < 400000; k++) {
+      const x = Bd.minX + 90 + rnd() * (Bd.maxX - Bd.minX - 180), y = Bd.minY + 90 + rnd() * (Bd.maxY - Bd.minY - 180)
+      if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent || nav.wallDistAt(x, y) < 4) continue
+      const a = rnd() * 6.283, d = dLo + rnd() * (dHi - dLo), hx = x + d * Math.cos(a), hy = y + d * Math.sin(a)
+      if (!nav.passableAt(hx, hy) || nav.component(hx, hy) !== nav.mainComponent) continue
+      const z = nav.levelAt(x, y), hz = nav.levelAt(hx, hy)
+      if (world.shotClear(hx, hy, hz + 7, x, y, z + 4.5) || world.shotClear(hx, hy, hz + 7, x, y, z + 8.5) || world.shotClear(x, y, z + 7, hx, hy, hz + 4.5) || world.shotClear(x, y, z + 7, hx, hy, hz + 7.5)) continue
+      for (let j = 0; j < 40; j++) {
+        const b = rnd() * 6.283, r = nearLo + rnd() * (nearHi - nearLo), px = x + r * Math.cos(b), py = y + r * Math.sin(b)
+        if (!nav.passableAt(px, py) || nav.component(px, py) !== nav.mainComponent || Math.abs(nav.levelAt(px, py) - z) > 1.5 || !nav.walkLine(x, y, px, py)) continue
+        const dh = Math.hypot(px - hx, py - hy)
+        if (dh < nearFromHid[0] || dh > nearFromHid[1]) continue
+        return { x, y, z, hx, hy, hz, px, py, pz: nav.levelAt(px, py) }
+      }
+    }
+    return null
+  }
+  // synthetic observations on the real map (self fixed at the spot)
+  function feedSpot(br, sp, n, mechs, extra) {
+    const base = JSON.parse(JSON.stringify(streamObs[0]))
+    for (let k = 0; k < n; k++) {
+      const o = JSON.parse(JSON.stringify(base)); o.tick = 8000 + k * 2; o.t = 100 + k * 0.1; o.alive = 12; o.events = []; o.projectiles = []; o.beams = []; o.sounds = []; o.crates = []; o.pickups = []; o.drops = []; o.offer = null
+      o.self.pos = [sp.x, sp.y, sp.z]; o.self.vel = [0, 0, 0]; o.self.hp = 1400; o.self.energy = 100
+      o.zone = { center: [sp.x, sp.y], radius: 3000, next_center: [sp.x, sp.y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 }
+      o.mechs = mechs(k); o.cubes = extra && extra.cubes ? extra.cubes : []
+      br.act(o, performance.now() + 27)
+      if (extra && extra.hook) extra.hook(br, k)
+    }
+  }
+  // a static gun shooter that fires (dps) whenever it has a line on us
+  const shooter = (dps) => (e, t, ar) => { face(e, ar); const me = ar.me; e.dps = world.shotClear(e.x, e.y, e.z + 7, me.x, me.y, me.z + 4.5) ? dps : 0 }
+  const enemySees = (e, me) => world.shotClear(e.x, e.y, e.z + 7, me.x, me.y, me.z + 4.5) && (world.canSee(e.x, e.y, e.z + 8, me.x, me.y, me.z + 4.5) || world.canSee(e.x, e.y, e.z + 8, me.x, me.y, me.z + 9))
+
+  // 1. SQUAD bit-identity inside the suite: the kit stream with the FFA module and rules on / off gives the same actions
+  {
+    const run = (sel) => { const b = createBrain(hello, ctxMap, { warmup: false, select: { env: 'squad', ...sel } }); return streamObs.map((o) => JSON.stringify(b.act(o, performance.now() + 27))).join('\n') }
+    const on = run({}), off = run({ ffaCounters: 'off', ffaRules: 'off' })
+    const b = createBrain(hello, ctxMap, { warmup: false, select: { env: 'squad' } }); for (const o of streamObs) b.act(o, performance.now() + 27)
+    const B = b._B
+    check('ffa: SQUAD bit-identity: kit stream actions identical with ffaCounters/ffaRules on and off; module inert (no rank, neutral advice)', on === off && B.cxRank === null && B.cx && !B.cx.adviceFor(streamObs[0].mechs.length ? streamObs[0].mechs[0].id : 0, B.cxCtx).active && B.ffaBreak === false,
+      `${streamObs.length} actions ${on === off ? 'identical' : 'DIFFER'}; cxRank ${B.cxRank}, ctx env ${B.cxCtx.env}`)
+  }
+
+  // 2. counter module wired in FFA: a motionless, calm mech reads HIDER; advice reaches the brain (rank, cxMult, avoid = never a target, hold fire)
+  {
+    const mk = () => { const ar = new Arena({ cfg, seed: 201, me: { x: 0, y: 0, yaw: 0 }, enemies: [{ id: 10, x: 140, y: 0, hp: 1400, script: (e, t, a) => { e.vx = 0; e.vy = 0; e.yaw = Math.atan2(e.y - a.me.y, e.x - a.me.x) } }] }); ar.t = 100; return ar }
+    const ar = mk(), br = ffaB(ctxNone)
+    let tgtDec = 0, shots0 = 0
+    driveO(ar, br, 14, (o) => { o.alive = 12 }, (a, obs, act, b) => { if (a.t > 106 && b._B.target && b._B.target.id === 10) tgtDec++ })
+    shots0 = ar.stats.shots + ar.stats.beams
+    const B = br._B, rd = B.cx.archetypeOf(10), adv = B.cx.adviceFor(10, B.cxCtx), rank = B.cxRank ? B.cxRank.map((r) => r.id) : null
+    const ok = rd.archetype === 'HIDER' && rd.confidence >= 0.5 && adv.active && adv.engage === 'avoid' && rank && rank[0] === 10 && tgtDec === 0 && shots0 === 0
+    check('ffa: counter module wired (hookup steps 1-10): calm motionless mech reads HIDER, advice avoid -> never targeted, no shot; threat rank fills', ok,
+      `read ${rd.archetype} conf ${fx(rd.confidence)} | advice ${adv.reason} ${adv.engage} band ${fx(adv.lo, 0)}-${fx(adv.hi, 0)} | rank ${JSON.stringify(rank)} | target decisions ${tgtDec}, shots ${shots0}`)
+  }
+
+  // 3. D11 hider counter: out-farm it (a drone farmed with the hider 140 m away) and pass it at 120 m (a cube 70 m from it is left)
+  {
+    // a motionless hider 130-150 m away behind buildings (listed: the server lists a mech 5 s after sight is lost), a drone 35-45 m from us
+    const sp = hiddenSpot(203, 130, 150, 35, 45, [125, 1e9]), sp2 = hiddenSpot(204, 130, 150, 35, 50, [80, 110])
+    const hid = (sp) => (k) => [{ id: 10, kind: 'mech', pos: [sp.hx, sp.hy, sp.hz], vel: [0, 0, 0], aim: [Math.atan2(sp.hy - sp.y, sp.hx - sp.x), 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }]
+    const res = (sp, over, withDrone, withCube) => {
+      const br = ffaB(ctxMap, over)
+      let farm = 0, cube = 0, read = null
+      feedSpot(br, sp, 140, (k) => hid(sp)(k).concat(withDrone ? [{ id: 120, kind: 'npc', pos: [sp.px, sp.py, sp.pz], vel: [0, 0, 0], aim: [0, 0], hp: 350, max_hp: 350 }] : []),
+        { cubes: withCube ? [{ id: 5003, pos: [sp.px, sp.py, sp.pz] }] : [], hook: (b, k) => { const B = b._B; if (k > 90) { if (B.loot && B.loot.type === 'drone') farm++; if (B.loot && B.loot.type === 'cube') cube++ } read = B.cx.archetypeOf(10) } })
+      return { farm, cube, read: read ? read.archetype + ' ' + fx(read.confidence) : '-' }
+    }
+    if (!sp || !sp2) check('ffa: D11 hider counter scenario found', false, 'no spot')
+    else {
+      const on = res(sp, {}, true, false), off = res(sp, { select: { ffaRules: 'off' } }, true, false), pass = res(sp2, {}, false, true), passOff = res(sp2, { select: { ffaRules: 'off' } }, false, true)
+      const ok = on.farm > 0 && off.farm === 0 && pass.cube === 0 && passOff.cube > 0
+      check('ffa: D11 hider counter: out-farm a confident hider 140 m away (rules off: no farming with a mech under 150 m); pass it at 120 m (a cube 80-110 m from it is left)', ok,
+        `read ${on.read} | rules on: drone farm decisions ${on.farm} | rules off: ${off.farm} | cube near the hider: rules on chosen ${pass.cube}x, rules off ${passOff.cube}x`)
+    }
+  }
+
+  // 4. rule 1 hide budget: charge time measured on a first-tick flag, else by cubes (0.75 / 0.56 / 0.42 s); reach = budget x speed
+  {
+    const br = ffaB(ctxNone), B = br._B
+    const base = JSON.parse(JSON.stringify(streamObs[0])), [x, y, z] = base.self.pos
+    const feed = (k, charging, beams, cubes) => {
+      const o = JSON.parse(JSON.stringify(base)); o.tick = k * 2; o.t = 100 + k * 0.1; o.events = []; o.projectiles = []; o.beams = beams || []
+      o.mechs = [{ id: 7, kind: 'mech', pos: [x + 120, y, z], vel: [0, 0, 0], aim: [Math.PI, 0], hp: 1400, max_hp: 1400, cubes, weapons: ['gun', 'laser'], charging }]
+      br.act(o, performance.now() + 27)
+    }
+    feed(0, false, null, 2); feed(1, false, null, 2)
+    for (let k = 2; k < 9; k++) feed(k, true, null, 2)
+    feed(9, false, [{ by: 7, kind: 'laser', path: [[x + 120, y, z + 7], [x, y, z + 5]], age: 0.0 }], 2)
+    const tr = B.tracks.get(7), meas = B.ffa.chargeTime(tr)
+    feed(10, false, null, 3)
+    const after = B.ffa.chargeTime(tr)
+    const tc = (cubes, known) => B.ffa.chargeTime({ cubes, cubesKnown: known, chargeMeas: 0, chargeMeasCubes: -1 })
+    const c0 = tc(0, true), c2 = tc(2, true), c5 = tc(5, true), cu = tc(0, false)
+    // reach while a 5-cube laser charges at us, 0.1 s after its first flag tick
+    feed(11, false, null, 5); feed(12, true, null, 5)
+    const reachB = B.ffa.hideReach(true), reachW = B.ffa.hideReach(false)
+    const ok = Math.abs(meas - 0.7) < 0.051 && Math.abs(after - 0.421875) < 1e-6 && Math.abs(c0 - 0.75) < 1e-9 && Math.abs(c2 - 0.5625) < 1e-9 && Math.abs(c5 - 0.421875) < 1e-9 && Math.abs(cu - 0.421875) < 1e-9 &&
+      reachW > 3 && reachW < 5.2 && reachB > 5.5 && reachB < 8
+    check('ffa: rule 1 hide budget: measured first-tick charge (0.7 s), cube bounds 0.75/0.56/0.42 s (unknown 0.42), reach = (charge - 0.1 s) x speed', ok,
+      `measured ${fx(meas, 3)} s, after a cube change ${fx(after, 3)} | 0 cubes ${fx(c0, 3)}, 2 ${fx(c2, 3)}, 5 ${fx(c5, 3)}, unknown ${fx(cu, 3)} | reach walk ${fx(reachW, 1)} m, boost ${fx(reachB, 1)} m`)
+  }
+
+  // 5. rule 1 beam clock: closed while its laser is ready; open 1.65 s after its flag drop; timer peeks 2.9 s after a flag / 4.3 s after leaving its line, 0.6 s long
+  {
+    const br = ffaB(ctxNone), B = br._B
+    const base = JSON.parse(JSON.stringify(streamObs[0])); base.self.hp = 1400; base.self.weapons = [{ kind: 'gun', cooldown: 0, ammo: 12, reload: 0 }, { kind: 'laser', cooldown: 0, charge: 0 }]
+    const o = JSON.parse(JSON.stringify(base)); o.t = 100; o.tick = 2000; o.mechs = []; br.act(o, performance.now() + 27)
+    const at = (t) => { B.me.t = t }
+    const T = { hasLaser: true, charging: false, flagDropT: -99, flagSeenT: -99, losInT: 100, peekT0: -99 }
+    at(101); const c1 = B.ffa.peekOpen(T)                                   // hidden 1 s, no flag seen: closed
+    at(104.4); const o1 = B.ffa.peekOpen(T); T.losInT = 104.5; at(104.8); const o1b = B.ffa.peekOpen(T); at(105.1); const c1b = B.ffa.peekOpen(T)
+    T.flagSeenT = 106; T.losInT = 106; at(107); const c2 = B.ffa.peekOpen(T); at(108.95); const o2 = B.ffa.peekOpen(T)
+    T.flagDropT = 110; T.peekT0 = -99; T.losInT = 110; at(111); const o3 = B.ffa.peekOpen(T); at(111.8); const c3 = B.ffa.peekOpen(T)
+    T.charging = true; T.flagDropT = -99; at(112); const c4 = B.ffa.peekOpen(T); T.charging = false
+    B.me.hpf = 0.4; T.flagSeenT = -99; T.losInT = 112; T.peekT0 = -99; at(116.5); const c5 = B.ffa.peekOpen(T); B.me.hpf = 1
+    at(124.5); const o5 = B.ffa.peekOpen(T)
+    const ok = !c1 && o1 && o1b && !c1b && !c2 && o2 && o3 && !c3 && !c4 && !c5 && o5
+    check('ffa: rule 1 beam clock (M8 / K4): hold cover while its laser is ready; peek 1.65 s after its beam, or 0.6 s on the 2.9 s / 4.3 s timers; never below 50% hp; 12 s cap', ok,
+      `closed 1 s after hiding ${!c1}, 4.3 s timer open ${o1} and held while exposed ${o1b}, closed after 0.6 s ${!c1b} | flag seen: closed at 1 s ${!c2}, open at 2.9 s ${o2} | after its beam open ${o3}, closed after 1.65 s ${!c3} | charging closed ${!c4} | 40% hp closed ${!c5} | 12 s cap open ${o5}`)
+  }
+
+  // 6. rule 2: our laser charges 0.4 rad off the target and swings on to release (SQUAD charges on the target)
+  {
+    const mk = () => { const ar = new Arena({ cfg, seed: 206, me: { x: 0, y: 0, yaw: 0, weapons: ['gun', 'laser'] }, enemies: [{ id: 10, x: 130, y: 10, hp: 500, maxHp: 1400, script: (e, t, a) => { e.vx = 0; e.vy = 0; e.yaw = Math.PI / 2 } }] }); ar.t = 100; return ar }
+    const res = (mkB) => {
+      const ar = mk(), br = mkB()
+      const offs = []
+      drive(ar, br, 12, (a, obs, act) => {
+        const w = a.me.weapons[1]
+        if (w && w.charge > 0 && w.charge < 0.75 * 0.75) offs.push(offAim(a.me.yaw, a.me.x, a.me.y, a.enemies[0].x, a.enemies[0].y))
+      })
+      return { med: offs.length ? quant(offs, 0.5) : NaN, n: offs.length, beams: ar.stats.beams, hits: ar.stats.beamHits }
+    }
+    const f = res(() => ffaB(ctxNone)), s = res(() => sqB(ctxNone))
+    const ok = f.n > 3 && f.med > 0.3 && f.med < 0.5 && f.hits >= 1 && f.hits >= f.beams - 1 && s.med < 0.1
+    check('ffa: rule 2: laser charged 0.35-0.45 rad off the target, swung on at release; beams still hit (SQUAD: on target)', ok,
+      `FFA median off-axis while charging ${fx(f.med, 3)} rad (${f.n} decisions), beams ${f.beams} hits ${f.hits} | SQUAD ${fx(s.med, 3)} rad, beams ${s.beams} hits ${s.hits}`)
+  }
+
+  // 7. rule 3 + D11 timing + rule 8: first-shot gate (busy 1.5 s, under half hp, outside its wedge, 60-190 m, cover within 6 m; finish at 40%; duel survivor)
+  {
+    const br = ffaB(ctxMap), B = br._B
+    const base = JSON.parse(JSON.stringify(streamObs[0])), [x, y, z] = base.self.pos
+    // bookkeeping through real observations: A (id 7) aims at B (id 8) for 2 s, then B dies (alive 16 -> 15, not our kill)
+    for (let k = 0; k < 25; k++) {
+      const o = JSON.parse(JSON.stringify(base)); o.tick = 4000 + k * 2; o.t = 100 + k * 0.1; o.events = []; o.projectiles = []; o.beams = []; o.alive = k < 22 ? 16 : 15
+      o.mechs = [{ id: 7, kind: 'mech', pos: [x + 120, y, z], vel: [0, 0, 0], aim: [Math.PI / 2, 0], hp: 600, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }]
+      if (k < 22) o.mechs.push({ id: 8, kind: 'mech', pos: [x + 120, y + 90, z], vel: [0, 0, 0], aim: [-Math.PI / 2, 0], hp: 200, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false })
+      br.act(o, performance.now() + 27)
+    }
+    const A = B.tracks.get(7), busyS = 2.1, survivor = B.me.t - A.duelWonT
+    const t = B.me.t
+    const tr = (o) => ({ listed: true, npc: false, busyWith: 8, busySince: t - 2, hp: 600, maxHp: 1400, yaw: Math.PI / 2, bearing: 0, dist: 100, cubes: 0, cubesKnown: true, thirdExitT: -99, duelWonT: -99, finishable: false, x: x + 100, y, conf: 1, ...o })
+    B.hide.state = 'found'; B.hide.dist = 4; B.ffaOpen = true
+    const cases = {
+      third: B.ffa.firstShotOk(tr({})), busy1s: B.ffa.firstShotOk(tr({ busySince: t - 1 })), healthy: B.ffa.firstShotOk(tr({ hp: 800 })), facing: B.ffa.firstShotOk(tr({ yaw: Math.PI + 0.3 })),
+      close3cubes: B.ffa.firstShotOk(tr({ dist: 70, cubes: 4 })), far: B.ffa.firstShotOk(tr({ dist: 200 })), finish: B.ffa.firstShotOk(tr({ busyWith: -1, hp: 540 })), calm: B.ffa.firstShotOk(tr({ busyWith: -1 })),
+      survivor: B.ffa.firstShotOk(A), survivorCrowd: B.ffa.firstShotOk(tr({ busyWith: -1, duelWonT: t - 2 })), exitHeld: B.ffa.firstShotOk(tr({ thirdExitT: t - 2 })),
+    }
+    B.hide.dist = 10; const noCover = B.ffa.firstShotOk(tr({}))
+    B.hide.dist = 4; B.ffaOpen = false; const early = B.ffa.firstShotOk(tr({}))
+    const ok = A.busyWith === -1 && A.busyLastWith === 8 && survivor >= 0 && survivor < 0.5 && cases.third && !cases.busy1s && !cases.healthy && !cases.facing && !cases.close3cubes && !cases.far && cases.finish && !cases.calm && cases.survivor && !cases.survivorCrowd && !cases.exitHeld && !noCover && !early
+    check('ffa: rule 3 / D11 third-party timing / rule 8: first shot only at a busy (1.5 s) mech under half hp from outside its wedge with cover, at a finish (<= 40%) or at a duel survivor', ok,
+      `busy bookkeeping: last busy with ${A.busyLastWith}, duel won ${fx(survivor, 2)} s ago | ${Object.entries(cases).map(([k, v]) => k + ' ' + v).join(', ')}, no cover ${noCover}, before 90 s ${early}`)
+  }
+
+  // 8. rules 4 / 10: hit by a healthy mech -> answer fire while breaking the line, move 20 m from where it last saw us, stay out of sight 9 s (SQUAD fights)
+  {
+    const sp = ffaSpot(208)
+    const run = (mkB) => {
+      const ar = new Arena({ cfg, world, nav, seed: 208, me: { x: sp.x, y: sp.y, yaw: Math.atan2(sp.ey - sp.y, sp.ex - sp.x) }, zone: bigZone(sp.x, sp.y), enemies: [{ id: 10, x: sp.ex, y: sp.ey, hp: 1400, script: shooter(70) }] })
+      ar.t = 100
+      const br = mkB()
+      let tTrig = -1, tEnd = -1, lastSeenT = -1, lsx = 0, lsy = 0, endGap = -1, endMove = -1, shotsBreak = 0, prevShots = 0, modes = {}
+      driveO(ar, br, 30, (o) => { o.alive = 12 }, (a, obs, act, b) => {
+        const B = b._B, e = a.enemies[0], me = a.me
+        const los = enemySees(e, me)
+        if (los) { lastSeenT = a.t; lsx = me.x; lsy = me.y }
+        modes[B.mode] = (modes[B.mode] || 0) + 1
+        const ns = a.stats.shots + a.stats.beams - prevShots; prevShots = a.stats.shots + a.stats.beams
+        if (B.ffaBreak && tTrig < 0) tTrig = a.t
+        if (B.ffaBreak && los) shotsBreak += ns
+        if (tTrig >= 0 && tEnd < 0 && !B.ffaBreak) { tEnd = a.t; endGap = a.t - lastSeenT; endMove = Math.hypot(me.x - lsx, me.y - lsy) }
+      })
+      return { tTrig, tEnd, endGap, endMove, shotsBreak, modes, hp: ar.me.hp }
+    }
+    if (!sp) check('ffa: rule 4 scenario found', false, 'no spot')
+    else {
+      const f = run(() => ffaB(ctxMap)), s = run(() => sqB(ctxMap))
+      const ok = f.tTrig > 0 && f.tTrig < 102 && f.shotsBreak > 0 && f.tEnd > 0 && f.endGap >= 8.9 && f.endMove >= 20 && s.tTrig < 0 && (s.modes.FIGHT || 0) > (s.modes.DISENGAGE || 0)
+      check('ffa: rule 4 / 10: shot by a healthy mech -> fire back while breaking the line, relocate >= 20 m, out of sight >= 9 s, then resume (SQUAD fights)', ok,
+        `FFA: break at ${fx(f.tTrig, 1)} s, shots while exposed in the break ${f.shotsBreak}, ended at ${fx(f.tEnd, 1)} s: unseen ${fx(f.endGap, 1)} s, ${fx(f.endMove, 0)} m from the last-seen point; modes ${JSON.stringify(f.modes)} | SQUAD: break ${f.tTrig < 0 ? 'n/a' : s.tTrig}, modes ${JSON.stringify(s.modes)}`)
+    }
+  }
+
+  // 9. rules 9 / 8 / 10 triggers: wounded in a calm mech's view breaks the line; healthy in its view does not; a finish (35%) is exempt
+  {
+    const sp = ffaSpot(209)
+    const run = (hp, ehp, dps) => {
+      const ar = new Arena({ cfg, world, nav, seed: 209, me: { x: sp.x, y: sp.y, yaw: Math.atan2(sp.ey - sp.y, sp.ex - sp.x), hp }, zone: bigZone(sp.x, sp.y),
+        enemies: [{ id: 10, x: sp.ex, y: sp.ey, hp: ehp, maxHp: 1400, script: dps ? shooter(dps) : (e) => { e.vx = 0; e.vy = 0; e.yaw = Math.atan2(sp.y - e.y, sp.x - e.x) + 1.2 } }] })
+      ar.t = 100
+      const br = ffaB(ctxMap)
+      let trig = -1
+      driveO(ar, br, 4, (o) => { o.alive = 12 }, (a, obs, act, b) => { if (b._B.ffaBreak && trig < 0) trig = a.t })
+      return trig
+    }
+    if (!sp) check('ffa: rule 9 scenario found', false, 'no spot')
+    else {
+      const wounded = run(0.45 * 1400, 1400, 0), healthy = run(1400, 1400, 0), finish = run(1400, 490, 60), shot = run(1400, 1400, 60)
+      const ok = wounded > 0 && healthy < 0 && finish < 0 && shot > 0
+      check('ffa: rules 9 / 8 / 4: wounded (45%) in a calm mech\'s view breaks the line; healthy in view does not; a 35% attacker is finished, not fled', ok,
+        `wounded: break at ${fx(wounded, 1)} s | healthy: ${healthy < 0 ? 'no break' : healthy} | shot by a 35% mech: ${finish < 0 ? 'no break (finish)' : finish} | shot by a healthy mech: break at ${fx(shot, 1)} s`)
+    }
+  }
+
+  // 10. rule 5: keep 50+ m from a lightning carrier walking in (we walk away), unless we hold lightning and more hp
+  {
+    const mk = (weapons) => { const ar = new Arena({ cfg, seed: 210, me: { x: 0, y: 0, yaw: 0, weapons }, enemies: [{ id: 10, x: 75, y: 0, hp: BIGHP, maxHp: BIGHP, weapons: ['gun', 'lightning'], dps: 20,
+      script: (e, t, a, dt) => { face(e, a); const dx = a.me.x - e.x, dy = a.me.y - e.y, d = Math.hypot(dx, dy) || 1; e.vx = dx / d * 9; e.vy = dy / d * 9; e.x += e.vx * dt; e.y += e.vy * dt } }] }); ar.t = 100; return ar }
+    const res = (weapons, mkB) => { const ar = mk(weapons), br = mkB(); ar.me.hp = ar.me.maxHp = BIGHP; let minD = 1e9, keep = 0; drive(ar, br, 15, (a, obs, act, b) => { if (a.t > 102) minD = Math.min(minD, Math.hypot(a.enemies[0].x - a.me.x, a.enemies[0].y - a.me.y)); if (b._B.legKind === 'lightkeep') keep++ }); return { minD, keep } }
+    const f = res(['gun', null], () => ffaB(ctxNone)), fl = res(['gun', 'lightning'], () => ffaB(ctxNone)), s = res(['gun', null], () => sqB(ctxNone))
+    const ok = f.minD >= 40 && f.keep > 20 && fl.keep === 0 && s.minD < f.minD
+    check('ffa: rule 5: a lightning carrier walking in at 9 m/s is kept beyond 40 m (we walk away); not when we hold lightning and more hp; SQUAD lets it close', ok,
+      `FFA gun: min ${fx(f.minD, 1)} m, lightkeep ${f.keep} decisions | FFA with lightning: lightkeep ${fl.keep}, min ${fx(fl.minD, 1)} m | SQUAD: min ${fx(s.minD, 1)} m`)
+  }
+
+  // 11. rule 6: gun gate by target motion (sub-second reverser only under 0.3 s of flight; steady waiver to 0.8 s)
+  {
+    const mkS = (D, period) => { const ar = new Arena({ cfg, seed: 211, me: { x: 0, y: 0, yaw: 0, pinned: true, hp: BIGHP }, enemies: [{ id: 10, x: D, y: 0, hp: BIGHP, dps: 20, script: strafer(D, period, 10) }] }); ar.t = 100; ar.me.maxHp = BIGHP; return ar }
+    const mkW = (D) => { const ar = new Arena({ cfg, seed: 212, me: { x: 0, y: 0, yaw: 0, pinned: true, hp: BIGHP }, enemies: [{ id: 10, x: D, y: -20, hp: BIGHP, dps: 20, script: crossing(D, 1e9, 4) }] }); ar.t = 100; ar.me.maxHp = BIGHP; return ar }
+    const shots = (ar, mkB) => { const br = mkB(); drive(ar, br, 12, (a) => { a.countShots = a.t > 104 }); return ar.stats.shots }
+    const revF = shots(mkS(110, 0.7), () => ffaB(ctxNone)), revS = shots(mkS(110, 0.7), () => sqB(ctxNone)), slowF = shots(mkS(110, 1.6), () => ffaB(ctxNone))
+    const farF = shots(mkW(185), () => ffaB(ctxNone, { ffaSteadyFlight: 0.7 })), farS = shots(mkW(185), () => sqB(ctxNone)), midF = shots(mkW(160), () => ffaB(ctxNone))
+    const tr = { revT: new Float64Array([100.1, 100.9, 101.7, 102.5]) }, tr2 = { revT: new Float64Array([99.6, 101.0, 102.4, 0]) }
+    const br = ffaB(ctxNone); br._B.me.t = 102.6
+    const ok = revF === 0 && revS > 10 && slowF > 10 && farF === 0 && farS > 10 && midF > 10 && br._B.ffa.reverser(tr) && !br._B.ffa.reverser(tr2)
+    check('ffa: rule 6: no gun at a 0.7 s reverser at 110 m (0.44 s flight; SQUAD fires), fires at a 1.6 s one; steady walker fired at 160 m (0.64 s), the flight cap holds (185 m, cap set to 0.7 s; SQUAD fires)', ok,
+      `reverser 110 m: FFA ${revF} shots, SQUAD ${revS} | slow reverser FFA ${slowF} | steady 160 m FFA ${midF} | steady 185 m with a 0.7 s cap FFA ${farF}, SQUAD ${farS} | median-gap test ${br._B.ffa.reverser(tr)}/${br._B.ffa.reverser(tr2)}`)
+  }
+
+  // 12. rule 8: calm courtesy: torso 0.3 rad off a calm mech, no first shot at a healthy calm mech, a 35% mech is finished; no loot inside 45 m of it
+  {
+    const mk = (ehp, cube) => { const ar = new Arena({ cfg, seed: 212, me: { x: 0, y: 0, yaw: 0 }, cubes: cube ? [{ id: 5002, pos: [100, 20, 0] }] : [], enemies: [{ id: 10, x: 110, y: 0, hp: ehp, maxHp: 1400, script: (e) => { e.vx = 0; e.vy = 0; e.yaw = Math.PI / 2 } }] }); ar.t = 100; return ar }
+    const res = (ehp, cube, mkB) => {
+      const ar = mk(ehp, cube), br = mkB()
+      let trackOff = 1e9, nTrack = 0
+      drive(ar, br, 10, (a, obs, act, b) => { if (b._B.aimKind === 'track') { nTrack++; trackOff = Math.min(trackOff, offAim(act.aim[0], a.me.x, a.me.y, a.enemies[0].x, a.enemies[0].y)) } })
+      return { shots: ar.stats.shots + ar.stats.beams, trackOff, nTrack, cubes: ar.stats.cubesTaken || 0, ehp: ar.enemies[0].hp }
+    }
+    const calm = res(1400, false, () => ffaB(ctxNone)), fin = res(490, false, () => ffaB(ctxNone)), sq = res(1400, false, () => sqB(ctxNone))
+    // no approach inside 45 m (0 cubes) of a calm mech: a cube 25-35 m from a listed mech without a line is left (rules off: taken)
+    const sp = hiddenSpot(212, 70, 95, 30, 50, [25, 35])
+    const cubeRes = (over) => { const br = ffaB(ctxMap, over); let c = 0; feedSpot(br, sp, 60, () => [{ id: 11, kind: 'mech', pos: [sp.hx, sp.hy, sp.hz], vel: [0, 0, 0], aim: [Math.atan2(sp.hy - sp.y, sp.hx - sp.x) + 1.5, 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }],
+      { cubes: [{ id: 5004, pos: [sp.px, sp.py, sp.pz] }], hook: (b, k) => { if (k > 35 && b._B.loot && b._B.loot.type === 'cube') c++ } }); return c }
+    const cOn = sp ? cubeRes({}) : -1, cOff = sp ? cubeRes({ select: { ffaRules: 'off' } }) : -1
+    const ok = calm.shots === 0 && calm.nTrack > 0 && calm.trackOff >= 0.29 && fin.shots > 0 && sq.shots > 0 && cOn === 0 && cOff > 0
+    check('ffa: rule 8 calm courtesy: no first shot at a healthy calm mech and torso >= 0.3 rad off it (SQUAD opens on it); a 35% mech is finished; no loot inside 45 m of a calm mech', ok,
+      `calm: shots ${calm.shots}, track-look decisions ${calm.nTrack} min off-bearing ${fx(calm.trackOff, 2)} rad | SQUAD shots ${sq.shots} | 35%: shots ${fin.shots}, its hp ${fx(fin.ehp, 0)} | cube 25-35 m from a calm mech: chosen ${cOn}x (rules off ${cOff}x)`)
+  }
+
+  // 13. D11 boost rarely: a hostile mech inside 90 m with our laser: SQUAD boosts away (D2), FFA walks
+  {
+    const mk = () => { const ar = new Arena({ cfg, seed: 213, me: { x: 0, y: 0, yaw: 0, weapons: ['gun', 'laser'] }, enemies: [{ id: 10, x: 70, y: 0, hp: BIGHP, dps: 30, script: (e, t, a) => { face(e, a); e.vx = 0; e.vy = 0 } }] }); ar.t = 100; return ar }
+    const res = (mkB) => { const ar = mk(), br = mkB(); let boosts = 0; drive(ar, br, 8, (a, obs, act) => { if (act.boost) boosts++ }); return boosts }
+    const f = res(() => ffaB(ctxNone)), s = res(() => sqB(ctxNone))
+    check('ffa: D11 boost rarely: no laser-band boost-away in FFA (SQUAD boosts away from a mech inside 90 m)', f === 0 && s > 5, `boost decisions FFA ${f}, SQUAD ${s}`)
+  }
+
+  // 14. D11 final-point hp race: from 390 s stand on next_center (SQUAD follows the moving centre)
+  {
+    const zone = { center: [0, 0], radius: 25, next_center: [14, 6], next_radius: 0, shrink_start: 390, shrink_end: 415, dps: 260 }
+    const res = (mkB) => {
+      const ar = new Arena({ cfg, seed: 214, me: { x: -4, y: -3, yaw: 0 }, zone, enemies: [] }); ar.t = 386
+      const br = mkB()
+      const d = []
+      drive(ar, br, 27, (a) => { if (a.t >= 400 && a.t <= 413) d.push(Math.hypot(a.me.x - 14, a.me.y - 6)) })
+      return { mean: d.reduce((p, q) => p + q, 0) / Math.max(1, d.length), max: Math.max(...d), out: ar.stats.outsideTicks, hp: ar.me.hp }
+    }
+    const f = res(() => ffaB(ctxNone)), s = res(() => sqB(ctxNone))
+    const ok = f.max < 2.5 && f.out <= 6 && s.mean > f.mean + 2
+    check('ffa: D11 final-point hp race: from 390 s we stand on next_center (within 2.5 m, no zone damage); SQUAD tracks the moving centre', ok,
+      `FFA: mean ${fx(f.mean, 2)} m, max ${fx(f.max, 2)} m from next_center 400-413 s, ticks outside ${f.out}, hp ${fx(f.hp, 0)} | SQUAD: mean ${fx(s.mean, 2)} m, outside ${s.out}`)
+  }
+
+  // 15. addendum K2 (FFA only): an aim sweep crossing us for one decision is not hostility; 3 decisions are; SQUAD keeps D0's instant aim rule
+  {
+    const base = JSON.parse(JSON.stringify(streamObs[0])), [x, y, z] = base.self.pos
+    const run = (mkB, aimSeq) => {
+      const br = mkB(), B = br._B
+      let hostile = false
+      aimSeq.forEach((onUs, k) => {
+        const o = JSON.parse(JSON.stringify(base)); o.tick = 6000 + k * 2; o.t = 100 + k * 0.1; o.events = []; o.projectiles = []; o.beams = []
+        o.mechs = [{ id: 7, kind: 'mech', pos: [x + 120, y, z], vel: [0, 0, 0], aim: [onUs ? Math.PI : Math.PI / 2, 0], hp: 1400, max_hp: 1400, cubes: 0, weapons: ['gun'], charging: false }]
+        br.act(o, performance.now() + 27)
+        const tr = B.tracks.get(7); if (tr && tr.hostile && B.env === 'FFA') hostile = true; if (tr && tr.hostile && B.env !== 'FFA') hostile = true
+      })
+      return hostile
+    }
+    const sweep = [0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0], dwell = [0, 0, 1, 1, 1, 1, 0]
+    const fS = run(() => ffaB(ctxNone), sweep), fD = run(() => ffaB(ctxNone), dwell), sS = run(() => sqB(ctxNone), sweep)
+    check('ffa: addendum K2 (FFA only): a 1-2 decision aim sweep is not hostility, 3 decisions are; SQUAD unchanged (instant)', !fS && fD && sS, `FFA sweep hostile ${fS}, FFA 0.3 s dwell hostile ${fD}, SQUAD sweep hostile ${sS}`)
+  }
+
+  // 16. counter-module corrections (dossier section 6, M3 / M5, addendum K3): rusher capped at opportunistic; wounded hider at <= 40% -> finish (attack); farmer strike gated
+  {
+    const { createCounters } = await import('../bot/lib/counters.js')
+    const feedC = (c, n, mech, extra) => { for (let k = 0; k < n; k++) c.update({ t: 100 + k * 0.1, self: { id: 3, pos: [0, 0, 0], hp: 1400, max_hp: 1400, energy: 100, weapons: [{ kind: 'gun' }, { kind: 'laser' }] }, mechs: [{ kind: 'mech', vel: [0, 0, 0], cubes: 0, weapons: ['gun'], charging: false, ...mech }], ...(extra || {}) }, 100 + k * 0.1) }
+    const ctx = { env: 'FFA', bandLo: 125, bandHi: 185, myLaser: true, myLightning: false, myGun: true, myHpf: 1, myHp: 1400, myEnergy: 100, alive: 12 }
+    const c1 = createCounters(hello); feedC(c1, 120, { id: 5, pos: [150, 0, 0], aim: [0, 0], hp: 1400, max_hp: 1400 })
+    const c2 = createCounters(hello); feedC(c2, 120, { id: 5, pos: [150, 0, 0], aim: [0, 0], hp: 500, max_hp: 1400 })
+    const c3 = createCounters(hello); feedC(c3, 120, { id: 5, pos: [150, 0, 0], aim: [0, 0], hp: 1400, max_hp: 1400 })
+    const a1 = { ...c1.adviceFor(5, ctx) }, a2 = { ...c2.adviceFor(5, ctx) }, a3 = { ...c3.adviceFor(5, { ...ctx, alive: 6 }) }
+    const { COUNTER_PARAMS: CP } = await import('../bot/lib/counters.js')
+    const ok = a1.reason === 'HD/pass' && a1.engage === 'avoid' && a2.reason === 'HD/finish' && a2.engage === 'attack' && a3.reason === 'HD/strafer' && CP.brLevel === 2 && CP.hdWoundHpf === 0.4 && CP.fmStrikeTgtHpf === 0.5 && CP.hdHarvestTgtHpf === 0.4
+    check('ffa: counter corrections: healthy hider pass (avoid); hider at 36% -> HD/finish (attack, K3); at 6 alive a gun hider reads as strafer (M5); BR capped (M3); strike / harvest gated 50% / 40%', ok,
+      `healthy ${a1.reason} ${a1.engage} | 36% ${a2.reason} ${a2.engage} band ${fx(a2.lo, 0)}-${fx(a2.hi, 0)} | 6 alive ${a3.reason} ${a3.engage} | brLevel ${CP.brLevel}, hdWoundHpf ${CP.hdWoundHpf}, fmStrikeTgtHpf ${CP.fmStrikeTgtHpf}, hdHarvestTgtHpf ${CP.hdHarvestTgtHpf}`)
+  }
+}
+
+// ============================================================================ b. fuzz
+// ============================================================================ pass 2b (plain defaults; createBrain0)
+if (want('pass2b')) {
+  const DEF = (over) => createBrain0(hello, ctxNone, over || {})
+  const P2Q = DEF()._B.P.openFarmQuietS
+  // 1. farm-first opening (preset openFarm): a gun mech shooting us from 140 m is not answered in the gate (we break the
+  //    line), one at 80 m is; after 75 s or with 10 cubes the 140 m one is fought; openFarm off fights it at once
+  {
+    const run = (D, t0, over, cubes) => {
+      const ar = new Arena({ cfg, seed: 251, me: { x: 0, y: 0, yaw: 0, cubes: cubes || 0 }, enemies: [{ id: 10, x: D, y: 0, hp: 1400, dps: 20, script: (e, t, A) => { e.vx = 0; e.vy = 0; e.yaw = Math.atan2(A.me.y - e.y, A.me.x - e.x) } }] })
+      ar.t = t0
+      if (cubes) ar.me.cubes = cubes
+      const br = DEF(over)
+      let tgt = 0, dis = 0, gate = 0
+      drive(ar, br, 8, (a, o, act, b) => { const B = b._B; if (B.target && B.target.id === 10) tgt++; if (B.mode === 'DISENGAGE') dis++; if (B.ofGate) gate++ })
+      return { shots: ar.stats.shots, tgt, dis, gate }
+    }
+    const far = run(140, 10), near = run(80, 10), late = run(140, 80), off = run(140, 10, { select: { openFarm: 'off' } }), cubed = run(140, 10, {}, 10)
+    const ok = far.shots === 0 && far.tgt === 0 && far.dis > 40 && far.gate > 70 && near.shots > 5 && near.tgt > 40 && late.shots > 5 && late.gate === 0 && off.shots > 5 && cubed.shots > 5 && cubed.gate === 0
+    check('pass2b openFarm: in the gate (< 10 cubes, < 75 s) a mech shooting from 140 m is not answered (break the line), one hitting us from 80 m is; fought after 75 s, with 10 cubes, or with openFarm off', ok,
+      `140 m at t 10: shots ${far.shots}, as target ${far.tgt}, DISENGAGE ${far.dis}/80, gate ${far.gate} | 80 m: shots ${near.shots}, target ${near.tgt} | 140 m at t 80: shots ${late.shots}, gate ${late.gate} | openFarm off: shots ${off.shots} | 10 cubes: shots ${cubed.shots}, gate ${cubed.gate}`)
+  }
+  // 2. openFarm keeps farming once the line is broken: the 140 m shooter (in view, hitting us) leaves at t 13; once its
+  //    line is gone (micro-arena memory expiry) the crate 25 m away is shot within openFarmQuietS + 1 s (pass 2a: 3 s)
+  {
+    const run = (over) => {
+      const crate = { id: 1031, pos: [-25, 0, 0], hp: 300 }
+      const ar = new Arena({ cfg, seed: 252, me: { x: 0, y: 0, yaw: 0 }, crates: [crate], enemies: [{ id: 10, x: 140, y: 0, hp: 1400, dps: 20, script: (e, t, A) => { if (t >= 13) { e.x = 900; e.dps = 0 } e.vx = 0; e.vy = 0; e.yaw = Math.atan2(A.me.y - e.y, A.me.x - e.x) } }] })
+      ar.t = 10
+      const br = DEF(over)
+      let first = -1, shotBefore = 0
+      drive(ar, br, 16, (a, o, act, b) => { const B = b._B; if (act.fire && act.fire[0] && !B.target) { if (a.t < 13) shotBefore++; else if (first < 0) first = B.me.t - Math.max(B.lastLosInT, B.me.lastHurtT) } })
+      return { first, shotBefore, cubes: ar.me.cubes }
+    }
+    const on = run(), off = run({ select: { openFarm: 'off' } })
+    // the loot gate opens after openFarmQuietS; the mode still waits out decideMode's 2 s "shot by something unseen" rule,
+    // the 0.6 s mode hold and the 0.5 s loot cadence: <= 2 + 0.6 + 0.5 + approach
+    check('pass2b openFarm: under fire no crate is shot; once the line is gone the crate is farmed within about 3.5 s (D3 / mode-hold timings)', on.shotBefore === 0 && on.first >= 0 && on.first <= 4 && on.cubes === 1,
+      `crate shots under fire ${on.shotBefore}; first crate shot ${fx(on.first, 1)} s after the last line / hit (openFarm off ${fx(off.first, 1)} s); cubes ${on.cubes}`)
+  }
+  // 3. R1 crate gate posture: SQUAD keeps the D6 farming rules, FFA gates on a mech within crateMechR; crateGate=all gates SQUAD too
+  {
+    const gateAt = (env, over) => {
+      const br = DEF(over), B = br._B
+      B.env = env; B.me.t = 50; B.me.hp = B.me.maxHp
+      B.trackList = [{ npc: false, conf: 1, dist: 80, hp: 1400 }]
+      return B.steal.farmOk('crate') && B.steal.crateFireOk()
+    }
+    const sq = gateAt('SQUAD'), ff = gateAt('FFA'), sqAll = gateAt('SQUAD', { select: { crateGate: 'all' } }), ffOff = gateAt('FFA', { select: { crateGate: 'off' } })
+    check('pass2b R1 crate gate: a mech 80 m away blocks crate farming in FFA only (SQUAD D6 unchanged); crateGate=all / off presets', sq && !ff && !sqAll && ffOff, `SQUAD ${sq} | FFA ${ff} | SQUAD crateGate=all ${sqAll} | FFA crateGate=off ${ffOff}`)
+  }
+  // 4. defaults and wiring: R3 laser ladder on, gun ladder off, calibration off; counter params C1 / C2 / C3
+  {
+    const B = DEF()._B, P0 = B.P, cp = B.cx ? B.cx.params : {}
+    const ok = P0.headAimOn === true && P0.headAimGun === false && P0.aimCalOn === false && P0.stealOn === true && P0.crateGateOn === true && P0.crateGateSquad === false && P0.scanOn === true &&
+      P0.openFarm === true && cp.finOn === true && cp.lkR0 === 70 && cp.lkR1 === 100 && cp.lbOn === false && P0.crateMechR === 120 && P0.crateQuietS === 2
+    const Boff = DEF({ select: { pass2b: 'off' } })._B, po = Boff.P, co = Boff.cx ? Boff.cx.params : {}
+    const okOff = !po.stealOn && !po.crateGateOn && !po.scanOn && !po.headAimOn && !po.aimCalOn && !po.openFarm && co.finOn === false && co.lkR0 === 80 && co.lkR1 === 110 && co.lbOn === false && !po.ffaThirdFix && !po.ffaBreakFix
+    check('pass2b defaults: R1 on (crate gate FFA-only, 120 m / 2 s), R2 on, R3 laser ladder on / gun ladder off / calibration off, openFarm on, C1 on, C2 70/100, C3 off; preset pass2b=off turns every one off', ok && okOff,
+      `defaults ${ok} | pass2b=off ${okOff} | cx finOn ${cp.finOn} lkR ${cp.lkR0}/${cp.lkR1} lbOn ${cp.lbOn}`)
+  }
+  // 5. check2a FAIL fixes on the real map (scenarios ported from tools/check2a/ffa_scen.js; FFA forced, t 100, 12 alive)
+  {
+    const face2 = (e, A) => { e.yaw = Math.atan2(A.me.y - e.y, A.me.x - e.x) }
+    const bigZ = (x, y) => ({ center: [x, y], radius: 3000, next_center: [x, y], next_radius: 2500, shrink_start: 1e6, shrink_end: 2e6, dps: 20 })
+    const spot2 = (seed, dLo, dHi) => {
+      const rnd = rng32(seed), Bd = world.bounds
+      for (let k = 0; k < 300000; k++) {
+        const x = Bd.minX + 120 + rnd() * (Bd.maxX - Bd.minX - 240), y = Bd.minY + 120 + rnd() * (Bd.maxY - Bd.minY - 240)
+        if (!nav.passableAt(x, y) || nav.component(x, y) !== nav.mainComponent) continue
+        const wd = nav.wallDistAt(x, y)
+        if (!(wd >= 3 && wd <= 6)) continue
+        const a = rnd() * 2 * Math.PI, d = dLo + rnd() * (dHi - dLo), ex = x + d * Math.cos(a), ey = y + d * Math.sin(a)
+        if (!nav.passableAt(ex, ey) || nav.component(ex, ey) !== nav.mainComponent) continue
+        const z = nav.levelAt(x, y), ez = nav.levelAt(ex, ey)
+        if (!world.shotClear(x, y, z + 7, ex, ey, ez + 4.5) || !world.shotClear(ex, ey, ez + 7, x, y, z + 4.5) || !world.canSee(x, y, z + 8, ex, ey, ez + 6)) continue
+        return { x, y, ex, ey }
+      }
+      return null
+    }
+    const drive2 = (ar, br, secs, hook) => { for (let k = 0; k < Math.round(secs * 10); k++) { const o = ar.obs(); o.alive = 12; const t0 = performance.now(); const a = br.act(o, t0 + 27.5); allTimes.push(performance.now() - t0); if (hook) hook(ar, o, a, br); ar.step(a) } }
+    const FON = { env: 'ffa', warmup: false }, F3OFF = { env: 'ffa', warmup: false, select: { ffaThirdFix: 'off' } }, F4OFF = { env: 'ffa', warmup: false, select: { ffaBreakFix: 'off' } }
+    // rule 3: a 45% mech busy with another (torso ~90 deg off us, 140-160 m, cover within 6 m) is shot after >= 1.5 s busy
+    const r3 = []
+    let n3 = 0, ok3 = true
+    for (let sd = 701; sd < 2000 && n3 < 2; sd++) {
+      const sp = spot2(sd, 140, 160)
+      if (!sp) continue
+      const L = Math.hypot(sp.ex - sp.x, sp.ey - sp.y), ux = (sp.ex - sp.x) / L, uy = (sp.ey - sp.y) / L
+      let bx = NaN, by = NaN
+      for (const sg of [1, -1]) {
+        const qx = sp.ex - sg * uy * 70, qy = sp.ey + sg * ux * 70
+        if (nav.passableAt(qx, qy) && world.canSee(sp.x, sp.y, nav.levelAt(sp.x, sp.y) + 8, qx, qy, nav.levelAt(qx, qy) + 6) && Math.hypot(qx - sp.x, qy - sp.y) < 190) { bx = qx; by = qy; break }
+      }
+      if (!(bx === bx)) continue
+      const run3 = (over, hpA, withB) => {
+        const en = [{ id: 23, x: sp.ex, y: sp.ey, hp: hpA, maxHp: 1400, script: (e) => { e.yaw = Math.atan2(by - e.y, bx - e.x); e.vx = 0; e.vy = 0 } }]
+        if (withB) en.push({ id: 24, x: bx, y: by, hp: 1400, script: (e) => { e.yaw = Math.atan2(sp.ey - e.y, sp.ex - e.x); e.vx = 0; e.vy = 0 } })
+        const ar = new Arena({ cfg, world, nav, seed: sd, me: { x: sp.x, y: sp.y, yaw: Math.atan2(uy, ux), pinned: true }, enemies: en, zone: bigZ(sp.x, sp.y) })
+        ar.t = 100
+        const br = createBrain0(hello, ctxMap, over)
+        let first = -1, hideNear = 0, tgtAt = -1
+        drive2(ar, br, 8, (a, o, act, b) => { const B = b._B; if (B.hide.state === 'found' && B.hide.dist <= 6) hideNear++; if (B.target && B.target.id === 23 && tgtAt < 0) tgtAt = a.t - 100; if (first < 0 && act.fire[0] && B.target && B.target.id === 23) first = a.t - 100 })
+        return { tgtAt: +tgtAt.toFixed(1), first: +first.toFixed(1), hideNear }
+      }
+      const busy = run3(FON, 630, true)
+      if (busy.hideNear < 40) continue
+      n3++
+      const alone = run3(FON, 630, false), busy60 = run3(FON, 840, true), busyOff = run3(F3OFF, 630, true)
+      ok3 = ok3 && busy.first >= 1.5 && busy.tgtAt >= 1.5 && alone.tgtAt < 0 && busy60.tgtAt < 0 && busyOff.first < 0
+      r3.push(`spot ${sd}: busy 45% target ${busy.tgtAt} s, shot ${busy.first} s | alone 45% target ${alone.tgtAt} | busy 60% target ${busy60.tgtAt} | ffaThirdFix off: shot ${busyOff.first}`)
+    }
+    check('pass2b rule 3 (check2a FAIL fixed): a 45% mech busy with another is shot after >= 1.5 s (not held by the DEFENSIVE silence); alone or at 60% it is not a target; ffaThirdFix off holds it (2 spots)', n3 === 2 && ok3, r3.join(' || '))
+    // rule 4: a healthy gun mech shoots us from 110-150 m: inside the break >= 20 m from the last-seen point and > 9 s unseen
+    const shooter = (dps) => (e, t, A) => { face2(e, A); e.vx = 0; e.vy = 0; e.dps = world.shotClear(e.x, e.y, e.z + 7, A.me.x, A.me.y, A.me.z + 4.5) ? dps : 0 }
+    const r4 = []
+    let n4 = 0, ok4 = 0, okOff = 0
+    for (let sd = 401; sd < 460 && n4 < 3; sd++) {
+      const sp = spot2(sd, 110, 150)
+      if (!sp) continue
+      const run4 = (over) => {
+        const ar = new Arena({ cfg, world, nav, seed: sd, me: { x: sp.x, y: sp.y, yaw: Math.atan2(sp.ey - sp.y, sp.ex - sp.x) }, enemies: [{ id: 19, x: sp.ex, y: sp.ey, hp: 1400, script: shooter(25) }], zone: bigZ(sp.x, sp.y) })
+        ar.t = 100
+        const br = createBrain0(hello, ctxMap, over)
+        let brk = 0, sx = sp.x, sy = sp.y, unseen = 0, maxU = 0, maxRel = 0, fired = 0
+        drive2(ar, br, 30, (a, o, act, b) => {
+          const B = b._B, vis = a.t - B.lastLosInT <= 0.2
+          if (vis) { sx = a.me.x; sy = a.me.y; unseen = 0 } else unseen += 0.1
+          if (B.ffaBreak) { brk++; if (act.fire[0]) fired++; if (!vis) { maxRel = Math.max(maxRel, Math.hypot(a.me.x - sx, a.me.y - sy)); maxU = Math.max(maxU, unseen) } }
+        })
+        return { brk, maxRel: +maxRel.toFixed(1), maxU: +maxU.toFixed(1), fired, dmg: Math.round(ar.stats.dmgTaken) }
+      }
+      const on = run4(FON)
+      if (on.brk === 0) continue
+      n4++
+      const off = run4(F4OFF)
+      if (on.maxRel >= 20 && on.maxU >= 9) ok4++
+      if (off.maxRel >= 20 && off.maxU >= 9) okOff++
+      r4.push(`spot ${sd}: on ${JSON.stringify(on)} | ffaBreakFix off ${JSON.stringify(off)}`)
+    }
+    check('pass2b rule 4 (check2a FAIL fixed): inside the sight break >= 20 m from the last-seen point and >= 9 s out of sight (3 spots; ffaBreakFix off: fewer)', n4 === 3 && ok4 === 3 && okOff < 3, `${ok4}/${n4} spots (fix off ${okOff}/${n4}) || ` + r4.join(' || '))
+  }
+}
+
+if (want('fuzz')) {
+  const rnd = rng32(777)
+  const junk = [null, undefined, NaN, Infinity, -Infinity, 1e308, -1e308, 1e12, '', 'x', [], {}, true, -1, 0, [NaN, NaN, NaN], [1e308, 1e308, 1e308], [null], 'gun']
+  const pickJunk = () => junk[Math.floor(rnd() * junk.length)]
+  function mutate(o, depth) {
+    if (o === null || typeof o !== 'object') return
+    const keys = Array.isArray(o) ? o.map((_, i) => i) : Object.keys(o)
+    for (const k of keys) {
+      const r = rnd()
+      if (r < 0.035) { if (Array.isArray(o)) o[k] = pickJunk(); else delete o[k] }
+      else if (r < 0.08) o[k] = pickJunk()
+      else if (r < 0.10 && typeof o[k] === 'number') o[k] = o[k] * (rnd() < 0.5 ? 1e9 : -1e9)
+      else if (r < 0.115 && typeof o[k] === 'string') o[k] = 'plasma_' + Math.floor(rnd() * 9)
+      else if (r < 0.13 && Array.isArray(o[k])) o[k] = []
+      else if (depth < 6) mutate(o[k], depth + 1)
+    }
+  }
+  // base observations: the stream plus synthetic rich ones (second weapon, shells, drops, offers, npc)
+  const rich = (o, i) => {
+    o = JSON.parse(JSON.stringify(o))
+    const kinds = ['laser', 'lightning', 'mortar', 'railgun']
+    const k = kinds[i % 4]
+    o.self.weapons[1] = { kind: k, cooldown: 0, charge: (i % 3) * 0.3, stats: cfg.weapons[k] || { damage: 1 } }
+    const [x, y, z] = o.self.pos
+    o.mechs.push({ id: 7, kind: 'mech', pos: [x + 80, y + 10, z], vel: [3, -9, 0], aim: [3.1, 0], hp: 700, max_hp: 1400, cubes: 2, weapons: ['gun', 'laser'], charging: i % 2 === 0 })
+    o.mechs.push({ id: 104, kind: 'npc', pos: [x - 30, y + 20, z], vel: [1, 0, 0], aim: [0, 0], hp: 350, max_hp: 350 })
+    o.projectiles.push({ id: 900 + i, kind: 'mortar', pos: [x + 40, y, z + 30], vel: [-40, 0, 5] })
+    o.crates.push({ id: 1001, pos: [x + 20, y - 20, z], hp: 300 }); o.cubes.push({ id: 5001, pos: [x + 5, y + 5, z] })
+    o.pickups.push({ id: 8001, kind: 'laser', pos: [x + 2, y, z] })
+    o.drops = [{ id: 20000, pos: [x + 50, y + 50, z], radius: 8, lands_in: 5, capture_s: 4, progress: 0, holder: null }]
+    o.events.push({ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0.1, by: 7 }, { type: 'hit', target: 7, amount: 45, weapon: 'gun' }, { type: 'kill', target: 9 }, { type: 'take_failed', id: 8001, reason: 'full' })
+    o.offer = { id: i, expires: o.t + 5, choices: [{ id: 'gun_rate' }, { id: 'armor' }, { id: 'sensors' }] }
+    return o
+  }
+  const N = QUICK ? 600 : 2000
+  let threw = 0, invalid = 0, first = '', internal = 0, fuzzMax = 0
+  for (const [label, ctx] of [['map', ctxMap], ['no map', ctxNone]]) {
+    let brain = createBrain(hello, ctx)
+    for (let i = 0; i < N; i++) {
+      if (i % 250 === 0) brain = createBrain(i % 500 === 0 ? hello : { seed: 'x', config: { mech: null, weapons: { gun: 5 } } }, ctx)
+      let o = streamObs[Math.floor(rnd() * streamObs.length)]
+      o = rnd() < 0.6 ? rich(o, i) : JSON.parse(JSON.stringify(o))
+      if (rnd() < 0.9) mutate(o, 0)
+      if (rnd() < 0.01) o = pickJunk()
+      let a
+      const tf = performance.now()
+      try { a = brain.act(o, tf + (rnd() < 0.05 ? -5 : 27)) } catch (e) { threw++; if (!first) first = label + ': threw ' + (e && e.stack) }
+      fuzzMax = Math.max(fuzzMax, performance.now() - tf)
+      const v = validAction(a)
+      if (v) { invalid++; if (!first) first = label + ': invalid ' + v + ' ' + JSON.stringify(a) }
+    }
+    internal += brain.debugState().counters.errors
+  }
+  check(`fuzz: ${N} perturbed observations x 2 (map / no map) never throw, always a valid action`, threw === 0 && invalid === 0 && fuzzMax <= 25, first || `threw 0, invalid 0, slowest decision ${fx(fuzzMax)} ms, stage errors caught inside the last brains: ${internal}`)
+  if (internal) console.log('      note: internal stage errors (caught, previous channel output reused): ' + logs.filter((l) => l.includes('failed')).slice(-3).join('\n      '))
+}
+
+// ============================================================================ summary
+if (allTimes.length) {
+  const mean = allTimes.reduce((a, b) => a + b, 0) / allTimes.length
+  check('decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms', mean <= 4 && quant(allTimes, 0.99) <= 15 && Math.max(...allTimes) <= 25,
+    `${allTimes.length} decisions, mean ${fx(mean)} p99 ${fx(quant(allTimes, 0.99))} max ${fx(Math.max(...allTimes))} ms`)
+}
+const failed = results.filter((r) => !r.passed)
+console.log(`\n${results.length - failed.length}/${results.length} checks passed` + (failed.length ? '  FAILED: ' + failed.map((f) => f.name).join(' | ') : ''))
+const errLogs = logs.filter((l) => l.includes('failed'))
+if (errLogs.length) console.log('brain error logs (first 3):\n' + errLogs.slice(0, 3).join('\n'))
+process.exit(failed.length ? 1 : 0)

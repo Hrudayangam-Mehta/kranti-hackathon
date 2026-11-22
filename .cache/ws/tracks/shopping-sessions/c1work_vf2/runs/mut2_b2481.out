@@ -1,0 +1,150 @@
+[b2481 seed=2481] eperm: auto buckets ON key=expected
+  notes: eperm: 269891 event numbers permuted; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458313; expected ncap 884736
+m2_b2481_eperm: MATCH
+  f2n2 [f2 n2]: MATCH 0.81s | F on | B on ncap 884736/32768 | multi 9937p/285191e/288579ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.57s | F on | B on ncap 884736/32768 | multi 9937p/285191e/288579ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.24s | F on | B on ncap 884736/32768 | multi 9937p/285191e/288579ev | G 2.12% side 4033 gen 0
+  f2b9 [f2 n5 TEST_BUCKET_BITS=9]: MATCH 0.40s | F on | B on ncap 881152/512 | multi 9937p/285197e/288579ev | G 2.12% side 4033 gen 0
+  f2key_b14 [f2 n7 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.27s | F on | B on ncap 884736/16384 | multi 9937p/285191e/288579ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.40s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.52s | F on | G 2.12%
+[b2481 seed=2481] erekey: auto buckets ON key=expected
+  notes: erekey: new event key 0x497887fbed; keys: user 0x49c7cba072 event 0x497887fbed; E=300000; event bytes 24457933; expected ncap 884736
+m2_b2481_erekey: MATCH
+  f2n2 [f2 n2]: MATCH 0.25s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.14s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.18s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2b9 [f2 n2 TEST_BUCKET_BITS=9]: MATCH 0.16s | F on | B on ncap 881152/512 | multi 501p/1058e/83109ev | G 2.12% side 4033 gen 0
+  f2key_b6 [f2 n4 TEST_EVENT_KEY=0x497887fbed,TEST_BUCKET_BITS=6]: MATCH 0.21s | F on | B on ncap 880832/64 | multi 3072p/7512e/186723ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.11s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.19s | F on | G 2.12%
+[b2481 seed=2481] interleave: auto buckets ON key=expected
+  notes: interleave: 151 persons, 20636 events re-numbered (whales 0-3 included); keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458302; expected ncap 884736
+m2_b2481_interleave: MATCH
+  f2n2 [f2 n2]: MATCH 0.77s | F on | B on ncap 884736/32768 | multi 158p/19730e/23966ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.27s | F on | B on ncap 884736/32768 | multi 158p/19730e/23966ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.45s | F on | B on ncap 884736/32768 | multi 158p/19730e/23966ev | G 2.12% side 4033 gen 0
+  f2b13 [f2 n5 TEST_BUCKET_BITS=13]: MATCH 0.32s | F on | B on ncap 884736/8192 | multi 178p/19771e/26784ev | G 2.12% side 4033 gen 0
+  f2key_b9 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=9]: MATCH 0.32s | F on | B on ncap 881152/512 | multi 638p/20717e/85702ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.66s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.71s | F on | G 2.12%
+[b2481 seed=2481] swap: auto buckets ON key=expected
+  notes: swap: 1335 random swaps, 6 swaps at bucket edges; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458307; expected ncap 884736
+m2_b2481_swap: MATCH
+  f2n2 [f2 n2]: MATCH 0.23s | F on | B on ncap 884736/32768 | multi 1807p/6712e/135865ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.38s | F on | B on ncap 884736/32768 | multi 1807p/6712e/135865ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.24s | F on | B on ncap 884736/32768 | multi 1807p/6712e/135865ev | G 2.12% side 4033 gen 0
+  f2b10 [f2 n3 TEST_BUCKET_BITS=10]: MATCH 0.21s | F on | B on ncap 881664/1024 | multi 1941p/7110e/140722ev | G 2.12% side 4033 gen 0
+  f2key_b10 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.21s | F on | B on ncap 881664/1024 | multi 1941p/7110e/140722ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.27s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.29s | F on | G 2.12%
+[b2481 seed=2481] scatter: auto buckets ON key=expected
+  notes: scatter: 7920 events moved to free numbers [300000, 884735]; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458423; expected ncap 884736
+m2_b2481_scatter: MATCH
+  f2n2 [f2 n2]: MATCH 0.39s | F on | B on ncap 884736/32768 | multi 306p/5926e/17881ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.24s | F on | B on ncap 884736/32768 | multi 306p/5926e/17881ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.23s | F on | B on ncap 884736/32768 | multi 306p/5926e/17881ev | G 2.12% side 4033 gen 0
+  f2b14 [f2 n2 TEST_BUCKET_BITS=14]: MATCH 0.20s | F on | B on ncap 884736/16384 | multi 312p/5945e/18780ev | G 2.12% side 4033 gen 0
+  f2key_b6 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.46s | F on | B on ncap 880832/64 | multi 3281p/14752e/189865ev | G 2.12% side 4033 gen 50
+  f2off [f2 n2 F2=0]: MATCH 0.52s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.38s | F on | G 2.12%
+[b2481 seed=2481] reverse: auto buckets ON key=expected
+  notes: reverse: 301 persons (whale 4 reversed), 14326 events; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458238; expected ncap 884736
+m2_b2481_reverse: MATCH
+  f2n2 [f2 n2]: MATCH 0.15s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.21s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.30s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2b9 [f2 n5 TEST_BUCKET_BITS=9]: MATCH 0.27s | F on | B on ncap 881152/512 | multi 501p/1058e/83109ev | G 2.12% side 4033 gen 0
+  f2key_b7 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.31s | F on | B on ncap 880896/128 | multi 1727p/3942e/146957ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.32s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.38s | F on | G 2.12%
+[b2481 seed=2481] bigrun: auto buckets ON key=expected
+  notes: bigrun: whale 0 has 4795 mutable events alternating with 4795 others; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458193; expected ncap 884736
+m2_b2481_bigrun: MATCH
+  f2n2 [f2 n2]: MATCH 0.14s | F on | B on ncap 884736/32768 | multi 47p/9858e/11996ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.22s | F on | B on ncap 884736/32768 | multi 47p/9858e/11996ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 47p/9858e/11996ev | G 2.12% side 4033 gen 0
+  f2b8 [f2 n3 TEST_BUCKET_BITS=8]: MATCH 0.22s | F on | B on ncap 880896/256 | multi 969p/11850e/112975ev | G 2.12% side 4033 gen 0
+  f2key_b12 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.19s | F on | B on ncap 884736/4096 | multi 106p/9977e/37996ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.28s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.29s | F on | G 2.12%
+[b2481 seed=2481] boundary: auto buckets ON key=expected
+  notes: boundary: 70 events at 71 edge numbers; cap events added at write time; cap events at [884735, 884734, 884736, 884737, 917504, 1099511627775] (number cap 884736, event bytes 24467067); keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24467067; expected ncap 884736
+m2_b2481_boundary: MATCH
+  f2n2 [f2 n2]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 66p/135e/10231ev | G 2.12% side 4033 gen 3
+  f2n1 [f2 n1]: MATCH 0.32s | F on | B on ncap 884736/32768 | multi 66p/135e/10231ev | G 2.12% side 4033 gen 3
+  f2n8 [f2 n8]: MATCH 0.12s | F on | B on ncap 884736/32768 | multi 66p/135e/10231ev | G 2.12% side 4033 gen 3
+  f2b8 [f2 n3 TEST_BUCKET_BITS=8]: MATCH 0.40s | F on | B on ncap 881152/256 | multi 993p/2168e/113246ev | G 2.12% side 4033 gen 4
+  f2key_b11 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=11]: MATCH 0.33s | F on | B on ncap 882688/2048 | multi 188p/388e/44732ev | G 2.12% side 4033 gen 4
+  f2off [f2 n2 F2=0]: MATCH 0.30s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.22s | F on | G 2.12%
+[b2481 seed=2481] oddmix: auto buckets ON key=expected
+  notes: oddmix: 121 odd persons (whale 1 odd), 1631 swaps into Lane F runs, 90 far events; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24469779; expected ncap 884736
+m2_b2481_oddmix: MATCH
+  f2n2 [f2 n2]: MATCH 0.15s | F on | B on ncap 884736/32768 | multi 1191p/2769e/105560ev | G 5.32% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 1191p/2769e/105560ev | G 5.32% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.11s | F on | B on ncap 884736/32768 | multi 1191p/2769e/105560ev | G 5.32% side 4033 gen 0
+  f2b13 [f2 n3 TEST_BUCKET_BITS=13]: MATCH 0.11s | F on | B on ncap 884736/8192 | multi 1205p/2806e/106208ev | G 5.32% side 4033 gen 0
+  f2key_b13 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=13]: MATCH 0.18s | F on | B on ncap 884736/8192 | multi 1205p/2806e/106208ev | G 5.32% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.28s | F on | buckets off: SESSIONS_F2=0 | G 5.32%
+  f1n2 [f1 n2]: MATCH 0.21s | F on | G 5.32%
+[b2481 seed=2481] dupcross: auto buckets ON key=expected
+  notes: dupcross: copy modes [(0, 480), (1, 480), (2, 479), (3, 479), (4, 479), (5, 479), (6, 479), (7, 479), (8, 479), (9, 479), (10, 479), (11, 479), (12, 479), (13, 479)]; 200 new events with only clamped ingests; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 25008596; expected ncap 917504
+m2_b2481_dupcross: MATCH
+  f2n2 [f2 n2]: MATCH 0.13s | F on | B on ncap 917504/32768 | multi 2149p/4851e/128580ev | G 2.63% side 6422 gen 0
+  f2n1 [f2 n1]: MATCH 0.13s | F on | B on ncap 917504/32768 | multi 2149p/4851e/128580ev | G 2.63% side 6422 gen 0
+  f2n8 [f2 n8]: MATCH 0.11s | F on | B on ncap 917504/32768 | multi 2149p/4851e/128580ev | G 2.63% side 6422 gen 0
+  f2b11 [f2 n3 TEST_BUCKET_BITS=11]: MATCH 0.13s | F on | B on ncap 901120/2048 | multi 2216p/5049e/131681ev | G 2.63% side 6422 gen 0
+  f2key_b13 [f2 n7 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=13]: MATCH 0.20s | F on | B on ncap 901120/8192 | multi 2161p/4887e/129185ev | G 2.63% side 6422 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.23s | F on | buckets off: SESSIONS_F2=0 | G 2.63%
+  f1n2 [f1 n2]: MATCH 0.18s | F on | G 2.63%
+[b2481 seed=2481] evid: auto buckets ON key=expected
+  notes: evid: 1105 non-canonical / out-of-range event IDs as distinct events; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24543141; expected ncap 884736
+m2_b2481_evid: MATCH
+  f2n2 [f2 n2]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 354p/1428e/59650ev | G 2.11% side 4033 gen 1067
+  f2n1 [f2 n1]: MATCH 0.28s | F on | B on ncap 884736/32768 | multi 354p/1428e/59650ev | G 2.11% side 4033 gen 1067
+  f2n8 [f2 n8]: MATCH 0.29s | F on | B on ncap 884736/32768 | multi 354p/1428e/59650ev | G 2.11% side 4033 gen 1067
+  f2b8 [f2 n3 TEST_BUCKET_BITS=8]: MATCH 0.22s | F on | B on ncap 883712/256 | multi 1182p/3362e/121541ev | G 2.11% side 4033 gen 1067
+  f2key_b8 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.16s | F on | B on ncap 883712/256 | multi 1182p/3362e/121541ev | G 2.11% side 4033 gen 1067
+  f2off [f2 n2 F2=0]: MATCH 0.21s | F on | buckets off: SESSIONS_F2=0 | G 2.11%
+  f1n2 [f1 n2]: MATCH 0.13s | F on | G 2.11%
+[b2481 seed=2481] components: auto buckets ON key=expected
+  notes: components: 250 persons split into forests, 710 intra lines malformed, 1488 swaps; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24609980; expected ncap 917504
+m2_b2481_components: MATCH
+  f2n2 [f2 n2]: MATCH 0.15s | F on | B on ncap 917504/32768 | multi 1312p/7556e/113556ev | G 2.11% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.23s | F on | B on ncap 917504/32768 | multi 1312p/7556e/113556ev | G 2.11% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.22s | F on | B on ncap 917504/32768 | multi 1312p/7556e/113556ev | G 2.11% side 4033 gen 0
+  f2b12 [f2 n3 TEST_BUCKET_BITS=12]: MATCH 0.22s | F on | B on ncap 888832/4096 | multi 1349p/7654e/115311ev | G 2.11% side 4033 gen 0
+  f2key_b8 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.18s | F on | B on ncap 886016/256 | multi 1966p/9306e/144306ev | G 2.11% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.11s | F on | buckets off: SESSIONS_F2=0 | G 2.11%
+  f1n2 [f1 n2]: MATCH 0.19s | F on | G 2.11%
+[b2481 seed=2481] cats@33: auto buckets ON key=expected
+  notes: cats: 33 categories (names incl. [b'apparel', b'unknowm', b'unknown_', b'unknowo', b'uo', b'UNKNOWN', b'Unknown', b'unk']), 300 tie sessions; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24514568; expected ncap 884736
+m2_b2481_cats_33: MATCH
+  f2n2 [f2 n2]: MATCH 0.21s | F on | B on ncap 884736/32768 | multi 307p/987e/10400ev | G 2.11% side 4467 gen 242
+  f2n1 [f2 n1]: MATCH 0.26s | F on | B on ncap 884736/32768 | multi 307p/987e/10400ev | G 2.11% side 4467 gen 242
+  f2n8 [f2 n8]: MATCH 0.12s | F on | B on ncap 884736/32768 | multi 307p/987e/10400ev | G 2.11% side 4467 gen 242
+  f2b7 [f2 n5 TEST_BUCKET_BITS=7]: MATCH 0.18s | F on | B on ncap 882688/128 | multi 1978p/4866e/152077ev | G 2.11% side 4467 gen 243
+  f2key_b12 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.20s | F on | B on ncap 884736/4096 | multi 367p/1108e/41824ev | G 2.11% side 4467 gen 242
+  f2off [f2 n2 F2=0]: MATCH 0.20s | F on | buckets off: SESSIONS_F2=0 | G 2.11%
+  f1n2 [f1 n2]: MATCH 0.28s | F on | G 2.11%
+[b2481 seed=2481] clickties: auto buckets ON key=expected
+  notes: clickties: 2805 boundary and same-ms clicks; keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 24458174; expected ncap 884736
+m2_b2481_clickties: MATCH
+  f2n2 [f2 n2]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n1 [f2 n1]: MATCH 0.42s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2n8 [f2 n8]: MATCH 0.30s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  f2b10 [f2 n2 TEST_BUCKET_BITS=10]: MATCH 0.27s | F on | B on ncap 881664/1024 | multi 257p/533e/59027ev | G 2.12% side 4033 gen 0
+  f2key_b11 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=11]: MATCH 0.19s | F on | B on ncap 882688/2048 | multi 132p/270e/42259ev | G 2.12% side 4033 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.29s | F on | buckets off: SESSIONS_F2=0 | G 2.12%
+  f1n2 [f1 n2]: MATCH 0.32s | F on | G 2.12%
+[b2481 seed=2481] all@64: auto buckets ON key=expected
+  notes: interleave: 151 persons, 20665 events re-numbered (whales 0-3 included); swap: 1332 random swaps, 7 swaps at bucket edges; scatter: 9396 events moved to free numbers [300000, 884735]; reverse: 301 persons (whale 4 reversed), 10788 events; oddmix: 121 odd persons (whale 1 odd), 1700 swaps into Lane F runs, 90 far events; dupcross: copy modes [(0, 480), (1, 480), (2, 479), (3, 479), (4, 479), (5, 479), (6, 479), (7, 479), (8, 479), (9, 479), (10, 479), (11, 479), (12, 479), (13, 479)]; 200 new events with only clamped ingests; evid: 1127 non-canonical / out-of-range event IDs as distinct events; components: 250 persons split into forests, 650 intra lines malformed, 1491 swaps; clickties: 2805 boundary and same-ms clicks; boundary: 71 events at 71 edge numbers; cap events added at write time; cats: 64 categories (names incl. [b'apparel', b'unknowm', b'unknown_', b'unknowo', b'uo', b'UNKNOWN', b'Unknown', b'unk']), 300 tie sessions; cap events at [917503, 917502, 884736, 917504, 917505, 950272, 1099511627775] (number cap 917504, event bytes 25332507); keys: user 0x49c7cba072 event 0xe3d4a8637f; E=300000; event bytes 25332507; expected ncap 917504
+m2_b2481_all_64: MATCH
+  f2n2 [f2 n2]: MATCH 0.43s | F on | B on ncap 917504/32768 | multi 5010p/31593e/206456ev | G 5.60% side 11987 gen 1320
+  f2n1 [f2 n1]: MATCH 0.21s | F on | B on ncap 917504/32768 | multi 5010p/31593e/206456ev | G 5.60% side 11987 gen 1320
+  f2n8 [f2 n8]: MATCH 0.30s | F on | B on ncap 917504/32768 | multi 5010p/31593e/206456ev | G 5.60% side 11987 gen 1320
+  f2b11 [f2 n3 TEST_BUCKET_BITS=11]: MATCH 0.43s | F on | B on ncap 911360/2048 | multi 5043p/31779e/207275ev | G 5.60% side 11987 gen 1321
+  f2key_b10 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.32s | F on | B on ncap 910336/1024 | multi 5076p/31970e/208065ev | G 5.60% side 11987 gen 1321
+  f2off [f2 n2 F2=0]: MATCH 0.38s | F on | buckets off: SESSIONS_F2=0 | G 5.60%
+  f1n2 [f1 n2]: MATCH 0.24s | F on | G 5.60%

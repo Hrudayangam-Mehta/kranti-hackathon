@@ -1,0 +1,34 @@
+==17660== Cachegrind, a high-precision tracing profiler
+==17660== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==17660== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==17660== Command: c1work_prof/base/x86_64-unknown-linux-gnu/release/sessions
+==17660== 
+--17660-- warning: L3 cache found, using its data for the LL simulation.
+--17660-- warning: specified LL cache: line_size 64  assoc 20  total_size 272,629,760
+--17660-- warning: simulated LL cache: line_size 64  assoc 33  total_size 276,824,064
+setup       171.7 ms
+links       125.3 ms on one thread
+thread 0 parse busy   3728.0 ms
+parse      3732.2 ms
+dedup      4533.8 ms
+surviving events 977930, user_daily rows 117038
+sessions 179366 / 179366, revenue 376461330 / 376461330, assisted 1932099 >= 109923
+people     5961.6 ms
+event copies 1071554, winners 977930, clicks 252348, linked 60395, exotic 0
+write      5965.4 ms
+==17660== 
+==17660== I refs:        1,304,085,022
+==17660== I1  misses:            4,851
+==17660== LLi misses:            4,772
+==17660== I1  miss rate:          0.00%
+==17660== LLi miss rate:          0.00%
+==17660== 
+==17660== D refs:          500,418,611  (324,411,113 rd   + 176,007,498 wr)
+==17660== D1  misses:       19,845,755  ( 12,166,134 rd   +   7,679,621 wr)
+==17660== LLd misses:        4,757,329  (  3,401,586 rd   +   1,355,743 wr)
+==17660== D1  miss rate:           4.0% (        3.8%     +         4.4%  )
+==17660== LLd miss rate:           1.0% (        1.0%     +         0.8%  )
+==17660== 
+==17660== LL refs:          19,850,606  ( 12,170,985 rd   +   7,679,621 wr)
+==17660== LL misses:         4,762,101  (  3,406,358 rd   +   1,355,743 wr)
+==17660== LL miss rate:            0.3% (        0.2%     +         0.8%  )

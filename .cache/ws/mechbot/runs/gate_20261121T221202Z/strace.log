@@ -1,0 +1,126 @@
+23417 execve("/usr/sbin/chroot", ["chroot", "/tmp/claude-0/-home-user-yang-mi"..., "/usr/bin/setpriv", "--reuid=65534", "--regid=65534", "--clear-groups", "--inh-caps=-all", "--bounding-set=-all", "/usr/bin/env", "-i", "-C", "/bot", "PATH=/usr/local/sbin:/usr/local/"..., "BUN_RUNTIME_TRANSPILER_CACHE_PAT"..., "BUN_INSTALL_BIN=/usr/local/bin", "BUN_JSC_useFTLJIT=0", "BUN_JSC_useConcurrentJIT=1", "BUN_JSC_useConcurrentGC=0", "BUN_JSC_numberOfGCMarkers=1", "BUN_JSC_numberOfBaselineCompiler"..., "BUN_JSC_numberOfDFGCompilerThrea"..., "BUN_JSC_numberOfFTLCompilerThrea"..., "BUN_JSC_minNumberOfWorklistThrea"..., "BUN_JSC_maxNumberOfWorklistThrea"..., "bun", "/bot/bot.js"], 0x7ffd53fffc88 /* 179 vars */) = 0
+23417 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 readlink("/tmp", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 readlink("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/root", 0x7fff501e8910, 1023) = -1 EINVAL (Invalid argument)
+23417 chroot("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/root") = 0
+23417 chdir("/")                        = 0
+23417 execve("/usr/bin/setpriv", ["/usr/bin/setpriv", "--reuid=65534", "--regid=65534", "--clear-groups", "--inh-caps=-all", "--bounding-set=-all", "/usr/bin/env", "-i", "-C", "/bot", "PATH=/usr/local/sbin:/usr/local/"..., "BUN_RUNTIME_TRANSPILER_CACHE_PAT"..., "BUN_INSTALL_BIN=/usr/local/bin", "BUN_JSC_useFTLJIT=0", "BUN_JSC_useConcurrentJIT=1", "BUN_JSC_useConcurrentGC=0", "BUN_JSC_numberOfGCMarkers=1", "BUN_JSC_numberOfBaselineCompiler"..., "BUN_JSC_numberOfDFGCompilerThrea"..., "BUN_JSC_numberOfFTLCompilerThrea"..., "BUN_JSC_minNumberOfWorklistThrea"..., "BUN_JSC_maxNumberOfWorklistThrea"..., "bun", "/bot/bot.js"], 0x7fff501e8fe0 /* 179 vars */) = 0
+23417 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcap-ng.so.0", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/sys/kernel/cap_last_cap", O_RDONLY) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+23417 connect(3, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+23417 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+23417 connect(3, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+23417 newfstatat(AT_FDCWD, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=494, ...}, 0) = 0
+23417 newfstatat(AT_FDCWD, "/", {st_mode=S_IFDIR|0755, st_size=280, ...}, 0) = 0
+23417 openat(AT_FDCWD, "/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+23417 newfstatat(AT_FDCWD, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=494, ...}, 0) = 0
+23417 openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+23417 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+23417 connect(3, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+23417 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+23417 connect(3, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+23417 newfstatat(AT_FDCWD, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=494, ...}, 0) = 0
+23417 openat(AT_FDCWD, "/etc/group", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/23417/status", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/23417/status", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/sys/kernel/cap_last_cap", O_RDONLY) = 3
+23417 openat(AT_FDCWD, "/proc/23417/status", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/23417/status", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/23417/status", O_RDONLY|O_CLOEXEC) = 3
+23417 execve("/usr/bin/env", ["/usr/bin/env", "-i", "-C", "/bot", "PATH=/usr/local/sbin:/usr/local/"..., "BUN_RUNTIME_TRANSPILER_CACHE_PAT"..., "BUN_INSTALL_BIN=/usr/local/bin", "BUN_JSC_useFTLJIT=0", "BUN_JSC_useConcurrentJIT=1", "BUN_JSC_useConcurrentGC=0", "BUN_JSC_numberOfGCMarkers=1", "BUN_JSC_numberOfBaselineCompiler"..., "BUN_JSC_numberOfDFGCompilerThrea"..., "BUN_JSC_numberOfFTLCompilerThrea"..., "BUN_JSC_minNumberOfWorklistThrea"..., "BUN_JSC_maxNumberOfWorklistThrea"..., "bun", "/bot/bot.js"], 0x7ffdcded1f10 /* 179 vars */) = 0
+23417 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 chdir("/bot")                     = 0
+23417 execve("/usr/local/sbin/bun", ["bun", "/bot/bot.js"], 0x55e36a9a3c00 /* 12 vars */) = -1 ENOENT (No such file or directory)
+23417 execve("/usr/local/bin/bun", ["bun", "/bot/bot.js"], 0x55e36a9a3c00 /* 12 vars */) = 0
+23417 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+23417 open("/proc/sys/vm/overcommit_memory", O_RDONLY) = 3
+23417 open("/sys/kernel/mm/transparent_hugepage/enabled", O_RDONLY) = 3
+23417 access("/sys/devices/system/node/node1", R_OK) = -1 ENOENT (No such file or directory)
+23417 access("/sys/devices/system/node/node2", R_OK) = -1 ENOENT (No such file or directory)
+23417 access("/sys/devices/system/node/node3", R_OK) = -1 ENOENT (No such file or directory)
+23417 access("/sys/devices/system/node/node4", R_OK) = -1 ENOENT (No such file or directory)
+23417 access("/sys/devices/system/node/node5", R_OK) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+23417 getcwd("/bot", 4096)              = 5
+23417 openat(AT_FDCWD, "/bot/bunfig.toml", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+23417 openat(AT_FDCWD, "/bot/bot.js", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = 3
+23417 readlink("/proc/self/fd/3", "/bot/bot.js", 4096) = 11
+23417 openat(AT_FDCWD, "/proc/sys/vm/mmap_min_addr", O_RDONLY) = 3
+23417 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/proc/self/cgroup", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/sys/fs/cgroup/cpu//cpu.cfs_quota_us", O_RDONLY|O_CLOEXEC) = 3
+23417 openat(AT_FDCWD, "/", O_RDONLY|O_LARGEFILE|O_CLOEXEC|O_DIRECTORY) = 3
+23417 openat(AT_FDCWD, "/bot", O_RDONLY|O_LARGEFILE|O_CLOEXEC|O_DIRECTORY) = 4
+23417 openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/proc/self/cgroup", O_RDONLY|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/sys/fs/cgroup/memory/process_api/01a1fef2-21ff-73cb-b791-32ab8457f57f/claude-code-bash/memory.soft_limit_in_bytes", O_RDONLY|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/sys/fs/cgroup/memory/process_api/01a1fef2-21ff-73cb-b791-32ab8457f57f/claude-code-bash/memory.limit_in_bytes", O_RDONLY|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/bot/bot.js", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 access("/arena/v2/world.json", F_OK) = 0
+23417 openat(AT_FDCWD, "/arena/v2/world.json", O_RDONLY|O_NOCTTY|O_LARGEFILE|O_CLOEXEC) = 5
+23417 access("/arena/v2/terrain.i16", F_OK) = 0
+23417 openat(AT_FDCWD, "/arena/v2/terrain.i16", O_RDONLY|O_NOCTTY|O_LARGEFILE|O_CLOEXEC) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+23417 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6

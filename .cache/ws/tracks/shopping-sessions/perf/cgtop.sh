@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/perf/cg && cg_annotate --show=Bcm --sort=Bcm $1.out 2>/dev/null | awk '/^-- Annotated source file:/{f=$0; sub(/.*\//,"",f)} f!="" {n=$1; gsub(",","",n); if (n ~ /^[0-9]+$/ && n+0 > 50000) {line=$0; sub(/^ *[0-9,]+ \([^)]*\) +/,"",line); printf "%-12s %10s  %s\n", f, $1, substr(line,1,100)}}' | sort -k2 -t' ' -rn | grep -v "annotated" | head -${2:-25}

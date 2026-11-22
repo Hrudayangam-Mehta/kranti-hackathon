@@ -1,0 +1,150 @@
+               Mech Royale Deep Strategy Dossier
+Prepared for competitive optimization of the Builders Mech Royale track.
+
+
+Mech Royale Competitive Intelligence Dossier
+A deep strategic blueprint focused on placement optimization, belief-state modeling, agent
+orchestration, protocol exploitation, map intelligence, and experiment design. Detailed analysis
+should expand each module with instrumentation, telemetry logging, utility equations, ablation tests,
+and leaderboard feedback loops.Detailed analysis should expand each module with
+instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback loops.
+
+Core Thesis
+This is not a shooter competition. It is a survival optimization competition disguised as a shooter.
+Placement determines score. Every subsystem should maximize expected placement rather than
+kills. Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.
+
+Reward Function Analysis
+Expected placement dominates all other objectives. Kills matter only through cubes, upgrades, loot,
+and removal of threats. A bot that consistently places top 4 can outperform an inconsistent
+aggressive winner. Detailed analysis should expand each module with instrumentation, telemetry
+logging, utility equations, ablation tests, and leaderboard feedback loops.Detailed analysis should
+expand each module with instrumentation, telemetry logging, utility equations, ablation tests, and
+leaderboard feedback loops.
+
+World Model Architecture
+Maintain persistent enemy state, sound-derived hypotheses, projectile tracking, drop tracking, zone
+forecasts, and threat heatmaps. Treat every observation as evidence feeding a belief state.
+Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.
+
+Agent Swarm Design
+Survival Agent, Zone Agent, Threat Agent, Combat Agent, Weapon Agent, Loot Agent, Ambush
+Agent. Each proposes utility scores. Meta-controller performs dynamic weighted arbitration.
+Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.
+
+Threat Heatmap
+Represent the map as cells. Increase risk around observed enemies, recent sounds, beams,
+projectiles, supply drops, and likely rotations. Decay confidence over time. Detailed analysis should
+expand each module with instrumentation, telemetry logging, utility equations, ablation tests, and
+leaderboard feedback loops.Detailed analysis should expand each module with instrumentation,
+telemetry logging, utility equations, ablation tests, and leaderboard feedback loops.
+Sound Intelligence
+Infer enemy movement from footsteps, boosts, reloads, mortar launches, laser charge sounds,
+lightning discharges, and death events. Fuse multiple observations into location distributions.
+Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.
+
+Combat Doctrine
+Never take fair fights. Seek weapon advantage, rear armor exposure, third-party engagements,
+low-HP targets, or drop contests. Retreat from symmetric fights. Detailed analysis should expand
+each module with instrumentation, telemetry logging, utility equations, ablation tests, and
+leaderboard feedback loops.Detailed analysis should expand each module with instrumentation,
+telemetry logging, utility equations, ablation tests, and leaderboard feedback loops.
+
+Weapon Matchups
+Laser > Mortar. Mortar > Lightning. Lightning > Laser. Maintain matchup-aware engagement
+policies and pickup priorities. Detailed analysis should expand each module with instrumentation,
+telemetry logging, utility equations, ablation tests, and leaderboard feedback loops.Detailed
+analysis should expand each module with instrumentation, telemetry logging, utility equations,
+ablation tests, and leaderboard feedback loops.
+
+Map Processing
+Preprocess world.json and terrain files. Build visibility graph, cover graph, roof graph, navigation
+mesh, line-of-sight cache, and elevation lookup tables. Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.Detailed analysis should expand each module with instrumentation, telemetry
+logging, utility equations, ablation tests, and leaderboard feedback loops.
+
+Zone Planning
+Future circle is always visible. Optimize expected travel cost to future safe positions. Arrive early
+rather than rotating through convergence routes. Detailed analysis should expand each module
+with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback
+loops.Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.
+
+Supply Drop Game Theory
+Drops create predictable convergence. Contest only when expected cube gain exceeds mortality
+risk. Ambushing contestants may outperform direct capture. Detailed analysis should expand each
+module with instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard
+feedback loops.Detailed analysis should expand each module with instrumentation, telemetry
+logging, utility equations, ablation tests, and leaderboard feedback loops.
+
+House Bot Research Plan
+Experimentally identify target-selection heuristics, pathing weaknesses, drop preferences, weapon
+priorities, and retreat behaviors. Detailed analysis should expand each module with
+instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback
+loops.Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.
+Overfitting Risk
+Practice seeds remain stable. Maintain separate exploitation and generalization variants. Avoid
+training solely against static practice behavior. Detailed analysis should expand each module with
+instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback
+loops.Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.
+
+Implementation Plan
+Week 0: navigation + world model. Week 1: threat heatmap. Week 2: utility arbitration. Week 3:
+behavior tuning and experiments. Detailed analysis should expand each module with
+instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback
+loops.Detailed analysis should expand each module with instrumentation, telemetry logging, utility
+equations, ablation tests, and leaderboard feedback loops.
+
+Winning Hypothesis
+The strongest bot will likely be a deterministic world-model planner that leverages memory, sound
+fusion, threat estimation, zone forecasting, and survival-first decision theory. Detailed analysis
+should expand each module with instrumentation, telemetry logging, utility equations, ablation tests,
+and leaderboard feedback loops.Detailed analysis should expand each module with
+instrumentation, telemetry logging, utility equations, ablation tests, and leaderboard feedback loops.
+Advanced Research Chapter 1
+Focus on belief-state maintenance, Bayesian enemy tracking, route prediction, entropy reduction,
+risk-adjusted placement optimization, adaptive aggression schedules, and protocol-aware
+exploitation. Focus on belief-state maintenance, Bayesian enemy tracking, route prediction, entropy
+reduction, risk-adjusted placement optimization, adaptive aggression schedules, and
+protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy tracking, route
+prediction, entropy reduction, risk-adjusted placement optimization, adaptive aggression schedules,
+and protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy tracking,
+route prediction, entropy reduction, risk-adjusted placement optimization, adaptive aggression
+schedules, and protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy
+tracking, route prediction, entropy reduction, risk-adjusted placement optimization, adaptive
+aggression schedules, and protocol-aware exploitation. Focus on belief-state maintenance,
+Bayesian enemy tracking, route prediction, entropy reduction, risk-adjusted placement optimization,
+adaptive aggression schedules, and protocol-aware exploitation. Focus on belief-state
+maintenance, Bayesian enemy tracking, route prediction, entropy reduction, risk-adjusted
+placement optimization, adaptive aggression schedules, and protocol-aware exploitation. Focus on
+belief-state maintenance, Bayesian enemy tracking, route prediction, entropy reduction,
+risk-adjusted placement optimization, adaptive aggression schedules, and protocol-aware
+exploitation. Focus on belief-state maintenance, Bayesian enemy tracking, route prediction, entropy
+reduction, risk-adjusted placement optimization, adaptive aggression schedules, and
+protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy tracking, route
+prediction, entropy reduction, risk-adjusted placement optimization, adaptive aggression schedules,
+and protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy tracking,
+route prediction, entropy reduction, risk-adjusted placement optimization, adaptive aggression
+schedules, and protocol-aware exploitation. Focus on belief-state maintenance, Bayesian enemy
+tracking, route prediction, entropy reduction, risk-adjusted placement optimization, adaptive
+aggression schedules, and protocol-aware exploitation. Focus on belief-state maintenance,
+Bayesian enemy tracking, route prediction, entropy reduction, risk-adjusted placement optimization,
+adaptive aggression schedules, and protocol-aware exploitation. Focus on belief-state
+maintenance, Bayesian enemy tracking, route prediction, entropy reduction, risk-adjusted
+placement optimization, adaptive aggression schedules, and protocol-aware exploitation. Focus on
+belief-state maintenance, Bayesian enemy tracking, route prediction, entropy reduction,

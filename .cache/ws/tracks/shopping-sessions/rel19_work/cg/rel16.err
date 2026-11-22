@@ -1,0 +1,24 @@
+==31008== Cachegrind, a high-precision tracing profiler
+==31008== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==31008== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==31008== Command: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/bin/rel16
+==31008== 
+lane F on: user key 0xf94d067aa5, person cap 92706, 90.7 ms
+setup       422.0 ms
+links    split and merged in 145.2 ms; lane F 43635 lines, general 1320 lines, odd persons 172
+links       160.9 ms on one thread
+thread 0 parse busy   6212.5 ms
+parse      6214.6 ms
+dedup      7123.2 ms
+surviving events 977930, user_daily rows 117038
+sessions 179366 / 179366, revenue 376461330 / 376461330, assisted 1932099 >= 109923
+people     8838.4 ms
+lane F winners 962091, lane G share 1.62%
+event copies 1071554, winners 977930, clicks 252348, linked 1302, exotic 0
+write      8850.8 ms
+==31008== 
+==31008== I refs:        1,419,469,477
+==31008== 
+==31008== Branches:        213,821,966  (213,633,164 cond + 188,802 ind)
+==31008== Mispredicts:       5,058,683  (  5,058,136 cond +     547 ind)
+==31008== Mispred rate:            2.4% (        2.4%     +     0.3%   )

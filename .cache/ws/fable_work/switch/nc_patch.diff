@@ -1,0 +1,22 @@
+20a21
+>   const nc = { ok: false, s: -1, gx: 0, gy: 0, mx: 0, gen: 0, r: 0, capHit: false }
+30a32,44
+>     // NC (negative cache, behaviour-identical): A* is a pure function of (start cell, goal point, cap, grid). When the last
+>     // plan from this very cell to this very goal point produced no usable path, the same call gives the same answer.
+>     const sIdx = nav.idx(me.x, me.y)
+>     if (nc.ok && nc.s === sIdx && nc.gx === gx && nc.gy === gy && nc.mx === mx && nc.gen === (nav.bodyGen | 0) && nc.r === B.bodyR && sIdx >= 0 && nav.pass[sIdx]) {
+>       B.counters.plansCached = (B.counters.plansCached || 0) + 1
+>       path.capHit = nc.capHit
+>       path.gx = gx; path.gy = gy; path.t = me.t; path.wp = 1; path.dirty = false
+>       path.pts = null; path.ok = false; path.len = Infinity
+>       if (path.noPathSince < 0) path.noPathSince = me.t
+>       return
+>     }
+>     nc.ok = false
+>     let gainDrop = false
+37c51
+<       if (d1 > d0 - P.partialGain) r = null
+---
+>       if (d1 > d0 - P.partialGain) { r = null; gainDrop = true }
+43a58
+>       nc.ok = !gainDrop && sIdx >= 0; nc.s = sIdx; nc.gx = gx; nc.gy = gy; nc.mx = mx; nc.gen = nav.bodyGen | 0; nc.r = B.bodyR; nc.capHit = path.capHit

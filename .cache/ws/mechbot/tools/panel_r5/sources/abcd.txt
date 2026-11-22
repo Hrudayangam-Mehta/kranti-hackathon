@@ -1,0 +1,412 @@
+                      Proceedings, The Eighth AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment
+
+
+
+
+                      Fast Heuristic Search for RTS Game Combat Scenarios
+                                                             David Churchill
+                           University of Alberta, Edmonton, T6G 2E8, Canada (cdavid@cs.ualberta.ca)
+
+                                                           Abdallah Saffidine
+                   Universit Paris-Dauphine, 75775 Paris Cedex 16, France (abdallah.saffidine@dauphine.fr)
+
+                                                               Michael Buro
+                             University of Alberta, Edmonton, T6G 2E8, Canada (mburo@ualberta.ca)
+
+                            Abstract                                          These advantages come at a cost, namely increased runtime
+  Heuristic search has been very successful in abstract game                  and/or memory requirements. Therefore, it can be challeng-
+  domains such as Chess and Go. In video games, however,                      ing to adapt established search algorithms to large scale real-
+  adoption has been slow due to the fact that state and move                  time decision problems, e.g. video games and robotics. In
+  spaces are much larger, real-time constraints are harsher, and              what follows, we will see how the Alpha-Beta search al-
+  constraints on computational resources are tighter. In this pa-             gorithm can be used to solve adversarial real-time planning
+  per we present a fast search method — Alpha-Beta search for                 problems with durative moves. We begin by motivating the
+  durative moves — that can defeat commonly used AI scripts                   application area — small scale combat in RTS games —
+  in RTS game combat scenarios of up to 8 vs. 8 units running                 and discussing relevant literature. We then define our search
+  on a single core in under 5ms per search episode. This per-                 problem formally, describe several solution concepts, and
+  formance is achieved by using standard search enhancements
+                                                                              then present our ABCD algorithm (Alpha-Beta Considering
+  such as transposition tables and iterative deepening, and novel
+  usage of combat AI scripts for sorting moves and state evalu-               Durations) which we will evaluate experimentally. We con-
+  ation via playouts. We also present evidence that commonly                  clude by discussing future research directions in this area.
+  used combat scripts are highly exploitable — opening the
+  door for a promising line of research on opponent combat                              2    Modelling RTS Game Combat
+  modelling.
+                                                                              Battle unit management (also called micromanagement) is
+                     1    Introduction                                        a core skill of successful human RTS game players and is
+Automated planning, i.e. finding a sequence of actions lead-                  vital to playing at a professional level. One of the top STAR -
+                                                                              CRAFT players of all time, Jaedong, who is well known for
+ing from a start to a goal state, is a central problem in ar-
+tificial intelligence research with many applications such                    his excellent unit control, said in a recent interview: “That
+as robot navigation and theorem proving. While search-                        micro made me different from everyone else in Brood War,
+based planning approaches have had a long tradition in the                    and I won a lot of games on that micro alone”.1 It has also
+construction of strong AI systems for abstract games like                     been proved to be decisive in the previous STARCRAFT AI
+Chess and Go, only in recent years have they been ap-                         competitions, with many battles between the top three AI
+plied to modern video games, such as first-person shooter                     agents being won or lost due to the quality of unit control.
+(FPS) and real-time strategy (RTS) games (Orkin 2006;                         In this paper we focus on small-scale battle we call combat,
+Churchill and Buro 2011). Generating move sequences au-                       in which a small number of units interact in a small map
+tomatically has considerable advantages over scripted be-                     region without obstructions.
+havior, as anybody who tried to write a good rule-based                          In order to perform search for combat scenarios in STAR -
+Chess program can attest:                                                     CRAFT, we must construct a system which allows us to effi-
+                                                                              ciently simulate the game itself. The BWAPI programming
+• Search naturally adapts to the current situation. By look-
+                                                                              interface allows for interaction with the STARCRAFT inter-
+    ing ahead it will often find winning variations, where
+                                                                              face, but unfortunately, it can only run the engine at 32 times
+    scripted solutions fail due to the enormous decision com-
+                                                                              “normal speed” and does not allow us to create and manip-
+    plexity. For example, consider detecting mate-in-3 situa-
+                                                                              ulate local state instances efficiently. As one search may
+    tions statically, i.e. without enumerating move sequences.
+                                                                              simulate millions of moves, with each move having a du-
+• Creating search-based AI systems usually requires less                      ration of at least one simulation frame, it remains for us to
+    expert knowledge and can therefore be implemented                         construct an abstract model of STARCRAFT combat which is
+    faster. Testament to this insight is Monte Carlo tree                     able to efficiently implement moves in a way that does not
+    search, a recently developed sample based search tech-                    rely on simulating each in-game frame.
+    nique that revolutionized computer Go (Coulom 2006).
+                                                                                 1
+Copyright c 2012, Association for the Advancement of Artificial                    http://www.teamliquid.net/forum/viewmessage.php?topic id=
+Intelligence (www.aaai.org). All rights reserved.                             339200
+
+
+
+
+                                                                        112
+2.1   Combat Model                                                     Quite a few STARCRAFT AI competition entries are de-
+                                                                       signed with a strong focus on early game play (rushing). For
+To fully simulate RTS game combat, our model is comprised
+                                                                       those programs some of the listed limitations, such as single
+of three main components: states, units, and moves.
+                                                                       weapons and spell casting, are immaterial because they be-
+State s = ht, p, m, U1 , U2 i                                          come important only in later game phases. The utility of
+                                                                       adding others, such as dealing with unit collisions and ac-
+  • Current game time t                                                celeration, will have to be determined once our search tech-
+  • Player p who performed move m to generate s                        nique becomes adopted.
+  • Sets of units Ui under control of player i
+Unit u = hp, hp, hpmax , ta , tm , v, wi                                     3    Solution Concepts for Combat Games
+  • Position p = (x, y) in R2                                          The combat model defined in Section 2 can naturally be
+                                                                       complemented with a termination criterion and utility func-
+  • Current hit points hp and maximum hit points hpmax                 tions for the players in terminal positions. A position is
+  • Time step when unit can next attack ta , or move tm                called terminal if all the units of a player have reached 0hp,
+  • Maximum unit velocity v                                            or if a certain time limit (measured in game frames, or unit
+  • Weapon properties w = hdamage, cooldowni                           actions) has been exceeded. Combining the combat model
+                                                                       with the termination criterion and utility functions defines
+Move m = {a0 , . . . , ak } which is a combination of unit             a class of games we call combat games. In what follows
+ actions ai = hu, type, target, ti, with                               we will assume that combat games are zero-sum games, i.e.,
+  • Unit u to perform this action                                      utilities for both players add up to a constant across all termi-
+                                                                       nal states. This property together with simultaneous moves
+  • The type type of action to be performed:                           and fully observable state variables places combat games in
+     Attack unit target                                                the class of “stacked matrix games”. Such games can — in
+     Move u to position target                                         principle — be solved by backward induction starting with
+     Wait until time t                                                 terminal states via Nash equilibrium computations for in-
+                                                                       stance by solving linear programs (Saffidine, Finnsson, and
+2.2   Legal Move Generation                                            Buro 2012). However, Furtak and Buro (2010) showed that
+                                                                       deciding which player survives in combat games in which
+Given a state s containing unit u, we generate legal unit ac-          units can’t even move is PSPACE-hard in general. This
+tions as follows: if u.ta ≤ s.t then u may attack any target           means that playing combat games optimally is computation-
+in its range, if u.tm ≤ s.t then u may move in any legal               ally hard and that in practice we have to resort to approx-
+direction, if u.tm ≤ s.t < u.ta then u may wait until u.ta .           imations. There are various ways to approximate optimal
+If both u.ta and u.tm are > s.t then a unit is said to have no         play in combat games. In the following sub-sections we will
+legal actions. A legal player move is then a set of all com-           discuss a few of them.
+binations of one legal unit action from each unit a player
+controls.                                                              3.1       Scripted Behaviors
+   Unlike strict alternating move games like chess, our
+model’s moves have durations based on individual unit prop-            The simplest approach, and the one most commonly used in
+erties, so either player (or both) may be able to move at a            video game AI systems, is to define static behaviors via AI
+given state. We define the player to move next as the one              scripts. Their main advantage is computation speed, but they
+which contains the unit with the minimum time for which it             often lack foresight, which makes them vulnerable against
+can attack or move.                                                    search-based methods, as we will see in Section 5, where
+                                                                       we will evaluate the following simple combat AI scripts:
+2.3   Model Limitations                                                • The Random strategy picks legal moves with uniform
+While the mathematical model we propose does not exactly                 probability.
+match the combat mechanics of STARCRAFT it captures es-                • Using the Attack-Closest strategy units will attack the
+sential features. Because we don’t have access to STAR -                 closest opponent unit within weapon’s range if it can cur-
+CRAFT’s source code, we can only try to infer missing fea-               rently fire. Otherwise, if it is within range of an enemy
+tures based on game play observations:                                   but is reloading, it will wait in-place until it has reloaded.
+• no spell casting (e.g. immobilization, area effects)                   If it is not in range of any enemy, it will move toward the
+                                                                         closest enemy a fixed distance.
+• no hit point or shield regeneration
+                                                                       • The Attack-Weakest strategy is similar to Attack-Closest,
+• no travel time for projectiles                                         except units attack an opponent unit with the lowest hp
+                                                                         within range when able.
+• no unit collisions
+                                                                       • Using the Kiting strategy is similar to Attack-Closest, ex-
+• no unit acceleration, deceleration or turning
+                                                                         cept it will move a fixed distance away from the closest
+• no fog of war                                                          enemy when it is unable to fire.
+
+
+
+                                                                 113
+                                                                                   It is possible that there is no optimal pure strategy in a
+               a1             a2                 b1             b2                 game with simultaneous moves, as ROCK - PAPER - SCISSORS
+                                                                                   proves. Less intuitively so, the need for randomized strate-
+          b1        b2   b1        b2      a1         a2   a1        a2            gies also arises in combat games, even in cases with 2
+                                                                                   vs. 2 immobile units (Furtak and Buro (2010)). To mit-
+                                                                                   igate the potential unfairness caused by the Minmax and
+                                                                                   Maxmin game transformations, (Kovarsky and Buro 2005)
+                                                                                   propose the Random-Alpha-Beta (RAB) algorithm. RAB is
+                                                                                   a Monte Carlo algorithm that repeatedly performs Alpha-
+                Maxmin                            Minmax                           Beta searches in transformed games where the player-to-
+                                                                                   move order is randomized in interior simultaneous move
+                                        a1 b1                        a2 b2         nodes. Once time runs out, the move with the highest to-
+               b1
+                                                                                   tal score at the root is chosen. (Kovarsky and Buro 2005)
+                                                a1 b2       a2 b1                  shows that RAB can outperform Alpha-Beta search on the
+          a1        a2
+                                                                                   Maxmin-transformed tree, using iterative deepening and a
+                                                                                   simple heuristic evaluation function. In our experiments,
+                                                                                   we will test the stripped down RAB version we call RAB’,
+                                                                                   which only runs Alpha-Beta once.
+                                                                                      Another approach of mitigating unfairness is to alternate
+         Best Response                                Nash                         the player-to-move order in simultaneous move nodes on the
+                                                                                   way down the tree. We call this tree transformation Alt.
+                    Max node                     Script node                          Because RAB’ and the Alt transformation just change the
+                    Min node                      Nash node                        player-to-move order, the following result on the value of
+                                                                                   the best RAB move (rab(G)) and Alt move (alter(G)) are
+      Figure 1: Maxmin, Minmax, Best Response, Nash                                easy to prove by induction on the tree height:
+                                                                                   Proposition 2. For stacked matrix game G, we have
+The Attack-Closest script was used in second-place entry                                    mini(G) ≤ rab(G), alter(G) ≤ maxi(G)
+UAlbertaBot in the 2010 AIIDE S TARCRAFT AI compe-
+tition, whereas Skynet, the winning entry, used a behavior                         The proposed approximation methods are much faster than
+similar to Kiting.                                                                 solving games by backward induction. However, the com-
+                                                                                   puted moves may be inferior. Section 5 we will see how they
+3.2    Game Theoretic Approximations                                               perform empirically.
+As mentioned above, combat games fall into the class of
+two-player zero-sum simultaneous move games. In this set-                          4     Fast Alpha-Beta Search for Combat Games
+ting, the concepts of optimal play and game values are well
+defined, and the value Nash(G) of a game G (in view of                             In the previous section we discussed multiple game trans-
+the maximizing player MAX) can be determined by using                              formations that would allow us to find solutions by using
+backward induction. However, as discussed earlier, this pro-                       backward induction. However, when playing RTS games
+cess can be very slow. Kovarsky and Buro (2005) describe                           the real-time constraints are harsh. Often, decisions must be
+how games with simultaneous moves can be sequentialized                            made during a single simulation frame, which can be 50 ms
+to make them amenable to fast alpha-beta tree search, trad-                        or shorter. Therefore, computing optimal moves is impossi-
+ing optimality for speed. The idea is to replace simultaneous                      ble for all but the smallest settings and we need to settle for
+move states by two-level subtrees in which players move                            approximate solutions: we trade optimality for speed and
+in turn, maximizing respectively minimizing their utilities                        hope that the algorithms we propose defeat the state of the
+(Figure 1: Minmax and Maxmin). The value of the sequen-                            art AI systems for combat games.
+tialized games might be different from Nash(G) and it de-                             The common approach is to declare nodes to be leaf nodes
+pends on the order we choose for the players in each state                         once a certain depth limit is reached. In leaf nodes MAX’s
+with simultaneous moves: If MAX chooses his move first                             utility is then estimated by calling an evaluation function,
+in each such state (Figure 1: Minmax), the value of the re-                        and this value is propagated up the tree like true terminal
+sulting game we call the pure maxmin value and denote it                           node utilities.
+by mini(G). Conversely, if MAX gets to choose after MIN,                              In the following subsections we will first adapt the Alpha-
+we call the game’s value the pure minmax value (denoted                            Beta search algorithm to combat games by handling dura-
+maxi(G)). An elementary game theory result is that pure                            tive moves explicitly and then present a series of previously
+minmax and maxmin values are bounds for the true game                              known and new evaluation functions.
+value:
+Proposition 1. For stacked matrix games G, we have                                 4.1    Alpha-Beta Search with Durative Moves
+mini(G) ≤ Nash(G) ≤ maxi(G), and the inequalities are                              Consider Figure 2 which displays a typical path in the se-
+strict iff the game does not admit optimal pure strategies.                        quentialized game tree. Because of the weapon cooldown
+
+
+
+                                                                             114
+ t0                                                                  Algorithm 1 Alpha-Beta (Considering Durations)
+           M1                         (M1 , m1 )                      1: procedure ABCD(s, d, m0 , α, β)
+ t1                        m1                                         2:    if computationTime.elapsed then return timeout
+                                            M2                        3:    else if terminal(s, d) then return eval(s)
+                                                                      4:    toMove ← s.playerToMove(policy)
+ t2        M2
+                                                                      5:    while m ← s.nextMove(toMove) do
+                           m2               m2
+                                                                      6:        if s.bothCanMove and m0 = ∅ and d 6= 1 then
+ t3                                                                   7:             val ←ABCD(s, d − 1, m, α, β)
+                                                                      8:        else
+ t4                        m3         (M3 , m3 )                      9:             s0 ← copy(s)
+           M3                                                        10:             if m0 6= ∅ then s0 .doMove(m0 )
+ t5                                                                  11:             s0 .doMove(m)
+                           m4               m4                       12:             v ←ABCD(s0 , d − 1, ∅, α, β)
+ t6                                                                  13:        if toMove = MAX and (v > α) then α ← v
+           M4              m5                                        14:        if toMove = MIN and (v < β) then β ← v
+                                      (M4 , m5 )
+                                                                     15:        if α ≥ β then break
+  Time       Action Sequences         Path in Game Tree              16:    return toMove = MAX ? α : β
+       Max node            Min node                Nash node
+                                                                     which, however, doesn’t take into account other unit prop-
+                    Figure 2: Durations                              erties, such as damage values and cooldown periods. Ko-
+                                                                     varsky and Buro (2005) propose an evaluation based on the
+                                                                     life-time damage a unit can inflict, which is proportional to
+and the space granularity, battle games exhibit numerous du-         its hp times its damage-per-frame ratio:
+rative moves. Indeed, there are many time steps where the
+only move for a player is just pass, since all the units are                              damage(w(u))
+currently unable to perform an action. Thus, non-trivial de-                         dpf(u) =
+                                                                                         cooldown(w(u))
+cision points for players do not occur on every frame.
+   Given a player p in a state s, define the next time                          X                  X
+where p is next able to do a non-pass move by τ (s, p) =               LTD(s) =   hp(u) · dpf(u) −   hp(u) · dpf(u)
+minu∈s.Up (u.ta , u.tm ). Note that for any time step t such                      u∈U1                    u∈U2
+
+that s.t < t < min(τ (s, MAX), τ (s, MIN)), players can-               A second related evaluation function Kovarsky and Buro
+not perform any move but pass. It is therefore possible              (2005) propose favours uniform hp distributions:
+to shortcut many trivial decision points between s.t and
+min(τ (s, MAX), τ (s, MIN)).                                                      X p                       X p
+   Assume an evaluation function has been picked, and re-            LTD2(s) =           hp(u) · dpf(u) −      hp(u) · dpf(u)
+maining simultaneous choices are sequentialized as sug-                          u∈U1                       u∈U2
+
+gested above. It is then possible to adapt the Alpha-Beta            While these evaluation functions are exact for terminal po-
+algorithm to take advantage of durative moves as presented           sitions, they can be drastically inaccurate for many non-
+in Algorithm 1                                                       terminal positions. To improve state evaluation by also tak-
+   We use the terminal(s, d) function to decide when to call         ing other unit properties such as speed and weapon range
+the evaluation function. It is parametrized by a maximal             into account, we can try to simulate a game and use the out-
+depth dmax and a maximal time tmax and return “true” if              come as an estimate of the utility of its starting position.
+s is a terminal position or d ≥ dmax or s.t ≥ tmax .                 This idea is known as performing a playout in game tree
+   The third argument to the ABCD algorithm is used to han-          search and is actually a fundamental part of Monte Carlo
+dle the delayed action effect mechanism for sequentialized           Tree Search (MCTS) algorithms which have revolutionized
+simultaneous moves. If the state does not correspond to a            computer GO (Coulom 2006). However, there are differ-
+simultaneous decision, m0 holds a dummy value ∅. Other-              ences between the playouts we advocate for combat games
+wise, we apply the effects of m0 after move m is generated           and previous work on GO and HEX: the playout policies we
+because m0 should not affect the generation of the comple-           use here are deterministic and we are not using MCTS or a
+mentary moves.                                                       best-first search algorithm, but rather depth-first search.
+
+4.2   Evaluation Functions                                           4.3   Move Ordering
+A straight-forward evaluation function for combat games is           It is well-known in the game AI research community that a
+the hitpoint-total differential, i.e.                                good move ordering fosters the performance of the Alpha-
+                                                                     Beta algorithm. When transposition tables (TTs) and itera-
+                                                                     tive deepening are used, reusing previous search results can
+                       X              X
+              e(s) =        hp(u) −     hp(u)
+                    u∈U1           u∈U2                              improve the move ordering. Suppose a position p needs to
+
+
+
+                                                               115
+be searched at depth d and was already searched at depth                  (x, y) within 256 pixels of the origin, and to player MIN at
+d0 . If d ≤ d0 , the value of the previous search is sufficiently         position (−x, −y), which guaranteed symmetric start loca-
+accurate and there is no need for an additional search on p.              tions about the origin. Once combat began, units were al-
+Otherwise, a deeper search is needed, but we can explore the              lowed to move infinitely within the plane. Unit movement
+previously found best move first and hope for more pruning.               was limited to up, down, left, right at 15 pixel increments,
+    When no TT information is available, we can use scripted              which is equal to the smallest attack range of any unit in our
+strategies to suggest moves. We call this new heuristic                   tests.
+scripted move ordering. Note that this heuristic could also                  These settings ensured that the Nash value of the start-
+be used in standard sequential games like CHESS. We be-                   ing position was always 0.5. If the battle did not end in
+lieve the reason it has not been investigated closely in those            one player being eliminated after 500 actions, the simula-
+contexts is the lack of high quality scripted strategies.                 tion was halted and the final state evaluated with LTD. For
+                                                                          instance, in a match between a player p1 and an opponent p2 ,
+                     5    Experiments                                     we would count the number of wins by p1 , w, and number
+We implemented the proposed combat model, the scripted                    of draws, d, over n games and compute r = (w + d/2)/n.
+strategies, the new ABCD algorithm, and various tree trans-               Both players perform equally well in this match if r ≈ 0.5.
+formations. We then ran experiments to measure 1) the in-                    As the 2011 StarCraft AI Competition allowed for 50ms
+fluence of the suggested search enhancements for determin-                of processing per game logic frame, we gave each search
+ing the best search configuration, and 2) the real-time ex-               episode a time limit of 5ms. This simulates the real-time
+ploitability of scripted strategies.                                      nature of RTS combat, while leaving plenty of time (45ms)
+   Because the scripts we presented in Subsection 3.1 are                 for other processing which may have been needed for other
+quite basic, we added a few smarter ones to our set of scripts            computations.
+to test:                                                                     Experiments were run single-threaded on an Intel Core i7
+                                                                          2.67 GHz CPU with 24 GB of 1600 MHz DDR3 RAM us-
+• The Attack-Value strategy is similar to Attack-Closest,                 ing the Windows 7 64 bit operating system and Visual C++
+  except units attack an opponent unit u with the highest                 2010. A transposition table of 5 million entries (20 bytes
+  dpf(u)/hp(u) value within range when able. This choice                  each) was used. Due to the depth-first search nature of the
+  leads to optimal play in 1 vs. n scenarios (Furtak and Buro             algorithm, very little additional memory is required to facil-
+  2010).                                                                  itate search. Each result table entry is the result of playing
+• The NOK-AV (No-OverKill-Attack-Value) strategy is                       365 games, each with random symmetric starting positions.
+  similar to Attack-Value, except units will not attack an
+  enemy unit which has been assigned lethal damage this                   5.2   Influence of the Search Settings
+  round. It will instead choose the next priority target, or
+  wait if one does not exist.                                             To measure the impact of certain search parameters, we per-
+                                                                          form experiments using two methods of comparison. The
+• Using the Kiting-AV strategy is similar to Kiting, except               first method plays static scripted opponents vs. ABCD with
+  it will choose an attack target similar to Attack-Value.                various settings, which are then compared. The second
+Most scripts we described make decisions on an individual                 method plays ABCD vs. ABCD with different settings for
+unit basis, with some creating the illusion of unit collabo-              each player.
+ration (by concentrating fire on closest or weakest or most-                 We start by studying the influence of the evaluation func-
+valuable units). NOK-AV is the only script in our set that                tion selection on the search performance (see Section 4.2).
+exhibits true collaborative behaviour by sharing information              Preliminary experiments revealed that using NOK-AV for
+about unit targeting.                                                     the playouts was significantly better than using any of the
+   Because of time constraints, we were only able to test the             other scripted strategies. The playout-based evaluation func-
+following tree transformations: Alt, Alt’, and RAB’, where                tion will therefore always use the NOK-AV script.
+Alt’ in simultaneous move nodes selects the player that acted                We now present the performance of various settings for
+last, and RAB’ selects the player to move like RAB, but only              the search against script-based opponents (Table 1) and
+completes one Alpha-Beta search.                                          search-based opponents (Table 2). In Table 1, the Alt se-
+                                                                          quentialization is used among the first three settings which
+5.1   Setup                                                               allow to compare the leaf evaluations functions LTD, LTD2,
+The combat scenarios we used for the experiments involved                 and playout-based. The leaf evaluation based on NOK-AV
+equally sized armies of n versus n units, where n varied                  playouts is used for the last three settings which allow to
+from 2 to 8. 1 versus 1 scenarios were omitted due to over                compare the sequentialization alternatives described in Sub-
+95% of them resulting in draws. Four different army types                 section 3.2.
+were constructed to mimic various combat scenarios. These                    We can see based on the first three settings that doing a
+armies were: Marine Only, Marine + Zergling, Dragoon +                    search based on a good playout policy leads to much better
+Zealot, and Dragoon + Marine. Armies consisted of all pos-                performance than doing a search based on a static evaluation
+sible combinations of the listed unit type with up to 4 of                function. The search based on the NOK-AV playout strat-
+each, for a maximum army size of 8 units. Each unit in the                egy is indeed dominating the searches based on LTD and
+army was given to player MAX at random starting position                  LTD2 against any opponent tested. We can also see based
+
+
+
+                                                                    116
+                                                                            units and evaluate it under harsh real-time conditions. Our
+   Table 1: ABCD vs. Script - scores for various settings                   method is based on an efficient combat game abstraction
+      Opponent                  ABCD Search Setting                         model that captures important RTS game features, includ-
+                     Alt          Alt      Alt Alt’ RAB’                    ing unit motion, an Alpha-Beta search variant (ABCD) that
+                    LTD         LTD2       NOK-AV Playout                   can deal with durative moves and various tree transforma-
+                                                                            tions, and a novel way of using scripted strategies for move
+      Random           0.99      0.98     1.00    1.00      1.00
+      Kite             0.70      0.79     0.93    0.93      0.92            ordering and depth-first-search state evaluation via playouts.
+      Kite-AV          0.69      0.81     0.92    0.96      0.92            The experimental results are encouraging. Our search, when
+      Closest          0.59      0.85     0.92    0.92      0.93            using only 5 ms per episode, defeats standard AI scripts as
+      Weakest          0.41      0.76     0.91    0.91      0.89            well as more advanced scripts that exhibit kiting behaviour
+      AV               0.42      0.76     0.90    0.90      0.91            and minimize overkill. The prospect of opponent modelling
+      NOK-AV           0.32      0.64     0.87    0.87      0.82            for exploiting scripted opponents is even greater: the prac-
+      Average          0.59      0.80     0.92    0.92      0.91            tical exploitability results indicate large win margins best-
+                                                                            response ABCD can achieve if the opponent executes any of
+         Table 2: Playout-based ABCD performance                            the tested combat scripts.
+                                                                               The ultimate goal of this line of research is to handle
+             Opponent               Alt Alt’ RAB’                           larger combat scenarios with more than 20 units on each side
+                                    NOK-AV Playout                          in real-time. The enormous state and move complexity, how-
+             Alt-NOK-AV                    0.47      0.46                   ever, prevents us from applying heuristic search directly, and
+             Alt’-NOK-AV           0.53              0.46                   we therefore will have to find spatial and unit group abstrac-
+             RAB’-NOK-AV           0.54    0.54                             tions that reduce the size of the state space so that heuristic
+             Average               0.54    0.51      0.46
+                                                                            search can produce meaningful results in real-time. Balla
+                                                                            and Fern (2009) present initial research in this direction, but
+                                                                            their UCT-based solution is rather slow and depends on pre-
+ Table 3: Real-time exploitability of scripted strategies.                  assigned unit groups.
+Random Weakest Closest AV Kiter Kite-AV NOK-AV                                 Our next steps will be to integrate ABCD search into
+                                                                            a S TARCRAFT AI competition entry to gauge its perfor-
+  1.00       0.98        0.98     0.98 0.97        0.97        0.95
+                                                                            mance against previous year’s participants, to refine our
+                                                                            combat model if needed, to add opponent modelling and
+                                                                            best-response-ABCD to counter inferred opponent combat
+on the last three settings that the Alt and Alt’ sequentializa-             policies, and then to tackle more complex combat scenarios.
+tions lead to better results than RAB’.
+                                                                                                    References
+5.3   Estimating the Quality of Scripts
+                                                                            Balla, R.-K., and Fern, A. 2009. UCT for tactical assault plan-
+The quality of scripted strategies can be measured in at least              ning in real-time strategy games. In Boutilier, C., ed., IJCAI,
+two ways: the simplest approach is to run the script against                40–45.
+multiple opponents and average the results. To this end,
+                                                                            Churchill, D., and Buro, M. 2011. Build order optimization
+we can use the data presented in Table 1 to conclude that                   in starcraft. In Proceedings of the Seventh AAAI Conference
+NOK-AV is the best script in our set. Alternatively, we can                 on Artificial Intelligence and Interactive Digital Entertainment,
+measure the exploitability of scripted strategies by determin-              AIIDE.
+ing the score a theoretically optimal best-response-strategy
+                                                                            Coulom, R. 2006. Efficient selectivity and back-up operators in
+would achieve against the script. However, such strategies
+                                                                            Monte-Carlo tree search. In Proceedings of the 5th Conference
+are hard to compute in general. Looking forward to mod-
+                                                                            on Computers and Games (CG’2006), volume 4630 of LNCS,
+elling and exploiting opponents, we would like to approx-                   72–83. Torino, Italy: Springer.
+imate best-response strategies quickly, possibly within one
+game simulation frame. This can be accomplished by re-                      Furtak, T., and Buro, M. 2010. On the complexity of two-
+                                                                            player attrition games played on graphs. In Youngblood, G. M.,
+placing one player in ABCD by the script in question and
+                                                                            and Bulitko, V., eds., Proceedings of the Sixth AAAI Conference
+then run ABCD to find approximate best-response moves.
+                                                                            on Artificial Intelligence and Interactive Digital Entertainment,
+The obtained tournament result we call the real-time ex-                    AIIDE 2010.
+ploitability of the given script. It constitutes a lower bound
+(in expectation) on the true exploitability and tells us about              Kovarsky, A., and Buro, M. 2005. Heuristic search applied
+the risk of being exploited by an adaptive player. Table 3                  to abstract combat games. Advances in Artificial Intelligence
+                                                                            66–78.
+lists the real-time exploitability of various scripted strate-
+gies. Again, the NOK-AV strategy prevails, but the high                     Orkin, J. 2006. Three states and a plan: the AI of FEAR. In
+value suggests that there is room for improvement.                          Game Developers Conference. Citeseer.
+                                                                            Saffidine, A.; Finnsson, H.; and Buro, M. 2012. Alpha-Beta
+         6     Conclusion and Future Work                                   pruning for games with simultaneous moves. In Proceedings of
+                                                                            the Twenty-Sixth Conference on Artificial Intelligence (AAAI-
+In this paper we have presented a framework for fast Alpha-                 12).
+Beta search for RTS game combat scenarios of up to 8 vs. 8
+
+
+
+                                                                      117
+

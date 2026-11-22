@@ -1,0 +1,21 @@
+rerun rel18 NCPU 8 then 1 into the same folder: rc=0,0 stdout=0,0B user files after first=5 after second=2 compare=MATCH/MATCH
+rerun rel18 NCPU 8 then 2 into the same folder: rc=0,0 stdout=0,0B user files after first=6 after second=3 compare=MATCH/MATCH
+--- negative control without the cleanup (c2)
+rerun base_c2 NCPU 8 then 1 into the same folder: rc=0,0 stdout=0,0B user files after first=6 after second=6 compare=DIFFER/DIFFER
+  user_daily: rows 209699 vs 117038; only in A 0; only in B 0; duplicate keys 92661 vs 0
+  shape: (0, 6)
+  ┌─────────┬──────┬──────────┬────────┬───────────────┬──────────────┐
+  │ user_id ┆ day  ┆ sessions ┆ events ┆ revenue_cents ┆ top_category │
+  │ ---     ┆ ---  ┆ ---      ┆ ---    ┆ ---           ┆ ---          │
+  │ str     ┆ date ┆ i128     ┆ i128   ┆ i128          ┆ str          │
+  ╞═════════╪══════╪══════════╪════════╪═══════════════╪══════════════╡
+  └─────────┴──────┴──────────┴────────┴───────────────┴──────────────┘
+  shape: (0, 6)
+  ┌─────────┬──────┬──────────┬────────┬───────────────┬──────────────┐
+  │ user_id ┆ day  ┆ sessions ┆ events ┆ revenue_cents ┆ top_category │
+  │ ---     ┆ ---  ┆ ---      ┆ ---    ┆ ---           ┆ ---          │
+  │ str     ┆ date ┆ i128     ┆ i128   ┆ i128          ┆ str          │
+  ╞═════════╪══════╪══════════╪════════╪═══════════════╪══════════════╡
+  └─────────┴──────┴──────────┴────────┴───────────────┴──────────────┘
+  campaign_daily: rows 27400 vs 27400; only in A 0; only in B 0; duplicate keys 0 vs 0
+  DIFFER

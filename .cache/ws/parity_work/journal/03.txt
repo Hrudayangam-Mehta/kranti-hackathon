@@ -1,0 +1,131 @@
+{
+ "repos": [
+  {
+   "url": "https://github.com/varchaskukreja/TTUN",
+   "owner": "varchaskukreja",
+   "repo": "TTUN",
+   "language": "TypeScript (Bun)",
+   "team_or_score_claim": "Team Wolverines. 5.19 practice (rank 3 at ~22:00 ET Fri) for the 'v8-econ' version, per the r1ver team's notes citing the author's commit notes; r1ver's derivative of it scored 5.08 and 5.10 on the official scorer. Bot lives in mech-royale/bot (bot.ts ~710 lines + map.ts ~320 lines); submissions come from branch mech-royale-submit (bot.ts identical to main when checked).",
+   "why_interesting": "Highest verified public score and very compact. In practice mode it fights every mech it has tracked in the last 4 s (no engagement gate), target score = distance + HP-weighted term + staleness, minus bonuses for recent attacker and current target. Prefers lightning > laser > mortar; with lightning it closes to ~28 m (boosting in when energy is high), laser ~110 m, gun-only ~70 m; strafes with random direction flips every 0.35-1.05 s. Retreats to cover only when clearly losing (low HP vs target, or 2-3 threats while hurt), then heals silently out of sight until ~55-90% HP. Detects free-for-all (unexplained deaths >= 3, or laser beams ending on another mech) and only then becomes selective/hiding. Zone: heads to a point at ~45% of next radius on its own side, triggered by time-to-shrink vs walk time + 12 s. Loot scoring is one distance-based list (weapons, cubes, uncontested supply drops out to 220 m, remembered drones, ground crates); roof loot skipped. Upgrades armor/plating/nanites first. Navigation = 2 m grid, time-sliced Dijkstra distance field toward the goal, ring search for cover spots. Dodges bullets by closest-approach test and mortar by landing-point prediction.",
+   "priority": 1
+  },
+  {
+   "url": "https://github.com/moonriver0922/wgsrobot",
+   "owner": "moonriver0922",
+   "repo": "wgsrobot",
+   "language": "Python (dev branch) + TypeScript competition builds",
+   "team_or_score_claim": "Team r1ver (leaderboard rank 4 at the time). Official receipts: 4.54 (Lance derivative with quiet movement), 4.67 (same at normal speed + supply-capture fix), 5.08 (TTUN v8-econ derivative choosing cube piles by upgrade value), 5.10 (plus short-range ground-path check). README links the older repo name mech-royale-planner.",
+   "why_interesting": "Best documented experiment log (experiments/official-runs.md, experiments/README.md, results.csv, calibration CSV). Shows per-seed outcomes are bimodal (mostly 0-2 points or 15), that their local simulator agreed with the official ordering in only 3 of 6 pairwise comparisons, and that timing-dependent path planning changes results. Records leaderboard state (AT 5.48, BobBuildIt 5.25, Wolverines 5.19, r1ver 5.08-5.10; 5.10 = 245 total place-points, 5.48 = 263). Negative/neutral findings: inner-circle waypoint -0.38 in sim, roof-loot filter neutral, finishing a supply capture neutral, reachable-shrink-target fix inconsistent. Identifies Wolverines' and BackwardsDeployeds' repos.",
+   "priority": 2
+  },
+  {
+   "url": "https://github.com/LanceHuang245/mech-royale",
+   "owner": "LanceHuang245",
+   "repo": "mech-royale",
+   "language": "Python (stdlib)",
+   "team_or_score_claim": "Own real scores 3.71 / 4.44 / 4.75 by version; commit 171bc06 scored 4.54 with quiet movement on and 4.75 with it off when re-run by BackwardsDeployeds. MIT; it is the base for Kanyaraasi, BackwardsDeployeds and r1ver's first entry.",
+   "why_interesting": "The most reused public bot (bot.py ~1200 lines) plus two simulators and an ablation table. Tactics: loadout laser + lightning, mortar never taken (cook-off risk); arm up before gun-only fights (seeks laser/lightning up to 240 m when unarmed); target = nearest with HP weight, big bonus for targets under 30% HP, stickiness, attacker bonus; cover mode when retreating (<38% HP), 3+ threats, outranged by a laser, incoming DPS > 110/s or an unseen attacker, unless a close fight (<40 m) or a finish is on; cover search = 16 directions x 7 radii scored by number of threat eyes with sight; fight range 110 m with laser, 28 m with lightning, 85 m gun; collects kill cubes immediately; remembers crates/pickups; 4 m nav grid with incremental A*, progress watchdog that jets over obstacles. Measured: 'patient' hide-and-wait 4.04 vs 4.54 real; real scoring deterministic; oracle league tests say survivability (-30% damage taken +1.65, +30% HP +1.36) beats aim (+0.28) and cubes are worth +1.0 to +1.7.",
+   "priority": 3
+  },
+  {
+   "url": "https://github.com/nullat0m7/mech-royale",
+   "owner": "nullat0m7",
+   "repo": "mech-royale",
+   "language": "TypeScript (Bun)",
+   "team_or_score_claim": "Best practice 4.46; nine scored submissions logged with single-change deltas (4.44, 3.98, 4.44, 4.00, 4.31, 4.40, 4.35, 4.46, 4.38).",
+   "why_interesting": "Cleanest real-scorer ablation record (CHANGELOG.md, PATTERNS.md, docs/bot.md). Findings: identical code scored 4.44 twice; standing still to regen when unseen plus tree-cover weighting cost -0.44; a long-range stack (gun 170 m, laser 210 m, gun+laser loadout, avoid lightning carriers) cost -0.46 although their sim predicted a large gain; re-engage at 65% HP -0.04; farm only above 85% HP about -0.09; crate/cube range 90->140 m -0.09; supply-drop chase range 220->300 m +0.02 (kept); chasing landed drops for 30 s -0.08. Reasoning: points = house bots dead before us, so kills bank points and hiding only gives hunters time to gather; deltas under ~0.2 are re-roll noise. Baseline: zone rotation to 70% of next radius, plating first, gun fights ~75 m, laser 120 m, retreat threshold +15% per extra shooter, hold beside a wall inside the next circle. House-squad sim model: one extra hunter per kill, aim noise by tier.",
+   "priority": 4
+  },
+  {
+   "url": "https://github.com/Achintya-Lakshmanan/mech-royale-bot",
+   "owner": "Achintya-Lakshmanan",
+   "repo": "mech-royale-bot",
+   "language": "TypeScript (Bun) + Python tools",
+   "team_or_score_claim": "Own best 3.71 (rank 66 of 137); submissions 3.29, 2.69 (combined caution), 3.21, 3.71.",
+   "why_interesting": "docs/REPORT.md is the best meta-analysis found: ~200 recorded matches (public cast, 11 Top-16 showdown matches, ~300 private-room games on the real engine). 55% of deaths involve 2+ attackers; median kill distance 44 m; typical victim still had ~890 HP 10 s before dying; 3-second burst by weapon: laser ~430, lightning ~350, mortar ~160, gun ~120; death rate per minute 0.36 with nobody within 60 m, 2.0 with one mech, 4.6 with two; zone edge safer than centre (0.55 vs 0.85); exposure did not predict damage, crowding did. Showdown: practice top-4 placed 6th-12th on average in free-for-all, aggressive boosters died first, calm bots and expert house bots lasted, winners held many cubes. Competitor table: nullat0m7 4.44-4.46, whyMiso 4.13, jackbalseca 3.81, GT Goats 3.60-3.71, magazine-aware finishing took a GT Goats build 3.71->4.10. Conclusion: anything that makes the bot fight less loses practice points, hiding wins free-for-all, so one bot with two modes switched by unexplained deaths. tools/room_test.py plays private rooms on the public play server.",
+   "priority": 5
+  },
+  {
+   "url": "https://github.com/anthonyteti/buildathon-mech-royale",
+   "owner": "anthonyteti",
+   "repo": "buildathon-mech-royale",
+   "language": "TypeScript (Bun)",
+   "team_or_score_claim": "No score in repo. Possibly team 'AT' (rank 1-2, 5.40-5.58) by owner initials only; unverified. Bot announces itself as teti-mech, version v5.",
+   "why_interesting": "Substantial original bot (brain ~1120 lines, nav with walk/climb/drop edges, 940-line simulator with house-squad emulator and paired A/B script). Exposes its A/B switches with chosen defaults: in practice it does NOT restrict fights (selective engagement off), ignores mechs beyond 150 m unless they shoot, gun range 70 m, strafe weight 0.9, ducks into cover while reloading or losing the HP race, roams at full speed until 150 s looking for drones/crates/cubes, answers drones that hit it before poking distant mechs, no kiting from multiple attackers, stops shooting crates/drones late so regen is not reset, stands on the final circle centre in the endgame. Same free-for-all detection idea (beams ending on other mechs, unexplained deaths).",
+   "priority": 6
+  },
+  {
+   "url": "https://github.com/JosiahAklog/nexus-mech-royale",
+   "owner": "JosiahAklog",
+   "repo": "nexus-mech-royale",
+   "language": "Python (stdlib, optional native helper)",
+   "team_or_score_claim": "NEXUS: V9 scored 4.33, V24 scored 4.77 (official, as stated in README); later versions unverified.",
+   "why_interesting": "A 4.77 single-file Python bot (~66 KB) with a version-by-version change list: prioritise a recent visible attacker over farming targets; ready aligned gun takes lethal shots instead of starting a new laser charge; prefer lightning over mortar in close multi-opponent fights; positions with a clear shot at the chosen target but cover from secondary opponents; retreat threshold depends on enemy count and relative health; orbit drones at ~29 m; proactive reload in either slot; consider incoming projectiles out to 165 m; fall back to up to three alternate targets when no firing solution; V24 fixed drone recovery movement, zone-damage tracking and supply capture positioning.",
+   "priority": 7
+  },
+  {
+   "url": "https://github.com/brycehcmcgrath/mechfight-bot",
+   "owner": "brycehcmcgrath",
+   "repo": "mechfight-bot",
+   "language": "Python (HEAD ships compiled .so payload)",
+   "team_or_score_claim": "Team BackwardsDeployeds, 4.75 selected entry (rank 7 at 02:49 UTC Sat). docs/RESULTS.md exists at commit 18ae7c4 (not at HEAD).",
+   "why_interesting": "HEAD is opaque (Cython-style binaries wrapping the LanceHuang245 bot), but the historical results file is a clean chain of official A/B results: own bot 1.75 -> 2.52 (swept projectile avoidance, slow arrival, pickup-ring goals); GT Goats control 3.71; loot priority 1.0->1.6 gave 3.65; magazine-aware finishing snapshot 4.10; Lance 171bc06 with quiet movement 4.54; same with quiet movement disabled 4.75. Confirms quiet walking costs about 0.2 in practice.",
+   "priority": 8
+  },
+  {
+   "url": "https://github.com/arnabxero/xero-mech-royale",
+   "owner": "arnabxero",
+   "repo": "xero-mech-royale",
+   "language": "Rust",
+   "team_or_score_claim": "Team-Xero. Official: v1 2.63, v2 2.67, v3 3.00, v3 + solo duel 3.19, v4 3.35, v4.1 2.98, v5 3.75 and 3.90 (two runs), v5 + solo duel 3.52, v5 + faster strafe flips 3.06.",
+   "why_interesting": "STATUS.md documents execution fixes with measured effect: holding the trigger when a cooldown ends inside the 0.1 s decision window (previously ~20% gun DPS lost; 1v1 win rate 46%->56% in sim); aiming at the first body point with a clear line (centre, +2 m, +3.6 m) because terrain hides the lower body; gun-lead/laser-aim hand-off near 80% charge (laser accuracy 31%->65% in sim); latency-compensated lead (target advanced 0.05 s, own muzzle velocity); no gun fire at strafing targets beyond 140 m; gun tolerance ~2 m optimal. Real A/Bs: proactive engagement + drone farming hurt (3.35->2.98), faster strafe reversals hurt (-0.7), solo-duel mode inconsistent. Also has roof jump/drop edges in its nav graph, a time-sliced Dijkstra flow field to the next circle, concealment-scored hold spots, blind return fire along laser beams/damage bearings through trees, and peek-fighting against charging lasers.",
+   "priority": 9
+  },
+  {
+   "url": "https://github.com/jackbalseca/mech-royale-bot",
+   "owner": "jackbalseca",
+   "repo": "mech-royale-bot",
+   "language": "Python + numpy",
+   "team_or_score_claim": "Team V.exe. Official: 2.56, 3.44, 3.58, 3.81 (best), 3.50, 3.81, 3.04, 3.79, 3.75.",
+   "why_interesting": "SUBMISSIONS.md is a one-change-per-submission log. Engaging only mechs that shot at or aim at us: +0.23 (3.58->3.81). Never retreating in the final 1v1: -0.31. Closer engagement ranges (gun 40 m, laser 60 m): no effect. Long-range duelling (130 m gun / 160 m laser, backpedal): -0.77 despite the sim predicting a gain. Noise measurement: same strategy with a different RNG salt moved 0.06, so differences above ~0.15 are real. Also logs live free-for-all tests on the real engine via the public play server.",
+   "priority": 10
+  },
+  {
+   "url": "https://github.com/joekritenbrink0-wq/mech-bot",
+   "owner": "joekritenbrink0-wq",
+   "repo": "mech-bot",
+   "language": "Python (stdlib)",
+   "team_or_score_claim": "Real practice 3.94 (v0), 3.79 (v1), 4.04 (v2).",
+   "why_interesting": "Has a full practice-format simulator calibrated against three real scores, with an explicit house-squad model: one hunter at the start plus one per two kills, everyone hunts after 300 s, non-hunters never start or return fights, house aim noise about 3x the base profile. Useful as a prose reference for calibrating our own stand-in squad. v2 choices: combat movement never leaves the zone, keep lightning holders beyond ~58 m and boost away when one is close, pull combat movement toward upgrade weapons and kill cubes, disengage switched off (lost in sim A/B). Notes ~0.2 noise at 160 sim matches.",
+   "priority": 11
+  },
+  {
+   "url": "https://github.com/dmclaughlin-bit/mech-bot",
+   "owner": "dmclaughlin-bit",
+   "repo": "mech-bot",
+   "language": "TypeScript (Bun)",
+   "team_or_score_claim": "Own scores low: 1.67, 2.17 (twice, identical), 2.23, 2.38, 2.44 best. Valuable for its logs, not its bot.",
+   "why_interesting": "EXPERIMENTS.md and coord/learnings.md hold a timestamped leaderboard history (Fri 21:40 ET: 108 teams, AT 5.40 first, 16th 4.33, 32nd 4.04, median 3.53; 23:48 ET: 144 teams, 1st 5.58, 16th 4.77, 32nd 4.29) and analysis of recorded Top-16 exhibition matches: both winners (Mustikas, AT) ended with laser + lightning, laser was 72-84% of their damage, they held 24-34 cubes, took 6-7 upgrades (laser damage twice, plating/armor, nanites) and all three supply drops, stayed around 0.4 of the zone radius, boosted only 7-11% of the time and never jetted; gun-only bots rarely got kills. Their own failed experiments: hold behind cover -0.15, removing a 100 m gun gate -0.34, laser-first -0.11, larger nav inflation -0.28.",
+   "priority": 12
+  },
+  {
+   "url": "https://github.com/atharvatripathi2026/gtgoats_mech_royale",
+   "owner": "atharvatripathi2026",
+   "repo": "gtgoats_mech_royale",
+   "language": "Python (stdlib)",
+   "team_or_score_claim": "Team GT Goats ('Astra'). Official: 3.60, 3.23 (rooftop camping), 3.65, 3.71. A later snapshot with magazine-aware finishing scored 4.10 when run by BackwardsDeployeds.",
+   "why_interesting": "Direct real-scorer evidence that early rooftop camping loses to a ground policy (3.23 vs 3.60). Modular bot (survival, loadout, navigation, adaptation modules) with a 3 m grid, headroom-aware passages, jets reserved for obstructions and forced rooftop finishes, energy reserve for escapes, cover to break pursuit, per-observation decision logging, and a closed-loop local trainer that tunes a policy file on paired seeds with held-out validation. Third-party notes credit its target choice restricted to enemies the current magazine/burst can finish with +0.39.",
+   "priority": 13
+  },
+  {
+   "url": "https://github.com/SeanCowen/oval-runner",
+   "owner": "SeanCowen",
+   "repo": "oval-runner",
+   "language": "Python controller + Rust planner",
+   "team_or_score_claim": "Official practice 3.77, 3.88, 3.98, 4.06 (V4) by commit.",
+   "why_interesting": "Distinct economy idea: a bounded beam search over sequences of up to five stops among ~14 objectives (cubes, weapons, crates, drones, supply drops), tracking elapsed time, energy, cube thresholds for upgrade offers, first-time weapon acquisition and the cost of returning to the safe ring; only the first stop is executed and it is re-planned every ~0.5 s. In combat-free benchmarks it raised mean cubes 7.6 -> 8.5 versus one-step greedy 5.9. V5 adds a repair-timer model: shooting a crate resets the regen timer, so a wounded bot compares the HP given up with the cube's value and proximity to the next upgrade offer. Deliberately skips mortars and roof travel.",
+   "priority": 14
+  }
+ ],
+ "search_notes": "METHOD. 16 WebSearch queries (mechfight bot github; mech royale buildathon; \"mechfight/1\"; Builders Buildathon + Mech Royale; mechfight.py Dockerfile; joinbuilders; mech-royale-bot; leaderboard team names in three batches; LanceHuang245; oval; house bots weakest first; site:github.com variants). General web search is nearly blind to this one-day-old event (one extended site:github.com query returned 10 repos). Discovery therefore relied on ~50 GitHub repository searches through gh (names, descriptions, in:readme for mechfight / mech royale / mechfight-kit / joinbuilders, created-time slices), giving ~130 Mech Royale repos. README files of 103 were fetched read-only for triage; 31 repos were shallow-cloned one at a time with the mandated command into P/intel/<owner>__<repo>. Triage files are in P/intel/_triage (cands_f.tsv = candidate list, readme/ = fetched READMEs, raw/ = three historical files fetched by commit). Nothing was executed, nothing copied into bot/sim/tools/notes. GitHub REST API calls for forks/user listings are blocked in this session, so fork lists were not checked.\n\nTEAM-TO-REPO MAP. Wolverines = varchaskukreja/TTUN (confirmed by r1ver's notes). r1ver = moonriver0922/wgsrobot. BackwardsDeployeds = brycehcmcgrath/mechfight-bot. Kanyaraasi = devakchow/team-kanyaraasi-mech-royale (LanceHuang245 commit 171bc06 with quiet movement disabled and one small retreat tweak; no new ideas). AT: not confirmed; anthonyteti/buildathon-mech-royale is a guess from initials. BobBuildIt: not confirmed; VivekRnx/bob-the-builder-2026 and Osca-K/builders-buildit-mech-royale have similar names but claim no score. No public repo found for A-bot LLC, tigerbyte, ImagineLosing, \"not even close\", Mahalas, Mustikas, TigerTown27, Antalos, 314159265.\n\nLEADERBOARD TIMELINE (from competitors' logs, Eastern time Fri Nov 20): 21:00 top 5.23 of 94 teams; 21:40 AT 5.40, 16th 4.33, 32nd 4.04, median 3.53 of 108; ~22:00 AT 5.48, BobBuildIt 5.25, Wolverines 5.19, r1ver 5.08-5.10; 23:17 1st 5.58, 16th 4.73, 32nd 4.23; 23:48 1st 5.58, 16th 4.77, 32nd 4.29 of 144. The cutoff is rising about 0.05-0.1 per hour.\n\nCROSS-REPO FINDINGS MEASURED ON THE OFFICIAL SCORER.\n1. Scoring replays the same 48 seeds: identical code gives an identical score (four teams confirmed). Any behaviour change re-rolls matches; one team measured ~0.06 from an RNG salt alone, another saw 3.75 vs 3.90 for one version (wall-clock-dependent planning). Treat deltas under ~0.2 as noise. Per-match results are bimodal (mostly 0-2 or 15), so the mean is driven by how often the bot wins outright.\n2. Passivity loses in practice: hide-and-hold-fire 4.04 vs 4.54; idle regen while unseen -0.44; quiet walking -0.2 (4.54 vs 4.75; 4.54 vs 4.67); rooftop camping 3.23 vs 3.60; roof fighting and long-range fighting 'scored worse' (BingBU); long-range kiting -0.77; long-range gun+laser stack -0.46; combined caution 2.69 vs 3.29; holding behind cover -0.15. Faster strafe reversals -0.7 in one test.\n3. What gained: engaging mechs that shoot/aim at us instead of every mech +0.23 (one team; Wolverines at 5.19 fight everything tracked, so this is not universal); targets the current burst can finish +0.39; cube/upgrade-value economy (Wolverines 5.19, r1ver 5.08-5.10); supply drops chased to 300 m +0.02; break line of sight when hurt/outnumbered then re-engage +0.14; execution fixes (trigger held across cooldown end, LOS-aware aim point).\n4. Consensus loadout: laser + lightning, mortar skipped; lightning fights at ~28-30 m, laser ~110 m, gun 70-100 m; upgrades plating/armor/nanites first.\n5. Free-for-all detection used by at least six teams: deaths not caused by us (alive count drop minus own kills >= 2-3) or beams ending on other mechs; practice house bots never trigger it. Top practice bots placed only 6th-12th in the Top-16 showdown; calm, well-cubed bots and expert house bots did best there.\n6. Local simulators do not rank tactics reliably (r1ver 3 of 6 orderings right; nullat0m7 and jackbalseca sims predicted gains for changes that lost 0.46-0.77). Real house bots hunt a passive bot less aggressively than sims assume.\n7. Real-engine testing exists: several teams bridge their bot to private rooms on the public play server play.joinbuilders.org (room code from its matchmaking endpoint; empty seats are server house bots) and record the public cast websocket at watch.joinbuilders.org/live. Tools for this are in jklein07/mech-royale-bot, micah-andelman/mech-royale (also emulates a practice squad with 15 vision-sharing hunter clients), Achintya-Lakshmanan and jackbalseca. This needs outbound network and was not tried here.\n\nOTHER REPOS READ BUT NOT RANKED. niranjankumarnk/mech-royale (BingBU, Rust, policy switches; roof and long-range variants kept off after scoring worse); micah-andelman/mech-royale (own Python brain, lists which teams' ideas it reimplemented); jklein07/mech-royale-bot (Rust, large sim, house aim notes); Warrior-hound/mech-royale (hit-probability fire gate, time-to-kill engagement gate, 37-spot hide search; sim only); koillea/mech-royale-goonies (roof perch catalogue and climb procedure; no score); VivekRnx/bob-the-builder-2026 (sim + browser replay viewer; sim-only numbers); AbhirajTiwari12/mech-royale-bot (89 KB bot, quiet loot-first opening, no score); viktor-lorentz/mech-royale-overcooked (Rust sim with house calibration); Borovail/builders-mech-royale (score calibration CSVs, own scores 1.56-2.0); ppetit8 (2.50/3.27/3.46); Sharmileer 2.58; akshayagg18 2.48; Rebecca922 2.06; afiapoks 1.38; kpfarn 0.13 and 0.06 with pure stealth (hiding without fighting scores near zero); whyMiso (claimed 4.13 elsewhere, repo now holds only a README). davidvarvas x2, gonvaz-nocode/NoCodeHack, bzells11, suzhuhui-hub/oval-warden, OvitasO: original bots without score claims.\n\nCAVEATS. Scores are self-reported in READMEs/logs or relayed by other teams; none were verified against the official board. Several top entries are derivatives of the MIT-licensed LanceHuang245 and TTUN bots, so 'top entries are compared' will cluster around those two code bases; our own implementation should stay clearly distinct."
+}

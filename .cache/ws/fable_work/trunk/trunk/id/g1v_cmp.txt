@@ -1,0 +1,40 @@
+G1v native slot 3: 108/108 trunk = MX_base byte-identical
+  kit  auto  T0:67c3c021 T1:67c3c021 T2:27539ba1 T3:27539ba1 F00:67c3c021 F01:67c3c021 F02:67c3c021 F03:27539ba1 F04:67c3c021 F05:67c3c021 F06:67c3c021 F07:67c3c021 F08:67c3c021 F09:67c3c021 F10:67c3c021 F11:67c3c021 F12:67c3c021 F13:67c3c021 F14:67c3c021 F15:67c3c021
+  kit  squad T0:6bf6e8eb T1:6bf6e8eb T2:eb288f91 T3:eb288f91 F00:6bf6e8eb F01:6bf6e8eb F02:6bf6e8eb F03:eb288f91 F04:6bf6e8eb F05:6bf6e8eb F06:6bf6e8eb F07:6bf6e8eb F08:6bf6e8eb F09:6bf6e8eb F10:6bf6e8eb F11:6bf6e8eb F12:6bf6e8eb F13:6bf6e8eb F14:6bf6e8eb F15:6bf6e8eb
+  kit  ffa   T0:3c8831c2 T1:3c8831c2 T2:3c8831c2 T3:3c8831c2 F00:3c8831c2 F01:3c8831c2 F02:3c8831c2 F03:3c8831c2 F04:3c8831c2 F05:3c8831c2 F06:3c8831c2 F07:3c8831c2 F08:3c8831c2 F09:3c8831c2 F10:3c8831c2 F11:3c8831c2 F12:3c8831c2 F13:3c8831c2 F14:3c8831c2 F15:3c8831c2
+  l48  auto  T0:c778ebf5 T1:c778ebf5 T2:9de1d37e T3:9de1d37e F00:c778ebf5 F01:c778ebf5 F02:c778ebf5 F03:9de1d37e F04:c778ebf5 F05:c778ebf5 F06:c778ebf5 F07:c778ebf5 F08:c778ebf5 F09:c778ebf5 F10:c778ebf5 F11:c778ebf5 F12:c778ebf5 F13:c778ebf5 F14:c778ebf5 F15:c778ebf5
+  l48  squad T0:c778ebf5 T1:c778ebf5 T2:9de1d37e T3:9de1d37e F00:c778ebf5 F01:c778ebf5 F02:c778ebf5 F03:9de1d37e F04:c778ebf5 F05:c778ebf5 F06:c778ebf5 F07:c778ebf5 F08:c778ebf5 F09:c778ebf5 F10:c778ebf5 F11:c778ebf5 F12:c778ebf5 F13:c778ebf5 F14:c778ebf5 F15:c778ebf5
+  l11  auto  T0:be16220e T1:be16220e T2:bd8e3df5 T3:bd8e3df5
+  l23p auto  T0:c86c1ec4 T1:c86c1ec4 T2:6f2822c4 T3:6f2822c4
+  kit auto: tables equal to T1: T0,T1,F00,F01,F02,F04,F05,F06,F07,F08,F09,F10,F11,F12,F13,F14,F15; T2==F03: True; T0==T1: True
+  l48 auto: tables equal to T1: T0,T1,F00,F01,F02,F04,F05,F06,F07,F08,F09,F10,F11,F12,F13,F14,F15; T2==F03: True; T0==T1: True
+  id/old FNV_kit_auto 67c3c021: T0 equal
+  id/old FNV_kit_squad 6bf6e8eb: T0 equal
+  id/old FNV_kit_ffa 3c8831c2: T0 equal
+  id/old FNV_l11_auto be16220e: T0 equal
+  id/old FNV_l23p_auto c86c1ec4: T0 equal
+G1s hello.slot = s, salt 2 in slot s: 48/48 trunk = MX_base byte-identical
+  flip acts (hash != T1 native) in 48/48; equal to T2 native in 48/48
+VB kit auto: trunk b3 vs CH1_s1 IDENTICAL n=300 hash db31dd08 variantOffTick=182 firstForeignTick=360 latch=498
+VB kit squad: trunk b3 vs CH1_s1 IDENTICAL n=300 hash 24df41fd variantOffTick=182 firstForeignTick=360 latch=-1
+VB l48 auto: trunk b3 vs CH1_s1 IDENTICAL n=4800 hash 46200596 variantOffTick=2501 firstForeignTick=-1 latch=-1
+VB l11 auto: trunk b3 vs CH1_s1 IDENTICAL n=4800 hash 899caeca variantOffTick=2501 firstForeignTick=-1 latch=-1
+VB l23p auto: trunk b3 vs CH1_s1 IDENTICAL n=4800 hash bcf2c7d9 variantOffTick=2501 firstForeignTick=-1 latch=-1
+TF2 forced FFA kit: bb==T1 True  T1(trunk)==T1(MX) True  n=300 hash 3c8831c2
+TF2 forced FFA f1: bb==T1 True  T1(trunk)==T1(MX) True  n=1135 hash 3015f86d
+TF2 forced FFA f2: bb==T1 True  T1(trunk)==T1(MX) True  n=1619 hash 5c487acd
+TF2 forced FFA f3: bb==T1 True  T1(trunk)==T1(MX) True  n=1578 hash d45e87d7
+TF2 forced FFA f4: bb==T1 True  T1(trunk)==T1(MX) True  n=312 hash cd0918b5
+TF2 forced FFA ff411: bb==T1 False  T1(trunk)==T1(MX) True  n=1599 hash 6b386d49 kills=4 place=1
+TF2 forced FFA ff412: bb==T1 False  T1(trunk)==T1(MX) True  n=643 hash e0876a56 kills=0 place=9
+TF2 forced FFA ff413: bb==T1 False  T1(trunk)==T1(MX) True  n=533 hash 8ab88ff6 kills=1 place=8
+TF2 forced FFA ff414: bb==T1 False  T1(trunk)==T1(MX) True  n=2176 hash e6fa5393 kills=2 place=2
+info auto f1: bb vs T1 differ 47/1135 decisions, first 1; variantOffTick=213 firstForeignTick=422 latch=640
+info auto f2: bb vs T1 differ 113/1619 decisions, first 1; variantOffTick=187 firstForeignTick=370 latch=680
+info auto f3: bb vs T1 differ 64/1578 decisions, first 1; variantOffTick=256 firstForeignTick=508 latch=676
+info auto f4: bb vs T1 differ 20/312 decisions, first 49; variantOffTick=206 firstForeignTick=408 latch=-1
+PROBLEMS
+  TF2 ff411 trunk bb vs trunk T1: DIFFER 1465 decisions, first 136
+  TF2 ff412 trunk bb vs trunk T1: DIFFER 2234 decisions, first 1
+  TF2 ff413 trunk bb vs trunk T1: DIFFER 977 decisions, first 1
+  TF2 ff414 trunk bb vs trunk T1: DIFFER 2177 decisions, first 1

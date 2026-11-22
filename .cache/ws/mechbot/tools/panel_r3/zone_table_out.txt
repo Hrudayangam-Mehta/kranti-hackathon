@@ -1,0 +1,32 @@
+## Phase timeline (circle that is CURRENT during the window; dps applies hold+shrink)
+ph | hold s     | shrink s   | R now -> next | dps | edge v (r only / worst) m/s | worst cross m: walk s / boost s | hp per m outside walk / boost
+0 |     0-   60 |    60-  110 |  560 ->  380 |  20 |  3.6 /  7.2 |  360:  30.8 /  18.5 |   1.7 /   1.0
+1 |   110-  155 |   155-  195 |  380 ->  240 |  35 |  3.5 /  7.0 |  280:  23.9 /  14.4 |   3.0 /   1.8
+2 |   195-  230 |   230-  265 |  240 ->  140 |  60 |  2.9 /  5.7 |  200:  17.1 /  10.3 |   5.1 /   3.1
+3 |   265-  295 |   295-  325 |  140 ->   70 | 100 |  2.3 /  4.7 |  140:  12.0 /   7.2 |   8.5 /   5.1
+4 |   325-  350 |   350-  375 |   70 ->   25 | 160 |  1.8 /  3.6 |   90:   7.7 /   4.6 |  13.7 /   8.2
+5 |   375-  390 |   390-  415 |   25 ->    0 | 260 |  1.0 /  2.0 |   50:   4.3 /   2.6 |  22.2 /  13.3
+
+## Excursion cost outside the zone, s seconds (hp). in-fight = zone only; healing = zone + lost regen incl. the 5 s restart
+dps | s=3: fight / heal | s=5 | s=10 | s=15 | max s for 300 hp (fight) | max s for 20% of 1400
+ 20 |    60 /   420 |   100 /   550 |   200 /   875 |   300 /  1200 | 15.0 | 14.0
+ 35 |   105 /   465 |   175 /   625 |   350 /  1025 |   525 /  1425 |  8.6 |  8.0
+ 60 |   180 /   540 |   300 /   750 |   600 /  1275 |   900 /  1800 |  5.0 |  4.7
+100 |   300 /   660 |   500 /   950 |  1000 /  1675 |  1500 /  2400 |  3.0 |  2.8
+160 |   480 /   840 |   800 /  1250 |  1600 /  2275 |  2400 /  3300 |  1.9 |  1.8
+260 |   780 /  1140 |  1300 /  1750 |  2600 /  3275 |  3900 /  4800 |  1.2 |  1.1
+
+## Laser band fit: largest distance to a mech sitting at f*R from the centre while we keep m metres inside the edge
+R=560: f0.00/m8:  552  f0.00/m15:  545  f0.41/m8:  782  f0.41/m15:  775  f0.80/m8: 1000  f0.80/m15:  993
+R=380: f0.00/m8:  372  f0.00/m15:  365  f0.41/m8:  528  f0.41/m15:  521  f0.80/m8:  676  f0.80/m15:  669
+R=240: f0.00/m8:  232  f0.00/m15:  225  f0.41/m8:  330  f0.41/m15:  323  f0.80/m8:  424  f0.80/m15:  417
+R=140: f0.00/m8:  132  f0.00/m15:  125  f0.41/m8:  189  f0.41/m15:  182  f0.80/m8:  244  f0.80/m15:  237
+R= 70: f0.00/m8:   62  f0.00/m15:   55  f0.41/m8:   91  f0.41/m15:   84  f0.80/m8:  118  f0.80/m15:  111
+R= 25: f0.00/m8:   17  f0.00/m15:   10  f0.41/m8:   27  f0.41/m15:   20  f0.80/m8:   37  f0.80/m15:   30
+
+## Final shrink (390-415 s, r = 25 -> 0, centre c5 -> c6 at rho m/s). Exit time and E cost of standing off the final point
+rho=0.00: d 0.0: toward c5 -    0 / away -    0 | d 2.5: toward c5 -  650 / away -  650 | d 5.0: toward c5 - 1300 / away - 1300 | d10.0: toward c5 - 2600 / away - 2600
+rho=0.33: d 0.0: toward c5 -    0 / away -    0 | d 2.5: toward c5 -  489 / away -  970 | d 5.0: toward c5 -  977 / away - 1940 | d10.0: toward c5 - 1955 / away - 3881
+rho=0.67: d 0.0: toward c5 -    0 / away -    0 | d 2.5: toward c5 -  389 / away - 1970 | d 5.0: toward c5 -  778 / away - 3939 | d10.0: toward c5 - 1557 / away - 6500
+rho=0.90: d 0.0: toward c5 -    0 / away -    0 | d 2.5: toward c5 -  342 / away - 6500 | d 5.0: toward c5 -  684 / away - 6500 | d10.0: toward c5 - 1368 / away - 6500
+(E = hp - 260 x (415 - exit time); same-E ties share a place)

@@ -1,0 +1,79 @@
+diff -r /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants/V4/bot/lib/firecontrol.js v4io/bot/lib/firecontrol.js
+71c71,72
+<     const cx = tr.x + vx * tl, cy = tr.y + vy * tl
+---
+>     const tL = P.ioLead === true ? Math.max(0, tl - 0.5 * P.tickS) : tl      // R6 IO1: half a tick (bullet sweeps a full tick on spawn; target taken at tick end)
+>     const cx = tr.x + vx * tL, cy = tr.y + vy * tL
+80c81
+<         cz = airZ(tr, tl + r.t) + zc
+---
+>         cz = airZ(tr, tL + r.t) + zc
+182c183,184
+<       const tlg = g ? gunLatency(g.cooldown) : tl
+---
+>       const ioR = P.ioReload === true && !!g && g.reload > 0 && g.reload <= P.readyCd + 1e-6      // R6 IO4: the reload ends inside this window
+>       const tlg = g ? gunLatency(ioR ? Math.max(g.cooldown, g.reload) : g.cooldown) : tl
+220c222
+<         gunReady = g.cooldown <= P.readyCd && g.ammo > 0 && g.reload <= 0 && clear && !hold && sol.dist <= g.range * P.gunRangeFrac && flightOk
+---
+>         gunReady = g.cooldown <= P.readyCd && ((g.ammo > 0 && g.reload <= 0) || ioR) && clear && !hold && sol.dist <= g.range * P.gunRangeFrac && flightOk
+238c240,241
+<         const ltl = AC ? tl + AC.lat() : tl
+---
+>         const tlz = P.ioLaserLat === true ? P.tickS : tl                  // R6 IO2
+>         const ltl = AC ? tlz + AC.lat() : tlz
+261c264
+<           const ey = Math.abs(angDiff(predYaw(cy, tl), cyaw)), ep = predPitch(cp, tl) - cpitch
+---
+>           const ey = Math.abs(angDiff(predYaw(cy, tlz), cyaw)), ep = predPitch(cp, tlz) - cpitch
+293c296,297
+<               if (Math.abs(angDiff(predYaw(m.yaw, tl), m.yaw)) < 0.02 && Math.abs(predPitch(m.pitch, tl) - m.pitch) < 0.02) out.fire[mo.slot] = true
+---
+>               const tlm = P.ioSlewGate === true ? gunLatency(mo.cooldown) : tl          // R6 IO3
+>               if (Math.abs(angDiff(predYaw(m.yaw, tlm), m.yaw)) < 0.02 && Math.abs(predPitch(m.pitch, tlm) - m.pitch) < 0.02) out.fire[mo.slot] = true
+338c342
+<         const yawP = predYaw(out.aim[0], tl)
+---
+>         const yawP = predYaw(out.aim[0], P.ioSlewGate === true ? gunLatency(li.cooldown) : tl)      // R6 IO3
+diff -r /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants/V4/bot/lib/mover.js v4io/bot/lib/mover.js
+132c132,146
+<       if (t >= jink.until || (extra && t - jink.lastFlip >= 0.4)) flip(t)
+---
+>       if (P.ioJinkSync === true && !extra && t >= jink.until - P.ioSyncEarly && t - jink.lastFlip >= 0.4) {
+>         // R6 IO12: next predicted shot of the nearest shooter aiming at us within 40-160 m
+>         let ts = Infinity
+>         for (let k = 0; k < B.trackList.length; k++) {
+>           const tr = B.trackList[k]
+>           if (tr.npc || !tr.listed || !tr.aimAtMe || tr.dist < 40 || tr.dist > 160 || !(tr.shotT1 > t - 1.0) || tr.magN >= 12) continue
+>           const g = tr.shotGap || 0.3
+>           let nx = tr.shotT1 + g
+>           while (nx <= t + 1e-6) nx += g
+>           if (nx < ts) ts = nx
+>         }
+>         const dt = ts - t
+>         if (dt <= 0.1 + 1e-6) flip(t)                                         // the shot leaves inside this decision
+>         else if (t >= jink.until && (dt > 0.3 || t >= jink.until + P.ioSyncLate)) flip(t)   // no shot to lock on soon, or waited long enough
+>       } else if (t >= jink.until || (extra && t - jink.lastFlip >= 0.4)) flip(t)
+diff -r /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants/V4/bot/lib/params.js v4io/bot/lib/params.js
+21a22,27
+>   ioLead: false,            // R6 IO1: gun lead counted half a tick earlier (a bullet sweeps 12.6 m on its spawn tick)
+>   ioLaserLat: false,        // R6 IO2: the beam leaves on the first tick after the release decision (0.05 s, one tick of slew)
+>   ioReload: false,          // R6 IO4: hold the gun trigger when the reload read-out ends inside this decision
+>   ioSlewGate: false,
+>   ioJinkSync: false, ioSyncEarly: 0.25, ioSyncLate: 0.2,   // R6 IO12: strafe reversals locked onto the shooter's predicted shot tick
+>         // R6 IO3: mortar / lightning gates use the tick the shot really leaves on
+212a219
+>   io: { v4: { ioLead: false, ioLaserLat: false, ioSlewGate: false, ioReload: false }, lead: { ioLead: true }, laser: { ioLaserLat: true }, reload: { ioReload: true }, sync: { ioJinkSync: true }, all: { ioLead: true, ioLaserLat: true, ioSlewGate: true, ioReload: true } },
+222c229
+<   r3a2: 'on' }
+---
+>   r3a2: 'on', io: 'v4' }
+diff -r /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants/V4/bot/lib/senses.js v4io/bot/lib/senses.js
+416a417,423
+>   // R6 IO12: fire time of this bullet (it is 3 m + one tick of travel out at the end of its fire tick) and the cadence
+>   const tk = 0.05, out = Math.max(0, (p.pos[0] - best.x) * ux + (p.pos[1] - best.y) * uy)
+>   const ft = t - Math.max(0, Math.round((out - 3) / (sp * tk)) - 1) * tk
+>   const gap = ft - (best.shotT1 || -99)
+>   if (gap > 0.17 && gap < 0.42) best.shotGap = gap
+>   else if (gap >= 0.42) best.shotGap = best.shotGap || 0.3
+>   best.shotT1 = ft

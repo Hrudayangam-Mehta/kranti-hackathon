@@ -1,0 +1,896 @@
+6496  1795296495.007373 execve("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/bin/base", ["/tmp/claude-0/-home-user-yang-mi"...], 0x7ffde5439128 /* 3 vars */) = 0 <0.000301>
+6496  1795296495.009046 brk(NULL)       = 0x5555757fe000 <0.000012>
+6496  1795296495.009102 brk(0x5555757fedc0) = 0x5555757fedc0 <0.000014>
+6496  1795296495.009198 arch_prctl(ARCH_SET_FS, 0x5555757fe440) = 0 <0.000009>
+6496  1795296495.009243 set_tid_address(0x5555757fe710) = 6496 <0.000003>
+6496  1795296495.009261 set_robust_list(0x5555757fe720, 24) = 0 <0.000009>
+6496  1795296495.009292 rseq(0x5555757fed60, 0x20, 0, 0x53053053) = 0 <0.000009>
+6496  1795296495.009326 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0 <0.000009>
+6496  1795296495.009406 readlinkat(AT_FDCWD, "/proc/self/exe", "/tmp/claude-0/-home-user-yang-mi"..., 4096) = 136 <0.000034>
+6496  1795296495.009484 getrandom("\x95\xd6\x47\x08\xc5\xa3\xdd\xba", 8, GRND_NONBLOCK) = 8 <0.000010>
+6496  1795296495.009528 brk(NULL)       = 0x5555757fedc0 <0.000009>
+6496  1795296495.009560 brk(0x55557581fdc0) = 0x55557581fdc0 <0.000015>
+6496  1795296495.009589 brk(0x555575820000) = 0x555575820000 <0.000009>
+6496  1795296495.009649 mprotect(0x7f80bac62000, 45056, PROT_READ) = 0 <0.000021>
+6496  1795296495.009711 poll([{fd=0, events=0}, {fd=1, events=0}, {fd=2, events=0}], 3, 0) = 0 (Timeout) <0.000033>
+6496  1795296495.009785 rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[PIPE], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f80babb3b80}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0 <0.000009>
+6496  1795296495.009851 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3 <0.000026>
+6496  1795296495.009910 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0 <0.000009>
+6496  1795296495.009955 fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0 <0.000012>
+6496  1795296495.010006 read(3, "5555757fe000-555575820000 rw-p 0"..., 1024) = 1024 <0.000025>
+6496  1795296495.010068 read(3, "                  [vvar]\n7f80bae"..., 1024) = 357 <0.000014>
+6496  1795296495.010111 close(3)        = 0 <0.000011>
+6496  1795296495.010195 sched_getaffinity(6496, 32, [2 3]) = 32 <0.000011>
+6496  1795296495.010248 rt_sigaction(SIGSEGV, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0 <0.000006>
+6496  1795296495.010279 sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0 <0.000011>
+6496  1795296495.010422 mmap(NULL, 16048, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f80bae39000 <0.000016>
+6496  1795296495.010467 mprotect(0x7f80bae39000, 4096, PROT_NONE) = 0 <0.000019>
+6496  1795296495.010507 sigaltstack({ss_sp=0x7f80bae3a000, ss_flags=0, ss_size=11952}, NULL) = 0 <0.000009>
+6496  1795296495.010544 gettid()        = 6496 <0.000021>
+6496  1795296495.010905 rt_sigaction(SIGSEGV, {sa_handler=0x7f80baba8ec0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_SIGINFO, sa_restorer=0x7f80babb3b80}, NULL, 8) = 0 <0.000010>
+6496  1795296495.010963 rt_sigaction(SIGBUS, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0 <0.000008>
+6496  1795296495.010999 rt_sigaction(SIGBUS, {sa_handler=0x7f80baba8ec0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_SIGINFO, sa_restorer=0x7f80babb3b80}, NULL, 8) = 0 <0.000003>
+6496  1795296495.011063 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/manifest.json", O_RDONLY|O_CLOEXEC) = 3 <0.000021>
+6496  1795296495.011119 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=85, ...}) = 0 <0.000014>
+6496  1795296495.011219 read(3, "{\n  \"window_start\": \"2026-09-20T"..., 85) = 85 <0.000012>
+6496  1795296495.011251 read(3, "", 32) = 0 <0.000007>
+6496  1795296495.011280 close(3)        = 0 <0.000007>
+6496  1795296495.011320 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/products.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000018>
+6496  1795296495.011378 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=708368, ...}) = 0 <0.000011>
+6496  1795296495.011421 mmap(NULL, 708608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80bad8c000 <0.000018>
+6496  1795296495.011474 read(3, "product_id,category\np1,outdoors\n"..., 708368) = 708368 <0.000918>
+6496  1795296495.012435 read(3, "", 32) = 0 <0.000004>
+6496  1795296495.012470 close(3)        = 0 <0.000013>
+6496  1795296495.012510 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/campaigns.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000021>
+6496  1795296495.012562 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=28111, ...}) = 0 <0.000011>
+6496  1795296495.012623 read(3, "campaign_id,channel\nc_1,email\nc_"..., 28111) = 28111 <0.000053>
+6496  1795296495.012706 read(3, "", 32) = 0 <0.000011>
+6496  1795296495.012741 close(3)        = 0 <0.000008>
+6496  1795296495.012956 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80bad6b000 <0.000017>
+6496  1795296495.013268 mremap(0x7f80bad6b000, 135168, 266240, MREMAP_MAYMOVE) = 0x7f80bad2a000 <0.000042>
+6496  1795296495.013651 mremap(0x7f80bad2a000, 266240, 528384, MREMAP_MAYMOVE) = 0x7f80baca9000 <0.000027>
+6496  1795296495.014468 mremap(0x7f80baca9000, 528384, 1052672, MREMAP_MAYMOVE) = 0x7f80ba8ff000 <0.000034>
+6496  1795296495.015812 mremap(0x7f80ba8ff000, 1052672, 2101248, MREMAP_MAYMOVE) = 0x7f80ba6fe000 <0.000028>
+6496  1795296495.017129 mmap(NULL, 802816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80bacc8000 <0.000018>
+6496  1795296495.017799 mremap(0x7f80bacc8000, 802816, 1601536, MREMAP_MAYMOVE) = 0x7f80ba577000 <0.000025>
+6496  1795296495.023602 mmap(NULL, 802816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80bacc8000 <0.000011>
+6496  1795296495.026678 getrandom("\xd7\xba\xee\xe4\x86\x3b\xa3\x4e\x19\x22\xb9\x04\x60\xc0\xfd\x26", 16, GRND_INSECURE) = 16 <0.000005>
+6496  1795296495.026819 brk(0x555575846000) = 0x555575846000 <0.000007>
+6496  1795296495.026936 brk(0x555575867000) = 0x555575867000 <0.000003>
+6496  1795296495.027014 brk(0x555575856000) = 0x555575856000 <0.000008>
+6496  1795296495.027033 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3 <0.000010>
+6496  1795296495.027056 fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0 <0.000003>
+6496  1795296495.027069 getdents64(3, 0x555575816750 /* 57 entries */, 32768) = 2248 <0.000021>
+6496  1795296495.027104 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00038.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1115, ...}) = 0 <0.000004>
+6496  1795296495.027121 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00010.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2177, ...}) = 0 <0.000030>
+6496  1795296495.027166 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00045.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=612, ...}) = 0 <0.000005>
+6496  1795296495.027184 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00041.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=608, ...}) = 0 <0.000004>
+6496  1795296495.027204 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00016.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=739, ...}) = 0 <0.000003>
+6496  1795296495.027217 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00046.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=897, ...}) = 0 <0.000003>
+6496  1795296495.027228 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00008.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1477, ...}) = 0 <0.000003>
+6496  1795296495.027240 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00043.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=464, ...}) = 0 <0.000004>
+6496  1795296495.027253 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00032.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=656, ...}) = 0 <0.000003>
+6496  1795296495.027265 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00009.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=710, ...}) = 0 <0.000004>
+6496  1795296495.027277 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00048.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2119, ...}) = 0 <0.000003>
+6496  1795296495.027289 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00035.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=216, ...}) = 0 <0.000003>
+6496  1795296495.027300 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00000.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=523, ...}) = 0 <0.000003>
+6496  1795296495.027312 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00044.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=454, ...}) = 0 <0.000003>
+6496  1795296495.027323 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00012.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=691, ...}) = 0 <0.000003>
+6496  1795296495.027337 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00027.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=909, ...}) = 0 <0.000003>
+6496  1795296495.027349 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00025.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=536, ...}) = 0 <0.000003>
+6496  1795296495.027361 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00040.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=603, ...}) = 0 <0.000004>
+6496  1795296495.027373 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00029.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=447, ...}) = 0 <0.000003>
+6496  1795296495.027384 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00013.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1859, ...}) = 0 <0.000003>
+6496  1795296495.027396 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00021.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=356, ...}) = 0 <0.000003>
+6496  1795296495.027408 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00049.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=669, ...}) = 0 <0.000003>
+6496  1795296495.027419 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00005.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1914, ...}) = 0 <0.000003>
+6496  1795296495.027431 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00053.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1555, ...}) = 0 <0.000003>
+6496  1795296495.027443 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00037.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=514, ...}) = 0 <0.000003>
+6496  1795296495.027454 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00006.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=993, ...}) = 0 <0.000003>
+6496  1795296495.027466 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00002.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=371, ...}) = 0 <0.000003>
+6496  1795296495.027479 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00004.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=64, ...}) = 0 <0.000003>
+6496  1795296495.027491 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00052.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=519, ...}) = 0 <0.000003>
+6496  1795296495.027502 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00039.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1185, ...}) = 0 <0.000003>
+6496  1795296495.027514 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00014.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1541, ...}) = 0 <0.000003>
+6496  1795296495.027526 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00017.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=771, ...}) = 0 <0.000003>
+6496  1795296495.027537 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00031.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2336, ...}) = 0 <0.000003>
+6496  1795296495.027549 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00028.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=299, ...}) = 0 <0.000003>
+6496  1795296495.027561 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00050.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=5616, ...}) = 0 <0.000003>
+6496  1795296495.027572 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00018.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=443, ...}) = 0 <0.000003>
+6496  1795296495.027584 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00047.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1196, ...}) = 0 <0.000003>
+6496  1795296495.027595 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00019.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=835, ...}) = 0 <0.000003>
+6496  1795296495.027607 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00030.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2602, ...}) = 0 <0.000003>
+6496  1795296495.027620 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00051.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=669, ...}) = 0 <0.000003>
+6496  1795296495.027632 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00007.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2379, ...}) = 0 <0.000003>
+6496  1795296495.027643 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00003.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=383, ...}) = 0 <0.000003>
+6496  1795296495.027655 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00026.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=9117, ...}) = 0 <0.000003>
+6496  1795296495.027666 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00036.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=16122, ...}) = 0 <0.000004>
+6496  1795296495.027678 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00015.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=141, ...}) = 0 <0.000003>
+6496  1795296495.027689 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00023.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=907, ...}) = 0 <0.000003>
+6496  1795296495.027701 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00042.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=829, ...}) = 0 <0.000003>
+6496  1795296495.027712 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00020.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=64, ...}) = 0 <0.000003>
+6496  1795296495.027724 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00034.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=765, ...}) = 0 <0.000003>
+6496  1795296495.027736 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00011.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=735, ...}) = 0 <0.000007>
+6496  1795296495.027753 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00024.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=4427, ...}) = 0 <0.000003>
+6496  1795296495.027767 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00001.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1074, ...}) = 0 <0.000003>
+6496  1795296495.027779 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00022.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=657, ...}) = 0 <0.000003>
+6496  1795296495.027790 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00033.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=223, ...}) = 0 <0.000003>
+6496  1795296495.027802 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00054.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3450, ...}) = 0 <0.000003>
+6496  1795296495.027814 getdents64(3, 0x555575816750 /* 0 entries */, 32768) = 0 <0.000002>
+6496  1795296495.027824 close(3)        = 0 <0.000006>
+6496  1795296495.027890 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00000.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000005>
+6496  1795296495.027911 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=523, ...}) = 0 <0.000003>
+6496  1795296495.027926 mmap(NULL, 523, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc7000 <0.000008>
+6496  1795296495.027942 close(3)        = 0 <0.000002>
+6496  1795296495.027951 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00001.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.027962 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1074, ...}) = 0 <0.000002>
+6496  1795296495.027973 mmap(NULL, 1074, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc6000 <0.000003>
+6496  1795296495.027983 close(3)        = 0 <0.000002>
+6496  1795296495.027992 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00002.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028003 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=371, ...}) = 0 <0.000002>
+6496  1795296495.028014 mmap(NULL, 371, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc5000 <0.000006>
+6496  1795296495.028027 close(3)        = 0 <0.000002>
+6496  1795296495.028035 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00003.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028045 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=383, ...}) = 0 <0.000002>
+6496  1795296495.028056 mmap(NULL, 383, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc4000 <0.000003>
+6496  1795296495.028065 close(3)        = 0 <0.000002>
+6496  1795296495.028076 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00004.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.028086 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=64, ...}) = 0 <0.000002>
+6496  1795296495.028097 mmap(NULL, 64, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc3000 <0.000009>
+6496  1795296495.028112 close(3)        = 0 <0.000002>
+6496  1795296495.028121 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00005.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028151 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1914, ...}) = 0 <0.000003>
+6496  1795296495.028168 mmap(NULL, 1914, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc2000 <0.000004>
+6496  1795296495.028181 close(3)        = 0 <0.000002>
+6496  1795296495.028190 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00006.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.028202 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=993, ...}) = 0 <0.000002>
+6496  1795296495.028213 mmap(NULL, 993, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc1000 <0.000004>
+6496  1795296495.028224 close(3)        = 0 <0.000002>
+6496  1795296495.028232 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00007.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028244 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2379, ...}) = 0 <0.000002>
+6496  1795296495.028255 mmap(NULL, 2379, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacc0000 <0.000003>
+6496  1795296495.028264 close(3)        = 0 <0.000002>
+6496  1795296495.028273 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00008.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028284 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1477, ...}) = 0 <0.000002>
+6496  1795296495.028294 mmap(NULL, 1477, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacbf000 <0.000003>
+6496  1795296495.028303 close(3)        = 0 <0.000002>
+6496  1795296495.028312 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00009.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028322 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=710, ...}) = 0 <0.000002>
+6496  1795296495.028333 mmap(NULL, 710, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacbe000 <0.000003>
+6496  1795296495.028342 close(3)        = 0 <0.000002>
+6496  1795296495.028350 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00010.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028360 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2177, ...}) = 0 <0.000002>
+6496  1795296495.028371 mmap(NULL, 2177, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacbd000 <0.000009>
+6496  1795296495.028388 close(3)        = 0 <0.000002>
+6496  1795296495.028397 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00011.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028407 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=735, ...}) = 0 <0.000002>
+6496  1795296495.028418 mmap(NULL, 735, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacbc000 <0.000003>
+6496  1795296495.028427 close(3)        = 0 <0.000002>
+6496  1795296495.028436 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00012.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028446 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=691, ...}) = 0 <0.000002>
+6496  1795296495.028456 mmap(NULL, 691, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacbb000 <0.000003>
+6496  1795296495.028466 close(3)        = 0 <0.000002>
+6496  1795296495.028474 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00013.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028484 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1859, ...}) = 0 <0.000002>
+6496  1795296495.028494 mmap(NULL, 1859, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacba000 <0.000003>
+6496  1795296495.028504 close(3)        = 0 <0.000002>
+6496  1795296495.028512 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00014.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028522 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1541, ...}) = 0 <0.000002>
+6496  1795296495.028532 mmap(NULL, 1541, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb9000 <0.000003>
+6496  1795296495.028542 close(3)        = 0 <0.000002>
+6496  1795296495.028550 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00015.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028560 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=141, ...}) = 0 <0.000002>
+6496  1795296495.028570 mmap(NULL, 141, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb8000 <0.000003>
+6496  1795296495.028579 close(3)        = 0 <0.000002>
+6496  1795296495.028587 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00016.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028598 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=739, ...}) = 0 <0.000002>
+6496  1795296495.028608 mmap(NULL, 739, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb7000 <0.000003>
+6496  1795296495.028617 close(3)        = 0 <0.000002>
+6496  1795296495.028625 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00017.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028636 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=771, ...}) = 0 <0.000002>
+6496  1795296495.028646 mmap(NULL, 771, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb6000 <0.000003>
+6496  1795296495.028657 close(3)        = 0 <0.000002>
+6496  1795296495.028665 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00018.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028675 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=443, ...}) = 0 <0.000002>
+6496  1795296495.028685 mmap(NULL, 443, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb5000 <0.000003>
+6496  1795296495.028695 close(3)        = 0 <0.000002>
+6496  1795296495.028703 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00019.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028713 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=835, ...}) = 0 <0.000002>
+6496  1795296495.028724 mmap(NULL, 835, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb4000 <0.000004>
+6496  1795296495.028734 close(3)        = 0 <0.000002>
+6496  1795296495.028747 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00020.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.028759 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=64, ...}) = 0 <0.000002>
+6496  1795296495.028769 mmap(NULL, 64, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb3000 <0.000003>
+6496  1795296495.028779 close(3)        = 0 <0.000002>
+6496  1795296495.028788 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00021.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028798 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=356, ...}) = 0 <0.000002>
+6496  1795296495.028808 mmap(NULL, 356, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb2000 <0.000003>
+6496  1795296495.028818 close(3)        = 0 <0.000002>
+6496  1795296495.028827 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00022.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028837 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=657, ...}) = 0 <0.000002>
+6496  1795296495.028847 mmap(NULL, 657, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb1000 <0.000003>
+6496  1795296495.028857 close(3)        = 0 <0.000002>
+6496  1795296495.028865 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00023.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028875 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=907, ...}) = 0 <0.000002>
+6496  1795296495.028885 mmap(NULL, 907, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacb0000 <0.000003>
+6496  1795296495.028895 close(3)        = 0 <0.000002>
+6496  1795296495.028903 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00024.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028913 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=4427, ...}) = 0 <0.000002>
+6496  1795296495.028923 mmap(NULL, 4427, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacae000 <0.000003>
+6496  1795296495.028939 close(3)        = 0 <0.000002>
+6496  1795296495.028948 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00025.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028958 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=536, ...}) = 0 <0.000002>
+6496  1795296495.028968 mmap(NULL, 536, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacad000 <0.000003>
+6496  1795296495.028978 close(3)        = 0 <0.000002>
+6496  1795296495.028986 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00026.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.028996 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=9117, ...}) = 0 <0.000002>
+6496  1795296495.029007 mmap(NULL, 9117, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bacaa000 <0.000003>
+6496  1795296495.029016 close(3)        = 0 <0.000002>
+6496  1795296495.029024 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00027.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029035 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=909, ...}) = 0 <0.000002>
+6496  1795296495.029045 mmap(NULL, 909, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca9000 <0.000003>
+6496  1795296495.029054 close(3)        = 0 <0.000002>
+6496  1795296495.029063 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00028.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029073 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=299, ...}) = 0 <0.000002>
+6496  1795296495.029084 mmap(NULL, 299, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca8000 <0.000003>
+6496  1795296495.029093 close(3)        = 0 <0.000002>
+6496  1795296495.029101 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00029.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029111 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=447, ...}) = 0 <0.000002>
+6496  1795296495.029121 mmap(NULL, 447, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca7000 <0.000003>
+6496  1795296495.029148 close(3)        = 0 <0.000003>
+6496  1795296495.029161 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00030.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.029175 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2602, ...}) = 0 <0.000002>
+6496  1795296495.029187 mmap(NULL, 2602, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca6000 <0.000003>
+6496  1795296495.029197 close(3)        = 0 <0.000002>
+6496  1795296495.029206 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00031.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029216 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2336, ...}) = 0 <0.000002>
+6496  1795296495.029227 mmap(NULL, 2336, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca5000 <0.000003>
+6496  1795296495.029238 close(3)        = 0 <0.000003>
+6496  1795296495.029247 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00032.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029258 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=656, ...}) = 0 <0.000002>
+6496  1795296495.029268 mmap(NULL, 656, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca4000 <0.000003>
+6496  1795296495.029278 close(3)        = 0 <0.000002>
+6496  1795296495.029286 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00033.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029296 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=223, ...}) = 0 <0.000002>
+6496  1795296495.029306 mmap(NULL, 223, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca3000 <0.000003>
+6496  1795296495.029316 close(3)        = 0 <0.000002>
+6496  1795296495.029324 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00034.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029334 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=765, ...}) = 0 <0.000002>
+6496  1795296495.029344 mmap(NULL, 765, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca2000 <0.000004>
+6496  1795296495.029355 close(3)        = 0 <0.000002>
+6496  1795296495.029363 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00035.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029373 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=216, ...}) = 0 <0.000002>
+6496  1795296495.029383 mmap(NULL, 216, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80baca1000 <0.000003>
+6496  1795296495.029393 close(3)        = 0 <0.000002>
+6496  1795296495.029401 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00036.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029412 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=16122, ...}) = 0 <0.000002>
+6496  1795296495.029422 mmap(NULL, 16122, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac9d000 <0.000004>
+6496  1795296495.029432 close(3)        = 0 <0.000002>
+6496  1795296495.029441 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00037.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.029451 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=514, ...}) = 0 <0.000002>
+6496  1795296495.029479 mmap(NULL, 514, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac9c000 <0.000003>
+6496  1795296495.029507 close(3)        = 0 <0.000003>
+6496  1795296495.029518 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00038.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029529 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1115, ...}) = 0 <0.000002>
+6496  1795296495.029540 mmap(NULL, 1115, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac9b000 <0.000003>
+6496  1795296495.029552 close(3)        = 0 <0.000002>
+6496  1795296495.029560 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00039.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029571 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1185, ...}) = 0 <0.000002>
+6496  1795296495.029582 mmap(NULL, 1185, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac9a000 <0.000003>
+6496  1795296495.029591 close(3)        = 0 <0.000002>
+6496  1795296495.029600 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00040.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029610 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=603, ...}) = 0 <0.000002>
+6496  1795296495.029620 mmap(NULL, 603, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac99000 <0.000003>
+6496  1795296495.029630 close(3)        = 0 <0.000002>
+6496  1795296495.029639 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00041.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029649 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=608, ...}) = 0 <0.000002>
+6496  1795296495.029659 mmap(NULL, 608, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac98000 <0.000003>
+6496  1795296495.029668 close(3)        = 0 <0.000002>
+6496  1795296495.029677 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00042.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029687 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=829, ...}) = 0 <0.000002>
+6496  1795296495.029697 mmap(NULL, 829, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac97000 <0.000003>
+6496  1795296495.029706 close(3)        = 0 <0.000002>
+6496  1795296495.029714 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00043.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029724 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=464, ...}) = 0 <0.000002>
+6496  1795296495.029734 mmap(NULL, 464, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac96000 <0.000004>
+6496  1795296495.029749 close(3)        = 0 <0.000002>
+6496  1795296495.029758 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00044.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029769 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=454, ...}) = 0 <0.000002>
+6496  1795296495.029779 mmap(NULL, 454, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac95000 <0.000003>
+6496  1795296495.029789 close(3)        = 0 <0.000002>
+6496  1795296495.029797 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00045.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029807 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=612, ...}) = 0 <0.000002>
+6496  1795296495.029817 mmap(NULL, 612, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac94000 <0.000003>
+6496  1795296495.029828 close(3)        = 0 <0.000002>
+6496  1795296495.029836 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00046.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029846 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=897, ...}) = 0 <0.000002>
+6496  1795296495.029857 mmap(NULL, 897, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac93000 <0.000003>
+6496  1795296495.029866 close(3)        = 0 <0.000002>
+6496  1795296495.029874 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00047.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029884 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1196, ...}) = 0 <0.000002>
+6496  1795296495.029895 mmap(NULL, 1196, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac92000 <0.000003>
+6496  1795296495.029904 close(3)        = 0 <0.000002>
+6496  1795296495.029912 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00048.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029922 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2119, ...}) = 0 <0.000002>
+6496  1795296495.029933 mmap(NULL, 2119, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac91000 <0.000003>
+6496  1795296495.029942 close(3)        = 0 <0.000002>
+6496  1795296495.029950 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00049.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.029960 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=669, ...}) = 0 <0.000002>
+6496  1795296495.029970 mmap(NULL, 669, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac90000 <0.000008>
+6496  1795296495.029985 close(3)        = 0 <0.000002>
+6496  1795296495.029993 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00050.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030004 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=5616, ...}) = 0 <0.000002>
+6496  1795296495.030014 mmap(NULL, 5616, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac8e000 <0.000003>
+6496  1795296495.030023 close(3)        = 0 <0.000002>
+6496  1795296495.030031 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00051.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030041 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=669, ...}) = 0 <0.000002>
+6496  1795296495.030052 mmap(NULL, 669, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac8d000 <0.000004>
+6496  1795296495.030062 close(3)        = 0 <0.000002>
+6496  1795296495.030070 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00052.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030080 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=519, ...}) = 0 <0.000002>
+6496  1795296495.030092 mmap(NULL, 519, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac8c000 <0.000003>
+6496  1795296495.030102 close(3)        = 0 <0.000002>
+6496  1795296495.030110 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00053.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030120 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1555, ...}) = 0 <0.000002>
+6496  1795296495.030147 mmap(NULL, 1555, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac8b000 <0.000005>
+6496  1795296495.030163 close(3)        = 0 <0.000002>
+6496  1795296495.030173 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/events/part-00054.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030185 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3450, ...}) = 0 <0.000002>
+6496  1795296495.030197 mmap(NULL, 3450, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac8a000 <0.000003>
+6496  1795296495.030207 close(3)        = 0 <0.000002>
+6496  1795296495.030219 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3 <0.000003>
+6496  1795296495.030230 fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0 <0.000002>
+6496  1795296495.030240 getdents64(3, 0x555575816b60 /* 37 entries */, 32768) = 1448 <0.000013>
+6496  1795296495.030265 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00010.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=175, ...}) = 0 <0.000003>
+6496  1795296495.030277 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00016.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=83, ...}) = 0 <0.000003>
+6496  1795296495.030334 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00008.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=561, ...}) = 0 <0.000004>
+6496  1795296495.030353 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00032.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=169, ...}) = 0 <0.000004>
+6496  1795296495.030367 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00009.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1709, ...}) = 0 <0.000005>
+6496  1795296495.030383 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00000.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=270, ...}) = 0 <0.000004>
+6496  1795296495.030396 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00012.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3294, ...}) = 0 <0.000003>
+6496  1795296495.030410 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00027.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=223, ...}) = 0 <0.000003>
+6496  1795296495.030422 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00025.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=460, ...}) = 0 <0.000003>
+6496  1795296495.030433 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00029.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=184, ...}) = 0 <0.000003>
+6496  1795296495.030445 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00013.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=351, ...}) = 0 <0.000003>
+6496  1795296495.030456 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00021.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000004>
+6496  1795296495.030468 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00005.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000003>
+6496  1795296495.030480 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00006.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=126, ...}) = 0 <0.000003>
+6496  1795296495.030492 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00002.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=80, ...}) = 0 <0.000003>
+6496  1795296495.030503 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00004.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=168, ...}) = 0 <0.000003>
+6496  1795296495.030515 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00014.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=129, ...}) = 0 <0.000003>
+6496  1795296495.030526 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00017.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=463, ...}) = 0 <0.000003>
+6496  1795296495.030538 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00031.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000003>
+6496  1795296495.030552 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00028.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=230, ...}) = 0 <0.000004>
+6496  1795296495.030564 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00018.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1418, ...}) = 0 <0.000003>
+6496  1795296495.030576 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00019.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=74, ...}) = 0 <0.000003>
+6496  1795296495.030587 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00030.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=122, ...}) = 0 <0.000003>
+6496  1795296495.030599 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00007.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=170, ...}) = 0 <0.000003>
+6496  1795296495.030610 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00003.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=353, ...}) = 0 <0.000004>
+6496  1795296495.030622 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00026.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=421, ...}) = 0 <0.000003>
+6496  1795296495.030634 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00015.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=129, ...}) = 0 <0.000003>
+6496  1795296495.030646 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00023.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=174, ...}) = 0 <0.000003>
+6496  1795296495.030657 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00020.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000003>
+6496  1795296495.030669 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00034.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=230, ...}) = 0 <0.000003>
+6496  1795296495.030680 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00011.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=114, ...}) = 0 <0.000003>
+6496  1795296495.030694 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00024.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=124, ...}) = 0 <0.000003>
+6496  1795296495.030705 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00001.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=79, ...}) = 0 <0.000003>
+6496  1795296495.030717 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00022.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=883, ...}) = 0 <0.000003>
+6496  1795296495.030728 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00033.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=776, ...}) = 0 <0.000003>
+6496  1795296495.030740 getdents64(3, 0x555575816b60 /* 0 entries */, 32768) = 0 <0.000003>
+6496  1795296495.030755 close(3)        = 0 <0.000003>
+6496  1795296495.030790 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00000.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030801 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=270, ...}) = 0 <0.000002>
+6496  1795296495.030812 mmap(NULL, 270, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac89000 <0.000010>
+6496  1795296495.030829 close(3)        = 0 <0.000002>
+6496  1795296495.030837 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00001.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.030848 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=79, ...}) = 0 <0.000002>
+6496  1795296495.030858 mmap(NULL, 79, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac88000 <0.000003>
+6496  1795296495.030868 close(3)        = 0 <0.000002>
+6496  1795296495.030876 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00002.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030886 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=80, ...}) = 0 <0.000002>
+6496  1795296495.030897 mmap(NULL, 80, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac87000 <0.000003>
+6496  1795296495.030906 close(3)        = 0 <0.000002>
+6496  1795296495.030914 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00003.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030925 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=353, ...}) = 0 <0.000002>
+6496  1795296495.030935 mmap(NULL, 353, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac86000 <0.000003>
+6496  1795296495.030944 close(3)        = 0 <0.000002>
+6496  1795296495.030957 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00004.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.030968 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=168, ...}) = 0 <0.000002>
+6496  1795296495.030978 mmap(NULL, 168, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac85000 <0.000003>
+6496  1795296495.030987 close(3)        = 0 <0.000002>
+6496  1795296495.030996 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00005.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031006 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000002>
+6496  1795296495.031016 mmap(NULL, 32, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac84000 <0.000003>
+6496  1795296495.031025 close(3)        = 0 <0.000002>
+6496  1795296495.031034 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00006.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031043 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=126, ...}) = 0 <0.000002>
+6496  1795296495.031054 mmap(NULL, 126, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac83000 <0.000003>
+6496  1795296495.031063 close(3)        = 0 <0.000002>
+6496  1795296495.031071 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00007.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031082 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=170, ...}) = 0 <0.000002>
+6496  1795296495.031092 mmap(NULL, 170, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac82000 <0.000003>
+6496  1795296495.031102 close(3)        = 0 <0.000002>
+6496  1795296495.031110 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00008.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031120 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=561, ...}) = 0 <0.000002>
+6496  1795296495.031150 mmap(NULL, 561, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac81000 <0.000004>
+6496  1795296495.031165 close(3)        = 0 <0.000002>
+6496  1795296495.031176 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00009.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031189 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1709, ...}) = 0 <0.000073>
+6496  1795296495.031275 mmap(NULL, 1709, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac80000 <0.000006>
+6496  1795296495.031290 close(3)        = 0 <0.000002>
+6496  1795296495.031300 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00010.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031312 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=175, ...}) = 0 <0.000002>
+6496  1795296495.031323 mmap(NULL, 175, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7f000 <0.000003>
+6496  1795296495.031333 close(3)        = 0 <0.000002>
+6496  1795296495.031344 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00011.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031355 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=114, ...}) = 0 <0.000002>
+6496  1795296495.031365 mmap(NULL, 114, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7e000 <0.000004>
+6496  1795296495.031376 close(3)        = 0 <0.000002>
+6496  1795296495.031384 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00012.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031394 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3294, ...}) = 0 <0.000002>
+6496  1795296495.031405 mmap(NULL, 3294, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7d000 <0.000003>
+6496  1795296495.031414 close(3)        = 0 <0.000002>
+6496  1795296495.031423 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00013.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031433 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=351, ...}) = 0 <0.000002>
+6496  1795296495.031443 mmap(NULL, 351, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7c000 <0.000003>
+6496  1795296495.031452 close(3)        = 0 <0.000002>
+6496  1795296495.031461 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00014.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031471 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=129, ...}) = 0 <0.000002>
+6496  1795296495.031481 mmap(NULL, 129, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7b000 <0.000003>
+6496  1795296495.031491 close(3)        = 0 <0.000002>
+6496  1795296495.031499 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00015.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031509 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=129, ...}) = 0 <0.000002>
+6496  1795296495.031520 mmap(NULL, 129, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac7a000 <0.000004>
+6496  1795296495.031530 close(3)        = 0 <0.000002>
+6496  1795296495.031538 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00016.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031548 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=83, ...}) = 0 <0.000002>
+6496  1795296495.031559 mmap(NULL, 83, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac79000 <0.000003>
+6496  1795296495.031568 close(3)        = 0 <0.000002>
+6496  1795296495.031576 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00017.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031587 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=463, ...}) = 0 <0.000002>
+6496  1795296495.031597 mmap(NULL, 463, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac78000 <0.000003>
+6496  1795296495.031607 close(3)        = 0 <0.000002>
+6496  1795296495.031617 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00018.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031627 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1418, ...}) = 0 <0.000002>
+6496  1795296495.031637 mmap(NULL, 1418, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac77000 <0.000003>
+6496  1795296495.031647 close(3)        = 0 <0.000002>
+6496  1795296495.031655 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00019.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031665 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=74, ...}) = 0 <0.000002>
+6496  1795296495.031675 mmap(NULL, 74, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80bac76000 <0.000003>
+6496  1795296495.031685 close(3)        = 0 <0.000002>
+6496  1795296495.031693 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00020.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031709 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000002>
+6496  1795296495.031721 mmap(NULL, 32, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9ff000 <0.000004>
+6496  1795296495.031731 close(3)        = 0 <0.000002>
+6496  1795296495.031739 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00021.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031756 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000003>
+6496  1795296495.031767 mmap(NULL, 32, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9fe000 <0.000003>
+6496  1795296495.031777 close(3)        = 0 <0.000002>
+6496  1795296495.031785 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00022.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.031796 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=883, ...}) = 0 <0.000002>
+6496  1795296495.031806 mmap(NULL, 883, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9fd000 <0.000003>
+6496  1795296495.031815 close(3)        = 0 <0.000002>
+6496  1795296495.031824 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00023.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031834 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=174, ...}) = 0 <0.000002>
+6496  1795296495.031844 mmap(NULL, 174, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9fc000 <0.000003>
+6496  1795296495.031854 close(3)        = 0 <0.000002>
+6496  1795296495.031862 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00024.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031872 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=124, ...}) = 0 <0.000002>
+6496  1795296495.031883 mmap(NULL, 124, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9fb000 <0.000003>
+6496  1795296495.031894 close(3)        = 0 <0.000002>
+6496  1795296495.031903 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00025.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031913 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=460, ...}) = 0 <0.000002>
+6496  1795296495.031923 mmap(NULL, 460, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9fa000 <0.000003>
+6496  1795296495.031933 close(3)        = 0 <0.000002>
+6496  1795296495.031941 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00026.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031951 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=421, ...}) = 0 <0.000002>
+6496  1795296495.031961 mmap(NULL, 421, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f9000 <0.000003>
+6496  1795296495.031970 close(3)        = 0 <0.000002>
+6496  1795296495.031979 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00027.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.031989 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=223, ...}) = 0 <0.000002>
+6496  1795296495.031999 mmap(NULL, 223, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f8000 <0.000004>
+6496  1795296495.032009 close(3)        = 0 <0.000002>
+6496  1795296495.032018 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00028.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032028 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=230, ...}) = 0 <0.000002>
+6496  1795296495.032038 mmap(NULL, 230, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f7000 <0.000003>
+6496  1795296495.032048 close(3)        = 0 <0.000002>
+6496  1795296495.032056 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00029.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032067 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=184, ...}) = 0 <0.000002>
+6496  1795296495.032077 mmap(NULL, 184, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f6000 <0.000003>
+6496  1795296495.032086 close(3)        = 0 <0.000002>
+6496  1795296495.032094 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00030.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032104 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=122, ...}) = 0 <0.000002>
+6496  1795296495.032115 mmap(NULL, 122, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f5000 <0.000003>
+6496  1795296495.032124 close(3)        = 0 <0.000019>
+6496  1795296495.032153 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00031.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.032168 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=32, ...}) = 0 <0.000002>
+6496  1795296495.032180 mmap(NULL, 32, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f4000 <0.000004>
+6496  1795296495.032194 close(3)        = 0 <0.000002>
+6496  1795296495.032202 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00032.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032213 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=169, ...}) = 0 <0.000002>
+6496  1795296495.032223 mmap(NULL, 169, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f3000 <0.000003>
+6496  1795296495.032233 close(3)        = 0 <0.000002>
+6496  1795296495.032242 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00033.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032254 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=776, ...}) = 0 <0.000002>
+6496  1795296495.032264 mmap(NULL, 776, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f2000 <0.000003>
+6496  1795296495.032273 close(3)        = 0 <0.000002>
+6496  1795296495.032282 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/clicks/part-00034.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000004>
+6496  1795296495.032292 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=230, ...}) = 0 <0.000002>
+6496  1795296495.032303 mmap(NULL, 230, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f1000 <0.000003>
+6496  1795296495.032312 close(3)        = 0 <0.000002>
+6496  1795296495.032323 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3 <0.000004>
+6496  1795296495.032334 fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0 <0.000002>
+6496  1795296495.032345 getdents64(3, 0x555575816b60 /* 16 entries */, 32768) = 608 <0.000008>
+6496  1795296495.032362 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00010.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=622, ...}) = 0 <0.000003>
+6496  1795296495.032374 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00008.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=20, ...}) = 0 <0.000003>
+6496  1795296495.032385 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00009.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1518, ...}) = 0 <0.000003>
+6496  1795296495.032397 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00000.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=530, ...}) = 0 <0.000004>
+6496  1795296495.032409 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00012.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2344, ...}) = 0 <0.000003>
+6496  1795296495.032420 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00013.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1240, ...}) = 0 <0.000003>
+6496  1795296495.032433 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00005.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=640, ...}) = 0 <0.000003>
+6496  1795296495.032445 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00006.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=516, ...}) = 0 <0.000003>
+6496  1795296495.032456 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00002.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=982, ...}) = 0 <0.000003>
+6496  1795296495.032468 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00004.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=600, ...}) = 0 <0.000003>
+6496  1795296495.032479 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00007.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=676, ...}) = 0 <0.000003>
+6496  1795296495.032491 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00003.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3317, ...}) = 0 <0.000003>
+6496  1795296495.032502 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00011.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=578, ...}) = 0 <0.000003>
+6496  1795296495.032513 statx(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00001.csv", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=6183, ...}) = 0 <0.000003>
+6496  1795296495.032525 getdents64(3, 0x555575816b60 /* 0 entries */, 32768) = 0 <0.000002>
+6496  1795296495.032534 close(3)        = 0 <0.000003>
+6496  1795296495.032550 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00000.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032560 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=530, ...}) = 0 <0.000002>
+6496  1795296495.032570 mmap(NULL, 530, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9f0000 <0.000003>
+6496  1795296495.032580 close(3)        = 0 <0.000002>
+6496  1795296495.032588 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00001.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032598 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=6183, ...}) = 0 <0.000002>
+6496  1795296495.032611 mmap(NULL, 6183, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9ee000 <0.000003>
+6496  1795296495.032620 close(3)        = 0 <0.000002>
+6496  1795296495.032628 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00002.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032638 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=982, ...}) = 0 <0.000002>
+6496  1795296495.032649 mmap(NULL, 982, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9ed000 <0.000003>
+6496  1795296495.032658 close(3)        = 0 <0.000002>
+6496  1795296495.032666 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00003.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032676 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=3317, ...}) = 0 <0.000002>
+6496  1795296495.032687 mmap(NULL, 3317, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9ec000 <0.000003>
+6496  1795296495.032696 close(3)        = 0 <0.000002>
+6496  1795296495.032704 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00004.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032715 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=600, ...}) = 0 <0.000002>
+6496  1795296495.032725 mmap(NULL, 600, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9eb000 <0.000008>
+6496  1795296495.032740 close(3)        = 0 <0.000003>
+6496  1795296495.032754 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00005.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032766 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=640, ...}) = 0 <0.000002>
+6496  1795296495.032776 mmap(NULL, 640, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9ea000 <0.000004>
+6496  1795296495.032786 close(3)        = 0 <0.000002>
+6496  1795296495.032795 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00006.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032805 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=516, ...}) = 0 <0.000002>
+6496  1795296495.032815 mmap(NULL, 516, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e9000 <0.000003>
+6496  1795296495.032824 close(3)        = 0 <0.000002>
+6496  1795296495.032833 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00007.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032843 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=676, ...}) = 0 <0.000002>
+6496  1795296495.032853 mmap(NULL, 676, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e8000 <0.000003>
+6496  1795296495.032862 close(3)        = 0 <0.000002>
+6496  1795296495.032870 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00008.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032880 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=20, ...}) = 0 <0.000002>
+6496  1795296495.032892 mmap(NULL, 20, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e7000 <0.000003>
+6496  1795296495.032901 close(3)        = 0 <0.000002>
+6496  1795296495.032910 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00009.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032920 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1518, ...}) = 0 <0.000002>
+6496  1795296495.032930 mmap(NULL, 1518, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e6000 <0.000003>
+6496  1795296495.032939 close(3)        = 0 <0.000002>
+6496  1795296495.032947 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00010.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032958 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=622, ...}) = 0 <0.000002>
+6496  1795296495.032968 mmap(NULL, 622, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e5000 <0.000003>
+6496  1795296495.032977 close(3)        = 0 <0.000002>
+6496  1795296495.032985 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00011.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.032995 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=578, ...}) = 0 <0.000002>
+6496  1795296495.033005 mmap(NULL, 578, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e4000 <0.000003>
+6496  1795296495.033015 close(3)        = 0 <0.000002>
+6496  1795296495.033023 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00012.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.033033 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2344, ...}) = 0 <0.000002>
+6496  1795296495.033043 mmap(NULL, 2344, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e3000 <0.000003>
+6496  1795296495.033053 close(3)        = 0 <0.000002>
+6496  1795296495.033061 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/data/tiny/links/part-00013.csv", O_RDONLY|O_CLOEXEC) = 3 <0.000003>
+6496  1795296495.033071 statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=1240, ...}) = 0 <0.000002>
+6496  1795296495.033082 mmap(NULL, 1240, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f80ba9e2000 <0.000003>
+6496  1795296495.033091 close(3)        = 0 <0.000002>
+6496  1795296495.033265 mmap(NULL, 1052672, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba476000 <0.000005>
+6496  1795296495.033733 mmap(NULL, 528384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba961000 <0.000014>
+6496  1795296495.034475 write(2, "setup", 5) = 5 <0.000016>
+6496  1795296495.034518 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034529 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034538 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034547 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034559 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034568 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034577 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034586 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.034595 write(2, "23", 2) = 2 <0.000002>
+6496  1795296495.034604 write(2, ".", 1) = 1 <0.000002>
+6496  1795296495.034614 write(2, "4", 1) = 1 <0.000002>
+6496  1795296495.034626 write(2, " ms\n", 4) = 4 <0.000002>
+6496  1795296495.034639 mkdir("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily", 0777) = 0 <0.000065>
+6496  1795296495.034715 chmod("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily", 0777) = 0 <0.000006>
+6496  1795296495.034729 mkdir("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/campaign_daily", 0777) = 0 <0.000043>
+6496  1795296495.034780 chmod("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/campaign_daily", 0777) = 0 <0.000003>
+6496  1795296495.034807 rt_sigaction(SIGRT_1, {sa_handler=0x7f80babe67a0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f80babb3b80}, NULL, 8) = 0 <0.000003>
+6496  1795296495.034821 rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0 <0.000002>
+6496  1795296495.034832 mmap(NULL, 2101248, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f80ba275000 <0.000007>
+6496  1795296495.034848 mprotect(0x7f80ba276000, 2097152, PROT_READ|PROT_WRITE) = 0 <0.000008>
+6496  1795296495.034867 rt_sigprocmask(SIG_BLOCK, ~[], [], 8) = 0 <0.000002>
+6496  1795296495.034878 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7f80ba475990, parent_tid=0x7f80ba475990, exit_signal=0, stack=0x7f80ba275000, stack_size=0x200280, tls=0x7f80ba4756c0} => {parent_tid=[6497]}, 88) = 6497 <0.000035>
+6497  1795296495.034932 rseq(0x7f80ba475fe0, 0x20, 0, 0x53053053 <unfinished ...>
+6496  1795296495.034938 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000002>
+6497  1795296495.034948 <... rseq resumed>) = 0 <0.000012>
+6496  1795296495.034954 mmap(NULL, 2101248, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0 <unfinished ...>
+6497  1795296495.034960 set_robust_list(0x7f80ba4759a0, 24 <unfinished ...>
+6496  1795296495.034967 <... mmap resumed>) = 0x7f80ba074000 <0.000009>
+6497  1795296495.034972 <... set_robust_list resumed>) = 0 <0.000009>
+6497  1795296495.034977 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+6496  1795296495.034983 mprotect(0x7f80ba075000, 2097152, PROT_READ|PROT_WRITE <unfinished ...>
+6497  1795296495.034988 <... rt_sigprocmask resumed>NULL, 8) = 0 <0.000008>
+6496  1795296495.034998 <... mprotect resumed>) = 0 <0.000012>
+6497  1795296495.035004 mmap(NULL, 134217728, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b2000000 <0.000004>
+6496  1795296495.035019 rt_sigprocmask(SIG_BLOCK, ~[],  <unfinished ...>
+6497  1795296495.035024 munmap(0x7f80b2000000, 33554432) = 0 <0.000007>
+6496  1795296495.035037 <... rt_sigprocmask resumed>[], 8) = 0 <0.000015>
+6496  1795296495.035043 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7f80ba274990, parent_tid=0x7f80ba274990, exit_signal=0, stack=0x7f80ba074000, stack_size=0x200280, tls=0x7f80ba2746c0} <unfinished ...>
+6497  1795296495.035050 munmap(0x7f80b8000000, 33554432) = 0 <0.000017>
+6497  1795296495.035074 mprotect(0x7f80b4000000, 135168, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6497  1795296495.035087 sched_getaffinity(6497, 32,  <unfinished ...>
+6496  1795296495.035093 <... clone3 resumed> => {parent_tid=[6498]}, 88) = 6498 <0.000045>
+6496  1795296495.035100 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+6497  1795296495.035106 <... sched_getaffinity resumed>[2 3]) = 32 <0.000015>
+6496  1795296495.035113 <... rt_sigprocmask resumed>NULL, 8) = 0 <0.000010>
+6496  1795296495.035118 futex(0x5555758087a8, FUTEX_WAIT_BITSET_PRIVATE, 4294967295, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.035174 gettid()        = 6497 <0.000004>
+6497  1795296495.035190 sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0 <0.000003>
+6497  1795296495.035212 mmap(NULL, 16048, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f80ba95d000 <0.000005>
+6497  1795296495.035225 mprotect(0x7f80ba95d000, 4096, PROT_NONE) = 0 <0.000005>
+6497  1795296495.035237 sigaltstack({ss_sp=0x7f80ba95e000, ss_flags=0, ss_size=11952}, NULL) = 0 <0.000003>
+6497  1795296495.035310 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba93c000 <0.000004>
+6497  1795296495.035323 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba91b000 <0.000003>
+6497  1795296495.035335 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba053000 <0.000004>
+6497  1795296495.035349 mprotect(0x7f80b4021000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6497  1795296495.035363 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba032000 <0.000003>
+6497  1795296495.035374 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80ba011000 <0.000002>
+6497  1795296495.035385 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b9ff0000 <0.000002>
+6497  1795296495.035397 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b9fcf000 <0.000002>
+6497  1795296495.035483 mprotect(0x7f80b4022000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6497  1795296495.035500 mprotect(0x7f80b4023000, 8192, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6497  1795296495.035521 mprotect(0x7f80b4025000, 12288, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6497  1795296495.035558 mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x7f80ba90b000 <0.000003>
+6497  1795296495.035569 madvise(0x7f80ba90b000, 65536, MADV_HUGEPAGE) = 0 <0.000004>
+6497  1795296495.035581 mprotect(0x7f80b4028000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6497  1795296495.035659 mprotect(0x7f80b4029000, 8192, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6497  1795296495.035688 munmap(0x7f80ba032000, 135168) = 0 <0.000008>
+6497  1795296495.035703 munmap(0x7f80ba011000, 135168) = 0 <0.000005>
+6497  1795296495.035714 munmap(0x7f80b9ff0000, 135168) = 0 <0.000005>
+6497  1795296495.035726 munmap(0x7f80b9fcf000, 135168) = 0 <0.000005>
+6497  1795296495.035739 write(2, "links    ", 9) = 9 <0.000004>
+6497  1795296495.035759 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.035769 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.035778 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.035787 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.035796 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.035805 write(2, "0.", 2) = 2 <0.000002>
+6497  1795296495.035814 write(2, "4", 1) = 1 <0.000002>
+6497  1795296495.035823 write(2, " ms on one thread\n", 18) = 18 <0.000002>
+6497  1795296495.035838 mmap(NULL, 67108864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x7f80b0000000 <0.000003>
+6497  1795296495.035849 madvise(0x7f80b0000000, 67108864, MADV_HUGEPAGE) = 0 <0.000002>
+6498  1795296495.037345 rseq(0x7f80ba274fe0, 0x20, 0, 0x53053053 <unfinished ...>
+6497  1795296495.037363 write(2, "thread 0 parse busy ", 20 <unfinished ...>
+6498  1795296495.037376 <... rseq resumed>) = 0 <0.000014>
+6498  1795296495.037383 set_robust_list(0x7f80ba2749a0, 24) = 0 <0.000002>
+6498  1795296495.037393 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000002>
+6498  1795296495.037406 mmap(NULL, 134217728, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80a8000000 <0.000007>
+6498  1795296495.037422 munmap(0x7f80ac000000, 67108864) = 0 <0.000007>
+6498  1795296495.037436 mprotect(0x7f80a8000000, 135168, PROT_READ|PROT_WRITE) = 0 <0.000004>
+6498  1795296495.037452 sched_getaffinity(6498, 32, [2 3]) = 32 <0.000003>
+6498  1795296495.037464 gettid()        = 6498 <0.000002>
+6498  1795296495.037474 sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0 <0.000002>
+6498  1795296495.037485 mmap(NULL, 16048, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f80ba907000 <0.000005>
+6498  1795296495.037503 mprotect(0x7f80ba907000, 4096, PROT_NONE) = 0 <0.000003>
+6498  1795296495.037513 sigaltstack({ss_sp=0x7f80ba908000, ss_flags=0, ss_size=11952}, NULL) = 0 <0.000002>
+6498  1795296495.037582 mprotect(0x7f80a8021000, 135168, PROT_READ|PROT_WRITE) = 0 <0.000004>
+6498  1795296495.037595 mprotect(0x7f80a8042000, 131072, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.037607 mprotect(0x7f80a8062000, 131072, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.037622 futex(0x7ffcb4602180, FUTEX_WAIT_BITSET_PRIVATE, 0, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.037632 <... write resumed>) = 20 <0.000260>
+6497  1795296495.037639 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.037650 write(2, " ", 1) = 1 <0.000003>
+6497  1795296495.037662 write(2, " ", 1) = 1 <0.000003>
+6497  1795296495.037673 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.037684 write(2, "26", 2) = 2 <0.000002>
+6497  1795296495.037694 write(2, ".", 1) = 1 <0.000002>
+6497  1795296495.037703 write(2, "3", 1) = 1 <0.000002>
+6497  1795296495.037712 write(2, " ms\n", 4) = 4 <0.000002>
+6497  1795296495.037722 futex(0x7ffcb4602180, FUTEX_WAKE_PRIVATE, 2147483647) = 1 <0.000003>
+6498  1795296495.037732 <... futex resumed>) = 0 <0.000106>
+6498  1795296495.037739 futex(0x7ffcb4602160, FUTEX_WAIT_BITSET_PRIVATE, 2, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.037756 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+6498  1795296495.037763 <... futex resumed>) = 0 <0.000021>
+6497  1795296495.037768 <... futex resumed>) = 1 <0.000008>
+6498  1795296495.037771 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 0 <0.000002>
+6498  1795296495.037780 mprotect(0x7f80a8082000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6498  1795296495.037792 mprotect(0x7f80a8083000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.037804 mmap(NULL, 67108864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x7f80a4000000 <0.000003>
+6498  1795296495.037814 madvise(0x7f80a4000000, 67108864, MADV_HUGEPAGE) = 0 <0.000003>
+6498  1795296495.038099 mprotect(0x7f80a8084000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000005>
+6498  1795296495.038120 mprotect(0x7f80a8085000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038208 futex(0x7ffcb4602180, FUTEX_WAIT_BITSET_PRIVATE, 1, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.038221 write(2, "parse", 5) = 5 <0.000003>
+6497  1795296495.038236 write(2, " ", 1) = 1 <0.000003>
+6497  1795296495.038248 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038258 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038267 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038276 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038286 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038336 write(2, " ", 1) = 1 <0.000004>
+6497  1795296495.038353 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038363 write(2, "27", 2) = 2 <0.000002>
+6497  1795296495.038374 write(2, ".", 1) = 1 <0.000002>
+6497  1795296495.038384 write(2, "2", 1) = 1 <0.000002>
+6497  1795296495.038393 write(2, " ms\n", 4) = 4 <0.000002>
+6497  1795296495.038404 futex(0x7ffcb4602180, FUTEX_WAKE_PRIVATE, 2147483647) = 1 <0.000003>
+6498  1795296495.038414 <... futex resumed>) = 0 <0.000201>
+6498  1795296495.038422 futex(0x7ffcb4602160, FUTEX_WAIT_BITSET_PRIVATE, 2, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.038428 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000002>
+6498  1795296495.038437 <... futex resumed>) = 0 <0.000012>
+6498  1795296495.038442 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 0 <0.000002>
+6498  1795296495.038451 futex(0x7ffcb4602180, FUTEX_WAIT_BITSET_PRIVATE, 2, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.038459 write(2, "dedup", 5) = 5 <0.000002>
+6497  1795296495.038468 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038477 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038486 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038495 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038510 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038519 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038528 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038537 write(2, " ", 1) = 1 <0.000002>
+6497  1795296495.038546 write(2, "27", 2) = 2 <0.000002>
+6497  1795296495.038555 write(2, ".", 1) = 1 <0.000002>
+6497  1795296495.038564 write(2, "4", 1) = 1 <0.000002>
+6497  1795296495.038572 write(2, " ms\n", 4) = 4 <0.000002>
+6497  1795296495.038581 futex(0x7ffcb4602180, FUTEX_WAKE_PRIVATE, 2147483647) = 1 <0.000002>
+6498  1795296495.038590 <... futex resumed>) = 0 <0.000136>
+6498  1795296495.038596 futex(0x7ffcb4602160, FUTEX_WAIT_BITSET_PRIVATE, 2, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6497  1795296495.038602 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000002>
+6498  1795296495.038610 <... futex resumed>) = 0 <0.000011>
+6498  1795296495.038615 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 0 <0.000002>
+6498  1795296495.038624 mmap(NULL, 675840, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b9fae000 <0.000006>
+6498  1795296495.038642 mprotect(0x7f80a8086000, 110592, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6498  1795296495.038655 mprotect(0x7f80a80a1000, 8192, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038667 mprotect(0x7f80a80a3000, 8192, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038680 mprotect(0x7f80a80a5000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038695 mprotect(0x7f80a80a6000, 4096, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038705 mprotect(0x7f80a80a7000, 24576, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.038731 mprotect(0x7f80a80ad000, 24576, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6498  1795296495.039079 mmap(NULL, 897024, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+6497  1795296495.039086 mmap(NULL, 675840, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b9f09000 <0.000004>
+6497  1795296495.039099 mprotect(0x7f80b402b000, 94208, PROT_READ|PROT_WRITE) = 0 <0.000003>
+6497  1795296495.039116 mprotect(0x7f80b4042000, 8192, PROT_READ|PROT_WRITE) = 0 <0.000002>
+6497  1795296495.039128 mmap(NULL, 897024, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f80b9e2e000 <0.000005>
+6497  1795296495.039694 munmap(0x7f80b9f09000, 675840 <unfinished ...>
+6498  1795296495.039704 <... mmap resumed>) = 0x7f80b9d53000 <0.000621>
+6498  1795296495.040276 munmap(0x7f80b9fae000, 675840 <unfinished ...>
+6497  1795296495.040309 <... munmap resumed>) = 0 <0.000608>
+6497  1795296495.040326 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily/part-00000.parquet", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 3 <0.000052>
+6497  1795296495.040396 write(3, "PAR1\25\2\31|H\6schema\25\f\0\25\f%\0\30\7user_id"..., 151) = 151 <0.000016>
+6498  1795296495.040464 <... munmap resumed>) = 0 <0.000174>
+6497  1795296495.040470 chmod("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily/part-00000.parquet", 0666) = 0 <0.000005>
+6497  1795296495.040483 close(3)        = 0 <0.000004>
+6497  1795296495.040495 futex(0x7ffcb4602180, FUTEX_WAIT_BITSET_PRIVATE, 3, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6498  1795296495.040523 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily/part-00001.parquet", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 3 <0.000014>
+6498  1795296495.040546 write(3, "PAR1\25\0\25\372+\25\372+,\25\262\3\25\0\25\6\25\6\0\0\t\0\0\0u4es"..., 7959) = 7959 <0.000007>
+6498  1795296495.040561 chmod("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/user_daily/part-00001.parquet", 0666) = 0 <0.000003>
+6498  1795296495.040572 close(3)        = 0 <0.000003>
+6498  1795296495.040581 futex(0x7ffcb4602180, FUTEX_WAKE_PRIVATE, 2147483647) = 1 <0.000003>
+6497  1795296495.040592 <... futex resumed>) = 0 <0.000092>
+6497  1795296495.040599 futex(0x7ffcb4602160, FUTEX_WAIT_BITSET_PRIVATE, 2, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+6498  1795296495.040604 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000002>
+6497  1795296495.040613 <... futex resumed>) = 0 <0.000011>
+6497  1795296495.040618 futex(0x7ffcb4602160, FUTEX_WAKE_PRIVATE, 1) = 0 <0.000002>
+6497  1795296495.040627 munmap(0x7f80ba93c000, 135168) = 0 <0.000007>
+6498  1795296495.040642 write(2, "people", 6 <unfinished ...>
+6497  1795296495.040649 munmap(0x7f80ba91b000, 135168) = 0 <0.000005>
+6498  1795296495.040661 <... write resumed>) = 6 <0.000015>
+6498  1795296495.040666 write(2, " ", 1 <unfinished ...>
+6497  1795296495.040672 munmap(0x7f80ba053000, 135168) = 0 <0.000005>
+6498  1795296495.040684 <... write resumed>) = 1 <0.000015>
+6498  1795296495.040690 write(2, " ", 1 <unfinished ...>
+6497  1795296495.040697 sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=11952},  <unfinished ...>
+6498  1795296495.040705 <... write resumed>) = 1 <0.000012>
+6498  1795296495.040711 write(2, " ", 1 <unfinished ...>
+6497  1795296495.040716 <... sigaltstack resumed>NULL) = 0 <0.000013>
+6498  1795296495.040721 <... write resumed>) = 1 <0.000008>
+6497  1795296495.040727 munmap(0x7f80ba95d000, 16048 <unfinished ...>
+6498  1795296495.040735 write(2, " ", 1 <unfinished ...>
+6497  1795296495.040755 <... munmap resumed>) = 0 <0.000026>
+6498  1795296495.040761 <... write resumed>) = 1 <0.000023>
+6498  1795296495.040766 write(2, " ", 1) = 1 <0.000002>
+6498  1795296495.040776 write(2, " ", 1) = 1 <0.000002>
+6498  1795296495.040785 write(2, " ", 1 <unfinished ...>
+6497  1795296495.040795 rt_sigprocmask(SIG_BLOCK, ~[RT_1],  <unfinished ...>
+6498  1795296495.040802 <... write resumed>) = 1 <0.000015>
+6498  1795296495.040808 write(2, "29", 2) = 2 <0.000002>
+6497  1795296495.040817 <... rt_sigprocmask resumed>NULL, 8) = 0 <0.000017>
+6498  1795296495.040822 write(2, ".", 1 <unfinished ...>
+6497  1795296495.040828 madvise(0x7f80ba275000, 2080768, MADV_DONTNEED <unfinished ...>
+6498  1795296495.040834 <... write resumed>) = 1 <0.000008>
+6497  1795296495.040841 <... madvise resumed>) = 0 <0.000009>
+6498  1795296495.040846 write(2, "6", 1) = 1 <0.000002>
+6497  1795296495.040855 exit(0 <unfinished ...>
+6498  1795296495.040861 write(2, " ms\n", 4 <unfinished ...>
+6497  1795296495.040867 <... exit resumed>) = ?
+6498  1795296495.040872 <... write resumed>) = 4 <0.000008>
+6497  1795296495.040894 +++ exited with 0 +++
+6498  1795296495.040904 futex(0x5555758087a8, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000003>
+6496  1795296495.040914 <... futex resumed>) = 0 <0.005790>
+6498  1795296495.040919 sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=11952},  <unfinished ...>
+6496  1795296495.040927 mmap(NULL, 897024, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+6498  1795296495.040933 <... sigaltstack resumed>NULL) = 0 <0.000010>
+6496  1795296495.040942 <... mmap resumed>) = 0x7f80b9f99000 <0.000011>
+6498  1795296495.040948 munmap(0x7f80ba907000, 16048) = 0 <0.000004>
+6496  1795296495.041643 openat(AT_FDCWD, "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/campaign_daily/part-00000.parquet", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666 <unfinished ...>
+6498  1795296495.041679 rt_sigprocmask(SIG_BLOCK, ~[RT_1], NULL, 8) = 0 <0.000003>
+6498  1795296495.041696 madvise(0x7f80ba074000, 2080768, MADV_DONTNEED) = 0 <0.000029>
+6498  1795296495.041735 exit(0)         = ?
+6498  1795296495.041766 +++ exited with 0 +++
+6496  1795296495.041807 <... openat resumed>) = 3 <0.000143>
+6496  1795296495.041814 write(3, "PAR1\25\0\25\324C\25\324C,\25\224\7\25\0\25\6\25\6\0\0\4\0\0\0c_28"..., 20867) = 20867 <0.000020>
+6496  1795296495.041844 chmod("/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/try/proc/runs/st/out/campaign_daily/part-00000.parquet", 0666) = 0 <0.000005>
+6496  1795296495.041859 close(3)        = 0 <0.000003>
+6496  1795296495.041870 munmap(0x7f80b9f99000, 897024) = 0 <0.000041>
+6496  1795296495.042227 write(2, "surviving events ", 17) = 17 <0.000005>
+6496  1795296495.042256 write(2, "975", 3) = 3 <0.000003>
+6496  1795296495.042269 write(2, ", user_daily rows ", 18) = 18 <0.000002>
+6496  1795296495.042279 write(2, "217", 3) = 3 <0.000002>
+6496  1795296495.042288 write(2, "\n", 1) = 1 <0.000002>
+6496  1795296495.042343 write(2, "sessions ", 9) = 9 <0.000003>
+6496  1795296495.042359 write(2, "261", 3) = 3 <0.000003>
+6496  1795296495.042370 write(2, " / ", 3) = 3 <0.000002>
+6496  1795296495.042380 write(2, "261", 3) = 3 <0.000002>
+6496  1795296495.042390 write(2, ", revenue ", 10) = 10 <0.000002>
+6496  1795296495.042400 write(2, "97409", 5) = 5 <0.000002>
+6496  1795296495.042409 write(2, " / ", 3) = 3 <0.000002>
+6496  1795296495.042418 write(2, "97409", 5) = 5 <0.000002>
+6496  1795296495.042427 write(2, ", assisted ", 11) = 11 <0.000002>
+6496  1795296495.042437 write(2, "743", 3) = 3 <0.000002>
+6496  1795296495.042446 write(2, " >= ", 4) = 4 <0.000002>
+6496  1795296495.042455 write(2, "185", 3) = 3 <0.000002>
+6496  1795296495.042464 write(2, "\n", 1) = 1 <0.000002>
+6496  1795296495.042477 write(2, "event copies ", 13) = 13 <0.000002>
+6496  1795296495.042487 write(2, "1042", 4) = 4 <0.000002>
+6496  1795296495.042496 write(2, ", winners ", 10) = 10 <0.000002>
+6496  1795296495.042505 write(2, "975", 3) = 3 <0.000002>
+6496  1795296495.042515 write(2, ", clicks ", 9) = 9 <0.000003>
+6496  1795296495.042524 write(2, "268", 3) = 3 <0.000002>
+6496  1795296495.042533 write(2, ", linked ", 9) = 9 <0.000002>
+6496  1795296495.042543 write(2, "888", 3) = 3 <0.000002>
+6496  1795296495.042552 write(2, ", exotic ", 9) = 9 <0.000002>
+6496  1795296495.042561 write(2, "0", 1) = 1 <0.000002>
+6496  1795296495.042570 write(2, "\n", 1) = 1 <0.000002>
+6496  1795296495.042580 write(2, "write", 5) = 5 <0.000002>
+6496  1795296495.042590 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042599 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042608 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042617 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042627 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042636 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042645 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042654 write(2, " ", 1) = 1 <0.000002>
+6496  1795296495.042664 write(2, "31", 2) = 2 <0.000002>
+6496  1795296495.042673 write(2, ".", 1) = 1 <0.000002>
+6496  1795296495.042682 write(2, "5", 1) = 1 <0.000002>
+6496  1795296495.042691 write(2, " ms\n", 4) = 4 <0.000002>
+6496  1795296495.042702 munmap(0x7f80b9e2e000, 897024) = 0 <0.000062>
+6496  1795296495.042773 munmap(0x7f80b9d53000, 897024) = 0 <0.000058>
+6496  1795296495.042845 munmap(0x7f80ba476000, 1052672) = 0 <0.000045>
+6496  1795296495.042899 munmap(0x7f80ba961000, 528384) = 0 <0.000022>
+6496  1795296495.042931 munmap(0x7f80bacc8000, 802816) = 0 <0.000039>
+6496  1795296495.042977 munmap(0x7f80ba577000, 1601536) = 0 <0.000040>
+6496  1795296495.043024 munmap(0x7f80ba6fe000, 2101248) = 0 <0.000071>
+6496  1795296495.043104 sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=11952}, NULL) = 0 <0.000002>
+6496  1795296495.043116 munmap(0x7f80bae39000, 16048) = 0 <0.000004>
+6496  1795296495.043149 exit_group(0)   = ?
+6496  1795296495.043434 +++ exited with 0 +++

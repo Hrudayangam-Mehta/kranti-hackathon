@@ -1,0 +1,12 @@
+rel1     wall 2.466 (min 1.575) user 4.56 sys 2.35 cpu 6.91 rss 3548MB flt 109160 | wall ms setup/parse/dedup/people 13.4/1385/578/403 | cpu ms -/-/-/- | links 335 tear - tail 46.3
+rel2     wall 1.977 (min 1.549) user 4.43 sys 1.16 cpu 5.67 rss 2779MB flt 52900 | wall ms setup/parse/dedup/people 3.5/1274/342/311 | cpu ms 4.7/3677/954/898 | links 268 tear 10.0 tail 11.0
+load (5.80224609375, 4.59130859375, 6.58251953125)
+pair_rel1_n4.jsonl load 5.8, 16 interleaved rounds, NCPU 4 on cpus 0-3
+  wall         median   2465.8 ->   1976.6 ms   paired median diff   -495.0 ms   rel2 lower in 15/16
+  user+sys     median   6912.0 ->   5670.3 ms   paired median diff  -1219.0 ms   rel2 lower in 15/16
+  sys          median   2351.0 ->   1163.1 ms   paired median diff  -1238.3 ms   rel2 lower in 15/16
+  setup        median     13.4 ->      3.5 ms   paired median diff     -9.9 ms   rel2 lower in 16/16
+  parse        median   1385.3 ->   1273.8 ms   paired median diff   -116.4 ms   rel2 lower in 13/16
+  dedup        median    577.9 ->    342.2 ms   paired median diff   -227.5 ms   rel2 lower in 15/16
+  people       median    403.4 ->    310.9 ms   paired median diff    -94.0 ms   rel2 lower in 15/16
+  after people median     57.5 ->     11.1 ms   paired median diff    -45.6 ms   rel2 lower in 16/16

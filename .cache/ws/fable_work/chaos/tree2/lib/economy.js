@@ -1,0 +1,498 @@
+// Layer 5: loot (cubes, crates, drones, weapon pickups), power grabs in contact, take / drop, upgrade picks and
+// supply drops (DOCTRINE V4 D6 / D7).
+
+import { zoneSlack } from './senses.js'
+import { inArena } from './tactics.js'
+
+const RANK = { laser: 3, lightning: 2, mortar: 0 }   // an empty second slot ranks 1 ("nothing > mortar")
+const rankOf = (kind) => (kind in RANK ? RANK[kind] : -1)
+
+export function makeEconomy(B, mover) {
+  const P = B.P
+  const crateObj = { x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, radius: 1.4, height: 2.4, revs: 0, id: -1, steadySince: -99, airborne: false }
+  let lootT = -9, grabT = -9, offerIds = new Set(), offersSeen = 0, lastOfferId = null, betterSeenT = 0
+  const dropWatch = { id: -1, landed: false }
+  // Fable chaos: SQUAD posture + hunt.firewall (every chaos rule of this file)
+  const sqOk = () => B.env !== 'FFA' && !!B.hunt && B.hunt.firewall()
+  const lgs = { t0: -1, rot: 0, prevYaw: 0, stop: false, sweepDone: false }
+  /** R2 laserGrab 'spawn': B.lgsOn (laser run) and B.lgsSweep (torso turn) for this decision. */
+  function lgsUpdate() {
+    const me = B.me, t = me.t
+    B.lgsOn = false; B.lgsSweep = false
+    if (lgs.t0 < 0) { lgs.t0 = t; lgs.prevYaw = me.yaw }
+    lgs.rot += Math.abs(Math.atan2(Math.sin(me.yaw - lgs.prevYaw), Math.cos(me.yaw - lgs.prevYaw))); lgs.prevYaw = me.yaw
+    if (!lgs.stop) for (let k = 0; k < B.trackList.length; k++) {
+      const tr = B.trackList[k]
+      if (!tr.npc && tr.lastDmgInT === t && tr.dist <= P.lgsDmgR) { lgs.stop = true; B.counters.lgsStopDmg = (B.counters.lgsStopDmg || 0) + 1; break }
+    }
+    if (lgs.stop || me.laser || t >= P.lgsEndS || !sqOk()) return
+    B.lgsOn = true
+    if (!lgs.sweepDone && (lgs.rot >= 2 * Math.PI - 0.15 || t - lgs.t0 >= P.lgsSweepS + 0.6)) lgs.sweepDone = true
+    if (!lgs.sweepDone) { B.lgsSweep = true; B.counters.lgsSweep = (B.counters.lgsSweep || 0) + 1 }
+    B.counters.lgsOn = (B.counters.lgsOn || 0) + 1
+  }
+
+  /** D7: do we want this pickup, and which slot would it replace (-1 = goes into the empty slot)? */
+  function wantPickup(kind) {
+    const me = B.me, w0 = me.weapons[0], w1 = me.weapons[1], t = me.t
+    if (typeof kind !== 'string') return null
+    if ((w0 && w0.kind === kind) || (w1 && w1.kind === kind)) return null
+    if (kind === 'gun') return me.gun ? null : { drop: !w0 || !w1 ? -1 : (rankOf(w0.kind) <= rankOf(w1.kind) ? 0 : 1) }
+    const r = rankOf(kind)
+    // FFA latched (preset ffaPair): laser + lightning, the gun goes
+    if (B.env === 'FFA' && P.ffaPair && w0 && w1 && (kind === 'laser' || kind === 'lightning')) {
+      const other = w0.kind === 'gun' ? w1 : w1.kind === 'gun' ? w0 : null
+      if (other && (other.kind === 'laser' || other.kind === 'lightning') && other.kind !== kind) {
+        const gs = w0.kind === 'gun' ? 0 : 1
+        if (!(me.laser && me.laser.charge > 0)) return { drop: gs }
+      }
+    }
+    // Fable chaos R2 (laserGrab 'spawn', SQUAD + firewall): never a mortar; a lightning only once laser-less at lgsLightS
+    if (P.lgSpawn === true && (kind === 'mortar' || (kind === 'lightning' && !me.laser && t < P.lgsLightS)) && sqOk()) return null
+    if (!w0 || !w1) {
+      if (r > 1) return { drop: -1 }
+      // a mortar only when nothing better has been seen for 60 s (cook-off risk); R3a2 P2: never in the SQUAD posture
+      if (kind === 'mortar' && t - betterSeenT >= P.mortarWaitS && !(P.laserEcon === true && B.env !== 'FFA')) return { drop: -1 }
+      return null
+    }
+    // both slots full: replace the non-gun weapon when the new one ranks higher (the gun always stays in SQUAD)
+    let s = w0.kind === 'gun' ? 1 : w1.kind === 'gun' ? 0 : (rankOf(w0.kind) <= rankOf(w1.kind) ? 0 : 1)
+    const cur = me.weapons[s]
+    if (cur.kind === 'laser' && cur.charge > 0) return null
+    return r > rankOf(cur.kind) && r > 1 ? { drop: s } : null
+  }
+
+  function reachable(x, y, z) {
+    const nav = B.nav, me = B.me
+    if (!inArena(B, x, y)) return false
+    if (!nav) return !me.grounded || Math.abs(z - me.z) < 6
+    if (B.world && z - B.world.ground(x, y) > P.roofDz) return false        // roof loot (D6)
+    if (Math.abs(z - nav.levelAt(x, y)) > 3) return false
+    const q = nav.passableAt(x, y) ? 1 : nav.nearestPassableIdx(x, y, 3.5)
+    if (q < 0) return false
+    const c = nav.component(me.x, me.y)
+    return c < 0 || nav.component(x, y) === c
+  }
+  function nearDrone(x, y, exceptId) {
+    const L = B.trackList
+    for (let k = 0; k < L.length; k++) { const tr = L[k]; if (tr.npc && tr.id !== exceptId && Math.hypot(tr.x - x, tr.y - y) < P.droneAvoid) return true }
+    return false
+  }
+  function pathEst(x, y) {
+    const me = B.me, d = Math.hypot(x - me.x, y - me.y)
+    return B.nav && d > 2 && !B.nav.walkLine(me.x, me.y, x, y) ? d * 1.4 : d
+  }
+  function nearestMechD(skipHiders) {
+    for (let k = 0; k < B.trackList.length; k++) {
+      const tr = B.trackList[k]
+      if (tr.npc || !(tr.conf > 0.3)) continue
+      // FFA (D11 hider counter): out-farm a quiet hider that sits 120 m or more away
+      if (skipHiders && tr.dist >= P.ffaHiderPass && !tr.aimAtMe && B.ffa.isHider(tr)) continue
+      return tr.dist
+    }
+    return Infinity
+  }
+  /** FFA only. Rule 8: no approach inside 45 / 60 / 75 m (by its cubes) of a mech that has not shot us; D11: pass a hider at 120 m. */
+  function ffaBlocked(x, y) {
+    if (!(B.env === 'FFA' && P.ffaRules)) return false
+    const L = B.trackList
+    for (let k = 0; k < L.length; k++) {
+      const tr = L[k]
+      if (tr.npc || !(tr.conf > 0.3) || tr.hp <= 0) continue
+      const d = Math.hypot(tr.x - x, tr.y - y)
+      if (!tr.hostile && d < B.ffa.prox(tr)) return true
+      if (d < P.ffaHiderPass && B.ffa.isHider(tr)) return true
+    }
+    return false
+  }
+
+  /** Out-of-contact loot (LOOT mode): cubes, wanted weapons, and farming of crates and drones (D6). */
+  function chooseLoot() {
+    const me = B.me, t = me.t
+    B.loot = null; B.farmNpc = -1
+    const S = B.steal
+    // farm-first opening (tactics.js B.ofGate): once the line is broken we keep farming, without the 3 s quiet wait
+    const quiet = (t - B.lastContactT >= 3 || (B.ofGate && t - B.lastLosInT >= P.openFarmQuietS && t - me.lastHurtT >= P.openFarmQuietS)) && B.A === 0
+    if (!quiet && B.everSawMech) {
+      // R1: a steal in progress is kept; in FFA one may start while the only lines of fire on us are busy loot shooters
+      const k = S && (S.keep() || (B.env === 'FFA' ? S.choose(0, true) : null))
+      if (k) B.loot = k
+      return
+    }
+    const ffa = B.env === 'FFA'
+    const ffaR = ffa && P.ffaRules === true
+    const sq = (P.sqFarmHp > 0 || P.sqCratePath > 0) && sqOk()          // Fable chaos R8 farmHp '50sq' / cratePath '80'
+    const farm = me.hpf >= (sq && P.sqFarmHp > 0 ? P.sqFarmHp : P.farmHp) && t < P.farmStopT && !(me.cubes >= P.farmStopCubes && me.laser) && (!ffa || nearestMechD(ffaR) > P.ffaFarmClear)
+    let best = null, bestV = 0
+    const consider = (type, o, value, extraT, maxPath) => {
+      if (mover.isAbandoned(o.x, o.y)) return
+      const d = pathEst(o.x, o.y)
+      const di = S && (type === 'cube' || type === 'pickup') ? S.deathItem(o.x, o.y, d) : 0     // R1b kill drops
+      if (di < 0) return
+      // FFA rule 8 / hider pass; a kill drop we reach first (R1b, its own survivor test) is not blocked by them
+      if (ffaR && di <= 0 && ffaBlocked(o.x, o.y)) return
+      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+      const tt = d / me.walk + extraT
+      if (zoneSlack(B, o.x, o.y, t + tt + P.zoneArriveSlack) < 3) return
+      if (type !== 'drone' && nearDrone(o.x, o.y)) return
+      if (!reachable(o.x, o.y, o.z)) return
+      let v = di > 0 ? value / (tt + 0.5) * 1.5 : value / (tt + 0.5)
+      if (S && (type === 'cube' || type === 'pickup') && di === 0) { const r = S.race(o.x, o.y, tt); if (r < 0) return; if (r > 0) v *= P.raceBonus }   // R1d
+      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
+    }
+    const cubeV = me.cubes >= (B.cfg.cubes.stat_cap || 10) ? 0.4 : P.cubeValue
+    if (cubesWanted()) for (const c of B.cubes.values()) {
+      const nearKill = isKillCube(c)
+      consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? (killReachOk(c) ? P.killCubeR : P.grabCubeHi) : P.lootCubePath)
+    }
+    // R3a2 P2 (SQUAD posture): while we hold no laser a laser pickup outranks every other loot out to laserSeekPath
+    const seekL = (P.laserEcon === true && !ffa && !me.laser) || B.lgsOn === true      // Fable chaos R2: the spawn laser run
+    for (const p of B.pickups.values()) {
+      if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+      const sl = seekL && p.kind === 'laser'
+      if (wantPickup(p.kind)) consider('pickup', p, sl ? (B.lgsOn === true ? P.lgsValue : P.laserSeekValue) : P.weaponValue * (p.kind === 'laser' ? 1.5 : 1), 1, sl ? (B.lgsOn === true ? Math.max(P.lgsPath, P.laserEcon === true ? P.laserSeekPath : 0) : P.laserSeekPath) : P.lootPickupPath)
+    }
+    if (farm) {
+      const wantW = !me.weapons[0] || !me.weapons[1]
+      if (me.gun && !(ffa && nearestMechD() < 320) && (!S || S.farmOk('crate'))) for (const c of B.crates.values()) {
+        if (S && S.beingShot(c.id)) continue                              // R1a: someone else spends the ammunition (steal instead)
+        const shootT = Math.max(1, c.hp) / Math.max(1, me.gun.damage * me.dmgMult) * me.gun.cd + 1
+        consider('crate', c, 1 + (wantW ? 0.5 * P.weaponValue : 0), shootT, sq && P.sqCratePath > 0 ? P.sqCratePath : P.lootCratePath)
+      }
+      if (me.gun && (!S || S.farmOk('drone'))) for (let k = 0; k < B.trackList.length; k++) {
+        const tr = B.trackList[k]
+        if (!tr.npc || !tr.listed || tr.hp <= 0) continue
+        if (S && S.beingShot(tr.id)) continue                             // R1a
+        const shootT = tr.hp / Math.max(1, me.gun.damage * me.dmgMult * 0.8) * me.gun.cd + 1
+        consider('drone', tr, 2, shootT, P.lootDronePath)
+      }
+    }
+    if (S) { const s = S.choose(bestV); if (s) best = s }                 // R1a: steals
+    B.loot = best
+    if (best && best.type === 'drone') B.farmNpc = best.id
+  }
+  /** Past the stat cap (10) a cube only grows the body: collect only when an upgrade threshold is within 3 cubes. */
+  function cubesWanted() {
+    const me = B.me, cap = B.cfg.cubes.stat_cap || 10
+    if (me.cubes < cap) return true
+    const th = Array.isArray(B.cfg.cubes.upgrade_thresholds) ? B.cfg.cubes.upgrade_thresholds : [15, 21, 28, 36, 45]
+    for (let i = 0; i < th.length; i++) if (th[i] > me.cubes) return th[i] - me.cubes <= 3
+    return false
+  }
+  function isKillCube(c) {
+    const t = B.me.t
+    for (let k = 0; k < B.killDrops.length; k++) { const kd = B.killDrops[k]; if (t - kd.t < P.killDropS && Math.hypot(c.x - kd.x, c.y - kd.y) < 25) return true }
+    return false
+  }
+
+  /**
+   * The long kill-cube reach (killCubeR) only while at most killCubeThreats mechs threaten us and no other mech is
+   * within killCubeClear m of the cube: the next hunters usually come from where the last one died (simulator
+   * seeds 10 / 11: a 100 m walk into three hunters).
+   */
+  function killReachOk(c) {
+    if (B.threats > (P.cubeSnow === true && sqOk() ? P.snThreats : P.killCubeThreats)) return false       // Fable chaos R4
+    const L = B.trackList
+    for (let k = 0; k < L.length; k++) { const tr = L[k]; if (!tr.npc && tr.hp > 0 && tr.conf > 0.3 && Math.hypot(tr.x - c.x, tr.y - c.y) < P.killCubeClear) return false }
+    return true
+  }
+  /** D6 power grabs in contact: a remembered cube (40 s) within 70 / 40 / 12 m (our kills' cubes killCubeR at hp > 50%), a laser within 60 m, others 35 m. */
+  function chooseGrab() {
+    const me = B.me, t = me.t
+    B.grab = null
+    if (B.mode === 'ZONE' || B.lastStand || B.zoneUrgent) return
+    const lose = B.losing
+    // Fable chaos R4 (cubes 'snow', SQUAD + firewall): grab floor snGrabHpf, reach snCubeHi; after our kill (snKillS) the corpse
+    // (cubes / a laser we lack within snCorpseR of it) by boost out to snCorpsePath with at most snLines lines on us
+    const sn = P.cubeSnow === true && sqOk()
+    const gHpf = sn ? P.snGrabHpf : P.grabHpf, gHi = sn ? P.snCubeHi : P.grabCubeHi
+    const cubeR = lose ? P.grabCubeLose : me.hpf > gHpf ? gHi : P.grabCubeLo
+    const corpse = sn && !lose && t - B.lastKillT <= P.snKillS && B.nLos <= P.snLines
+    const nearCorpse = (o) => corpse && Math.hypot(o.x - B.lastKillX, o.y - B.lastKillY) <= P.snCorpseR
+    let best = null, bestV = 0
+    const S = B.steal
+    const tryOne = (type, o, value, maxPath, rush) => {
+      if (mover.isAbandoned(o.x, o.y)) return
+      const d = pathEst(o.x, o.y)
+      const di = S ? S.deathItem(o.x, o.y, d) : 0                       // R1b kill drops: first by path time, else leave them
+      if (di < 0) return
+      if (di <= 0 && ffaBlocked(o.x, o.y)) return                       // FFA rule 8 / hider pass (not for a kill drop we reach first)
+      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+      if (zoneSlack(B, o.x, o.y, t + d / me.walk + P.zoneArriveSlack) < 3) return
+      if (nearDrone(o.x, o.y) || !reachable(o.x, o.y, o.z)) return
+      let v = di > 0 ? value / (d / me.walk + 0.5) * 1.5 : value / (d / me.walk + 0.5)
+      if (S && di === 0) { const r = S.race(o.x, o.y, d / me.walk); if (r < 0) return; if (r > 0) v *= P.raceBonus }     // R1d
+      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 || rush === true } }
+    }
+    // D6 "collect the cubes of our kills at once": our kills happen at the D2 ranges (gun 55-95 m, laser 125-185 m),
+    // so at hp > grabHpf the cubes of our kills reach killCubeR (the low-hp and LOSING limits still apply)
+    const killR = cubeR === gHi ? Math.max(cubeR, P.killCubeR) : cubeR
+    // R1c: with stealOn the cubes of a death (ours or another mech's, B.killDrops) are remembered deathCubeMemS (90 s)
+    if (cubesWanted()) for (const c of B.cubes.values()) {
+      const kc = isKillCube(c)
+      if (t - c.seen > (kc && P.stealOn ? P.deathCubeMemS : P.cubeMemS)) continue
+      if (corpse && nearCorpse(c)) { tryOne('cube', c, 1.5, Math.max(P.snCorpsePath, kc && killReachOk(c) ? killR : cubeR), true); continue }
+      tryOne('cube', c, kc ? 1.5 : 1, kc && killReachOk(c) ? killR : cubeR)
+    }
+    // R7a LG (laserGrab 'wide', R5 3.2 / GP I1, build_spec_r7 3.2 #8): SQUAD (hunt.js firewall), no laser held: the laser grab
+    // reaches lgGrabR of path at hp >= lgHpf with at most one line on us and the target not finishable; it yields to a new
+    // attacker (B.topAttacker other than the target that hit us within lgYieldS)
+    const top = B.topAttacker
+    const lgWide = P.grabLaserWide === true && !me.laser && me.hpf >= P.lgHpf && B.nLos <= 1 && !(B.target && !B.target.npc && B.target.finishable) &&
+      !(top && top !== B.target && t - top.lastDmgInT <= P.lgYieldS) && !!B.hunt && B.hunt.firewall()
+    let lgKnown = false
+    if (!lose) for (const p of B.pickups.values()) {
+      if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+      if (t - p.seen > 60 || !wantPickup(p.kind)) continue
+      if (p.kind === 'laser' && !me.laser && P.grabLaserWide === true && !lgKnown && pathEst(p.x, p.y) <= P.lgKnownPath) lgKnown = true
+      if (corpse && p.kind === 'laser' && !me.laser && nearCorpse(p)) { tryOne('pickup', p, P.weaponValue * 2, Math.max(P.snCorpsePath, lgWide ? P.lgGrabR : P.grabLaserR), true); continue }
+      tryOne('pickup', p, P.weaponValue * 2, p.kind === 'laser' && !me.laser ? (lgWide ? P.lgGrabR : P.grabLaserR) : P.grabOtherR)
+    }
+    B.lgKnown = lgKnown
+    B.grab = best
+  }
+
+  /** D6 supply drops: unheld, within 250 m, arrive no more than 3 s before the landing, never contested. */
+  function chooseDrop() {
+    const me = B.me, t = me.t
+    B.dropTask = null
+    if (B.lastStand) return
+    // R3a2 F1 (FFA, <= 3 alive): contest radius fdgR, and no drop at all with a mech within fdgR of us
+    const late = P.ffaDropGate === true && B.env === 'FFA' && B.aliveN > 0 && B.aliveN <= P.fdgAlive
+    if (late) for (let i = 0; i < B.trackList.length; i++) { const tr = B.trackList[i]; if (!tr.npc && tr.listed && tr.conf >= 0.3 && tr.hp > 0 && tr.dist <= P.fdgR) return }
+    const contestR = late ? P.fdgR : P.dropContestR
+    for (let k = 0; k < B.drops.length; k++) {
+      const d = B.drops[k]
+      if (d.holder >= 0 && d.holder !== me.id) continue
+      const dist = Math.hypot(d.x - me.x, d.y - me.y)
+      const landed = d.landsIn <= 0
+      if (dist > (landed ? P.dropLeaveR : P.dropMaxD)) continue
+      const path = dist * P.pathFactor, tApp = path / me.walk
+      if (!landed && tApp < d.landsIn - P.dropEarlyS) continue                 // too early: no waiting in the ring
+      if (B.steal && !B.steal.dropOk(d, tApp)) continue                        // R1e: occupied ring, capture running, or a mech gets there first
+      if (me.hp <= B.A * (tApp + P.dropCaptureS) + P.dropHpBase) continue
+      if (zoneSlack(B, d.x, d.y, t + Math.max(tApp, d.landsIn) + P.dropCaptureS + 3) < d.radius) continue
+      let contested = false
+      for (let i = 0; i < B.trackList.length; i++) {
+        const tr = B.trackList[i]
+        if (tr.npc || tr.conf < 0.3) continue
+        if (Math.hypot(tr.x - d.x, tr.y - d.y) < contestR) { contested = true; break }
+      }
+      if (contested) continue
+      if (!B.dropTask || dist < B.dropTask.dist) B.dropTask = { x: d.x, y: d.y, dist, radius: d.radius, landsIn: d.landsIn }
+    }
+  }
+
+  /**
+   * Fable dropLife (SQUAD posture + hunt.firewall; rules_model.md section 6 / 10.2): the supply drop as a second life.
+   * Every number is the server's: d.radius / d.landsIn / d.captureS come from obs.drops (config drops.radius, times + fall_s,
+   * capture_s). A drop is taken into account from its announcement when we can be inside the ring by the landing + dlLateS.
+   *  hp rule = hp > B.A x dlIntakeK x (min(walk time, dlPayWalkS) + capture time left) + dlReserveHpf x max hp: our hp pays
+   *            the expected intake (B.A, incoming dps now) of the last dlPayWalkS of the walk and of the whole capture
+   *  go      = hp rule, and it is time to walk (walk time >= (landsIn - dlArriveS) x dlSlack): fight legs and idle legs walk to the ring,
+   *            the torso keeps fighting (mode stays FIGHT). With another mech inside the ring: only to within dlFightR of it
+   *  capture = hp rule, the drop has landed or lands within dlArriveS, and no other mech is inside radius + dlPad (the contest
+   *            test is the ring, not dropContestR): DROP outranks FIGHT; we walk in and strafe / stand inside radius - dlInset
+   */
+  function dlUpdate() {
+    B.dl = null
+    if (P.dropLife !== true || B.drops.length === 0 || B.env === 'FFA') return
+    const C = B.counters
+    C.dlSeen = (C.dlSeen || 0) + 1                                      // reach counters (report only)
+    if (!B.hunt || !B.hunt.firewall()) { C.dlNoFw = (C.dlNoFw || 0) + 1; return }
+    if (B.lastStand) return
+    const me = B.me, t = me.t
+    let best = null, bT = Infinity, bIn = 0
+    for (let k = 0; k < B.drops.length; k++) {
+      const d = B.drops[k]
+      const ringIn = Math.max(1, d.radius - P.dlInset)
+      const tIn = Math.max(0, pathEst(d.x, d.y) - ringIn) / me.walk
+      if (tIn > d.landsIn + P.dlLateS) continue
+      if (d.holder >= 0 && d.holder !== me.id && d.captureS - d.progress < tIn) continue       // its capture ends before we get there
+      if (zoneSlack(B, d.x, d.y, t + Math.max(tIn, d.landsIn) + d.captureS + 3) < d.radius) continue
+      if (tIn < bT) { bT = tIn; best = d; bIn = ringIn }
+    }
+    if (!best) { C.dlNoReach = (C.dlNoReach || 0) + 1; return }
+    const d = best, dist = Math.hypot(d.x - me.x, d.y - me.y)
+    let inRing = 0
+    for (let i = 0; i < B.trackList.length; i++) {
+      const tr = B.trackList[i]
+      if (tr.npc || !(tr.conf >= 0.3) || tr.hp <= 0) continue
+      if (Math.hypot(tr.x - d.x, tr.y - d.y) <= d.radius + P.dlPad) inRing++
+    }
+    const capLeft = Math.max(0, d.captureS - (d.holder === me.id ? d.progress : 0))
+    const phase = d.landsIn <= P.dlArriveS                              // landed, or lands within dlArriveS
+    const leave = bT >= (d.landsIn - P.dlArriveS) * P.dlSlack            // time to walk (dlSlack < 1: the path estimate is crude)
+    const hpOk = me.hp > Math.max(B.A || 0, P.dlMinA) * P.dlIntakeK * (Math.min(bT, P.dlPayWalkS) + capLeft) + P.dlReserveHpf * me.maxHp
+    const capture = phase && inRing === 0 && hpOk
+    const go = !capture && hpOk && (inRing > 0 ? dist > Math.max(P.dlFightR, bIn) : (leave && dist > bIn))
+    // value 'idle' (dlIdleR > 0): with no target we walk to within dlIdleR of the ring from the announcement on (decideMode: DROP
+    // only below FIGHT), so the fights of the last seconds before the landing happen next to it
+    const goIdle = P.dlIdleR > 0 && !capture && !go && hpOk && inRing === 0 && dist > Math.max(P.dlIdleR, bIn)
+    B.dl = { id: d.id, x: d.x, y: d.y, radius: d.radius, ringIn: bIn, dist, landsIn: d.landsIn, tIn: bT, inRing, hpOk, capture, go, goIdle }
+    if (goIdle) C.dlIdle = (C.dlIdle || 0) + 1
+    if (capture) C.dlCap = (C.dlCap || 0) + 1; else if (go) C.dlGo = (C.dlGo || 0) + 1
+    if (phase && inRing > 0) C.dlContest = (C.dlContest || 0) + 1
+    if (phase && !hpOk) C.dlNoHp = (C.dlNoHp || 0) + 1
+    if (d.holder === me.id && d.progress > 0) C.dlHold = (C.dlHold || 0) + 1
+  }
+  /** dropLife legs (DROP mode, and the pull out of a fight): walk into the ring; inside it strafe on a leash or stand. */
+  function dlLegs() {
+    const dl = B.dl, me = B.me, cmd = B.cmd, tgt = B.target
+    if (!dl || !(dl.capture || dl.go || dl.goIdle)) return false
+    if (dl.dist > dl.ringIn) {
+      mover.moveTo(dl.x, dl.y, 1, 1.0)
+      if (tgt && !tgt.npc && tgt.losIn && dl.dist > 6 && P.dlStrafe > 0) {              // under fire: the grab-walk strafe blend
+        const bx = tgt.x - me.x, by = tgt.y - me.y, bl = Math.hypot(bx, by) || 1, s = mover.jink.sign
+        const mx = cmd.mx + (-by / bl) * s * P.dlStrafe, my = cmd.my + (bx / bl) * s * P.dlStrafe, l = Math.hypot(mx, my) || 1
+        cmd.mx = mx / l; cmd.my = my / l
+      }
+      if (dl.capture && dl.dist > 25 && me.energy >= P.boostReserve + 10 && me.grounded) cmd.boost = true     // the capture refills the tank
+      B.legKind = dl.capture ? 'dropcap' : 'dropgo'
+    } else {
+      if (tgt && !tgt.npc && dl.ringIn >= 3) mover.leashStrafe(tgt.x, tgt.y, dl.x, dl.y, dl.ringIn); else { cmd.mx = 0; cmd.my = 0 }
+      B.legKind = 'dropin'
+    }
+    return true
+  }
+
+  function update() {
+    const t = B.me.t
+    if (P.lgSpawn === true) lgsUpdate()
+    if (P.dropLife === true) dlUpdate()
+    for (const p of B.pickups.values()) if (p.kind === 'laser' || p.kind === 'lightning') betterSeenT = t
+    if (B.me.laser || B.me.lightning) betterSeenT = t
+    if (t - lootT >= 0.5 || (B.loot && !lootStillThere(B.loot))) { lootT = t; chooseLoot(); chooseDrop() }
+    if (t - grabT >= 0.25 || (B.grab && !lootStillThere(B.grab))) { grabT = t; chooseGrab() }
+  }
+  function lootStillThere(l) {
+    if (l.type === 'steal' || l.type === 'rush') return !!B.steal && B.steal.stillValid(l)
+    if (l.type === 'drone') { const tr = B.tracks.get(l.id); return !!tr && tr.hp > 0 }
+    const map = l.type === 'cube' ? B.cubes : l.type === 'crate' ? B.crates : B.pickups
+    return map.has(l.id)
+  }
+
+  function lootLegs() {
+    const me = B.me, l = B.loot
+    if (!l) { B.cmd.mx = 0; B.cmd.my = 0; return }
+    if ((l.type === 'steal' || l.type === 'rush') && B.steal) { B.steal.legs(l); return }
+    const d = Math.hypot(l.x - me.x, l.y - me.y)
+    B.lookHint = true; B.lookX = l.x; B.lookY = l.y
+    if (l.type === 'drone') {
+      const tr = B.tracks.get(l.id)
+      if (!tr) { B.cmd.mx = 0; B.cmd.my = 0; return }
+      // approach to 38 m, stand and shoot; leave to 75 m when hp < 50%
+      const want = me.hpf < P.droneLeaveHpf ? P.droneLeave : P.droneApproach
+      if (tr.dist > want + 4) mover.moveTo(tr.x, tr.y, 1, want)
+      else if (tr.dist < want - 8) { const ax = me.x - tr.x, ay = me.y - tr.y, l2 = Math.hypot(ax, ay) || 1; mover.moveTo(me.x + ax / l2 * 10, me.y + ay / l2 * 10, 1, 1) }
+      else { B.cmd.mx = 0; B.cmd.my = 0 }
+      return
+    }
+    // Fable chaos R2: the spawn laser run boosts (energy above boostReserve) and shoots crates within lgsCrateR on the way
+    if (B.lgsOn === true && l.type === 'pickup' && l.obj && l.obj.kind === 'laser') {
+      const w = B.world
+      let cb = null, cbd = P.lgsCrateR
+      if (me.gun) for (const c of B.crates.values()) {
+        const dc = Math.hypot(c.x - me.x, c.y - me.y)
+        if (dc < cbd && me.t - c.seen <= 1 && c.hp > 0 && (!w || w.shotClear(me.x, me.y, me.z + me.muzzleH, c.x, c.y, c.z + 1.2))) { cbd = dc; cb = c }
+      }
+      if (cb) {
+        crateObj.x = cb.x; crateObj.y = cb.y; crateObj.z = cb.z; crateObj.id = cb.id
+        crateObj.radius = (B.cfg.crates && B.cfg.crates.radius) || 1.4; crateObj.height = (B.cfg.crates && B.cfg.crates.height) || 2.4
+        B.shootCrate = crateObj
+        B.lookHint = false
+      }
+      mover.moveTo(l.x, l.y, 1, 1.2)
+      if (d > 8 && me.grounded && me.energy > P.boostReserve) { B.cmd.boost = true; B.counters.lgsBoost = (B.counters.lgsBoost || 0) + 1 }
+      return
+    }
+    if (l.type === 'crate') {
+      const w = B.world
+      const clear = !w || w.shotClear(me.x, me.y, me.z + me.muzzleH, l.x, l.y, l.z + 1.2)
+      if (d <= Math.max(P.crateShootR, P.crateApproach) && clear) {
+        crateObj.x = l.x; crateObj.y = l.y; crateObj.z = l.z; crateObj.id = l.id
+        crateObj.radius = (B.cfg.crates && B.cfg.crates.radius) || 1.4; crateObj.height = (B.cfg.crates && B.cfg.crates.height) || 2.4
+        B.shootCrate = crateObj
+        if (d > P.crateApproach) mover.moveTo(l.x, l.y, 1, P.crateApproach); else { B.cmd.mx = 0; B.cmd.my = 0 }
+        return
+      }
+      mover.moveTo(l.x, l.y, 1, 6)
+      return
+    }
+    mover.moveTo(l.x, l.y, 1, l.type === 'pickup' ? 1.2 : 0.6)
+  }
+
+  /** Leg overlay for a power grab while fighting: walk at it with the strafe blended in. True when it took the legs. */
+  function grabLegs(strafeW) {
+    const g = B.grab, me = B.me, cmd = B.cmd
+    if (!g) return false
+    const d = mover.moveTo(g.x, g.y, 1, g.type === 'pickup' ? 1.2 : 0.6)
+    if (d < 1.5) return true
+    if (g.rush && d > 20 && me.energy >= P.boostReserve + 10 && me.grounded) cmd.boost = true      // R1b: rush kill drops
+    const tgt = B.target
+    if (tgt && strafeW > 0 && d > 6) {
+      const bx = tgt.x - me.x, by = tgt.y - me.y, bl = Math.hypot(bx, by) || 1, s = mover.jink.sign
+      let mx = cmd.mx + (-by / bl) * s * strafeW, my = cmd.my + (bx / bl) * s * strafeW
+      const l = Math.hypot(mx, my) || 1; cmd.mx = mx / l; cmd.my = my / l
+    }
+    B.legKind = 'grab'
+    return true
+  }
+
+  function dropLegs() {
+    if (P.dropLife === true && dlLegs()) return
+    const d = B.dropTask
+    if (!d) { B.cmd.mx = 0; B.cmd.my = 0; return }
+    mover.moveTo(d.x, d.y, 1, 1.0)
+  }
+
+  /** take / drop: never blocked by any mode. */
+  function hands() {
+    const me = B.me, out = B.out, t = me.t
+    out.take = -1; out.drop = -1
+    let bestD = Infinity
+    for (const p of B.pickups.values()) {
+      if (p.seen < t - 1.5) continue
+      const d = Math.hypot(p.x - me.x, p.y - me.y)
+      if (d > P.takeReach || Math.abs(p.z - me.z) > P.takeDz || d >= bestD) continue
+      if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+      const w = wantPickup(p.kind)
+      if (!w) continue
+      bestD = d; out.take = p.id; out.drop = w.drop
+    }
+  }
+
+  /** D7 upgrade order (PARAMS.upgradeOrder), answered on the tick the offer appears. */
+  function pick(obs) {
+    const out = B.out, me = B.me
+    out.pick = -1
+    const of = obs.offer
+    if (!of || typeof of !== 'object' || !Array.isArray(of.choices) || of.choices.length === 0) return
+    if (of.id !== lastOfferId) { lastOfferId = of.id; if (!offerIds.has(of.id)) { offerIds.add(of.id); offersSeen++ } }
+    const sqO = B.upgOrderSq && sqOk()                                   // Fable chaos R8 upg 'laser' (SQUAD posture + hunt.firewall)
+    const order = sqO ? B.upgOrderSq : B.upgOrder && B.env !== 'FFA' && B.hunt && B.hunt.firewall() ? B.upgOrder : Array.isArray(P.upgradeOrder) ? P.upgradeOrder : []   // Fable upgFix (SQUAD posture + hunt.firewall)
+    const taken = sqO && obs.self && Array.isArray(obs.self.upgrades) ? obs.self.upgrades : null
+    let best = 0, bestScore = Infinity
+    const n = Math.min(3, of.choices.length)
+    for (let i = 0; i < n; i++) {
+      const c = of.choices[i]
+      const id = c && typeof c === 'object' && typeof c.id === 'string' ? c.id : ''
+      let s = order.indexOf(id)
+      if (taken && s >= 0) {
+        // a sequence: the (k+1)-th entry of an id once k of it are taken (the last entry when the order holds no more)
+        let k = 0
+        for (let j = 0; j < taken.length; j++) if (taken[j] === id) k++
+        for (let j = s + 1, m = 0; j < order.length && m < k; j++) if (order[j] === id) { s = j; m++ }
+      }
+      if (s < 0) s = 100
+      if ((id === 'laser_damage' || id === 'laser_charge' || id === 'laser_pierce') && !me.laser) s = 60 + s
+      if (id.startsWith('lightning') && !me.lightning) s = 60 + s
+      if (id.startsWith('mortar') && !me.mortar) s = 80 + s
+      s += i * 0.001
+      if (s < bestScore) { bestScore = s; best = i }
+    }
+    out.pick = best
+  }
+
+  return { dlLegs, update, lootLegs, dropLegs, grabLegs, hands, pick, wantPickup, reachable, pathEst }
+}

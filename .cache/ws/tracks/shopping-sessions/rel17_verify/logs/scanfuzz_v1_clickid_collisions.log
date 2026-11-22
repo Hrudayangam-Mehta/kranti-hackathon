@@ -1,0 +1,245 @@
+sf1 events=7561 clicks=2727 links=500 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf2 events=7541 clicks=2725 links=500 NCPU=1 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf3 events=7461 clicks=2579 links=500 NCPU=8 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf4 events=7529 clicks=2680 links=500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf5 events=37549 clicks=13360 links=2500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf6 events=37601 clicks=13342 links=2500 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf7 events=19969 clicks=7224 links=1333 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf8 events=7475 clicks=2701 links=500 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf9 events=19923 clicks=7274 links=1333 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf10 events=37430 clicks=13448 links=2500 NCPU=3 r17:exit=0,stdout=0,DIFFER -01 ┆ 152      ┆ 54              ┆ 277953        ┆ 165            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1237     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-01 ┆ 153      ┆ 54              ┆ 277953        ┆ 166            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1236     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r17scalar:exit=0,stdout=0,DIFFER -01 ┆ 152      ┆ 54              ┆ 277953        ┆ 165            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1237     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-01 ┆ 153      ┆ 54              ┆ 277953        ┆ 166            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1236     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r16:exit=0,stdout=0,DIFFER -01 ┆ 152      ┆ 54              ┆ 277953        ┆ 165            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1237     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-01 ┆ 153      ┆ 54              ┆ 277953        ┆ 166            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1236     ┆ 428             ┆ 2160118       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ FAIL
+sf11 events=20236 clicks=7246 links=1333 NCPU=2 r17:exit=0,stdout=0,DIFFER -02 ┆ 64       ┆ 21              ┆ 96575         ┆ 75             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 664      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-02 ┆ 65       ┆ 21              ┆ 96575         ┆ 76             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 663      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r17scalar:exit=0,stdout=0,DIFFER -02 ┆ 64       ┆ 21              ┆ 96575         ┆ 75             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 664      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-02 ┆ 65       ┆ 21              ┆ 96575         ┆ 76             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 663      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r16:exit=0,stdout=0,DIFFER -02 ┆ 64       ┆ 21              ┆ 96575         ┆ 75             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 664      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-02 ┆ 65       ┆ 21              ┆ 96575         ┆ 76             │
+│ organic     ┆ organic ┆ 2026-10-02 ┆ 663      ┆ 232             ┆ 1118503       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ FAIL
+sf12 events=19905 clicks=7218 links=1333 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf13 events=19988 clicks=7226 links=1333 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf14 events=7527 clicks=2633 links=500 NCPU=8 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf15 events=7532 clicks=2642 links=500 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf16 events=19821 clicks=7149 links=1333 NCPU=3 r17:exit=0,stdout=0,DIFFER -06 ┆ 58       ┆ 26              ┆ 138793        ┆ 66             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 660      ┆ 202             ┆ 965999        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-06 ┆ 60       ┆ 27              ┆ 141468        ┆ 68             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 658      ┆ 201             ┆ 963324        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r17scalar:exit=0,stdout=0,DIFFER -06 ┆ 58       ┆ 26              ┆ 138793        ┆ 66             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 660      ┆ 202             ┆ 965999        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-06 ┆ 60       ┆ 27              ┆ 141468        ┆ 68             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 658      ┆ 201             ┆ 963324        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r16:exit=0,stdout=0,DIFFER -06 ┆ 58       ┆ 26              ┆ 138793        ┆ 66             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 660      ┆ 202             ┆ 965999        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-06 ┆ 60       ┆ 27              ┆ 141468        ┆ 68             │
+│ organic     ┆ organic ┆ 2026-10-06 ┆ 658      ┆ 201             ┆ 963324        ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ FAIL
+sf17 events=37260 clicks=13551 links=2500 NCPU=1 r17:exit=0,stdout=0,DIFFER -01 ┆ 1209     ┆ 438             ┆ 2197588       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (3, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_3         ┆ email   ┆ 2026-10-01 ┆ 118      ┆ 37              ┆ 164284        ┆ 123            │
+│ c_3         ┆ email   ┆ 2026-10-05 ┆ 126      ┆ 49              ┆ 228330        ┆ 140            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1205     ┆ 436             ┆ 2176596       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r17scalar:exit=0,stdout=0,DIFFER -01 ┆ 1209     ┆ 438             ┆ 2197588       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (3, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_3         ┆ email   ┆ 2026-10-01 ┆ 118      ┆ 37              ┆ 164284        ┆ 123            │
+│ c_3         ┆ email   ┆ 2026-10-05 ┆ 126      ┆ 49              ┆ 228330        ┆ 140            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1205     ┆ 436             ┆ 2176596       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r16:exit=0,stdout=0,DIFFER -01 ┆ 1209     ┆ 438             ┆ 2197588       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (3, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_3         ┆ email   ┆ 2026-10-01 ┆ 118      ┆ 37              ┆ 164284        ┆ 123            │
+│ c_3         ┆ email   ┆ 2026-10-05 ┆ 126      ┆ 49              ┆ 228330        ┆ 140            │
+│ organic     ┆ organic ┆ 2026-10-01 ┆ 1205     ┆ 436             ┆ 2176596       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ FAIL
+sf18 events=7575 clicks=2682 links=500 NCPU=1 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf19 events=37553 clicks=13434 links=2500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf20 events=37711 clicks=13528 links=2500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf21 events=7488 clicks=2669 links=500 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf22 events=7561 clicks=2670 links=500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf23 events=20057 clicks=7155 links=1333 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf24 events=37637 clicks=13420 links=2500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf25 events=19932 clicks=7132 links=1333 NCPU=5 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf26 events=37725 clicks=13560 links=2500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf27 events=37692 clicks=13485 links=2500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf28 events=7439 clicks=2646 links=500 NCPU=1 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf29 events=37504 clicks=13336 links=2500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf30 events=37389 clicks=13293 links=2500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf31 events=7586 clicks=2711 links=500 NCPU=3 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf32 events=7663 clicks=2667 links=500 NCPU=8 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf33 events=37615 clicks=13685 links=2500 NCPU=2 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf34 events=37570 clicks=13367 links=2500 NCPU=8 r17:exit=0,stdout=0,MATCH r17scalar:exit=0,stdout=0,MATCH r16:exit=0,stdout=0,MATCH OK
+sf35 events=37772 clicks=13405 links=2500 NCPU=5 r17:exit=0,stdout=0,DIFFER -03 ┆ 176      ┆ 67              ┆ 319543        ┆ 186            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1259     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-03 ┆ 177      ┆ 67              ┆ 319543        ┆ 187            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1258     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r17scalar:exit=0,stdout=0,DIFFER -03 ┆ 176      ┆ 67              ┆ 319543        ┆ 186            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1259     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-03 ┆ 177      ┆ 67              ┆ 319543        ┆ 187            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1258     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ r16:exit=0,stdout=0,DIFFER -03 ┆ 176      ┆ 67              ┆ 319543        ┆ 186            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1259     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+shape: (2, 7)
+┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+│ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+│ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+│ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+│             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+│ c_2         ┆ social  ┆ 2026-10-03 ┆ 177      ┆ 67              ┆ 319543        ┆ 187            │
+│ organic     ┆ organic ┆ 2026-10-03 ┆ 1258     ┆ 434             ┆ 2223590       ┆ 0              │
+└─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+DIFFER
+ FAIL

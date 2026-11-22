@@ -1,0 +1,124 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh mauro_v15_63b88d6",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/mauro_v15_63b88d6.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 3,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 3,
+  "meanTimeAlive": 77,
+  "meanDmgDealt": 5728,
+  "meanDmgTaken": 2096,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1,
+   "gun/hunt": 1
+  },
+  "meanWallMs": 1808,
+  "wallS": 2.8
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "survivor-v15",
+   "place": 13,
+   "score": 3,
+   "kills": 3,
+   "timeAlive": 61.15,
+   "alive": false,
+   "dmgDealt": 5699,
+   "dmgTaken": 1792,
+   "cause": "laser",
+   "killedBy": 1,
+   "killRange": 72.7,
+   "killerRole": "hunt",
+   "hunters": 4,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 7,
+   "upgrades": [
+    "armor",
+    "sensors",
+    "gun_rate"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 61.15,
+   "wallMs": 1446,
+   "deadOthers": 3,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 22.1,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "survivor-v15",
+   "place": 13,
+   "score": 3,
+   "kills": 3,
+   "timeAlive": 92.85,
+   "alive": false,
+   "dmgDealt": 5757,
+   "dmgTaken": 2400,
+   "cause": "gun",
+   "killedBy": 6,
+   "killRange": 87.5,
+   "killerRole": "hunt",
+   "hunters": 4,
+   "killerName": "squad:medium",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 6,
+   "upgrades": [
+    "capacitor",
+    "gyros",
+    "gun_damage"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 92.85,
+   "wallMs": 2169,
+   "deadOthers": 3,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 68.4,
+   "meanMs": 0
+  }
+ ]
+}

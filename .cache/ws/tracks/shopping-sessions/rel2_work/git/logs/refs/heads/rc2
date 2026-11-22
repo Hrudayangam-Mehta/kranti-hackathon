@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 2638fbb34553c0fcedf2f86f203c1119ff94b20c integrator <integrator@localhost> 1795306276 +0000	commit (initial): base: rel1 10ab5ac tree
+2638fbb34553c0fcedf2f86f203c1119ff94b20c bf3cad72550c4d2fb3f6b0d3a79d91b95f897185 integrator <integrator@localhost> 1795306520 +0000	commit: step 1: scale changes (S1 R2 R1 P2 D B E C1 C2 F) = rel15
+bf3cad72550c4d2fb3f6b0d3a79d91b95f897185 4f4f1dfa8df5e27d8327a20227ca109dffda3e7d integrator <integrator@localhost> 1795306950 +0000	commit: step 2: proc c4a/c4c/c4d (product table, mapper thread), c6a/c6b (streamed parquet pages, column fills), clock laps; scale's D/B/E kept
+4f4f1dfa8df5e27d8327a20227ca109dffda3e7d 73ff39564e4eac8cf230ad6c794ea66b53367669 integrator <integrator@localhost> 1795307092 +0000	commit: step 3: layout B2 (people table holds only renamed IDs)
+73ff39564e4eac8cf230ad6c794ea66b53367669 89e6e449708093cf19068507a333b7c79d3aebb0 integrator <integrator@localhost> 1795307932 +0000	commit: step 4 (tried): parse AVX-512 kernel, doc comments stripped
+89e6e449708093cf19068507a333b7c79d3aebb0 219e4bc259372b6d0df0561693ca97b2353daa38 integrator <integrator@localhost> 1795308406 +0000	revert: Revert "step 4 (tried): parse AVX-512 kernel, doc comments stripped"
+219e4bc259372b6d0df0561693ca97b2353daa38 209be0391c205c64fd9fdfaa93060353231ab0a8 integrator <integrator@localhost> 1795308407 +0000	revert: Revert "step 3: layout B2 (people table holds only renamed IDs)"
+209be0391c205c64fd9fdfaa93060353231ab0a8 63d283354b12c5f8813e723dc0f05e380c297f7e integrator <integrator@localhost> 1795308501 +0000	commit: step 5: remove stale *.parquet in the two output folders at start (variable user file count)

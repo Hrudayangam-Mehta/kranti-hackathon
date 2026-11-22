@@ -1,0 +1,46 @@
+PASS  identity prof off vs MX_base2, table '', slot 3  ::  300 decisions, differ 0
+PASS  identity prof off vs MX_base2, table '', slot 1  ::  300 decisions, differ 0
+PASS  identity prof off vs MX_base2, table '1211111111111111', slot 3  ::  300 decisions, differ 0
+PASS  identity prof off vs MX_base2, table '1211111111111111', slot 1  ::  300 decisions, differ 0
+PASS  control: table '1211111111111111' acts on slot 1 (salt 2)  ::  differ 79
+PASS  T-F2 kit stream: env ffa, prof p26 identical to MX_base2  ::  differ 0
+PASS  T-F2 kit stream: env ffa, P26_all bundle source (table 1111111111111111 + prof p26) identical to MX_base2  ::  differ 0
+PASS  control: kit stream SQUAD-auto, prof p26 acts (differs from base)  ::  differ 222, first 0
+PASS  scene map: open standing point found  ::  97,-48
+PASS  gate: hunter at 130 m hitting us is not answered (no target, not FIGHT)  ::  p26 HOLD/roam tgt null | off FIGHT/standoff tgt 5
+PASS  gate: under 70% it hides (DISENGAGE) without answering  ::  DISENGAGE tgt null
+PASS  gate: the same hunter at 80 m is answered (target, FIGHT)  ::  FIGHT tgt 5
+PASS  after the opening: a calm mech at 200 m is attacked on sight above 35%  ::  FIGHT tgt 5 phase open
+PASS  after the opening: at 30% hp a calm mech at 200 m is not a target  ::  HOLD tgt null
+PASS  unsure phase (10 s): a calm mech at 130 m (not aiming) is not a target  ::  HOLD tgt null
+PASS  unsure phase: a mech aiming at us for 0.6 s+ becomes hostile and a target  ::  FIGHT tgt 5
+PASS  fight test: one gun hunter at 100 m -> FIGHT (ttk < ttd)  ::  ttk 6.7 ttd 91.3 hold 100
+PASS  fight test: four hostile gun + laser shooters at 100 m -> no fight, DISENGAGE (still shooting)  ::  ttk 6.7 ttd 2.5 | off FIGHT
+PASS  fight test: finishing (kill < 1.6 s) overrides the retreat latch  ::  FIGHT tgt 5
+PASS  range: hold 100 m against gun + laser hunters  ::  hold 100
+PASS  range: hold 55 m against laser + lightning  ::  hold 55
+PASS  latch: under 35% while hit -> DISENGAGE, latched  ::  DISENGAGE latch true
+PASS  latch: latched and under fire (2.5 s) -> keeps shooting back  ::  hold false fire true,true
+PASS  latch: latched and not under fire -> holds fire (gun silent, no new laser charge)  ::  hold true fire false,true
+PASS  latch: above 55% with no mech in view and no hit for 6 s -> ends  ::  latch at 6.0 s quiet true, end false
+PASS  latch: off brain differs (no hold-fire latch)  ::  off FIGHT holdFire false
+PASS  drop: below 100% a drop within 200 m beats the fight (DROP mode)  ::  p26 DROP/p26drop | off FIGHT/standoff
+PASS  drop: keeps aiming / firing on the way  ::  fired true tgt 5
+PASS  drop: one landing 20 s from now (> arrival + 3 s) is not taken  ::  FIGHT
+PASS  drop: at full health no priority drop  ::  FIGHT
+PASS  T-F2 drop scene: forced FFA identical to MX_base2  ::  ffa DISENGAGE / base DISENGAGE
+PASS  grab: laser within 45 m -> grab legs over the fight  ::  p26 LOOT/p26grab | off FIGHT/grab
+PASS  grab: not with a mech within 30 m of the item  ::  FIGHT/p26standoff
+PASS  grab: not at 25% hp  ::  DISENGAGE/hide
+PASS  loadout: never a mortar (no grab, no loot, no take)  ::  HOLD/roam
+PASS  reload: 7/12, no mech in view -> reload after 1.5 s quiet  ::  first reload at decision 0
+PASS  reload: 10/12 with a mech in view -> only after 6 s quiet  ::  p26 first reload at 60 (t+6.0 s), off at -1
+PASS  reload: 3/12 nothing in view -> at once  ::  true
+PASS  hunt: a mech seen in the last 20 s is walked to (LOOT hunt) after the target memory  ::  first hunt leg at decision 70, regain before: FIGHT/p26regain
+PASS  hunt: not at 70% hp  ::  HOLD/roam
+PASS  upgrades: laser_damage before nanites (p26 order); base takes nanites  ::  p26 pick 1, base 0
+PASS  laser rungs 85 / 68 / 30 / 12 %  ::  [0.85,0.68,0.3,0.12]
+PASS  CPU: worst decision on the kit stream with p26 < 15 ms  ::  worst 9.19 ms, mean 0.26 ms, errors 0
+PASS  kit stream with p26: no stage errors  ::  {}
+
+44/44 checks passed

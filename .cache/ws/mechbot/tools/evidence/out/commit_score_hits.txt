@@ -1,0 +1,1097 @@
+### AbhinavDasari-pennstate__fog-of-war-mech c10bf67 11-21 00:06
+economy.py: rest after looting capped at 2 s (was 8 s)
+The house squad keeps sending hunters, so holding fire for up to 8 s after a
+kill mostly gives them free time (loot+rest scored -0.06 on the board, noise).
+Looting is unchanged. New unit test pins the cap (fails at 8 s).
+
+Red team: PASS C0 H0 M0 L3 (L1 unittest for the cap and L2 comment fixed).
+Unit tests 322 OK.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 6312225 11-21 00:15
+Merge the on-demand imports and DuckDB reuse; state comparison for functions run at import; recalibrate
+Expected practice score: ~150 s, anywhere from ~125 to ~190 (board-measured so
+far: 189.5 s for e1fd283 = 170.3 s simulated + 19.2 s CPU; 765f19f not scored
+yet).
+Basis: the 240-commit benchmark generated like the organisers' sample costs
+4.34 s simulated per commit at e1fd283 (the board: 4.26). Import-time changes
+(765f19f) take about 0.9 s per commit off that; this commit turns three more
+kinds of unchecked selection into checks (a default argument whose function
+the executor tests call, a serde change, a harmless edit in a function that
+sqlglot also runs while importing), at the price of more CPU. A back-to-back
+measurement of the three commits on that benchmark is running; the next
+commit message will carry its numbers.
+Checked: 0 misses on the 30 sample commits, 216 mutants labeled with pytest
+(labels from label runs that were paused long enough for a per-test timeout
+to fire have been set aside and are being redone), 26 labeled benchmark
+commits and 121 audit patches (100 of them with a failing test).
+
+- From the other session's branch (reviewed): a patched module that the
+  coordinator never imported is imported on demand in a hot child; DuckDB is
+  kept closed until a test needs it and its recorded answers are reused after
+  any class setup that sends the pinned statements; a test that reads a
+  patched source file, or resolves the real location of its own file, gets
+  the patched text.
+- A function that sqlglot runs while it is imported (in some test's process)
+ 
+
+### DivyamBanga__buildathon 6962046 11-20 23:33
+Give a test the patched file however it reaches it; tests that read source are candidates
+Expected practice score: ~187 s, unchanged from the previous commit. This one
+is about not missing a failing test (300 s each), not about seconds. Board
+anchor: e1fd283 scored 189.5 s = 170.3 s simulated + 19.2 s CPU over 40
+commits.
+Basis: sample 94.61 s simulated, 0 misses. On 116 patches written to break the
+selector's assumptions, each with pytest verdicts, the selections now contain
+every failing test except for 4 patches whose cause lies elsewhere (a constant
+with no recorded reader, an encoding comment, a new test file, a change to
+Dialect._try_load) and is being fixed on main.
+
+Found by that audit: a one-token edit in sqlglotc/setup.py made two tests of
+tests/test_sqlglotc.py fail under pytest while the child reported them
+passing. The test runs the script with runpy from
+Path(__file__).resolve().parents[1]; in the overlay tests/ is a symlink, so
+the resolved path led to the pinned script.
+
+- runner: in a child that keeps the pinned modules, `open` and now also
+  `io.open_code` (what runpy reads through; the import system has its own
+  reference) are redirected for every patched file, not only for fixtures.
+- runner: after a clean import, os.path.realpath gives a resolved path under
+  the pinned checkout back as the same path under the overlay (pathlib
+  resolves through it), so a test that resolves its own location stays in
+  the patched tree.
+- runner: a module imported on demand is compiled from bytes, so an encoding
+  declaration counts as it does for a real import.
+- maps/
+
+### DivyamBanga__buildathon 0ee1ecf 11-20 22:48
+Import a patched module on demand when the coordinator never imported it
+Expected practice score: ~187 s on top of the previous commit (~188 s). Board
+anchor: e1fd283 scored 189.5 s = 170.3 s simulated + 19.2 s CPU over 40
+commits.
+Basis: on the sample's commits in such modules the child's CPU falls from
+0.10 to 0.02 s (6ze8), 0.17 to 0.09 s (fryt), 0.12 to 0.02 s (535z), with the
+same selections and no miss; 87 of sqlglot's 184 modules are of this kind,
+about a quarter of the practice commits. Not yet run against the labeled
+mutant sets when this was committed.
+
+- sqlglot imports most dialects only when one is first used, so once the
+  test modules are imported 26 dialect families (dialects/, parsers/,
+  generators/), 7 typing modules and serde.py have never run in the
+  coordinator. Until now any patch to them was checked with a clean import.
+- Nothing of such a module exists in the child. It now stays as it is and a
+  finder at the head of sys.meta_path serves the patched text (under the
+  module's path in the pinned tree) when a test first asks for the module:
+  what a fresh process does, whatever the patch changes in it.
+- The child checks `name not in sys.modules` itself; otherwise it reports
+  failure and the commit is checked with a clean import, as before. The same
+  check guards code swapping: a module that turns out not to be imported is
+  served on demand instead of being "swapped" with nothing to swap.
+- These children keep the ready-made executor tables and DuckDB's answers.
+  The executor result memo is off for them: what a class or module body
+  defines can 
+
+### DivyamBanga__buildathon bd5d384 11-20 22:48
+Keep DuckDB closed until a test needs it; reuse its answers after any setup that matches
+Expected practice score: ~188 s on top of 8f068a8 (~189 s). Board anchor:
+e1fd283 scored 189.5 s = 170.3 s simulated + 19.2 s CPU over 40 commits.
+Basis: 30 fixture-only commits cost 1.66 s CPU instead of 2.76 s (37 ms less
+per child that runs an optimizer test; about half the practice commits do),
+same selections. Simulated time is unchanged for such commits. Not yet run
+against the labeled mutant sets when this was committed.
+
+- runner._ProbingConnection: in a child every plain duckdb.connect() returns
+  a stand-in. While the statements it is sent are, one for one, those a
+  pinned class setup sends (maps/ducksetup.json; paths compared with the
+  checkout root marked, files the patch replaces excluded), DuckDB is not
+  opened. After the whole setup, a query with a recorded answer
+  (maps/duckdb.bin) gets it. Anything else opens the real connection, sends
+  what was held back and is passed on; after a statement that is neither
+  recognised nor a plain SELECT nothing is answered any more.
+- This is decided by what the patched code really sends, so it also holds
+  after a clean import and for a patch that touches what the executor tests'
+  setup runs, where the ready-made tables cannot be used. The executor
+  result memo stays limited to hot children, as before.
+- The optimizer tests' small DuckDB database is held back the same way.
+- runcost.json gains "answers": the executor tests with their own setup and
+  DuckDB's answers reused (12.8 s for test_execute_tpcds against 23.3 s).
+- tools
+
+### DivyamBanga__buildathon 8f068a8 11-20 21:55
+Collect garbage less often in the children
+Expected practice score: ~189 s (board-measured: e1fd283 scored 189.5 s =
+170.3 s simulated + 19.2 s CPU; this change only trims CPU, by about 5% of
+the time spent running tests, so roughly 0.5-1 s on the board).
+Basis: sample on a quiet machine 94.8 s simulated + 34.2-36.2 s CPU (was
+36.1 with the default threshold in the same session), 0 misses; 0 misses on
+183 patches labeled with real pytest runs.
+
+Note on the estimate: the earlier formula (1.175 x sample simulated + 1.586 x
+local CPU) does not hold. The practice set costs 4.26 s simulated per commit
+against 3.15 s for the sample and far less CPU per commit, so it is a
+different mix of commits; estimates are now anchored on the board result.
+
+- gc threshold (50000, 10, 10) in children: neither sqlglot nor its tests
+  depend on when a collection happens.
+- BR_SLOWDOWN: experiment switch to see what the selector decides on a
+  slower machine.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### Jiackary__buildathon_26 fd8b439 11-21 11:35
+Make economy (best score 4.06) the main bot
+main previously held v3-hammer (tagged). Plain STRATEGY=economy behaves
+identically to v4-economy 561f9c7, verified on the recorded stream.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QVeLmyNB78Rrbcp1LnVQ77
+
+### Jiackary__buildathon_26 561f9c7 11-21 10:47
+v4-economy: v1 plus cube economy
+- first 110 s: loot search radius 250 m (was 160), near-360 scan while walking
+- remember NPC drones and hunt them when healthy and no mech in sight
+- otherwise identical to v1 (best score 3.96)
+- STRATEGY=economy-ghost adds tree-crown hiding from the second circle
+  until the 70 m circle, firing only when shot at or within 45 m
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QVeLmyNB78Rrbcp1LnVQ77
+
+### JorgeN0__Mech-Royal 2c7e167 11-20 22:57
+v5: farm drones/crates for cubes, focus the wounded, FFA detector
+Bot:
+- Remember drone and crate positions and walk up to 250 m to farm them
+  for cubes (sim practice: +0.8; cubes at death 4.6 -> 6.8).
+- Target choice weights enemy HP more (focus the wounded).
+- Free-for-all detector: deaths we did not cause (>=2 before 120 s, or
+  >=4) switch to FFA_PARAMS (no farming, old targeting), since both
+  changes hurt in free-for-all. Telemetry line shows TMF when on.
+- Tactics knobs are now per bot instance (self.P).
+
+Sim:
+- Tree canopy and trunks block sight; house bots shoot back at drones.
+- Recalibrated house squad: kit example 1.43 (real 1.15), v1 3.64
+  (real 3.38).
+- Supply-drop captures and FFA-detector stats in the report.
+
+Sim results: practice v5 ~4.35 vs v4 3.94 (paired +0.4);
+FFA v5 7.61 vs v4 7.39.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### JorgeN0__Mech-Royal 6479a88 11-20 20:38
+v3: fight only threats, get a weapon early; add local simulator
+Bot:
+- Fight only threats: attackers, mechs within 50 m, mechs aimed at us or
+  closing, or nearly dead ones; no more picking fights with idle mechs.
+- Remember seen weapon pickups; 360-degree torso scans while calm;
+  boost to the first weapon; grab a weapon within 35 m mid-fight;
+  detour up to 150 m to swap for a laser.
+- Drone shooting us: kill it (2 cubes) instead of evading.
+- Preferred gun distance 100 m. Tactics knobs moved to bot.PARAMS.
+
+Simulator (sim/): engine approximating protocol.md, a 15-bot house
+squad (easy/medium/hard/expert, weakest-first hunting), parallel runner,
+per-second tracer. Calibrated: kit example 1.29 (real 1.15), v1 3.10
+(real 3.38). Sim practice, fresh seeds, n=96: v3 3.66 vs v1 2.75.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### JorgeN0__Mech-Royal 4d6cade 11-20 19:51
+v2: commit to winning fights, ambush from cover, loot wrecks
+- Retreat only below 28% HP, or below 50% when facing 2+ enemies or a
+  healthier one; close in to finish a nearly dead lone target.
+- Target tracked behind cover: stand still (silent) pre-aimed at it.
+- Wider weapon search in the first 90 s; loot wrecks whenever nobody
+  is within 110 m; no NPC/crate fights while hurt so regen can run.
+- Tighter gun fire gate (half the slew allowance).
+- tools/losdiag.py: LOS checked against real hits (8/9 agree).
+
+v1 (81fef72) practice score: 3.38.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Kalyan-Lankireddy__buildathon-sessions 2aa5f3d 11-20 21:50
+v2.5 (experiment C): pread input into huge-page buffers, huge-page allocator with a reuse pool
+Hypothesis: the scorer's extra time is page-fault cost on x86 (4 KB pages, many faults).
+- Input is read with pread() in ~64 MB pieces, each into its own 2 MB-aligned buffer, and parsed
+  right away while hot. No mmap of the input.
+- A global allocator gives every allocation of 2 MB or more a 2 MB-aligned block with
+  madvise(MADV_HUGEPAGE). Allocations under 2 MB are untouched (the 256 per-chunk shard buffers
+  are about 220 KB each, so they still use 4 KB pages).
+- Freed big blocks are kept in a pool (cap 3 GB, fixed arrays, no allocation inside the allocator)
+  and reused by later big allocations of similar size, so later stages skip page faults and zeroing.
+- Dockerfile: back to -C target-cpu=x86-64-v3 (cascadelake build B is a separate commit, 83f1afd);
+  explicit --target kept.
+
+Gates passed (this exact code): 36/36 fixtures and make check-dev MATCH through the amd64 image;
+20M seed 7 exact vs the DuckDB reference both native and through the image; stage-by-stage exact
+on seeds 2, 3, 4 (1M) and 5 (5M); timestamp cross-check vs reference ts_ms; unit tests for
+read_map (7 chunk sizes, empty/header-only/no-trailing-newline files) and the allocator.
+
+Not benchmarked locally (the Mac cannot show THP effects); the scorer is the judge.
+Memory: 20M peak 5.1 GB anon (v2.2: 4.46 GB incl. 1.8 GB mapped input). Expect about 15 GB at 60M.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### KennethLei1492__Builder-Mech-Royale d33a9d8 11-20 19:28
+Revert to 055ed67 (real score 4.52; 247ccb8 scored 3.88)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### KennethLei1492__Builder-Mech-Royale 247ccb8 11-20 19:21
+Recalibrated against real score: scan, no drone farming, safer posts, time budget
+The first real practice score (4.52) was well below the simulator (7.32): the
+simulated house bots never fired beyond ~126 m, which flattered open-ground
+sniping. Re-tuned against house bots that use lasers to 250 m, guns to 200 m and
+aim better (calibrated sim: 4.37 -> 4.63).
+
+- Torso spins to scan when no enemy is tracked (sounds no longer capture the aim)
+- No drone/crate farming: it gave away position and blocked regen
+- Sniper posts with partial sightlines instead of fully open ground
+- Per-decision time budget: skip replans/cover searches after 12-15 ms
+- Experimental peek cycle and rooftop mode behind switches (off)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Kgc3105__MAGIC-Royale e39579f 11-21 10:41
+Restore the 5.58 settings: not retreating on low health scored 5.17
+The previous commit (no retreat on low health or when out-gunned, crates
+within 100 m, cubes within 130 m) tested +0.25 in the simulator but
+scored 5.17 on the real board against 5.58 before it. src/brain.ts is
+now identical to the 5.58 commit.
+
+Lesson: the simulator undervalues falling back to cover and repairing.
+Settings that govern retreat need the real scorer as the judge.
+
+### Kgc3105__MAGIC-Royale aace465 11-21 10:30
+Stop retreating on low health; tighter crate range, wider cube range
+On 600 fresh simulated matches this scored 5.96 against 5.71 for the
+previous settings (+0.25 +/- 0.07). A milder version of the same bundle
+gave +0.23 and +0.19 on two separate sets.
+
+- In practice posture, no longer hide for low health or for being
+  out-gunned by a laser; leave hiding at 50% health. A house bot only
+  dies if we kill it, and every step toward fighting on has paid off.
+- Shoot crates only within 100 m (was 150), walk up to 130 m for loose
+  cubes (was 90).
+- tools/tune.ts: wider ranges around the settings adopted last time.
+
+### Kgc3105__MAGIC-Royale 53f6854 11-21 09:00
+Fight on harder: break off only at six hunters, never pause the laser, dodge more
+On 600 fresh simulated matches this scored 5.73 against 5.38 for the
+previous settings (+0.34 +/- 0.06), with each step in the same direction
+helping in turn.
+
+- Break off on hunter count only at six (was four).
+- With two hunters, break off below 50% health (was 65%).
+- Keep charging the laser at any health.
+- Weigh dodging incoming shots more heavily still.
+
+### LanceHuang245__mech-royale bc9a82e 11-21 03:09
+Add dodging, finish-off, cube looting, memory and a per-tick time guard
+- sidestep charging-laser lines, dodge incoming bullets and mortar landing points
+- chase and prioritise targets under 30% HP; collect cubes dropped by kills
+- remember crates and weapon pickups seen earlier and return to them
+- cut optional work after 15-30 ms per decision (hard limit is 50 ms)
+- sim: projectiles, cubes, --botfile/--hunt/--start knobs, defaults calibrated
+  so the kit example scores ~1.2 and the previous submission ~4.1 (real 1.15 / 3.71)
+  v2 4.85 vs v1 3.94 over 144 simulated matches each
+
+### MauroMiranda28__mech-royale-bot 69e3e53 11-21 01:48
+v17: mortar artillery experiment (v14 base)
+Best track score is registered (4.00, v14); remaining submissions are free
+experiments, so this one is high-variance on purpose.
+- MORTAR_MODE: take mortars (lightning > mortar > laser); with gun +
+  mortar, trade the gun for a lightning
+- Ballistic solver (72 m/s, g 22, 3 m launch offset, target lead) with
+  low arc for visible targets and high arc over buildings for hidden ones;
+  the path is checked against walls / terrain
+- Lob at tracked mechs 35-225 m away: hidden ones at any range, visible
+  ones beyond 110 m only; never when lightning is on a target under 40 m
+- Solver check vs integrated flight: 245/300 solved, median miss 1.3 m
+- Sim (mortar added to the arena): v17 7.64 vs v14 8.01
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 1c04e84 11-21 01:38
+Restore v14 (best on track: 4.00)
+v15 3.54 and v16 3.71 both scored below v14; main goes back to the exact
+v14 bot code (tag v14-best) so the final submission is the best version.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 956109f 11-21 00:44
+v13: go up to roofs for crates, cubes and loot (idea #2)
+Track: v12 3.98 (best so far).
+- ROOFS: items on roofs up to 36 m above the street count as reachable;
+  roof goals stay on the roof in the planner (no snap to the street), and
+  the existing jump-jet climbing takes us up
+- Roof-crate test (bot 45 m from a roof crate, 60 s): cube taken 18/40 vs
+  0/40 for v12. Full arena: cubes 2.8 vs 2.7, score within noise
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 7d7c9c3 11-20 23:49
+v8: push harder on cubes
+Track: v7 (active farming) 3.83, best so far, vs v6 3.46 / v1 3.54.
+- Remember cubes we saw and go back for them (up to 150 m); forget the
+  ones that vanished
+- Farm until 300 s and walk up to 260 m to remembered crates / drones
+- Supply drops from up to 260 m; contest a lone capturer when healthy;
+  skip only if 2+ mechs or a healthier one is near the drop
+- Local arena: cubes 4.7 vs 3.3 (v7) / 2.2 (v6); score 8.22 vs 7.94 / 7.59
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 98b2031 11-20 23:33
+v6: back to the v1 style, plus projectile awareness
+Track scores so far: v1 3.54 > v3 3.31 > v2 2.85 > v5 2.21 - the more the
+bot hid or held still, the worse it did (likely mortar lobs on campers).
+- Knobs set to v1 behaviour: engage under 95 m, no mid-fight hiding, no
+  pacifism, no spawn cover, no jink, 55% zone spot, v1 farming ranges
+- DODGE_SHELLS: predict where visible mortar shells land; run out of the
+  splash radius with boost
+- BULLET_ALERT: bullets about to pass within 4 m set the threat bearing so
+  the torso turns to the shooter before the hit lands
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Sharmileer__mech-royale b3067c0 11-20 19:26
+Record first official practice score and successful Docker sandbox check
+STARLIGHT scored 2.58 for receipt BB-8E16196B, above the 1.15 starter baseline. Preserve the submitted commit and record provisional rank and CI evidence. Bot and build sources are unchanged.
+
+### SuperHuyGaming__mech-royale 24a1039 11-20 21:24
+GMUNVIS-HideSpam (Bot A): early hard cover + continuous predictive fire; calibrated sim 2.79 vs v1 2.29; official check.py PASS
+
+### akshayagg18__mech-royale f0b1fb3 11-21 11:34
+ghost-v2: farm crates/drones/weapons, utility-based fights, recovery, zone-aware duels
+Root causes of ghost-v1's 2.48 (details in experiments/ROOT_CAUSE_ANALYSIS.md):
+- crates never read; drones fought only after they hit us; loot radii 26/38 m
+- combat only reactive (provoked / <50 m / weak); flat 35% retreat; no recovery state
+- combat had no zone term; gunfire sounds ignored; supply drops only within 110 m
+
+Changes (every behaviour is a flag/number in ghost_bot.CFG):
+- _farm: crates, drones, cubes, laser/lightning pickups while calm and above 55% HP
+- _choose_fight/_pref_range/_duel: kill-time based fight selection, range by loadout,
+  retreat 28% + 7% per extra enemy, recover vs flee, zone push near the rim
+- supply-drop reach 260 m, sound pre-aim, new upgrade order
+- ghost-v1 kept frozen in baseline/ghost_bot_v1.py (byte-identical to e3fbf79 ghost_bot.py)
+- tests/test_v2.py (32 decision tests), tests/arena_sim.py (squad-hunt simulator),
+  experiments/ (root-cause analysis, ledger, v1 vs v2 simulator results)
+
+Validation: official check/check.py PASS plain, 1 CPU and uid 65534 (300/300 in time,
+p99 <= 7.5 ms, max 9.2 ms); simulator v1 3.17 -> v2 3.57 mean over 4 conditions (inside noise).
+Docker build not run (no Docker daemon in the workspace).
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0182a6Uc6tnhDzrw8zEhLt2P
+
+### anthonyteti__buildathon-mech-royale a1df384 11-21 00:17
+Bot v7: stop sidestepping bullets and jinking from lasers
+- bullet dodging is off: the sidesteps kept overriding fight movement;
+  in the calibrated simulator turning it off added +0.42 and +0.80
+  practice points over 48 and 60 paired matches
+- against a charging laser, only duck into cover when cover is in reach
+  (no sideways jink; aimers track it anyway)
+- new switches: dodgeBullets, laserDodge
+
+### anthonyteti__buildathon-mech-royale 28e8744 11-20 23:58
+Bot v6: prefer the laser as second weapon
+- second-weapon order is now laser, lightning, mortar (PARAMS.weaponOrder);
+  in the simulator this added +0.10..+0.47 practice points across two house
+  squad settings and 96 paired matches each
+- new switches, off by default after neutral simulator results: exposure
+  aware fight positioning, rest-to-heal, laser engage/hold ranges,
+  lightning hold range
+- sim: loadout and supply-drop counts in results; seeds configurable in ab.sh
+
+### arnabxero__xero-mech-royale 51c8fd4 11-20 20:07
+v4.1: solo duel on, proactive lone-enemy engagement, NPC drone farming
+- solo duel (fight a lone attacker head-on) is now the default; practice A/B 3.19 vs 3.00
+- attack a lone visible enemy first when HP > 70%
+- fight drones that shoot us; farm drones for cubes when calm (t < 300 s)
+- sim: NPC drones, cubes, practice-like graded squad (squad2)
+
+### atharvatripathi2026__gtgoats_mech_royale b39f718 11-20 19:40
+Record the official 4.10 GT Goats best
+
+### brycehcmcgrath__mechfight-bot 2dc3979 11-20 22:04
+Record official 4.79 improvement and integrated charge-aware verification
+
+### brycehcmcgrath__mechfight-bot 18ae7c4 11-20 21:52
+Record official 4.75 result and promote verified quiet-off controller
+
+### brycehcmcgrath__mechfight-bot a2f8df7 11-20 21:21
+Record official 4.54 Lance result and promote verified runtime
+
+### brycehcmcgrath__mechfight-bot b22df04 11-20 21:14
+Record official finishing improvement and selected 4.10 entry
+
+### bsrikumar855-dot__Mech-Royale fe8bb4b 11-21 10:53
+feat(locomotion): tactical utility scorer with 3D cover, mortar dodge, FOV threat, and rim timing
+Single-variable experiment: ONLY locomotion changes. Combat, Economy, Arbiter and Session are
+byte-identical to 3fae0bf (score 1.90, BB-C7F0AB94).
+
+Candidates (~33-45 per tick): hold, goal steps toward the zone (with +-65/+-105 deg wall-tangent
+slides when the direct line is blocked), a loot step, and rings at 4.5/11/24 m. Every candidate is
+reachable in a straight walk on MapQuery (step-up, slope, prisms, low decks, map edge, cube-scaled
+body) or clamped to its last walkable point.
+
+Utility terms: zone (cliff outside, urgency-scaled pull to the next circle, rim plateau with a mild
+dead-centre penalty while > 5 alive), 3D cover against the top-6 tracked enemies (fov wedge /
+near-range, charging-laser x4, laser x1.4, lightning x1.8, distance falloff, super-linear crossfire,
+HP scaling, regen discipline), path-midpoint exposure, mortar impact prediction (parabola vs terrain
+and buildings), bullet corridors, spacing (mechs, drones when hurt), caution toward unseen fire,
+safe loot, silent-hold bonus, move cost, hysteresis (off during laser/mortar emergencies),
+wall-slide side commitment, and an anti-stuck tangent bias. Boost is a latched controller
+(emergency down to 8 energy; tactical start 35 / hold 18). jump stays false.
+
+Warm-up before ready: 2 -> 300 synthetic decisions so V8 optimises the scorer before the match
+(one-core p95 4.8 -> ~1.6 ms). WorldModel gains a read-only resetCount so locomotion memory resets
+with the world.
+
+Tests: 153 pass (locomotion suite rewritten, 47 te
+
+### bsrikumar855-dot__Mech-Royale 3fae0bf 11-21 10:13
+feat: Phase 1 MVP rules (economy, combat, locomotion), simple rules only
+Economy: all 22 upgrades ranked (survival/mobility first) and picked on every offer; take ONLY
+lightning into an empty slot within reach (mortar/laser skipped on purpose); LootTargets for cubes
+and wanted lightning pickups, value falling with distance.
+
+Combat: nearest/weakest visible enemy mech with clear shot LOS; drones only within 35 m and only
+when no mech is visible; linear gun lead from the real muzzle with the upgraded projectile speed;
+fire gate on the ACTUAL slewed aim (0.15 rad) with ammo/reload checks; lightning in cone/range/
+energy; proactive reload; defensive facing via threatBearing (damage > unshootable enemy > last
+seen > combat sound).
+
+Locomotion: zone safety against zoneAt(t+10) with boost only when outside the zone; kiting that
+stays inside the safe zone; short safe loot detour; stand still otherwise; wall feeler that steers
++-30/60/90/120 deg using MapQuery. No utility grid, no hysteresis, no pathfinder.
+
+131 unit tests (up from 60), including closed-form lead intercept, the 90-degree slew gate, steering
+around a real arena wall, and a worst-case perf test. Mutation-checked: 9 of 9 deliberate breakages
+of the key rules fail a test. Node 22.23.5 check.py PASS 300/300; pinned-core p99 3.5 ms.
+
+Docker build and sandboxed check.py are still unverified (no Docker on the dev machine).
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- b1b77da 11-20 23:13
+Mech Royale variant L: fight read decides run or stay, laser kit
+Run or stay now comes from the awareness picture instead of an HP line:
+the fight is played forward with everyone who has a line on us plus
+enemies that know where we are and are close enough to join, killed
+quickest first. Lose that, or win with under 15% to spare, and it runs;
+hit by someone unseen, it runs. Adds the tracker (where every enemy it
+has seen or heard is now) and the reasoner (one intent and one target,
+trigger discipline). Kit: laser + gun.
+
+Local sim, 48 practice matches (seeds 11, 23): 0.77, up from 0.29 for
+the same brain with the HP rule. check.py passes in the 1-CPU docker
+sandbox (max answer 16.6 ms).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- bbd4774 11-20 21:29
+Mech Royale variant H: assassin brain, laser + gun kit
+Replaces the single-file bot with a small agent brain: a world model
+(who sees us, chance to stay unseen, cover), seven agents (zone,
+escape, combat, loot, stealth, farm, drift) and a harness that picks
+one per decision. Strikes only from behind when the chance no one else
+notices is high or a way out exists. Run-or-stay is decided whenever
+there is a threat and locked for 3 s so the mech sticks with it.
+Kit: laser + gun ("backstab sniper"), set in params.json.
+
+Local sim, same 24 matches: 0.88 vs 0.62 for variant F (board 3.15).
+check.py passes in the docker sandbox (no network, 1 CPU, read-only).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### caioplcerda__oval-pilot 7a083cf 11-20 22:03
+feat: v2 candidate = v1 + laser rush (practice) + EV engagement (free-for-all)
+Sim: mirror FFA +0.22 vs v1 (se 0.12); practice sim 6.17 vs 5.75.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### caioplcerda__oval-pilot 5b018c7 11-20 21:04
+feat: v1 default = auto2 shy opening (free-for-all only) until 6 mechs remain
+Sim: FFA +1.31 (se 0.18) vs v0, practice unchanged (5.75 vs 5.75, n=660).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### charliescull__mech-royale-bot 2495a99 11-21 00:19
+Mech Royale variant M6: veteran brain, F-style practice mode
+Practice (house squad) plays like F: never leaves a fight, shoots on
+sight; cover, heal and reposition are off there because they cost
+points against a vision-sharing squad (1.61 vs 1.30 over 96 sim
+matches). Free-for-all keeps the veteran tactics: fight from the side
+of cover with peeks and a laser jump-shot, reset to heal, move after a
+kill. Also: keep every threat in front (flanked deaths 38% -> 6%),
+tree-aware sight, HP-first veteran kit.
+
+Sim 1.54 over 96 practice matches; check.py passes in the 1-CPU
+docker sandbox (max answer 8.1 ms).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### charliescull__mech-royale-bot 1546486 11-20 23:46
+Mech Royale variant L: agent brain with the fight read, laser kit
+Snapshot of bzells11/Builders-Hackathon @ b1b77da (board 2.15). The
+mech is a set of agents under a harness; run or stay comes from the
+fight read instead of an HP line.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### charliescull__mech-royale-bot 3b42e6a 11-20 23:46
+Mech Royale variant F: map-aware farmer with two modes
+Snapshot of the bot from bzells11/Builders-Hackathon @ dc6537e (board
+3.15, our entered final). Moved to its own repo so Mech Royale
+submissions come from this account.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### chriseco427-spec__CyprusBot 640f4dc 11-20 22:40
+Practice rush: skip contested weapons in the first 25 s; hand practice its own rush
+PRACTICE_HAS_OWN_RUSH is now true: ffa_rush covers modes 0 and 2, practice_rush covers mode 1.
+The contested check keeps a free-for-all that is briefly mistaken for practice from running
+past armed mechs. Simulator vs b83f4b1 (960 paired matches): practice +0.23 +- 0.04;
+free-for-all reference lobbies -0.07 +- 0.06, +0.02 +- 0.04, -0.04 +- 0.04.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### colton-boi__Mech-Bot 285afd7 11-20 20:00
+chore(probe): switch strategy to hide
+Test a pure stand-still-and-hide policy that only fires after being hit. survive scored 2.56 and roof 1.63 on the same seeds.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### colton-boi__Mech-Bot 501496d 11-20 19:57
+chore(probe): switch strategy to roof
+Test whether holding a rooftop keeps the bot alive longer against the hunting squad than a ground-level cover spot. Baseline: survive scored 2.56.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot f1d0f81 11-20 22:52
+B2: jink on by default; free-for-all switches off; econ/ret45/thirdp switches
+League (16-bot free-for-all sim, 120 matches each, noise +/-0.22):
+jink +0.27, sneak -0.12, patient +0.16, sneak+patient -0.15, early -0.02,
+econ -0.00, ret45 -0.05, thirdp -0.18. jink is now on in every mode;
+the automatic free-for-all switch set is empty. New switches econ,
+ret45, thirdp stay off. B0 and B1 both scored 4.75 in practice.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot d4737f6 11-20 21:54
+B0: build on LanceHuang245/mech-royale 171bc06 (MIT, attributed)
+bot.py is LanceHuang245's mech-royale at 171bc06 (MIT License,
+Copyright (c) 2026 LanceHuang245), with the strategy-switch default
+emptied: the configuration that scored 4.75 in practice. License notice
+in third_party/, credit header in bot.py, README and CHANGELOG. The
+image copies bot.py and the kit's mechfight.py (standard library only).
+Docker check: PASS.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot b8a10ff 11-20 21:25
+Sim: armed house bots (loot, lasers, lightning); calibrate against real scores
+ARMED=1 (default): house bots pick up weapons on their way and fire
+lightning and charged lasers, as the real ones do in live matches.
+Calibration (96 matches): example 0.78 (real 1.15), GPT 89ec1cd 3.33
+(real 4.08), this repo 86aaa4e 3.38 (real 3.60).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot 86aaa4e 11-20 20:19
+Detect free-for-all; third-party badly hurt mechs there
+- Deaths we did not cause (mechs - alive - own kills) mean a
+  free-for-all: house bots never kill each other in practice.
+- In a free-for-all, also target a non-hostile mech below 45% HP that
+  is losing HP to someone else (we are above 50%, <=1 hostile on us).
+- Sim: spawn separation from config (130 m, was 90 m).
+
+Practice sim: 6.07 -> 6.06 (identical in 89/96, off as intended).
+FFA sim vs experts: 12.00 -> 12.12. Docker check: PASS.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot 9c38d92 11-20 20:01
+Fight only hostile mechs; calibrated sim with upgrades and drops
+- Classify visible mechs: hostile = damaged us in the last 10 s or held
+  its aim on us ~0.5 s. Target, count "outnumbered" and pick cover only
+  against hostiles; never start fights with bystanders (house bots that
+  aren't hunting only fight back once attacked). Lightning fires only
+  when the nearest mech in its cone is ours to fight.
+- A* stops 10 ms into a decision and returns the best partial path.
+- Sim: DEFEND setting (default 1 = bystanders shoot back when attacked;
+  matched the kit example bot's real score: 1.06 sim vs 1.15 real),
+  real upgrade offers and effects, supply drops, cube heal, bot timing.
+
+Sim (DEFEND=1, upgrades+drops, seeds 200-295): 3.75 -> 5.36
+(+1.61 +/- 0.48). Docker check: PASS.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### dmclaughlin-bit__mech-bot dc5ce9b 11-21 05:25
+Build 14 scored 2.88 (BB-2897E011): keep; merge main
+
+### dmclaughlin-bit__mech-bot 2930b6b 11-21 05:16
+Build 13 scored 2.54 (BB-5573AA45): keep; merge main
+
+### dmclaughlin-bit__mech-bot 7240b91 11-21 03:15
+Log Build 5 score (2.04, inconclusive) and stage 5b A/B
+
+### georgegcal1-arch__mech-royale-bot 3be5a27 11-20 22:42
+scores: v3 = 1.81
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### georgegcal1-arch__mech-royale-bot 12d5dc0 11-20 22:36
+v3: reload partly used magazines when nothing is in view; record v1/v2 scores
+Reload whenever the magazine is not full, no enemy mech is in view and no
+target (e.g. an attacking NPC) is engaged. scores.txt: v1 starter = 1.15,
+v2 safety net + zone = 1.10.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### jackbalseca__mech-royale-bot c7efbd1 11-20 23:12
+Log v4 score (3.50), v5 (not submitted), v6 submission; record experiment protocol
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XQZ9BWr9Wuv6SvCqXbKmez
+
+### jackbalseca__mech-royale-bot bd076b6 11-20 22:20
+Log v3 score (3.81)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XQZ9BWr9Wuv6SvCqXbKmez
+
+### jmonked__monked-mech-royale 2400750 11-20 20:39
+v8: capture supply drops when hurt (v6 base, check PASS, score pending)
+Built on v6 (d1a5eb1), not v7 (2.50). Code from the v6-based candidate
+6882d2e, with the trigger changed to hurt-only: go for a drop only below 75%
+HP. Go to the nearest uncontested drop inside the next circle, timed to
+arrive as it lands; stand in the ring until captured (full HP, energy, +3
+cubes). Heal still wins. This commit restores v6's code, so v7's kill-leash
+is not included.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### koillea__mech-royale-goonies 7240c53 11-21 05:17
+v3.6: corner peek-and-burst + flanking + full-circle scanning on top of v3.5
+- Merged try-peek and try-flank (both one change on v3.5).
+- Fix: corner fighting finds a new corner when we have walked away from the stored one (it would have run
+  back to a corner 16 m away).
+- fast_scan: with nothing to face, the torso keeps turning all the way round while moving too (was a slow
+  +-80 degree sweep around the direction of travel), hurrying past walls within 8 m.
+Combined at the team's request; fall back to tag best-3.69 if it scores lower.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies 06ddf38 11-21 04:50
+v3.5: v3.4 + safe climbing (one change)
+Do not start a climb while a visible mech is within 150 m; wait in the wall's shadow, and after 12 s pick
+another spot. v3.4 (laser grab) scored 3.63, tied with v3.1's 3.69, and stays as the base.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies f2bb611 11-21 04:50
+Dossier: v3.4 scored 3.63; v3.5 = v3.4 + safe climbing
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies e3a20e7 11-21 04:38
+v3.4: v3.1 + laser grab up to 70 m (one change; v3.3's no-crate change dropped, it scored 3.04)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies 2d7c25b 11-21 04:27
+Restore v3.1 (best score, 3.69) on main
+The merged try-b/c/d/e + sim state (or v3.2 alone; the 2.96 submission at 11:23 PM ET raced the last
+merge) scored 2.96. Both include roof perching off, which looks harmful: roof versions 3.52 / 3.69 vs
+no-roof 3.21 / 2.96. main goes back to v3.1 exactly; the candidates stay on their branches and the
+simulator on the sim branch, to be tested one change at a time.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies e0aaf30 11-21 03:19
+Restore v3 exactly (scored 3.52) as the base to work from
+Tree identical to 5db062e, the commit the 3.52 submission (Fri 9:24 PM ET) built. Later versions scored
+lower: v4 2.58, A+B+C merge 2.90, v5 3.19. Resubmitting v3 unchanged also shows how much the score varies
+between runs of the same bot.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies a13a3b3 11-21 03:13
+v5: back to v3's strafing + roof positioning; avoid fights using intel; shoot only when necessary; close laser grab
+Base: v3 (best score, 3.52) + the decision-time fix. Removes the merged aim and cover-and-peek changes
+(A+B+C scored 2.90; v4's cover-first 2.58).
+- Fire discipline: shoot a mech only if it hit us in the last 4 s or is inside 40 m (90 m with 3 left);
+  drones only inside their 45 m aggro range or after they hit us; no crate shooting.
+- intel.py: enemy estimates from footsteps, boosts, jets, reloads, gunfire, beams, incoming bullets, damage.
+  Enemies within 90 m of us or our spot trigger a spot re-pick (max every 3 s) that penalises candidates
+  near them; the ring (inside the next circle, reachable before the shrink) still constrains every choice.
+  Idle, the torso faces the likeliest heard threat.
+- Close laser grab: within 40 m and clear of enemies, even from the spot; a pickup re-picks the spot.
+- tests/test_avoid.py; fight-radius test cases updated.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies f83a047 11-21 02:49
+A: v3 + decision-time fix only (fallback from v4, which scored 2.58)
+Restores v3's behaviour (best score, 3.52) and keeps only v4's speed fix: A* stops at a 2.5 ms deadline,
+perch geometry precomputed, gc.freeze() after init. Cover-first combat and the 130 m laser detour are
+removed; they will be re-tested one at a time.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies 9cd3063 11-21 02:35
+v4: cover-first combat, laser hunting, decision-time hardening
+- model._combat: against a mech never trade shots in the open. COVER (exposed or just shot: run to the
+  nearest spot the threat cannot see, inside the zone), COVERED (reload, laser cooldown, regen, face it),
+  PEEK (step out to the nearest point that sees the target, shoot, duck back when hit / dry / fired / 2.2 s).
+  Unseen shooters are placed 100 m out along the damage bearing. Being shot outranks the zone below 60 HP/s.
+- Lasers: detour up to 130 m for one.
+- Speed: A* stops at a 2.5 ms wall-clock deadline (one 2500-node step took ~15 ms); perch geometry
+  precomputed (spot scoring 11 ms -> 1.8 ms); gc.freeze() after init. Replay max 7.8 ms.
+- tests/test_combat.py; evasion tests run with cover_first off.
+- Dossier: v1 3.21, v3 3.52 (wait 143 ms).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### kyoto-max__Mech_Royale 0ec8628 11-21 10:18
+v12: switch the entrypoint to pilot.py (new controller, unmodified)
+v11 (v4 with only the RNG seed changed) scored 3.71 vs v4 3.98: a
+behaviour-neutral reshuffle moves the score ~0.25, so tweak-by-tweak
+tuning of the v4 line can't clear the ~4.3 top-32 cutoff.
+New controller in pilot.py, as published, as a baseline before adding
+our farming run. Our own bot.py (v4) stays in the repo, unused.
+License notice for pilot.py in THIRD_PARTY_LICENSES.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 8b6a735 11-21 10:10
+v11: v4 with only the strafe RNG seed changed (reshuffle-noise test)
+v10 (lightning-first upgrades) scored 3.69 < v4 3.98, reverted.
+v8 showed identical code reproduces (3.96 -> 3.98), but any change
+reshuffles every match. This one-line, behaviour-neutral change measures
+how far that reshuffle alone moves the score, i.e. whether v5-v10
+(3.69-3.88) were really worse than v4 or v4 was a lucky draw.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 5a971de 11-21 10:07
+v10: v4 + lightning-first upgrade order (v9 loadout reverted)
+v9 (keep gun, gun + laser like astra-finalist) scored 3.77 < v4 3.98:
+our bot does better with v4's lightning + laser. v4 still used v1's
+gun-leaning upgrade order; now: plating, armor, lightning_efficiency,
+lightning_range, nanites, capacitor, laser_damage, reactor, then the rest.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale e864cbe 11-21 08:48
+v7: v4 + heal between fights (v6 drops reverted)
+v6 (aggressive supply drops) scored 3.75 < v4 3.96: back to v4. So far
+every change that added travel or time in the open lost points.
+New, no extra travel: below 60% HP with no enemy in sight, stop seeking
+and farming; move to the most wall-covered ground cell within ~24 m,
+away from recent damage bearings, and wait for regen until 90% HP or
+an enemy shows up.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 1921375 11-21 08:43
+v6: v4 + go for supply drops (v5 farm limits reverted)
+v5 (farm to 270 s / 21 cubes) scored 3.83 < v4 3.96: back to 200 s /
+10 cubes. New: a supply drop (3 cubes + full HP and energy) is worth
+the trip: up to 350 m (was 170), boost when > 80 m away, skip only when
+2+ mechs are near it (was any), and contest a drop someone else holds
+when we're above 60% HP.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 2ef45b8 11-21 08:39
+v5: farm longer and past 10 cubes (v4 scored 3.96)
+The farming run in v4 lifted the score from 3.69 to 3.96. Keep farming
+until 270 s or 21 cubes (was 200 s / 10): stats cap at 10 cubes, but
+upgrade offers continue at 15 and 21 (plating, armor, nanites).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 5d63434 11-21 07:47
+v4: v2 + early farming run for cubes (v3 focus reverted)
+v3 (focus weakest + finish) scored 3.6 < v2 3.69, so back to v2.
+New: until 200 s or 10 cubes (and HP >= 50%), go farm instead of
+seeking: remember every drone (2 cubes, leashed to home) and ground
+crate (1 cube) seen, walk to 60 m / 25 m of the nearest inside the zone
+and let the existing farm logic shoot it, then pick up the cubes; with
+nothing known, explore the nearest unvisited 100 m grid point of the
+zone. Each cube is +4% max HP and damage and unlocks upgrades.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 79fe56c 11-21 07:44
+v3: focus the weakest target and finish kills
+On top of v2 (3.69). Score ~ house bots that die before us, which is
+mostly our kills, so:
+- target choice weights HP far more (-0.6*dist - 220*hp_frac, was
+  -dist - 80*hp_frac) and sticks to the current target (+90 for 4 s)
+- a target under 30% HP is never retreated from: close to 30 m and
+  boost after it
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 2e0cc64 11-21 07:37
+Back to v1 (3.6) + seek: hunt for mechs instead of holding
+Restore bot.py/world.py/combat.py/Dockerfile exactly as in the v1
+commit (bec99fe, best real score 3.6), plus one change: when nothing
+is in sight and the zone allows, head for the last-seen mech (30 s),
+else fresh fight/footstep sounds, else the next circle's center.
+Real results so far say passive play loses (ghost 2.67, ambush 2.81,
+phantom 2.96); this tests whether more contact adds kills.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 571c246 11-21 07:28
+Ambush: let hunters walk into range; add a calibrated local arena
+tools/arena.py simulates practice (us vs a 15-bot squad that shares
+vision, hunts weakest-first, adds a hunter per kill, and turns any bot
+we hit into a hunter). With house-bot aim noise x1.6 and idle bots
+passive, it reproduces the real ordering ghost < phantom < survivor.
+
+On 96 shared seeds: survivor 2.65, duelist 2.91, ambush 3.33.
+Ambush = duelist, but while a hunter is farther than 50 m we hold the
+lowest-exposure cover nearby, facing it, instead of advancing.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 903e9b2 11-21 06:41
+Duelist: practice score ~ kills vs a 15-bot squad, so win 1-on-1s
+Rules page: practice is us vs 15 house bots that share vision, never
+fight each other, and hunt us weakest-first. House bots only die to us,
+drones or the zone, so placement ~ our kill count (ghost 2.67, phantom
+2.96 hid and killed little; survivor fought and got ~3.5).
+- engage hunters only: attackers, mechs closing on us or aiming at us,
+  anything within 45 m, and mechs under 50% HP; leave idle (maybe
+  expert) bots alone
+- never back off at range; under 72% HP after a fight, break line of
+  sight to a low-exposure cell (exposure map) away from the threat and
+  regenerate
+- farm drones/crates, take drops; lightning preferred; combat upgrades
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### kyoto-max__Mech_Royale 463b269 11-21 05:45
+Submit "survivor": v1 behaviour plus looser fire, drone response, crash guard
+Ghost scored 2.67 vs v1 3.6: hiding hurt. Re-measure the v1 direction
+with this round's fixes.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 0bdf2b0 11-20 22:50
+v18a: split the B18 bundle into flags (Th3r0n measured a similar bundle at -0.66 on the board). v18a = v17 + STANDOFF (gun-only 85 m) + FINISH (<30% HP). FIRE_ANY off, MIDCUBE off (measured harmful)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 290f731 11-20 22:21
+v16 (not yet submitted): FAST=1. Full walk speed in practice (sneak only once FFA is detected; two teams measured slow walking at -0.2 to -0.25 on the practice board); stuck detector ignores ticks while our laser charges (half speed)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 8b49a31 11-20 21:39
+v11 experiment: HUNT=1 practice hunter posture (DUEL off). Hypothesis: aggressive long-range hunting beats v10's passive posture (2.40) in practice
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale e189b97 11-20 21:11
+v9: Wolverines TTUN v7 (e8cfba4), the commit behind their 5.19; their v9 scored 3.56 for us
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 587504c 11-20 21:07
+v8: image runs the Wolverines' MIT TypeScript bot (varchaskukreja/TTUN@edf5776, 5.19 practice) to secure top-32; Rust BingBU fork kept in Dockerfile.rust (scored 3.88)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale f5a088e 11-20 20:44
+Hunt mode (HUNT=1, off): practice-style long-range fights with regen fallback and FFA detection, after BingBU's public design; sim SIM_CAL=1 range-limited house aim; tools/live.py play-server runner adapted from jklein07 (MIT). Sim (200 seeds, CAL=1): v6 4.75 vs hunt 3.33, so off by default
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### niranjankumarnk__mech-royale d308a0c 11-20 21:45
+Experiment F: free-for-all package and sturdier navigation on top of E
+Practice fighting, looting and upgrade order are experiment E's. Roof
+play (experiment R, 2.40) is switched off.
+
+Free-for-all side:
+- recognise a free-for-all within seconds: one death we did not cause in
+  the first 30 s (two later), or two of three softer signs
+- then stay out of sight of every known mech, run to the nearest cover
+  by walking distance when seen, loot only where nobody is looking,
+  fight only with a clear advantage or a pursuer that will not let go
+- behave that careful way for the first 20 s of every match
+
+Navigation:
+- walkability checked metre by metre on the terrain grid
+- jump and jet over what holds the mech up (pressed against something,
+  or 3 s without progress): gets it out of the stadium bowl
+
+Behaviour switches are now a runtime Policy; the simulator can run
+policies against each other and replay recorded matches as ghosts.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### nshuai808__mech-royale 3c42f4f 11-20 20:28
+Bot v2 (hide from 2+, fight only the hunter), local simulator, fuzz test
+- tools/sim.py: crude offline sim (real map + zone, gun fights, 15-bot
+  hunting squad that sends the weakest first); our bot runs over the real
+  protocol; prints a score like the scorer's; --record writes replays
+- bot.py v2: remember enemies 12 s; evade when 2+ enemies can see us;
+  only fight targets < 130 m or shooting us; hide when seen; commit to a
+  zone run once started; wider cover search
+- tools/fuzz.py: generated observations for every weapon/loot/offer path
+- CLAUDE.md/README: practice-scoring insight, sim results, next steps
+
+Sim (12 matches): starter ~0.9-1.1, v2 2.00 on two seed sets.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UqfrDU5LBwYTiTqWjvRtz4
+
+### nullat0m7__mech-royale 3a7229f 11-20 21:58
+feat(bot): keep gun fights at 100 m
+dropSlack 30 scored 4.38 < 4.46, reverted. Long range
+never tested without idleRegen; 100 m adds dodge time and
+stays outside lightning range.
+
+### nullat0m7__mech-royale 944ca5c 11-20 21:49
+feat(bot): chase landed drops within 300 m
+dropMaxDist 300 scored 4.46, new best. lands_in is 0 once
+a drop lands, so slack 6 s capped landed drops at ~70 m.
+
+### nullat0m7__mech-royale 7a3a25a 11-20 21:23
+feat(bot): chase supply drops out to 300 m
+Crates/cubes to 140 m scored 4.35 < 4.44, reverted. Drops
+give 3 cubes plus full HP; reaching them is movement, not
+hiding.
+
+### nullat0m7__mech-royale 5770340 11-20 21:15
+docs: add PATTERNS.md score analysis
+idleRegen was in both 0.45 losses, so long range is
+confounded; small deltas sit inside re-roll noise.
+
+### nullat0m7__mech-royale aeb2484 11-20 21:01
+feat(bot): farm crates and cubes out to 140 m
+reengage 0.65 alone scored 4.40 < 4.44, reverted. farmHp
+pair showed less farming costs ~0.09; crates give cubes and
+never shoot back.
+
+### nullat0m7__mech-royale 926e5b7 11-20 20:44
+revert(bot): farmHp back to 0.6; log 4.31
+Pair reengage 0.65 + farmHp 0.85 scored 4.31 < 4.44.
+Less farming is the passive half, likelier loser; test
+reengage 0.65 alone.
+
+### nullat0m7__mech-royale fe134fc 11-20 20:18
+feat(bot): reengage at 65% HP; log 4.00
+Tree cover + idle regen scored 4.00 < 4.44, so both off.
+Regen runs while roaming too; standing still to 85% only
+wastes time while hunters gather.
+
+### nullat0m7__mech-royale f89def7 11-20 20:03
+revert(bot): back to 4.44 behaviour; add tree sight
+Submission 2 (long range) scored 3.98 vs 4.44 though the sim said +2.9.
+Ship only what real scores show. Trees now block sight in the sim.
+
+### nullat0m7__mech-royale d0a5be5 11-20 19:52
+feat(bot): fight at long range, back off earlier
+Our aim is precise and house aim is noisy, so range favours us. Sim
+calibrated to the 4.44 real score: 4.76 -> 6.76 over 192 matches.
+
+### nullat0m7__mech-royale 0553231 11-20 19:46
+test(sim): calibrate house squad to practice 4.44
+Real board: example 1.15, our first build 4.44. One hunter per kill and
+sharper aim gives 0.96 and 4.90 in the sim.
+
+### nullat0m7__mech-royale e456f6a 11-20 19:25
+feat(sim): local match simulator and house squad
+Bug-finding and A/B loop between practice submissions. Kit example scores
+0.98 here vs 1.15 real, so the squad model is roughly calibrated.
+
+### ourux__MechRoyale 7858b38 11-21 04:50
+r140: v4 play (no hiding) at 140 m preferred range
+Real board: hide scored 2.58, so practice needs kills; back to v4 engagement.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WDWGU4Q5pvR5MXJJvLC9dK
+
+### ourux__MechRoyale 1a96803 11-21 04:30
+v4s1: v4 play (practice-engage and weapon-hunt off) with SEED_SALT=1
+v5 scored 4.15 on the real board vs v4 4.33; the practice sim overrated it.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WDWGU4Q5pvR5MXJJvLC9dK
+
+### ourux__MechRoyale 39fbe4e 11-21 04:27
+v5: in practice (no FFA detected) fight every visible hunter; hunt a second weapon when slot 1 is empty
+Practice sim (150 matches each): v5 5.96 vs v4 4.76 (+1.2, ~3 SE)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WDWGU4Q5pvR5MXJJvLC9dK
+
+### ourux__MechRoyale 2d700d7 11-21 00:28
+v4: fight at 110 m preferred range, 3 m aim tolerance
+FFA sim (200 matches, with drones/crates): v4 8.68 vs v3 7.97 (+0.71, ~3 SE)
+Practice sim (60 matches, calibrated house squad): v4 5.15, v3 4.47, v2 3.98
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WDWGU4Q5pvR5MXJJvLC9dK
+
+### ourux__MechRoyale 22e3c71 11-21 00:19
+sim/practice: calibrated house skill (v2 4.04 sim vs 4.04 real), env overrides
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WDWGU4Q5pvR5MXJJvLC9dK
+
+### prakash-218__buildathon-mech f3e0fa0 11-20 23:03
+v6: copy the #1 bot - 360 scan while travelling, duel cover
+- 360 scan: with nothing to aim at, keep the torso turning a full circle
+  while moving, so threats are seen early (seen on the leaderboard #1).
+- Duel cover: when the gun is reloading and the laser isn't ready, duck
+  behind cover within ~13 m, charge the laser there, then return to the
+  exact duel spot (max 5 s).
+Simulator: a tie with v5 (-0.02 +/- 0.46); this is a real-board test.
+
+Also: skip rooftop precompute when roofs are off (faster startup), and
+more experiment switches (loot mid-fight, drop priority, laser-first,
+rush-any, two specials), all off by default.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### prakash-218__buildathon-mech 4983df2 11-20 19:12
+v4: back to v1 fighting, retreat only when hopeless, travel further for a laser
+v2 (more retreat) scored 3.85 and v3 (hide/peek) 3.27 vs v1 3.98,
+so this goes the aggressive way from the v1 base.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### skandra08__robo-fight 156b8d8 11-20 22:51
+try/zone-sheep — silent deep next-zone, heal hard, fight only when shot
+Placement-first playbook: never climb, never boost in-zone, no chase, no
+initiated fights. Score is mean(16-place); quiet regen + deep next-circle
+is the simplest path past roof-all ~2.29 toward early ~4.5 scores.
+
+Co-authored-by: Sameer Kandra <skandra@andrew.cmu.edu>
+
+### swan28pande__oval-tools 10597f8 11-20 23:22
+Restore the bot that scored 4.21
+Later tuning (130 m range, faster jinks, heal to 95%) scored 3.94 and
+3.62 in practice. Return bot.py and navmap.py to 791326a; the sim
+tooling stays.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### swan28pande__oval-tools 87d5176 11-20 23:19
+Back to 85 m preferred range; stay outside enemy lightning range
+The 130 m range scored 3.94 in practice vs 4.21 before. Keep the faster
+jinks and heal-to-95% rule, return the default gun range to 85 m, and
+hold at least 75 m from enemies carrying lightning when we have none.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+

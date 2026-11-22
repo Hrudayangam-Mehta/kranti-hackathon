@@ -1,0 +1,186 @@
+commit a4d390a3f01fc0eefec3e8813f1334e0b88dd5a7
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 03:01:58 2026 +0000
+
+    step 2: io1 allocation as merged in rel17 (reservation + MADV_POPULATE_WRITE + mallopt + heap warm, people table from the reservation; F2 bucket/general/click/p2 sinks allocate through the same Arena so they come from the reservation, side records stay on the heap) (binary ed17af14)
+
+diff --git a/src/fast/bucket.rs b/src/fast/bucket.rs
+index 762af5f..114587d 100644
+--- a/src/fast/bucket.rs
++++ b/src/fast/bucket.rs
+@@ -910,6 +910,7 @@ pub(super) fn run_f2(
+             let user_dir = &user_dir;
+             let campaign_dir = &campaign_dir;
+             scope.spawn(move || {
++                warm_heap();
+                 let mut arena = Arena::new();
+                 let mut scratch = Scratch::new();
+                 let mut buckets: Sink<FRec> = Sink::new(f2.buckets, bucket_block);
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 706616d..cac6744 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -28,6 +28,8 @@ use ts::Calendar;
+ 
+ const WEEK_MS: i64 = 7 * DAY_MS;
+ const FLUSH_ROWS: usize = 1 << 16;
++const HEAP_PIECE: usize = 7 << 19;
++const HEAP_WARM: usize = 6;
+ const GAP_MS: u32 = 30 * 60 * 1000;
+ const INVALID: u32 = u32::MAX;
+ const H1: u64 = 0x9e37_79b9_7f4a_7c15;
+@@ -169,6 +171,12 @@ fn populate(file: &'static [u8], s: usize, e: usize) {
+     unsafe { libc::madvise(from as *mut libc::c_void, to - from, 22) };
+ }
+ 
++fn warm_heap() {
++    let warm: Vec<Vec<u8>> = (0..HEAP_WARM).map(|_| Vec::with_capacity(HEAP_PIECE)).collect();
++    std::hint::black_box(warm.as_ptr());
++    drop(warm);
++}
++
+ fn line_range(file: &'static [u8], s: usize, e: usize) -> &'static [u8] {
+     populate(file, s, e);
+     let begin = next_line(file, s.saturating_sub(1));
+@@ -238,6 +246,10 @@ fn choose_decoder(event_files: &[&'static [u8]], link_files: &[&'static [u8]], e
+ pub fn run(config: &Config) -> Result<Outcome> {
+     let started = Instant::now();
+     let lap = |name: &str| eprintln!("{name:<8} {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
++    unsafe {
++        libc::mallopt(libc::M_MMAP_THRESHOLD, 4 << 20);
++        libc::mallopt(libc::M_TRIM_THRESHOLD, i32::MAX);
++    }
+     let data = config.data_dir;
+     let manifest = fs::read(data.join("manifest.json")).map_err(|e| format!("manifest.json: {e}"))?;
+     let window = Window::from_manifest(&manifest)?;
+@@ -310,6 +322,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     let event_bytes: usize = event_files.iter().map(|f| f.len()).sum();
+     let click_bytes: usize = click_files.iter().map(|f| f.len()).sum();
+     let threads = config.threads.max(1);
++    sink::reserve(event_bytes + click_bytes + threads * (160 << 20) + (512 << 20));
+     let target = ((event_bytes + click_bytes) / (threads * 24)).clamp(64 << 10, 4 << 20);
+     let mut event_chunks = Vec::new();
+     chunks(&event_files, target, &mut event_chunks);
+@@ -428,6 +441,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             let failure = &failure;
+             let categories = &categories;
+             scope.spawn(move || {
++                warm_heap();
+                 let mut arena = Arena::new();
+                 let mut scratch = Scratch::new();
+                 let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, ctx.p1_block);
+diff --git a/src/fast/people.rs b/src/fast/people.rs
+index 5b09898..888afc1 100644
+--- a/src/fast/people.rs
++++ b/src/fast/people.rs
+@@ -34,7 +34,7 @@ impl People {
+ 
+     pub fn build(pairs: &[(u64, u64)]) -> People {
+         let size = (pairs.len() * 3).next_power_of_two().max(64);
+-        let memory = super::sink::map_anonymous(size * 16);
++        let memory = super::sink::region(size * 16);
+         let mut people = People {
+             shift: 64 - size.trailing_zeros(),
+             mask: size - 1,
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index 7a2afe1..a36acd4 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -1,17 +1,56 @@
+ use std::marker::PhantomData;
+ use std::ptr;
++use std::sync::atomic::{AtomicUsize, Ordering};
+ 
+ const REGION: usize = 64 << 20;
++const HUGE: usize = 2 << 20;
++
++static RESERVED_NEXT: AtomicUsize = AtomicUsize::new(0);
++static RESERVED_END: AtomicUsize = AtomicUsize::new(0);
+ 
+ pub struct Arena {
+     next: *mut u8,
+     end: *mut u8,
++    ready: *mut u8,
+     free: Vec<*mut u8>,
+     free_size: usize,
+ }
+ 
+ unsafe impl Send for Arena {}
+ 
++pub fn reserve(bytes: usize) {
++    let bytes = bytes.div_ceil(HUGE) * HUGE;
++    unsafe {
++        let p = libc::mmap(
++            ptr::null_mut(),
++            bytes + HUGE,
++            libc::PROT_READ | libc::PROT_WRITE,
++            libc::MAP_PRIVATE | libc::MAP_ANONYMOUS | libc::MAP_NORESERVE,
++            -1,
++            0,
++        );
++        if p == libc::MAP_FAILED {
++            return;
++        }
++        let start = (p as usize).div_ceil(HUGE) * HUGE;
++        libc::madvise(start as *mut libc::c_void, bytes, libc::MADV_HUGEPAGE);
++        RESERVED_NEXT.store(start, Ordering::Relaxed);
++        RESERVED_END.store(start + bytes, Ordering::Release);
++    }
++}
++
++pub fn region(bytes: usize) -> *mut u8 {
++    let bytes = bytes.div_ceil(HUGE) * HUGE;
++    let end = RESERVED_END.load(Ordering::Acquire);
++    if end != 0 {
++        let at = RESERVED_NEXT.fetch_add(bytes, Ordering::Relaxed);
++        if at <= end && end - at >= bytes {
++            return at as *mut u8;
++        }
++    }
++    map_anonymous(bytes)
++}
++
+ pub fn map_anonymous(bytes: usize) -> *mut u8 {
+     unsafe {
+         let p = libc::mmap(
+@@ -36,6 +75,7 @@ impl Arena {
+         Arena {
+             next: ptr::null_mut(),
+             end: ptr::null_mut(),
++            ready: ptr::null_mut(),
+             free: Vec::new(),
+             free_size: 0,
+         }
+@@ -65,14 +105,30 @@ impl Arena {
+             }
+         }
+         if (self.end as usize) - (self.next as usize) < bytes {
+-            let size = REGION.max(bytes);
+-            self.next = map_anonymous(size);
++            let size = REGION.max(bytes).div_ceil(HUGE) * HUGE;
++            self.next = region(size);
+             self.end = unsafe { self.next.add(size) };
++            self.ready = self.next;
+         }
+         let p = self.next;
+         self.next = unsafe { self.next.add(bytes) };
++        if self.next > self.ready {
++            self.prepare();
++        }
+         p
+     }
++
++    #[cold]
++    #[inline(never)]
++    fn prepare(&mut self) {
++        let want = (self.next as usize).div_ceil(HUGE) * HUGE;
++        let upto = want.min(self.end as usize);
++        let from = self.ready as usize;
++        if upto > from {
++            unsafe { libc::madvise(from as *mut libc::c_void, upto - from, 23) };
++        }
++        self.ready = upto as *mut u8;
++    }
+ }
+ 
+ #[repr(C, align(64))]

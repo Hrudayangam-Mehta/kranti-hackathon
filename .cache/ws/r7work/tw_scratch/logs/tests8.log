@@ -1,0 +1,15 @@
+tw8 rc=1 5s :: 14/15 TW checks passed
+tf2 rc=0 2s :: 14/14 T-F2 checks passed
+anchors7 rc=0 0s :: 21/21 anchor checks passed
+test_rb7 rc=0 5s :: 6/6 RB checks passed
+test_io7 rc=0 0s :: 9/9 IO checks passed
+test_aggr7 rc=0 3s :: 14/14 aggr / healDoc checks passed
+test_lx7 rc=0 0s :: 7/7 LX / LC checks passed
+test_fin7 rc=0 0s :: 6/6 FIN checks passed
+test_iso7 rc=0 2s :: 5/5 ISO checks passed
+test_lg7 rc=0 1s :: 10/10 LG checks passed
+test_world rc=1 47s :: 37/39 checks passed in 47.5 s  FAILED: D3 findPath steady state: p50 < 3 ms and worst case bounded ; D1 init: World.loadSync + new Nav < 3 s (Nav < 1.5 s)
+test_brain rc=1 35s :: 105/109 checks passed  FAILED: stream replay (map): decision time mean<=4 p99<=15 max<=25 ms | stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms 
+test_counters rc=0 9s :: 15/15 passed
+test_requests rc=1 14s :: 10/12 checks passed  FAILED: fuzz: 3000 x 2 rich perturbed observations (crates hit by others, own beams, rear hits, deaths, late zones, FFA) never throw, valid
+TESTS8_DONE

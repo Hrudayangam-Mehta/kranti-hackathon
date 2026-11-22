@@ -1,0 +1,11 @@
+PASS  T-IO4 io all: trigger held at reload 0.05 and 0.10, not at 0.15  ::  {"v4_0.05":false,"v4_0.1":false,"v4_0.15":false,"all_0.05":true,"all_0.1":true,"all_0.15":false}
+PASS  T-IO4 io v4: no trigger while the reload read-out is above 0 (V4)  ::  {"v4_0.05":false,"v4_0.1":false,"v4_0.15":false,"all_0.05":true,"all_0.1":true,"all_0.15":false}
+PASS  T-IO1 io all leads a 11.7 m/s crosser at 120 m half a tick less than v4  ::  yaw v4 0.11201, all 0.10959, lateral difference -0.291 m (half a tick x 11.7 m/s = 0.29 m)
+PASS  T-IO7 fire-stage exception at charge 0.40: laser trigger kept, previous aim kept  ::  held before true, errors +1 ({"fire":1}), after: fire [false,true], aim 0.0011,-0.0192 vs 0.0011,-0.0192
+PASS  T-IO7 no charge: the exception releases everything as before  ::  fire [false,false]
+PASS  T-IO8 kill and damage of a skipped observation reach the brain  ::  ourKills 5, dmgIn +45, foreignDeaths 0, events 2
+PASS  T-IO8 sound ages grow by the skipped time (0.1 s per decision)  ::  gun 0.25, laser 0.20
+PASS  T-IO8 control: the newest observation alone loses the kill (foreign death 1)  ::  ourKills , foreignDeaths 1
+PASS  T-IO8 cap 64 keeps the newest events  ::  64 events, first 6, last 109
+
+9/9 IO checks passed

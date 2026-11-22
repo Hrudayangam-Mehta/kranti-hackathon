@@ -1,0 +1,43 @@
+trace m setup:reference 17.422
+trace m setup:map 18.567
+trace m setup:chunks 18.597
+lane F on: user key 0x2e3f48c523, person cap 1847094, 25.2 ms
+trace m setup:decoder 43.863
+setup        44.9 ms
+trace m setup:dirs 44.989
+links    split and merged in 1103.4 ms; lane F 873116 lines, general 21656 lines, odd persons 3630
+links      1123.6 ms on one thread
+dedup     13707.6 ms
+people    17859.3 ms
+surviving events 19563061, user_daily rows 2242393
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518
+lane F winners 19371006, lane G share 0.98%
+event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+write     17859.5 ms
+trace t1 events 56.076 9378.711 9175.112 243
+trace t1 clicks 9378.966 10813.475 1413.622 44
+trace t1 wait_events 10813.478 10813.478 0.000 1
+trace t1 unmap 342.436 10712.767 164.413 99
+trace t1 dedup 10813.478 13707.427 2893.352 2105
+trace t1 bar_dedup 13707.579 13707.605 0.026 1
+trace t1 order 13707.605 13707.996 0.391 1
+trace t1 people 13708.033 17839.828 3173.164 1683
+trace t1 user_write 14374.994 17839.547 958.243 14
+trace t1 campaign 17839.829 17841.471 1.642 2
+trace t1 release 17841.471 17843.182 1.711 1
+trace t0 links 45.706 1169.704 1123.997 1
+trace t0 events 1169.704 9381.794 8072.036 214
+trace t0 clicks 9382.553 10815.926 1367.157 41
+trace t0 wait_events 10816.165 10816.165 0.000 1
+trace t0 unmap 1349.384 10816.163 154.828 76
+trace t0 dedup 10816.166 13700.749 2883.941 1991
+trace t0 bar_dedup 13700.840 13711.301 10.461 1
+trace t0 order 13711.301 13711.467 0.166 1
+trace t0 people 13711.492 17834.908 3052.280 2415
+trace t0 user_write 14212.200 17818.610 1070.684 20
+trace t0 last_write 17834.908 17835.290 0.382 1
+trace t0 wait_jobs 17835.291 17843.225 7.934 1
+trace t0 release 17843.225 17844.450 1.224 1
+trace m clock start 1795311859.171094 exit 1795311877.030906 at 17859.812
+epoch popen 1795311859.159283 reaped 1795311877.066447
+exit 0 stdout_bytes 0 wall 17.907 cum_user 4.73 cum_sys 1.60 maxrss_kb 985992

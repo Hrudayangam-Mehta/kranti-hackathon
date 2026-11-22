@@ -1,0 +1,42 @@
+[b3] noclicks_header: sv_b3_noclicks_header: MATCH
+  f2n2 [f2 n2]: MATCH 0.76s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n8 [f2 n8]: MATCH 0.16s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n16 [f2 n16]: MATCH 0.23s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n32 [f2 n32]: MATCH 0.29s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.31s | F on | B on ncap 619648/128 | multi 1193p/2673e/96119ev | G 1.86% side 2938 gen 1
+  f1n2 [f1 n2]: MATCH 0.17s | F on | G 1.86%
+[b3] noclicks_dir: sv_b3_noclicks_dir: MATCH
+  f2n2 [f2 n2]: MATCH 0.28s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n8 [f2 n8]: MATCH 0.13s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n16 [f2 n16]: MATCH 0.54s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n32 [f2 n32]: MATCH 0.28s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.31s | F on | B on ncap 619648/128 | multi 1193p/2673e/96119ev | G 1.86% side 2938 gen 1
+  f1n2 [f1 n2]: MATCH 0.30s | F on | G 1.86%
+[b3] sample_only: sv_b3_sample_only: MATCH
+  f2n2 [f2 n2]: MATCH 0.18s | lane F off: no key candidate passed | G 100.00%
+  f2n8 [f2 n8]: MATCH 0.35s | lane F off: no key candidate passed | G 100.00%
+  f2n16 [f2 n16]: MATCH 0.55s | lane F off: no key candidate passed | G 100.00%
+  f2n32 [f2 n32]: MATCH 0.15s | lane F off: no key candidate passed | G 100.00%
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.43s | lane F off: no key candidate passed | G 100.00%
+  f1n2 [f1 n2]: MATCH 0.23s | lane F off: no key candidate passed | G 100.00%
+[b3] pad_cap: sv_b3_pad_cap: MATCH
+  f2n2 [f2 n2]: MATCH 0.38s | F on | B on ncap 1703936/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n8 [f2 n8]: MATCH 0.21s | F on | B on ncap 1703936/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n16 [f2 n16]: MATCH 0.38s | F on | B on ncap 1703936/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n32 [f2 n32]: MATCH 0.36s | F on | B on ncap 1703936/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.41s | F on | B on ncap 1686272/128 | multi 1193p/2673e/96119ev | G 1.86% side 2938 gen 1
+  f1n2 [f1 n2]: MATCH 0.51s | F on | G 1.86%
+[b3] tiny_files: sv_b3_tiny_files: MATCH
+  f2n2 [f2 n2]: MATCH 0.28s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n8 [f2 n8]: MATCH 0.20s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n16 [f2 n16]: MATCH 0.21s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n32 [f2 n32]: MATCH 0.20s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.11s | F on | B on ncap 620544/128 | multi 1193p/2673e/96119ev | G 1.86% side 2938 gen 1
+  f1n2 [f1 n2]: MATCH 0.16s | F on | G 1.86%
+[b3] plain_many_threads: sv_b3_plain_many_threads: MATCH
+  f2n2 [f2 n2]: MATCH 0.18s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n8 [f2 n8]: MATCH 0.28s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n16 [f2 n16]: MATCH 0.29s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2n32 [f2 n32]: MATCH 0.14s | F on | B on ncap 622592/32768 | multi 7p/14e/654ev | G 1.86% side 2938 gen 1
+  f2b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.12s | F on | B on ncap 619648/128 | multi 1193p/2673e/96119ev | G 1.86% side 2938 gen 1
+  f1n2 [f1 n2]: MATCH 0.20s | F on | G 1.86%

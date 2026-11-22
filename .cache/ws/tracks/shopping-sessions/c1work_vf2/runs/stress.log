@@ -1,0 +1,140 @@
+[b15 seed=15] plain: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 0.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 9 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 1.3 ms | buckets off: no event key candidate passed ; lane F winners 8711, lane G share 85.20% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6548, 0.0 ms | buckets off: event sample too small (5995 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 15530, lane G share 73.62% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 1059, lane G share 98.20% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4137, lane G share 92.97% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 0.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.9 ms ; multi    0 persons, 0 entries, 0 events; general partitions 9 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] upper: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6556, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58976, lane F 53200, lane G share 9.79%, side records 2256, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6556, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 8620, lane G share 85.38% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6556, 0.0 ms | buckets off: event sample too small (5995 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58976, lane F 14364, lane G share 75.64% (above 10%), side records 46720, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58976, lane F 945, lane G share 98.40% (above 10%), side records 62327, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4081, lane G share 93.08% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6556, 0.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.4 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58976, lane F 53200, lane G share 9.79%, side records 2256, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] lzero: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6554, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58954, lane F 53025, lane G share 10.06% (above 10%), side records 2186, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6554, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 8682, lane G share 85.27% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6554, 0.0 ms | buckets off: event sample too small (5992 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58954, lane F 14136, lane G share 76.02% (above 10%), side records 46633, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58954, lane F 0, lane G share 100.00% (above 10%), side records 62226, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4166, lane G share 92.93% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6554, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 2.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58954, lane F 53025, lane G share 10.06% (above 10%), side records 2186, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] noncanon: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 7028, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 41978, lane G share 34.61% (above 10%)
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 7028, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 4738, lane G share 92.62% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 7028, 0.0 ms | buckets off: event sample too small (5766 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 11652, lane G share 81.85% (above 10%)
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 1063, lane G share 98.34% (above 10%)
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 2141, lane G share 96.66% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 7028, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 41978, lane G share 34.61% (above 10%)
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] xlinks: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 0.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 43870, lane G share 25.49% (above 10%), side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 1.3 ms | buckets off: no event key candidate passed ; lane F winners 5560, lane G share 90.56% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6546, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 9980, lane G share 83.05% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 0, lane G share 100.00% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 2560, lane G share 95.65% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 12.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 43870, lane G share 25.49% (above 10%), side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] kiosk: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 0.9 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.3 ms ; multi    0 persons, 0 entries, 0 events; general partitions 10 ; buckets  winners 58892, lane F 52355, lane G share 11.10% (above 10%), side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 8692, lane G share 85.24% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6548, 0.0 ms | buckets off: event sample too small (5999 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.6 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58892, lane F 11361, lane G share 80.71% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58892, lane F 0, lane G share 100.00% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4137, lane G share 92.98% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6548, 9.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 10 ; buckets  winners 58892, lane F 52355, lane G share 11.10% (above 10%), side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] alias16: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6590, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    21 persons, 101 entries, 515 events; general partitions 16 ; buckets  winners 59369, lane F 54400, lane G share 8.37%, side records 1378, general-ID lane F winners 81
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6590, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 8298, lane G share 86.02% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6590, 0.0 ms | buckets off: event sample too small (5980 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 59369, lane F 13740, lane G share 76.86% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 59369, lane F 1059, lane G share 98.22% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 3916, lane G share 93.40% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6590, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    21 persons, 101 entries, 515 events; general partitions 16 ; buckets  winners 59369, lane F 54400, lane G share 8.37%, side records 1378, general-ID lane F winners 81
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] clickonly: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 1.2 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.6 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 54908, lane G share 6.74%, side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 7794, lane G share 86.76% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6546, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 14883, lane G share 74.72% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.6 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 1059, lane G share 98.20% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 3718, lane G share 93.69% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 54908, lane G share 6.74%, side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] split: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6558, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 9 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6558, 0.9 ms | buckets off: no event key candidate passed ; lane F winners 8711, lane G share 85.20% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6558, 0.0 ms | buckets off: event sample too small (4797 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 5.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 15530, lane G share 73.62% (above 10%), side records 46444, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 1059, lane G share 98.20% (above 10%), side records 62298, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4137, lane G share 92.97% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6558, 9.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 0.9 ms ; multi    0 persons, 0 entries, 0 events; general partitions 9 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] dupuser: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6794, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 55786, lane G share 5.16%
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6794, 0.8 ms | buckets off: no event key candidate passed ; lane F winners 8505, lane G share 85.54% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6794, 0.0 ms | buckets off: event sample too small (5983 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 15046, lane G share 74.42% (above 10%)
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 1042, lane G share 98.23% (above 10%)
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4080, lane G share 93.06% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6794, 1.3 ms | buckets off: no event key candidate passed ; lane F winners 55786, lane G share 5.16%
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] linkdirt: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 9.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 54543, lane G share 7.36%, side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 0.9 ms | buckets off: no event key candidate passed ; lane F winners 7714, lane G share 86.90% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0xf55596d078, person cap 6546, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0xf55596d079, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 14877, lane G share 74.73% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 1059, lane G share 98.20% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0xf55596d079, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 3524, lane G share 94.01% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0xf55596d079, person cap 6546, 1.2 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.7 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 54543, lane G share 7.36%, side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] rand_canon: MATCH
+  default (NCPU 8): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  twist (NCPU 1): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0x0123456788, person cap 6546, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0x0123456789, person cap 64, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0x0123456789, person cap 1, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0x0123456789, person cap 300, 0.0 ms | buckets off: event sample too small (5998 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  scalar (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] rekey: MATCH
+  default (NCPU 8): MATCH | lane F on: user key 0x6a89d76e8f, person cap 6546, 0.7 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.0 ms ; multi    0 persons, 0 entries, 0 events; general partitions 10 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  twist (NCPU 1): MATCH | lane F on: user key 0x6a89d76e8f, person cap 6546, 0.9 ms | buckets off: no event key candidate passed ; lane F winners 8711, lane G share 85.20% (above 10%)
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0x6a89d76e8e, person cap 6546, 0.0 ms | buckets off: event sample too small (6000 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0x6a89d76e8f, person cap 64, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.2 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 15530, lane G share 73.62% (above 10%), side records 46394, general-ID lane F winners 0
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0x6a89d76e8f, person cap 1, 0.0 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 16 ; buckets  winners 58877, lane F 1059, lane G share 98.20% (above 10%), side records 62208, general-ID lane F winners 0
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0x6a89d76e8f, person cap 300, 0.0 ms | buckets off: no event key candidate passed ; lane F winners 4137, lane G share 92.97% (above 10%)
+  scalar (NCPU 6): MATCH | lane F on: user key 0x6a89d76e8f, person cap 6546, 0.8 ms | buckets on: event key 0xb43309a24e, number cap 262144, 32768 slots, 1.1 ms ; multi    0 persons, 0 entries, 0 events; general partitions 10 ; buckets  winners 58877, lane F 57156, lane G share 2.92%, side records 1378, general-ID lane F winners 0
+  slow (NCPU 6): MATCH | lane F ? | 
+[b15 seed=15] combined: MATCH
+  default (NCPU 8): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  twist (NCPU 1): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  twist_cap1000 (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  key_xor1 (NCPU 6): MATCH | lane F on: user key 0x0123456788, person cap 7334, 0.0 ms | buckets off: event sample too small (5723 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap64 (NCPU 8): MATCH | lane F on: user key 0x0123456789, person cap 64, 0.0 ms | buckets off: event sample too small (5723 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_cap1 (NCPU 2): MATCH | lane F on: user key 0x0123456789, person cap 1, 0.0 ms | buckets off: event sample too small (5723 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  key_true_twist_cap300 (NCPU 2): MATCH | lane F on: user key 0x0123456789, person cap 300, 0.0 ms | buckets off: event sample too small (5723 IDs, 0 of person 0) ; lane F winners 0, lane G share 100.00% (above 10%)
+  scalar (NCPU 6): MATCH | lane F off: no key candidate passed | lane F winners 0, lane G share 100.00%
+  slow (NCPU 6): MATCH | lane F ? | 

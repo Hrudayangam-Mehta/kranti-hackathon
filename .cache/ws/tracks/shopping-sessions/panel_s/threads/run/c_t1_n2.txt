@@ -1,0 +1,46 @@
+trace m setup:reference 4.913
+trace m setup:map 6.369
+trace m setup:chunks 6.388
+lane F on: user key 0x2e3f48c523, person cap 1847094, 1.0 ms
+trace m setup:decoder 7.417
+setup         8.5 ms
+trace m setup:dirs 8.626
+links    split and merged in 673.7 ms; lane F 873116 lines, general 21656 lines, odd persons 3630
+links       687.0 ms on one thread
+thread 0 parse busy  10958.5 ms
+parse     10979.1 ms
+dedup     13069.9 ms
+surviving events 19563061, user_daily rows 2242393
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518
+people    15933.6 ms
+lane F winners 19371006, lane G share 0.98%
+event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+write     15965.9 ms
+trace t1 links 9.819 696.826 687.007 1
+trace t1 events 696.828 9599.904 8902.793 216
+trace t1 clicks 9600.010 10959.523 1335.490 40
+trace t1 bar_parse 10979.095 10985.348 6.253 1
+trace t1 unmap 10985.669 11069.346 83.669 65
+trace t1 dedup 11069.346 13069.550 1999.771 2050
+trace t1 bar_dedup 13069.635 13069.640 0.005 1
+trace t1 order 13069.640 13069.995 0.355 1
+trace t1 bar_order 13069.996 13073.951 3.956 1
+trace t1 people 13073.982 15913.263 2427.682 2053
+trace t1 user_write 13497.661 15911.334 411.154 17
+trace t1 last_write 15913.263 15921.597 8.333 1
+trace t1 bar_end 15921.598 15933.587 11.989 1
+trace t0 events 13.424 9586.363 9571.410 241
+trace t0 clicks 9586.482 10958.521 1281.408 45
+trace t0 bar_parse 10965.967 10979.173 13.206 1
+trace t0 unmap 10979.383 11063.832 84.435 117
+trace t0 dedup 11063.832 13068.016 2003.815 2046
+trace t0 bar_dedup 13068.102 13069.956 1.854 1
+trace t0 bar_order 13069.957 13070.000 0.044 1
+trace t0 people 13070.058 15922.118 2383.550 2045
+trace t0 user_write 13493.743 15921.903 468.044 17
+trace t0 campaign 15922.118 15933.443 11.325 1
+trace t0 last_write 15933.445 15933.574 0.129 1
+trace t0 bar_end 15933.575 15933.676 0.100 1
+trace m clock start 1795311842.689010 exit 1795311858.654935 at 15965.925
+epoch popen 1795311842.682411 reaped 1795311858.662494
+exit 0 stdout_bytes 0 wall 15.980 cum_user 4.59 cum_sys 1.72 maxrss_kb 2752640

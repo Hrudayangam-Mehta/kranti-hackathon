@@ -1,0 +1,18 @@
+r0 b5           wall  11.573 cpu   9.030 (u 5.65 s 3.38) rss 3269M st 0 stdout 0 events=2.61+2.00 clicks=0.60+0.53 unmap=0.01+0.04 dedup=1.17+0.31 people=0.90+0.06 user_write=0.15+0.22 links=0.19+0.20
+r0 b6           wall   7.232 cpu   7.002 (u 5.33 s 1.67) rss 3325M st 0 stdout 0 links=0.19+0.04 events=2.19+0.61 clicks=0.56+0.37 unmap=0.00+0.05 dedup=1.35+0.30 people=0.90+0.04 user_write=0.13+0.23
+r0 b5s          wall   7.422 cpu   5.604 (u 4.45 s 1.16) rss 2959M st 0 stdout 0 links=0.15+0.05 events=2.07+0.30 clicks=0.47+0.31 unmap=0.00+0.03 dedup=0.88+0.22 people=0.72+0.02 user_write=0.13+0.21
+r1 b5s          wall   5.131 cpu   4.972 (u 4.04 s 0.93) rss 2927M st 0 stdout 0 events=1.63+0.12 clicks=0.46+0.32 unmap=0.00+0.02 dedup=0.94+0.13 people=0.71+0.01 user_write=0.13+0.25 links=0.15+0.05
+r1 b6           wall   7.696 cpu   7.648 (u 5.49 s 2.16) rss 3349M st 0 stdout 0 links=0.19+0.06 events=2.29+0.92 clicks=0.62+0.55 unmap=0.00+0.03 dedup=1.33+0.30 people=0.92+0.02 user_write=0.12+0.25 wait_jobs=0.00+0.00
+r1 b5           wall   7.932 cpu   7.550 (u 5.64 s 1.91) rss 3264M st 0 stdout 0 links=0.21+0.05 events=2.56+0.56 clicks=0.63+0.62 unmap=0.00+0.04 dedup=1.25+0.33 people=0.85+0.03 user_write=0.11+0.25
+r2 b5           wall   6.687 cpu   7.001 (u 5.21 s 1.79) rss 3266M st 0 stdout 0 events=2.38+0.65 clicks=0.55+0.51 unmap=0.00+0.03 dedup=1.12+0.32 people=0.84+0.03 user_write=0.11+0.19 last_write=0.01+0.00 links=0.18+0.04
+r2 b6           wall   8.444 cpu   7.263 (u 5.37 s 1.89) rss 3361M st 0 stdout 0 links=0.18+0.04 events=2.17+0.82 clicks=0.59+0.60 unmap=0.00+0.03 dedup=1.37+0.21 people=0.88+0.02 user_write=0.15+0.13 wait_jobs=0.00+0.00 release=0.00+0.01
+r2 b5s          wall   6.393 cpu   5.682 (u 4.62 s 1.06) rss 2927M st 0 stdout 0 events=2.16+0.26 clicks=0.51+0.44 unmap=0.00+0.03 dedup=0.91+0.02 people=0.74+0.03 user_write=0.08+0.22 links=0.20+0.03
+STAGES b5           median user+sys s: clicks=0.60+0.53 dedup=1.17+0.32 events=2.56+0.65 links=0.19+0.05 people=0.85+0.03 unmap=0.00+0.04 user_write=0.11+0.22
+MIN    b5           cpu 7.001 user 5.210
+MEDIAN b5           cpu 7.550 user 5.640 sys 1.911 wall 7.932 rss 3266M
+STAGES b6           median user+sys s: clicks=0.59+0.55 dedup=1.35+0.30 events=2.19+0.82 links=0.19+0.04 people=0.90+0.02 unmap=0.00+0.03 user_write=0.13+0.23 wait_jobs=0.00+0.00
+MIN    b6           cpu 7.002 user 5.332
+MEDIAN b6           cpu 7.263 user 5.370 sys 1.893 wall 7.696 rss 3349M
+STAGES b5s          median user+sys s: clicks=0.47+0.32 dedup=0.91+0.13 events=2.07+0.26 links=0.15+0.05 people=0.72+0.02 unmap=0.00+0.03 user_write=0.13+0.22
+MIN    b5s          cpu 4.972 user 4.039
+MEDIAN b5s          cpu 5.604 user 4.445 sys 1.061 wall 6.393 rss 2927M

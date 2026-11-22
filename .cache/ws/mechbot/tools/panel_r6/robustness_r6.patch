@@ -1,0 +1,177 @@
+diff -ru a/bot.js b/bot.js
+--- a/bot.js	2026-11-21 20:52:53.987170822 +0000
++++ b/bot.js	2026-11-21 20:52:53.989259262 +0000
+@@ -102,7 +102,7 @@
+   try {
+     const { World } = await import('./lib/world.js')
+     for (const dir of dirs) {
+-      try { world = World.loadSync(dir); break } catch (e) { log('map load failed for', dir, String(e?.message || e)) }
++      try { world = World.loadSync(dir, undefined, h?.map?.files); break } catch (e) { log('map load failed for', dir, String(e?.message || e)) }
+     }
+   } catch (e) { log('world module failed:', e?.stack || e) }
+   if (world) {
+diff -ru a/lib/brain.js b/lib/brain.js
+--- a/lib/brain.js	2026-11-21 20:52:53.986956866 +0000
++++ b/lib/brain.js	2026-11-21 20:52:53.988964865 +0000
+@@ -91,7 +91,12 @@
+   if (nav && world) {
+     const bd = world.bounds, q = nav.nearestPassable((bd.minX + bd.maxX) / 2, (bd.minY + bd.maxY) / 2, 80)
+     if (q) { x = q.x; y = q.y; z = nav.levelAt(x, y) }
+-    try { nav.hopPlan(-307, 106, { toward: [x, y] }) } catch { /* optional */ }
++    try {
++      // warm the pocket-exit planner on this map's largest pocket (was a fixed stadium point of the campus map)
++      let kb = -1, sb = 0
++      for (let k = 0; k < nav.compSizes.length; k++) if (k !== nav.mainComponent && nav.compSizes[k] > sb) { sb = nav.compSizes[k]; kb = k }
++      if (kb >= 0) for (let c = 0; c < nav.n; c++) if (nav.comp[c] === kb) { nav.hopPlan(nav.cellX(c), nav.cellY(c), { toward: [x, y] }); break }
++    } catch { /* optional */ }
+   }
+   const W = cfg.weapons, m = cfg.mech
+   const wp = (kind, extra) => ({ kind, cooldown: 0, stats: W[kind], ...extra })
+@@ -132,8 +137,41 @@
+   return v === 0 || v === '0' || v == null ? 0 : h
+ }
+ 
++/**
++ * Robustness R6: match-clock, zone-radius and weapon numbers that were tuned to the default config are re-anchored on
++ * hello.config. On the default config every value equals the old constant (zone total 415 s, phases 6, gun mag 12 /
++ * reload 2.4, laser 315 / 0.75 / 1.65, lightning 60 / 0.25, mortar 160 / 2.6, 72 m/s, g 22), so the campus build is
++ * unchanged. A key set explicitly in the overrides is left alone.
++ */
++export function anchorToConfig(P, c, ov) {
++  const has = (k) => !!(ov && Object.prototype.hasOwnProperty.call(ov, k))
++  const set = (k, v) => { if (!has(k) && Number.isFinite(v)) P[k] = Math.round(v * 1000) / 1000 }
++  const z = c && c.zone, ph = z && Array.isArray(z.phases) ? z.phases : null
++  if (ph && ph.length >= 4) {
++    const hold = [], shr = []
++    let t = 0
++    for (const p of ph) { hold.push(t); t += fnum(p && p.hold_s, 0); shr.push(t); t += fnum(p && p.shrink_s, 0) }
++    if (t > 60) {
++      const k = Math.min(2.5, Math.max(0.4, t / 415)), L = ph.length - 1
++      for (const key of ['farmStopT', 'scanLateT', 'ffaLatchT', 'openFarmT', 'ffaQuietS']) set(key, P[key] * k)
++      set('fpStartT', hold[L]); set('ffaFinalT', shr[L]); set('fpShootT', shr[L] + 0.6 * fnum(ph[L].shrink_s, 0))
++      const rl = fnum(ph[L - 2] && ph[L - 2].radius, -1), rs = fnum(ph[L - 3] && ph[L - 3].radius, -1)
++      if (rl > 0) set('zoneLateR', rl)
++      if (rs > 0) set('scanLateR', rs)
++    }
++  }
++  const W = (c && c.weapons) || {}, g = W.gun || {}, la = W.laser || {}, li = W.lightning || {}, mo = W.mortar || {}
++  if (fnum(g.mag, 0) > 0) set('magSize', g.mag)
++  if (fnum(g.reload, 0) > 0) set('magReloadS', g.reload + 0.1)
++  if (fnum(la.damage, 0) > 0 && fnum(la.charge, 0) + fnum(la.cooldown, 0) > 0) set('laserDpsIn', P.laserDpsIn * (la.damage / 315) * (2.4 / (la.charge + la.cooldown)))
++  if (fnum(li.damage, 0) > 0 && fnum(li.cooldown, 0) > 0) set('lightDpsIn', P.lightDpsIn * (li.damage / 60) * (0.25 / li.cooldown))
++  if (fnum(mo.splash, 0) > 0 && fnum(mo.cooldown, 0) > 0) set('mortarDpsIn', P.mortarDpsIn * (mo.splash / 160) * (2.6 / mo.cooldown))
++  set('mortarMaxR', fnum(mo.speed, 0) > 0 && fnum(mo.gravity, 0) > 0 ? Math.floor(mo.speed * mo.speed / mo.gravity) : 235)
++}
++
+ export function createBrain(hello, ctx, overrides) {
+   const P = resolveParams(isObj(overrides) ? overrides : {})
++  anchorToConfig(P, hello && hello.config, isObj(overrides) ? overrides : null)
+   const cfg = normalizeConfig(hello && hello.config)
+   const world = (ctx && ctx.world) || null, nav = (ctx && ctx.nav) || null
+   const log = (ctx && typeof ctx.log === 'function') ? ctx.log : () => {}
+diff -ru a/lib/ffa.js b/lib/ffa.js
+--- a/lib/ffa.js	2026-11-21 20:52:53.987002373 +0000
++++ b/lib/ffa.js	2026-11-21 20:52:53.988942235 +0000
+@@ -182,7 +182,7 @@
+     if (tr.hasGun && d <= (g.range || 230)) v += gunDps * q
+     if (tr.hasLaser && d <= ((cfg.weapons.laser && cfg.weapons.laser.range) || 280)) v += P.laserDpsIn
+     if (tr.hasLightning && d < ((cfg.weapons.lightning && cfg.weapons.lightning.range) || 45) + B.me.radius) v += P.lightDpsIn
+-    if (tr.hasMortar && d < 235 && d > 15) v += P.mortarDpsIn
++    if (tr.hasMortar && d < (P.mortarMaxR || 235) && d > 15) v += P.mortarDpsIn
+     return v * (1 + (cfg.cubes.damage_per_cube || 0.04) * Math.min(tr.cubes, cfg.cubes.stat_cap || 10))
+   }
+   /** Z8: with 2 alive compare max hp (both heal to full): WAIT ahead by twoGap, CLOSE behind by twoGap, else DUEL. */
+diff -ru a/lib/mover.js b/lib/mover.js
+--- a/lib/mover.js	2026-11-21 20:52:53.987142419 +0000
++++ b/lib/mover.js	2026-11-21 20:52:53.989209676 +0000
+@@ -311,6 +311,19 @@
+     moveTo(ax, ay, 1, 0.6)
+     return false
+   }
++  /** nav.hopPlan with the campus limits (45 m hop, 40 m climb); when that finds no exit, again with the limits a full tank
++   *  allows by hello.config (jump apex + max_rise_speed x energy / jet_drain, x 0.85; hop 60 m): deeper pockets of another arena. */
++  let climbCap = -1
++  function hopPlanCfg(x, y, tx, ty) {
++    const nav = B.nav
++    const p = nav.hopPlan(x, y, { toward: [tx, ty] })
++    if (p) return p
++    if (climbCap < 0) {
++      const m = B.cfg.mech, js = m.jump_speed || 11, g = m.gravity || 22, rise = m.max_rise_speed || 10, jd = m.jet_drain || 15, en = m.energy || 100
++      climbCap = Math.min(80, 0.85 * (js * js / (2 * g) + rise * en / jd))
++    }
++    return climbCap > 40 ? nav.hopPlan(x, y, { toward: [tx, ty], maxClimb: climbCap, maxHop: 60 }) : null
++  }
+   function inPocket() {
+     const nav = B.nav, me = B.me
+     if (!nav || typeof nav.hopPlan !== 'function') return false
+@@ -342,7 +355,7 @@
+     }
+     if (zg.len < Infinity && t - zg.lenT < 3) len = Math.max(straight, zg.len)
+     if (pocket) {
+-      if (!hop.plan || t - hop.planT > 3) { hop.planT = t; try { hop.plan = B.nav.hopPlan(me.x, me.y, { toward: [z.nx, z.ny] }) } catch (e) { hop.plan = null } }
++      if (!hop.plan || t - hop.planT > 3) { hop.planT = t; try { hop.plan = hopPlanCfg(me.x, me.y, z.nx, z.ny) } catch (e) { hop.plan = null } }
+       len = straight * P.pathFactor + (hop.plan ? hop.plan.walkLen + hop.plan.hopLen + 8 * me.walk : 200)
+     }
+     if (!B.zoneUrgent && tOut === Infinity && me.inZone && !pocket && dNext <= P.zoneNextFrac * z.nr && dCur <= P.zoneOuterFrac * z.r) { B.zoneMargin = Infinity; return }
+@@ -390,7 +403,7 @@
+     if (gc === c) { hop.plan = null; return false }                       // the goal is inside our pocket: just walk
+     if (!hop.plan || hop.comp !== c || t - hop.planT > 3) {
+       hop.planT = t; hop.comp = c
+-      try { hop.plan = nav.hopPlan(me.x, me.y, { toward: [tx, ty] }) } catch (e) { hop.plan = null }
++      try { hop.plan = hopPlanCfg(me.x, me.y, tx, ty) } catch (e) { hop.plan = null }
+     }
+     const p = hop.plan
+     if (!p) return false
+diff -ru a/lib/tactics.js b/lib/tactics.js
+--- a/lib/tactics.js	2026-11-21 20:52:53.986979100 +0000
++++ b/lib/tactics.js	2026-11-21 20:52:53.988910617 +0000
+@@ -47,7 +47,7 @@
+       if (tr.hasGun && d <= (gcfg.range || 230)) prior += gunDpsCfg * rangeBin(P, d, P.pIn)
+       if (tr.hasLaser && d <= (lcfg.range || 280)) prior += P.laserDpsIn
+       if (tr.hasLightning && d < (licfg.range || 45) + me.radius) prior += P.lightDpsIn
+-      if (tr.hasMortar && d < 235 && d > 15) prior += P.mortarDpsIn
++      if (tr.hasMortar && d < (P.mortarMaxR || 235) && d > 15) prior += P.mortarDpsIn
+       prior *= 1 + dpc * Math.min(tr.cubes, cap)
+       if (!tr.aimAtMe && !hurtRecently) prior *= 0.35
+     }
+diff -ru a/lib/world.js b/lib/world.js
+--- a/lib/world.js	2026-11-21 20:52:53.986759463 +0000
++++ b/lib/world.js	2026-11-21 20:52:53.989228060 +0000
+@@ -7,8 +7,8 @@
+ //
+ // Segment tests take the two end points (a -> b) and return the fraction t in [0,1] of the first hit, 1 = clear.
+ 
+-import { readFileSync, existsSync } from 'node:fs'
+-import { join } from 'node:path'
++import { readFileSync, existsSync, readdirSync } from 'node:fs'
++import { join, dirname } from 'node:path'
+ 
+ const G = 16            // uniform grid cell size, metres
+ const INV_G = 1 / G
+@@ -71,12 +71,21 @@
+ 
+ export class World {
+   /** dir = hello.map.dir. Reads <dir>/v2/world.json and the terrain file it names (synchronously). */
+-  static loadSync(dir, opts) {
+-    let base = join(dir, 'v2')
+-    if (!existsSync(join(base, 'world.json')) && existsSync(join(dir, 'world.json'))) base = dir
++  static loadSync(dir, opts, files) {
++    const cand = []
++    if (Array.isArray(files)) for (const f of files) if (typeof f === 'string' && /(^|[\\/])world\.json$/.test(f)) cand.push(join(dir, dirname(f)))
++    cand.push(join(dir, 'v2'), dir)
++    let base = cand.find((b) => existsSync(join(b, 'world.json')))
++    if (!base) {
++      try {
++        for (const e of readdirSync(dir, { withFileTypes: true })) if (e.isDirectory() && existsSync(join(dir, e.name, 'world.json'))) { base = join(dir, e.name); break }
++      } catch { /* unreadable dir: fall through */ }
++    }
++    if (!base) throw new Error('no world.json under ' + dir)
+     const json = JSON.parse(readFileSync(join(base, 'world.json'), 'utf8'))
+-    const terrain = readFileSync(join(base, (json.terrain && json.terrain.file) || 'terrain.i16'))
+-    return new World(json, terrain, opts)
++    let tf = join(base, (json.terrain && json.terrain.file) || 'terrain.i16')
++    if (!existsSync(tf) && Array.isArray(files)) { const g = files.find((f) => typeof f === 'string' && /\.i16$/.test(f)); if (g) tf = join(dir, g) }
++    return new World(json, readFileSync(tf), opts)
+   }
+ 
+   constructor(json, terrainBuffer, opts = {}) {

@@ -1,0 +1,16 @@
+round 0 base17r: exit 0 wall 16.642 user 10.706 sys 3.612 cpu 14.318 maxrss 1.55 GB minflt 167640 majflt 1 in 0MB stdout 0
+round 0 a10: exit 0 wall 8.689 user 5.933 sys 0.752 cpu 6.685 maxrss 3.16 GB minflt 330098 majflt 0 in 0MB stdout 0
+round 1 a10: exit 0 wall 7.505 user 5.337 sys 0.785 cpu 6.121 maxrss 3.15 GB minflt 328960 majflt 0 in 0MB stdout 0
+round 1 base17r: exit 0 wall 17.492 user 10.216 sys 3.193 cpu 13.409 maxrss 1.52 GB minflt 167662 majflt 0 in 0MB stdout 0
+round 2 base17r: exit 0 wall 18.327 user 10.937 sys 2.786 cpu 13.724 maxrss 1.53 GB minflt 167727 majflt 0 in 0MB stdout 0
+round 2 a10: exit 0 wall 5.898 user 5.853 sys 0.761 cpu 6.615 maxrss 3.15 GB minflt 329016 majflt 0 in 0MB stdout 0
+round 3 a10: exit 0 wall 5.766 user 5.490 sys 0.725 cpu 6.215 maxrss 3.17 GB minflt 333061 majflt 0 in 0MB stdout 0
+round 3 base17r: exit 0 wall 15.479 user 10.088 sys 3.522 cpu 13.610 maxrss 1.55 GB minflt 167811 majflt 0 in 0MB stdout 0
+round 4 base17r: exit 0 wall 17.590 user 10.497 sys 2.598 cpu 13.096 maxrss 1.53 GB minflt 167562 majflt 0 in 0MB stdout 0
+round 4 a10: exit 0 wall 7.128 user 5.560 sys 1.091 cpu 6.651 maxrss 3.16 GB minflt 330130 majflt 0 in 0MB stdout 0
+SUMMARY base17r n=5/5: cpu median 13.610 (min 13.096) user 10.497 sys 3.193 wall 17.492 maxrss 1.53 GB
+  stages (thread CPU s, median): events=6.883 events/sys=2.001 clicks=1.577 dedup=0.848 people=0.779 clicks/sys=0.532 links=0.275 user_write/sys=0.247 dedup/sys=0.196 user_write=0.170 links/sys=0.137 people/sys=0.028 unmap/sys=0.027 unmap=0.009 bar_dedup=0.003 release/sys=0.002 wait_jobs=0.001 wait_jobs/sys=0.000 wait_events=0.000 wait_events/sys=0.000 bar_dedup/sys=0.000 order=0.000 order/sys=0.000 last_write=0.000 last_write/sys=0.000 release=0.000 campaign=0.000 campaign/sys=0.000
+SUMMARY a10 n=5/5: cpu median 6.615 (min 6.121) user 5.560 sys 0.761 wall 7.128 maxrss 3.16 GB
+  stages (thread CPU s, median): events=2.969 dedup=0.824 people=0.755 clicks=0.414 events/sys=0.384 links=0.224 user_write=0.141 merge=0.128 clicks/sys=0.086 reclick=0.084 release/sys=0.062 user_write/sys=0.043 links/sys=0.043 dedup/sys=0.037 unmap/sys=0.030 people/sys=0.029 merge/sys=0.021 persons=0.018 reclick/sys=0.015 wait_jobs=0.003 bar_dedup=0.002 last_write/sys=0.002 bar_parse=0.001 last_write=0.001 bar_merge=0.001 release=0.001 campaign=0.001 bar_parse/sys=0.000 unmap=0.000 wait_jobs/sys=0.000 bar_merge/sys=0.000 persons/sys=0.000 wait_events=0.000 wait_events/sys=0.000 bar_dedup/sys=0.000 order=0.000 order/sys=0.000 campaign/sys=0.000
+PAIRED a10 - base17r cpu: median -7.288 s, lower in 5/5
+PAIRED a10 - base17r wall: median -9.987 s, lower in 5/5

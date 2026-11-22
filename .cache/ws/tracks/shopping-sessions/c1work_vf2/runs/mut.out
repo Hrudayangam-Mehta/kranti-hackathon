@@ -1,0 +1,480 @@
+[f1b15 seed=15 cap=6548] upper: mut_f1b15_upper: MATCH
+  n2_auto [f2 n2]: MATCH 0.11s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 10.74% side 2249 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.10s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.09s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 10.74% side 2249 gen 0
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 10.74% side 2249 gen 0
+  b8 [f2 n4 TEST_BUCKET_BITS=8]: MATCH 0.07s | F on | B on ncap 231680/256 | multi 192p/397e/17155ev | G 10.74% side 2249 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.21s | F on | buckets off: SESSIONS_F2=0 | G 10.74%
+  f1 [f1 n2]: MATCH 0.19s | F on | G 10.74%
+[f1b15 seed=15 cap=6548] lzero: mut_f1b15_lzero: MATCH
+  n2_auto [f2 n2]: MATCH 0.19s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 9.25% side 2200 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.14s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.23s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 9.25% side 2200 gen 0
+  n8_auto [f2 n8]: MATCH 0.16s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 9.25% side 2200 gen 0
+  b13 [f2 n6 TEST_BUCKET_BITS=13]: MATCH 0.07s | F on | B on ncap 237568/8192 | multi 6p/12e/540ev | G 9.25% side 2200 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.08s | F on | buckets off: SESSIONS_F2=0 | G 9.25%
+  f1 [f1 n2]: MATCH 0.08s | F on | G 9.25%
+[f1b15 seed=15 cap=6548] noncanon: mut_f1b15_noncanon: MATCH
+  n2_auto [f2 n2]: MATCH 0.22s | F on | buckets off: no event key candidate passed | G 34.54%
+  n2_G [f2 n2 LANE=G]: MATCH 0.12s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.14s | F on | buckets off: no event key candidate passed | G 34.54%
+  n8_auto [f2 n8]: MATCH 0.20s | F on | buckets off: no event key candidate passed | G 34.54%
+  b11 [f2 n1 TEST_BUCKET_BITS=11]: MATCH 0.18s | F on | buckets off: no event key candidate passed | G 34.54%
+  f2off [f2 n2 F2=0]: MATCH 0.23s | F on | buckets off: SESSIONS_F2=0 | G 34.54%
+  f1 [f1 n2]: MATCH 0.22s | F on | G 34.54%
+[f1b15 seed=15 cap=6548] xlinks: mut_f1b15_xlinks: MATCH
+  n2_auto [f2 n2]: MATCH 0.38s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 24.58% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.24s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.25s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 24.58% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.23s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 24.58% side 1378 gen 0
+  b12 [f2 n4 TEST_BUCKET_BITS=12]: MATCH 0.17s | F on | B on ncap 233472/4096 | multi 12p/24e/1810ev | G 24.58% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.25s | F on | buckets off: SESSIONS_F2=0 | G 24.58%
+  f1 [f1 n2]: MATCH 0.21s | F on | G 24.58%
+[f1b15 seed=15 cap=6548] kiosk: mut_f1b15_kiosk: MATCH
+  n2_auto [f2 n2]: MATCH 0.22s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 11.13% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.18s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.16s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 11.13% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.23s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 11.13% side 1378 gen 0
+  b13 [f2 n6 TEST_BUCKET_BITS=13]: MATCH 0.19s | F on | B on ncap 237568/8192 | multi 6p/12e/543ev | G 11.13% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.26s | F on | buckets off: SESSIONS_F2=0 | G 11.13%
+  f1 [f1 n2]: MATCH 0.28s | F on | G 11.13%
+[f1b15 seed=15 cap=6548] alias16: mut_f1b15_alias16: MATCH
+  n2_auto [f2 n2]: MATCH 0.13s | F on | B on ncap 262144/32768 | multi 23p/114e/540ev | G 8.51% side 1378 gen 94
+  n2_G [f2 n2 LANE=G]: MATCH 0.16s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.26s | F on | B on ncap 262144/32768 | multi 23p/114e/540ev | G 8.51% side 1378 gen 94
+  n8_auto [f2 n8]: MATCH 0.20s | F on | B on ncap 262144/32768 | multi 23p/114e/540ev | G 8.51% side 1378 gen 94
+  b10 [f2 n2 TEST_BUCKET_BITS=10]: MATCH 0.15s | F on | B on ncap 233472/1024 | multi 75p/219e/7296ev | G 8.51% side 1378 gen 94
+  f2off [f2 n2 F2=0]: MATCH 0.27s | F on | buckets off: SESSIONS_F2=0 | G 8.51%
+  f1 [f1 n2]: MATCH 0.26s | F on | G 8.51%
+[f1b15 seed=15 cap=6548] clickonly: mut_f1b15_clickonly: MATCH
+  n2_auto [f2 n2]: MATCH 0.37s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 6.39% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.18s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.41s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 6.39% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.31s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 6.39% side 1378 gen 0
+  b7 [f2 n6 TEST_BUCKET_BITS=7]: MATCH 0.21s | F on | B on ncap 231296/128 | multi 364p/788e/26112ev | G 6.39% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.23s | F on | buckets off: SESSIONS_F2=0 | G 6.39%
+  f1 [f1 n2]: MATCH 0.30s | F on | G 6.39%
+[f1b15 seed=15 cap=6548] split: mut_f1b15_split: MATCH
+  n2_auto [f2 n2]: MATCH 0.11s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.14s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.18s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.25s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  b14 [f2 n2 TEST_BUCKET_BITS=14]: MATCH 0.22s | F on | B on ncap 245760/16384 | multi 2p/4e/140ev | G 2.92% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.16s | F on | buckets off: SESSIONS_F2=0 | G 2.92%
+  f1 [f1 n2]: MATCH 0.12s | F on | G 2.92%
+[f1b15 seed=15 cap=6548] dupuser: mut_f1b15_dupuser: MATCH
+  n2_auto [f2 n2]: MATCH 0.16s | F on | buckets off: no event key candidate passed | G 4.76%
+  n2_G [f2 n2 LANE=G]: MATCH 0.16s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.20s | F on | buckets off: no event key candidate passed | G 4.76%
+  n8_auto [f2 n8]: MATCH 0.23s | F on | buckets off: no event key candidate passed | G 4.76%
+  b9 [f2 n2 TEST_BUCKET_BITS=9]: MATCH 0.18s | F on | buckets off: no event key candidate passed | G 4.76%
+  f2off [f2 n2 F2=0]: MATCH 0.19s | F on | buckets off: SESSIONS_F2=0 | G 4.76%
+  f1 [f1 n2]: MATCH 0.14s | F on | G 4.76%
+[f1b15 seed=15 cap=6548] linkdirt: mut_f1b15_linkdirt: MATCH
+  n2_auto [f2 n2]: MATCH 0.19s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 8.10% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.20s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.17s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 8.10% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 8.10% side 1378 gen 0
+  b13 [f2 n8 TEST_BUCKET_BITS=13]: MATCH 0.20s | F on | B on ncap 237568/8192 | multi 5p/10e/521ev | G 8.10% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.26s | F on | buckets off: SESSIONS_F2=0 | G 8.10%
+  f1 [f1 n2]: MATCH 0.20s | F on | G 8.10%
+[f1b15 seed=15 cap=6548] rand_str: mut_f1b15_rand_str: MATCH
+  n2_auto [f2 n2]: MATCH 0.18s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.16s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.15s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.15s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+  b7 [f2 n6 TEST_BUCKET_BITS=7]: MATCH 0.12s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.14s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+  f1 [f1 n2]: MATCH 0.19s | lane F off: sample too small (5 user IDs, 0 link lines) | G 100.00%
+[f1b15 seed=15 cap=6548] rand_canon: mut_f1b15_rand_canon: MATCH
+  n2_auto [f2 n2]: MATCH 0.06s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.10s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.18s | lane F off: no key candidate passed | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.12s | lane F off: no key candidate passed | G 100.00%
+  b9 [f2 n3 TEST_BUCKET_BITS=9]: MATCH 0.20s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.09s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.08s | lane F off: no key candidate passed | G 100.00%
+[f1b15 seed=15 cap=6548] rekey: mut_f1b15_rekey: MATCH
+  n2_auto [f2 n2]: MATCH 0.17s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.13s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.12s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  n8_auto [f2 n8]: MATCH 0.13s | F on | B on ncap 262144/32768 | multi 0p/0e/0ev | G 2.92% side 1378 gen 0
+  b9 [f2 n1 TEST_BUCKET_BITS=9]: MATCH 0.24s | F on | B on ncap 231424/512 | multi 106p/216e/12349ev | G 2.92% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.25s | F on | buckets off: SESSIONS_F2=0 | G 2.92%
+  f1 [f1 n2]: MATCH 0.20s | F on | G 2.92%
+[f1b15 seed=15 cap=6548] combined: mut_f1b15_combined: MATCH
+  n2_auto [f2 n2]: MATCH 0.12s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.14s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.22s | lane F off: no key candidate passed | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.17s | lane F off: no key candidate passed | G 100.00%
+  b8 [f2 n6 TEST_BUCKET_BITS=8]: MATCH 0.15s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.19s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.19s | lane F off: no key candidate passed | G 100.00%
+[f1b15 seed=15 cap=6548] intra: mut_f1b15_intra: MATCH
+  n2_auto [f2 n2]: MATCH 0.11s | F on | buckets off: no event key candidate passed | G 2.82%
+  n2_G [f2 n2 LANE=G]: MATCH 0.12s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.12s | F on | buckets off: no event key candidate passed | G 2.82%
+  n8_auto [f2 n8]: MATCH 0.07s | F on | buckets off: no event key candidate passed | G 2.82%
+  b6 [f2 n1 TEST_BUCKET_BITS=6]: MATCH 0.16s | F on | buckets off: no event key candidate passed | G 2.82%
+  f2off [f2 n2 F2=0]: MATCH 0.34s | F on | buckets off: SESSIONS_F2=0 | G 2.82%
+  f1 [f1 n2]: MATCH 0.18s | F on | G 2.82%
+[f1b2481 seed=2481 cap=19114] upper: mut_f1b2481_upper: MATCH
+  n2_auto [f2 n2]: MATCH 0.16s | F on | B on ncap 622592/32768 | multi 5p/10e/629ev | G 7.03% side 5848 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.15s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.25s | F on | B on ncap 622592/32768 | multi 5p/10e/629ev | G 7.03% side 5848 gen 0
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 622592/32768 | multi 5p/10e/629ev | G 7.03% side 5848 gen 0
+  b9 [f2 n3 TEST_BUCKET_BITS=9]: MATCH 0.17s | F on | B on ncap 608768/512 | multi 321p/673e/50268ev | G 7.03% side 5848 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.27s | F on | buckets off: SESSIONS_F2=0 | G 7.03%
+  f1 [f1 n2]: MATCH 0.20s | F on | G 7.03%
+[f1b2481 seed=2481 cap=19114] lzero: mut_f1b2481_lzero: MATCH
+  n2_auto [f2 n2]: MATCH 0.10s | F on | B on ncap 622592/32768 | multi 4p/8e/620ev | G 8.23% side 5701 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.15s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.19s | F on | B on ncap 622592/32768 | multi 4p/8e/620ev | G 8.23% side 5701 gen 0
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 622592/32768 | multi 4p/8e/620ev | G 8.23% side 5701 gen 0
+  b6 [f2 n8 TEST_BUCKET_BITS=6]: MATCH 0.16s | F on | B on ncap 608384/64 | multi 1986p/4785e/115701ev | G 8.23% side 5701 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.16s | F on | buckets off: SESSIONS_F2=0 | G 8.23%
+  f1 [f1 n2]: MATCH 0.15s | F on | G 8.23%
+[f1b2481 seed=2481 cap=19114] noncanon: mut_f1b2481_noncanon: MATCH
+  n2_auto [f2 n2]: MATCH 0.13s | F on | buckets off: no event key candidate passed | G 16.70%
+  n2_G [f2 n2 LANE=G]: MATCH 0.18s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.14s | F on | buckets off: no event key candidate passed | G 16.70%
+  n8_auto [f2 n8]: MATCH 0.14s | F on | buckets off: no event key candidate passed | G 16.70%
+  b14 [f2 n4 TEST_BUCKET_BITS=14]: MATCH 0.11s | F on | buckets off: no event key candidate passed | G 16.70%
+  f2off [f2 n2 F2=0]: MATCH 0.14s | F on | buckets off: SESSIONS_F2=0 | G 16.70%
+  f1 [f1 n2]: MATCH 0.14s | F on | G 16.70%
+[f1b2481 seed=2481 cap=19114] xlinks: mut_f1b2481_xlinks: MATCH
+  n2_auto [f2 n2]: MATCH 0.21s | F on | B on ncap 622592/32768 | multi 4p/8e/514ev | G 13.09% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.19s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.22s | F on | B on ncap 622592/32768 | multi 4p/8e/514ev | G 13.09% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.20s | F on | B on ncap 622592/32768 | multi 4p/8e/514ev | G 13.09% side 3057 gen 0
+  b14 [f2 n3 TEST_BUCKET_BITS=14]: MATCH 0.18s | F on | B on ncap 622592/16384 | multi 9p/18e/867ev | G 13.09% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.15s | F on | buckets off: SESSIONS_F2=0 | G 13.09%
+  f1 [f1 n2]: MATCH 0.29s | F on | G 13.09%
+[f1b2481 seed=2481 cap=19114] kiosk: mut_f1b2481_kiosk: MATCH
+  n2_auto [f2 n2]: MATCH 0.19s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 9.25% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.21s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.18s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 9.25% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.16s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 9.25% side 3057 gen 0
+  b10 [f2 n3 TEST_BUCKET_BITS=10]: MATCH 0.17s | F on | B on ncap 608256/1024 | multi 167p/336e/23517ev | G 9.25% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.22s | F on | buckets off: SESSIONS_F2=0 | G 9.25%
+  f1 [f1 n2]: MATCH 0.27s | F on | G 9.25%
+[f1b2481 seed=2481 cap=19114] alias16: mut_f1b2481_alias16: MATCH
+  n2_auto [f2 n2]: MATCH 0.08s | F on | B on ncap 622592/32768 | multi 26p/115e/1049ev | G 6.30% side 3057 gen 87
+  n2_G [f2 n2 LANE=G]: MATCH 0.17s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.15s | F on | B on ncap 622592/32768 | multi 26p/115e/1049ev | G 6.30% side 3057 gen 87
+  n8_auto [f2 n8]: MATCH 0.19s | F on | B on ncap 622592/32768 | multi 26p/115e/1049ev | G 6.30% side 3057 gen 87
+  b12 [f2 n6 TEST_BUCKET_BITS=12]: MATCH 0.30s | F on | B on ncap 610304/4096 | multi 61p/185e/8345ev | G 6.30% side 3057 gen 87
+  f2off [f2 n2 F2=0]: MATCH 0.18s | F on | buckets off: SESSIONS_F2=0 | G 6.30%
+  f1 [f1 n2]: MATCH 0.22s | F on | G 6.30%
+[f1b2481 seed=2481 cap=19114] clickonly: mut_f1b2481_clickonly: MATCH
+  n2_auto [f2 n2]: MATCH 0.37s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.20% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.12s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.20s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.20% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.19s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.20% side 3057 gen 0
+  b7 [f2 n2 TEST_BUCKET_BITS=7]: MATCH 0.25s | F on | B on ncap 608128/128 | multi 1162p/2621e/95447ev | G 3.20% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.14s | F on | buckets off: SESSIONS_F2=0 | G 3.20%
+  f1 [f1 n2]: MATCH 0.16s | F on | G 3.20%
+[f1b2481 seed=2481 cap=19114] split: mut_f1b2481_split: MATCH
+  n2_auto [f2 n2]: MATCH 0.20s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.16s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.14s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.21s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  b11 [f2 n3 TEST_BUCKET_BITS=11]: MATCH 0.26s | F on | B on ncap 610304/2048 | multi 88p/178e/25778ev | G 2.17% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.12s | F on | buckets off: SESSIONS_F2=0 | G 2.17%
+  f1 [f1 n2]: MATCH 0.18s | F on | G 2.17%
+[f1b2481 seed=2481 cap=19114] dupuser: mut_f1b2481_dupuser: MATCH
+  n2_auto [f2 n2]: MATCH 0.23s | F on | buckets off: no event key candidate passed | G 3.51%
+  n2_G [f2 n2 LANE=G]: MATCH 0.30s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.26s | F on | buckets off: no event key candidate passed | G 3.51%
+  n8_auto [f2 n8]: MATCH 0.14s | F on | buckets off: no event key candidate passed | G 3.51%
+  b10 [f2 n3 TEST_BUCKET_BITS=10]: MATCH 0.21s | F on | buckets off: no event key candidate passed | G 3.51%
+  f2off [f2 n2 F2=0]: MATCH 0.26s | F on | buckets off: SESSIONS_F2=0 | G 3.51%
+  f1 [f1 n2]: MATCH 0.26s | F on | G 3.51%
+[f1b2481 seed=2481 cap=19114] linkdirt: mut_f1b2481_linkdirt: MATCH
+  n2_auto [f2 n2]: MATCH 0.26s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.39% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.31s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.24s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.39% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.25s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 3.39% side 3057 gen 0
+  b12 [f2 n8 TEST_BUCKET_BITS=12]: MATCH 0.34s | F on | B on ncap 610304/4096 | multi 43p/86e/14609ev | G 3.39% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.32s | F on | buckets off: SESSIONS_F2=0 | G 3.39%
+  f1 [f1 n2]: MATCH 0.25s | F on | G 3.39%
+[f1b2481 seed=2481 cap=19114] rand_str: mut_f1b2481_rand_str: MATCH
+  n2_auto [f2 n2]: MATCH 0.37s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.46s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.46s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.43s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+  b6 [f2 n8 TEST_BUCKET_BITS=6]: MATCH 0.49s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.46s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+  f1 [f1 n2]: MATCH 0.36s | lane F off: sample too small (2 user IDs, 0 link lines) | G 100.00%
+[f1b2481 seed=2481 cap=19114] rand_canon: mut_f1b2481_rand_canon: MATCH
+  n2_auto [f2 n2]: MATCH 0.23s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.33s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.31s | lane F off: no key candidate passed | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.30s | lane F off: no key candidate passed | G 100.00%
+  b10 [f2 n4 TEST_BUCKET_BITS=10]: MATCH 0.43s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.23s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.24s | lane F off: no key candidate passed | G 100.00%
+[f1b2481 seed=2481 cap=19114] rekey: mut_f1b2481_rekey: MATCH
+  n2_auto [f2 n2]: MATCH 0.15s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.21s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.21s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  n8_auto [f2 n8]: MATCH 0.14s | F on | B on ncap 622592/32768 | multi 5p/10e/637ev | G 2.17% side 3057 gen 0
+  b10 [f2 n1 TEST_BUCKET_BITS=10]: MATCH 0.17s | F on | B on ncap 608256/1024 | multi 173p/356e/36414ev | G 2.17% side 3057 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.15s | F on | buckets off: SESSIONS_F2=0 | G 2.17%
+  f1 [f1 n2]: MATCH 0.15s | F on | G 2.17%
+[f1b2481 seed=2481 cap=19114] combined: mut_f1b2481_combined: MATCH
+  n2_auto [f2 n2]: MATCH 0.29s | F on | buckets off: no event key candidate passed | G 35.76%
+  n2_G [f2 n2 LANE=G]: MATCH 0.25s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.23s | F on | buckets off: no event key candidate passed | G 35.76%
+  n8_auto [f2 n8]: MATCH 0.20s | F on | buckets off: no event key candidate passed | G 35.76%
+  b14 [f2 n8 TEST_BUCKET_BITS=14]: MATCH 0.15s | F on | buckets off: no event key candidate passed | G 35.76%
+  f2off [f2 n2 F2=0]: MATCH 0.23s | F on | buckets off: SESSIONS_F2=0 | G 35.76%
+  f1 [f1 n2]: MATCH 0.28s | F on | G 35.76%
+[f1b2481 seed=2481 cap=19114] intra: mut_f1b2481_intra: MATCH
+  n2_auto [f2 n2]: MATCH 0.29s | F on | B on ncap 622592/32768 | multi 302p/4027e/12519ev | G 2.14% side 3057 gen 3720
+  n2_G [f2 n2 LANE=G]: MATCH 0.33s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.32s | F on | B on ncap 622592/32768 | multi 302p/4027e/12519ev | G 2.14% side 3057 gen 3720
+  n8_auto [f2 n8]: MATCH 0.32s | F on | B on ncap 622592/32768 | multi 302p/4027e/12519ev | G 2.14% side 3057 gen 3720
+  b14 [f2 n6 TEST_BUCKET_BITS=14]: MATCH 0.23s | F on | B on ncap 622592/16384 | multi 307p/4037e/12872ev | G 2.14% side 3057 gen 3720
+  f2off [f2 n2 F2=0]: MATCH 0.29s | F on | buckets off: SESSIONS_F2=0 | G 2.14%
+  f1 [f1 n2]: MATCH 0.38s | F on | G 2.14%
+[f1b537 seed=537 cap=10042] upper: mut_f1b537_upper: MATCH
+  n2_auto [f2 n2]: MATCH 0.17s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 7.42% side 3286 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.32s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.22s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 7.42% side 3286 gen 0
+  n8_auto [f2 n8]: MATCH 0.22s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 7.42% side 3286 gen 0
+  b12 [f2 n1 TEST_BUCKET_BITS=12]: MATCH 0.40s | F on | B on ncap 339968/4096 | multi 20p/40e/3418ev | G 7.42% side 3286 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.24s | F on | buckets off: SESSIONS_F2=0 | G 7.42%
+  f1 [f1 n2]: MATCH 0.30s | F on | G 7.42%
+[f1b537 seed=537 cap=10042] lzero: mut_f1b537_lzero: MATCH
+  n2_auto [f2 n2]: MATCH 0.37s | F on | B on ncap 360448/32768 | multi 2p/4e/114ev | G 8.76% side 3187 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.32s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.36s | F on | B on ncap 360448/32768 | multi 2p/4e/114ev | G 8.76% side 3187 gen 0
+  n8_auto [f2 n8]: MATCH 0.52s | F on | B on ncap 360448/32768 | multi 2p/4e/114ev | G 8.76% side 3187 gen 0
+  b11 [f2 n1 TEST_BUCKET_BITS=11]: MATCH 0.42s | F on | B on ncap 337920/2048 | multi 43p/86e/7121ev | G 8.76% side 3187 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.54s | F on | buckets off: SESSIONS_F2=0 | G 8.76%
+  f1 [f1 n2]: MATCH 0.34s | F on | G 8.76%
+[f1b537 seed=537 cap=10042] noncanon: mut_f1b537_noncanon: MATCH
+  n2_auto [f2 n2]: MATCH 0.28s | F on | buckets off: no event key candidate passed | G 26.21%
+  n2_G [f2 n2 LANE=G]: MATCH 0.24s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.27s | F on | buckets off: no event key candidate passed | G 26.21%
+  n8_auto [f2 n8]: MATCH 0.22s | F on | buckets off: no event key candidate passed | G 26.21%
+  b11 [f2 n6 TEST_BUCKET_BITS=11]: MATCH 0.34s | F on | buckets off: no event key candidate passed | G 26.21%
+  f2off [f2 n2 F2=0]: MATCH 0.48s | F on | buckets off: SESSIONS_F2=0 | G 26.21%
+  f1 [f1 n2]: MATCH 0.38s | F on | G 26.21%
+[f1b537 seed=537 cap=10042] xlinks: mut_f1b537_xlinks: MATCH
+  n2_auto [f2 n2]: MATCH 0.31s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 19.14% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.26s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.38s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 19.14% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.37s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 19.14% side 1896 gen 0
+  b14 [f2 n8 TEST_BUCKET_BITS=14]: MATCH 0.41s | F on | B on ncap 344064/16384 | multi 5p/10e/503ev | G 19.14% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.42s | F on | buckets off: SESSIONS_F2=0 | G 19.14%
+  f1 [f1 n2]: MATCH 0.44s | F on | G 19.14%
+[f1b537 seed=537 cap=10042] kiosk: mut_f1b537_kiosk: MATCH
+  n2_auto [f2 n2]: MATCH 0.34s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 9.65% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.37s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.34s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 9.65% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.33s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 9.65% side 1896 gen 0
+  b12 [f2 n3 TEST_BUCKET_BITS=12]: MATCH 0.43s | F on | B on ncap 339968/4096 | multi 21p/42e/1908ev | G 9.65% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.53s | F on | buckets off: SESSIONS_F2=0 | G 9.65%
+  f1 [f1 n2]: MATCH 0.40s | F on | G 9.65%
+[f1b537 seed=537 cap=10042] alias16: mut_f1b537_alias16: MATCH
+  n2_auto [f2 n2]: MATCH 0.55s | F on | B on ncap 360448/32768 | multi 27p/132e/768ev | G 7.43% side 1896 gen 108
+  n2_G [f2 n2 LANE=G]: MATCH 0.66s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.59s | F on | B on ncap 360448/32768 | multi 27p/132e/768ev | G 7.43% side 1896 gen 108
+  n8_auto [f2 n8]: MATCH 0.51s | F on | B on ncap 360448/32768 | multi 27p/132e/768ev | G 7.43% side 1896 gen 108
+  b13 [f2 n6 TEST_BUCKET_BITS=13]: MATCH 0.22s | F on | B on ncap 344064/8192 | multi 35p/148e/1460ev | G 7.43% side 1896 gen 108
+  f2off [f2 n2 F2=0]: MATCH 0.24s | F on | buckets off: SESSIONS_F2=0 | G 7.43%
+  f1 [f1 n2]: MATCH 0.36s | F on | G 7.43%
+[f1b537 seed=537 cap=10042] clickonly: mut_f1b537_clickonly: MATCH
+  n2_auto [f2 n2]: MATCH 0.41s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 5.13% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.34s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.45s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 5.13% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.23s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 5.13% side 1896 gen 0
+  b14 [f2 n3 TEST_BUCKET_BITS=14]: MATCH 0.44s | F on | B on ncap 344064/16384 | multi 5p/10e/503ev | G 5.13% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.35s | F on | buckets off: SESSIONS_F2=0 | G 5.13%
+  f1 [f1 n2]: MATCH 0.30s | F on | G 5.13%
+[f1b537 seed=537 cap=10042] split: mut_f1b537_split: MATCH
+  n2_auto [f2 n2]: MATCH 0.39s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.40s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.25s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.39s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  b9 [f2 n1 TEST_BUCKET_BITS=9]: MATCH 0.36s | F on | B on ncap 336384/512 | multi 173p/356e/23085ev | G 2.82% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.33s | F on | buckets off: SESSIONS_F2=0 | G 2.82%
+  f1 [f1 n2]: MATCH 0.26s | F on | G 2.82%
+[f1b537 seed=537 cap=10042] dupuser: mut_f1b537_dupuser: MATCH
+  n2_auto [f2 n2]: MATCH 0.61s | F on | buckets off: no event key candidate passed | G 4.37%
+  n2_G [f2 n2 LANE=G]: MATCH 0.47s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.34s | F on | buckets off: no event key candidate passed | G 4.37%
+  n8_auto [f2 n8]: MATCH 0.44s | F on | buckets off: no event key candidate passed | G 4.37%
+  b13 [f2 n1 TEST_BUCKET_BITS=13]: MATCH 0.45s | F on | buckets off: no event key candidate passed | G 4.37%
+  f2off [f2 n2 F2=0]: MATCH 0.46s | F on | buckets off: SESSIONS_F2=0 | G 4.37%
+  f1 [f1 n2]: MATCH 0.32s | F on | G 4.37%
+[f1b537 seed=537 cap=10042] linkdirt: mut_f1b537_linkdirt: MATCH
+  n2_auto [f2 n2]: MATCH 0.51s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 6.99% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.43s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.48s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 6.99% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.41s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 6.99% side 1896 gen 0
+  b13 [f2 n4 TEST_BUCKET_BITS=13]: MATCH 0.48s | F on | B on ncap 344064/8192 | multi 10p/20e/807ev | G 6.99% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.56s | F on | buckets off: SESSIONS_F2=0 | G 6.99%
+  f1 [f1 n2]: MATCH 0.49s | F on | G 6.99%
+[f1b537 seed=537 cap=10042] rand_str: mut_f1b537_rand_str: MATCH
+  n2_auto [f2 n2]: MATCH 0.46s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.31s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.29s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.38s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+  b6 [f2 n2 TEST_BUCKET_BITS=6]: MATCH 0.42s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.42s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+  f1 [f1 n2]: MATCH 0.40s | lane F off: sample too small (4 user IDs, 1 link lines) | G 100.00%
+[f1b537 seed=537 cap=10042] rand_canon: mut_f1b537_rand_canon: MATCH
+  n2_auto [f2 n2]: MATCH 0.27s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.26s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.21s | lane F off: no key candidate passed | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.38s | lane F off: no key candidate passed | G 100.00%
+  b8 [f2 n6 TEST_BUCKET_BITS=8]: MATCH 0.34s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.26s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.27s | lane F off: no key candidate passed | G 100.00%
+[f1b537 seed=537 cap=10042] rekey: mut_f1b537_rekey: MATCH
+  n2_auto [f2 n2]: MATCH 0.54s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.44s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.42s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  n8_auto [f2 n8]: MATCH 0.45s | F on | B on ncap 360448/32768 | multi 2p/4e/115ev | G 2.82% side 1896 gen 0
+  b7 [f2 n8 TEST_BUCKET_BITS=7]: MATCH 0.42s | F on | B on ncap 336128/128 | multi 605p/1335e/46157ev | G 2.82% side 1896 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.58s | F on | buckets off: SESSIONS_F2=0 | G 2.82%
+  f1 [f1 n2]: MATCH 0.33s | F on | G 2.82%
+[f1b537 seed=537 cap=10042] combined: mut_f1b537_combined: MATCH
+  n2_auto [f2 n2]: MATCH 0.29s | F on | buckets off: no event key candidate passed | G 48.14%
+  n2_G [f2 n2 LANE=G]: MATCH 0.35s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.46s | F on | buckets off: no event key candidate passed | G 48.14%
+  n8_auto [f2 n8]: MATCH 0.35s | F on | buckets off: no event key candidate passed | G 48.14%
+  b13 [f2 n1 TEST_BUCKET_BITS=13]: MATCH 0.35s | F on | buckets off: no event key candidate passed | G 48.14%
+  f2off [f2 n2 F2=0]: MATCH 0.22s | F on | buckets off: SESSIONS_F2=0 | G 48.14%
+  f1 [f1 n2]: MATCH 0.31s | F on | G 48.14%
+[f1b537 seed=537 cap=10042] intra: mut_f1b537_intra: MATCH
+  n2_auto [f2 n2]: MATCH 0.86s | F on | buckets off: no event key candidate passed | G 2.77%
+  n2_G [f2 n2 LANE=G]: MATCH 0.50s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.48s | F on | buckets off: no event key candidate passed | G 2.77%
+  n8_auto [f2 n8]: MATCH 0.55s | F on | buckets off: no event key candidate passed | G 2.77%
+  b8 [f2 n2 TEST_BUCKET_BITS=8]: MATCH 0.48s | F on | buckets off: no event key candidate passed | G 2.77%
+  f2off [f2 n2 F2=0]: MATCH 0.46s | F on | buckets off: SESSIONS_F2=0 | G 2.77%
+  f1 [f1 n2]: MATCH 0.54s | F on | G 2.77%
+[f1b1 seed=1 cap=92706] upper: mut_f1b1_upper: MATCH
+  n2_auto [f2 n2]: MATCH 1.61s | F on | B on ncap 2818048/32768 | multi 36p/72e/24213ev | G 10.70% side 22592 gen 8
+  n2_G [f2 n2 LANE=G]: MATCH 0.73s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.92s | F on | B on ncap 2818048/32768 | multi 36p/72e/24213ev | G 10.70% side 22592 gen 8
+  n8_auto [f2 n8]: MATCH 1.21s | F on | B on ncap 2818048/32768 | multi 36p/72e/24213ev | G 10.70% side 22592 gen 8
+  b10 [f2 n2 TEST_BUCKET_BITS=10]: MATCH 1.27s | F on | B on ncap 2817024/1024 | multi 803p/1660e/181504ev | G 10.70% side 22592 gen 8
+  f2off [f2 n2 F2=0]: MATCH 1.08s | F on | buckets off: SESSIONS_F2=0 | G 10.70%
+  f1 [f1 n2]: MATCH 0.89s | F on | G 10.70%
+[f1b1 seed=1 cap=92706] lzero: mut_f1b1_lzero: MATCH
+  n2_auto [f2 n2]: MATCH 1.27s | F on | B on ncap 2818048/32768 | multi 37p/74e/42472ev | G 7.79% side 22553 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.76s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.76s | F on | B on ncap 2818048/32768 | multi 37p/74e/42472ev | G 7.79% side 22553 gen 10
+  n8_auto [f2 n8]: MATCH 0.53s | F on | B on ncap 2818048/32768 | multi 37p/74e/42472ev | G 7.79% side 22553 gen 10
+  b9 [f2 n1 TEST_BUCKET_BITS=9]: MATCH 0.95s | F on | B on ncap 2817024/512 | multi 1530p/3304e/285265ev | G 7.79% side 22553 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.64s | F on | buckets off: SESSIONS_F2=0 | G 7.79%
+  f1 [f1 n2]: MATCH 0.91s | F on | G 7.79%
+[f1b1 seed=1 cap=92706] noncanon: mut_f1b1_noncanon: MATCH
+  n2_auto [f2 n2]: MATCH 0.42s | F on | B on ncap 2850816/32768 | multi 61p/164e/44267ev | G 7.44% side 8762 gen 75
+  n2_G [f2 n2 LANE=G]: MATCH 0.29s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.21s | F on | B on ncap 2850816/32768 | multi 61p/164e/44267ev | G 7.44% side 8762 gen 75
+  n8_auto [f2 n8]: MATCH 0.27s | F on | B on ncap 2850816/32768 | multi 61p/164e/44267ev | G 7.44% side 8762 gen 75
+  b8 [f2 n6 TEST_BUCKET_BITS=8]: MATCH 0.25s | F on | B on ncap 2830592/256 | multi 2933p/6515e/365484ev | G 7.44% side 8762 gen 75
+  f2off [f2 n2 F2=0]: MATCH 0.22s | F on | buckets off: SESSIONS_F2=0 | G 7.44%
+  f1 [f1 n2]: MATCH 0.23s | F on | G 7.44%
+[f1b1 seed=1 cap=92706] xlinks: mut_f1b1_xlinks: MATCH
+  n2_auto [f2 n2]: MATCH 0.17s | F on | B on ncap 2818048/32768 | multi 37p/74e/7720ev | G 8.42% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.38s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.19s | F on | B on ncap 2818048/32768 | multi 37p/74e/7720ev | G 8.42% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.19s | F on | B on ncap 2818048/32768 | multi 37p/74e/7720ev | G 8.42% side 8762 gen 10
+  b11 [f2 n1 TEST_BUCKET_BITS=11]: MATCH 0.19s | F on | B on ncap 2816000/2048 | multi 426p/871e/128099ev | G 8.42% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.20s | F on | buckets off: SESSIONS_F2=0 | G 8.42%
+  f1 [f1 n2]: MATCH 0.22s | F on | G 8.42%
+[f1b1 seed=1 cap=92706] kiosk: mut_f1b1_kiosk: MATCH
+  n2_auto [f2 n2]: MATCH 0.41s | F on | B on ncap 2818048/32768 | multi 38p/76e/25100ev | G 9.11% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.23s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.20s | F on | B on ncap 2818048/32768 | multi 38p/76e/25100ev | G 9.11% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.21s | F on | B on ncap 2818048/32768 | multi 38p/76e/25100ev | G 9.11% side 8762 gen 10
+  b10 [f2 n3 TEST_BUCKET_BITS=10]: MATCH 0.34s | F on | B on ncap 2817024/1024 | multi 825p/1690e/168541ev | G 9.11% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.58s | F on | buckets off: SESSIONS_F2=0 | G 9.11%
+  f1 [f1 n2]: MATCH 0.64s | F on | G 9.11%
+[f1b1 seed=1 cap=92706] alias16: mut_f1b1_alias16: MATCH
+  n2_auto [f2 n2]: MATCH 0.29s | F on | B on ncap 2818048/32768 | multi 61p/191e/25652ev | G 5.73% side 8762 gen 105
+  n2_G [f2 n2 LANE=G]: MATCH 0.29s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.21s | F on | B on ncap 2818048/32768 | multi 61p/191e/25652ev | G 5.73% side 8762 gen 105
+  n8_auto [f2 n8]: MATCH 0.24s | F on | B on ncap 2818048/32768 | multi 61p/191e/25652ev | G 5.73% side 8762 gen 105
+  b6 [f2 n3 TEST_BUCKET_BITS=6]: MATCH 0.30s | F on | B on ncap 2817408/64 | multi 9683p/23988e/593964ev | G 5.73% side 8762 gen 105
+  f2off [f2 n2 F2=0]: MATCH 0.28s | F on | buckets off: SESSIONS_F2=0 | G 5.73%
+  f1 [f1 n2]: MATCH 0.22s | F on | G 5.73%
+[f1b1 seed=1 cap=92706] clickonly: mut_f1b1_clickonly: MATCH
+  n2_auto [f2 n2]: MATCH 0.19s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.79% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.18s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.20s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.79% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.79% side 8762 gen 10
+  b13 [f2 n1 TEST_BUCKET_BITS=13]: MATCH 0.20s | F on | B on ncap 2818048/8192 | multi 122p/250e/116444ev | G 1.79% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.19s | F on | buckets off: SESSIONS_F2=0 | G 1.79%
+  f1 [f1 n2]: MATCH 0.20s | F on | G 1.79%
+[f1b1 seed=1 cap=92706] split: mut_f1b1_split: MATCH
+  n2_auto [f2 n2]: MATCH 0.15s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.24s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.20s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.15s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  b14 [f2 n1 TEST_BUCKET_BITS=14]: MATCH 0.19s | F on | B on ncap 2818048/16384 | multi 70p/140e/104139ev | G 1.62% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.14s | F on | buckets off: SESSIONS_F2=0 | G 1.62%
+  f1 [f1 n2]: MATCH 0.32s | F on | G 1.62%
+[f1b1 seed=1 cap=92706] dupuser: mut_f1b1_dupuser: MATCH
+  n2_auto [f2 n2]: MATCH 0.50s | F on | buckets off: no event key candidate passed | G 2.72%
+  n2_G [f2 n2 LANE=G]: MATCH 0.34s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.38s | F on | buckets off: no event key candidate passed | G 2.72%
+  n8_auto [f2 n8]: MATCH 0.40s | F on | buckets off: no event key candidate passed | G 2.72%
+  b9 [f2 n3 TEST_BUCKET_BITS=9]: MATCH 0.32s | F on | buckets off: no event key candidate passed | G 2.72%
+  f2off [f2 n2 F2=0]: MATCH 0.31s | F on | buckets off: SESSIONS_F2=0 | G 2.72%
+  f1 [f1 n2]: MATCH 0.30s | F on | G 2.72%
+[f1b1 seed=1 cap=92706] linkdirt: mut_f1b1_linkdirt: MATCH
+  n2_auto [f2 n2]: MATCH 0.26s | F on | B on ncap 2818048/32768 | multi 38p/76e/43126ev | G 1.87% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.32s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.19s | F on | B on ncap 2818048/32768 | multi 38p/76e/43126ev | G 1.87% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.21s | F on | B on ncap 2818048/32768 | multi 38p/76e/43126ev | G 1.87% side 8762 gen 10
+  b7 [f2 n3 TEST_BUCKET_BITS=7]: MATCH 0.34s | F on | B on ncap 2816000/128 | multi 5416p/12807e/509229ev | G 1.87% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.36s | F on | buckets off: SESSIONS_F2=0 | G 1.87%
+  f1 [f1 n2]: MATCH 0.24s | F on | G 1.87%
+[f1b1 seed=1 cap=92706] rand_str: mut_f1b1_rand_str: MATCH
+  n2_auto [f2 n2]: MATCH 0.67s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.59s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.53s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.62s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+  b11 [f2 n1 TEST_BUCKET_BITS=11]: MATCH 0.65s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.66s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+  f1 [f1 n2]: MATCH 0.52s | lane F off: sample too small (4 user IDs, 0 link lines) | G 100.00%
+[f1b1 seed=1 cap=92706] rand_canon: mut_f1b1_rand_canon: MATCH
+  n2_auto [f2 n2]: MATCH 0.32s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.36s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.33s | lane F off: no key candidate passed | G 100.00%
+  n8_auto [f2 n8]: MATCH 0.37s | lane F off: no key candidate passed | G 100.00%
+  b7 [f2 n1 TEST_BUCKET_BITS=7]: MATCH 0.56s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.53s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.27s | lane F off: no key candidate passed | G 100.00%
+[f1b1 seed=1 cap=92706] rekey: mut_f1b1_rekey: MATCH
+  n2_auto [f2 n2]: MATCH 0.46s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  n2_G [f2 n2 LANE=G]: MATCH 0.52s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.43s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  n8_auto [f2 n8]: MATCH 0.35s | F on | B on ncap 2818048/32768 | multi 39p/78e/43135ev | G 1.62% side 8762 gen 10
+  b14 [f2 n2 TEST_BUCKET_BITS=14]: MATCH 0.34s | F on | B on ncap 2818048/16384 | multi 70p/140e/104139ev | G 1.62% side 8762 gen 10
+  f2off [f2 n2 F2=0]: MATCH 0.55s | F on | buckets off: SESSIONS_F2=0 | G 1.62%
+  f1 [f1 n2]: MATCH 0.43s | F on | G 1.62%
+[f1b1 seed=1 cap=92706] combined: mut_f1b1_combined: MATCH
+  n2_auto [f2 n2]: MATCH 0.43s | F on | buckets off: no event key candidate passed | G 22.37%
+  n2_G [f2 n2 LANE=G]: MATCH 0.60s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.59s | F on | buckets off: no event key candidate passed | G 22.37%
+  n8_auto [f2 n8]: MATCH 0.61s | F on | buckets off: no event key candidate passed | G 22.37%
+  b14 [f2 n1 TEST_BUCKET_BITS=14]: MATCH 0.49s | F on | buckets off: no event key candidate passed | G 22.37%
+  f2off [f2 n2 F2=0]: MATCH 0.52s | F on | buckets off: SESSIONS_F2=0 | G 22.37%
+  f1 [f1 n2]: MATCH 0.40s | F on | G 22.37%
+[f1b1 seed=1 cap=92706] intra: mut_f1b1_intra: MATCH
+  n2_auto [f2 n2]: MATCH 0.39s | F on | B on ncap 2850816/32768 | multi 338p/4064e/54412ev | G 1.61% side 8762 gen 3697
+  n2_G [f2 n2 LANE=G]: MATCH 0.59s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.41s | F on | B on ncap 2850816/32768 | multi 338p/4064e/54412ev | G 1.61% side 8762 gen 3697
+  n8_auto [f2 n8]: MATCH 0.30s | F on | B on ncap 2850816/32768 | multi 338p/4064e/54412ev | G 1.61% side 8762 gen 3697
+  b6 [f2 n8 TEST_BUCKET_BITS=6]: MATCH 0.84s | F on | B on ncap 2825856/64 | multi 9897p/28429e/639647ev | G 1.61% side 8762 gen 3697
+  f2off [f2 n2 F2=0]: MATCH 0.39s | F on | buckets off: SESSIONS_F2=0 | G 1.61%
+  f1 [f1 n2]: MATCH 0.53s | F on | G 1.61%

@@ -1,0 +1,13 @@
+99b1994 clean: drop unused parameter
+de78d24 clean: no profiler
+b80a6ad F: MADV_POPULATE_READ each chunk before parsing it
+e896f28 C2: single-pass products/categories parse
+36d01f5 C1: lazy chunk line boundaries in workers; split the last 2*threads units in 4
+f6af1f8 E: _exit right after the last output (no destructors)
+2a31c32 B: stream user_daily files every 65536 rows from the people loop
+a253ceb D: campaign table + report by the last people-phase thread; per-part totals
+605d1ec P2: local person table sized by persons, grows on demand
+f476e12 R1: recycle consumed dedup blocks for the person sink; fresh-arena counter
+eb52755 R2: sink block sizes from expected per-thread-partition counts
+f60967c S1: unmap inputs at the head of the dedup queue
+4ed3499 rel1 + prof instrumentation

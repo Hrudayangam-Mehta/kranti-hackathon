@@ -1,0 +1,252 @@
+### prof1 NCPU=1 run1
+run0 exit 0 wall 6.764 user 3.93 sys 2.77 rss 3308MB | setup=15 links1t=177 parse=4524 dedup=5715 people=6689 write=6700 exit=64
+links       176.6 ms on one thread
+prof: main small_files      end      7.9  cpu     7.9  sys     5.0  faults    1032
+prof: main map_folders      end      8.9  cpu     1.0  sys     0.5  faults       1
+prof: main chunks           end     13.7  cpu     4.4  sys     4.4  faults     530
+prof: main ctx              end     15.2  cpu     1.3  sys     1.3  faults     386
+prof: main scope_join       end   6689.4  cpu     0.2  sys     0.2  faults       1
+prof: main campaign+report  end   6699.6  cpu     9.9  sys     3.9  faults     920
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           4523.9   4523.9     4484.2   4484.2     2096.1    30967
+prof: sink_finish          4524.1   4524.1        0.1      0.1        0.1        0
+prof: barrier1             4524.1   4524.1        0.0      0.0        0.0        0
+prof: dedup_loop           5714.9   5714.9     1168.7   1168.7      366.9      606
+prof: p2_finish            5715.0   5715.0        0.1      0.1        0.0        0
+prof: barrier2+order       5715.2   5715.2        0.2      0.2        0.1       17
+prof: people_loop          6502.4   6502.4      780.0    780.0       90.9    49739
+prof: worker_finish        6502.6   6502.6        0.2      0.2        0.1        0
+prof: user_write           6689.3   6689.3      186.2    186.2      144.7    19136
+prof: barrier3             6689.4   6689.4        0.0      0.0        0.0        0
+MEDIAN prof1 NCPU=1 cores=0-3 wall 6.764 (min 6.764) user 3.93 sys 2.77 | setup=15 links1t=177 parse=4524 dedup=5715 people=6689 write=6700 exit=64
+### pop NCPU=1 run1
+run0 exit 0 wall 5.052 user 4.05 sys 0.96 rss 2737MB | setup=6 links1t=161 parse=3180 dedup=4244 people=5043 write=5043 exit=9
+links       160.9 ms on one thread
+prof: main small_files      end      3.7  cpu     3.6  sys     3.6  faults     444
+prof: main map_folders      end      5.0  cpu     1.3  sys     1.3  faults       2
+prof: main chunks           end      5.0  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      6.2  cpu     1.3  sys     1.3  faults     390
+prof: main scope_join       end   5042.8  cpu     0.2  sys     0.2  faults       1
+prof: main campaign+report  end   5042.8  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           3178.7   3178.7     3146.4   3146.4      767.7    31502
+prof: sink_finish          3179.8   3179.8        1.1      1.1        0.3        0
+prof: barrier1             3179.8   3179.8        0.0      0.0        0.0        0
+prof: dedup_loop           4244.2   4244.2     1054.9   1054.9       74.7      462
+prof: p2_finish            4244.3   4244.3        0.1      0.1        0.0        0
+prof: barrier2+order       4244.5   4244.5        0.3      0.3        0.1       17
+prof: people_loop          5040.2   5040.2      785.1    785.1       99.1     6271
+prof: worker_finish        5042.3   5042.3        2.1      2.1        0.4      100
+prof: user_write           5042.6   5042.6        0.2      0.2        0.0        0
+prof: barrier3             5042.6   5042.6        0.0      0.0        0.0        0
+prof: fresh arena bytes 862 MB
+### prof1 NCPU=1 run2
+run0 exit 0 wall 5.741 user 4.20 sys 1.45 rss 3308MB | setup=12 links1t=158 parse=3494 dedup=4624 people=5671 write=5681 exit=60
+links       158.0 ms on one thread
+prof: main small_files      end      7.9  cpu     7.9  sys     0.0  faults    1032
+prof: main map_folders      end      8.9  cpu     1.0  sys     0.0  faults       1
+prof: main chunks           end     11.2  cpu     2.3  sys     0.0  faults     530
+prof: main ctx              end     12.3  cpu     1.1  sys     1.1  faults     386
+prof: main scope_join       end   5670.8  cpu     0.2  sys     0.2  faults       1
+prof: main campaign+report  end   5681.3  cpu    10.5  sys     5.8  faults     920
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           3493.4   3493.4     3432.4   3432.4      825.6    30969
+prof: sink_finish          3493.5   3493.5        0.1      0.1        0.0        0
+prof: barrier1             3493.5   3493.5        0.0      0.0        0.0        0
+prof: dedup_loop           4623.5   4623.5     1110.5   1110.5      304.1      606
+prof: p2_finish            4623.6   4623.6        0.1      0.1        0.0        0
+prof: barrier2+order       4623.8   4623.8        0.2      0.2        0.2       17
+prof: people_loop          5452.7   5452.7      813.1    813.1      101.8    49739
+prof: worker_finish        5452.9   5452.9        0.2      0.2        0.0        0
+prof: user_write           5670.6   5670.6      207.2    207.2      154.4    19136
+prof: barrier3             5670.7   5670.7        0.0      0.0        0.0        0
+MEDIAN prof1 NCPU=1 cores=0-3 wall 5.741 (min 5.741) user 4.20 sys 1.45 | setup=12 links1t=158 parse=3494 dedup=4624 people=5671 write=5681 exit=60
+### pop NCPU=1 run2
+run0 exit 0 wall 5.293 user 4.46 sys 0.73 rss 2737MB | setup=6 links1t=156 parse=3267 dedup=4322 people=5282 write=5282 exit=11
+links       156.4 ms on one thread
+prof: main small_files      end      3.8  cpu     3.8  sys     0.0  faults     444
+prof: main map_folders      end      4.9  cpu     1.1  sys     0.0  faults       2
+prof: main chunks           end      4.9  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      6.0  cpu     1.1  sys     0.0  faults     390
+prof: main scope_join       end   5281.9  cpu     0.2  sys     0.0  faults       1
+prof: main campaign+report  end   5281.9  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           3266.5   3266.5     3190.2   3190.2      535.9    31502
+prof: sink_finish          3266.6   3266.6        0.1      0.1        0.0        0
+prof: barrier1             3266.6   3266.6        0.0      0.0        0.0        0
+prof: dedup_loop           4321.3   4321.3     1044.8   1044.8       32.2      462
+prof: p2_finish            4321.4   4321.4        0.1      0.1        0.0        0
+prof: barrier2+order       4321.6   4321.6        0.2      0.2        0.0       17
+prof: people_loop          5279.4   5279.4      934.7    934.7      155.2     6271
+prof: worker_finish        5281.4   5281.4        2.1      2.1        0.3      100
+prof: user_write           5281.7   5281.7        0.2      0.2        0.0        0
+prof: barrier3             5281.7   5281.7        0.0      0.0        0.0        0
+prof: fresh arena bytes 862 MB
+### prof1 NCPU=1 run3
+run0 exit 0 wall 5.907 user 4.26 sys 1.58 rss 3308MB | setup=16 links1t=159 parse=3350 dedup=4816 people=5855 write=5865 exit=42
+links       159.0 ms on one thread
+prof: main small_files      end     11.1  cpu     8.8  sys     3.0  faults    1032
+prof: main map_folders      end     12.1  cpu     1.0  sys     0.3  faults       1
+prof: main chunks           end     14.8  cpu     2.7  sys     2.7  faults     530
+prof: main ctx              end     15.9  cpu     1.1  sys     0.9  faults     386
+prof: main scope_join       end   5854.9  cpu     0.3  sys     0.1  faults       1
+prof: main campaign+report  end   5865.3  cpu     9.4  sys     0.7  faults     920
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           3349.8   3349.8     3283.3   3283.3      726.4    30967
+prof: sink_finish          3349.9   3349.9        0.1      0.1        0.0        0
+prof: barrier1             3349.9   3349.9        0.0      0.0        0.0        0
+prof: dedup_loop           4815.4   4815.4     1461.4   1461.4      509.8      606
+prof: p2_finish            4815.5   4815.5        0.1      0.1        0.0        0
+prof: barrier2+order       4815.8   4815.8        0.3      0.3        0.1       17
+prof: people_loop          5627.7   5627.7      810.8    810.8      112.0    49739
+prof: worker_finish        5627.9   5627.9        0.2      0.2        0.1        0
+prof: user_write           5854.7   5854.7      224.9    224.9      189.8    19136
+prof: barrier3             5854.7   5854.7        0.0      0.0        0.0        0
+MEDIAN prof1 NCPU=1 cores=0-3 wall 5.907 (min 5.907) user 4.26 sys 1.58 | setup=16 links1t=159 parse=3350 dedup=4816 people=5855 write=5865 exit=42
+### pop NCPU=1 run3
+run0 exit 0 wall 5.160 user 4.53 sys 0.60 rss 2737MB | setup=6 links1t=144 parse=3166 dedup=4287 people=5150 write=5150 exit=9
+links       144.1 ms on one thread
+prof: main small_files      end      3.8  cpu     3.7  sys     0.0  faults     444
+prof: main map_folders      end      4.8  cpu     1.0  sys     0.0  faults       2
+prof: main chunks           end      4.8  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      5.9  cpu     1.1  sys     0.0  faults     390
+prof: main scope_join       end   5150.5  cpu     0.2  sys     0.0  faults       1
+prof: main campaign+report  end   5150.5  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           3165.4   3165.4     3148.0   3148.0      430.0    31504
+prof: sink_finish          3165.5   3165.5        0.1      0.1        0.0        0
+prof: barrier1             3165.6   3165.6        0.0      0.0        0.0        0
+prof: dedup_loop           4286.4   4286.4     1117.7   1117.7       83.6      462
+prof: p2_finish            4286.5   4286.5        0.1      0.1        0.0        0
+prof: barrier2+order       4286.7   4286.7        0.2      0.2        0.0       17
+prof: people_loop          5148.1   5148.1      852.3    852.3       81.3     6271
+prof: worker_finish        5150.1   5150.1        2.0      2.0        2.0      100
+prof: user_write           5150.4   5150.4        0.2      0.2        0.2        0
+prof: barrier3             5150.4   5150.4        0.0      0.0        0.0        0
+prof: fresh arena bytes 862 MB
+### prof1 NCPU=4 run1
+run0 exit 0 wall 1.812 user 3.97 sys 1.09 rss 3509MB | setup=13 links1t=228 parse=946 dedup=1361 people=1756 write=1766 exit=46
+links       227.6 ms on one thread
+prof: main small_files      end      8.2  cpu     8.0  sys     0.0  faults    1031
+prof: main map_folders      end      9.1  cpu     1.0  sys     0.0  faults       2
+prof: main chunks           end     11.8  cpu     2.7  sys     0.0  faults     530
+prof: main ctx              end     12.9  cpu     1.1  sys     0.0  faults     386
+prof: main scope_join       end   1756.9  cpu     0.3  sys     0.0  faults       4
+prof: main campaign+report  end   1766.1  cpu     9.2  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop            940.5    945.7     2710.6    766.9      278.5    31589
+prof: sink_finish           940.5    945.9        0.4      0.1        0.0        0
+prof: barrier1              945.9    948.9        0.1      0.0        0.0        0
+prof: dedup_loop           1359.9   1360.2     1205.5    394.2      441.8     1296
+prof: p2_finish            1360.1   1360.3        0.4      0.1        0.1        0
+prof: barrier2+order       1360.6   1365.6        0.4      0.3        0.1       17
+prof: people_loop          1631.2   1633.7      808.8    269.7       86.7    53472
+prof: worker_finish        1631.5   1633.9        0.8      0.2        0.1        0
+prof: user_write           1681.3   1756.4      261.6     99.1      234.5    19138
+prof: barrier3             1756.4   1756.5        0.2      0.1        0.0        0
+MEDIAN prof1 NCPU=4 cores=0-3 wall 1.812 (min 1.812) user 3.97 sys 1.09 | setup=13 links1t=228 parse=946 dedup=1361 people=1756 write=1766 exit=46
+### pop NCPU=4 run1
+run0 exit 0 wall 1.850 user 4.25 sys 0.97 rss 2770MB | setup=6 links1t=230 parse=1184 dedup=1496 people=1836 write=1837 exit=13
+links       230.4 ms on one thread
+prof: main small_files      end      3.5  cpu     3.5  sys     0.0  faults     444
+prof: main map_folders      end      4.6  cpu     1.0  sys     0.0  faults       2
+prof: main chunks           end      4.6  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      5.6  cpu     1.0  sys     0.0  faults     390
+prof: main scope_join       end   1836.8  cpu     0.3  sys     0.0  faults       4
+prof: main campaign+report  end   1836.9  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           1182.4   1183.7     3408.2    935.4      805.1    32331
+prof: sink_finish          1182.5   1183.8        0.4      0.1        0.1        1
+prof: barrier1             1183.9   1185.3        0.1      0.0        0.0        0
+prof: dedup_loop           1495.4   1495.6      860.9    297.3       64.5     1333
+prof: p2_finish            1495.5   1495.9        0.5      0.2        0.1        0
+prof: barrier2+order       1496.4   1501.2        0.5      0.4        0.1       17
+prof: people_loop          1830.4   1833.6      930.8    265.2       87.1    21937
+prof: worker_finish        1830.6   1836.2        2.9      2.3        0.5      126
+prof: user_write           1832.2   1836.2        2.3      1.5        0.4        0
+prof: barrier3             1836.3   1836.6        0.2      0.1        0.0        0
+prof: fresh arena bytes 933 MB
+### prof1 NCPU=4 run2
+run0 exit 0 wall 2.633 user 4.07 sys 1.73 rss 3564MB | setup=13 links1t=212 parse=1424 dedup=2042 people=2576 write=2586 exit=47
+links       211.7 ms on one thread
+prof: main small_files      end      8.1  cpu     8.1  sys     1.5  faults    1032
+prof: main map_folders      end      9.1  cpu     1.0  sys     0.3  faults       2
+prof: main chunks           end     11.6  cpu     2.4  sys     0.8  faults     530
+prof: main ctx              end     13.1  cpu     1.5  sys     1.5  faults     386
+prof: main scope_join       end   2576.9  cpu     0.3  sys     0.3  faults       4
+prof: main campaign+report  end   2585.9  cpu     8.9  sys     1.7  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           1416.0   1423.6     3494.3    962.9      950.9    31619
+prof: sink_finish          1416.1   1423.7        0.4      0.1        0.1        0
+prof: barrier1             1423.8   1427.8        0.1      0.0        0.0        0
+prof: dedup_loop           2039.9   2041.7     1180.1    330.4      430.0     1285
+prof: p2_finish            2040.0   2041.8        0.3      0.1        0.1        0
+prof: barrier2+order       2042.1   2047.8        0.3      0.3        0.1       17
+prof: people_loop          2456.8   2459.9      823.8    209.5      103.3    61928
+prof: worker_finish        2457.0   2460.1        0.8      0.2        0.2        0
+prof: user_write           2558.1   2576.5      228.9     63.0      193.1    19137
+prof: barrier3             2576.5   2576.7        0.1      0.1        0.0        0
+MEDIAN prof1 NCPU=4 cores=0-3 wall 2.633 (min 2.633) user 4.07 sys 1.73 | setup=13 links1t=212 parse=1424 dedup=2042 people=2576 write=2586 exit=47
+### pop NCPU=4 run2
+run0 exit 0 wall 2.448 user 4.32 sys 0.38 rss 2790MB | setup=6 links1t=360 parse=1397 dedup=1833 people=2432 write=2432 exit=16
+links       360.2 ms on one thread
+prof: main small_files      end      3.4  cpu     3.4  sys     0.0  faults     444
+prof: main map_folders      end      4.5  cpu     1.1  sys     0.0  faults       3
+prof: main chunks           end      4.5  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      5.5  cpu     1.0  sys     0.0  faults     390
+prof: main scope_join       end   2432.3  cpu     0.2  sys     0.0  faults       4
+prof: main campaign+report  end   2432.4  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           1395.4   1396.1     2699.4    743.5      216.0    32316
+prof: sink_finish          1395.7   1396.6        1.2      0.5        0.1        2
+prof: barrier1             1396.6   1397.4        0.1      0.1        0.0        0
+prof: dedup_loop           1832.5   1832.8      830.9    212.8       55.1     1409
+prof: p2_finish            1832.6   1832.9        0.3      0.1        0.0        0
+prof: barrier2+order       1833.1   1839.8        0.3      0.3        0.0        1
+prof: people_loop          2425.8   2427.9     1129.5    292.7       88.2    22025
+prof: worker_finish        2426.1   2430.7        3.6      2.6        0.3        0
+prof: user_write           2428.5   2431.8        7.4      2.8        3.0      105
+prof: barrier3             2431.8   2432.2        0.2      0.1        0.1        0
+prof: fresh arena bytes 952 MB
+### prof1 NCPU=4 run3
+run0 exit 0 wall 2.619 user 4.44 sys 1.14 rss 3456MB | setup=18 links1t=377 parse=1700 dedup=2219 people=2562 write=2572 exit=46
+links       376.6 ms on one thread
+prof: main small_files      end     12.4  cpu     9.8  sys     8.5  faults    1031
+prof: main map_folders      end     13.6  cpu     1.1  sys     1.1  faults       2
+prof: main chunks           end     17.0  cpu     3.2  sys     3.2  faults     530
+prof: main ctx              end     18.1  cpu     1.1  sys     1.1  faults     386
+prof: main scope_join       end   2562.9  cpu     0.3  sys     0.3  faults       4
+prof: main campaign+report  end   2572.1  cpu     9.3  sys     5.6  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop           1670.5   1677.5     3059.3    832.0      361.1    31551
+prof: sink_finish          1685.0   1700.2       46.3     12.2        4.3        1
+prof: barrier1             1700.2   1705.0        0.1      0.1        0.0        0
+prof: dedup_loop           2218.0   2218.2     1412.6    407.4      459.8     1284
+prof: p2_finish            2218.1   2218.3        0.3      0.1        0.1        0
+prof: barrier2+order       2218.6   2221.0        0.4      0.3        0.1       17
+prof: people_loop          2486.9   2487.1      797.9    267.6       99.3    55846
+prof: worker_finish        2487.1   2494.8        0.9      0.2        0.1        0
+prof: user_write           2548.6   2562.4      191.4     65.6      155.0    19137
+prof: barrier3             2562.5   2562.7        0.1      0.1        0.0        0
+MEDIAN prof1 NCPU=4 cores=0-3 wall 2.619 (min 2.619) user 4.44 sys 1.14 | setup=18 links1t=377 parse=1700 dedup=2219 people=2562 write=2572 exit=46
+### pop NCPU=4 run3
+run0 exit 0 wall 1.554 user 4.09 sys 0.36 rss 2779MB | setup=5 links1t=287 parse=941 dedup=1241 people=1539 write=1540 exit=15
+links       286.6 ms on one thread
+prof: main small_files      end      3.4  cpu     3.4  sys     0.0  faults     444
+prof: main map_folders      end      4.4  cpu     1.0  sys     1.0  faults       2
+prof: main chunks           end      4.4  cpu     0.0  sys     0.0  faults       0
+prof: main ctx              end      5.4  cpu     1.0  sys     1.0  faults     390
+prof: main scope_join       end   1539.4  cpu     0.2  sys     0.2  faults       4
+prof: main campaign+report  end   1539.5  cpu     0.0  sys     0.0  faults       0
+prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults
+prof: parse_loop            940.3    940.7     2727.0    860.2      264.2    32350
+prof: sink_finish           940.3    940.7        0.3      0.1        0.0        0
+prof: barrier1              940.8    941.1        0.1      0.0        0.0        0
+prof: dedup_loop           1240.0   1240.3      829.1    279.7       40.1     1403
+prof: p2_finish            1240.1   1240.4        0.3      0.1        0.0        0
+prof: barrier2+order       1240.7   1243.7        0.4      0.3        0.0        1
+prof: people_loop          1535.0   1535.1      866.8    278.4       44.6    22238
+prof: worker_finish        1535.3   1538.1        3.2      2.5        0.3        0
+prof: user_write           1535.4   1538.9        2.8      1.4        0.1        0
+prof: barrier3             1539.0   1539.0        0.1      0.1        0.0        0
+prof: fresh arena bytes 943 MB

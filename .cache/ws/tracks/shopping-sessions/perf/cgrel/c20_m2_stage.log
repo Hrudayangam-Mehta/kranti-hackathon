@@ -1,0 +1,22 @@
+==29069== Cachegrind, a high-precision tracing profiler
+==29069== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==29069== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==29069== Command: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/perf/bin/m2_stage
+==29069== 
+setup       176.5 ms
+links      1463.4 ms on one thread
+thread 0 parse busy  48899.7 ms
+parse     48907.1 ms
+dedup     61673.8 ms
+people    76407.3 ms
+surviving events 19563061, user_daily rows 2242393
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518
+event copies 21582714, winners 19563061, clicks 5082806, linked 1199586, exotic 0
+write     76439.0 ms
+==29069== 
+==29069== I refs:        25,912,696,123
+==29069== 
+==29069== Branches:       3,445,293,737  (3,442,225,970 cond + 3,067,767 ind)
+==29069== Mispredicts:       86,322,785  (   86,322,280 cond +       505 ind)
+==29069== Mispred rate:             2.5% (          2.5%     +       0.0%   )
+m2_stage rc=0

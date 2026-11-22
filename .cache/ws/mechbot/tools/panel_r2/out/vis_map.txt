@@ -1,0 +1,18 @@
+sector table: 9472 open 8 m cells x 32 sectors = 303104 rays, 702 ms here (2.32 us per ray; at 4 us per ray 1.2 s); 381 KB. 16 sectors: 243 ms
+visible area per open cell (ha): p10 1.71 p25 3.26 p50 7.96 p75 11.22 p90 13.18 (full 230 m disc = 16.6 ha)
+table as a line-of-fire predictor (32 sectors), 131634 random cell pairs 30-230 m apart: real line exists 57.7%; table agrees 93.4%; misses a real line 7.9% of the time (dangerous error); cries wolf on 4.9% of blocked pairs
+table as a line-of-fire predictor (16 sectors), 131049 random cell pairs 30-230 m apart: real line exists 57.8%; table agrees 90.9%; misses a real line 10.6% of the time (dangerous error); cries wolf on 7.1% of blocked pairs
+
+replay, grounded mech-frames on the ground: 13879 (1388 mech-seconds). Damage taken from mechs per second, by static visible area of the cell:
+  quartile 1: visible area 0.15-2.74 ha  damage 7.3 HP/s  share of frames with a hit 3.1%
+  quartile 2: visible area 2.74-4.16 ha  damage 19.3 HP/s  share of frames with a hit 6.2%
+  quartile 3: visible area 4.16-7.50 ha  damage 17.7 HP/s  share of frames with a hit 1.8%
+  quartile 4: visible area 7.53-15.19 ha  damage 9.7 HP/s  share of frames with a hit 1.1%
+  median visible area where house bots stand 4.16 ha vs map median 7.96 ha
+  wall-distance quartile 1: 2.3-6.6 m  damage 5.5 HP/s
+  wall-distance quartile 2: 6.6-15.4 m  damage 17.2 HP/s
+  wall-distance quartile 3: 15.4-30.0 m  damage 19.3 HP/s
+  wall-distance quartile 4: 30.0-30.0 m  damage 11.9 HP/s
+exposure-weighted A* (extra cost = 1 x exposure per metre), 46 routes 150-400 m: length x1.035 (p90 x1.06), exposure integral x1.010; A* time 0.98 -> 2.31 ms
+exposure-weighted A* (extra cost = 2 x exposure per metre), 46 routes 150-400 m: length x1.045 (p90 x1.07), exposure integral x0.986; A* time 0.35 -> 1.79 ms
+exposure-weighted A* (extra cost = 4 x exposure per metre), 43 routes 150-400 m: length x1.062 (p90 x1.11), exposure integral x0.968; A* time 0.41 -> 3.96 ms

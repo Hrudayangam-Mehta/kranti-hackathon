@@ -1,0 +1,16 @@
+PASS  R2 late game (t 310, 4 alive), idle with a sound in front: a silent mech 100-170 m behind / to the rear sides is seen within 3 s (SQUAD and FFA)  ::  SQUAD on 0.6 / 0.7 / 0.4 / 1 / 0.3 s | FFA on 0.6 / 0.7 / 0.4 / 1 / 0.3 s | R2 off 99 / 99 / 99 / 0.6 / 99 s (99 = not in 10 s)
+PASS  R2 engaged: a 25 dps attacker at our rear (another in front) is faced within 1.5 s  ::  on {"faced":0.3,"rearHits":4} | R2 off {"faced":99,"rearHits":4}
+
+2/2 scenario checks passed
+PASS  R3 laser head aim: only the top of the target clears a low wall (3 own spots, 90-180 m) -> >= 75% of beams hit  ::  167 m: on 6/6 | off 2/5 || 169 m: on 5/6 | off 0/4 || 155 m: on 6/6 | off 1/4
+
+1/1 scenario checks passed
+PASS  C1 finish rail: the kit-stream house bot (read LASER_KITER) at 45%, torso away, not charging, not hitting us -> engage level 2 "*/finish" (cxFinish off: not)  ::  on before {"t":26.9,"label":{"id":10,"archetype":"LASER_KITER","confidence":0.7052606003547081,"candidate":"LASER_KITER","obsS":17.200000000000003},"level":1,"reason":"LK/cover","mult":0.73,"active":true} after {"t":36.8,"label":{"id":10,"archetype":"LASER_KITER","confidence":0.7052606003547081,"candidate":"LASER_KITER","obsS":17.200000000000003},"level":2,"reason":"LK/finish","mult":1.32,"active":true} | off after {"t":36.8,"label":{"id":10,"archetype":"LASER_KITER","confidence":0.7052606003547081,"candidate":"LASER_KITER","obsS":17.200000000000003},"level":1,"reason":"LK/cover","mult":0.81,"active":true}
+
+1/1 scenario checks passed
+PASS  farm-first: a calm mech 70 m away in view at t 50 is not shot (openFarm off: shot)  ::  on {"shots":0,"tgt":0,"dis":0,"gate":60,"firstShotT":-1,"hits":0,"endT":-1} | off {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":15,"endT":-1}
+PASS  farm-first ends at 75 s or 10 cubes, for good: calm mech shot at t 76, with 10 cubes at t 50, from t 75 when starting at t 72, and after the cubes drop again  ::  t76 {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":15,"endT":76} | 10 cubes {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":15,"endT":50} | t72->75 {"shots":12,"tgt":50,"dis":0,"gate":30,"firstShotT":3.3,"hits":12,"endT":75} | 10 then 3 cubes {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":15,"endT":50}
+FAIL  farm-first answers a hit from within 100 m (85 m: shot within 2 s) and breaks the line from a 125 m shooter (no shot, DISENGAGE)  ::  85 m {"shots":0,"tgt":0,"dis":59,"gate":60,"firstShotT":-1,"hits":0,"endT":-1} | 125 m {"shots":0,"tgt":0,"dis":59,"gate":60,"firstShotT":-1,"hits":0,"endT":-1} | 125 m openFarm off {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":14,"endT":-1}
+INFO  farm-first vs D0: a mech aiming at us from 60 m (hostile by D0, no damage yet) at t 50: on {"shots":0,"tgt":0,"dis":59,"gate":60,"firstShotT":-1,"hits":0,"endT":-1} | openFarm off {"shots":16,"tgt":60,"dis":0,"gate":0,"firstShotT":0,"hits":15,"endT":-1}
+
+2/3 scenario checks passed  FAILED: farm-first answers a hit from within 100 m (85 m: shot withi

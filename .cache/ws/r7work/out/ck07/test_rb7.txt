@@ -1,0 +1,8 @@
+PASS  RB4 climb cap from the config  ::  cap 59.00 m (jump 11, gravity 22, rise 10, jet drain 15, energy 100)
+PASS  RB4 pocket survey: every pocket has a campus-limit exit on this map (fallback never consulted)  ::  12 pockets >= 25 cells, no campus exit 0, config-only exit 0, no exit at all 0
+PASS  RB4 pocketCfg off: second plan not made after a campus null  ::  plan null, hopPlan calls 1, hopOldNull 1
+PASS  RB4 pocketCfg on: second plan made after a campus null  ::  plan climb 59.0, hopPlan calls 2, hopOldNull 1
+PASS  RB4 pocketCfg (default): second plan made after a campus null  ::  plan climb 59.0, hopPlan calls 2, hopOldNull 1
+PASS  RB6 rehearsal on the largest pocket runs (no fixed coordinate)  ::  rehearsal 970 ms, 24 body warm-ups, 973 ms total
+
+6/6 RB checks passed

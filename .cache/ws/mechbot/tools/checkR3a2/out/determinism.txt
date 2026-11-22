@@ -1,0 +1,44 @@
+inproc rerun sq1 vs batch: IDENTICAL
+inproc rerun sq3 vs batch: IDENTICAL
+inproc rerun sq5 vs batch: IDENTICAL
+inproc rerun ff411 vs batch: IDENTICAL
+inproc rerun ff412 vs batch: IDENTICAL
+inproc rerun l11_auto vs batch: IDENTICAL
+inproc rerun f1_auto vs batch: IDENTICAL
+inproc rerun kit_auto vs batch: IDENTICAL
+inproc load sq1 vs batch: IDENTICAL
+inproc load sq3 vs batch: IDENTICAL
+inproc load sq5 vs batch: IDENTICAL
+inproc load ff411 vs batch: IDENTICAL
+inproc load ff412 vs batch: IDENTICAL
+inproc load l11_auto vs batch: IDENTICAL
+inproc load f1_auto vs batch: IDENTICAL
+inproc load kit_auto vs batch: IDENTICAL
+{"stream": "long11.jsonl.gz", "core": "0", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "b27ef43b535e5b350311601c", "worst_roundtrip_ms": 8.9, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=5.9ms"]}
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "b27ef43b535e5b350311601c", "worst_roundtrip_ms": 7.9, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=7.2ms"]}
+{"stream": "long11.jsonl.gz", "core": "0", "load": 2, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "b27ef43b535e5b350311601c", "worst_roundtrip_ms": 24.8, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=24.4ms"]}
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "b27ef43b535e5b350311601c", "worst_roundtrip_ms": 10.8, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=5.9ms"]}
+pipe long11 A vs B: IDENTICAL
+pipe long11 A vs L: IDENTICAL
+pipe long11 A vs S: IDENTICAL
+{"stream": "ffa_s1.jsonl.gz", "core": "0", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 6.7, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=6.3ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 5.9, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=5.4ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "0", "load": 2, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 12.8, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=7.1ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 4.9, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=3.7ms"]}
+pipe ffa_s1 A vs B: IDENTICAL
+pipe ffa_s1 A vs L: IDENTICAL
+pipe ffa_s1 A vs S: IDENTICAL
+{"stream": "stream.jsonl.gz", "core": "0", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "697da423e8cc578ba1232beb", "worst_roundtrip_ms": 3.2, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=2.7ms"]}
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "697da423e8cc578ba1232beb", "worst_roundtrip_ms": 5.4, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=4.0ms"]}
+{"stream": "stream.jsonl.gz", "core": "0", "load": 2, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "697da423e8cc578ba1232beb", "worst_roundtrip_ms": 15.4, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=14.7ms"]}
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "697da423e8cc578ba1232beb", "worst_roundtrip_ms": 4.0, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=2.7ms"]}
+pipe stream A vs B: IDENTICAL
+pipe stream A vs L: IDENTICAL
+pipe stream A vs S: IDENTICAL
+{"stream": "long23p.jsonl.gz", "core": "0", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "652c23fb74d5dea4b872e86a", "worst_roundtrip_ms": 13.7, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=13.3ms"]}
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "652c23fb74d5dea4b872e86a", "worst_roundtrip_ms": 15.1, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=14.7ms"]}
+{"stream": "long23p.jsonl.gz", "core": "0", "load": 2, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "652c23fb74d5dea4b872e86a", "worst_roundtrip_ms": 34.9, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=6 worst=34.4ms"]}
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "652c23fb74d5dea4b872e86a", "worst_roundtrip_ms": 13.3, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=12.9ms"]}
+pipe long23p A vs B: IDENTICAL
+pipe long23p A vs L: IDENTICAL
+pipe long23p A vs S: IDENTICAL

@@ -1,0 +1,25 @@
+base: n 24, sim mean score 4.042 (official 5.38)
+build          exact   n    sim d     se      t  dif  official  sign
+FSL10_s1         yes  24   +0.000  0.000  +0.00    2     -0.03  sim 0
+G10C10FT3_s1     yes  24   +0.000  0.000  +0.00    1     -0.03  sim 0
+G10C10_s1        yes  24   +0.000  0.000  +0.00    1     +0.00  tie
+G05_s1           yes  24   +0.000  0.000  +0.00    2     -0.03  sim 0
+G10FT3_s1        yes  24   +0.000  0.000  +0.00    2     -0.05  sim 0
+FSL15C10_s1      yes  24   +0.000  0.000  +0.00    2     -0.05  sim 0
+FSFT3_s1         yes  24   +0.000  0.000  +0.00    3     -0.05  sim 0
+FSLCL15_s1       yes  24   +0.000  0.000  +0.00    3     -0.07  sim 0
+FSF30_s1         yes  24   +0.000  0.000  +0.00    3     -0.07  sim 0
+FSOH_s1          yes  24   +0.000  0.000  +0.00    3     -0.09  sim 0
+FHE40_s1         yes  24   -0.208  0.170  -1.23    5     -0.09  ok
+FSLC_s1          yes  24   +0.083  0.083  +1.00    6     -0.09  WRONG
+FSLC20_s1        yes  24   +0.125  0.092  +1.37    6     -0.11  WRONG
+FSLS35_s1        yes  24   +0.042  0.095  +0.44    6     -0.13  WRONG
+K7_s1            yes  24   +0.000  0.135  +0.00   18     -0.15  sim 0
+K7LG_s1          yes  24   +0.458  0.330  +1.39   19     -0.34  WRONG
+KF_s1           port  24   +0.167  0.155  +1.07   18     -0.25  WRONG
+K6LX_s1         port  24   +0.000  0.135  +0.00   18     -0.19  sim 0
+KBH_s1          port  24   +0.000  0.135  +0.00   18     -0.36  sim 0
+KS_s1           port  24   +0.292  0.153  +1.90   19     -0.25  WRONG
+builds with an official delta != 0: 19; sim sign right 1, wrong 6, sim exactly 0: 12
+Pearson r -0.61, Spearman rho -0.53 over 20 builds (official delta against sim paired delta)
+sim |delta| mean 0.069, typical se 0.074; official |delta| mean 0.121

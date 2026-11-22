@@ -1,0 +1,15 @@
+DIFFER stream kit env=auto
+IDENTICAL stream kit env=squad 300 actions sha256 7605aee309d6863c
+IDENTICAL stream long4800 env=auto 4800 actions sha256 6c8da3f85c69c1aa
+IDENTICAL stream long4800 env=squad 4800 actions sha256 6c8da3f85c69c1aa
+IDENTICAL stream long11 env=auto 4800 actions sha256 edfc37b03b0cbc34
+IDENTICAL stream long11 env=squad 4800 actions sha256 edfc37b03b0cbc34
+IDENTICAL stream long23p env=auto 4800 actions sha256 4917a044b5b835ad
+IDENTICAL stream long23p env=squad 4800 actions sha256 4917a044b5b835ad
+kit env=auto: latches FFA at tick 498; 249 pre-latch actions identical=True; first differing action at tick 518 (post-latch, expected)
+IDENTICAL sim squad seed 1 1064 actions "score":10
+IDENTICAL sim squad seed 2 1180 actions "score":8
+IDENTICAL sim squad seed 3 840 actions "score":3
+IDENTICAL sim squad seed 4 854 actions "score":4
+IDENTICAL sim squad seed 5 741 actions "score":2
+IDENTICAL sim squad seed 6 589 actions "score":1

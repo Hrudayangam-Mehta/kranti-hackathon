@@ -1,0 +1,58 @@
+inproc H rerun sq1 vs id/H4_sq1.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":6.034
+inproc H rerun sq3 vs id/H4_sq3.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":8.843
+inproc H rerun sq5 vs id/H4_sq5.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":21.711
+inproc H rerun sq19 vs id/H4_sq19.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":8.361
+inproc H rerun ff411 vs id/H4_ff411.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":6.344
+inproc H rerun kit_auto vs id/H4_kit_auto.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":8.457
+inproc H rerun f1_auto vs id/H4_f1_auto.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":9.718
+inproc H rerun l11_squad vs det/rerun_l11_squad.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":8.234
+inproc H rerun l23p_squad vs det/rerun_l23p_squad.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":10.769
+inproc H load sq1 vs id/H4_sq1.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":31.473
+inproc H load sq3 vs id/H4_sq3.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":18.033
+inproc H load sq5 vs id/H4_sq5.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":35.795
+inproc H load sq19 vs id/H4_sq19.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":20.305
+inproc H load ff411 vs id/H4_ff411.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":17.79
+inproc H load kit_auto vs id/H4_kit_auto.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":14.062
+inproc H load f1_auto vs id/H4_f1_auto.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":20.18
+inproc H load l11_squad vs det/rerun_l11_squad.jsonl: IDENTICAL fuse "fuse":0 maxMs "maxMs":22.027
+inproc H load l23p_squad vs det/rerun_l23p_squad.jsonl: IDENTICAL fuse "fuse":1 maxMs "maxMs":52.873
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "b27ef43b535e5b350311601c", "worst_roundtrip_ms": 7.1, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=5.3ms"]}
+pipe dist (R4a defaults) vs R3a2 bundle answers long11: IDENTICAL
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "12f7c79512385aaa47cc48e6", "worst_roundtrip_ms": 8.3, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=6.2ms"]}
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "12f7c79512385aaa47cc48e6", "worst_roundtrip_ms": 9.2, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=6.2ms"]}
+{"stream": "long11.jsonl.gz", "core": "1", "load": 2, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "12f7c79512385aaa47cc48e6", "worst_roundtrip_ms": 23.4, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=12.6ms"]}
+{"stream": "long11.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "12f7c79512385aaa47cc48e6", "worst_roundtrip_ms": 7.4, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=6.9ms"]}
+pipe H bundle long11 A vs B: IDENTICAL
+pipe H bundle long11 A vs L: IDENTICAL
+pipe H bundle long11 A vs S: IDENTICAL
+pipe H vs dist long11: differs (hunt active, expected)
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 9.5, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=6.1ms"]}
+pipe dist (R4a defaults) vs R3a2 bundle answers ffa_s1: IDENTICAL
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 6.3, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=6.1ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 6.1, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=5.8ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 2, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 11.9, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=2.7ms"]}
+{"stream": "ffa_s1.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 1135, "tick_mismatch": 0, "hash": "31fe9578ea0c5f517550bdec", "worst_roundtrip_ms": 5.6, "end_log": ["[bot] end place=1 kills=0 ticks=1135 errors=0 slow=0 worst=2.7ms"]}
+pipe H bundle ffa_s1 A vs B: IDENTICAL
+pipe H bundle ffa_s1 A vs L: IDENTICAL
+pipe H bundle ffa_s1 A vs S: IDENTICAL
+pipe H vs dist ffa_s1: identical (hunt inactive on this stream)
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "697da423e8cc578ba1232beb", "worst_roundtrip_ms": 2.8, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=2.4ms"]}
+pipe dist (R4a defaults) vs R3a2 bundle answers stream: IDENTICAL
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "3b955aec76d1f10ffea6a953", "worst_roundtrip_ms": 4.8, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=2.6ms"]}
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "3b955aec76d1f10ffea6a953", "worst_roundtrip_ms": 6.5, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=3.2ms"]}
+{"stream": "stream.jsonl.gz", "core": "1", "load": 2, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "3b955aec76d1f10ffea6a953", "worst_roundtrip_ms": 10.0, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=8.0ms"]}
+{"stream": "stream.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 300, "tick_mismatch": 0, "hash": "3b955aec76d1f10ffea6a953", "worst_roundtrip_ms": 5.1, "end_log": ["[bot] end place=1 kills=0 ticks=300 errors=0 slow=0 worst=4.1ms"]}
+pipe H bundle stream A vs B: IDENTICAL
+pipe H bundle stream A vs L: IDENTICAL
+pipe H bundle stream A vs S: IDENTICAL
+pipe H vs dist stream: differs (hunt active, expected)
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "652c23fb74d5dea4b872e86a", "worst_roundtrip_ms": 12.3, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=12.0ms"]}
+pipe dist (R4a defaults) vs R3a2 bundle answers long23p: IDENTICAL
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "9f7e5de74b301fe69da345e1", "worst_roundtrip_ms": 9.7, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=9.1ms"]}
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "9f7e5de74b301fe69da345e1", "worst_roundtrip_ms": 79.1, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=14.5ms"]}
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 2, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "9f7e5de74b301fe69da345e1", "worst_roundtrip_ms": 29.4, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=29.1ms"]}
+{"stream": "long23p.jsonl.gz", "core": "1", "load": 0, "ready": "ready", "n": 4800, "tick_mismatch": 0, "hash": "9f7e5de74b301fe69da345e1", "worst_roundtrip_ms": 10.3, "end_log": ["[bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=10.1ms"]}
+pipe H bundle long23p A vs B: IDENTICAL
+pipe H bundle long23p A vs L: IDENTICAL
+pipe H bundle long23p A vs S: IDENTICAL
+pipe H vs dist long23p: differs (hunt active, expected)

@@ -1,0 +1,86 @@
+diff -u tree/lib/brain.js tree2/lib/brain.js
+--- tree/lib/brain.js	2026-11-22 03:29:38.073244429 +0000
++++ tree2/lib/brain.js	2026-11-22 03:34:36.422848762 +0000
+@@ -501,6 +501,11 @@
+     // their reload (12 bullets, then 2.5 s silent): close in to the hold distance
+     const reloading = tgt.magN >= P.magSize && t - tgt.lastBulletT < P.magReloadS
+     if (reloading && !me.laser) hi = Math.min(hi, hold + 5)
++    // Fable chaos R6 (alpha, SQUAD posture + hunt.firewall): during the target's 2.5 s reload after its 12th round, push in
++    if (P.alpha === true && reloading && !ffa && !tgt.npc && hunt.firewall()) {
++      hold = Math.min(hold, Math.max(P.fkWalkR, tgt.dist - 30)); lo = Math.min(lo, Math.max(6, hold - 8)); hi = Math.min(hi, hold + 5)
++      B.counters.alPush = (B.counters.alPush || 0) + 1
++    }
+     if (ffa && !(B.killSecure || B.finishing)) hi = Math.max(hi, tgt.dist + 1)          // D11: never walk at an enemy
+     if (ffa && tgt.hasLightning && (ffaR ? !(me.lightning && me.hp >= tgt.hp) : !me.lightning)) lo = Math.max(lo, 50 + me.radius)   // D11 / rule 5: 50+ m from a lightning carrier
+     B.rPrefNow = hold
+diff -u tree/lib/firecontrol.js tree2/lib/firecontrol.js
+--- tree/lib/firecontrol.js	2026-11-22 03:29:17.225342191 +0000
++++ tree2/lib/firecontrol.js	2026-11-22 03:34:36.382099708 +0000
+@@ -370,7 +370,10 @@
+       else {
+         const quiet = t - B.lastLosInT > P.reloadQuiet
+         const lowInSights = !!(B.target && B.target.losOut && B.target.hp < P.noReloadHp)
+-        if (g.ammo <= P.reloadAmmo && (quiet || B.hidePhase) && !lowInSights) out.reload = true
++        // Fable chaos R6 (alpha, SQUAD posture + hunt.firewall): with no line for reloadQuiet s the magazine is topped up (alReloadAmmo)
++        const ra = P.alpha === true && quiet && B.env !== 'FFA' && !!B.hunt && B.hunt.firewall() ? Math.max(P.reloadAmmo, P.alReloadAmmo) : P.reloadAmmo
++        if (ra !== P.reloadAmmo && g.ammo <= ra && g.ammo > P.reloadAmmo && !lowInSights) B.counters.alReload = (B.counters.alReload || 0) + 1
++        if (g.ammo <= ra && (quiet || B.hidePhase) && !lowInSights) out.reload = true
+         else if (!B.target && !shootObj && t - me.lastShotT > 2 && t - B.lastLosInT > 2) out.reload = true
+         else if (B.h50Pulse && g.ammo < P.h50MagMin && !lowInSights) out.reload = true      // R4a: the pulse comes back loaded
+       }
+diff -u tree/lib/mover.js tree2/lib/mover.js
+--- tree/lib/mover.js	2026-11-22 02:01:54.727797431 +0000
++++ tree2/lib/mover.js	2026-11-22 03:34:36.359731057 +0000
+@@ -146,7 +146,10 @@
+   /** Strafe reversal (D4): seeded U(strafeLo, strafeHi), plus one extra at an enemy magazine start or a laser charge at us. */
+   function flip(t) {
+     jink.sign = -jink.sign; jink.lastFlip = t
+-    jink.until = t + P.strafeLo + (P.strafeHi - P.strafeLo) * B.rng()
++    // Fable chaos R7 (strafe 'fast75', SQUAD posture + hunt.firewall): the 'fast' interval beyond strafeFarR of the target
++    const far = P.strafeFarR > 0 && !!B.target && B.target.dist > P.strafeFarR && B.env !== 'FFA' && !!B.hunt && B.hunt.firewall()
++    if (far) B.counters.strafeFar = (B.counters.strafeFar || 0) + 1
++    jink.until = t + (far ? P.strafeFarLo + (P.strafeFarHi - P.strafeFarLo) * B.rng() : P.strafeLo + (P.strafeHi - P.strafeLo) * B.rng())
+     B.counters.jinks++
+   }
+ 
+diff -u tree/lib/tactics.js tree2/lib/tactics.js
+--- tree/lib/tactics.js	2026-11-22 03:29:01.634635137 +0000
++++ tree2/lib/tactics.js	2026-11-22 03:34:36.400680458 +0000
+@@ -223,6 +223,10 @@
+   // target of the last fkCurS s, -40 when it hit us within fkHitS s (lowest wins); off the firewall the 'mult' pick of today
+   const fk = P.focusKill === true && !ffa && !!B.hunt && B.hunt.firewall()
+   if (fk && B.target) B.target.fkTgtT = t
++  // Fable chaos R6 (alpha, SQUAD posture + hunt.firewall): a fight is opened (a non-hostile mech becomes a candidate) only with a
++  // full magazine, a ready laser (a full charge to come) and within alOpenR m; an opener facing away (> 90 deg) is preferred x1.5
++  const al = P.alpha === true && !ffa && !!B.hunt && B.hunt.firewall()
++  const alReady = al && !!me.gun && me.gun.reload <= 0 && me.gun.ammo >= me.gun.mag && (!me.laser || me.laser.cooldown <= 0.11)
+   const h5 = B.h50.on === true                                     // R4a hunt50 this decision (lib/hunt.js firewall)
+   // R7a LG (laserGrab 'wide'): no laser held, t < lgUntilT and a wanted laser known within lgKnownPath of path (B.lgKnown, set
+   // by economy.chooseGrab): the engaged() clause is off (hostile mechs are still candidates through tr.hostile)
+@@ -258,6 +262,10 @@
+         (!h5 && fe && !opening && !lgHold && engaged(B, tr, t)) ||   // R3a2 P1: engaged mechs within 240 m (R7a LG: not while lgHold)
+         (P.finB === true && B.finArmed && tr === B.finTr)        // R7a FIN (b): an armed near kill stays a candidate
+       if (gate && !ofAnswer(B, tr, t)) ok = false
++      tr.alOpen = false
++      if (al && ok && !tr.hostile && !(tr === B.target && t - tr.lastDmgOutT < 5) && !(h5 && tr === B.h50.commit) && !(P.finB === true && B.finArmed && tr === B.finTr)) {
++        if (!(alReady && tr.dist <= P.alOpenR)) { ok = false; B.counters.alNoOpen = (B.counters.alNoOpen || 0) + 1 } else tr.alOpen = true
++      }
+       // Fable util 'wait': the first shot on a non-hostile mech is withheld while regeneration pays more (lib/util.js)
+       if (ok && B.util && !tr.hostile && !(tr === B.target && t - tr.lastDmgOutT < 5) && !(h5 && tr === B.h50.commit) &&
+         !(P.finB === true && B.finArmed && tr === B.finTr) && !B.util.gateOpen(tr)) ok = false
+@@ -310,6 +318,7 @@
+       }
+       if (tr === cur || t - (tr.fkTgtT === undefined ? -99 : tr.fkTgtT) <= P.fkCurS) c -= P.fkCur
+       if (!tr.losOut) c += P.fcNoLos
++      if (al && tr.alOpen && tr.rearOn) c = c >= 0 ? c / P.alRearMult : c * P.alRearMult      // R6: an opener facing away
+       const s = 1000 - c
+       tr.secure = tr.finishable && tr.losOut
+       tr.index = s
+@@ -352,6 +361,7 @@
+     if (tr === cur) s *= P.wStick
+     if (!tr.losOut) s *= P.wNoLos
+     if (ffa && !tr.npc) s *= tr.cxMult
++    if (al && !tr.npc && tr.alOpen && tr.rearOn) s *= P.alRearMult                    // Fable chaos R6: an opener facing away
+     if (ffa && !tr.npc && P.ffaGate === true && B.ffa.gateOk(tr)) s *= P.fgMult     // R3a2 Z10: wounded and outside the zone
+     if (me.laser && tr.hasMortar) s *= 1.15
+     if (!tr.npc && tr.airborne && tr.dist < 0.55 * (me.gun ? me.gun.speed : 252)) s *= 1.3        // R2 #4: hoppers are easy now

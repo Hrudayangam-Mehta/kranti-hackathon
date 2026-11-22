@@ -1,0 +1,23 @@
+NONE: A vs ref user_daily: rows 3338 vs 3338; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 99; only in B 99;  DIFFER  'clicks_dup_with_different_values(!)': 497
+CRAFT_NO_TIES: A vs ref user_daily: rows 3502 vs 3502; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 112; only in B 112;  DIFFER  'clicks_dup_with_different_values(!)': 593
+CRAFT_NO_DUPCLICK: A vs ref user_daily: rows 3358 vs 3358; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 110; only in B 110;  DIFFER  
+CRAFT_NO_ODDCAMP: A vs ref user_daily: rows 3381 vs 3382; only in A 0; only in B 1;  campaign_daily: rows 350 vs 350; only in A 116; only in B 116;  DIFFER  'clicks_dup_with_different_values(!)': 512
+CRAFT_NO_F2: A vs ref user_daily: rows 3470 vs 3470; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 92; only in B 92;  DIFFER  'clicks_dup_with_different_values(!)': 380
+CRAFT_NO_ZEROS: A vs ref user_daily: rows 3338 vs 3338; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 99; only in B 99;  DIFFER  'clicks_dup_with_different_values(!)': 457
+CRAFT_NO_LONGCLICK: A vs ref user_daily: rows 3338 vs 3338; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 101; only in B 101;  DIFFER  'clicks_dup_with_different_values(!)': 497
+CRAFT_NO_QUOTES: A vs ref user_daily: rows 3338 vs 3338; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 99; only in B 99;  DIFFER  'clicks_dup_with_different_values(!)': 497
+CRAFT_NO_BOUNDARY: A vs ref user_daily: rows 3481 vs 3481; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 105; only in B 105;  DIFFER  'clicks_dup_with_different_values(!)': 980
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/tools/craft.py", line 63, in <module>
+    links.append(("u1", users[users.index("L200_" + "k" * 195)]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'L200_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk' is not in list
+CRAFT_SIMPLE_USERS: A vs ref  
+CRAFT_NO_DUPEVENT: A vs ref user_daily: rows 3384 vs 3384; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 88; only in B 88;  DIFFER  'clicks_dup_with_different_values(!)': 497
+CRAFT_NO_EVVARIANT: A vs ref user_daily: rows 3368 vs 3368; only in A 2; only in B 2;  campaign_daily: rows 434 vs 434; only in A 106; only in B 106;  DIFFER  'clicks_dup_with_different_values(!)': 523
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/tools/craft.py", line 63, in <module>
+    links.append(("u1", users[users.index("L200_" + "k" * 195)]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'L200_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk' is not in list
+ALL: A vs ref  

@@ -1,0 +1,12 @@
+lane F off: SESSIONS_LANE=G
+setup         0.1 ms
+links         0.4 ms on one thread
+thread 0 parse busy      1.0 ms
+parse         1.0 ms
+dedup         1.1 ms
+surviving events 2, user_daily rows 2
+sessions 2 / 2, revenue 250 / 250, assisted 0 >= 0
+people        1.4 ms
+lane F winners 0, lane G share 100.00%
+event copies 8, winners 2, clicks 0, linked 0, exotic 0
+write         1.6 ms

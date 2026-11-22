@@ -1,0 +1,80 @@
+File written: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/notes/intel_synthesis.md (1798 words by `wc -w`, no code). Content follows verbatim.
+
+# Intel synthesis: house bots, competitor landscape, what to build
+
+Sources: (A) replay forensics (`notes/forensics.md`); (B) prose studies of 12 public competitor repositories. Tags: **[M]** official scorer, one 48-match run unless stated; **[R]** replay or kit stream; **[S]** a team's own simulator; **[A]** assumed; **[I]** our inference.
+
+## 1. What the house bots do
+
+Caveats: one free-for-all replay (209.65 s, no easy type, no squad logic) on an older balance build; ranges below are converted to today's 252 m/s gun through flight time. The kit stream shows the same AI on the current build (aim formula matched to 0.02 deg).
+
+All seven types share one fire control: exact first-order intercept at the body centre from the latest observation, ballistic prediction for airborne targets, no error beyond the 0.6 deg weapon spread, no reaction delay. They shoot only with a clear line, 12 shots then 2.5 s. They move constantly at 0.85 of walk speed, reverse strafe every 1.1 s (median) and spend 32% of fight time in a fixed 3.1 s jump-jet hop. They never retreat or seek healing, pick the nearest target 67% of the time, ignore roofs, reach the next circle 33-58 s early and sit at 0.41 of its radius. Types differ only in range habit: medium closes to 45-65 m, brawler runs straight in at 5 m/s, sniper, expert and thirdparty back off inside 70 m (replay metres), farmer spends 28% of shots on crates.
+
+| # | Exploitable fact | Number |
+|---|---|---|
+| 1 | Linear lead fails on velocity changes; misses pass ahead | steady targets hit 84% (47/56), reversing or turning ones 22-24% (35/153); a reversal takes 0.40 s |
+| 2 | Flight time decides hits; lateral speed does not | 100% under 0.3 s (41/41), then 86%, 57%, 32% per 0.1 s, 16-30% beyond; today: under 75, 75-100, 100-126, 126-151 m |
+| 3 | Jumping does not dodge; their own hop makes them targets | airborne targets hit 92% vs 57% (0.4-0.5 s flight); apex 14.9 m |
+| 4 | Magazine rhythm | 12 shots in 3.3 s, then 2.5 s silent; trigger duty 75% |
+| 5 | Fire only with a clear line; slow first shot | 848 of 851 shots; line open to first shot: median 1.15 s, floor 0.25 s |
+| 6 | No retreat, no healing | below 20% HP still firing in 77% of frames |
+| 7 | Blind outside the view wedge; rear hits x1.5 (squad may differ) | unseen attackers dealt a median 189 damage before return fire vs 61; 7 of 14 victims never shot one attacker |
+| 8 | The current-build laser is the main threat and has one counter | stream: 4 hits of 6 at 56-151 m, both misses lacked a sight line at release; charge 0.75 s; cook-off x1.6 on mortar holders |
+
+Also: 0 of 10 roof weapons taken; 66% of death cubes abandoned; outer fifth of the zone occupied 7% of the time.
+
+## 2. Competitor landscape
+
+**Common baseline (all 12).** One priority cascade per observation; ground-only 2 m grid with A* or a distance field; first-order gun lead with an angular fire gate; full-charge laser release; stand-off by loadout (lightning about 28 m, gun 60-85 m, laser 90-120 m) with random strafe flips; HP-threshold retreat to a ring-sampled cover point; defence-first upgrades (plating, armor, nanites); laser above lightning above mortar; early walk to 45-70% of the next radius. None models the squad's escalation or the late game.
+
+**What stronger bots add.** Cube detours during fights (TTUN); peek spots hidden from non-target hunters and retreat thresholds scaled by shooter count (nullat0m7, Achintya); magazine-aware finishing (GT Goats, via brycehcmcgrath); hostile-only engagement (jackbalseca); roof edges in the path graph (anthonyteti, arnabxero); free-for-all detectors; trigger-hold timing and an aim-point ladder (arnabxero); oracle ablations (LanceHuang245).
+
+| Lesson | Evidence (source) | Tag |
+|---|---|---|
+| The scorer replays 48 fixed seeds: same behaviour, same score | 4.44 twice (nullat0m7), 2.17 twice (dmclaughlin), stated by LanceHuang245; exception 3.75/3.90/3.67 for one build with wall-clock-gated planning (arnabxero) | M; cause I |
+| Best public recipe: always fight, collect cubes mid-fight | 5.19 (TTUN v8-econ); two derivatives 5.08, 5.10 (wgsrobot) | M |
+| Passivity loses | stand-still regen -0.44 and -0.46, second confounded (nullat0m7); hide-and-wait 4.04 vs 4.54 (LanceHuang245); hold fire while healing 2.04 vs 2.38 (dmclaughlin); combined caution 3.29 to 2.69 (Achintya); pure evasion reverted in 10 minutes, unscored (TTUN) | M |
+| Long range loses | 130-160 m stand-off -0.77 (jackbalseca); removing a 100 m gun gate -0.34 (dmclaughlin); 170-210 m bundle -0.46, confounded (nullat0m7) | M |
+| Fast strafe flips lose | flips every 0.4-0.9 s: 3.75 to 3.06 (arnabxero) | M |
+| Finishing pays | magazine-aware target choice +0.39 (brycehcmcgrath ledger) | M |
+| Hostile-only engagement | +0.23 (jackbalseca); conflicts with always-fight at 5.19 | M, unresolved |
+| Aim fixes lift weak bots, little above | line-of-fire and laser hand-off fixes +0.4 (arnabxero); wider hit boxes only +0.28 (LanceHuang245) | M / S |
+| Quiet walking is neutral | 4.54 vs 4.75 was a stuck-timer bug; fixed build 4.79 (brycehcmcgrath) | M |
+| Economy knobs are noise | crate radius -0.09, far drops +0.02, landed drops -0.08 (nullat0m7); cube-pile ranking -0.11 (wgsrobot) | M |
+| Local simulators mislead | predicted 7.63, scored 3.98 (nullat0m7); 6.5 vs 4.04 (joekritenbrink); predicted gain, real -0.77 (jackbalseca); 3 of 6 orderings right (wgsrobot) | M |
+| The hunter carries gun + laser, fights at 100-150 m, never closes inside 45 m, kills through canopy | arnabxero's traces; agrees with our stream reading | R, one source |
+| "All hunt late" timing | 240 s (nullat0m7) or 300 s (anthonyteti, jackbalseca, joekritenbrink, arnabxero); hunters = 1 + kills, or one per two kills | A; nobody measured it |
+| Wall near 4 = four easy bots die, then the entrant | 21 of the top 50 score 4.00-4.25; joekritenbrink's model needs competent, all-knowing medium+ hunters | I / S |
+| The final rewards the opposite | practice ranks 1-4 placed 6th-12th in a showdown; quiet posture 9.33 to 10.75 in private rooms (Achintya); winners: 70% laser damage, 26 cubes (dmclaughlin) | R, free-for-all |
+
+## 3. Ideas to implement ourselves, originally
+
+Ranked by expected practice gain. Every check uses paired seeds, a fixed logical clock, held-out seeds and stand-in hunters with the section 1 fire control; calibrate first on fact 2's hit table and the starter's 1.15.
+
+| # | Idea | Rationale | Simulator check |
+|---|---|---|---|
+| 1 | Cover-edge duel: fight each hunter from hard cover, exposed only when a weapon is ready, hidden during our reload and their fresh magazine; never stop shooting to hide | facts 4 and 5; an open trade against equal aim is even. Risk: TTUN dropped cover-seeking as too passive | damage dealt/taken per hunter vs open strafing at equal range |
+| 2 | Laser play: keep gun + laser; charge in cover, release with direct aim; break sight within 0.75 s of an enemy charge flag pointed at us | fact 8; gun-only wins 8% against a laser hunter, 30% with a laser [S, arnabxero] | duel win rate; laser hits taken per minute |
+| 3 | Kill-drop economy: HP-scaled cube detours during fights | the one change tied to 5.19; starting with 10 cubes is worth +1.67 [S, LanceHuang245] | cubes at 60/120/180 s; score on/off |
+| 4 | Finish and stick: prefer the target our magazine plus laser can kill; do not break off from it | +0.39 [M]; fact 6 | share of damaged hunters that regenerate |
+| 5 | Moving regen between hunters: break every sight line, cease fire for 5 s, keep walking and looting | 45 HP/s; rivals stand still or leak regen by shooting | HP at the start of each fight; regen-leak ticks |
+| 6 | Flight-time dodge against guns: when exposed, brake or reverse while bullets fly; stay grounded; no flips faster than about 0.8 s | facts 1-3; faster flips average to standing still [I] | hit rate taken by range band and policy |
+| 7 | Shot selection: fire at hopping or steady targets with a ballistic lead; skip long-flight shots at reversing ones | fact 3; saves magazines | hit rate by target state; shots per kill |
+| 8 | Shooter-count disengage with a phantom threat on the damage bearing; cover hidden from all shooters | fact 7; 55% of deaths involve 2+ attackers [R, Achintya] | deaths by attacker count; rear-damage share |
+| 9 | Hold the trigger through cooldown expiry | 0.24 s cadence instead of 0.30 s; server behaviour unverified | shots per second; read the rule first |
+| 10 | Outer-ring positioning, path-length zone timing, commitment latch | house bots crowd the centre | simultaneous shooters vs radial position; zero zone deaths |
+| 11 | Falling supply drops as a heal when no hunter has a line | +3 cubes and full HP; nullat0m7's only gain | drops taken; HP gained |
+| 12 | Conservative free-for-all detector | one build must serve practice and final | false triggers in squad runs; detection time |
+
+**Traps.** Standing still or hiding in practice. Duelling beyond 130 m, or ungated gun fire to 230 m. Jump dodging and sub-0.8 s strafe flips. Dropping the gun for laser + lightning (hunters stay outside 45 m). Carrying a mortar (cook-off). Farming crates or drones with hunters near. Waiting in a drop ring before the landing. A free-for-all detector that fires on zone or drone deaths. Wall-clock-gated planning (behaviour changes with host load). Speed-based stuck detection that ignores charging or speed caps. Sight tests that ignore trees (canopy hides but never stops shots). Replay ranges used unconverted. Stacked changes per submission, identical resubmissions, trusting simulator deltas under 0.5. The stadium bowl (x -190..-260, y 48..83) and sealed courtyards.
+
+## 4. Open questions
+
+- How many hunters follow each kill, and what triggers "all hunt" (time, kills, zone phase)?
+- Do non-hunters fire on sight or only when hit (hostile-only vs always-fight)?
+- Easy-tier aim and loadout: absent from the replay.
+- Does shared vision remove the wedge blindness and the 1.15 s first-shot delay? Do hunters always know our position?
+- Does a held trigger fire every 0.24 s? Does crate damage still leave regen running on the current build?
+- Can house bots hit or chase a mech on a tall roof?
+- Do house bots die to zone or drones in practice? What happens after 210 s?
+- What produces 5.48-5.58? No confirmed public source (anthonyteti = "AT" is unverified).

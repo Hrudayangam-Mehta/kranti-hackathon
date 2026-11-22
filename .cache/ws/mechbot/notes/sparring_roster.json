@@ -1,0 +1,5002 @@
+[
+ {
+  "name": "magic_53f6854",
+  "repo": "Kgc3105/MAGIC-Royale",
+  "repo_url": "https://github.com/Kgc3105/MAGIC-Royale",
+  "commit": "53f6854b0bcd0293c02bf1945285ccfa2f4a9af3",
+  "language": "typescript",
+  "official_score": 5.58,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit e39579f message: 'Restore the 5.58 settings ... scored 5.17 on the real board against 5.58 before it. src/brain.ts is now identical to the 5.58 commit'; 53f6854 is that 5.58 commit (03:30:03Z; board A-bot LLC 5.58 at 03:37:53Z). Team link per notes/top10_name_map.md (high).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/magic_53f6854",
+  "entry_argv": [
+   "BUN_JSC_useConcurrentJIT=0",
+   "BUN_JSC_useFTLJIT=0",
+   "BUN_JSC_numberOfGCMarkers=1",
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "BUN_JSC_useConcurrentJIT=0 BUN_JSC_useFTLJIT=0 BUN_JSC_numberOfGCMarkers=1 bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh magic_53f6854",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/aim.ts",
+   "src/brain.ts",
+   "src/nav.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 385,
+   "announced_name": "magic-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 3.8,
+    "max": 22.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Dockerfile bundles bot.ts with 'bun build' and runs the bundle; here the same sources run unbundled ('bun144 bot.ts') with the Dockerfile's three BUN_JSC_* environment settings. Team A-bot LLC (rank 1); scorpion ties at 5.58."
+ },
+ {
+  "name": "proj1_aggro6_cefd23f",
+  "repo": "shaunkar1/proj1",
+  "repo_url": "https://github.com/shaunkar1/proj1",
+  "commit": "cefd23fe9f076715e290b147846860a19e309ec1",
+  "language": "go",
+  "official_score": 5.33,
+  "score_link_confidence": "low",
+  "score_evidence": "Board tigerbyte 5.33 at 04:58:47.7Z, inside a burst of four 'Squad profile (build 6)' commits (cefd23f aggro 04:58:46, 71dadf5 farm4 :48, a178c88 farm6 :50, 1a0d282 base :52); which profile was submitted is not documented. cefd23f is the one committed just before the board time.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/proj1_aggro6_cefd23f",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh proj1_aggro6_cefd23f",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 592,
+   "announced_name": "ProjectPaw",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.6,
+    "p99": 0.9,
+    "max": 1.0
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Go; binary built from the commit with the Dockerfile's own line (CGO_ENABLED=0 go build -trimpath -ldflags '-s -w' ./cmd/bot; standard library only, map embedded with go:embed), offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7 = the Dockerfile's version. Only the binary is installed."
+ },
+ {
+  "name": "proj1_kite200_b624765",
+  "repo": "shaunkar1/proj1",
+  "repo_url": "https://github.com/shaunkar1/proj1",
+  "commit": "b6247654fe34370bc23557ba29a211874dd4a06d",
+  "language": "go",
+  "official_score": 5.31,
+  "score_link_confidence": "medium",
+  "score_evidence": "notes/top10_name_map.md (team link high): b624765 'Squad profile: kite200' (04:02:30Z) is the only proj1 commit between 03:39Z and 04:27Z and precedes tigerbyte's 5.31 (04:03:41Z) by 71 s; TigerTown27 later posted the identical 5.31. No score text in the repo.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/proj1_kite200_b624765",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh proj1_kite200_b624765",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 544,
+   "announced_name": "ProjectPaw",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 1.2,
+    "max": 3.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Go; binary built from the commit with the Dockerfile's own line (CGO_ENABLED=0 go build -trimpath -ldflags '-s -w' ./cmd/bot; standard library only, map embedded with go:embed), offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7 = the Dockerfile's version. Only the binary is installed."
+ },
+ {
+  "name": "ttun_ae1b122",
+  "repo": "varchaskukreja/TTUN",
+  "repo_url": "https://github.com/varchaskukreja/TTUN",
+  "commit": "ae1b1228527e3ce406d9c695426cf6b7a3c0f22b",
+  "language": "typescript",
+  "official_score": 5.21,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board: Wolverines moved from 5.19 to 5.21 at 2026-11-21T05:31:17Z; ae1b122 (05:28:01Z, tip of mech-royale-exp) is the last mech commit before it. Timestamp link only.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ttun_ae1b122",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh ttun_ae1b122",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 153,
+   "announced_name": "TTUN-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.9,
+    "p99": 12.0,
+    "max": 22.1
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch mech-royale-exp tip."
+ },
+ {
+  "name": "kanyaraasi_83e4c93",
+  "repo": "devakchow/team-kanyaraasi-mech-royale",
+  "repo_url": "https://github.com/devakchow/team-kanyaraasi-mech-royale",
+  "commit": "83e4c9342a42aa2959a97762de26ba4ad574428d",
+  "language": "typescript",
+  "official_score": 5.19,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board: Kanyaraasi 5.19 with board time 2026-11-21T05:05:46Z; 83e4c93 (05:02:55Z) is the last commit before it (next commit 97040d7 is 05:21Z). The repo has no score notes: link is by timestamp only. The board 'at' time tracks submissions closely (r1ver 5.10 at 03:01:48Z vs its documented commit af337d5 at 02:58:43Z).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kanyaraasi_83e4c93",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh kanyaraasi_83e4c93",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 187,
+   "announced_name": "TTUN-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.0,
+    "p99": 12.7,
+    "max": 14.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": "README: repackaged moonriver0922 af337d5 TypeScript controller (itself derived from TTUN b7e9a6d) with an NPC-HP accounting change in bot.ts."
+ },
+ {
+  "name": "kyoto_v15_5bd6c37",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "5bd6c377aa985b7b3d099b8c3ca426467d257551",
+  "language": "python (.pyc)",
+  "official_score": 5.19,
+  "score_link_confidence": "low",
+  "score_evidence": "Board kyoto-max 5.19 at 05:36:12Z; 5bd6c37 'v15: ship the compiled bot only' (05:05:09Z) is the last commit before it (v16 is 05:39Z). No stated score; 31 min gap, so the link is weak.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_v15_5bd6c37",
+  "entry_argv": [
+   "python3.13",
+   "-u",
+   "pilot.pyc"
+  ],
+  "entry_command": "python3.13 -u pilot.pyc",
+  "proc": "/srv/mech-sparring/run.sh kyoto_v15_5bd6c37",
+  "files_copied": [
+   "mechfight.pyc",
+   "pilot.pyc"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 204,
+   "announced_name": "kyoto-max",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 2.5,
+    "max": 4.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Compiled CPython 3.13 bytecode only (pilot.pyc, mechfight.pyc), run with python3.13; per its commit notes a LanceHuang245-derived controller plus the team's farming run."
+ },
+ {
+  "name": "ttun_v8econ_b7e9a6d",
+  "repo": "varchaskukreja/TTUN",
+  "repo_url": "https://github.com/varchaskukreja/TTUN",
+  "commit": "b7e9a6db75154271185035ef856859be37dff60e",
+  "language": "typescript",
+  "official_score": 5.19,
+  "score_link_confidence": "high",
+  "score_evidence": "Board: Wolverines 5.19 at 2026-11-21T00:57:15Z, 10 s after commit b7e9a6d (00:57:05Z, 'Mech bot v8-econ'); TTUN commit 11350d3 'Restore the 5.19 Mech Royale bot from BB-098D02A6' has a byte-identical bot.ts; f2cf182 message 'v10: 5.19 economy bot + ...'; moonriver0922 experiments/README.md states the same link.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ttun_v8econ_b7e9a6d",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh ttun_v8econ_b7e9a6d",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 112,
+   "announced_name": "TTUN-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.9,
+    "p99": 9.5,
+    "max": 11.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch mech-royale-exp; runtime files are mech-royale/bot/{bot,map,mechfight}.ts."
+ },
+ {
+  "name": "magic_aace465",
+  "repo": "Kgc3105/MAGIC-Royale",
+  "repo_url": "https://github.com/Kgc3105/MAGIC-Royale",
+  "commit": "aace46540d8d36c61b6c988e15e21f3068443b79",
+  "language": "typescript",
+  "official_score": 5.17,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit e39579f message: 'The previous commit (no retreat on low health ...) ... scored 5.17 on the real board'; aace465 is that previous commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/magic_aace465",
+  "entry_argv": [
+   "BUN_JSC_useConcurrentJIT=0",
+   "BUN_JSC_useFTLJIT=0",
+   "BUN_JSC_numberOfGCMarkers=1",
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "BUN_JSC_useConcurrentJIT=0 BUN_JSC_useFTLJIT=0 BUN_JSC_numberOfGCMarkers=1 bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh magic_aace465",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/aim.ts",
+   "src/brain.ts",
+   "src/nav.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 437,
+   "announced_name": "magic-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 3.3,
+    "max": 22.9
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Dockerfile bundles bot.ts with 'bun build' and runs the bundle; here the same sources run unbundled ('bun144 bot.ts') with the Dockerfile's three BUN_JSC_* environment settings."
+ },
+ {
+  "name": "r1ver_ts_af337d5",
+  "repo": "moonriver0922/wgsrobot",
+  "repo_url": "https://github.com/moonriver0922/wgsrobot",
+  "commit": "af337d5c1275d03478685bd4936c8a551fa6b200",
+  "language": "typescript",
+  "official_score": 5.1,
+  "score_link_confidence": "high",
+  "score_evidence": "experiments/official-runs.md: af337d5 (ground-clearance) scored 5.10 (receipt BB-EAEAF89A); board r1ver 5.10 at 03:01:48Z.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/r1ver_ts_af337d5",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh r1ver_ts_af337d5",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 110,
+   "announced_name": "TTUN-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 10.5,
+    "max": 21.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch practice/ground-clearance."
+ },
+ {
+  "name": "r1ver_ts_96848df",
+  "repo": "moonriver0922/wgsrobot",
+  "repo_url": "https://github.com/moonriver0922/wgsrobot",
+  "commit": "96848df450cb7b49c1cce870fc964affcfa1bb47",
+  "language": "typescript",
+  "official_score": 5.08,
+  "score_link_confidence": "high",
+  "score_evidence": "experiments/official-runs.md: 96848df (TTUN v8-econ derivative, cube stacks) scored 5.08 (receipt BB-74CEE7A0).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/r1ver_ts_96848df",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh r1ver_ts_96848df",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 110,
+   "announced_name": "r1ver-cube-econ",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 9.1,
+    "max": 13.0
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch practice/cube-economy."
+ },
+ {
+  "name": "bd_payload_9c9801e",
+  "repo": "brycehcmcgrath/mechfight-bot",
+  "repo_url": "https://github.com/brycehcmcgrath/mechfight-bot",
+  "commit": "9c9801ec485eb60f7a32ac4123ecbab1dd887d1e",
+  "language": "python (compiled .so)",
+  "official_score": 5.06,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board BackwardsDeployeds 5.06 at 04:17:54Z, 105 s after commit 9c9801e 'Update runtime payload' (04:16:09Z). Timestamp link only; the repo dropped its results log when it switched to a binary payload.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/bd_payload_9c9801e",
+  "entry_argv": [
+   "python3.13",
+   "-u",
+   "-c",
+   "import pilot; pilot.main()"
+  ],
+  "entry_command": "python3.13 -u -c 'import pilot; pilot.main()'",
+  "proc": "/srv/mech-sparring/run.sh bd_payload_9c9801e",
+  "files_copied": [
+   "pilot.so",
+   "vendor/lance/bot.so",
+   "vendor/lance/mechfight.so"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 236,
+   "announced_name": "Coverdrive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.5,
+    "p99": 2.5,
+    "max": 7.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Opaque payload: three Cython-compiled CPython 3.13 extension modules (pilot.so, vendor/lance/bot.so, mechfight.so), so it runs on /usr/local/bin/python3.13 with the Dockerfile's entry 'import pilot; pilot.main()'."
+ },
+ {
+  "name": "prakash_v5_14b39db",
+  "repo": "prakash-218/buildathon-mech",
+  "repo_url": "https://github.com/prakash-218/buildathon-mech",
+  "commit": "14b39dbaa9d9c4ec3f90a01635446467b25d0644",
+  "language": "go",
+  "official_score": 5.04,
+  "score_link_confidence": "low",
+  "score_evidence": "notes/top10_name_map.md: best candidate (low) for team ImagineLosing: 'v5' 14b39db (02:29:34Z) is 85 s before that team's only best time (5.04 at 02:30:59Z); no text proof.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/prakash_v5_14b39db",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh prakash_v5_14b39db",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 251,
+   "announced_name": "osu-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 3.1,
+    "max": 3.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Go (standard library only); binary built from the commit with the Dockerfile's own go build line, offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7. Only the binary is installed."
+ },
+ {
+  "name": "th3r0n_expJ_7775214",
+  "repo": "Th3r0n/mech-royale-bot",
+  "repo_url": "https://github.com/Th3r0n/mech-royale-bot",
+  "commit": "77752140662ef0d19935bc8e854768873df08dc8",
+  "language": "typescript",
+  "official_score": 5.02,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 55c4ff0 message: 'v13: econ core with laser fight distance 145 m (real 5.02)'; that configuration was committed for submission as 7775214 'exp J: econ core with laser fight distance 145 m' (04:12:05Z); board 'not even close' 5.02 at 04:21:19Z, before 55c4ff0 existed.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/th3r0n_expJ_7775214",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh th3r0n_expJ_7775214",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/brain.ts",
+   "src/combat.ts",
+   "src/cover.ts",
+   "src/econ.ts",
+   "src/geom.ts",
+   "src/map.ts",
+   "src/nav.ts",
+   "src/practice.ts",
+   "src/risk.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 821,
+   "announced_name": "not-even-close",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.3,
+    "p99": 4.0,
+    "max": 7.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Team 'not even close'. Files = Dockerfile 'COPY . .' minus .dockerignore (README, tools)."
+ },
+ {
+  "name": "th3r0n_expI_06c7d26",
+  "repo": "Th3r0n/mech-royale-bot",
+  "repo_url": "https://github.com/Th3r0n/mech-royale-bot",
+  "commit": "06c7d260bd37ada1a4edf33cb133cb1b5e8c72be",
+  "language": "typescript",
+  "official_score": 4.98,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 148f152 message: 'v12: econ core by default in practice (real 4.98 vs 4.75 for the lance core)'; 06c7d26 'exp I: econ core in practice' is the experiment commit with that configuration.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/th3r0n_expI_06c7d26",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh th3r0n_expI_06c7d26",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/brain.ts",
+   "src/combat.ts",
+   "src/cover.ts",
+   "src/econ.ts",
+   "src/geom.ts",
+   "src/map.ts",
+   "src/nav.ts",
+   "src/practice.ts",
+   "src/risk.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 1038,
+   "announced_name": "not-even-close",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.2,
+    "p99": 4.4,
+    "max": 9.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "nexus_v281_312d591",
+  "repo": "JosiahAklog/nexus-mech-royale",
+  "repo_url": "https://github.com/JosiahAklog/nexus-mech-royale",
+  "commit": "312d591a4888d625fa1d8c404c28814039d544b8",
+  "language": "python",
+  "official_score": 4.96,
+  "score_link_confidence": "high",
+  "score_evidence": "README of the V35 upload: 'Confirmed competitive best reported by the user: V28.1, 4.96'; bot name 'NEXUS-V28.1-adaptive'; board RN SUS 4.96 at 04:53:59Z, 48 s after this commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nexus_v281_312d591",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh nexus_v281_312d591",
+  "files_copied": [
+   "bot.py",
+   "fastmap.so",
+   "map.bin",
+   "mapinfo.json",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 108,
+   "announced_name": "NEXUS-V28.1-adaptive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 1.0,
+    "p99": 2.2,
+    "max": 7.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Standard-library Python plus the repo's own prebuilt fastmap.so (x86-64, loaded with ctypes; its Dockerfile copies it), precomputed map.bin/mapinfo.json."
+ },
+ {
+  "name": "kestrel_G3_8671068",
+  "repo": "AbhirajTiwari12/mech-royale-bot",
+  "repo_url": "https://github.com/AbhirajTiwari12/mech-royale-bot",
+  "commit": "867106842304c476b50477a46d033822425e6c5c",
+  "language": "python",
+  "official_score": 4.92,
+  "score_link_confidence": "medium",
+  "score_evidence": "notes/top10_name_map.md: team '314159265' (medium); the 'G3' commit 8671068 (02:10:49Z) carries the same second as the team's best time on the board (4.92 at 02:10:49Z); no score text in the repo.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kestrel_G3_8671068",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kestrel_G3_8671068",
+  "files_copied": [
+   "bot.py",
+   "nav.bin",
+   "roofs.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 60,
+   "announced_name": "kestrel",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 2.2,
+    "max": 4.3
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Dockerfile pins Python 3.12.8; runs unchanged on the sandbox python3 (3.11)."
+ },
+ {
+  "name": "nexus_v26_21b396d",
+  "repo": "JosiahAklog/nexus-mech-royale",
+  "repo_url": "https://github.com/JosiahAklog/nexus-mech-royale",
+  "commit": "21b396da40e0aa480e0c6c8fb248b716085c8675",
+  "language": "python",
+  "official_score": 4.83,
+  "score_link_confidence": "medium",
+  "score_evidence": "README of the V28.1 upload: 'V26 (4.83) is the latest user-confirmed competitive result'; this commit's bot announces itself as 'NEXUS-V26-adaptive' (README header still says V25).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nexus_v26_21b396d",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh nexus_v26_21b396d",
+  "files_copied": [
+   "bot.py",
+   "fastmap.so",
+   "map.bin",
+   "mapinfo.json",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 106,
+   "announced_name": "NEXUS-V26-adaptive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 1.1,
+    "max": 2.5
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Standard-library Python plus the repo's own prebuilt fastmap.so (x86-64, loaded with ctypes; its Dockerfile copies it), precomputed map.bin/mapinfo.json."
+ },
+ {
+  "name": "bd_lancecharge_dfe5cdd",
+  "repo": "brycehcmcgrath/mechfight-bot",
+  "repo_url": "https://github.com/brycehcmcgrath/mechfight-bot",
+  "commit": "dfe5cdd59eae5f1178f7fea1dbac161b20121668",
+  "language": "python",
+  "official_score": 4.79,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/RESULTS.md (official experiment records by submitted commit, with receipts): dfe5cdd 'Quiet-on Lance171 plus owned charged-progress stuck-timer guard' 4.79 (BB-78C9B332).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/bd_lancecharge_dfe5cdd",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "lance_entry.py"
+  ],
+  "entry_command": "python3 -u lance_entry.py",
+  "proc": "/srv/mech-sparring/run.sh bd_lancecharge_dfe5cdd",
+  "files_copied": [
+   "lance_entry.py",
+   "vendor/lance/bot.py",
+   "vendor/lance/mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 297,
+   "announced_name": "Coverdrive-Lance-chargeaware",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 4.1,
+    "max": 12.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Vendored Lance 171bc06 behind lance_entry.py (forces MR_FLAGS=sneak itself)."
+ },
+ {
+  "name": "nexus_v24_2cc1d14",
+  "repo": "JosiahAklog/nexus-mech-royale",
+  "repo_url": "https://github.com/JosiahAklog/nexus-mech-royale",
+  "commit": "2cc1d142cddc7decce1069e61f479202293ec0b8",
+  "language": "python",
+  "official_score": 4.77,
+  "score_link_confidence": "high",
+  "score_evidence": "README of the V25 upload: 'Based on V24 (official score 4.77)'; this commit's bot announces itself as 'NEXUS-V24-adaptive'; board RN SUS 4.77 at 04:08:05Z, 94 s after this commit (04:06:31Z).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nexus_v24_2cc1d14",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh nexus_v24_2cc1d14",
+  "files_copied": [
+   "bot.py",
+   "fastmap.so",
+   "map.bin",
+   "mapinfo.json",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 153,
+   "announced_name": "NEXUS-V24-adaptive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 0.9,
+    "p99": 1.3,
+    "max": 2.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Standard-library Python plus the repo's own prebuilt fastmap.so (x86-64, loaded with ctypes; its Dockerfile copies it), precomputed map.bin/mapinfo.json."
+ },
+ {
+  "name": "lance_171bc06_nosneak",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "171bc0675b04c4095f5a3619cc63664b8a338922",
+  "language": "python",
+  "official_score": 4.75,
+  "score_link_confidence": "high",
+  "score_evidence": "brycehcmcgrath/mechfight-bot docs/RESULTS.md: 'Same Lance171 source with explicit MR_FLAGS empty; quiet speed cap disabled' scored 4.75 (receipt BB-6E7BFB8D).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_171bc06_nosneak",
+  "entry_argv": [
+   "MR_FLAGS=",
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "MR_FLAGS= python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_171bc06_nosneak",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 234,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 3.2,
+    "max": 7.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Quiet movement OFF: environment MR_FLAGS set to the empty string (bot.py line 21 reads env MR_FLAGS, default 'sneak'; empty value -> no flags). Same files as lance_171bc06."
+ },
+ {
+  "name": "lance_v04_f0ca54a",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "f0ca54af18cd3ac46ca58cbe91fe9fbed78fbe5f",
+  "language": "python",
+  "official_score": 4.75,
+  "score_link_confidence": "medium",
+  "score_evidence": "Lance README at 171bc06: third of the 'earlier versions' real scores 3.71 / 4.44 / 4.75; f0ca54a is the v0.4 commit (MR_FLAGS default empty = no quiet movement), consistent with 171bc06 without sneak also scoring 4.75.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_v04_f0ca54a",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_v04_f0ca54a",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 218,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.9,
+    "p99": 3.4,
+    "max": 7.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": "v0.4, before quiet movement was added."
+ },
+ {
+  "name": "th3r0n_v11_78a585c",
+  "repo": "Th3r0n/mech-royale-bot",
+  "repo_url": "https://github.com/Th3r0n/mech-royale-bot",
+  "commit": "78a585c650b60ab45d50252e2c4e8d186a142064",
+  "language": "typescript",
+  "official_score": 4.75,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 7e5c7d8 message: 'back to the lance core by default (v11, 4.75)'; 148f152: 'real 4.98 vs 4.75 for the lance core'. 78a585c is the v11 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/th3r0n_v11_78a585c",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh th3r0n_v11_78a585c",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/brain.ts",
+   "src/combat.ts",
+   "src/cover.ts",
+   "src/geom.ts",
+   "src/map.ts",
+   "src/nav.ts",
+   "src/practice.ts",
+   "src/risk.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 998,
+   "announced_name": "not-even-close",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 1.4,
+    "p99": 4.0,
+    "max": 7.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "proj1_95cfa9c",
+  "repo": "shaunkar1/proj1",
+  "repo_url": "https://github.com/shaunkar1/proj1",
+  "commit": "95cfa9c5926229607dd6ee98b5b17d9e6237f675",
+  "language": "go",
+  "official_score": 4.73,
+  "score_link_confidence": "low",
+  "score_evidence": "notes/top10_name_map.md: TigerTown27's older best 4.73 (00:30:43Z) is 21 s after proj1 commit 95cfa9c (00:30:22Z). Timestamp only.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/proj1_95cfa9c",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh proj1_95cfa9c",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 259,
+   "announced_name": "ProjectPaw",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.7,
+    "p99": 1.1,
+    "max": 2.4
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Go; binary built from the commit with the Dockerfile's own line (CGO_ENABLED=0 go build -trimpath -ldflags '-s -w' ./cmd/bot; standard library only, map embedded with go:embed), offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7 = the Dockerfile's version. Only the binary is installed."
+ },
+ {
+  "name": "r1ver_py_8a536b5",
+  "repo": "moonriver0922/wgsrobot",
+  "repo_url": "https://github.com/moonriver0922/wgsrobot",
+  "commit": "8a536b50fb36da9bd664f7b3eaf6a92c54e53b35",
+  "language": "python",
+  "official_score": 4.67,
+  "score_link_confidence": "high",
+  "score_evidence": "experiments/official-runs.md: 8a536b5 (normal travel speed) scored 4.67 (receipt BB-2DE41BE7).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/r1ver_py_8a536b5",
+  "entry_argv": [
+   "MR_FLAGS=",
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "MR_FLAGS= python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh r1ver_py_8a536b5",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 218,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.6,
+    "p99": 2.7,
+    "max": 7.9
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Branch practice/normal-speed; Dockerfile sets ENV MR_FLAGS=\"\" (quiet movement off), reproduced in the command."
+ },
+ {
+  "name": "whymiso_r15_be4bf88",
+  "repo": "whyMiso/buildathon-mech-royale",
+  "repo_url": "https://github.com/whyMiso/buildathon-mech-royale",
+  "commit": "be4bf88d059e2e64331de7c6db797989c660d44b",
+  "language": "javascript (node)",
+  "official_score": 4.56,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board team 'whyMiso' (same name as the repo owner) shows 4.56 at 05:43:55Z, 149 s after commit be4bf88. Timestamp link; no score text in the repo (Achintya-Lakshmanan docs/REPORT.md quotes an earlier whyMiso score of 4.13).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/whymiso_r15_be4bf88",
+  "entry_argv": [
+   "/opt/node22/bin/node",
+   "bot.mjs"
+  ],
+  "entry_command": "/opt/node22/bin/node bot.mjs",
+  "proc": "/srv/mech-sparring/run.sh whymiso_r15_be4bf88",
+  "files_copied": [
+   "bot.mjs",
+   "exposure.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 240,
+   "announced_name": "kestrel",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 2.0,
+    "max": 4.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Runs on /opt/node22/bin/node 22.23.5 (Dockerfile pins node 22.20.0); files bot.mjs + exposure.bin."
+ },
+ {
+  "name": "lance_171bc06",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "171bc0675b04c4095f5a3619cc63664b8a338922",
+  "language": "python",
+  "official_score": 4.54,
+  "score_link_confidence": "high",
+  "score_evidence": "brycehcmcgrath/mechfight-bot docs/RESULTS.md: 'Attributed pinned Lance171bc06 controller, original SDK and forced default sneak flag' scored 4.54 (receipt BB-E8B2D8F9); Lance's own README at HEAD: patient probe 'real 4.04 vs 4.54'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_171bc06",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_171bc06",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 360,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.7,
+    "p99": 2.7,
+    "max": 7.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Quiet movement ON = default: bot.py line 21 FLAGS = os.environ.get('MR_FLAGS','sneak'); README: 'Quiet movement (sneak, on by default)', switch table header 'Switch (bot.flags, env MR_FLAGS)'."
+ },
+ {
+  "name": "r1ver_py_97e0e58",
+  "repo": "moonriver0922/wgsrobot",
+  "repo_url": "https://github.com/moonriver0922/wgsrobot",
+  "commit": "97e0e588ac9fb49533602a738344cb3fdc8b1551",
+  "language": "python",
+  "official_score": 4.54,
+  "score_link_confidence": "high",
+  "score_evidence": "experiments/official-runs.md: 97e0e58 scored 4.54 (receipt BB-407987E8); README repeats it.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/r1ver_py_97e0e58",
+  "entry_argv": [
+   "MR_FLAGS=sneak",
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "MR_FLAGS=sneak python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh r1ver_py_97e0e58",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 385,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 4.1,
+    "max": 14.9
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Lance 171bc06 derivative; Dockerfile sets ENV MR_FLAGS=sneak, reproduced in the command."
+ },
+ {
+  "name": "kenneth_055ed67",
+  "repo": "KennethLei1492/Builder-Mech-Royale",
+  "repo_url": "https://github.com/KennethLei1492/Builder-Mech-Royale",
+  "commit": "055ed671b12503c4c89fc0d7a96029f5506db3e0",
+  "language": "typescript",
+  "official_score": 4.52,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit d33a9d8 message: 'Revert to 055ed67 (real score 4.52; 247ccb8 scored 3.88)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kenneth_055ed67",
+  "entry_argv": [
+   "bun144",
+   "main.ts"
+  ],
+  "entry_command": "bun144 main.ts",
+  "proc": "/srv/mech-sparring/run.sh kenneth_055ed67",
+  "files_copied": [
+   "brain.ts",
+   "main.ts",
+   "mechfight.ts",
+   "package.json",
+   "util.ts",
+   "world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 232,
+   "announced_name": "ironclad",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 1.2,
+    "p99": 4.4,
+    "max": 5.0
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "teti_204440e",
+  "repo": "anthonyteti/buildathon-mech-royale",
+  "repo_url": "https://github.com/anthonyteti/buildathon-mech-royale",
+  "commit": "204440e157e6260f6a8bf6e4b630df4d055fafe5",
+  "language": "typescript",
+  "official_score": 4.5,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board 'Anthony Teti' 4.50 at 05:24:32Z, 19 s after commit 204440e 'Open fights with mechs out to 200 m' (05:24:13Z). Timestamp link only (no score notes in the repo): the board 'at' time follows the push within seconds for teams with documented links (TTUN b7e9a6d +10 s).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/teti_204440e",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh teti_204440e",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 447,
+   "announced_name": "teti-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.9,
+    "p99": 5.3,
+    "max": 9.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "nullatom_7a3a25a",
+  "repo": "nullat0m7/mech-royale",
+  "repo_url": "https://github.com/nullat0m7/mech-royale",
+  "commit": "7a3a25a667be9fcd3407fa18fda120acabb23c4d",
+  "language": "typescript",
+  "official_score": 4.46,
+  "score_link_confidence": "high",
+  "score_evidence": "CHANGELOG.md: '7a3a25a: chase supply drops out to 300 m. Practice 4.46 (submission 8, new best)'; board 'nothingtoseehere' 4.46.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nullatom_7a3a25a",
+  "entry_argv": [
+   "/opt/node24/bin/node",
+   "--disable-warning=ExperimentalWarning",
+   "--max-old-space-size=384",
+   "bot/main.ts"
+  ],
+  "entry_command": "/opt/node24/bin/node --disable-warning=ExperimentalWarning --max-old-space-size=384 bot/main.ts",
+  "proc": "/srv/mech-sparring/run.sh nullatom_7a3a25a",
+  "files_copied": [
+   "bot/brain/brain.ts",
+   "bot/main.ts",
+   "bot/mechfight.ts",
+   "bot/params.ts",
+   "bot/world/geom.ts",
+   "bot/world/map.ts",
+   "bot/world/nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 236,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 1.8,
+    "max": 6.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Runs on Node 24.22.3 (/opt/node24/bin/node, the exact version its Dockerfile pins) with native TypeScript stripping; no packages."
+ },
+ {
+  "name": "teti_v7_a1df384",
+  "repo": "anthonyteti/buildathon-mech-royale",
+  "repo_url": "https://github.com/anthonyteti/buildathon-mech-royale",
+  "commit": "a1df384b4efb81b1edaf1dd8cd196afa5d6f92a8",
+  "language": "typescript",
+  "official_score": 4.46,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board 'Anthony Teti' 4.46 at 05:17:50Z, 22 s after commit a1df384 'Bot v7' (05:17:28Z). Timestamp link only (no score notes in the repo): the board 'at' time follows the push within seconds for teams with documented links (TTUN b7e9a6d +10 s).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/teti_v7_a1df384",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh teti_v7_a1df384",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 442,
+   "announced_name": "teti-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.8,
+    "p99": 5.5,
+    "max": 9.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "lance_v03_bc9a82e",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "bc9a82e5ca6c6973ff923998eb1af5691f37dc3b",
+  "language": "python",
+  "official_score": 4.44,
+  "score_link_confidence": "medium",
+  "score_evidence": "Lance README at 171bc06: 'earlier versions ... (3.71 / 4.44 / 4.75 real vs 4.1 / 4.9 / 5.5 sim)'; second of three scored versions by commit order (no hash given in the README).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_v03_bc9a82e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_v03_bc9a82e",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 75,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 3.2,
+    "max": 3.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "v0.3."
+ },
+ {
+  "name": "nullatom_65ce172",
+  "repo": "nullat0m7/mech-royale",
+  "repo_url": "https://github.com/nullat0m7/mech-royale",
+  "commit": "65ce1729c23d92e08fa10ab48229e723e6a35373",
+  "language": "typescript",
+  "official_score": 4.44,
+  "score_link_confidence": "high",
+  "score_evidence": "CHANGELOG.md: '65ce172: first submission. Practice 4.44 (submission 1)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nullatom_65ce172",
+  "entry_argv": [
+   "/opt/node24/bin/node",
+   "--disable-warning=ExperimentalWarning",
+   "--max-old-space-size=384",
+   "bot/main.ts"
+  ],
+  "entry_command": "/opt/node24/bin/node --disable-warning=ExperimentalWarning --max-old-space-size=384 bot/main.ts",
+  "proc": "/srv/mech-sparring/run.sh nullatom_65ce172",
+  "files_copied": [
+   "bot/brain/brain.ts",
+   "bot/main.ts",
+   "bot/mechfight.ts",
+   "bot/params.ts",
+   "bot/world/geom.ts",
+   "bot/world/map.ts",
+   "bot/world/nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 264,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 0.8,
+    "p99": 3.3,
+    "max": 5.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Runs on Node 24.22.3 (/opt/node24/bin/node, the exact version its Dockerfile pins) with native TypeScript stripping; no packages."
+ },
+ {
+  "name": "nullatom_926e5b7",
+  "repo": "nullat0m7/mech-royale",
+  "repo_url": "https://github.com/nullat0m7/mech-royale",
+  "commit": "926e5b7209672e0a15efe266fdf6e9cc5e783944",
+  "language": "typescript",
+  "official_score": 4.4,
+  "score_link_confidence": "high",
+  "score_evidence": "CHANGELOG.md: '926e5b7: farmHp back to 0.6, reengageHp 0.65 alone. Practice 4.40 (submission 6)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nullatom_926e5b7",
+  "entry_argv": [
+   "/opt/node24/bin/node",
+   "--disable-warning=ExperimentalWarning",
+   "--max-old-space-size=384",
+   "bot/main.ts"
+  ],
+  "entry_command": "/opt/node24/bin/node --disable-warning=ExperimentalWarning --max-old-space-size=384 bot/main.ts",
+  "proc": "/srv/mech-sparring/run.sh nullatom_926e5b7",
+  "files_copied": [
+   "bot/brain/brain.ts",
+   "bot/main.ts",
+   "bot/mechfight.ts",
+   "bot/params.ts",
+   "bot/world/geom.ts",
+   "bot/world/map.ts",
+   "bot/world/nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 219,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.1,
+    "p99": 3.6,
+    "max": 7.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Runs on Node 24.22.3 (/opt/node24/bin/node, the exact version its Dockerfile pins) with native TypeScript stripping; no packages."
+ },
+ {
+  "name": "whymiso_auto130_727f6db",
+  "repo": "whyMiso/buildathon-mech-royale",
+  "repo_url": "https://github.com/whyMiso/buildathon-mech-royale",
+  "commit": "727f6db75d79e3fd7134c93d47e32cbfa9ac8d6c",
+  "language": "javascript (node)",
+  "official_score": 4.35,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board team 'whyMiso' (same name as the repo owner) shows 4.35 at 05:34:18Z, 14 s after commit 727f6db. Timestamp link; no score text in the repo (Achintya-Lakshmanan docs/REPORT.md quotes an earlier whyMiso score of 4.13).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/whymiso_auto130_727f6db",
+  "entry_argv": [
+   "/opt/node22/bin/node",
+   "bot.mjs"
+  ],
+  "entry_command": "/opt/node22/bin/node bot.mjs",
+  "proc": "/srv/mech-sparring/run.sh whymiso_auto130_727f6db",
+  "files_copied": [
+   "bot.mjs",
+   "exposure.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 258,
+   "announced_name": "kestrel",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 1.9,
+    "max": 11.4
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Runs on /opt/node22/bin/node 22.23.5 (Dockerfile pins node 22.20.0); files bot.mjs + exposure.bin."
+ },
+ {
+  "name": "nexus_v9_575cec5",
+  "repo": "JosiahAklog/nexus-mech-royale",
+  "repo_url": "https://github.com/JosiahAklog/nexus-mech-royale",
+  "commit": "575cec5391d804c33b08211998557bedfa0f5319",
+  "language": "python",
+  "official_score": 4.33,
+  "score_link_confidence": "medium",
+  "score_evidence": "README of the V21 uploads: 'V9 (4.33) remains the last confirmed competition score'; this commit's bot is 'NEXUS-v9'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nexus_v9_575cec5",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh nexus_v9_575cec5",
+  "files_copied": [
+   "bot.py",
+   "fastmap.so",
+   "map.bin",
+   "mapinfo.json",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 110,
+   "announced_name": "NEXUS-v9",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.7,
+    "p99": 1.5,
+    "max": 1.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Standard-library Python plus the repo's own prebuilt fastmap.so (x86-64, loaded with ctypes; its Dockerfile copies it), precomputed map.bin/mapinfo.json."
+ },
+ {
+  "name": "ourux_v4_2d700d7",
+  "repo": "ourux/MechRoyale",
+  "repo_url": "https://github.com/ourux/MechRoyale",
+  "commit": "2d700d7dce9e1f19e0c257db09cac9435bd6a832",
+  "language": "python",
+  "official_score": 4.33,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 1a96803 message: 'v5 scored 4.15 on the real board vs v4 4.33'; 2d700d7 is the v4 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ourux_v4_2d700d7",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh ourux_v4_2d700d7",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 177,
+   "announced_name": "vmech-v4",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.6,
+    "p99": 1.4,
+    "max": 1.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "th3r0n_v91_36bfe31",
+  "repo": "Th3r0n/mech-royale-bot",
+  "repo_url": "https://github.com/Th3r0n/mech-royale-bot",
+  "commit": "36bfe318e85b5e5162dbb02c392cad1be3077cf3",
+  "language": "typescript",
+  "official_score": 4.29,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit cfebd1e message: 'back to v9.1 behaviour by default (best real score 4.29)'; 36bfe31 is the v9.1 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/th3r0n_v91_36bfe31",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh th3r0n_v91_36bfe31",
+  "files_copied": [
+   "bot.ts",
+   "mechfight.ts",
+   "package.json",
+   "src/brain.ts",
+   "src/combat.ts",
+   "src/cover.ts",
+   "src/geom.ts",
+   "src/map.ts",
+   "src/nav.ts",
+   "src/practice.ts",
+   "src/risk.ts",
+   "src/world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 876,
+   "announced_name": "not-even-close",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.3,
+    "p99": 3.1,
+    "max": 7.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "jorge_v5_2c7e167",
+  "repo": "JorgeN0/Mech-Royal",
+  "repo_url": "https://github.com/JorgeN0/Mech-Royal",
+  "commit": "2c7e16717dc629f280bffd3e0c4f878298447101",
+  "language": "python",
+  "official_score": 4.28,
+  "score_link_confidence": "high",
+  "score_evidence": "CLAUDE.md: 'v5 real practice score: 4.28'; 2c7e167 is the v5 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/jorge_v5_2c7e167",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh jorge_v5_2c7e167",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 240,
+   "announced_name": "mech-royal-survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.9,
+    "p99": 3.2,
+    "max": 6.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "whymiso_v5_e6ed8c5",
+  "repo": "whyMiso/buildathon-mech-royale",
+  "repo_url": "https://github.com/whyMiso/buildathon-mech-royale",
+  "commit": "e6ed8c5b6ec0ca302d5f040e06db4208b1b503e1",
+  "language": "javascript (node)",
+  "official_score": 4.23,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board team 'whyMiso' (same name as the repo owner) shows 4.23 at 02:36:15Z, 18 s after commit e6ed8c5. Timestamp link; no score text in the repo (Achintya-Lakshmanan docs/REPORT.md quotes an earlier whyMiso score of 4.13).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/whymiso_v5_e6ed8c5",
+  "entry_argv": [
+   "/opt/node22/bin/node",
+   "bot.mjs"
+  ],
+  "entry_command": "/opt/node22/bin/node bot.mjs",
+  "proc": "/srv/mech-sparring/run.sh whymiso_v5_e6ed8c5",
+  "files_copied": [
+   "bot.mjs",
+   "exposure.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 294,
+   "announced_name": "kestrel",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 3.3,
+    "max": 4.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Runs on /opt/node22/bin/node 22.23.5 (Dockerfile pins node 22.20.0); files bot.mjs + exposure.bin."
+ },
+ {
+  "name": "ourux_v5_39fbe4e",
+  "repo": "ourux/MechRoyale",
+  "repo_url": "https://github.com/ourux/MechRoyale",
+  "commit": "39fbe4e262f4b1cb8991431e2ed7a9072c5d4779",
+  "language": "python",
+  "official_score": 4.15,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 1a96803 message: 'v5 scored 4.15 on the real board vs v4 4.33'; 39fbe4e is the v5 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ourux_v5_39fbe4e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh ourux_v5_39fbe4e",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 222,
+   "announced_name": "vmech-v5",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 2.1,
+    "max": 2.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "bd_gtmag_a38a3df",
+  "repo": "brycehcmcgrath/mechfight-bot",
+  "repo_url": "https://github.com/brycehcmcgrath/mechfight-bot",
+  "commit": "a38a3df2e8e84fdb12a40af17b7e3da0eeea8aaf",
+  "language": "python",
+  "official_score": 4.1,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/RESULTS.md (official experiment records by submitted commit, with receipts): a38a3df 'Exact MIT 6693026 magazine-aware finishing snapshot' 4.10 (BB-AB2A1A6E).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/bd_gtmag_a38a3df",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "reference_entry.py"
+  ],
+  "entry_command": "python3 -u reference_entry.py",
+  "proc": "/srv/mech-sparring/run.sh bd_gtmag_a38a3df",
+  "files_copied": [
+   "reference_entry.py",
+   "vendor/gtgoats/adaptation.py",
+   "vendor/gtgoats/bot.py",
+   "vendor/gtgoats/loadout.py",
+   "vendor/gtgoats/mechfight.py",
+   "vendor/gtgoats/navigation.py",
+   "vendor/gtgoats/policy.json",
+   "vendor/gtgoats/recorder.py",
+   "vendor/gtgoats/survival.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 279,
+   "announced_name": "Coverdrive-GT-control",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.9,
+    "p99": 1.7,
+    "max": 2.0
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Vendored GT Goats controller (their commit 6693026) behind reference_entry.py. The same repo's 2ca6ac8 (3.71) and 8d0a792/dd1e809 (4.54/4.75) duplicate gtgoats_03a8f93 and lance_171bc06[_nosneak] and are not repeated."
+ },
+ {
+  "name": "oval_v4_b845d48",
+  "repo": "SeanCowen/oval-runner",
+  "repo_url": "https://github.com/SeanCowen/oval-runner",
+  "commit": "b845d4860ad4644fee00cd5dfc59e8c004c7e871",
+  "language": "python+rust",
+  "official_score": 4.06,
+  "score_link_confidence": "high",
+  "score_evidence": "README 'Practice comparison': 'Practice scores were 3.77 for 1d9e5cb, 3.88 for 7f4965d, 3.98 for 34bbb13 and 4.06 for V4 (b845d48)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/oval_v4_b845d48",
+  "entry_argv": [
+   "OVAL_REQUIRE_RUST=1",
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "OVAL_REQUIRE_RUST=1 python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh oval_v4_b845d48",
+  "files_copied": [
+   "bot.py",
+   "liboval.so",
+   "mechfight.py",
+   "navigation.py",
+   "strategy.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 400,
+   "announced_name": "Oval Runner",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.5,
+    "p99": 2.2,
+    "max": 3.3
+   },
+   "debug_drawings": 0
+  },
+  "notes": "liboval.so built from the repo's single-file planner.rs with 'rustc --edition=2021 -C opt-level=3 --crate-type cdylib' (the Dockerfile's own build line, no cargo project and no dependencies), offline, inside the sandbox wrapper (uid 65534, no network, writable copy under /tmp) using a world-readable copy of the local Rust 1.97 toolchain at /opt/mech-rust (Dockerfile pins 1.85). The Dockerfile's test step was not run. Env OVAL_REQUIRE_RUST=1 as in the Dockerfile."
+ },
+ {
+  "name": "joek_v2_92a99a7",
+  "repo": "joekritenbrink0-wq/mech-bot",
+  "repo_url": "https://github.com/joekritenbrink0-wq/mech-bot",
+  "commit": "92a99a7c4cf77ceee9a9feca7059f1c40cbfbd39",
+  "language": "python",
+  "official_score": 4.04,
+  "score_link_confidence": "medium",
+  "score_evidence": "tools/arena.py comment: 'real starter / v0 / v1 / v2 = 1.15 / 3.94 / 3.79 / 4.04'; 92a99a7 is the 'v2' commit (later commits are labelled variants with switches).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/joek_v2_92a99a7",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh joek_v2_92a99a7",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 364,
+   "announced_name": "mech-bot v2",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.3,
+    "p99": 3.0,
+    "max": 3.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "lance_patient_42d652b",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "42d652b7dcb4ef69df482589693b9ab7bf87885d",
+  "language": "python",
+  "official_score": 4.04,
+  "score_link_confidence": "high",
+  "score_evidence": "Lance README at HEAD: 'patient ... real 4.04 vs 4.54 (submitted probe 42d652b)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_patient_42d652b",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_patient_42d652b",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 231,
+   "announced_name": "mech-royale-probe",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.8,
+    "p99": 3.1,
+    "max": 8.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Hide-and-wait probe: default flags patient,sneak."
+ },
+ {
+  "name": "ourux_v2_0fe813e",
+  "repo": "ourux/MechRoyale",
+  "repo_url": "https://github.com/ourux/MechRoyale",
+  "commit": "0fe813ed4c3c61a4ee281285742a83790b0ec20f",
+  "language": "python",
+  "official_score": 4.04,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 22e3c71 message: 'calibrated house skill (v2 4.04 sim vs 4.04 real)'; 0fe813e is the v2 commit (v3 followed before the calibration note).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ourux_v2_0fe813e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh ourux_v2_0fe813e",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 180,
+   "announced_name": "vmech-v2",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 1.3,
+    "max": 1.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "mauro_v14_b75320f",
+  "repo": "MauroMiranda28/mech-royale-bot",
+  "repo_url": "https://github.com/MauroMiranda28/mech-royale-bot",
+  "commit": "b75320fa52f62de3d8c72b14f6b33585ea71d8c4",
+  "language": "python",
+  "official_score": 4.0,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit messages: 63b88d6 'Track: v14 4.00, v12 3.98'; 1c04e84 'Restore v14 (best on track: 4.00)'. b75320f is the v14 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/mauro_v14_b75320f",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh mauro_v14_b75320f",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 101,
+   "announced_name": "survivor-v14",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.9,
+    "p90": 1.2,
+    "p99": 10.7,
+    "max": 12.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "nullatom_096c710",
+  "repo": "nullat0m7/mech-royale",
+  "repo_url": "https://github.com/nullat0m7/mech-royale",
+  "commit": "096c7100f35e11ccc3dd8b25c2b3e1161a0d6437",
+  "language": "typescript",
+  "official_score": 4.0,
+  "score_link_confidence": "high",
+  "score_evidence": "CHANGELOG.md: '029df2d (submitted as 096c710): tree cover and idle regen. Practice 4.00 (submission 4)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nullatom_096c710",
+  "entry_argv": [
+   "/opt/node24/bin/node",
+   "--disable-warning=ExperimentalWarning",
+   "--max-old-space-size=384",
+   "bot/main.ts"
+  ],
+  "entry_command": "/opt/node24/bin/node --disable-warning=ExperimentalWarning --max-old-space-size=384 bot/main.ts",
+  "proc": "/srv/mech-sparring/run.sh nullatom_096c710",
+  "files_copied": [
+   "bot/brain/brain.ts",
+   "bot/main.ts",
+   "bot/mechfight.ts",
+   "bot/params.ts",
+   "bot/world/geom.ts",
+   "bot/world/map.ts",
+   "bot/world/nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 223,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 1.1,
+    "p99": 3.8,
+    "max": 4.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Runs on Node 24.22.3 (/opt/node24/bin/node, the exact version its Dockerfile pins) with native TypeScript stripping; no packages."
+ },
+ {
+  "name": "mauro_v12_e603196",
+  "repo": "MauroMiranda28/mech-royale-bot",
+  "repo_url": "https://github.com/MauroMiranda28/mech-royale-bot",
+  "commit": "e6031960b5cb824d0bcf76b0fddf5473422f85ed",
+  "language": "python",
+  "official_score": 3.98,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit messages: 956109f 'Track: v12 3.98 (best so far)'; b75320f 'Track: v12 3.98 > v13 3.77'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/mauro_v12_e603196",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh mauro_v12_e603196",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 90,
+   "announced_name": "survivor-v12",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.8,
+    "p90": 1.1,
+    "p99": 8.4,
+    "max": 12.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "nullatom_6df0e10",
+  "repo": "nullat0m7/mech-royale",
+  "repo_url": "https://github.com/nullat0m7/mech-royale",
+  "commit": "6df0e107e6c53caab0793bcaef3528cbb4cb9a09",
+  "language": "typescript",
+  "official_score": 3.98,
+  "score_link_confidence": "high",
+  "score_evidence": "CHANGELOG.md: '6df0e10: gun plus laser loadout. Practice 3.98 (submission 2)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/nullatom_6df0e10",
+  "entry_argv": [
+   "/opt/node24/bin/node",
+   "--disable-warning=ExperimentalWarning",
+   "--max-old-space-size=384",
+   "bot/main.ts"
+  ],
+  "entry_command": "/opt/node24/bin/node --disable-warning=ExperimentalWarning --max-old-space-size=384 bot/main.ts",
+  "proc": "/srv/mech-sparring/run.sh nullatom_6df0e10",
+  "files_copied": [
+   "bot/brain/brain.ts",
+   "bot/main.ts",
+   "bot/mechfight.ts",
+   "bot/params.ts",
+   "bot/world/geom.ts",
+   "bot/world/map.ts",
+   "bot/world/nav.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 247,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 0.8,
+    "p99": 2.6,
+    "max": 4.3
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Runs on Node 24.22.3 (/opt/node24/bin/node, the exact version its Dockerfile pins) with native TypeScript stripping; no packages."
+ },
+ {
+  "name": "oval_34bbb13",
+  "repo": "SeanCowen/oval-runner",
+  "repo_url": "https://github.com/SeanCowen/oval-runner",
+  "commit": "34bbb13862f4a12e4ca15cc423c31bf550f5bc1b",
+  "language": "python",
+  "official_score": 3.98,
+  "score_link_confidence": "high",
+  "score_evidence": "README 'Practice comparison': 'Practice scores were 3.77 for 1d9e5cb, 3.88 for 7f4965d, 3.98 for 34bbb13 and 4.06 for V4 (b845d48)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/oval_34bbb13",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh oval_34bbb13",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "navigation.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 430,
+   "announced_name": "Oval Runner",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.2,
+    "p99": 2.3,
+    "max": 3.2
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "prakash_v1_b2b1029",
+  "repo": "prakash-218/buildathon-mech",
+  "repo_url": "https://github.com/prakash-218/buildathon-mech",
+  "commit": "b2b102913f2f971c3d76951d6b52245db04026f2",
+  "language": "go",
+  "official_score": 3.98,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 4983df2 message: 'v2 (more retreat) scored 3.85 and v3 (hide/peek) 3.27 vs v1 3.98'. v1 = fdff49a, taken at b2b1029 (the same code with LF line endings, 33 s later).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/prakash_v1_b2b1029",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh prakash_v1_b2b1029",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 265,
+   "announced_name": "osu-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 1.3,
+    "max": 2.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Go (standard library only); binary built from the commit with the Dockerfile's own go build line, offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7. Only the binary is installed."
+ },
+ {
+  "name": "kyoto_v4_5d63434",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "5d63434dd536181a72ecfb0218f5656d84396b99",
+  "language": "python",
+  "official_score": 3.96,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit messages: 2ef45b8 'v5 ... (v4 scored 3.96)'; 8b6a735 'v8 showed identical code reproduces (3.96 -> 3.98)'. 5d63434 is the v4 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_v4_5d63434",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_v4_5d63434",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 342,
+   "announced_name": "survivor-farm",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 1.3,
+    "p90": 1.7,
+    "p99": 2.3,
+    "max": 2.3
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Official score 3.96, 3.98 on an unchanged resubmission."
+ },
+ {
+  "name": "joek_v0_333fb36",
+  "repo": "joekritenbrink0-wq/mech-bot",
+  "repo_url": "https://github.com/joekritenbrink0-wq/mech-bot",
+  "commit": "333fb36eb4b874cbe992dec8b997bc79e493e64f",
+  "language": "python",
+  "official_score": 3.94,
+  "score_link_confidence": "high",
+  "score_evidence": "README table 'Real practice': v0 3.94; tools/arena.py comment 'real starter / v0 / v1 / v2 = 1.15 / 3.94 / 3.79 / 4.04'. 333fb36 is the 'v0 bot' commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/joek_v0_333fb36",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh joek_v0_333fb36",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 169,
+   "announced_name": "mech-bot v0",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.2,
+    "p90": 0.3,
+    "p99": 0.6,
+    "max": 1.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "kenneth_247ccb8",
+  "repo": "KennethLei1492/Builder-Mech-Royale",
+  "repo_url": "https://github.com/KennethLei1492/Builder-Mech-Royale",
+  "commit": "247ccb8a6518666cc50fc664f3da31fa32e5e874",
+  "language": "typescript",
+  "official_score": 3.88,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit d33a9d8 message: 'Revert to 055ed67 (real score 4.52; 247ccb8 scored 3.88)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kenneth_247ccb8",
+  "entry_argv": [
+   "bun144",
+   "main.ts"
+  ],
+  "entry_command": "bun144 main.ts",
+  "proc": "/srv/mech-sparring/run.sh kenneth_247ccb8",
+  "files_copied": [
+   "brain.ts",
+   "main.ts",
+   "mechfight.ts",
+   "package.json",
+   "util.ts",
+   "world.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 209,
+   "announced_name": "ironclad",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.9,
+    "p99": 6.4,
+    "max": 10.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "oval_7f4965d",
+  "repo": "SeanCowen/oval-runner",
+  "repo_url": "https://github.com/SeanCowen/oval-runner",
+  "commit": "7f4965dd45e044c4f5abd6994947fb38b75d3fdc",
+  "language": "python",
+  "official_score": 3.88,
+  "score_link_confidence": "high",
+  "score_evidence": "README 'Practice comparison': 'Practice scores were 3.77 for 1d9e5cb, 3.88 for 7f4965d, 3.98 for 34bbb13 and 4.06 for V4 (b845d48)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/oval_7f4965d",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh oval_7f4965d",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "navigation.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 418,
+   "announced_name": "Oval Runner",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.6,
+    "p90": 0.9,
+    "p99": 1.4,
+    "max": 2.9
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "alexwill_b16_e283e74",
+  "repo": "alexwilldev/mechroyale-bot",
+  "repo_url": "https://github.com/alexwilldev/mechroyale-bot",
+  "commit": "e283e74a5261b10ec78ed72d26171b83cbb7dac4",
+  "language": "typescript",
+  "official_score": 3.85,
+  "score_link_confidence": "high",
+  "score_evidence": "STATUS.md batch table (commit / result): 'e283e74 Batch 16 ... 3.85 real (best)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/alexwill_b16_e283e74",
+  "entry_argv": [
+   "bun144",
+   "src/main.ts"
+  ],
+  "entry_command": "bun144 src/main.ts",
+  "proc": "/srv/mech-sparring/run.sh alexwill_b16_e283e74",
+  "files_copied": [
+   "package.json",
+   "src/main.ts",
+   "src/mechfight.ts",
+   "src/params.ts",
+   "src/world/map.ts",
+   "src/world/nav.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 201,
+   "announced_name": "mr-turtle",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.8,
+    "p99": 3.9,
+    "max": 4.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "prakash_v2_e7319ff",
+  "repo": "prakash-218/buildathon-mech",
+  "repo_url": "https://github.com/prakash-218/buildathon-mech",
+  "commit": "e7319ff546508b69f35c0bb90a1dca6ec0d58a62",
+  "language": "go",
+  "official_score": 3.85,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 4983df2 message: 'v2 (more retreat) scored 3.85 and v3 (hide/peek) 3.27 vs v1 3.98'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/prakash_v2_e7319ff",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh prakash_v2_e7319ff",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 194,
+   "announced_name": "osu-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.8,
+    "p99": 1.1,
+    "max": 2.3
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Go (standard library only); binary built from the commit with the Dockerfile's own go build line, offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7. Only the binary is installed."
+ },
+ {
+  "name": "alexwill_b17_f187fcd",
+  "repo": "alexwilldev/mechroyale-bot",
+  "repo_url": "https://github.com/alexwilldev/mechroyale-bot",
+  "commit": "f187fcd82cc30b3750a4cde0efbb6d9115f19405",
+  "language": "typescript",
+  "official_score": 3.79,
+  "score_link_confidence": "high",
+  "score_evidence": "STATUS.md batch table (commit / result): 'f187fcd Batch 17 ... REAL 3.79'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/alexwill_b17_f187fcd",
+  "entry_argv": [
+   "bun144",
+   "src/main.ts"
+  ],
+  "entry_command": "bun144 src/main.ts",
+  "proc": "/srv/mech-sparring/run.sh alexwill_b17_f187fcd",
+  "files_copied": [
+   "package.json",
+   "src/main.ts",
+   "src/mechfight.ts",
+   "src/params.ts",
+   "src/world/map.ts",
+   "src/world/nav.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 255,
+   "announced_name": "mr-turtle",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 1.3,
+    "p99": 3.1,
+    "max": 5.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "joek_v1_9f4e5fc",
+  "repo": "joekritenbrink0-wq/mech-bot",
+  "repo_url": "https://github.com/joekritenbrink0-wq/mech-bot",
+  "commit": "9f4e5fc5bbafe6e6980969967595aeb6c09e9b09",
+  "language": "python",
+  "official_score": 3.79,
+  "score_link_confidence": "high",
+  "score_evidence": "README table: 'v1 (commit 9f4e5fc) 3.79'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/joek_v1_9f4e5fc",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh joek_v1_9f4e5fc",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 485,
+   "announced_name": "mech-bot v1",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.7,
+    "p90": 2.4,
+    "p99": 5.7,
+    "max": 8.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "mauro_v13_956109f",
+  "repo": "MauroMiranda28/mech-royale-bot",
+  "repo_url": "https://github.com/MauroMiranda28/mech-royale-bot",
+  "commit": "956109f163013767dbf894e6e94ac79dc28cc224",
+  "language": "python",
+  "official_score": 3.77,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit b75320f message: 'Track: v12 3.98 > v13 3.77 (roofs)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/mauro_v13_956109f",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh mauro_v13_956109f",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 82,
+   "announced_name": "survivor-v13",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.8,
+    "p90": 1.0,
+    "p99": 9.9,
+    "max": 11.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Rooftop-looting variant."
+ },
+ {
+  "name": "oval_1d9e5cb",
+  "repo": "SeanCowen/oval-runner",
+  "repo_url": "https://github.com/SeanCowen/oval-runner",
+  "commit": "1d9e5cb33f2d7194828c22596ec89efd02fc8d4d",
+  "language": "python",
+  "official_score": 3.77,
+  "score_link_confidence": "high",
+  "score_evidence": "README 'Practice comparison': 'Practice scores were 3.77 for 1d9e5cb, 3.88 for 7f4965d, 3.98 for 34bbb13 and 4.06 for V4 (b845d48)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/oval_1d9e5cb",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh oval_1d9e5cb",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "navigation.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 327,
+   "announced_name": "Oval Runner",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 1.3,
+    "max": 3.6
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "achintya_3693d2f",
+  "repo": "Achintya-Lakshmanan/mech-royale-bot",
+  "repo_url": "https://github.com/Achintya-Lakshmanan/mech-royale-bot",
+  "commit": "3693d2f523e16cec0947a9eb1dadcb38423a4620",
+  "language": "typescript",
+  "official_score": 3.71,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/REPORT.md section 'Our submissions' (commit / practice): '3693d2f Pickup memory, laser dodge, gun-only tactics 3.71 (best)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/achintya_3693d2f",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh achintya_3693d2f",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 164,
+   "announced_name": "steelhead",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.7,
+    "p99": 1.3,
+    "max": 5.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch exp-loot. (The repo's later main runs LanceHuang245's engine: 'Back to test1 (4.54)'; not duplicated here.)"
+ },
+ {
+  "name": "gtgoats_03a8f93",
+  "repo": "atharvatripathi2026/gtgoats_mech_royale",
+  "repo_url": "https://github.com/atharvatripathi2026/gtgoats_mech_royale",
+  "commit": "03a8f93fb36afa5db4a08f211d1d1aa6dcbcae8e",
+  "language": "python",
+  "official_score": 3.71,
+  "score_link_confidence": "high",
+  "score_evidence": "README table of official 48-match practice results by commit: 03a8f93 3.71.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/gtgoats_03a8f93",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh gtgoats_03a8f93",
+  "files_copied": [
+   "adaptation.py",
+   "bot.py",
+   "loadout.py",
+   "mechfight.py",
+   "navigation.py",
+   "policy.json",
+   "recorder.py",
+   "survival.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 286,
+   "announced_name": "Astra",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 1.4,
+    "p99": 4.8,
+    "max": 7.3
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "kyoto_v11_8b6a735",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "8b6a735c714f0a4664e70feac200b6169e8ce572",
+  "language": "python",
+  "official_score": 3.71,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 0ec8628 message: 'v11 (v4 with only the RNG seed changed) scored 3.71 vs v4 3.98'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_v11_8b6a735",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_v11_8b6a735",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 364,
+   "announced_name": "survivor-farm",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 1.4,
+    "p90": 1.8,
+    "p99": 2.4,
+    "max": 2.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Same behaviour as kyoto_v4 with a different strafe RNG seed: a direct measurement of reshuffle noise (~0.25)."
+ },
+ {
+  "name": "lance_v02_25664f3",
+  "repo": "LanceHuang245/mech-royale",
+  "repo_url": "https://github.com/LanceHuang245/mech-royale",
+  "commit": "25664f3a358c31c637403e866fbf7cf8af2d3322",
+  "language": "python",
+  "official_score": 3.71,
+  "score_link_confidence": "medium",
+  "score_evidence": "Lance commit bc9a82e message: 'defaults calibrated so the kit example scores ~1.2 and the previous submission ~4.1 (real 1.15 / 3.71)' -> previous commit 25664f3 = 3.71; README: 'earlier versions land near their real scores (3.71 / 4.44 / 4.75 real ...)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/lance_v02_25664f3",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh lance_v02_25664f3",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 104,
+   "announced_name": "mech-royale",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 2.5,
+    "max": 3.0
+   },
+   "debug_drawings": 0
+  },
+  "notes": "v0.2."
+ },
+ {
+  "name": "mauro_v16_2ec6d2f",
+  "repo": "MauroMiranda28/mech-royale-bot",
+  "repo_url": "https://github.com/MauroMiranda28/mech-royale-bot",
+  "commit": "2ec6d2ff7b076cd341a41691bd9021358917002d",
+  "language": "python",
+  "official_score": 3.71,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 1c04e84 message: 'v15 3.54 and v16 3.71 both scored below v14'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/mauro_v16_2ec6d2f",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh mauro_v16_2ec6d2f",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 118,
+   "announced_name": "survivor-v16",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.8,
+    "p90": 1.0,
+    "p99": 7.3,
+    "max": 12.0
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "goonies_v31_ca7ed6e",
+  "repo": "koillea/mech-royale-goonies",
+  "repo_url": "https://github.com/koillea/mech-royale-goonies",
+  "commit": "ca7ed6e99d6ff4f3f39d24f494fef6e9cc44e5f4",
+  "language": "python",
+  "official_score": 3.69,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 8611ff7 message: 'Restore v3.1 (best score, 3.69) on main'; ca7ed6e is the v3.1 commit ('v3.1: v3 (3.52) + decision-time fix only').",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/goonies_v31_ca7ed6e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "main.py"
+  ],
+  "entry_command": "python3 -u main.py",
+  "proc": "/srv/mech-sparring/run.sh goonies_v31_ca7ed6e",
+  "files_copied": [
+   "arena/v2/terrain.i16",
+   "arena/v2/world.json",
+   "main.py",
+   "mechbot/__init__.py",
+   "mechbot/ballistics.py",
+   "mechbot/config.py",
+   "mechbot/model.py",
+   "mechbot/plan.py",
+   "mechbot/position.py",
+   "mechbot/worldmap.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 481,
+   "announced_name": "goonies-survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 3.5,
+    "p99": 4.7,
+    "max": 6.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Image layout reproduced: bot/ contents plus the repo's own arena/ copy under ./arena."
+ },
+ {
+  "name": "kyoto_v2_46ac97d",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "46ac97d942b9ba8839b35f73b508dd611f21c056",
+  "language": "python",
+  "official_score": 3.69,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 79fe56c message: 'v3 ... On top of v2 (3.69)'; 5d63434: 'v3 ... scored 3.6 < v2 3.69'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_v2_46ac97d",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_v2_46ac97d",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 434,
+   "announced_name": "survivor-seek-arm",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 1.4,
+    "p90": 1.8,
+    "p99": 13.2,
+    "max": 17.1
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "gtgoats_ce73f3e",
+  "repo": "atharvatripathi2026/gtgoats_mech_royale",
+  "repo_url": "https://github.com/atharvatripathi2026/gtgoats_mech_royale",
+  "commit": "ce73f3e213a1c7bcc1fb65a90b4edf6e76133c13",
+  "language": "python",
+  "official_score": 3.65,
+  "score_link_confidence": "high",
+  "score_evidence": "README table of official 48-match practice results by commit: ce73f3e 3.65.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/gtgoats_ce73f3e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh gtgoats_ce73f3e",
+  "files_copied": [
+   "adaptation.py",
+   "bot.py",
+   "loadout.py",
+   "mechfight.py",
+   "navigation.py",
+   "policy.json",
+   "recorder.py",
+   "survival.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 242,
+   "announced_name": "Astra",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.9,
+    "p99": 2.6,
+    "max": 4.2
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "goonies_v34_e3a20e7",
+  "repo": "koillea/mech-royale-goonies",
+  "repo_url": "https://github.com/koillea/mech-royale-goonies",
+  "commit": "e3a20e71e423948b3ae63777331d96f0780acb5c",
+  "language": "python",
+  "official_score": 3.63,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 06ddf38 message: 'v3.4 (laser grab) scored 3.63'; e3a20e7 is the v3.4 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/goonies_v34_e3a20e7",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "main.py"
+  ],
+  "entry_command": "python3 -u main.py",
+  "proc": "/srv/mech-sparring/run.sh goonies_v34_e3a20e7",
+  "files_copied": [
+   "arena/v2/terrain.i16",
+   "arena/v2/world.json",
+   "main.py",
+   "mechbot/__init__.py",
+   "mechbot/ballistics.py",
+   "mechbot/config.py",
+   "mechbot/model.py",
+   "mechbot/plan.py",
+   "mechbot/position.py",
+   "mechbot/worldmap.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 395,
+   "announced_name": "goonies-survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 3.3,
+    "p99": 4.6,
+    "max": 6.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "gtgoats_4cb4a9e",
+  "repo": "atharvatripathi2026/gtgoats_mech_royale",
+  "repo_url": "https://github.com/atharvatripathi2026/gtgoats_mech_royale",
+  "commit": "4cb4a9ea753e8df3744a9ba8d44053068e64e535",
+  "language": "python",
+  "official_score": 3.6,
+  "score_link_confidence": "high",
+  "score_evidence": "README table of official 48-match practice results by commit: 4cb4a9e 3.60.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/gtgoats_4cb4a9e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh gtgoats_4cb4a9e",
+  "files_copied": [
+   "bot.py",
+   "loadout.py",
+   "mechfight.py",
+   "navigation.py",
+   "survival.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 240,
+   "announced_name": "Astra",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.0,
+    "p99": 1.5,
+    "max": 1.8
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "kyoto_v1_bec99fe",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "bec99fe25dd5aaa941ec3f0b9e8a874cf55d4aaa",
+  "language": "python",
+  "official_score": 3.6,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 2e0cc64 message: 'Restore ... exactly as in the v1 commit (bec99fe, best real score 3.6)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_v1_bec99fe",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_v1_bec99fe",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 362,
+   "announced_name": "survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 1.2,
+    "p90": 1.7,
+    "p99": 17.2,
+    "max": 17.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "ttun_v9_edf5776",
+  "repo": "varchaskukreja/TTUN",
+  "repo_url": "https://github.com/varchaskukreja/TTUN",
+  "commit": "edf57768f8c35677afbeb22bd855ba25bf90020d",
+  "language": "typescript",
+  "official_score": 3.56,
+  "score_link_confidence": "medium",
+  "score_evidence": "micah-andelman/mech-royale commit messages: 587504c 'v8: image runs the Wolverines' MIT TypeScript bot (varchaskukreja/TTUN@edf5776 ...)'; e189b97 'v9: Wolverines TTUN v7 (e8cfba4) ...; their v9 scored 3.56 for us'. Score obtained by another team running this exact commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ttun_v9_edf5776",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh ttun_v9_edf5776",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 115,
+   "announced_name": "TTUN-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 8.7,
+    "max": 10.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch mech-royale-submit tip ('Mech bot v9: FFA laser-cover'). Same family as ttun_v8econ_b7e9a6d (5.19) with a much lower practice score."
+ },
+ {
+  "name": "mauro_v15_63b88d6",
+  "repo": "MauroMiranda28/mech-royale-bot",
+  "repo_url": "https://github.com/MauroMiranda28/mech-royale-bot",
+  "commit": "63b88d66d9ec74c3469b0f7c3f1a9a8a4ef4cf3e",
+  "language": "python",
+  "official_score": 3.54,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 2ec6d2f message: 'Track: v15 3.54 < v14 4.00'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/mauro_v15_63b88d6",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh mauro_v15_63b88d6",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.bin"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 79,
+   "announced_name": "survivor-v15",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.8,
+    "p90": 1.1,
+    "p99": 7.0,
+    "max": 11.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "goonies_v3_5db062e",
+  "repo": "koillea/mech-royale-goonies",
+  "repo_url": "https://github.com/koillea/mech-royale-goonies",
+  "commit": "5db062e8a53e0ec504e800d90463d0900e9a215f",
+  "language": "python",
+  "official_score": 3.52,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit e0aaf30 message: 'Restore v3 exactly (scored 3.52) ... Tree identical to 5db062e, the commit the 3.52 submission built'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/goonies_v3_5db062e",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "main.py"
+  ],
+  "entry_command": "python3 -u main.py",
+  "proc": "/srv/mech-sparring/run.sh goonies_v3_5db062e",
+  "files_copied": [
+   "arena/v2/terrain.i16",
+   "arena/v2/world.json",
+   "main.py",
+   "mechbot/__init__.py",
+   "mechbot/ballistics.py",
+   "mechbot/config.py",
+   "mechbot/model.py",
+   "mechbot/plan.py",
+   "mechbot/position.py",
+   "mechbot/worldmap.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 397,
+   "announced_name": "goonies-survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.5,
+    "p99": 10.8,
+    "max": 19.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Same code as v3.1 except decision timing: 3.52 vs 3.69."
+ },
+ {
+  "name": "goonies_v36_5935272",
+  "repo": "koillea/mech-royale-goonies",
+  "repo_url": "https://github.com/koillea/mech-royale-goonies",
+  "commit": "5935272e45547f0cd833fe3f28f1a86f0e50cf95",
+  "language": "python",
+  "official_score": 3.48,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 8611ff7 message: 'v3.6 (all candidate changes at once) scored 3.48'; 5935272 is the v3.6 commit on main.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/goonies_v36_5935272",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "main.py"
+  ],
+  "entry_command": "python3 -u main.py",
+  "proc": "/srv/mech-sparring/run.sh goonies_v36_5935272",
+  "files_copied": [
+   "arena/v2/terrain.i16",
+   "arena/v2/world.json",
+   "main.py",
+   "mechbot/__init__.py",
+   "mechbot/ballistics.py",
+   "mechbot/config.py",
+   "mechbot/model.py",
+   "mechbot/plan.py",
+   "mechbot/position.py",
+   "mechbot/worldmap.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 370,
+   "announced_name": "goonies-survivor",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 3.3,
+    "p99": 5.6,
+    "max": 7.0
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "alexwill_b18_fa72632",
+  "repo": "alexwilldev/mechroyale-bot",
+  "repo_url": "https://github.com/alexwilldev/mechroyale-bot",
+  "commit": "fa72632785051af5dc946d37525ec3299e7cc9b7",
+  "language": "typescript",
+  "official_score": 3.42,
+  "score_link_confidence": "high",
+  "score_evidence": "STATUS.md batch table (commit / result): 'fa72632 Batch 18: laserRange 255 REAL 3.42'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/alexwill_b18_fa72632",
+  "entry_argv": [
+   "bun144",
+   "src/main.ts"
+  ],
+  "entry_command": "bun144 src/main.ts",
+  "proc": "/srv/mech-sparring/run.sh alexwill_b18_fa72632",
+  "files_copied": [
+   "package.json",
+   "src/main.ts",
+   "src/mechfight.ts",
+   "src/params.ts",
+   "src/world/map.ts",
+   "src/world/nav.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 207,
+   "announced_name": "mr-turtle",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.4,
+    "p99": 3.1,
+    "max": 5.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": "One-parameter change from batch 17 (laser range) costing 0.37."
+ },
+ {
+  "name": "achintya_734a0cf",
+  "repo": "Achintya-Lakshmanan/mech-royale-bot",
+  "repo_url": "https://github.com/Achintya-Lakshmanan/mech-royale-bot",
+  "commit": "734a0cfc0ce84d942f1956bf4c47d68d8fd89736",
+  "language": "typescript",
+  "official_score": 3.29,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/REPORT.md section 'Our submissions' (commit / practice): '734a0cf First bot 3.29'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/achintya_734a0cf",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh achintya_734a0cf",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 182,
+   "announced_name": "steelhead",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.7,
+    "p99": 2.2,
+    "max": 5.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "prakash_v3_b9f5abd",
+  "repo": "prakash-218/buildathon-mech",
+  "repo_url": "https://github.com/prakash-218/buildathon-mech",
+  "commit": "b9f5abdd5a476401c366fabc62449068e697fa46",
+  "language": "go",
+  "official_score": 3.27,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 4983df2 message: 'v2 (more retreat) scored 3.85 and v3 (hide/peek) 3.27 vs v1 3.98'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/prakash_v3_b9f5abd",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh prakash_v3_b9f5abd",
+  "files_copied": [
+   "mechbot"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 267,
+   "announced_name": "osu-mech",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.8,
+    "p99": 3.2,
+    "max": 6.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Go (standard library only); binary built from the commit with the Dockerfile's own go build line, offline (GOPROXY=off) inside the sandbox wrapper with a writable copy under /tmp, local Go 1.24.7. Only the binary is installed."
+ },
+ {
+  "name": "gtgoats_9e59bbf",
+  "repo": "atharvatripathi2026/gtgoats_mech_royale",
+  "repo_url": "https://github.com/atharvatripathi2026/gtgoats_mech_royale",
+  "commit": "9e59bbfd46f562dbb88d0a4377dc333ce2f8c273",
+  "language": "python",
+  "official_score": 3.23,
+  "score_link_confidence": "high",
+  "score_evidence": "README table of official 48-match practice results by commit: 9e59bbf 3.23 (the rooftop variant per the brief and Achintya-Lakshmanan docs/REPORT.md: 'Rooftop camping dropped them to 3.23').",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/gtgoats_9e59bbf",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh gtgoats_9e59bbf",
+  "files_copied": [
+   "bot.py",
+   "loadout.py",
+   "mechfight.py",
+   "navigation.py",
+   "survival.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 295,
+   "announced_name": "Astra",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.0,
+    "p99": 2.3,
+    "max": 3.6
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "achintya_fc21aee",
+  "repo": "Achintya-Lakshmanan/mech-royale-bot",
+  "repo_url": "https://github.com/Achintya-Lakshmanan/mech-royale-bot",
+  "commit": "fc21aeef19f8fb44b1ab0e0b4ea88bd5fefc374a",
+  "language": "typescript",
+  "official_score": 3.21,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/REPORT.md section 'Our submissions' (commit / practice): 'fc21aee Regen behind cover 3.21'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/achintya_fc21aee",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh achintya_fc21aee",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 161,
+   "announced_name": "steelhead",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 3.0,
+    "max": 4.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "scull_F_3b42e6a",
+  "repo": "charliescull/mech-royale-bot",
+  "repo_url": "https://github.com/charliescull/mech-royale-bot",
+  "commit": "3b42e6a7e729488f807b859efe95630892944748",
+  "language": "python",
+  "official_score": 3.15,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 3b42e6a message: 'variant F ... Snapshot of the bot from bzells11/Builders-Hackathon @ dc6537e (board 3.15, our entered final)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/scull_F_3b42e6a",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh scull_F_3b42e6a",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "nav.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 251,
+   "announced_name": "2.3%-F",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 3.2,
+    "max": 3.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Team '2.3%' (bzells11) variant."
+ },
+ {
+  "name": "kyoto_phantom_7723212",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "7723212df0d309aa906daedfdd303a901077993e",
+  "language": "python",
+  "official_score": 2.96,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 2e0cc64 message: 'passive play loses (ghost 2.67, ambush 2.81, phantom 2.96)'; 7723212 is the 'Phantom' commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_phantom_7723212",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_phantom_7723212",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "exposure.u8",
+   "hideouts.json",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 419,
+   "announced_name": "survivor-phantom",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 13.3,
+    "p90": 13.7,
+    "p99": 15.4,
+    "max": 15.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "dmcl_0ed6ffc",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "0ed6ffcab023247e862c4293de1a3bb7436d4a3b",
+  "language": "typescript",
+  "official_score": 2.88,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): 0ed6ffc 2.88 (Build 14, BB-2897E011).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_0ed6ffc",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_0ed6ffc",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json",
+   "params.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 325,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.9,
+    "p99": 2.1,
+    "max": 4.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "monked_v15_fc68657",
+  "repo": "jmonked/monked-mech-royale",
+  "repo_url": "https://github.com/jmonked/monked-mech-royale",
+  "commit": "fc686576e7c01981fc0f394c71941bb7453a1df6",
+  "language": "python",
+  "official_score": 2.88,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit ce45d0c message: 'Base v15 fc68657 (2.88)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/monked_v15_fc68657",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "example_bot.py"
+  ],
+  "entry_command": "python3 -u example_bot.py",
+  "proc": "/srv/mech-sparring/run.sh monked_v15_fc68657",
+  "files_copied": [
+   "example_bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 52,
+   "announced_name": "monked",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 0.9,
+    "max": 2.1
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Team Monked. Entry file is still named example_bot.py."
+ },
+ {
+  "name": "monked_v10_e1596e3",
+  "repo": "jmonked/monked-mech-royale",
+  "repo_url": "https://github.com/jmonked/monked-mech-royale",
+  "commit": "e1596e3d8c227f48b499ce560dc5dc3d228b824a",
+  "language": "python",
+  "official_score": 2.85,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit messages of v12-v15: 'Base v10 e1596e3 (2.85)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/monked_v10_e1596e3",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "example_bot.py"
+  ],
+  "entry_command": "python3 -u example_bot.py",
+  "proc": "/srv/mech-sparring/run.sh monked_v10_e1596e3",
+  "files_copied": [
+   "example_bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 52,
+   "announced_name": "monked",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 0.7,
+    "max": 2.0
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "achintya_fe5cfb6",
+  "repo": "Achintya-Lakshmanan/mech-royale-bot",
+  "repo_url": "https://github.com/Achintya-Lakshmanan/mech-royale-bot",
+  "commit": "fe5cfb67904380dcbf48f300598ace0f07046977",
+  "language": "typescript",
+  "official_score": 2.69,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/REPORT.md section 'Our submissions' (commit / practice): 'fe5cfb6 Combined caution ... 2.69'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/achintya_fe5cfb6",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh achintya_fe5cfb6",
+  "files_copied": [
+   "bot.ts",
+   "map.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 179,
+   "announced_name": "steelhead",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.6,
+    "p99": 2.7,
+    "max": 5.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Branch exp-combo."
+ },
+ {
+  "name": "kyoto_ghost_c480a5d",
+  "repo": "kyoto-max/Mech_Royale",
+  "repo_url": "https://github.com/kyoto-max/Mech_Royale",
+  "commit": "c480a5d7374a5b02a16471a3ee9e6eb985685ba7",
+  "language": "python",
+  "official_score": 2.67,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 463b269 message: 'Ghost scored 2.67 vs v1 3.6: hiding hurt'; c480a5d is the commit 'Strategy profiles; submit ghost'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kyoto_ghost_c480a5d",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh kyoto_ghost_c480a5d",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "mechfight.py",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 377,
+   "announced_name": "survivor-ghost",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 1.1,
+    "p90": 2.7,
+    "p99": 17.4,
+    "max": 17.4
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Passive hide-first profile."
+ },
+ {
+  "name": "ourux_hide_e5fb3a9",
+  "repo": "ourux/MechRoyale",
+  "repo_url": "https://github.com/ourux/MechRoyale",
+  "commit": "e5fb3a91ba6bac36ccfaa71f4b1e4d70070fca80",
+  "language": "python",
+  "official_score": 2.58,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 7858b38 message: 'Real board: hide scored 2.58'; e5fb3a9 is the 'hide' commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/ourux_hide_e5fb3a9",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh ourux_hide_e5fb3a9",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 166,
+   "announced_name": "vmech-hide",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.7,
+    "p99": 2.2,
+    "max": 6.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Hide-until-late variant: a low-score passive calibration point."
+ },
+ {
+  "name": "starlight_636b661",
+  "repo": "Sharmileer/mech-royale",
+  "repo_url": "https://github.com/Sharmileer/mech-royale",
+  "commit": "636b6618e49fd4ad54f8b748bb1cf49ab0a8fb16",
+  "language": "python",
+  "official_score": 2.58,
+  "score_link_confidence": "high",
+  "score_evidence": "README: 'First official practice score: 2.58 ... Team STARLIGHT, receipt BB-8E16196B, submitted commit 636b6618e49fd4ad54f8b748bb1cf49ab0a8fb16'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/starlight_636b661",
+  "entry_argv": [
+   "python3",
+   "-B",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -B -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh starlight_636b661",
+  "files_copied": [
+   "arena_map.py",
+   "bot.py",
+   "combat.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 1234,
+   "announced_name": "Oval Sentinel",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.8,
+    "p90": 1.7,
+    "p99": 4.8,
+    "max": 5.0
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "colton_survive_b2e8df5",
+  "repo": "colton-boi/Mech-Bot",
+  "repo_url": "https://github.com/colton-boi/Mech-Bot",
+  "commit": "b2e8df5159cb53dcc88cf21bf3c405b82db11fba",
+  "language": "python",
+  "official_score": 2.56,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit d6dfb7a message: 'Passive hide (1.73) and roof (1.63) both lost about 0.9 to survive (2.56) on the same seeds'. b2e8df5 is the last commit before the probes with strategy.txt = survive.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/colton_survive_b2e8df5",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh colton_survive_b2e8df5",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "strategy.txt",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 368,
+   "announced_name": "cbot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 10.6,
+    "max": 10.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Strategy chosen by strategy.txt in the bot directory."
+ },
+ {
+  "name": "dmcl_c2e7f60",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "c2e7f6017341296cff7d0b5bb34c6397148bd967",
+  "language": "typescript",
+  "official_score": 2.54,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): c2e7f60 2.54 (Build 13, BB-5573AA45).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_c2e7f60",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_c2e7f60",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json",
+   "params.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 318,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.9,
+    "p99": 1.6,
+    "max": 4.5
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "bd_coverdrive_2b6420c",
+  "repo": "brycehcmcgrath/mechfight-bot",
+  "repo_url": "https://github.com/brycehcmcgrath/mechfight-bot",
+  "commit": "2b6420c640f991317282331e09f2c9c95d24e722",
+  "language": "python",
+  "official_score": 2.52,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/RESULTS.md (official experiment records by submitted commit, with receipts): 2b6420c 2.52 (BB-C802A92D).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/bd_coverdrive_2b6420c",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh bd_coverdrive_2b6420c",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "geometry.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 65,
+   "announced_name": "Coverdrive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 9.0,
+    "p90": 20.9,
+    "p99": 23.0,
+    "max": 28.6
+   },
+   "debug_drawings": 0
+  },
+  "notes": ""
+ },
+ {
+  "name": "monked_v7_d433483",
+  "repo": "jmonked/monked-mech-royale",
+  "repo_url": "https://github.com/jmonked/monked-mech-royale",
+  "commit": "d43348312293497349bdfa07919aaa67482efaf8",
+  "language": "python",
+  "official_score": 2.5,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 2400750 message: 'Built on v6 (d1a5eb1), not v7 (2.50)'; d433483 is the v7 commit.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/monked_v7_d433483",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "example_bot.py"
+  ],
+  "entry_command": "python3 -u example_bot.py",
+  "proc": "/srv/mech-sparring/run.sh monked_v7_d433483",
+  "files_copied": [
+   "example_bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 96,
+   "announced_name": "monked",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.2,
+    "p90": 0.5,
+    "p99": 1.9,
+    "max": 4.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "dmcl_8f2c7c8",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "8f2c7c8ef0727a9006956d466e1ad72130ebc495",
+  "language": "typescript",
+  "official_score": 2.44,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): 8f2c7c8 2.44 (Build 12 farm, BB-35E5C75F).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_8f2c7c8",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_8f2c7c8",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json",
+   "params.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 339,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.8,
+    "p99": 2.2,
+    "max": 3.1
+   },
+   "debug_drawings": 300
+  },
+  "notes": "The '2.44 best' of the brief; later builds scored higher."
+ },
+ {
+  "name": "dmcl_100941f",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "100941f6d4d41572f54b948ffe6ec6945f19890b",
+  "language": "typescript",
+  "official_score": 2.38,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): 100941f 2.38 (Build 5b, BB-54EDF93F).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_100941f",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_100941f",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "nav.ts",
+   "package.json",
+   "params.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 288,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.8,
+    "p99": 2.1,
+    "max": 5.9
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "dmcl_4726cfc",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "4726cfc3b30de4cee16616362acecf7ae8f00964",
+  "language": "typescript",
+  "official_score": 2.17,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): 4726cfc 2.17, resubmitted identically for 2.17 again.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_4726cfc",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_4726cfc",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "map.ts",
+   "mechfight.ts",
+   "package.json",
+   "params.ts"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 163,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 2.2,
+    "max": 2.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "scull_L_1546486",
+  "repo": "charliescull/mech-royale-bot",
+  "repo_url": "https://github.com/charliescull/mech-royale-bot",
+  "commit": "15464864781d9aa05a163ad3270103150e444da2",
+  "language": "python",
+  "official_score": 2.15,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 1546486 message: 'variant L ... Snapshot of bzells11/Builders-Hackathon @ b1b77da (board 2.15)'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/scull_L_1546486",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh scull_L_1546486",
+  "files_copied": [
+   "bot.py",
+   "brain/__init__.py",
+   "brain/agents.py",
+   "brain/harness.py",
+   "brain/reasoner.py",
+   "brain/situation.py",
+   "brain/tracker.py",
+   "brain/world.py",
+   "mechfight.py",
+   "nav.py",
+   "params.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 211,
+   "announced_name": "2.3%-L",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.9,
+    "p90": 2.4,
+    "p99": 4.8,
+    "max": 4.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "sphugne_evasion_6ab815c",
+  "repo": "sphugne/mech-royale-bot",
+  "repo_url": "https://github.com/sphugne/mech-royale-bot",
+  "commit": "6ab815c3814754af0f1f24e834ed57484a8dc3c7",
+  "language": "python",
+  "official_score": 1.96,
+  "score_link_confidence": "medium",
+  "score_evidence": "README: 'evasion_bot.py ... scored 1.96 in practice'; commit 6ab815c is the one that added it / made it the Dockerfile entry point (entry there: evasion_bot.py).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/sphugne_evasion_6ab815c",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "evasion_bot.py"
+  ],
+  "entry_command": "python3 -u evasion_bot.py",
+  "proc": "/srv/mech-sparring/run.sh sphugne_evasion_6ab815c",
+  "files_copied": [
+   "combat_bot.py",
+   "cover_bot.py",
+   "evasion_bot.py",
+   "mechfight.py",
+   "movement_bot.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 57,
+   "announced_name": "evasion-py",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 1.5,
+    "p99": 2.9,
+    "max": 3.6
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Low-band calibration point from a repo that keeps each experiment as its own entry file."
+ },
+ {
+  "name": "sphugne_cover_cb7a1cc",
+  "repo": "sphugne/mech-royale-bot",
+  "repo_url": "https://github.com/sphugne/mech-royale-bot",
+  "commit": "cb7a1cc4805aa3dac970a61de3434ca6ac85480e",
+  "language": "python",
+  "official_score": 1.9,
+  "score_link_confidence": "medium",
+  "score_evidence": "README: 'cover_bot.py ... scored 1.90 in practice'; commit cb7a1cc is the one that added it / made it the Dockerfile entry point (entry there: cover_bot.py).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/sphugne_cover_cb7a1cc",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "cover_bot.py"
+  ],
+  "entry_command": "python3 -u cover_bot.py",
+  "proc": "/srv/mech-sparring/run.sh sphugne_cover_cb7a1cc",
+  "files_copied": [
+   "combat_bot.py",
+   "cover_bot.py",
+   "mechfight.py",
+   "movement_bot.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 67,
+   "announced_name": "cover-py",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.5,
+    "p90": 0.8,
+    "p99": 1.3,
+    "max": 2.3
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Low-band calibration point from a repo that keeps each experiment as its own entry file."
+ },
+ {
+  "name": "bd_coverdrive_b17e863",
+  "repo": "brycehcmcgrath/mechfight-bot",
+  "repo_url": "https://github.com/brycehcmcgrath/mechfight-bot",
+  "commit": "b17e8639f111023c3abf7ccf8a3cd631ce7c8070",
+  "language": "python",
+  "official_score": 1.75,
+  "score_link_confidence": "high",
+  "score_evidence": "docs/RESULTS.md (official experiment records by submitted commit, with receipts): b17e863 'First Coverdrive baseline' 1.75 (BB-43CE87F9).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/bd_coverdrive_b17e863",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh bd_coverdrive_b17e863",
+  "files_copied": [
+   "bot.py",
+   "combat.py",
+   "geometry.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 69,
+   "announced_name": "Coverdrive",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 8.3,
+    "p90": 20.5,
+    "p99": 22.0,
+    "max": 22.6
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Team BackwardsDeployeds, own early bot."
+ },
+ {
+  "name": "colton_hide_285afd7",
+  "repo": "colton-boi/Mech-Bot",
+  "repo_url": "https://github.com/colton-boi/Mech-Bot",
+  "commit": "285afd778b5703963434102a4e89a8f81b6ff744",
+  "language": "python",
+  "official_score": 1.73,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit d6dfb7a message: 'Passive hide (1.73) and roof (1.63) both lost about 0.9 to survive (2.56) on the same seeds'. 285afd7 is 'chore(probe): switch strategy to hide'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/colton_hide_285afd7",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh colton_hide_285afd7",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "strategy.txt",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 335,
+   "announced_name": "cbot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 10.7,
+    "max": 10.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Stand-still-and-hide probe."
+ },
+ {
+  "name": "dmcl_76aabfa",
+  "repo": "dmclaughlin-bit/mech-bot",
+  "repo_url": "https://github.com/dmclaughlin-bit/mech-bot",
+  "commit": "76aabfa4fce5930801fcb2c8774c22bdd18ff32f",
+  "language": "typescript",
+  "official_score": 1.67,
+  "score_link_confidence": "high",
+  "score_evidence": "EXPERIMENTS.md (one row per practice submission, commit and score): 76aabfa 1.67 (Build 1).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/dmcl_76aabfa",
+  "entry_argv": [
+   "bun144",
+   "bot.ts"
+  ],
+  "entry_command": "bun144 bot.ts",
+  "proc": "/srv/mech-sparring/run.sh dmcl_76aabfa",
+  "files_copied": [
+   "bot.ts",
+   "brain.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 152,
+   "announced_name": "mech-bot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.4,
+    "p90": 0.6,
+    "p99": 1.3,
+    "max": 1.6
+   },
+   "debug_drawings": 300
+  },
+  "notes": ""
+ },
+ {
+  "name": "colton_roof_501496d",
+  "repo": "colton-boi/Mech-Bot",
+  "repo_url": "https://github.com/colton-boi/Mech-Bot",
+  "commit": "501496dadebf2c9cec81cb6eae672ecdbfe0008a",
+  "language": "python",
+  "official_score": 1.63,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit d6dfb7a message: 'Passive hide (1.73) and roof (1.63) both lost about 0.9 to survive (2.56) on the same seeds'. 501496d is 'chore(probe): switch strategy to roof'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/colton_roof_501496d",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "bot.py"
+  ],
+  "entry_command": "python3 -u bot.py",
+  "proc": "/srv/mech-sparring/run.sh colton_roof_501496d",
+  "files_copied": [
+   "bot.py",
+   "mechfight.py",
+   "strategy.txt",
+   "world.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 317,
+   "announced_name": "cbot",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.4,
+    "p99": 10.6,
+    "max": 10.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Rooftop-holding probe."
+ },
+ {
+  "name": "sphugne_combat_b7b39e0",
+  "repo": "sphugne/mech-royale-bot",
+  "repo_url": "https://github.com/sphugne/mech-royale-bot",
+  "commit": "b7b39e0d35835d03a99ef59fa66bbff8429dda5e",
+  "language": "python",
+  "official_score": 1.6,
+  "score_link_confidence": "medium",
+  "score_evidence": "README: 'combat_bot.py ... scored 1.60 in practice'; commit b7b39e0 is the one that added it / made it the Dockerfile entry point (entry there: combat_bot.py).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/sphugne_combat_b7b39e0",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "combat_bot.py"
+  ],
+  "entry_command": "python3 -u combat_bot.py",
+  "proc": "/srv/mech-sparring/run.sh sphugne_combat_b7b39e0",
+  "files_copied": [
+   "combat_bot.py",
+   "mechfight.py",
+   "movement_bot.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 45,
+   "announced_name": "combat-py",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 0.7,
+    "max": 1.7
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Low-band calibration point from a repo that keeps each experiment as its own entry file."
+ },
+ {
+  "name": "afiapoks_aim_082352b",
+  "repo": "afiapoks/mech-royale",
+  "repo_url": "https://github.com/afiapoks/mech-royale",
+  "commit": "082352b916cf75255617b3e6389c853e28c422fb",
+  "language": "python",
+  "official_score": 1.38,
+  "score_link_confidence": "high",
+  "score_evidence": "README: 'bloom-aim-v1 ... scored 1.38 at commit 082352b, up from the 1.15 starter'; RESULTS.md repeats it.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/afiapoks_aim_082352b",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "example_bot.py"
+  ],
+  "entry_command": "python3 -u example_bot.py",
+  "proc": "/srv/mech-sparring/run.sh afiapoks_aim_082352b",
+  "files_copied": [
+   "aiming.py",
+   "example_bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 32,
+   "announced_name": "bloom-aim-v1",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.2,
+    "p90": 0.4,
+    "p99": 0.7,
+    "max": 4.2
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Kit starter movement plus predictive aiming: a near-baseline calibration point."
+ },
+ {
+  "name": "kit_starter",
+  "repo": "mechfight-kit (organisers) python/example_bot.py",
+  "repo_url": null,
+  "commit": null,
+  "language": "python",
+  "official_score": 1.15,
+  "score_link_confidence": "high",
+  "score_evidence": "Organisers' baseline as reported in the task brief; LanceHuang245 README also quotes 'kit example ... real 1.15'.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kit_starter",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "example_bot.py"
+  ],
+  "entry_command": "python3 -u example_bot.py",
+  "proc": "/srv/mech-sparring/run.sh kit_starter",
+  "files_copied": [
+   "example_bot.py",
+   "mechfight.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 48,
+   "announced_name": "example-py",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.2,
+    "p90": 0.3,
+    "p99": 0.4,
+    "max": 3.7
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Kit example bot, Python wrapper."
+ },
+ {
+  "name": "sphugne_movement_08ebcca",
+  "repo": "sphugne/mech-royale-bot",
+  "repo_url": "https://github.com/sphugne/mech-royale-bot",
+  "commit": "08ebccaf218b3d74683628560eb57c17a25bc51b",
+  "language": "python",
+  "official_score": 0.88,
+  "score_link_confidence": "medium",
+  "score_evidence": "README: 'movement_bot.py ... scored 0.88 in practice'; commit 08ebcca is the one that added it / made it the Dockerfile entry point (entry there: movement_bot.py).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/sphugne_movement_08ebcca",
+  "entry_argv": [
+   "python3",
+   "-u",
+   "movement_bot.py"
+  ],
+  "entry_command": "python3 -u movement_bot.py",
+  "proc": "/srv/mech-sparring/run.sh sphugne_movement_08ebcca",
+  "files_copied": [
+   "mechfight.py",
+   "movement_bot.py"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 37,
+   "announced_name": "movement-py",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.5,
+    "p99": 1.5,
+    "max": 5.8
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Low-band calibration point from a repo that keeps each experiment as its own entry file."
+ },
+ {
+  "name": "kit_starter_ts",
+  "repo": "mechfight-kit (organisers) ts/example.ts",
+  "repo_url": null,
+  "commit": null,
+  "language": "typescript",
+  "official_score": null,
+  "score_link_confidence": "none",
+  "score_evidence": "No separate official score documented for the TypeScript example (the 1.15 baseline is quoted for 'the kit example'; same trivial policy).",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/kit_starter_ts",
+  "entry_argv": [
+   "bun144",
+   "example.ts"
+  ],
+  "entry_command": "bun144 example.ts",
+  "proc": "/srv/mech-sparring/run.sh kit_starter_ts",
+  "files_copied": [
+   "example.ts",
+   "mechfight.ts",
+   "package.json"
+  ],
+  "smoke_test": {
+   "result": "PASS",
+   "pass_log": "final",
+   "ready_ms": 34,
+   "announced_name": "example-ts",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.2,
+    "p90": 0.4,
+    "p99": 1.0,
+    "max": 3.3
+   },
+   "debug_drawings": 300
+  },
+  "notes": "Kit example bot, TypeScript wrapper."
+ },
+ {
+  "name": "cyprusbot",
+  "repo": "chriseco427-spec/CyprusBot",
+  "repo_url": "https://github.com/chriseco427-spec/CyprusBot",
+  "commit": "a359a35 / d67b21c",
+  "language": "rust",
+  "official_score": 5.15,
+  "score_link_confidence": "medium",
+  "score_evidence": "notes/top10_name_map.md: team Mahalas (medium, name link plus timing): 5f9ed03 (03:43:18Z) 130 s before the 4.88; merge a359a35 (04:41:14Z) 216 s before the 5.08; d67b21c (05:17:40Z) 50 s before the 5.15 (05:18:30Z). No score text in the repo.",
+  "status": "skipped",
+  "skip_reason": "Rust with a crates.io dependency (serde_json =1.0.140 plus serde/proc-macro crates in Cargo.lock, nothing vendored): 'cargo build --release --offline --locked' was run inside the sandbox wrapper on a writable copy under /tmp and failed with 'no matching package named serde_json found' (no local registry cache exists). A network build is not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Rust with a crates.io dependency (serde_json =1.0.140 plus serde/proc-macro crates in Cargo.lock, nothing vendored): 'cargo build --release --offline --locked' was run inside the sandbox wrapper on a writable copy under /tmp and failed with 'no matching package named serde_json found' (no local registry cache exists). A network build is not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "davidvarvas",
+  "repo": "davidvarvas/mech-royale-bot",
+  "repo_url": "https://github.com/davidvarvas/mech-royale-bot",
+  "commit": "7e86f21 (D1)",
+  "language": "python",
+  "official_score": 5.02,
+  "score_link_confidence": "medium",
+  "score_evidence": "notes/top10_name_map.md: team '404 Competition Not Found'; commit D1 7e86f21 (04:25:33Z) is 175 s before the board's 5.02 (04:28:27Z); commit f1d0f81/B-series text says the B0/B1 builds 'scored 4.75 in practice' (B0 d4737f6 is LanceHuang245 171bc06 with flags emptied, i.e. the same bot as lance_171bc06_nosneak).",
+  "status": "skipped",
+  "skip_reason": "Needs a third-party package: the Dockerfile at the 5.02 commit runs 'pip install numpy==2.1.3' and nav.py imports numpy unconditionally (bot.py only degrades to 'run without a map' when numpy is missing); numpy is not installed for the sandbox python and network installs are not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs a third-party package: the Dockerfile at the 5.02 commit runs 'pip install numpy==2.1.3' and nav.py imports numpy unconditionally (bot.py only degrades to 'run without a map' when numpy is missing); numpy is not installed for the sandbox python and network installs are not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "bingbu",
+  "repo": "niranjankumarnk/mech-royale",
+  "repo_url": "https://github.com/niranjankumarnk/mech-royale",
+  "commit": "1d04c65 (HEAD of the clone)",
+  "language": "rust",
+  "official_score": 4.58,
+  "score_link_confidence": "low",
+  "score_evidence": "notes/top10_name_map.md by-catch: team BingBU (board 4.38 at 03:54:58Z, 4.58 at 04:56:15Z); micah-andelman's notes say their fork of it scored 3.88. No commit-to-score text.",
+  "status": "skipped",
+  "skip_reason": "Rust with crates.io dependency serde_json: 'cargo build --release --offline --locked' inside the sandbox wrapper failed ('no matching package named serde_json found'); network build not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Rust with crates.io dependency serde_json: 'cargo build --release --offline --locked' inside the sandbox wrapper failed ('no matching package named serde_json found'); network build not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "swan28pande",
+  "repo": "swan28pande/oval-tools",
+  "repo_url": "https://github.com/swan28pande/oval-tools",
+  "commit": "791326a",
+  "language": "python",
+  "official_score": 4.21,
+  "score_link_confidence": "high",
+  "score_evidence": "Commit 10597f8 message: 'Restore the bot that scored 4.21 ... Return bot.py and navmap.py to 791326a'; 87d5176: 'The 130 m range scored 3.94 in practice vs 4.21 before'.",
+  "status": "skipped",
+  "skip_reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.1.3'; numpy is not installed for the sandbox python and network installs are not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.1.3'; numpy is not installed for the sandbox python and network installs are not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "oneteam",
+  "repo": "Russell-Day/builders-mech-royale",
+  "repo_url": "https://github.com/Russell-Day/builders-mech-royale",
+  "commit": "be2cd01 / 2c32c04",
+  "language": "python",
+  "official_score": 4.15,
+  "score_link_confidence": "medium",
+  "score_evidence": "Board team 'oneteam' (bot name link per notes/top10_name_map.md): 4.08 at 03:53:41Z, 13 s after commit be2cd01 (v5); 4.15 at 04:51:47Z, 16 s after 2c32c04 (v8).",
+  "status": "skipped",
+  "skip_reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.2.1'; not installed for the sandbox python and network installs are not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.2.1'; not installed for the sandbox python and network installs are not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "davidvarvas_gpt",
+  "repo": "davidvarvas/mech-royale-bot-gpt",
+  "repo_url": "https://github.com/davidvarvas/mech-royale-bot-gpt",
+  "commit": "89ec1cd",
+  "language": "python",
+  "official_score": 4.08,
+  "score_link_confidence": "medium",
+  "score_evidence": "davidvarvas/mech-royale-bot commit 9b5aa78: 'Built on davidvarvas/mech-royale-bot-gpt 89ec1cd (4.08 real)'.",
+  "status": "skipped",
+  "skip_reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.1.3'; not installed for the sandbox python and network installs are not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs a third-party package: Dockerfile runs 'pip install numpy==2.1.3'; not installed for the sandbox python and network installs are not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "jackbalseca",
+  "repo": "jackbalseca/mech-royale-bot",
+  "repo_url": "https://github.com/jackbalseca/mech-royale-bot",
+  "commit": null,
+  "language": "python",
+  "official_score": 3.92,
+  "score_link_confidence": "high",
+  "score_evidence": "SUBMISSIONS.md lists receipts by commit: b62bd5f 2.56, df300ff 3.44, 81d2537 3.58, 293eefc 3.81, 879177e 3.50, b8006c5 3.81, e887124 3.04, b53c940 3.79, d5e7b76 3.75 (same strategy, different RNG salt: scorer-noise measurement); commit 03dedf9 message: 'Log v10 official score 3.92 (new best)' (v10 = 4c977b2).",
+  "status": "skipped",
+  "skip_reason": "Needs third-party packages at every scored commit: Dockerfile runs 'pip install numpy==2.3.5 scipy==1.16.3' and bot.py/world.py/nav.py import numpy and scipy unconditionally; neither is installed for the sandbox python (probed) and network installs are not allowed. Also needs a build step (build_cache.py).",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs third-party packages at every scored commit: Dockerfile runs 'pip install numpy==2.3.5 scipy==1.16.3' and bot.py/world.py/nav.py import numpy and scipy unconditionally; neither is installed for the sandbox python (probed) and network installs are not allowed. Also needs a build step (build_cache.py)."
+  },
+  "notes": ""
+ },
+ {
+  "name": "jerrywang",
+  "repo": "jerrywang255-spec/Mech-royale-bot",
+  "repo_url": "https://github.com/jerrywang255-spec/Mech-royale-bot",
+  "commit": null,
+  "language": "python",
+  "official_score": 3.38,
+  "score_link_confidence": "low",
+  "score_evidence": "docs/EXPERIMENTS.md: 'Official best practice score 3.38 (user-reported ...). The commit behind it is not recorded here.'",
+  "status": "skipped",
+  "skip_reason": "Needs a third-party package (Dockerfile: 'pip install numpy==2.3.5') and the scored commit is not recorded.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs a third-party package (Dockerfile: 'pip install numpy==2.3.5') and the scored commit is not recorded."
+  },
+  "notes": ""
+ },
+ {
+  "name": "xero",
+  "repo": "arnabxero/xero-mech-royale",
+  "repo_url": "https://github.com/arnabxero/xero-mech-royale",
+  "commit": "301c9c6 (HEAD of the clone)",
+  "language": "rust",
+  "official_score": 3.35,
+  "score_link_confidence": "medium",
+  "score_evidence": "STATUS.md: 'Practice ranked v4 (3.35) above v4.1 (2.98)'; commit 51c8fd4: 'practice A/B 3.19 vs 3.00'.",
+  "status": "skipped",
+  "skip_reason": "Rust with crates.io dependencies serde/serde_json: offline cargo build inside the sandbox wrapper failed ('no matching package named serde found'); network build not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Rust with crates.io dependencies serde/serde_json: offline cargo build inside the sandbox wrapper failed ('no matching package named serde found'); network build not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "micah_andelman",
+  "repo": "micah-andelman/mech-royale",
+  "repo_url": "https://github.com/micah-andelman/mech-royale",
+  "commit": "cddfa2f (v10)",
+  "language": "python",
+  "official_score": 2.4,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 8b49a31 message: '... beats v10's passive posture (2.40) in practice'. (The same repo reports that TTUN edf5776 scored 3.56 for them: installed as ttun_v9_edf5776.)",
+  "status": "skipped",
+  "skip_reason": "Not installed: the image is configured through Docker build ARGs turned into ENV strategy flags whose submitted values are not recorded per commit, so the scored configuration cannot be reproduced with confidence.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Not installed: the image is configured through Docker build ARGs turned into ENV strategy flags whose submitted values are not recorded per commit, so the scored configuration cannot be reproduced with confidence."
+  },
+  "notes": ""
+ },
+ {
+  "name": "bsrikumar",
+  "repo": "bsrikumar855-dot/Mech-Royale",
+  "repo_url": "https://github.com/bsrikumar855-dot/Mech-Royale",
+  "commit": "3fae0bf",
+  "language": "typescript (node, npm packages)",
+  "official_score": 1.9,
+  "score_link_confidence": "medium",
+  "score_evidence": "Commit 650a1dc message: 'Single-variable experiment on the 3fae0bf base (1.90)'; EXPERIMENTS.md.",
+  "status": "skipped",
+  "skip_reason": "Needs npm packages and a build: Dockerfile runs 'npm ci' with a package-lock.json; network installs are not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Needs npm packages and a build: Dockerfile runs 'npm ci' with a package-lock.json; network installs are not allowed."
+  },
+  "notes": ""
+ },
+ {
+  "name": "overcooked",
+  "repo": "viktor-lorentz/mech-royale-overcooked",
+  "repo_url": "https://github.com/viktor-lorentz/mech-royale-overcooked",
+  "commit": "8e774a0 (HEAD of the clone)",
+  "language": "rust",
+  "official_score": null,
+  "score_link_confidence": "none",
+  "score_evidence": "Team Overcooked per notes/top10_name_map.md; no usable commit-to-score statement was extracted.",
+  "status": "skipped",
+  "skip_reason": "Rust with crates.io dependencies serde/serde_json: offline cargo build inside the sandbox wrapper failed ('no matching package named serde found'); network build not allowed.",
+  "entry_command": null,
+  "proc": null,
+  "files_copied": [],
+  "smoke_test": {
+   "result": "NOT RUN",
+   "reason": "Rust with crates.io dependencies serde/serde_json: offline cargo build inside the sandbox wrapper failed ('no matching package named serde found'); network build not allowed."
+  },
+  "notes": ""
+ }
+]

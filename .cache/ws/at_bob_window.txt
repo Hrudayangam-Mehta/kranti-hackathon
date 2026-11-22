@@ -1,0 +1,955 @@
+===== AT
+-- mech 5.52 03:43:50
+      472s c caioplcerda/oval-pilot                               8b740eed Caio Lacerda       feat: v0 bot based on LanceHuang245/mech-royale@6bdf03b (MIT)
+      467s c Warrior-hound/mech-royale                            c0d06325 Warrior-hound      WIP p-econ: loot memory, arm-up, corpse looting, cube range, mode commit, timeline-derived
+      465s c joshuamuellenbach25/Databricks---Shopping-Sessions   17d0278c joshuamuellenbach2 Merge branch 'opt/records' into opt/merged
+      460s c AbhinavDasari-pennstate/fog-of-war-mech              0693c66e Abhinav Dasari     fight.py: no open-ground flee under 45% HP (keep fighting, never walk at a near mech); hid
+      452s c georgegcal1-arch/mech-royale-bot                     12d5dc0f georgegcal1-arch   v3: reload partly used magazines when nothing is in view; record v1/v2 scores
+      448s c Osca-K/builders-buildit-mech-royale                  9e7d66e5 Osca               Revert "Preserve safe regeneration windows until health recovers"
+      443s c NoahH273/buildathon-databricks                       628b9f6a Noah               Merge branch 'work'
+      436s c JosiahAklog/nexus-mech-royale                        34cc2cc6 Josiah Aklog       Add files via upload
+      432s c skandra08/robo-fight                                 82f12d3a Claude             try/zone-escape: jet over obstacles when zone escape stalls; save energy for it
+      426s c deltaparticle/Databricks-Buildathon                  a5b0dd1e Sumit Prabhakar    CI: line-level perf profile on Linux; drop counterproductive alias prefetch in emit
+      422s c Th3r0n/mech-royale-bot                               78a585c6 Th3r0n             v11: fidelity fixes against the 4.75 reference
+      422s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 4f4a9c20 Abhijoy Sarkar     Add files via upload
+      418s c dmclaughlin-bit/mech-bot                             52a601ab D McLaughlin       Log Build 6 revert (2.23)
+      418s c orbitautomation/buildathon-mech-royale               5fc50dd7 orbitautomation    
+      415s c orbitautomation/buildathon-blast-radius              2ad4916a orbitautomation    
+      398s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 77dc0c06 Abhijoy Sarkar     Add initial README with project description
+      362s c ricky-he2006/Builders---Mech-Royale                  9b51aa21 Ricky He           new
+      360s c atharvatripathi2026/gtgoats_mech_royale              fc8eccb4 atharvatripathi202 Queue practice candidate 57b8da24d01a
+      359s c bhattyuvraj22/mechfight-bot                          331ed39a bhattyuvraj22      Add first Mechfight bot draft
+      357s c joshuamuellenbach25/Databricks---Shopping-Sessions   7722285a joshuamuellenbach2 Merge branch 'opt/tokenizer' into opt/merged
+      348s c explorer-skp/buildathon-shopping-sessions            196faf21 explorer-skp       Load the product and campaign tables while the pool parses link lines
+      346s c Kyt0V0/Mech-Royale                                   007a02ea ironbuckeye        Experiment Q: damage upgrades before health upgrades
+      344s c Kyt0V0/Mech-Royale                                   57644ed5 ironbuckeye        Experiment R: stop seeking cubes after ten
+      342s c Kyt0V0/Mech-Royale                                   19fc2dda ironbuckeye        Experiment P: press wounded targets sooner
+      340s c Kyt0V0/Mech-Royale                                   36c7565f ironbuckeye        Standard bot (experiments off); chase and cube-cap parameters
+      318s c RagoSpams/shopping-sessions                          d9f0bec2 RagoSpams          Merge branch 'fm/shop-r3' into fm/shop-r3-out
+      317s c Warrior-hound/mech-royale                            ae2c585b Warrior-hound      WIP p-econ: fight-arm within 70 m, econ trips gated on live attackers and ttk ratio (24 se
+      311s c skandra08/robo-fight                                 79d9eeb9 Claude             try/standoff: fight from 135-200 m instead of closing to 75 m
+      298s c alexwilldev/mechroyale-bot                           f187fcd8 Alex Williams      Batch 17: laser range 230 m, faster strafe flips, scan spin and 400 m early laser detour (
+      296s c Osca-K/builders-buildit-mech-royale                  a9491842 Osca               Rank gun upgrades by sustained damage including reloads
+      286s c Anurisha-Dunuwila/mech-royale-bot                    f7ff9d85 Anurisha-Dunuwila  prioritise regen and hp upgrades
+      284s c brycehcmcgrath/mechfight-bot                         a36ebd58 Bryce McGrath      Update runtime payload
+      276s c RagoSpams/shopping-sessions                          dd664b77 RagoSpams          Decode catalog names, packed-key hashes and epoch timestamps with word operations
+      271s c mike200004/mech-royale-bot                           7e3cbee3 Michael            Bot v2.1: lightning discipline, scan fix, sim-informed defaults
+      262s c dmclaughlin-bit/mech-bot                             c222ea52 D McLaughlin       Log Build 7 revert (2.04)
+      261s c AbhirajTiwari12/mech-royale-bot                      27b004e8 AbhirajTiwari12    PC: G3 + laser pre-charge while the target is just out of sight
+      257s c AbhirajTiwari12/mech-royale-bot                      b1ff4a71 AbhirajTiwari12    PB: G3 + laser pre-charge + boost-speed strafing and closing in fights
+      255s c dmclaughlin-bit/mech-bot                             08f1f455 D McLaughlin       Build 8: laser first
+      251s c AbhirajTiwari12/mech-royale-bot                      3bdd0d53 AbhirajTiwari12    G3 play, fresh SHA (kill-speed flags off)
+      251s c Warrior-hound/mech-royale                            84ff12a4 Warrior-hound      WIP p-econ: camp spatial hysteresis, cube_dz 6, contest includes heard mechs (24 seeds: fl
+      250s c explorer-skp/buildathon-shopping-sessions            dd4cec32 explorer-skp       Routing writes each person's name into their rows from the cached table slice; drop the pe
+      250s c joshuamuellenbach25/Databricks---Shopping-Sessions   5bf3ff78 joshuamuellenbach2 Add a README that explains the solver, its checks and how to run it
+      247s c dmclaughlin-bit/mech-bot                             beb9240f D McLaughlin       Log Build 8: laser first
+      246s c KaushikNNN/mech-royale-bot                           1a609aba Leela Kaushik Nage Update example_bot.py
+      245s c atharvatripathi2026/gtgoats_mech_royale              636fe079 atharvatripathi202 Record corridor lead outcomes and exact votes
+      245s c fernando-ace/Buildathon_Mech_Royal                   ea3663af Fernando Acevedo   Keep early supply drops out of safe routes
+      244s c Evans-Kwashie/mech-royale-bot                        ff7826e4 Evans Klenam Kwash first commit
+      243s c NhatUndeath/mech-royale-bot                          58acf6ea NhatUndeath        v2: cautious play - no NPC/crate farming, engage only when attacked or close, retreat earl
+      243s c atharvatripathi2026/gtgoats_mech_royale              b687228c atharvatripathi202 Record sideways launch timing outcomes and votes
+      242s c atharvatripathi2026/gtgoats_mech_royale              8be80c60 atharvatripathi202 Record joint rule sensitivity and family comparison
+      240s c RagoSpams/shopping-sessions                          125f3ebb RagoSpams          Drop row packing so in-place resolve keeps equal record layouts
+      230s c koillea/mech-royale-goonies                          5c0dc181 Claude             sim: house bots hunt known entrants within SIM_HUNT_RADIUS, fight each other only inside S
+      217s c cherylaurelia/builders-hackathon                     83e9492a cloud agent        parse: a second prefetch for the ID table, three slots past the home slot - AB 60M 0.776 0
+      216s c joshuamuellenbach25/Databricks---Shopping-Sessions   9ff4aeda joshuamuellenbach2 Merge branch 'opt/fields' into opt/merged
+      197s c Russell-Day/builders-mech-royale                     28d25331 Russell-Day        v1: zone-aware survival bot with pathing, looting, lead-aimed gun, laser/lightning/mortar 
+      195s c varchaskukreja/TTUN                                  11350d33 Varchas            Restore the 5.19 Mech Royale bot from BB-098D02A6
+      192s c skandra08/robo-fight                                 c458a037 skandra08          try/classic-roof — historical ARM→roof→CAMP playbook + modern bugfixes
+      185s c deltaparticle/Databricks-Buildathon                  f12df424 Sumit Prabhakar    SWAR 7-bit ID packing (up to 9 ASCII bytes); force-inline timestamp parsing
+      178s c skandra08/robo-fight                                 92ec1947 skandra08          try/edge-hunter — quiet arm, edge rotate, rear/undetected 1v1s, late thirds
+      170s c skandra08/robo-fight                                 6eb0fa37 skandra08          try/loot-brawl — low ground pockets, lightning-first, mid-range trades, peel 2nd hunter
+      158s c dmclaughlin-bit/mech-bot                             c137e0e6 D McLaughlin       Add WORKFLOW.md; retire next-doug; Diego research prompt
+      155s c devakchow/team-kanyaraasi-databricks-shopping-sessions 458de300 Devak              Fuse exact ingestion and contract session buckets
+      153s c rishit-u/thebigO-buildathon                          c4574716 Rishit Upadhyay    Initial commit
+      147s c skandra08/robo-fight                                 1b4d4f28 skandra08          docs: pivot hash table + submit order for classic/edge/loot
+      144s c Mouhamadmm466/aku-namu-tata                          b687fbd9 Mouhamad           Recover PDF attachment content updates on the pinned parser
+      130s c explorer-skp/buildathon-shopping-sessions            e67e49bc explorer-skp       Test: no hash collisions on 5M generator-shaped IDs
+      129s c colton-boi/Mech-Bot                                  683564ba TheCodingDuck      chore: update bot configuration
+      119s c viktor-lorentz/mech-royale-overcooked                391d45d7 viktor-lorentz     Brain: remember seen weapon pickups, longer weapon reach (unarmed 250 m, swap 180 m); sim 
+      103s c cherylaurelia/builders-hackathon                     c9a415f8 cloud agent        dedup: groups built in the table pass (a slot that meets a repeat holds a group number, me
+      103s c cherylaurelia/builders-hackathon                     838452e6 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      103s c cherylaurelia/builders-hackathon                     905724d9 cloud agent        dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 posit
+      101s c georgegcal1-arch/mech-royale-bot                     3be5a276 georgegcal1-arch   scores: v3 = 1.81
+       98s c Warrior-hound/mech-royale                            f5273a1a Warrior-hound      WIP p-fight: progress notes (scen_fire no +30%; smoke PASS; docker 0 late)
+       98s c Warrior-hound/mech-royale                            c4681433 Warrior-hound      WIP p-fight I2: matchup fight plan (laser kite 150-195 m, gun peek from cover edge else st
+       98s c NoahH273/buildathon-databricks                       fbcef8cd Noah               add rust hybrid spec
+       97s c jmonked/monked-mech-royale                           c6c97c41 Julian Monk        v12: pick plating (+15% max HP) before armor (-8% weapon damage): x1.15 vs x1.087 effectiv
+       77s c koillea/goonies-buildathon                           060fdd63 Claude             Verification addendum: ground-truth completeness checks (30/30 sample labels, subtests, fl
+       63s c rohaanafzal/mech-bot                                 931820a7 Rohaan Afzal       update
+       63s c RagoSpams/shopping-sessions                          88e2949f RagoSpams          Record the deferred campaign-cell update experiment
+       37s c Warrior-hound/mech-royale                            ac9b75bf Warrior-hound      WIP p-econ2: card 6 upgrade argmax of HP x DPS gain, card 5 supply-drop capture (not model
+       35s c skandra08/robo-fight                                 3829b5ae Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+       32s c chriseco427-spec/CyprusBot                           5f9ed031 chriseco427-spec   Handle drones: shoot them when quiet or when they hurt us, hide out of their range
+       28s c jackbalseca/mech-royale-bot                          dda71f21 Jack Balseca       Add in-browser live test harness (tools/live_browser.js); log v4 submission and live resul
+       26s c ralphhaddis/kestrel-7x                               70a4c6ed Ralph Alemayehu-la reset FLAGS to 9.25 1-copy baseline and document bot:Bot=1 rule
+       25s c skandra08/robo-fight                                 5e115fe3 Claude             try/standoff-plus: standoff + drones + zone-escape stacked
+       18s c joshuamuellenbach25/RWX---Blast-Radius               27d6b477 joshuamuellenbach2 Run cheap class setups first and keep a run complete when its last test fails
+       13s c deltaparticle/Databricks-Buildathon                  7ac12bf6 Sumit Prabhakar    CI: same-machine A/B of this commit vs a base commit
+        8s c atharvatripathi2026/gtgoats_mech_royale              7d653ae8 atharvatripathi202 Record sidestep merge confirmations and isolated arena differences
+        6s c atharvatripathi2026/gtgoats_mech_royale              7799d00c atharvatripathi202 Carry the approved crate step and cross-model strategy results forward
+       -2s c anthonyteti/buildathon-mech-royale                   2c44b852 Anthony Teti       Initial commit
+       -7s c Osca-K/builders-buildit-mech-royale                  52237c80 Osca               Revert "Rank gun upgrades by sustained damage including reloads"
+       -7s c praggybhat/mech-royale-bot                           122304d8 Prajna Bhat        v2: focus low-HP targets, longer range, later retreat, grab weapons mid-fight
+       -7s c anthonyteti/buildathon-shopping-sessions             4f4324b9 Anthony Teti       Initial commit
+      -11s c anthonyteti/buildathon-blast-radius                  4c015ab7 Anthony Teti       Initial commit
+      -16s c anthonyteti/buildathon-cad-deid                      90b9d97c Anthony Teti       Initial commit
+      -22s c adadi-bit/OSU_Buildathon_Databricks                  039939fd akshitadadi260     PROBE (not a candidate): scorer diagnostics on stderr, writes empty tables so dev delibera
+      -28s c georgegcal1-arch/mech-royale-bot                     5b318a49 georgegcal1-arch   tests: replay harness, property and scenario tests
+      432s a skandra08/robo-fight                                 481fed00 Claude             try/g-zone: greedy (2.75) + zone-escape stuck recovery
+      261s a cherylaurelia/builders-hackathon                     b94f049e cloud agent        parse(c1): IDs pack from a table-loaded length mask and nibble-table classes (pack_at): -1
+-- shopping 0.96 03:36:45
+      465s c cherylaurelia/builders-hackathon                     c166174f Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      450s c adman40/shopping-sessions-buildathon                 27abae55 adman40            Add V2 pull request CI workflow
+      445s c brycehcmcgrath/mechfight-bot                         d3e6e78e Bryce McGrath      Package verified runtime release
+      433s c varchaskukreja/TTUN                                  f41f6521 Cryplo             Verify both full fresh-interpreter comparison mutation cases
+      424s c georgegcal1-arch/mech-royale-bot                     50d31cf3 georgegcal1-arch   v3: gun duels
+      408s c OvitasO/mech-royal-bot-buildathon                    9a7394e9 Vitas              Fix pickup clearance and preserve combat state during loot detours
+      402s c Kgc3105/MAGIC-Royale                                 53f6854b magic-royale       Fight on harder: break off only at six hunters, never pause the laser, dodge more
+      397s c devakchow/team-kanyaraasi-mech-royale                bb0714f0 Devak              Prepare Mech Royale submission
+      397s c varchaskukreja/TTUN                                  e3d7d89f Cryplo             Merge commit 'f41f652' into blast-radius/comparison-prototype
+      397s c varchaskukreja/TTUN                                  4846705f Cryplo             Enable reviewed conditional comparison refinement by default
+      379s c deltaparticle/Databricks-Buildathon                  37069580 Sumit Prabhakar    Don't free phase buffers on the critical path; the OS reclaims them at exit
+      376s c micah-andelman/mech-royale                           91f0c221 micah-andelman     Test-only FORCE_PRACTICE switch (default off): never switch to FFA rules, so private rooms
+      375s c matthewf725/shopping-sessions                        38509a2b matthewf725        Record the 1.12 second official Xeon practice score
+      373s c ppetit8/mech-royale_bot                              fdb2a44c ppetit8            bot and combat update
+      362s c MauroMiranda28/mech-royale-bot                       e6031960 MauroMiranda28     v12: lightning brawler (idea #3)
+      362s c varchaskukreja/TTUN                                  872b92eb Varchas            Mech Royale: evade opponents from spawn and rotate through cover
+      361s c RagoSpams/shopping-sessions                          e536a5b8 RagoSpams          Resolve user partitions in place and forward only foreign persons
+      359s c chriseco427-spec/CyprusBot                           9ba39445 chriseco427-spec   Duel fixes: keep moving, reverse more often, adapt gun lead to the target's movement
+      355s c wzardomri/buildathon-shopping-sessions               15bcb318 wzardomri          Parse events in one pass and resolve identity links in parallel
+      344s c varchaskukreja/TTUN                                  4e6790ee Cryplo             Document approved comparison policy and empirical validation limits
+      342s c koillea/mech-royale-goonies                          e2a74327 Claude             sim: local match simulator to compare bot versions (work in progress)
+      335s c Mouhamadmm466/aku-namu-tata                          1a9722c2 Mouhamad           Keep processing when a source PDF has an invalid object table
+      306s c atharvatripathi2026/gtgoats_mech_royale              57b8da24 GT Goats           Walk during reload only while targeting the farm crate
+      302s c devakchow/team-kanyaraasi-mech-royale                d4b744cc Devak              Prepare Mech Royale submission
+      295s c explorer-skp/buildathon-shopping-sessions            df02977d explorer-skp       SSSE3 ISO timestamp parse on x86 (one load checks separators and digits, shuffle and multi
+      294s c nash-pillai/r-fe04b0b7c637                           fd85ac2a Nash Pillai        Use safe cover to recover from losing trades
+      294s c skandra08/robo-fight                                 4718097e Claude             try/jink: random-reversal strafe in fights (beats linear lead)
+      292s c varchaskukreja/TTUN                                  596f3394 Cryplo             Record approved default comparison validation and final image evidence
+      284s c arnabxero/xero-mech-royale                           50ea7de5 Eftakhar Ahmed Arn v5.0.1: optional knobs (tactical reload, heal in cover, shoot_close); simulator models
+      281s c arnabxero/xero-mech-royale                           4ce06628 Eftakhar Ahmed Arn variant v5-slowstrafe: XERO_TUNE=strafe_min=2.0,strafe_max=4.0
+      275s c mike200004/shopping-sessions-rs                      e11005c7 Michael            fast3: two-stage SIMD splitter, format-batched parsing, lock-free union-find during link p
+      271s c AlexJawhari/buildathon-mech                          db23d0fb Alex Jawhari       Variant B economy: farm crates/NPCs, hide at spawn, heal to 85% before re-engaging
+      266s c AlexJawhari/buildathon-mech                          fdeb3bf0 Alex Jawhari       Variant C stealth: hide until the zone forces a move, hold fire beyond 80 m unless hit, he
+      265s c swan28pande/oval-tools                               791326a5 Swanand Pande      Mech Royale bot: navigation, zone, combat, looting
+      255s c RagoSpams/shopping-sessions                          e76932aa RagoSpams          Record the block-chain person grouping experiment
+      249s c ruiyifan0114-design/OSUhackathon                     abb2ab73 嘎子的刀锋              Unify tactical decisions and reuse firing solutions
+      248s c AlexJawhari/buildathon-mech                          3985eb9d Alex Jawhari       Notes: round 2 findings and variants
+      243s c NhatUndeath/mech-royale-bot                          2adf580e NhatUndeath        Survival bot v1: zone flow-field nav, lead aiming, loot and upgrades
+      237s c skandra08/robo-fight                                 aae457eb Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+      232s c ZheXie/shopping-sessions                             cc1946ff ZheXie             Profile-driven speedups: 8-byte IDs, smaller records, fewer page faults
+      224s c dmclaughlin-bit/mech-bot                             406422d0 D McLaughlin       Build 7: drop the 100 m gun fire gate (practice)
+      219s c Bean0l/Buildathon-Mech-Bot                           9e37a8e7 llanosse-sys       Bot v2: avoid fights, spawn rule, cornered, end-game hunt, final squeeze, crates
+      218s c ZheXie/shopping-sessions                             22bbf21a ZheXie             README: list only the test hooks that exist
+      217s c dmclaughlin-bit/mech-bot                             209539fb D McLaughlin       Log Build 7: drop 100 m gun gate (practice)
+      212s c deltaparticle/Databricks-Buildathon                  be1e3b31 Sumit Prabhakar    Hand-written minimal Parquet writer (PLAIN v1 pages, Thrift compact footer); drop the parq
+      207s c kleongf/buildathon-solution                          264dc884 pickerof           Import buildercomp native candidate (iter 2) and optimization findings
+      202s c AbhirajTiwari12/mech-royale-bot                      07cd49ed AbhirajTiwari12    EC10: farm to 10 cubes (drones, crates, 95 s drop) before the first kill, then G3 spree
+      201s c AbhirajTiwari12/mech-royale-bot                      d0246b99 AbhirajTiwari12    EC10-K: same farming phase but kills the hunter whenever it engages
+      199s c AbhirajTiwari12/mech-royale-bot                      eddba18b AbhirajTiwari12    G3 play, fresh SHA (economy phase behind flags, off)
+      178s c deltaparticle/Databricks-Buildathon                  b4fc5b9a Sumit Prabhakar    CI: Linux benchmark of the real Docker image with scorer flags on a generated 20M dataset
+      177s c MahmoodMI1/Buildathon-databricks-1                   6d1335ae MahmoodMI1         Track B round 2: route rows to person partitions while parsing; 56 bytes per event
+      142s c mike200004/shopping-sessions-rs                      a05140b8 Michael            CI: manual experiment workflow timing Linux-only flags at 20M
+      138s c RagoSpams/shopping-sessions                          8c520f7b RagoSpams          Pack routed event and click rows to four-byte alignment
+      132s c NoahH273/buildathon-databricks                       777aaf9e NoahH273           Document Rust pipeline algorithms, harness integration and acceptance tests
+      128s c ZheXie/shopping-sessions                             ad075c9a Cursor Agent       Document the current pipeline and timings
+      118s c Anurisha-Dunuwila/mech-royale-bot                    cb343281 Anurisha-Dunuwila  shoot back when hit, focus attacker, safer zone spot
+      116s c akshayagg18/mech-royale                              f0b1fb30 Akshay             ghost-v2: farm crates/drones/weapons, utility-based fights, recovery, zone-aware duels
+      106s c beckimron1/ict-mech-royale                           3208ab06 Imronbek Abduvalie Add ICT Zone Hold Mech Royale bot
+       96s c Jiackary/buildathon_26                               bd7bdee2 Zachary            economy: add commit/firepower/reach options (plain economy unchanged)
+       96s c Jiackary/buildathon_26                               83d8ff99 Zachary            v5-commit: STRATEGY=economy+commit
+       96s c Jiackary/buildathon_26                               6301b0a1 Zachary            v5-firepower: STRATEGY=economy+firepower
+       96s c Jiackary/buildathon_26                               5dc80d9b Zachary            v5-reach: STRATEGY=economy+reach
+       96s c Jiackary/buildathon_26                               fd8b439d Zachary            Make economy (best score 4.06) the main bot
+       80s c Kyt0V0/Mech-Royale                                   21a2a4f1 ironbuckeye        Experiment M: retreat later, return to the fight sooner
+       79s c Kyt0V0/Mech-Royale                                   af31e40e ironbuckeye        Experiment N: M plus heal fully before farming
+       77s c Kyt0V0/Mech-Royale                                   01447a55 ironbuckeye        Standard bot (experiments off)
+       64s c joshuamuellenbach25/RWX---Blast-Radius               cf4ea942 joshuamuellenbach2 Freeze the warm worker's heap before forking and poll less often
+       57s c Kalyan-Lankireddy/buildathon-sessions                83f1afd3 Kalyan-Lankireddy  v2.4 (experiment B): build with -C target-cpu=cascadelake (AVX-512), explicit --target
+       47s c caioplcerda/oval-pilot                               8b740eed Caio Lacerda       feat: v0 bot based on LanceHuang245/mech-royale@6bdf03b (MIT)
+       42s c Warrior-hound/mech-royale                            c0d06325 Warrior-hound      WIP p-econ: loot memory, arm-up, corpse looting, cube range, mode commit, timeline-derived
+       40s c joshuamuellenbach25/Databricks---Shopping-Sessions   17d0278c joshuamuellenbach2 Merge branch 'opt/records' into opt/merged
+       35s c AbhinavDasari-pennstate/fog-of-war-mech              0693c66e Abhinav Dasari     fight.py: no open-ground flee under 45% HP (keep fighting, never walk at a near mech); hid
+       27s c georgegcal1-arch/mech-royale-bot                     12d5dc0f georgegcal1-arch   v3: reload partly used magazines when nothing is in view; record v1/v2 scores
+       23s c Osca-K/builders-buildit-mech-royale                  9e7d66e5 Osca               Revert "Preserve safe regeneration windows until health recovers"
+       18s c NoahH273/buildathon-databricks                       628b9f6a Noah               Merge branch 'work'
+       11s c JosiahAklog/nexus-mech-royale                        34cc2cc6 Josiah Aklog       Add files via upload
+        7s c skandra08/robo-fight                                 82f12d3a Claude             try/zone-escape: jet over obstacles when zone escape stalls; save energy for it
+        1s c deltaparticle/Databricks-Buildathon                  a5b0dd1e Sumit Prabhakar    CI: line-level perf profile on Linux; drop counterproductive alias prefetch in emit
+       -3s c Th3r0n/mech-royale-bot                               78a585c6 Th3r0n             v11: fidelity fixes against the 4.75 reference
+       -3s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 4f4a9c20 Abhijoy Sarkar     Add files via upload
+       -7s c dmclaughlin-bit/mech-bot                             52a601ab D McLaughlin       Log Build 6 revert (2.23)
+       -7s c orbitautomation/buildathon-mech-royale               5fc50dd7 orbitautomation    
+      -10s c orbitautomation/buildathon-blast-radius              2ad4916a orbitautomation    
+      -27s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 77dc0c06 Abhijoy Sarkar     Add initial README with project description
+      237s a skandra08/robo-fight                                 3829b5ae Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+        7s a skandra08/robo-fight                                 5e115fe3 Claude             try/standoff-plus: standoff + drones + zone-escape stacked
+      237s a skandra08/robo-fight                                 fa10976c Claude             try/cubes-drones: cubes + drone fix + DRONE mode
+        7s a skandra08/robo-fight                                 481fed00 Claude             try/g-zone: greedy (2.75) + zone-escape stuck recovery
+-- cad 51 02:39:25
+      480s c varchaskukreja/TTUN                                  6f4e71fa Cryplo             Track class values captured by function definition expressions
+      478s c cherylaurelia/builders-hackathon                     57d91aa0 Cheryl Aurelia     integ-nozap: skip fast_exit (parallel MADV_DONTNEED zap segfaults on ~1/1500 small runs), 
+      477s c skandra08/robo-fight                                 a2f64ecf skandra08          fix FFA detector: exclude own shots and muzzle-exit false positives
+      472s c skandra08/robo-fight                                 55f5015e skandra08          try/roof-ctr — S1 roof + N1 laser counter
+      469s c skandra08/robo-fight                                 c976de67 skandra08          try/roof-edge — S1 roof + N2 edge-guard
+      464s c atharvatripathi2026/gtgoats_mech_royale              367287e0 GT Goats           Credit sustained gun throughput in healthy pre-endgame upgrade choices
+      463s c skandra08/robo-fight                                 4c1a8547 skandra08          try/roof-noise — S1 roof-all noise floor (seed xor)
+      458s c cherylaurelia/builders-hackathon                     ee366cc5 Cheryl Aurelia     DIAGNOSTIC ONLY (not an entry): print scoring-machine facts, then a deliberately incomplet
+      456s c skandra08/robo-fight                                 bd8cf952 skandra08          try/r3-full — all levers; FFA detector excludes own shots
+      449s c brycehcmcgrath/mechfight-bot                         cab929a6 Bryce McGrath      experiment: disable Lance quiet flag for isolated trial
+      446s c cherylaurelia/builders-hackathon                     725b0beb Cheryl Aurelia     DIAGNOSTIC ONLY: time the first run before anything warms the page cache
+      445s c cherylaurelia/builders-hackathon                     0eda2fb9 Cheryl Aurelia     c2: differential tests (fast tokenizer vs split, near-window timestamps vs general parser,
+      429s c kpfarn/osuhackathon                                  d8b473ed kpfarn             Zone escape + cube farming improvements
+      427s c fernando-ace/Buildathon_Databricks                   327b459d Fernando Acevedo   Attribute campaign sessions in parallel
+      424s c fernando-ace/Buildathon_Mech_Royal                   51374c4f Fernando Acevedo   Prioritize weakened targets for kills
+      423s c LuBolin/mech-royale                                  7b43eb19 Bolin              Add Mech Royale rules and starter kit
+      419s c kpfarn/osuhackathon                                  56a3fc86 kpfarn             More aggressive cube/crate farming
+      410s c kpfarn/osuhackathon                                  da9a9037 kpfarn             Remove pycache from tracking
+      408s c skandra08/robo-fight                                 258e6c11 skandra08          docs: add roof-ctr/edge/noise hashes; point try/r3-full at FFA fix tip
+      394s c kpfarn/osuhackathon                                  e3f9dabc kpfarn             Add stuck detection/unsticking
+      383s c ch2li/mechroyale2                                    a25e3a02 LeTing             Add files via upload
+      378s c nash-pillai/r-fe04b0b7c637                           cf664b21 Nash Pillai        Steer away from visible charging beams
+      375s c MauroMiranda28/mech-royale-bot                       98b2031a MauroMiranda28     v6: back to the v1 style, plus projectile awareness
+      374s c AlexJawhari/buildathon-mech                          547637fa Alex Jawhari       v2: LOS-gated fire, edge-biased home, loot when clear, local approximate simulator, notes
+      361s c SnowySlug/buildathon-rwx                             011bf5e4 SnowySlug          Distinguish import-time function signatures from executed function bodies
+      361s c cherylaurelia/builders-hackathon                     fcb6fb33 Cheryl Aurelia     arena(c1): huge pages for the ID table, links beside the small tables, date memo
+      359s c cherylaurelia/builders-hackathon                     460ecd68 Cheryl Aurelia     arena/c3: header comment
+      348s c explorer-skp/buildathon-shopping-sessions            48f15040 explorer-skp       Parse into records in file order plus 24-byte dedup keys; dedup marks losing copies only a
+      336s c RagoSpams/shopping-sessions                          c70f8183 RagoSpams          Send compact row tickets through ID deduplication
+      334s c dmclaughlin-bit/mech-bot                             507d505a Claude             plan: D9 qualify for top 32 first, then tune for the final
+      330s c micah-andelman/mech-royale                           cddfa2fa micah-andelman     v10 (our own code): DUEL posture on by default. Quiet opening (fight only if attacked for 
+      319s c cherylaurelia/builders-hackathon                     f4fddd62 Cheryl Aurelia     c2: products/campaigns load on their own thread during the link phase (setup 9 -> 4 ms); F
+      291s c niranjankumarnk/mech-royale                          9658429f niranjankumarnk    WIP free-for-all package: runtime policies, fast detection, opening caution, cover by walk
+      285s c varchaskukreja/TTUN                                  b4f1a62b Cryplo             Record complete order stress results and baseline instability evidence
+      268s c brycehcmcgrath/mechfight-bot                         138dc4ff Bryce McGrath      Record owner clarification that success requires exceeding the winner
+      267s c niranjankumarnk/blast-radius                         b286dac3 Niranjan Kumar     Import the numeric libraries once in the parent; skip the re-check for tests proven to run
+      262s c cherylaurelia/builders-hackathon                     01026e91 Cheryl Aurelia     c2: LSD radix sort for persons with 192+ events or clicks
+      254s c RagoSpams/shopping-sessions                          d0270170 RagoSpams          Record exit probes and combined native and container gates
+      251s c koillea/mech-royale-goonies                          9cd30635 Claude             v4: cover-first combat, laser hunting, decision-time hardening
+      243s c chriseco427-spec/CyprusBot                           7d8d8362 chriseco427-spec   Expose tuning knobs for local experiments (defaults unchanged)
+      241s c devakchow/team-kanyaraasi-mech-royale                40efa075 Devak              Prepare Mech Royale submission
+      239s c dmclaughlin-bit/mech-bot                             081676ac Claude             brief: qualifying order puts survival rules first
+      238s c RagoSpams/shopping-sessions                          55c1badf RagoSpams          Record the cumulative ticket-dedup milestone
+      234s c micah-andelman/mech-royale                           f80f7c68 micah-andelman     Robustness: SafeBrain answers with aim+fire+zone move if the brain fails to start or raise
+      223s c cherylaurelia/builders-hackathon                     759961b9 Cheryl Aurelia     c2: prefetch batch 64
+      220s c atharvatripathi2026/gtgoats_mech_royale              0edd2c8b GT Goats           Recheck blocked wounded targets only when normal selection fails
+      217s c SuperHuyGaming/shopping-sessions                     687f489b SuperHuyGaming     v11: compact pipeline: dense person ids, 16-byte keys + in-place payload, exact dedup, u64
+      213s c h-ardy/buildathon-shopping-sessions                  dc85a34e Hardy Wang         Shopping Sessions DuckDB pipeline: passes all 36 fixtures and the dev set
+      209s c Hermes-25/builders-mech-royale                       9a747729 Hermes-25          Use the game supply countdown to coordinate collection and capture
+      209s c Hermes-25/builders-mech-royale                       d3309c47 Hermes-25          Finish a nearby game crate when it unlocks the next upgrade
+      208s c whyMiso/buildathon-mech-royale                       e6ed8c5b Dylan              Bot v5: ghostEngage150 lootRadius160
+      206s c ZheXie/shopping-sessions                             bdff55a9 ZheXie             Cut memory traffic for the scorer's 4-core, 4 KB-page setup
+      191s c wzardomri/buildathon-mech-royale                     5fac23bc wzardomri          Improve opening armament, safe regrouping, and late-circle access
+      189s c OvitasO/mech-royal-bot-buildathon                    d1fa639b Vitas              Keep strafing experiment free of minimum-distance behavior
+      187s c dmclaughlin-bit/mech-bot                             c623aae6 Digs22             Merge pull request #9 from dmclaughlin-bit/claude/project-thread-bpljy3
+      180s c sophiayuanproj/RWX---Blast-Radius                    0427eb78 sophiayuanproj     lowering sample score
+      165s c RagoSpams/shopping-sessions                          903893cc RagoSpams          Expire campaign assists by their most recent eligible click
+      165s c cherylaurelia/builders-hackathon                     c7894f85 Cheryl Aurelia     c2: prefetch batch 128
+      155s c RagoSpams/shopping-sessions                          f7e5c38f RagoSpams          Reduce the user scatter fanout for compact ID tickets
+      153s c emptybook11/mech-royale-bot                          243ba1e6 emptybook11        Delete bot.py
+      149s c atharvatripathi2026/gtgoats_mech_royale              97d610bd atharvatripathi202 Record the bounded sight-recheck tests and revise votes
+      149s c explorer-skp/buildathon-shopping-sessions            acb453ce explorer-skp       Scanner: check quotes a block at a time with the quote parity mask, then a few steps per f
+      147s c atharvatripathi2026/gtgoats_mech_royale              ffa0399a atharvatripathi202 Record public-upgrade repair losses and three reject votes
+      145s c atharvatripathi2026/gtgoats_mech_royale              c84b6367 atharvatripathi202 Record paired house decision cadence sensitivity
+      133s c niranjankumarnk/blast-radius                         3fee962f Niranjan Kumar     Turn the non-pool witness set off: 2 wrong drops in 13 on labelled patches
+      131s c emptybook11/mech-royale-bot                          d1da75b2 emptybook11        Add files via upload
+      126s c niranjankumarnk/mech-royale                          cec51bbf niranjankumarnk    WIP: port per-metre walkability and climb routine onto the free-for-all branch
+      123s c dmclaughlin-bit/mech-bot                             053f69b8 Claude             Log bun offline gate on Build 2
+      118s c AbhirajTiwari12/mech-royale-bot                      5b4e7c4a AbhirajTiwari12    Opponent archetypes for FFA self-play (hunter, sniper, looter, edge camper); kill-ramp fla
+      113s c brycehcmcgrath/mechfight-bot                         dd1e809f Bryce McGrath      Record owner clarification that success requires exceeding the winner
+      109s c Th3r0n/mech-royale-bot                               36bfe318 Th3r0n             v9.1: laser fight range 145 m, practice tunables
+       79s c SnowySlug/buildathon-mech                            0a1af939 SnowySlug          Test upgrade collection and coordinated weapon burst offense
+       60s c RagoSpams/shopping-sessions                          0338629f RagoSpams          Record the canonical-value alias table experiment
+       42s c cherylaurelia/builders-hackathon                     4bf30dc4 Cheryl Aurelia     c2: exit releases only its own regions (arenas, ID table, input maps) in parallel, then _e
+       34s c sshasteen2/shopping-sessions                         0f028317 Stephanie Shasteen perf: sharded intern + parallel CSV parse
+       32s c dstarnes05/BuildersMech                              5bd83791 Daniel Starnes     feat: AegisApex-v9 rooftop high-ground dominance, pre-indexed platforms & ledge climbing
+       26s c Mouhamadmm466/aku-namu-tata                          7b131c3c Mouhamad           Freeze the first full-corpus candidate with reproducible identity discovery
+       23s c Kyt0V0/Mech-Royale                                   7c889aee ironbuckeye        Experiment E: retreat earlier, recover fully
+       23s c atharvatripathi2026/gtgoats_mech_royale              72c8a81a atharvatripathi202 Queue practice candidate 367287e08745
+       22s c micah-andelman/mech-royale                           8b49a311 micah-andelman     v11 experiment: HUNT=1 practice hunter posture (DUEL off). Hypothesis: aggressive long-ran
+       21s c Kyt0V0/Mech-Royale                                   27b3da0f ironbuckeye        Experiment F: never turn and fight when cornered
+       21s c RagoSpams/shopping-sessions                          f0d9ff6f RagoSpams          Radix-sort long person histories by their timestamp bytes
+       18s c Kyt0V0/Mech-Royale                                   ece25043 ironbuckeye        Experiment G: retreat much earlier, slow to turn and fight
+       15s c RagoSpams/shopping-sessions                          ffcb32d5 RagoSpams          Stack output changes on validated ticket deduplication
+       14s c Kyt0V0/Mech-Royale                                   9b8e731b ironbuckeye        Standard bot (experiments off)
+       -1s c atharvatripathi2026/gtgoats_mech_royale              90daf5a0 atharvatripathi202 Queue practice candidate 0edd2c8bddd6
+      -10s c suzhuhui-hub/oval-warden                             13259d68 Zhuhui Su          Select quiet positions using the arena's buildings and tree crowns
+      -27s c niranjankumarnk/mech-royale                          374a658b niranjankumarnk    WIP: lightning-first policy, policy test tool
+      -29s c cherylaurelia/builders-hackathon                     2abf37d9 Cheryl Aurelia     c2: read-ahead thread queues MADV_WILLNEED over all inputs at startup, in consumption orde
+      464s a atharvatripathi2026/gtgoats_mech_royale              8b9f76db GT Goats           Credit sustained gun throughput in healthy pre-endgame upgrade choices
+      449s a brycehcmcgrath/mechfight-bot                         0f65bab6 Bryce McGrath      experiment: disable Lance quiet flag for isolated trial
+-- blast 184.8 03:37:06
+      471s c adman40/shopping-sessions-buildathon                 27abae55 adman40            Add V2 pull request CI workflow
+      466s c brycehcmcgrath/mechfight-bot                         d3e6e78e Bryce McGrath      Package verified runtime release
+      454s c varchaskukreja/TTUN                                  f41f6521 Cryplo             Verify both full fresh-interpreter comparison mutation cases
+      445s c georgegcal1-arch/mech-royale-bot                     50d31cf3 georgegcal1-arch   v3: gun duels
+      429s c OvitasO/mech-royal-bot-buildathon                    9a7394e9 Vitas              Fix pickup clearance and preserve combat state during loot detours
+      423s c Kgc3105/MAGIC-Royale                                 53f6854b magic-royale       Fight on harder: break off only at six hunters, never pause the laser, dodge more
+      418s c devakchow/team-kanyaraasi-mech-royale                bb0714f0 Devak              Prepare Mech Royale submission
+      418s c varchaskukreja/TTUN                                  e3d7d89f Cryplo             Merge commit 'f41f652' into blast-radius/comparison-prototype
+      418s c varchaskukreja/TTUN                                  4846705f Cryplo             Enable reviewed conditional comparison refinement by default
+      400s c deltaparticle/Databricks-Buildathon                  37069580 Sumit Prabhakar    Don't free phase buffers on the critical path; the OS reclaims them at exit
+      397s c micah-andelman/mech-royale                           91f0c221 micah-andelman     Test-only FORCE_PRACTICE switch (default off): never switch to FFA rules, so private rooms
+      396s c matthewf725/shopping-sessions                        38509a2b matthewf725        Record the 1.12 second official Xeon practice score
+      394s c ppetit8/mech-royale_bot                              fdb2a44c ppetit8            bot and combat update
+      383s c MauroMiranda28/mech-royale-bot                       e6031960 MauroMiranda28     v12: lightning brawler (idea #3)
+      383s c varchaskukreja/TTUN                                  872b92eb Varchas            Mech Royale: evade opponents from spawn and rotate through cover
+      382s c RagoSpams/shopping-sessions                          e536a5b8 RagoSpams          Resolve user partitions in place and forward only foreign persons
+      380s c chriseco427-spec/CyprusBot                           9ba39445 chriseco427-spec   Duel fixes: keep moving, reverse more often, adapt gun lead to the target's movement
+      376s c wzardomri/buildathon-shopping-sessions               15bcb318 wzardomri          Parse events in one pass and resolve identity links in parallel
+      365s c varchaskukreja/TTUN                                  4e6790ee Cryplo             Document approved comparison policy and empirical validation limits
+      363s c koillea/mech-royale-goonies                          e2a74327 Claude             sim: local match simulator to compare bot versions (work in progress)
+      356s c Mouhamadmm466/aku-namu-tata                          1a9722c2 Mouhamad           Keep processing when a source PDF has an invalid object table
+      327s c atharvatripathi2026/gtgoats_mech_royale              57b8da24 GT Goats           Walk during reload only while targeting the farm crate
+      323s c devakchow/team-kanyaraasi-mech-royale                d4b744cc Devak              Prepare Mech Royale submission
+      316s c explorer-skp/buildathon-shopping-sessions            df02977d explorer-skp       SSSE3 ISO timestamp parse on x86 (one load checks separators and digits, shuffle and multi
+      315s c nash-pillai/r-fe04b0b7c637                           fd85ac2a Nash Pillai        Use safe cover to recover from losing trades
+      315s c skandra08/robo-fight                                 4718097e Claude             try/jink: random-reversal strafe in fights (beats linear lead)
+      313s c varchaskukreja/TTUN                                  596f3394 Cryplo             Record approved default comparison validation and final image evidence
+      305s c arnabxero/xero-mech-royale                           50ea7de5 Eftakhar Ahmed Arn v5.0.1: optional knobs (tactical reload, heal in cover, shoot_close); simulator models
+      302s c arnabxero/xero-mech-royale                           4ce06628 Eftakhar Ahmed Arn variant v5-slowstrafe: XERO_TUNE=strafe_min=2.0,strafe_max=4.0
+      296s c mike200004/shopping-sessions-rs                      e11005c7 Michael            fast3: two-stage SIMD splitter, format-batched parsing, lock-free union-find during link p
+      292s c AlexJawhari/buildathon-mech                          db23d0fb Alex Jawhari       Variant B economy: farm crates/NPCs, hide at spawn, heal to 85% before re-engaging
+      287s c AlexJawhari/buildathon-mech                          fdeb3bf0 Alex Jawhari       Variant C stealth: hide until the zone forces a move, hold fire beyond 80 m unless hit, he
+      286s c swan28pande/oval-tools                               791326a5 Swanand Pande      Mech Royale bot: navigation, zone, combat, looting
+      276s c RagoSpams/shopping-sessions                          e76932aa RagoSpams          Record the block-chain person grouping experiment
+      270s c ruiyifan0114-design/OSUhackathon                     abb2ab73 嘎子的刀锋              Unify tactical decisions and reuse firing solutions
+      269s c AlexJawhari/buildathon-mech                          3985eb9d Alex Jawhari       Notes: round 2 findings and variants
+      264s c NhatUndeath/mech-royale-bot                          2adf580e NhatUndeath        Survival bot v1: zone flow-field nav, lead aiming, loot and upgrades
+      258s c skandra08/robo-fight                                 aae457eb Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+      253s c ZheXie/shopping-sessions                             cc1946ff ZheXie             Profile-driven speedups: 8-byte IDs, smaller records, fewer page faults
+      245s c dmclaughlin-bit/mech-bot                             406422d0 D McLaughlin       Build 7: drop the 100 m gun fire gate (practice)
+      240s c Bean0l/Buildathon-Mech-Bot                           9e37a8e7 llanosse-sys       Bot v2: avoid fights, spawn rule, cornered, end-game hunt, final squeeze, crates
+      239s c ZheXie/shopping-sessions                             22bbf21a ZheXie             README: list only the test hooks that exist
+      238s c dmclaughlin-bit/mech-bot                             209539fb D McLaughlin       Log Build 7: drop 100 m gun gate (practice)
+      233s c deltaparticle/Databricks-Buildathon                  be1e3b31 Sumit Prabhakar    Hand-written minimal Parquet writer (PLAIN v1 pages, Thrift compact footer); drop the parq
+      228s c kleongf/buildathon-solution                          264dc884 pickerof           Import buildercomp native candidate (iter 2) and optimization findings
+      223s c AbhirajTiwari12/mech-royale-bot                      07cd49ed AbhirajTiwari12    EC10: farm to 10 cubes (drones, crates, 95 s drop) before the first kill, then G3 spree
+      222s c AbhirajTiwari12/mech-royale-bot                      d0246b99 AbhirajTiwari12    EC10-K: same farming phase but kills the hunter whenever it engages
+      220s c AbhirajTiwari12/mech-royale-bot                      eddba18b AbhirajTiwari12    G3 play, fresh SHA (economy phase behind flags, off)
+      199s c deltaparticle/Databricks-Buildathon                  b4fc5b9a Sumit Prabhakar    CI: Linux benchmark of the real Docker image with scorer flags on a generated 20M dataset
+      198s c MahmoodMI1/Buildathon-databricks-1                   6d1335ae MahmoodMI1         Track B round 2: route rows to person partitions while parsing; 56 bytes per event
+      163s c mike200004/shopping-sessions-rs                      a05140b8 Michael            CI: manual experiment workflow timing Linux-only flags at 20M
+      159s c RagoSpams/shopping-sessions                          8c520f7b RagoSpams          Pack routed event and click rows to four-byte alignment
+      153s c NoahH273/buildathon-databricks                       777aaf9e NoahH273           Document Rust pipeline algorithms, harness integration and acceptance tests
+      149s c ZheXie/shopping-sessions                             ad075c9a Cursor Agent       Document the current pipeline and timings
+      139s c Anurisha-Dunuwila/mech-royale-bot                    cb343281 Anurisha-Dunuwila  shoot back when hit, focus attacker, safer zone spot
+      137s c akshayagg18/mech-royale                              f0b1fb30 Akshay             ghost-v2: farm crates/drones/weapons, utility-based fights, recovery, zone-aware duels
+      127s c beckimron1/ict-mech-royale                           3208ab06 Imronbek Abduvalie Add ICT Zone Hold Mech Royale bot
+      117s c Jiackary/buildathon_26                               bd7bdee2 Zachary            economy: add commit/firepower/reach options (plain economy unchanged)
+      117s c Jiackary/buildathon_26                               83d8ff99 Zachary            v5-commit: STRATEGY=economy+commit
+      117s c Jiackary/buildathon_26                               6301b0a1 Zachary            v5-firepower: STRATEGY=economy+firepower
+      117s c Jiackary/buildathon_26                               5dc80d9b Zachary            v5-reach: STRATEGY=economy+reach
+      117s c Jiackary/buildathon_26                               fd8b439d Zachary            Make economy (best score 4.06) the main bot
+      101s c Kyt0V0/Mech-Royale                                   21a2a4f1 ironbuckeye        Experiment M: retreat later, return to the fight sooner
+      100s c Kyt0V0/Mech-Royale                                   af31e40e ironbuckeye        Experiment N: M plus heal fully before farming
+       98s c Kyt0V0/Mech-Royale                                   01447a55 ironbuckeye        Standard bot (experiments off)
+       85s c joshuamuellenbach25/RWX---Blast-Radius               cf4ea942 joshuamuellenbach2 Freeze the warm worker's heap before forking and poll less often
+       78s c Kalyan-Lankireddy/buildathon-sessions                83f1afd3 Kalyan-Lankireddy  v2.4 (experiment B): build with -C target-cpu=cascadelake (AVX-512), explicit --target
+       68s c caioplcerda/oval-pilot                               8b740eed Caio Lacerda       feat: v0 bot based on LanceHuang245/mech-royale@6bdf03b (MIT)
+       63s c Warrior-hound/mech-royale                            c0d06325 Warrior-hound      WIP p-econ: loot memory, arm-up, corpse looting, cube range, mode commit, timeline-derived
+       61s c joshuamuellenbach25/Databricks---Shopping-Sessions   17d0278c joshuamuellenbach2 Merge branch 'opt/records' into opt/merged
+       56s c AbhinavDasari-pennstate/fog-of-war-mech              0693c66e Abhinav Dasari     fight.py: no open-ground flee under 45% HP (keep fighting, never walk at a near mech); hid
+       48s c georgegcal1-arch/mech-royale-bot                     12d5dc0f georgegcal1-arch   v3: reload partly used magazines when nothing is in view; record v1/v2 scores
+       44s c Osca-K/builders-buildit-mech-royale                  9e7d66e5 Osca               Revert "Preserve safe regeneration windows until health recovers"
+       39s c NoahH273/buildathon-databricks                       628b9f6a Noah               Merge branch 'work'
+       32s c JosiahAklog/nexus-mech-royale                        34cc2cc6 Josiah Aklog       Add files via upload
+       28s c skandra08/robo-fight                                 82f12d3a Claude             try/zone-escape: jet over obstacles when zone escape stalls; save energy for it
+       22s c deltaparticle/Databricks-Buildathon                  a5b0dd1e Sumit Prabhakar    CI: line-level perf profile on Linux; drop counterproductive alias prefetch in emit
+       18s c Th3r0n/mech-royale-bot                               78a585c6 Th3r0n             v11: fidelity fixes against the 4.75 reference
+       18s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 4f4a9c20 Abhijoy Sarkar     Add files via upload
+       14s c dmclaughlin-bit/mech-bot                             52a601ab D McLaughlin       Log Build 6 revert (2.23)
+       14s c orbitautomation/buildathon-mech-royale               5fc50dd7 orbitautomation    
+       11s c orbitautomation/buildathon-blast-radius              2ad4916a orbitautomation    
+       -6s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 77dc0c06 Abhijoy Sarkar     Add initial README with project description
+      258s a skandra08/robo-fight                                 3829b5ae Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+       28s a skandra08/robo-fight                                 5e115fe3 Claude             try/standoff-plus: standoff + drones + zone-escape stacked
+      258s a skandra08/robo-fight                                 fa10976c Claude             try/cubes-drones: cubes + drone fix + DRONE mode
+       28s a skandra08/robo-fight                                 481fed00 Claude             try/g-zone: greedy (2.75) + zone-escape stuck recovery
+owners hit on >=2 labels:
+    skandra08 ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    Th3r0n ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    dmclaughlin-bit ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    atharvatripathi2026 ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    explorer-skp ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    Kyt0V0 ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    RagoSpams ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    brycehcmcgrath ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    AbhirajTiwari12 ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    koillea ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    varchaskukreja ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    devakchow ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    Mouhamadmm466 ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    chriseco427-spec ['blast 184.8', 'cad 51', 'mech 5.52', 'shopping 0.96']
+    caioplcerda ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    Warrior-hound ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    joshuamuellenbach25 ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    AbhinavDasari-pennstate ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    georgegcal1-arch ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    Osca-K ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    NoahH273 ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    JosiahAklog ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    deltaparticle ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    lolstershwjav ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    orbitautomation ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    Anurisha-Dunuwila ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    mike200004 ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    NhatUndeath ['blast 184.8', 'mech 5.52', 'shopping 0.96']
+    cherylaurelia ['cad 51', 'mech 5.52', 'shopping 0.96']
+    OvitasO ['blast 184.8', 'cad 51', 'shopping 0.96']
+    micah-andelman ['blast 184.8', 'cad 51', 'shopping 0.96']
+    MauroMiranda28 ['blast 184.8', 'cad 51', 'shopping 0.96']
+    wzardomri ['blast 184.8', 'cad 51', 'shopping 0.96']
+    nash-pillai ['blast 184.8', 'cad 51', 'shopping 0.96']
+    AlexJawhari ['blast 184.8', 'cad 51', 'shopping 0.96']
+    ZheXie ['blast 184.8', 'cad 51', 'shopping 0.96']
+    fernando-ace ['cad 51', 'mech 5.52']
+    adman40 ['blast 184.8', 'shopping 0.96']
+    Kgc3105 ['blast 184.8', 'shopping 0.96']
+    matthewf725 ['blast 184.8', 'shopping 0.96']
+    ppetit8 ['blast 184.8', 'shopping 0.96']
+    arnabxero ['blast 184.8', 'shopping 0.96']
+    swan28pande ['blast 184.8', 'shopping 0.96']
+    ruiyifan0114-design ['blast 184.8', 'shopping 0.96']
+    Bean0l ['blast 184.8', 'shopping 0.96']
+    kleongf ['blast 184.8', 'shopping 0.96']
+    MahmoodMI1 ['blast 184.8', 'shopping 0.96']
+    akshayagg18 ['blast 184.8', 'shopping 0.96']
+    beckimron1 ['blast 184.8', 'shopping 0.96']
+    Jiackary ['blast 184.8', 'shopping 0.96']
+    Kalyan-Lankireddy ['blast 184.8', 'shopping 0.96']
+===== BobBuildIt
+-- mech 5.27 03:03:29
+      479s c gonvaz-nocode/NoCodeHack                             266aa5cc Guillermo Gonzalez B8: B3 corrected: practice identical to A9, free-for-all detection needs two unexplained d
+      476s c mahathio/mechfight                                   5dbbb0a4 mahathio           Update Dockerfile
+      462s c micah-andelman/mech-royale                           109c8c0f micah-andelman     v13 bundle: v12 (hunt + laser-first) + COVER (step to a spot no threat can see while every
+      461s c georgegcal1-arch/mech-royale-bot                     5e2ee083 georgegcal1-arch   Python starter bot for Mech Royale
+      458s c viktor-lorentz/mech-royale-overcooked                90e4970f viktor-lorentz     Brain: target drones shooting us, avoid drones in duels, face/switch to mech attackers, be
+      455s c varchaskukreja/TTUN                                  044a6d8a Cryplo             Merge commit 'dfea2915c96d84f07726b142f928998665cdcc21' into blast-radius/comparison-proto
+      454s c jmonked/monked-mech-royale                           bbbade52 Julian Monk        v10a: attacker-first targeting (no distant wounded chase while hit from <=60 m in last 3 s
+      450s c RagoSpams/shopping-sessions                          b46669ee RagoSpams          Use finer partitions for prefetched alias probes
+      449s c davidvarvas/mech-royale-bot                          35bdded0 David Varvas       B1: switch on sneak and patient only in free-for-alls
+      443s c colton-boi/Mech-Bot                                  2c561a33 TheCodingDuck      chore: trim unused modules
+      442s c Kalyan-Lankireddy/buildathon-blast-radius            6647299a Kalyan-Lankireddy  Document TRANSFORMS entry narrowing and harness totals
+      427s c SeanCowen/oval-runner                                34bbb138 SeanCowen          Route to the moving safe region and improve early resource collection
+      427s c ZheXie/shopping-sessions                             a591cc63 Cursor Agent       Inline person names, 16-byte dedup keys, in-place link table finalize
+      423s c explorer-skp/buildathon-shopping-sessions            dcbec634 explorer-skp       Campaign totals per worker thread instead of per task; bench A/B of 1024 dedup buckets
+      419s c alexwilldev/mechroyale-bot                           6c937e20 Alex Williams      Batch 15: rooftop camping when idle (climb by jump+jet, timeout blacklist, roof edge guard
+      407s c ruiyifan0114-design/OSUhackathon                     d0e92fac 嘎子的刀锋              Add Oval Runner competition bot
+      400s c fernando-ace/Buildathon_Mechina_CAD                  b3f4efd6 Fernando Acevedo   fix: report mirror 404s as source omissions
+      386s c koillea/mech-royale-goonies                          cf8d2a42 Claude             C: intel tracking, cover when shot, fire back from the best angle
+      381s c atharvatripathi2026/gtgoats_mech_royale              168ba6c3 atharvatripathi202 Carry the transfer and rear guard entries and cube detour evidence forward
+      377s c jackbalseca/mech-royale-bot                          81d25374 Jack Balseca       v2: break line of sight to cover when hurt/outnumbered, regen, re-engage; wider weapon sea
+      367s c Anurisha-Dunuwila/mech-royale-bot                    8ca0fed7 Anurisha-Dunuwila  Mech Royale bot
+      350s c adman40/shopping-sessions-buildathon                 6a88a608 adman40            Add manual GCP benchmark harness
+      315s c koillea/mech-royale-goonies                          bf61a15f Jessica            Merge pull request #1 from koillea/intel
+      313s c jmonked/monked-mech-royale                           8b034ccd Julian Monk        v10b: laser discipline - never dump a charge on target loss/heal/drop, distance-scaled rel
+      306s c niranjankumarnk/blast-radius                         5769c295 Niranjan Kumar     Cheaper compile-only check: faster canonical text, table pickles made at build time
+      303s c kpfarn/osuhackathon                                  f8aa5984 kpfarn             Potential-field navigation: avoid enemies in normal movement
+      301s c varchaskukreja/TTUN                                  911b94ac Cryplo             Verify full fresh-interpreter baseline catalog and receipts
+      301s c joshuamuellenbach25/Databricks---Shopping-Sessions   db83c151 joshuamuellenbach2 Shrink event and click records and store each click once
+      298s c fernando-ace/Buildathon_Mechina_CAD                  c2af9aaf Fernando Acevedo   docs: disclose visual and attachment limits
+      298s c skbgp/buildathon-rwx                                 4f5f6b35 Shubham Kumar      Track shared fixtures and replay observed comparison operands
+      286s c moonriver0922/wgsrobot                               af337d5c moonriver0922      Check game-grid clearance on short resource and zone routes
+      264s c ralphhaddis/kestrel-7x                               86118f21 Ralph Alemayehu-la enable heal/kite/sound and add proactive_cover, combat_strafe, selective_fire
+      261s c suzhuhui-hub/oval-warden                             c62f506e Zhuhui Su          Track game audio between fights and cross short obstacles during rotations
+      259s c brycehcmcgrath/mechfight-bot                         474303d5 Bryce McGrath      Record charge-aware trial receipt and scope public showdown research
+      252s c mahathio/mechfight                                   9e75db95 mahathio           Update Dockerfile
+      251s c himagna16/mech-royale-bot                            9949471f Sai Maruvada       Free-for-all survival mode, exposure map, cube and weapon collection, heal before farming
+      247s c h-ardy/buildathon-mech-royale                        d3ad94fb Hardy              Recover mode, reload behind cover, explore for weapons, tunables; add local simulator
+      247s c h-ardy/buildathon-mech-royale                        02e51b74 Hardy              Mech Royale bot v1: zone-aware A* navigation, combat, cover, loot
+      232s c fernando-ace/Buildathon_Mech_Royal                   d0c99a53 Fernando Acevedo   Hold target lock to steady aim
+      232s c cherylaurelia/builders-hackathon                     ca9e5240 Cheryl Aurelia     c1 sessions: AVX2 rank sort for the events and clicks of people with up to 64 of them, vec
+      215s c mahathio/mechfight                                   497f4647 mahathio           Add files via upload
+      192s c brycehcmcgrath/mechfight-bot                         073c77e2 Bryce McGrath      Trial laser-only preferred pickups on quiet-off Lance
+      185s c nguyenphuquang1234567/kestrel                        1646701f Nguyen Phu Quang   kestrel v3: longer gun spacing, prefer laser
+      173s c AbhirajTiwari12/mech-royale-bot                      817f3806 AbhirajTiwari12    R: roof sniper on G3 (climb the home roof after the opening, fight and heal from up there)
+      171s c AbhirajTiwari12/mech-royale-bot                      a4f01bfe AbhirajTiwari12    K: kiter on G3 (hold 85-115 m, back away from anything closer, never brawl)
+      170s c AbhirajTiwari12/mech-royale-bot                      f8b8d6e6 AbhirajTiwari12    BF: bystanders first on G3 (attack mechs not hunting us, from behind, before the hunter)
+      168s c AbhirajTiwari12/mech-royale-bot                      5dc668a8 AbhirajTiwari12    EC: economy on G3 (90 s farming crates/drones while fighting only attackers, contest suppl
+      166s c AbhirajTiwari12/mech-royale-bot                      48e315e3 AbhirajTiwari12    G3 play, fresh SHA (bold behaviours behind flags, off)
+      160s c devakchow/team-kanyaraasi-mech-royale                8d97d100 Devak              Prepare Mech Royale submission
+      159s c brycehcmcgrath/mechfight-bot                         6435e284 Bryce McGrath      fix: preserve quiet charged movement without false recovery
+      154s c jmonked/monked-mech-royale                           299c9d67 Julian Monk        Pin Docker base image to python:3.13.18-slim by digest (what 3.13-slim resolves to today) 
+      138s c amoorgy/mech-royale-bot-b                            676c3e7c amoorgy            experiment: G1 faithful port plus drone aim height
+      138s c amoorgy/mech-royale-bot                              676c3e7c amoorgy            experiment: G1 faithful port plus drone aim height
+      136s c niranjankumarnk/blast-radius                         71fda645 Niranjan Kumar     Do not count csv loading in the estimate of a compile-only check; add the excess-selection
+      132s c amoorgy/mech-royale-bot-b                            e0383ada amoorgy            experiment: G2 faithful port plus kill cubes (hover fixed)
+      132s c amoorgy/mech-royale-bot                              e0383ada amoorgy            experiment: G2 faithful port plus kill cubes (hover fixed)
+      130s c nullat0m7/mech-royale                                aeb24844 nullat0m7          feat(bot): farm crates and cubes out to 140 m
+      127s c amoorgy/mech-royale-bot-b                            c615db83 amoorgy            experiment: G3 faithful port plus supply drops
+      127s c amoorgy/mech-royale-bot                              c615db83 amoorgy            experiment: G3 faithful port plus supply drops
+      121s c amoorgy/mech-royale-bot-b                            5aefe4a0 amoorgy            experiment: G4 faithful port plus drone hunting with drone aim height
+      121s c amoorgy/mech-royale-bot                              5aefe4a0 amoorgy            experiment: G4 faithful port plus drone hunting with drone aim height
+      119s c kpfarn/osuhackathon                                  91b991b3 kpfarn             Add comprehensive README and air-play variant
+      113s c amoorgy/mech-royale-bot-b                            65f5132a amoorgy            experiment: G5 faithful port with navigation on
+      113s c amoorgy/mech-royale-bot                              65f5132a amoorgy            experiment: G5 faithful port with navigation on
+      109s c kpfarn/osuhackathon                                  aeed2d2a kpfarn             Roof-seeking air play when spotted
+      107s c Rebecca922/mech-royale-bot                           4b3cb874 Rebecca            Freeze SARSA updates for controlled comparison
+      107s c ZheXie/shopping-sessions                             cfb5d9c0 Cursor Agent       Back the link table with huge pages by writing it first
+       99s c suzhuhui-hub/oval-warden                             2ba41df7 Zhuhui Su          Choose engagement distance from both mechs' equipped weapons
+       88s c jmonked/monked-mech-royale                           804c7bd4 Julian Monk        v10b2: gun keeps firing on its lead while the laser charges; torso swings to the laser lin
+       75s c Osca-K/builders-buildit-mech-royale                  b94d7c44 Osca               Fire lightning at valid targets in the actual torso cone
+       67s c joshuamuellenbach25/RWX---Blast-Radius               620be490 joshuamuellenbach2 Stop a commit's local test run at its first failure
+       47s c varchaskukreja/TTUN                                  ffd56885 Cryplo             Identify remaining selection costs without consulting answer labels
+       47s c niranjankumarnk/shopping-sessions                    cb140594 Niranjan Kumar     Diagnostic build on the current pipeline: remove the output and exit with status 1
+       47s c niranjankumarnk/shopping-sessions                    cbc8ddb2 Niranjan Kumar     Diagnostic build: leave a deliberately wrong campaign table and exit normally; print no va
+       47s c niranjankumarnk/shopping-sessions                    01b4ee0d Niranjan Kumar     DIAGNOSTIC BUILD, not an entry: measure the machine, print to stderr, exit 1
+       35s c cherylaurelia/builders-hackathon                     564f8e86 Cheryl Aurelia     tests(c1): arena/c2's differential tests for the parse fast paths
+       35s c cherylaurelia/builders-hackathon                     bbb551b2 Cheryl Aurelia     parse(c1): stream records reach memory a 192-byte group at a time with non-temporal stores
+       30s c RagoSpams/shopping-sessions                          61a9ed93 RagoSpams          Merge branch 'fm/shop-r3' into fm/shop-r3-out
+       26s c alex-vizn/mech-royale-bot                            ba0e10b0 alex-vizn          Prioritize zone re-entry and add controlled combat flight
+       22s c nguyenphuquang1234567/kestrel                        4a5baf94 Nguyen Phu Quang   kestrel v4: wider kiting, defensive lightning
+       17s c RagoSpams/shopping-sessions                          bb493896 RagoSpams          Record the per-worker user handle experiment
+       -4s c Hermes-25/builders-mech-royale                       52d22fe2 Hermes-25          Collect raised game rewards within the avatar's energy budget
+       -4s c arnabxero/xero-mech-royale                           2ff5d306 Eftakhar Ahmed Arn v5-duel: v5 with solo-duel policy enabled (practice A/B)
+       -7s c skandra08/robo-fight                                 53b20267 skandra08          try/roof-dual — S1+N1 + DUAL_FIRE gun while laser/lightning
+      -17s c deltaparticle/Databricks-Buildathon                  65d883f1 Sumit Prabhakar    Memory-map inputs again: the fast scanner now reads page cache directly (no copy past L2)
+      212s a jmonked/monked-mech-royale                           e1596e3d Julian Monk        v10c3 (experiment): while retreating to heal, gun keeps shooting an attacker that hit us i
+      209s a cherylaurelia/builders-hackathon                     0fcf3a4f cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+      -26s a cherylaurelia/builders-hackathon                     c166174f Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+       84s a cherylaurelia/builders-hackathon                     838452e6 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      362s a cherylaurelia/builders-hackathon                     905724d9 cloud agent        dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 posit
+       20s a cherylaurelia/builders-hackathon                     4250178d cloud agent        sessions: 30-minute bins per person instead of a sort (first/last ts and count per bin, se
+      209s a cherylaurelia/builders-hackathon                     b95eac61 cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+       84s a cherylaurelia/builders-hackathon                     d8a77767 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      362s a cherylaurelia/builders-hackathon                     082d921e cloud agent        dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 posit
+      -26s a cherylaurelia/builders-hackathon                     8be9fffd Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      209s a cherylaurelia/builders-hackathon                     b77e685b cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+       84s a cherylaurelia/builders-hackathon                     237bfdd8 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      362s a cherylaurelia/builders-hackathon                     f6143026 cloud agent        dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 posit
+      -26s a cherylaurelia/builders-hackathon                     8c9e522a Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      -26s a cherylaurelia/builders-hackathon                     07f87c71 Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      209s a cherylaurelia/builders-hackathon                     7ddab708 cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+-- shopping 0.86 03:07:37
+      480s c fernando-ace/Buildathon_Mech_Royal                   d0c99a53 Fernando Acevedo   Hold target lock to steady aim
+      480s c cherylaurelia/builders-hackathon                     ca9e5240 Cheryl Aurelia     c1 sessions: AVX2 rank sort for the events and clicks of people with up to 64 of them, vec
+      463s c mahathio/mechfight                                   497f4647 mahathio           Add files via upload
+      440s c brycehcmcgrath/mechfight-bot                         073c77e2 Bryce McGrath      Trial laser-only preferred pickups on quiet-off Lance
+      433s c nguyenphuquang1234567/kestrel                        1646701f Nguyen Phu Quang   kestrel v3: longer gun spacing, prefer laser
+      421s c AbhirajTiwari12/mech-royale-bot                      817f3806 AbhirajTiwari12    R: roof sniper on G3 (climb the home roof after the opening, fight and heal from up there)
+      419s c AbhirajTiwari12/mech-royale-bot                      a4f01bfe AbhirajTiwari12    K: kiter on G3 (hold 85-115 m, back away from anything closer, never brawl)
+      418s c AbhirajTiwari12/mech-royale-bot                      f8b8d6e6 AbhirajTiwari12    BF: bystanders first on G3 (attack mechs not hunting us, from behind, before the hunter)
+      416s c AbhirajTiwari12/mech-royale-bot                      5dc668a8 AbhirajTiwari12    EC: economy on G3 (90 s farming crates/drones while fighting only attackers, contest suppl
+      414s c AbhirajTiwari12/mech-royale-bot                      48e315e3 AbhirajTiwari12    G3 play, fresh SHA (bold behaviours behind flags, off)
+      408s c devakchow/team-kanyaraasi-mech-royale                8d97d100 Devak              Prepare Mech Royale submission
+      407s c brycehcmcgrath/mechfight-bot                         6435e284 Bryce McGrath      fix: preserve quiet charged movement without false recovery
+      402s c jmonked/monked-mech-royale                           299c9d67 Julian Monk        Pin Docker base image to python:3.13.18-slim by digest (what 3.13-slim resolves to today) 
+      386s c amoorgy/mech-royale-bot-b                            676c3e7c amoorgy            experiment: G1 faithful port plus drone aim height
+      386s c amoorgy/mech-royale-bot                              676c3e7c amoorgy            experiment: G1 faithful port plus drone aim height
+      384s c niranjankumarnk/blast-radius                         71fda645 Niranjan Kumar     Do not count csv loading in the estimate of a compile-only check; add the excess-selection
+      380s c amoorgy/mech-royale-bot-b                            e0383ada amoorgy            experiment: G2 faithful port plus kill cubes (hover fixed)
+      380s c amoorgy/mech-royale-bot                              e0383ada amoorgy            experiment: G2 faithful port plus kill cubes (hover fixed)
+      378s c nullat0m7/mech-royale                                aeb24844 nullat0m7          feat(bot): farm crates and cubes out to 140 m
+      375s c amoorgy/mech-royale-bot-b                            c615db83 amoorgy            experiment: G3 faithful port plus supply drops
+      375s c amoorgy/mech-royale-bot                              c615db83 amoorgy            experiment: G3 faithful port plus supply drops
+      369s c amoorgy/mech-royale-bot-b                            5aefe4a0 amoorgy            experiment: G4 faithful port plus drone hunting with drone aim height
+      369s c amoorgy/mech-royale-bot                              5aefe4a0 amoorgy            experiment: G4 faithful port plus drone hunting with drone aim height
+      367s c kpfarn/osuhackathon                                  91b991b3 kpfarn             Add comprehensive README and air-play variant
+      361s c amoorgy/mech-royale-bot-b                            65f5132a amoorgy            experiment: G5 faithful port with navigation on
+      361s c amoorgy/mech-royale-bot                              65f5132a amoorgy            experiment: G5 faithful port with navigation on
+      357s c kpfarn/osuhackathon                                  aeed2d2a kpfarn             Roof-seeking air play when spotted
+      355s c Rebecca922/mech-royale-bot                           4b3cb874 Rebecca            Freeze SARSA updates for controlled comparison
+      355s c ZheXie/shopping-sessions                             cfb5d9c0 Cursor Agent       Back the link table with huge pages by writing it first
+      347s c suzhuhui-hub/oval-warden                             2ba41df7 Zhuhui Su          Choose engagement distance from both mechs' equipped weapons
+      336s c jmonked/monked-mech-royale                           804c7bd4 Julian Monk        v10b2: gun keeps firing on its lead while the laser charges; torso swings to the laser lin
+      323s c Osca-K/builders-buildit-mech-royale                  b94d7c44 Osca               Fire lightning at valid targets in the actual torso cone
+      315s c joshuamuellenbach25/RWX---Blast-Radius               620be490 joshuamuellenbach2 Stop a commit's local test run at its first failure
+      295s c varchaskukreja/TTUN                                  ffd56885 Cryplo             Identify remaining selection costs without consulting answer labels
+      295s c niranjankumarnk/shopping-sessions                    cb140594 Niranjan Kumar     Diagnostic build on the current pipeline: remove the output and exit with status 1
+      295s c niranjankumarnk/shopping-sessions                    cbc8ddb2 Niranjan Kumar     Diagnostic build: leave a deliberately wrong campaign table and exit normally; print no va
+      295s c niranjankumarnk/shopping-sessions                    01b4ee0d Niranjan Kumar     DIAGNOSTIC BUILD, not an entry: measure the machine, print to stderr, exit 1
+      283s c cherylaurelia/builders-hackathon                     564f8e86 Cheryl Aurelia     tests(c1): arena/c2's differential tests for the parse fast paths
+      283s c cherylaurelia/builders-hackathon                     bbb551b2 Cheryl Aurelia     parse(c1): stream records reach memory a 192-byte group at a time with non-temporal stores
+      278s c RagoSpams/shopping-sessions                          61a9ed93 RagoSpams          Merge branch 'fm/shop-r3' into fm/shop-r3-out
+      274s c alex-vizn/mech-royale-bot                            ba0e10b0 alex-vizn          Prioritize zone re-entry and add controlled combat flight
+      270s c nguyenphuquang1234567/kestrel                        4a5baf94 Nguyen Phu Quang   kestrel v4: wider kiting, defensive lightning
+      265s c RagoSpams/shopping-sessions                          bb493896 RagoSpams          Record the per-worker user handle experiment
+      244s c Hermes-25/builders-mech-royale                       52d22fe2 Hermes-25          Collect raised game rewards within the avatar's energy budget
+      244s c arnabxero/xero-mech-royale                           2ff5d306 Eftakhar Ahmed Arn v5-duel: v5 with solo-duel policy enabled (practice A/B)
+      241s c skandra08/robo-fight                                 53b20267 skandra08          try/roof-dual — S1+N1 + DUAL_FIRE gun while laser/lightning
+      231s c deltaparticle/Databricks-Buildathon                  65d883f1 Sumit Prabhakar    Memory-map inputs again: the fast scanner now reads page cache directly (no copy past L2)
+      204s c colton-boi/Mech-Bot                                  84b628a2 TheCodingDuck      build: switch bot implementation
+      202s c Th3r0n/mech-royale-bot                               84392278 Th3r0n             v10: economy loop, conditional retreat, gun + laser loadout
+      200s c moonriver0922/wgsrobot                               d423f07c moonriver0922      Account for the game circle deadline before leaving a zone route
+      196s c cherylaurelia/builders-hackathon                     d8f17731 Cheryl Aurelia     cold read-ahead: 2 helper threads instead of 4 (fadvise hints are asynchronous; more threa
+      193s c moonriver0922/wgsrobot                               29d8eeea moonriver0922      Choose a reachable game-grid waypoint inside the next circle
+      181s c jmonked/monked-mech-royale                           077b2780 Julian Monk        v10b3: DeepSeek checkpoint 2 fixes - laser guard only holds for the mech we charged at (or
+      180s c brycehcmcgrath/mechfight-bot                         2dc39793 Bryce McGrath      Record official 4.79 improvement and integrated charge-aware verification
+      179s c brycehcmcgrath/mechfight-bot                         bb7edde0 Bryce McGrath      Refresh independent laser trial selection evidence after charge-aware result
+      178s c arnabxero/xero-mech-royale                           6ceda0cd Eftakhar Ahmed Arn variant v5-combo: XERO_TUNE=solo_duel=1,loot_radius=150,strafe_min=0.4,strafe_max=0.9
+      177s c skandra08/robo-fight                                 42f2e6b0 skandra08          try/roof-dual — S1+N1 + DUAL_FIRE + HOLD_FIGHT no chase
+      163s c cherylaurelia/builders-hackathon                     aed7d008 Cheryl Aurelia     integ: merge d8f1773
+      163s c cherylaurelia/builders-hackathon                     82ac6a04 Cheryl Aurelia     integ: merge 564f8e86af80d1eafc7ceae16ac6be6b13b39c87
+      148s c arnabxero/xero-mech-royale                           eb68039d Eftakhar Ahmed Arn variant v5-strafe: XERO_TUNE=strafe_min=0.4,strafe_max=0.9
+      143s c joshuamuellenbach25/Databricks---Shopping-Sessions   2f875ade joshuamuellenbach2 Keep freed memory mapped and fill dedup output in fixed chunks
+      141s c atharv109/mech-royale                                4d18980c atharv109          Initial Mech Royale bot: kit starter + Dockerfile pinned to oven/bun:1.4.4-slim
+      139s c skibidies/yo-john-xie                                8057e33b skibidies          variant A: retreats earlier "retreat_hp": 0.5,
+      137s c cherylaurelia/builders-hackathon                     f2df3658 Cheryl Aurelia     main: take cfedecc (arena/c1 + writer graft): gate cold 0.474 vs faac7bf, fuzz PASS
+      134s c 25benjaminli/mechroyale                              1a4a797e BenjaminLi         Add selectable escape policy for practice
+      112s c Jiackary/buildathon_26                               34840dbd Zachary            v4-economy-outrider: economy, then hold the outer band of the next circle
+      104s c MauroMiranda28/mech-royale-bot                       d12e24a3 MauroMiranda28     v9: vision-first upgrade picks (idea #6)
+       99s c colton-boi/Mech-Bot                                  9be519ed TheCodingDuck      feat(bot): update behaviour
+       97s c koillea/goonies-buildathon                           6f8f9b8f Claude             shopping-sessions: dev snapshot of the submitted build; board watcher; anti-hallucination 
+       91s c kpfarn/osuhackathon                                  4aefd8b4 kpfarn             Remove starter kit from submission; keep locally via gitignore
+       85s c kpfarn/osuhackathon                                  b4d13b23 kpfarn             Clarify local-only starter kit in README
+       67s c joshuamuellenbach25/RWX---Blast-Radius               c173e8cf joshuamuellenbach2 End a commit's run at the first test that passes its time limit
+       58s c moonriver0922/wgsrobot                               f741eb61 moonriver0922      Calibrate game movement against the official replay and record four practice scores
+       54s c koillea/goonies-buildathon                           a42be737 Claude             Shopping Sessions submission: AVX-512 scanner, dense person ids, huge-page allocator
+       51s c suzhuhui-hub/oval-warden                             340a4df7 Zhuhui Su          Distinguish active opposition and commit when cover is out of reach
+       -9s c micah-andelman/mech-royale                           be72ea9e micah-andelman     v14: laser aim fix. The laser is hitscan, but we aimed it with the gun's bullet lead and r
+      -18s c atharvatripathi2026/gtgoats_mech_royale              cc762848 GT Goats           Use the second aim step for a gun still on cooldown
+      -19s c jerrywang255-spec/Mech-royale-bot                    9f96f734 jerrywang255-spec  Add files via upload
+       90s a cherylaurelia/builders-hackathon                     9a37097c cloud agent        parse: IDs packed by nibble tables straight from the line (pack_at) - AB 0.933 0.962 0.930
+      460s a jmonked/monked-mech-royale                           e1596e3d Julian Monk        v10c3 (experiment): while retreating to heal, gun keeps shooting an attacker that hit us i
+      197s a cherylaurelia/builders-hackathon                     4d04e62f Cheryl Aurelia     c1: campaign_daily merged and written by the main thread while the workers write their use
+      457s a cherylaurelia/builders-hackathon                     0fcf3a4f cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+      222s a cherylaurelia/builders-hackathon                     c166174f Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      139s a cherylaurelia/builders-hackathon                     c9a415f8 cloud agent        dedup: groups built in the table pass (a slot that meets a repeat holds a group number, me
+      332s a cherylaurelia/builders-hackathon                     838452e6 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      268s a cherylaurelia/builders-hackathon                     4250178d cloud agent        sessions: 30-minute bins per person instead of a sort (first/last ts and count per bin, se
+      457s a cherylaurelia/builders-hackathon                     b95eac61 cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+      197s a cherylaurelia/builders-hackathon                     12c5402a Cheryl Aurelia     c1: campaign_daily merged and written by the main thread while the workers write their use
+      139s a cherylaurelia/builders-hackathon                     5209e642 cloud agent        dedup: groups built in the table pass (a slot that meets a repeat holds a group number, me
+      332s a cherylaurelia/builders-hackathon                     d8a77767 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      222s a cherylaurelia/builders-hackathon                     8be9fffd Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      457s a cherylaurelia/builders-hackathon                     b77e685b cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+      197s a cherylaurelia/builders-hackathon                     3d5d51ff Cheryl Aurelia     c1: campaign_daily merged and written by the main thread while the workers write their use
+      139s a cherylaurelia/builders-hackathon                     d1131df3 cloud agent        dedup: groups built in the table pass (a slot that meets a repeat holds a group number, me
+      332s a cherylaurelia/builders-hackathon                     237bfdd8 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      222s a cherylaurelia/builders-hackathon                     8c9e522a Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      222s a cherylaurelia/builders-hackathon                     07f87c71 Cheryl Aurelia     tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouche
+      457s a cherylaurelia/builders-hackathon                     7ddab708 cloud agent        read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 Ki
+      197s a cherylaurelia/builders-hackathon                     eea0d64c Cheryl Aurelia     c1: campaign_daily merged and written by the main thread while the workers write their use
+-- shopping 0.84 04:52:02
+      451s c deltaparticle/Databricks-Buildathon                  1000516a Sumit Prabhakar    Resolve clicks to persons while parsing (once links are ready); drop the click-routing pas
+      442s c Hoangchuyenanh/mech-royale-bot                       c64c37fd Hoang357           Add Mech Royale v3 bot
+      415s c Jiackary/buildathon_26                               0f84ed91 Zachary            Add consolidate, laser and ffa strategy options
+      413s c Jiackary/buildathon_26                               819c28af Zachary            v6-consolidate: STRATEGY economy+consolidate
+      411s c Jiackary/buildathon_26                               c76a5c20 Zachary            v6-laser: STRATEGY economy+consolidate+laser
+      409s c Jiackary/buildathon_26                               aedfdcd4 Zachary            v6-ffa: STRATEGY economy+consolidate+ffa
+      397s c skibidies/yo-john-xie                                09c37f62 skibidies          c: no hiding
+      388s c RagoSpams/shopping-sessions                          fe313fee RagoSpams          Record the link reservation experiment
+      379s c Achintya-Lakshmanan/mech-royale-bot                  6f0f18a8 Achintya-Lakshmana Back to test1 (4.54)
+      346s c skandra08/robo-fight                                 71e0da54 Claude             try/cd-upgrades: rank upgrades by duel value (plating, gun rate, gun damage first; armor l
+      345s c Achintya-Lakshmanan/mech-royale-bot                  dda2ca95 Achintya-Lakshmana test4: patient engagement only after a free-for-all is detected
+      343s c Achintya-Lakshmanan/mech-royale-bot                  0d85ce7b Achintya-Lakshmana test3: faster strafe changes (jink)
+      338s c skibidies/yo-john-xie                                72e0fed9 skibidies          Add files via upload
+      337s c charliescull/mech-royale-bot                         3b42e6a7 Charlie Scullion   Mech Royale variant F: map-aware farmer with two modes
+      336s c charliescull/mech-royale-bot                         15464864 Charlie Scullion   Mech Royale variant L: agent brain with the fight read, laser kit
+      320s c arnav3013s/mech-bot                                  6b7da106 Varshith D         Add CipherX Duelist combat strategy
+      305s c RagoSpams/shopping-sessions                          c27f78d5 RagoSpams          Record the oversubscribed pool experiment
+      301s c MahmoodMI1/Buildathon-databricks-1                   18cd8226 MahmoodMI1         Track B round 6: fused scanner, batched link lookups, reusable dedup tables, populated mma
+      300s c sphugne/mech-royale-bot                              b7b39e0d Shupeng Cao        Add combat bot with predictive aim and strafing
+      289s c joshuamuellenbach25/Databricks---Shopping-Sessions   8893fd61 joshuamuellenbach2 Inline the event parse and read civil days and prices a word at a time
+      276s c anthonyteti/buildathon-mech-royale                   375101d9 anthonyteti        Bot v5: ignore distant mechs, answer drones that are hitting us; add match simulator
+      265s c dmclaughlin-bit/mech-bot                             bfc438b9 Claude             Research intake: engagement, fight vs flee
+      260s c Hoangchuyenanh/mech-royale-bot                       b6829a65 Hoang Tran         Add MIT License file
+      258s c dmclaughlin-bit/mech-bot                             6545970e D McLaughlin       WORKFLOW: goal = largest expected score impact per build (Doug)
+      251s c joshuamuellenbach25/Databricks---Shopping-Sessions   74f389fe joshuamuellenbach2 Merge branch 'opt/writer' into opt/cand1
+      250s c joshuamuellenbach25/Databricks---Shopping-Sessions   a6f730c6 joshuamuellenbach2 Merge branch 'opt/dedupbuf' into opt/cand1
+      235s c fernando-ace/Buildathon_Mechina_CAD                  24aa1216 Fernando Acevedo   perf: accelerate identity alias matching
+      230s c emptybook11/mech-royale-bot                          52e8a757 emptybook11        Delete bot.py
+      221s c emptybook11/mech-royale-bot                          c4d2defb emptybook11        Add files via upload
+      221s c skibidies/yo-john-xie                                9c11bce7 skibidies          cube farmer
+      220s c brycehcmcgrath/mechfight-bot                         08331fc9 Bryce McGrath      Update runtime payload
+      220s c kyoto-max/Mech_Royale                                0ec86281 kyoto-max          v12: switch the entrypoint to pilot.py (new controller, unmodified)
+      207s c dmclaughlin-bit/mech-bot                             81b3f61b D McLaughlin       Merge main into build-12-farm (keep all log entries)
+      206s c MauroMiranda28/mech-royale-bot                       69e3e535 MauroMiranda28     v17: mortar artillery experiment (v14 base)
+      199s c dmclaughlin-bit/mech-bot                             12a26df2 dmclaughlin-bit    Merge pull request #21 from dmclaughlin-bit/build-12-farm
+      197s c arnav3013s/mech-bot                                  06371539 Varshith D         Merge pull request #1 from arnav3013s/cipherx-duelist
+      182s c dmclaughlin-bit/mech-bot                             e5737e2f D McLaughlin       Log Build 12 FARM: 2.44, KEEP, new champion
+      173s c nguyenphuquang1234567/kestrel                        7c91159a Nguyen Phu Quang   kestrel v6a: kite lightning carriers from 55 m
+      172s c nguyenphuquang1234567/kestrel                        c71231ee Nguyen Phu Quang   kestrel v6b: gun spacing 140 m with quicker strafe changes
+      171s c anthonyteti/buildathon-blast-radius                  c1a75c82 anthonyteti        Import-time change checks, lazy-load coverage, run-time verification
+      170s c nguyenphuquang1234567/kestrel                        fad667e3 Nguyen Phu Quang   kestrel v6c: laser spacing 160 m
+      169s c nguyenphuquang1234567/kestrel                        13ece8c6 Nguyen Phu Quang   kestrel v6d: unarmed early: don't start distant fights
+      151s c sntin/mech-royale                                    64225250 sntin              Capture supply drops when uncontested; sim attacker stats
+      144s c h-ardy/buildathon-shopping-sessions                  c013c024 Hardy Wang         Faster timestamps, purchase-only category lookup, per-person grouping, parallel link inter
+      140s c SunnyChanPolyU/BuildersMechRoyale                    9cf58568 SunnyChanPolyU     update
+      127s c RagoSpams/shopping-sessions                          c23eba19 RagoSpams          Carry clicks as packed sortable words from parse to aggregation
+      127s c RagoSpams/shopping-sessions                          8c1a4271 RagoSpams          Record time-bucketed ordering and narrow cursor experiments
+      122s c RagoSpams/shopping-sessions                          65693fae RagoSpams          Resolve events while clicks deduplicate
+      122s c RagoSpams/shopping-sessions                          b7253547 RagoSpams          Record stage-overlap experiments and per-stage idle time
+      122s c RagoSpams/shopping-sessions                          cd37b708 RagoSpams          Record the resolve-side person count experiment
+      119s c h-ardy/buildathon-blast-radius                       ef0bb991 Hardy              Keep numeric libraries and DuckDB to one thread when running tests in the container
+      107s c arnabxero/xero-mech-royale                           c5416cbf Eftakhar Ahmed Arn variant v54-avoid200: XERO_TUNE=avoid_r=200,avoid_sounds=1
+      106s c praggybhat/mech-royale-bot                           49de163d Prajna Bhat        v5: fix pathing down slopes, weighted A*, item memory + loot commitment/timeout, unreachab
+      100s c anthonyteti/buildathon-shopping-sessions             99d8c5be anthonyteti        Branch-free quote check, month-table timestamps, direct product/campaign lookup, compact d
+       97s c FDS-Dark/buildathon-shopping-sessions                77f1e5bf Austin Koske       Fuse dense event and compact pipeline passes
+       95s c koillea/mech-royale-goonies                          f2bb611c Claude             Dossier: v3.4 scored 3.63; v3.5 = v3.4 + safe climbing
+       93s c koillea/mech-royale-goonies                          06ddf382 Claude             v3.5: v3.4 + safe climbing (one change)
+       90s c ourux/MechRoyale                                     7858b388 vmech              r140: v4 play (no hiding) at 140 m preferred range
+       90s c shreypatel1/quokka-lattice-7f3k                      41790670 Shrey Patel        Initial bot
+       88s c dmclaughlin-bit/mech-bot                             c2e7f601 D McLaughlin       Build 13: farm reach - hunt drones and crates within 150 m when safe
+       86s c deltaparticle/Databricks-Buildathon                  f39fd953 Sumit Prabhakar    DIAGNOSTIC: ba90900 pipeline run twice per container (measures warm compute vs fixed cost)
+       77s c praggybhat/mech-royale-bot                           91edb9e8 Prajna Bhat        v5.1: robust free-for-all detection (deaths we did not cause), no false triggers in practi
+       76s c dmclaughlin-bit/mech-bot                             4c9e5b35 D McLaughlin       Merge main into research intake (keep all log entries)
+       72s c skibidies/yo-john-xie                                24c55bda skibidies          Add files via upload
+       70s c dmclaughlin-bit/mech-bot                             bd045c7d dmclaughlin-bit    Merge pull request #22 from dmclaughlin-bit/research-20261120-2346
+       63s c deltaparticle/Databricks-Buildathon                  aafe4bc1 Sumit Prabhakar    Restore the optimized pipeline after the diagnostic commit
+       47s c nelsonwong506-lang/mech-royale                       87823c0d Nelson             Run Mech Royale bot in native C++
+       42s c bhattyuvraj22/mechfight-bot                          445b03ed bhattyuvraj22      Restore scored v2 strategy and fix crate positioning
+       42s c dmclaughlin-bit/mech-bot                             3f7cdb8a D McLaughlin       Ingest Diego research 23:46 (engagement)
+       33s c adman40/shopping-sessions-buildathon                 5590e9ea adman40            no-mistakes(document): Refresh V2 Slice 5 documentation
+       31s c Russell-Day/builders-mech-royale                     2c32c04d Russell-Day        v8: v5 + boost-strafing; laser hiding off (v6 scored lower)
+       24s c anthonyteti/buildathon-cad-deid                      84a1f81a anthonyteti        Patch native SolidWorks, Inventor, Solid Edge and Creo files in place; PDF raw leftovers; 
+       23s c joshuamuellenbach25/RWX---Blast-Radius               4eb766ca joshuamuellenbach2 Update the status page (23:51 EST)
+        6s c RagoSpams/shopping-sessions                          050240ec RagoSpams          Order events while clicks resolve
+        0s c atharvatripathi2026/gtgoats_mech_royale              9dc89d77 atharvatripathi202 Record GT Goats experiment 2026-11-21T045200Z-projected-reload-sightlines
+       -4s c jackbalseca/mech-royale-bot                          d5e7b760 Jack Balseca       Re-roll of v3 293eefc (SALT=1 on our RNG only, same strategy) to measure official scorer n
+       -5s c ourux/MechRoyale                                     f8419d5a vmech              Add MRM option: Robocode-style Minimum Risk Movement while holding (off by default; plays 
+      346s a skandra08/robo-fight                                 fe1835f7 Claude             try/cd-dronefarm-upg: cd-dronefarm (N5) + upgrades ranked by duel value
+      345s a Achintya-Lakshmanan/mech-royale-bot                  8e857581 Achintya-Lakshmana test5: test3 plus patient engagement only after a free-for-all is detected
+      382s a cherylaurelia/builders-hackathon                     a0b5e919 cloud agent        parse: second 64 bytes of a line scanned 32 at a time, at most 4 commas taken from them - 
+      410s a cherylaurelia/builders-hackathon                     82a25c5b cloud agent        parse(c1): a line's last 32 of 128 bytes are scanned only when it has no newline in the fi
+-- cad 399 03:55:42
+      477s c micah-andelman/mech-royale                           82ee9f68 micah-andelman     v18 (not submitted): B18=1 bundle on v17. Gun-only standoff 85 m (145 m with a laser); fin
+      476s c AbhirajTiwari12/mech-royale-bot                      b218b512 AbhirajTiwari12    K4: EC10-K, fully passive after 4 kills
+      462s c kleongf/buildathon-solution                          e8dbaf76 pickerof           Update buildercomp findings and E013 for iter 4 (1516 ms, -22% vs Alex at 20M)
+      461s c kleongf/buildathon-solution                          304ce1f2 pickerof           Sync buildercomp candidate to iter 5 (1306817, 1443.4 ms at 20M)
+      460s c Rebecca922/mech-royale-bot                           5b4b25d7 Rebecca            Restore V4 baseline and preserve ammo for finishing shots
+      457s c AbhirajTiwari12/mech-royale-bot                      132a3359 AbhirajTiwari12    EC10-K play, fresh SHA
+      455s c Russell-Day/builders-mech-royale                     e51f3c53 Russell-Day        v2: farm NPCs, crates, cubes, weapons and supply drops when safe; zone only when urgent; 2
+      454s c joshuamuellenbach25/Databricks---Shopping-Sessions   86307b4e joshuamuellenbach2 Merge branch 'opt/merged' into opt/main-next
+      449s c varadanvk/mech-royale-bot                            d7470e06 varadanvk          Tidy a comment in the sight-line code
+      446s c KennethLei1492/Builder-Mech-Royale                   df5178d4 Kenneth Lei        Survival edge play: wait just inside the zone edge with a wall behind, face inward
+      430s c alex-vizn/mech-royale-bot                            48f5f183 alex-vizn          Return to the shorter decision order and take cubes that still pay off.
+      419s c deltaparticle/Databricks-Buildathon                  ba90900e Sumit Prabhakar    Revert to table-based 6-bit ID packing (the SWAR version measured slower on Linux)
+      413s c AbhirajTiwari12/mech-royale-bot                      1c5136f9 AbhirajTiwari12    K4R: EC10-K, passive for 60 s after the 4th kill, then resume the spree
+      410s c AbhirajTiwari12/mech-royale-bot                      9fc50b18 AbhirajTiwari12    EC10-K play, fresh SHA (probe flags off)
+      408s c blanc-team/mech_royale                               e3afdb57 Rajas129           Implement full survival-optimized modular architecture adhering to complete specification
+      400s c Kyt0V0/Mech-Royale                                   d60bac45 ironbuckeye        Experiment S: keep farming and hunting down to half health
+      398s c Kyt0V0/Mech-Royale                                   43940f9c ironbuckeye        Experiment T: never pause farming or hunting to heal
+      397s c Kyt0V0/Mech-Royale                                   ed0f7d99 ironbuckeye        Experiment U: S plus stronger preference for crates and drones
+      396s c fernando-ace/Buildathon_Mech_Royal                   5474ba68 Fernando Acevedo   Dodge ranged mech fire after taking a hit
+      395s c Kyt0V0/Mech-Royale                                   21229e04 ironbuckeye        Standard bot (experiments off)
+      393s c lolstershwjav/OSU-Hackathon---Builders---Mech-Royale 9c4e438b karunywoony        Update README with additional text
+      390s c nullat0m7/mech-royale                                944ca5c1 nullat0m7          feat(bot): chase landed drops within 300 m
+      389s c deltaparticle/Databricks-Buildathon                  07a2956c Sumit Prabhakar    CI: measure a profile-guided build against the normal build
+      387s c Osca-K/builders-buildit-mech-royale                  bc4fc383 Osca               Focus fire on opponents with shorter estimated kill time
+      361s c caioplcerda/oval-pilot                               cc934e9b Caio Lacerda       feat: experiment flags (endgame, econ, shy opening, FFA auto-detect) + batch/diag tools
+      354s c shaunkar1/harrier-sparring-bot                       801727bf Shaun Karani       Initialize independent Harrier sparring bot repository
+      346s c explorer-skp/buildathon-shopping-sessions            966fac71 explorer-skp       Back to about 8 events per person group
+      345s c joshuamuellenbach25/RWX---Blast-Radius               c6940cb8 joshuamuellenbach2 Skip disassembly for code objects whose raw fields match
+      331s c jerrywang255-spec/Mech-royale-bot                    f2753455 Wang, Jerry        Improve Mech Royale zone navigation
+      325s c Russell-Day/builders-mech-royale                     df31a3e2 Russell-Day        v3: finish low-HP targets, lightning close-in, retreat to regen below 35%, hold beside wal
+      292s c Kalyan-Lankireddy/buildathon-sessions                2aa5f3dc Kalyan-Lankireddy  v2.5 (experiment C): pread input into huge-page buffers, huge-page allocator with a reuse 
+      290s c micah-andelman/mech-royale                           0bdf2b04 micah-andelman     v18a: split the B18 bundle into flags (Th3r0n measured a similar bundle at -0.66 on the bo
+      289s c Warrior-hound/mech-royale                            0cfc5425 Warrior-hound      p-fight I2 kiter on p-econ: root cause = fights held in the open with no matchup range or 
+      288s c micah-andelman/mech-royale                           41f7496d micah-andelman     v18b: v18a + FIRE_ANY (shoot the best visible mech in every mode except while regen-hiding
+      283s c OvitasO/mech-royal-bot-buildathon                    59840908 Vitas              Experiment 7: coordinate secondary weapons, aiming and safe combat spacing
+      272s c JosiahAklog/nexus-mech-royale                        6bd8f571 Josiah Aklog       Add files via upload
+      267s c fernando-ace/Buildathon_Databricks                   f723dc29 Fernando Acevedo   Intern products only for purchase events
+      262s c arnav3013s/mech-bot                                  44a4d01c Arnav Reddy Mamidi Update survivor.py
+      255s c skandra08/robo-fight                                 156b8d8e skandra08          try/zone-sheep — silent deep next-zone, heal hard, fight only when shot
+      253s c NhatUndeath/mech-royale-bot                          3e53f8b7 NhatUndeath        v3: selective engagement from v2, restore NPC/crate farming, wider early weapon looting
+      245s c skandra08/robo-fight                                 5ac89093 skandra08          try/cube-snowball — farm NPCs/crates/cubes ASAP, free fights only
+      241s c shaunkar1/harrier-sparring-bot                       fdc595c8 Shaun Karani       Stage Harrier original source (1/4)
+      236s c skandra08/robo-fight                                 d653d35b skandra08          docs: zone-sheep / cube-snowball full hashes + submit order
+      231s c Russell-Day/builders-mech-royale                     9ffe68bb Russell-Day        v4: explore unvisited ground and sweep the vision cone while walking
+      230s c niranjankumarnk/mech-royale                          9f4fc73a niranjankumarnk    Experiment H: arm first, on top of G
+      210s c shaunkar1/harrier-sparring-bot                       dddc89b4 Shaun Karani       Add Harrier go.mod
+      209s c shaunkar1/harrier-sparring-bot                       ce9ec6e0 Shaun Karani       Add Harrier Dockerfile
+      207s c shaunkar1/harrier-sparring-bot                       db707d69 Shaun Karani       Add Harrier main.go
+      196s c davidvarvas/mech-royale-bot                          f1d0f81f David Varvas       B2: jink on by default; free-for-all switches off; econ/ret45/thirdp switches
+      195s c ricky-he2006/Builders---Mech-Royale                  efee861e Ricky He           change
+      195s c RagoSpams/shopping-sessions                          965fab42 RagoSpams          Carry events as packed sortable words from parse to aggregation
+      188s c anthonyteti/buildathon-mech-royale                   d324038d anthonyteti        Bot v0: zone-safe movement, lead-aimed gun, secondary weapons, loot, dodging
+      183s c himagna16/mech-royale-bot                            611ea7da Sai Maruvada       Fight back over cover, never idle under fire, unflank, active farming
+      182s c shaunkar1/harrier-sparring-bot                       11344b52 Shaun Karani       Add protocol types
+      174s c MauroMiranda28/mech-royale-bot                       b75320fa MauroMiranda28     v14: v12 base + drop ambush, early weapon rush, endgame caution
+      156s c niranjankumarnk/shopping-sessions                    3fcf2f21 Niranjan Kumar     Smaller output: one row group per partition, dictionary pages with RLE/bit-packed indices
+      152s c Bean0l/Buildathon-Mech-Bot                           45b615cf llanosse-sys       Bot v3: v1 fighting + v2 add-ons + hunt weak bots + zone navigation fix
+      150s c FDS-Dark/buildathon-shopping-sessions                ec57236b Austin Koske       Optimize mmap chunk scheduling and click overlap
+      146s c atharvatripathi2026/gtgoats_mech_royale              d05693dc atharvatripathi202 Record GT Goats experiment c201559-momentum-preserving-line-dodge
+      146s c viktor-lorentz/mech-royale-overcooked                8e774a0f viktor-lorentz     IDEAS/results: variant sim results and next actions
+      145s c atharvatripathi2026/gtgoats_mech_royale              a3ad6478 atharvatripathi202 Record GT Goats experiment 873281e-preserve-imminent-line-dodge
+      134s c Russell-Day/builders-mech-royale                     be2cd017 Russell-Day        v5: explore + target current attackers; farm/retreat thresholds back to v2
+      133s c explorer-skp/buildathon-shopping-sessions            a1ff3304 explorer-skp       Scanner: per-block delimiter index written with a fixed unrolled loop, then lines taken N 
+      117s c fernando-ace/Buildathon_Mech_Royal                   7ac0e0f8 Fernando Acevedo   Revert "Dodge ranged mech fire after taking a hit"
+      114s c ZheXie/shopping-sessions                             fc1de371 ZheXie             Rust port of the pipeline; the Dockerfile now builds it
+       89s c koillea/mech-royale-goonies                          fbcbc362 Claude             try-e: v3 with roof perching off (hide at covered ground spots instead)
+       88s c joshuamuellenbach25/RWX---Blast-Radius               7a780d12 joshuamuellenbach2 Print one line per standings poll
+       77s c MahmoodMI1/Buildathon-databricks-1                   652aa393 MahmoodMI1         Track B round 4: bucketed partition load, hand-written Parquet, static binary in scratch i
+       72s c chriseco427-spec/CyprusBot                           b788b9c0 chriseco427-spec   Scan a full turn at spawn and rush an uncontested laser or lightning
+       69s c ZheXie/shopping-sessions                             d30f0e50 ZheXie             Docker: set Rust flags in the Dockerfile; commit the cargo config
+       66s c atharvatripathi2026/gtgoats_mech_royale              f1028418 atharvatripathi202 Record GT Goats experiment bacc6b1-second-tick-sidestep-gun
+       65s c atharvatripathi2026/gtgoats_mech_royale              77c43a4c atharvatripathi202 Record GT Goats experiment 2026-11-21T035435Z-cycle-handoff
+       65s c devakchow/team-kanyaraasi-mech-royale                2199eb11 Devak              Prepare Mech Royale submission
+       61s c Russell-Day/builders-mech-royale                     3973a094 Russell-Day        v6: hide from ranged lasers and ambush at gun range; rush when no cover
+       61s c Warrior-hound/mech-royale                            61413fd9 Warrior-hound      WIP p-laser: laser kite band + laser-cooldown duck + fight-submode exemption from p-fight 
+       53s c explorer-skp/buildathon-shopping-sessions            82d6b270 explorer-skp       Large person groups sort packed u128 keys with the primitive sort, then permute the rows
+       50s c tessaSlice/buildathon                                b402fe3d Amy Lee            Add the Rust submission image and the solution sources.
+       38s c fernando-ace/Buildathon_Mech_Royal                   fb5832b0 Fernando Acevedo   Dodge visible ranged attacks
+       21s c moonriver0922/wgsrobot                               c942c498 moonriver0922      Repair Mech Royale navigation, capture, and shared weapon aim
+       11s c zelokonit/buildathon2026                             b47fa28a zelokonit          Initial commit
+        8s c niranjankumarnk/shopping-sessions                    394a7637 Niranjan Kumar     Write user_daily from its own thread while the session stage runs
+        6s c jerrywang255-spec/Mech-royale-bot                    588c294c jerrywang255-spec  Merge pull request #1 from jerrywang255-spec/navigation-optimization
+       -8s c joekritenbrink0-wq/mech-bot                          9febfb64 joekritenbrink0-wq Sim: strong medium+ hunters calibrated to real scores, hearing/search squad mode, canopy v
+      -10s c joekritenbrink0-wq/mech-bot                          4e3d31dc joekritenbrink0-wq Variant v2-farm: FARM on (practice probe)
+      -25s c Th3r0n/mech-royale-bot                               be6deb01 Th3r0n             Econ core (re-implementation of a 5.19 public economy bot's methods), selectable with PP.c
+       99s a cherylaurelia/builders-hackathon                     b430ee7d cloud agent        dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the
+      449s a DivyamBanga/buildathon                               bd5d3847 DivyamBanga        Keep DuckDB closed until a test needs it; reuse its answers after any setup that matches
+      437s a DivyamBanga/buildathon                               0ee1ecfa DivyamBanga        Import a patched module on demand when the coordinator never imported it
+       99s a cherylaurelia/builders-hackathon                     ecabedfe cloud agent        dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the
+       99s a cherylaurelia/builders-hackathon                     701c35f4 cloud agent        dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the
+      464s a PhoebeY05/blast-radius-selector                      92ab14ba Phoebe Yap         Add Blast Radius starter kit at repo root + solution plan
+-- blast 187.5 03:46:02
+      480s c explorer-skp/buildathon-shopping-sessions            196faf21 explorer-skp       Load the product and campaign tables while the pool parses link lines
+      478s c Kyt0V0/Mech-Royale                                   007a02ea ironbuckeye        Experiment Q: damage upgrades before health upgrades
+      476s c Kyt0V0/Mech-Royale                                   57644ed5 ironbuckeye        Experiment R: stop seeking cubes after ten
+      474s c Kyt0V0/Mech-Royale                                   19fc2dda ironbuckeye        Experiment P: press wounded targets sooner
+      472s c Kyt0V0/Mech-Royale                                   36c7565f ironbuckeye        Standard bot (experiments off); chase and cube-cap parameters
+      450s c RagoSpams/shopping-sessions                          d9f0bec2 RagoSpams          Merge branch 'fm/shop-r3' into fm/shop-r3-out
+      449s c Warrior-hound/mech-royale                            ae2c585b Warrior-hound      WIP p-econ: fight-arm within 70 m, econ trips gated on live attackers and ttk ratio (24 se
+      443s c skandra08/robo-fight                                 79d9eeb9 Claude             try/standoff: fight from 135-200 m instead of closing to 75 m
+      430s c alexwilldev/mechroyale-bot                           f187fcd8 Alex Williams      Batch 17: laser range 230 m, faster strafe flips, scan spin and 400 m early laser detour (
+      428s c Osca-K/builders-buildit-mech-royale                  a9491842 Osca               Rank gun upgrades by sustained damage including reloads
+      418s c Anurisha-Dunuwila/mech-royale-bot                    f7ff9d85 Anurisha-Dunuwila  prioritise regen and hp upgrades
+      416s c brycehcmcgrath/mechfight-bot                         a36ebd58 Bryce McGrath      Update runtime payload
+      408s c RagoSpams/shopping-sessions                          dd664b77 RagoSpams          Decode catalog names, packed-key hashes and epoch timestamps with word operations
+      403s c mike200004/mech-royale-bot                           7e3cbee3 Michael            Bot v2.1: lightning discipline, scan fix, sim-informed defaults
+      394s c dmclaughlin-bit/mech-bot                             c222ea52 D McLaughlin       Log Build 7 revert (2.04)
+      393s c AbhirajTiwari12/mech-royale-bot                      27b004e8 AbhirajTiwari12    PC: G3 + laser pre-charge while the target is just out of sight
+      389s c AbhirajTiwari12/mech-royale-bot                      b1ff4a71 AbhirajTiwari12    PB: G3 + laser pre-charge + boost-speed strafing and closing in fights
+      387s c dmclaughlin-bit/mech-bot                             08f1f455 D McLaughlin       Build 8: laser first
+      383s c AbhirajTiwari12/mech-royale-bot                      3bdd0d53 AbhirajTiwari12    G3 play, fresh SHA (kill-speed flags off)
+      383s c Warrior-hound/mech-royale                            84ff12a4 Warrior-hound      WIP p-econ: camp spatial hysteresis, cube_dz 6, contest includes heard mechs (24 seeds: fl
+      382s c explorer-skp/buildathon-shopping-sessions            dd4cec32 explorer-skp       Routing writes each person's name into their rows from the cached table slice; drop the pe
+      382s c joshuamuellenbach25/Databricks---Shopping-Sessions   5bf3ff78 joshuamuellenbach2 Add a README that explains the solver, its checks and how to run it
+      379s c dmclaughlin-bit/mech-bot                             beb9240f D McLaughlin       Log Build 8: laser first
+      378s c KaushikNNN/mech-royale-bot                           1a609aba Leela Kaushik Nage Update example_bot.py
+      377s c atharvatripathi2026/gtgoats_mech_royale              636fe079 atharvatripathi202 Record corridor lead outcomes and exact votes
+      377s c fernando-ace/Buildathon_Mech_Royal                   ea3663af Fernando Acevedo   Keep early supply drops out of safe routes
+      376s c Evans-Kwashie/mech-royale-bot                        ff7826e4 Evans Klenam Kwash first commit
+      375s c NhatUndeath/mech-royale-bot                          58acf6ea NhatUndeath        v2: cautious play - no NPC/crate farming, engage only when attacked or close, retreat earl
+      375s c atharvatripathi2026/gtgoats_mech_royale              b687228c atharvatripathi202 Record sideways launch timing outcomes and votes
+      374s c atharvatripathi2026/gtgoats_mech_royale              8be80c60 atharvatripathi202 Record joint rule sensitivity and family comparison
+      372s c RagoSpams/shopping-sessions                          125f3ebb RagoSpams          Drop row packing so in-place resolve keeps equal record layouts
+      362s c koillea/mech-royale-goonies                          5c0dc181 Claude             sim: house bots hunt known entrants within SIM_HUNT_RADIUS, fight each other only inside S
+      349s c cherylaurelia/builders-hackathon                     83e9492a cloud agent        parse: a second prefetch for the ID table, three slots past the home slot - AB 60M 0.776 0
+      348s c joshuamuellenbach25/Databricks---Shopping-Sessions   9ff4aeda joshuamuellenbach2 Merge branch 'opt/fields' into opt/merged
+      329s c Russell-Day/builders-mech-royale                     28d25331 Russell-Day        v1: zone-aware survival bot with pathing, looting, lead-aimed gun, laser/lightning/mortar 
+      327s c varchaskukreja/TTUN                                  11350d33 Varchas            Restore the 5.19 Mech Royale bot from BB-098D02A6
+      324s c skandra08/robo-fight                                 c458a037 skandra08          try/classic-roof — historical ARM→roof→CAMP playbook + modern bugfixes
+      317s c deltaparticle/Databricks-Buildathon                  f12df424 Sumit Prabhakar    SWAR 7-bit ID packing (up to 9 ASCII bytes); force-inline timestamp parsing
+      310s c skandra08/robo-fight                                 92ec1947 skandra08          try/edge-hunter — quiet arm, edge rotate, rear/undetected 1v1s, late thirds
+      302s c skandra08/robo-fight                                 6eb0fa37 skandra08          try/loot-brawl — low ground pockets, lightning-first, mid-range trades, peel 2nd hunter
+      290s c dmclaughlin-bit/mech-bot                             c137e0e6 D McLaughlin       Add WORKFLOW.md; retire next-doug; Diego research prompt
+      287s c devakchow/team-kanyaraasi-databricks-shopping-sessions 458de300 Devak              Fuse exact ingestion and contract session buckets
+      285s c rishit-u/thebigO-buildathon                          c4574716 Rishit Upadhyay    Initial commit
+      279s c skandra08/robo-fight                                 1b4d4f28 skandra08          docs: pivot hash table + submit order for classic/edge/loot
+      276s c Mouhamadmm466/aku-namu-tata                          b687fbd9 Mouhamad           Recover PDF attachment content updates on the pinned parser
+      262s c explorer-skp/buildathon-shopping-sessions            e67e49bc explorer-skp       Test: no hash collisions on 5M generator-shaped IDs
+      261s c colton-boi/Mech-Bot                                  683564ba TheCodingDuck      chore: update bot configuration
+      251s c viktor-lorentz/mech-royale-overcooked                391d45d7 viktor-lorentz     Brain: remember seen weapon pickups, longer weapon reach (unarmed 250 m, swap 180 m); sim 
+      235s c cherylaurelia/builders-hackathon                     c9a415f8 cloud agent        dedup: groups built in the table pass (a slot that meets a repeat holds a group number, me
+      235s c cherylaurelia/builders-hackathon                     838452e6 cloud agent        dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/ph
+      235s c cherylaurelia/builders-hackathon                     905724d9 cloud agent        dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 posit
+      233s c georgegcal1-arch/mech-royale-bot                     3be5a276 georgegcal1-arch   scores: v3 = 1.81
+      230s c Warrior-hound/mech-royale                            f5273a1a Warrior-hound      WIP p-fight: progress notes (scen_fire no +30%; smoke PASS; docker 0 late)
+      230s c Warrior-hound/mech-royale                            c4681433 Warrior-hound      WIP p-fight I2: matchup fight plan (laser kite 150-195 m, gun peek from cover edge else st
+      230s c NoahH273/buildathon-databricks                       fbcef8cd Noah               add rust hybrid spec
+      229s c jmonked/monked-mech-royale                           c6c97c41 Julian Monk        v12: pick plating (+15% max HP) before armor (-8% weapon damage): x1.15 vs x1.087 effectiv
+      209s c koillea/goonies-buildathon                           060fdd63 Claude             Verification addendum: ground-truth completeness checks (30/30 sample labels, subtests, fl
+      195s c rohaanafzal/mech-bot                                 931820a7 Rohaan Afzal       update
+      195s c RagoSpams/shopping-sessions                          88e2949f RagoSpams          Record the deferred campaign-cell update experiment
+      169s c Warrior-hound/mech-royale                            ac9b75bf Warrior-hound      WIP p-econ2: card 6 upgrade argmax of HP x DPS gain, card 5 supply-drop capture (not model
+      167s c skandra08/robo-fight                                 3829b5ae Claude             try/drones: kill a drone that is shooting us before the mech; aim drones at their centre
+      164s c chriseco427-spec/CyprusBot                           5f9ed031 chriseco427-spec   Handle drones: shoot them when quiet or when they hurt us, hide out of their range
+      160s c jackbalseca/mech-royale-bot                          dda71f21 Jack Balseca       Add in-browser live test harness (tools/live_browser.js); log v4 submission and live resul
+      158s c ralphhaddis/kestrel-7x                               70a4c6ed Ralph Alemayehu-la reset FLAGS to 9.25 1-copy baseline and document bot:Bot=1 rule
+      157s c skandra08/robo-fight                                 5e115fe3 Claude             try/standoff-plus: standoff + drones + zone-escape stacked
+      150s c joshuamuellenbach25/RWX---Blast-Radius               27d6b477 joshuamuellenbach2 Run cheap class setups first and keep a run complete when its last test fails
+      145s c deltaparticle/Databricks-Buildathon                  7ac12bf6 Sumit Prabhakar    CI: same-machine A/B of this commit vs a base commit
+      140s c atharvatripathi2026/gtgoats_mech_royale              7d653ae8 atharvatripathi202 Record sidestep merge confirmations and isolated arena differences
+      138s c atharvatripathi2026/gtgoats_mech_royale              7799d00c atharvatripathi202 Carry the approved crate step and cross-model strategy results forward
+      130s c anthonyteti/buildathon-mech-royale                   2c44b852 Anthony Teti       Initial commit
+      125s c Osca-K/builders-buildit-mech-royale                  52237c80 Osca               Revert "Rank gun upgrades by sustained damage including reloads"
+      125s c praggybhat/mech-royale-bot                           122304d8 Prajna Bhat        v2: focus low-HP targets, longer range, later retreat, grab weapons mid-fight
+      125s c anthonyteti/buildathon-shopping-sessions             4f4324b9 Anthony Teti       Initial commit
+      121s c anthonyteti/buildathon-blast-radius                  4c015ab7 Anthony Teti       Initial commit
+      116s c anthonyteti/buildathon-cad-deid                      90b9d97c Anthony Teti       Initial commit
+      110s c adadi-bit/OSU_Buildathon_Databricks                  039939fd akshitadadi260     PROBE (not a candidate): scorer diagnostics on stderr, writes empty tables so dev delibera
+      104s c georgegcal1-arch/mech-royale-bot                     5b318a49 georgegcal1-arch   tests: replay harness, property and scenario tests
+       89s c explorer-skp/buildathon-shopping-sessions            94829ac2 explorer-skp       Finer person groups in sessionize (about 2 events each), SS_GDIV to tune; bench can A/B an
+       74s c beckimron1/ict-mech-royale                           77af5d32 Imronbek Abduvalie Add cover-aware navigation for Mech Royale
+       72s c varadanvk/mech-royale-bot                            d2025a3f varadanvk          Rust bot v1: map model, ground pathfinding, aim leading, fight/flee/loot/zone logic
+       69s c koillea/mech-royale-goonies                          102f6430 Claude             sim: find branches as origin/<name> in a fresh clone
+       67s c MauroMiranda28/mech-royale-bot                       956109f1 MauroMiranda28     v13: go up to roofs for crates, cubes and loot (idea #2)
+       66s c joshuamuellenbach25/Databricks---Shopping-Sessions   f90bc3d6 joshuamuellenbach2 Merge branch 'opt/memory' into opt/merged
+       65s c Warrior-hound/mech-royale                            27fd1990 Warrior-hound      WIP p-econ2: hysteresis on zone urgency and on the econ ttk gate (24 seeds: flips 10.7/min
+       36s c jmonked/monked-mech-royale                           cd83edc4 Julian Monk        v13: reset after a kill - for 15 s after our kill, heal up to 85% (not only below 50%); on
+       31s c deltaparticle/Databricks-Buildathon                  d63d9552 Sumit Prabhakar    Per-thread date cache for ISO timestamps: the date half becomes a lookup
+       15s c niranjankumarnk/blast-radius                         313e9f90 Niranjan Kumar     In-process runs: calibrated estimate, and cheap tests next to a heavy test are run too
+        6s c arnabxero/xero-mech-royale                           127088ba Eftakhar Ahmed Arn v5.1: hold the trigger when a cooldown ends inside the decision window
+       -6s c MahmoodMI1/Buildathon-databricks-1                   7ec6d69e MahmoodMI1         Track B round 3: two-stage scanner, one-pass fingerprints, table-based timestamps
+      -13s c Th3r0n/mech-royale-bot                               dd20075e Th3r0n             exp F: v11 with laser range 110 (reference)
+      -13s c Th3r0n/mech-royale-bot                               831f8007 Th3r0n             tunable: linear gun lead option (default off)
+      -17s c Jaelucard/joinbuilders-mech-royale                   2f6414d4 Jaelucard          Initial commit
+      -21s c RagoSpams/shopping-sessions                          9860e539 RagoSpams          Merge branch 'fm/shop-r3-out' into fm/shop-r3
+      -23s c Th3r0n/mech-royale-bot                               c3c722d2 Th3r0n             exp G: v11 with linear gun lead (reference)
+      -26s c AbhirajTiwari12/mech-royale-bot                      62bdf68a AbhirajTiwari12    P120: EC10-K, fully passive (no shooting, hide) from 120 s
+      393s a cherylaurelia/builders-hackathon                     b94f049e cloud agent        parse(c1): IDs pack from a table-loaded length mask and nibble-table classes (pack_at): -1
+owners hit on >=2 labels:
+    RagoSpams ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    fernando-ace ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    koillea ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    atharvatripathi2026 ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    joshuamuellenbach25 ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    cherylaurelia ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    skandra08 ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    deltaparticle ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    niranjankumarnk ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.86']
+    brycehcmcgrath ['blast 187.5', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    AbhirajTiwari12 ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.86']
+    devakchow ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.86']
+    Osca-K ['blast 187.5', 'cad 399', 'mech 5.27', 'shopping 0.86']
+    arnabxero ['blast 187.5', 'mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    MauroMiranda28 ['blast 187.5', 'cad 399', 'shopping 0.84', 'shopping 0.86']
+    micah-andelman ['cad 399', 'mech 5.27', 'shopping 0.86']
+    viktor-lorentz ['blast 187.5', 'cad 399', 'mech 5.27']
+    varchaskukreja ['blast 187.5', 'mech 5.27', 'shopping 0.86']
+    jmonked ['blast 187.5', 'mech 5.27', 'shopping 0.86']
+    colton-boi ['blast 187.5', 'mech 5.27', 'shopping 0.86']
+    ZheXie ['cad 399', 'mech 5.27', 'shopping 0.86']
+    explorer-skp ['blast 187.5', 'cad 399', 'mech 5.27']
+    jackbalseca ['blast 187.5', 'mech 5.27', 'shopping 0.84']
+    moonriver0922 ['cad 399', 'mech 5.27', 'shopping 0.86']
+    nguyenphuquang1234567 ['mech 5.27', 'shopping 0.84', 'shopping 0.86']
+    nullat0m7 ['cad 399', 'mech 5.27', 'shopping 0.86']
+    Rebecca922 ['cad 399', 'mech 5.27', 'shopping 0.86']
+    alex-vizn ['cad 399', 'mech 5.27', 'shopping 0.86']
+    Th3r0n ['blast 187.5', 'cad 399', 'shopping 0.86']
+    MahmoodMI1 ['blast 187.5', 'cad 399', 'shopping 0.84']
+    anthonyteti ['blast 187.5', 'cad 399', 'shopping 0.84']
+    Russell-Day ['blast 187.5', 'cad 399', 'shopping 0.84']
+    mahathio ['mech 5.27', 'shopping 0.86']
+    georgegcal1-arch ['blast 187.5', 'mech 5.27']
+    davidvarvas ['cad 399', 'mech 5.27']
+    Kalyan-Lankireddy ['cad 399', 'mech 5.27']
+    alexwilldev ['blast 187.5', 'mech 5.27']
+    Anurisha-Dunuwila ['blast 187.5', 'mech 5.27']
+    adman40 ['mech 5.27', 'shopping 0.84']
+    kpfarn ['mech 5.27', 'shopping 0.86']
+    ralphhaddis ['blast 187.5', 'mech 5.27']
+    suzhuhui-hub ['mech 5.27', 'shopping 0.86']
+    himagna16 ['cad 399', 'mech 5.27']
+    h-ardy ['mech 5.27', 'shopping 0.84']
+    amoorgy ['mech 5.27', 'shopping 0.86']
+    Hermes-25 ['mech 5.27', 'shopping 0.86']
+    skibidies ['shopping 0.84', 'shopping 0.86']
+    Jiackary ['shopping 0.84', 'shopping 0.86']
+    jerrywang255-spec ['cad 399', 'shopping 0.86']
+    arnav3013s ['cad 399', 'shopping 0.84']
+    dmclaughlin-bit ['blast 187.5', 'shopping 0.84']
+    praggybhat ['blast 187.5', 'shopping 0.84']
+    FDS-Dark ['cad 399', 'shopping 0.84']
+    varadanvk ['blast 187.5', 'cad 399']
+    Kyt0V0 ['blast 187.5', 'cad 399']
+    Warrior-hound ['blast 187.5', 'cad 399']
+    NhatUndeath ['blast 187.5', 'cad 399']
+    chriseco427-spec ['blast 187.5', 'cad 399']

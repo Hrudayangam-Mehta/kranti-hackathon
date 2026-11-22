@@ -1,0 +1,88 @@
+{
+ "args": {
+  "bot": "proc:python3 -B /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/tee_rec.py /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s15.jsonl -- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/dist/bot.js",
+  "mode": "ffa",
+  "matches": 1,
+  "seed": 15,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s15.sim.json",
+  "latency": 0,
+  "timeout": 2000,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": null,
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": null,
+  "trace": null,
+  "traceTag": null
+ },
+ "summary": {
+  "matches": 1,
+  "meanScore": 15,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 1,
+  "meanKills": 5,
+  "meanTimeAlive": 277.8,
+  "meanDmgDealt": 7074,
+  "meanDmgTaken": 5090,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "alive": 1
+  },
+  "meanWallMs": 3967,
+  "wallS": 4.3
+ },
+ "matches": [
+  {
+   "seed": 15,
+   "slot": 10,
+   "name": "aegis-16",
+   "place": 1,
+   "score": 15,
+   "kills": 5,
+   "timeAlive": 277.8,
+   "alive": true,
+   "dmgDealt": 7074,
+   "dmgTaken": 5090,
+   "cause": null,
+   "killedBy": null,
+   "killRange": null,
+   "killerRole": null,
+   "hunters": 0,
+   "killerName": null,
+   "lates": 0,
+   "missed": 0,
+   "cubes": 33,
+   "upgrades": [
+    "servos",
+    "plating",
+    "nanites",
+    "gun_damage",
+    "plating",
+    "nanites",
+    "lightning_chain"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": true,
+   "matchT": 277.8,
+   "wallMs": 3967,
+   "deadOthers": 15,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 9.2,
+   "meanMs": 0
+  }
+ ]
+}

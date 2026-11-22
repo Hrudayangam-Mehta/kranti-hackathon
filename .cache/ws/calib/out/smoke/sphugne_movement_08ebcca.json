@@ -1,0 +1,117 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh sphugne_movement_08ebcca",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/sphugne_movement_08ebcca.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 1.5,
+  "stdErr": 0.5,
+  "sd": 0.707,
+  "winFrac": 0,
+  "meanKills": 1.5,
+  "meanTimeAlive": 164.4,
+  "meanDmgDealt": 2860,
+  "meanDmgTaken": 1815,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "zone": 1
+  },
+  "meanWallMs": 2725,
+  "wallS": 4.3
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "movement-py",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 78.25,
+   "alive": false,
+   "dmgDealt": 2480,
+   "dmgTaken": 1479,
+   "cause": "gun",
+   "killedBy": 0,
+   "killRange": 55.2,
+   "killerRole": "hunt",
+   "hunters": 2,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 78.25,
+   "wallMs": 1826,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 30.7,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "movement-py",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 250.45,
+   "alive": false,
+   "dmgDealt": 3239,
+   "dmgTaken": 2151,
+   "cause": "zone",
+   "killedBy": null,
+   "killRange": null,
+   "killerRole": null,
+   "hunters": 3,
+   "killerName": null,
+   "lates": 1,
+   "missed": 0,
+   "cubes": 1,
+   "upgrades": [
+    "gun_rate"
+   ],
+   "loadout": [
+    "gun",
+    "mortar"
+   ],
+   "won": false,
+   "matchT": 250.45,
+   "wallMs": 3624,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 52.4,
+   "meanMs": 0
+  }
+ ]
+}

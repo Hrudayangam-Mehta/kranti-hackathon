@@ -1,0 +1,36 @@
+PASS  P1a aim clause: aims within 0.22 rad from 185 m engaged at 20.0-20.3 s; 195 m or 0.30 rad off never (by 23 s)  ::  185 face 20 | 195 face -1 | 185 off 0.30 -1 | 185 off 0.18 20 | cand band 135 m
+PASS  P1b low-hp clause: 38% at 155 m (side-on) engaged from 20 s; 42% at 155 m or 38% at 165 m not  ::  38%/155 20 | 42%/155 -1 | 38%/165 -1
+PASS  P1c closing clause: 4 m/s from 179 m engaged at once after 20 s; 2 m/s not (within 3 s)  ::  4 m/s 20 | 2 m/s -1
+PASS  P1d guard: with a foreign death seen at 16 s the guard is 40 s (aimer engaged at 40.0-40.3)  ::  first 40
+PASS  P1e FFA posture unchanged (no engaged clause) and 5.02 values never engage the 185 m aimer by 50 s  ::  FFA -1 | 5.02 -1
+PASS  P1f hit clause (6 s, 240 m line) and 60 m clause; no line no engagement  ::  hit 5.9 s @230 10 | 6.1 s -1 | @245 -1 | 59 m 10 | 61 m -1 | no line 50 m -1
+PASS  P1g preset: defaults openFarm off, fightEarly on, guard 20 s, openingS 40 kept; V2 = openFarm on (5.02 gate)  ::  openFarm false fightEarly true earlyOpenS 20 openingS 40
+PASS  P2a laser seek: no laser held, a laser seen at 190 m is the first loot over a cube at 14 m and a crate at 30 m (5.02: never beyond 120 m); remembered at 235 m chosen, 245 m not  ::  190: pickup:laser | 5.02 190: cube | 5.02 100: cube | remembered 235: pickup:laser | 245: cube
+PASS  P2b other weapon pickups keep the 120 m loot path (lightning at 115 m taken, 150 m not)  ::  115: pickup | 150: null
+PASS  P2c no mortar in SQUAD (120 s, nothing better seen); FFA posture and 5.02 still take it  ::  R3a2 none | 5.02 mortar | FFA mortar
+PASS  P2d a laser replaces a held lightning (gun + lightning -> gun + laser)  ::  R3a2 gun+laser
+PASS  P2e laserRange mid: hold 115, band 100-130, back-off 100, boost-away 70; fight distance settles in the mid band (5.02 far band)  ::  R3a2 median 129.8 (129.5-130.0) | 5.02 median 168.3 (168.1-168.5)
+PASS  P2f zone gate still applies to the long laser seek (laser outside the circle not chosen)  ::  zone r 150: cube
+PASS  P3a cost = distance + 0.1/hp - 200 (<= 30% or finishable) - 40 (hit us in 4 s) - 15 (closing); first pick = argmin and tr.index = 1000 - cost in random sets  ::  56/56 argmin, 56/56 index exact (ties 1, harness-unlisted 2); flags seen low/fin 54/53 hit 57 | case 5: 2/3 listed (missing 10@74m dps0 inObs false trk none) ; case 19: 2/4 listed (missing 10@71m dps0 inObs false trk none,11@64m dps0 inObs false trk none)
+PASS  P3e -200 stickiness: target at 150 m kept against a fresh mech at 40 m (5.02 switches)  ::  R3a2 on 150 m 29, fresh 0 | 5.02 on 150 m 0, fresh 29
+PASS  P3f torso veto under add: switches to the rear attacker only if the target is >= 38% and not hit by us in 2 s (5.02: switches in all three)  ::  R3a2 50%/3s 11, 37% 10, hit 1 s ago 10 | 5.02 11, 11, 11
+PASS  P3g a target under 25% is never left for the attacker (D5 keep rule kept)  ::  20% target: 10
+PASS  P4a LOSING matrix (n within 160 m listed; 55/80/35+10 thresholds; cancels: target < 25% with n <= 2 and hp > 20%, nr <= 70, alive <= 3)  ::  n2 54%=L n2 56%=- n3 79%=L n3 81%=- n1 34% vs 45%=L n1 34% vs 43%=- n1 36% vs 90%=- 2nd at 161 m, 50%=- 2nd not listed, 50%=- n2 50% target 24%=- n3 50% target 24%=L n2 19% target 24%=L late zone nr 70=- nr 71=L alive 3=- alive 4=L
+PASS  P4b LOSING with no hide cell found stays in FIGHT; with one found it retreats (DISENGAGE)  ::  no cover: losing true mode FIGHT | cover: DISENGAGE
+PASS  P4c a retreat ends 1.5 s after the last LOSING decision (last raw 101.0 s -> LOSING through 102.4, FIGHT from 102.5); never HEAL  ::  last LOSING 102.4, first not LOSING 102.5, FIGHT 102.5, HEAL 0
+PASS  P4d no HEAL state in SQUAD (30% hp, 12 s quiet); FFA posture and 5.02 heal  ::  HEAL decisions: R3a2 0 | 5.02 120 | FFA 120
+PASS  P5a boost in FIGHT when charging / under fire above 30 energy: predicate frames boosted >= 90%, no P5 boost at or below 25  ::  pred 67/67 boosted, P5 decisions 76, outside rule 0, at <= 25 energy 0/0
+PASS  P5b no 30/60 hysteresis: P5 resumes below 40 energy within 3 s of being under 30  ::  resumes 34
+PASS  P5c SQUAD only and new: FFA posture and 5.02 values never fire P5  ::  FFA 0 | 5.02 0
+PASS  P5d lightning holder keeps its reserve (no P5 boost at 30-45 energy)  ::  lightning: P5 decisions 0, inside the reserve 0
+PASS  P6 farmHp 50: crate farmed at 55% (not at 45%); 5.02 only above 90%  ::  55% crate | 45% null | 5.02 85% null, 95% crate
+PASS  P7 speed upgrade third: plating, armor, servos, then the old order without servos (5.02: nanites over servos)  ::  [nanites, servos, gun_damage] -> servos | [servos, armor, jets] -> armor | [jets, laser_charge, nanites] -> nanites | 5.02 -> nanites | order plating armor servos nanites laser_damage laser_charge jets
+PASS  F1 drop gate (FFA, <= 3 alive): no drop with a mech within 150 m of us, contest radius 150 m; 5 alive and 5.02 unchanged  ::  3 alive mech 100 m from us: 0 | mech 190 m from us, 108 m from drop: 0 | mech 190 m / 300 m: 10 | 5 alive: 10 | 5.02: 10
+PASS  Z5a final point: race from 375 s in the last circle (5.02 from 390); occupied point -> stand r_us + r_them + 0.4 m off on the current-centre side  ::  raceOn 376 s 10/10, 374 s 0/10, 5.02 376 s 0/10 | side point 5.90,0.50 (expected 5.90,0.50)
+PASS  Z5b from 405 s the target is the mech with the smallest positive E - E_us (us 1000 -> 1100 hp mech; us 1200 -> 1300; us on top -> our attacker), never held  ::  us 1000: 10 | 1200: 11 | 1400: 12 | hold-fire decisions 0 | before 405 s (403): 12
+PASS  Z8 two alive: WAIT (+300 max hp: no first shot but finishes, DEFENSIVE), CLOSE (-300: only an opening from outside its wedge), DUEL at estimate >= 0.9; 5.02 none  ::  waitMode WAIT | waitShot false | waitFin true | waitStance DEFENSIVE | closeMode CLOSE | closeShot false | closeOpen true | closeFace false | m299 DUEL | m300 WAIT | duelHi true | duelHiP 14.06 | duelLo false | duelLoP 0.36 | oldMode (none)
+PASS  Z9 three alive: no first shot on a non-hostile non-finish mech; a finish (<= 40%) opens; a hostile one is a candidate; never OFFENSIVE vs it unless hostile  ::  3 alive 43% outside a 60 dps zone: false | 36%: true | hostile target 10 | OFFENSIVE seen (non-hostile) false | same at 4 alive (Z10 opens) true | 3 alive with ffaThree off true
+PASS  Z10 zone gate: first shot on a < 60% mech outside a >= 60 dps zone within 190 m (not at 35 dps, 64%, 195 m, our incoming > 100 dps, 5.02); idle post 25 m inside the next edge on its bearing  ::  50% dps60 150 m true | dps35 false | 64% false | 195 m false | 5.02 false | under 200 dps false (A 107) | post 0.0,115.0 legs 20 | 5.02 legs 0
+PASS  Variants: V1 all on; V2 = P1 off only; V3 = P5 off only; V4 = P4 off only; r3a2 off = 5.02  ::  V2 openFarm true | V3 boost false | V4 pulse false | off band 150
+
+SCENARIOS 34/34 PASS

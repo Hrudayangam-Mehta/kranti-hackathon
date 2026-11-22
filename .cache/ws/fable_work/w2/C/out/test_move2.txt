@@ -1,0 +1,28 @@
+PASS  defaults: every mv_ preset at its old value; B.mv2 not created  ::  mv_meas:off mv_flip:off mv_close:off mv_zig:off mv_arc:off mv_rim:off
+PASS  mv_meas on: B.mv2 created  ::  ok
+PASS  scene geometry  ::  pT true p55 true p100 true pB true c50 true
+PASS  F1a flip clock at 140 m: mv_flip 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | jinks on 8 off 5, mvFlip 8, legs {"standoff":50}
+PASS  F1b more reversals (expected interval 0.62 s against U(0.8, 1.6))  ::  jinks 5 -> 8 in 5 s, FFA mvFlip 0, fd mvFlip 0
+PASS  F1c new bullets while our laser charges: mv_flip 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | jinks on 4 off 2, mvFlipBul 3
+PASS  F1d bullet flips with the 0.4 s floor  ::  mvFlipBul 3, jinks 4
+PASS  F1e no F1 flips with the shooter at 55 m  ::  mvFlip 0, identical true
+PASS  F2a back off a gun at 55 m: mv_close 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | legs on {"backoff":12} off {"standoff":12}, backOff70 12
+PASS  F2b full stick away with boost, no strafe  ::  backOff70 12, boosts 12, moves away 12 of 12
+PASS  F2c gun-only band at 100 m: mv_close 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | rPrefNow on 105 off 75
+PASS  F2d band holds 105 m (90-125)  ::  105 / 75
+PASS  F3a zigzag cube walk under fire: mv_zig 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | legs on {"standoff":1,"grab":13} off {"standoff":1,"grab":13}, zigWalk 13
+PASS  F3b grab legs rotated, both signs  ::  zigWalk 13, headings on -45,-60,-60,-60,-60,-60,-60,30,30,30,101,101,120,120 off -45,-15,-15,-15,-15,-15,-15,-15,-15,-15,56,56,56,56
+PASS  F4a arc back (second line 120 deg off, no map): mv_arc 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | legs on {"arcback":14} off {"standoff":14}, arcBack 14, target 11
+PASS  F4b legs move along -(uT + uA)  ::  arcBack 14, moves with a positive -(uT+uA) part 10 of 14
+PASS  F4c rear hit (1.5 s memory, no map): mv_arc 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | arcBack 8, mvRearDmg 67
+PASS  F4d rear damage counted  ::  mvRearDmg 67 arcBack 8
+PASS  F4e isolate cell at 35 m refused at energy 40 (walk reach 25 m)  ::  on arcback refused 5 near 0 | off isolate
+PASS  F4f info: same cell at energy 100 (boost reach 45 m): taken with boost if it cuts a line  ::  leg arcback boost true near 0 refused 5
+PASS  F5a no ZONE walk from 0.85 nr before the shrink (idle): mv_rim 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | modes on {"HOLD":12} off {"ZONE":12}, zoneFarSkipped 14, nr 228
+PASS  F5b legacy walks (ZONE), rim holds (zoneFarSkipped)  ::  zoneFarSkipped 14
+PASS  F5c edge 6 m away and closing: the rim rule walks too  ::  on ZONE/zone/- off ZONE/zone/- rimUrgOnly 0
+PASS  F5d fight at 0.4 nr: rim pull: mv_rim 'on' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | rimPull 10, rimHold 0
+PASS  F5e mean outward (+x) stick larger  ::  mean outward stick on 0.89 off 0.71
+PASS  M1 mv_meas: identical actions, counters filled  ::  identical true mvGunSeen110=20 mvIn_huntring=45 mvGunHit110=7 mvLineFar=20 mvIn_standoff=270
+
+26 passed, 0 failed

@@ -1,0 +1,44 @@
+release gate 2026-11-21T22:14:26Z  folder /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants6/R7_s6/dist  logs /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/runs/gate_20261121T221426Z
+  e04b4bec72c9507ac9d199714e2e1b4c9b6537a9f986249d6be6aa4f90d52c1a  Dockerfile
+  2838d6d1f7a64a81cbb66d1056cd3425c46b0405b560744c0474f80837bf059e  LICENSE
+  f289218b28c8f20e85beac222155ae132a15a282c5feb1fe3546f5941f730975  README.md
+  c00287644c6cd620e729e872ffe3c37c743a4e1d796f1efa5e8c836e22cb6546  bot.js
+PASS         P1-dockerfile-top        Dockerfile at the top level
+PASS         P2-base-version          FROM oven/bun:1.4.4-slim@sha256:1846adf22496bd711036aae8be147e57bdebbaea2e5264e3e0b5af1db187d9a4 (expected tag oven/bun:1.4.4-slim; local bun is checked against it separately)
+PASS         P3-base-digest           digest pin sha256:1846adf22496bd711036aae8be147e57bdebbaea2e5264e3e0b5af1db187d9a4 = multi-arch index
+PASS         P4-no-build-network      instructions ['FROM', 'ENV', 'WORKDIR', 'COPY', 'ENTRYPOINT']: no RUN/ADD, no downloads, COPY only from the build context
+PASS         P5-entrypoint            ENTRYPOINT ["bun", "/bot/bot.js"] (exec form), WORKDIR /bot, target file present
+PASS         P6-engine-limits         all 9 BUN_JSC_* one-CPU settings in ENV
+PASS         P7-size                  223913 bytes in the folder (limit 20,000,000 at the commit; .git adds its own objects)
+PASS         P8-file-modes            every file world-readable, no symlinks (uid 65534 must read /bot)
+PASS         P9-single-bundle         bun bundle pragma present; imports only ['fs', 'path']
+PASS         H2-owner-grep            REPO_HYGIENE.md grep prints nothing
+PASS         H1-files                 files ['Dockerfile', 'LICENSE', 'README.md', 'bot.js']
+PASS         H3-team-names            85 team names checked
+PASS         H4-scores                28 board scores checked in prose and strings
+PASS         H5-no-comments           comment lines 0, block comments 0 (only the // @bun pragma allowed)
+PASS         H6-no-secrets-or-paths   no tokens, keys, local paths or source maps
+PASS         H7-readme                518 bytes; build command, libraries statement, earlier-code statement, AI statement, MIT licence
+PASS         H8-mit-license           LICENSE is the MIT text
+FAIL[waived] H9-method-exposure       873 named numeric parameters (e.g. DEFENSIVE, OFFENSIVE, OPPORTUNIST, abandonS, abandons); 200 non-protocol words/strings (e.g. '${h.type}:${h.id}:${h.state}', '${i.mode}/${i.legKind} ${i.stance[0]}${i', '/world.json', 'BOOST_RUSHER', 'BR/finish'), 20 of them log sentences
+PASS         P10-bun-version          local bun 1.4.4 (1.4.4+38afee6c8) vs image tag 1.4.4
+PASS         P11-built-from-source    bot.js is byte-identical to a fresh bundle of /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants6/R7_s6/bot
+PASS         R1-official-check        kit check.py in the sandbox: PASS; observations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)
+PASS         R2-ready-time            ready in 2197 ms (rule 20 s incl. container start; gate 5 s)
+PASS         R3-answer-time           p99 2.3 ms, max 3.1 ms under the 1-CPU quota (budget 50; gate p99<15, max<40)
+PASS         R4-threads               max 4 tasks ({'bun':1,'JITWorker':1,'mi-scavenger':1,'JSCWarmUp':1}), pids.max 128 never hit (max0); limit 128 processes+threads
+PASS         R7-exit-on-end           exit code 0, 6.1 ms after end (server kills after 2 s)
+PASS         R6-no-writes-no-net      62 file/network syscalls traced as uid 65534 with HOME unset in a read-only cwd: 0 write attempts outside /tmp, 0 network calls
+PASS         R10-long-protocol        3939 answers to 4800 observations (861 skipped by design in backlogs): verdict PASS, schema errors 0, wrong/stale ticks 0, problems []
+PASS         R10b-long-timing         late (>50 ms) 0 of 3939, p99 6.23 ms, max 23.69 ms (gate: at most 0.5% late, p99<15)
+PASS         R12-stdout-discipline    only protocol lines on stdout: debug 0, unsolicited 0, bad lines 0, longest line 124 bytes
+PASS         R5-memory                peak 83.1 MB charged to the 512 MB group (failcnt 0), peak RSS 84 MB over the long run (gate 400 MB)
+PASS         R8-exit-on-stdin-close   exit code 0, 28.9 ms after stdin closed without end
+PASS         R9-no-map                check.py without any map: PASS; init 978 ms world=false
+PASS         R13-balance-change       changed config: 1122 answers to 1200 observations (78 skipped in backlogs), verdict PASS, schema errors 0, 0 error lines on stderr []
+PASS         R11-determinism          two bundle runs: 300 answers, sha256 af4f890a134d6c75 vs af4f890a134d6c75
+PASS         R11b-same-as-source      readable source /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/variants6/R7_s6/bot gives the same 300 actions: sha256 af4f890a134d6c75 vs bundle af4f890a134d6c75
+PASS         R14-no-exceptions        0 exception lines on stderr across the runs (map-less run excluded)
+not automatable here (see notes/compliance_check.md): docker build on linux/amd64 within 10 min, container start time,
+  the scorer's own check under Docker, repository public with every submitted commit, entry choice, team-name rules.
+VERDICT: GO (35 PASS, 1 waived)

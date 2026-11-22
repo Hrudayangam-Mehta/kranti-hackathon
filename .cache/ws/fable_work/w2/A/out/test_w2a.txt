@@ -1,0 +1,57 @@
+me0 21,28; points 120:true 100:true 60:true 200:true 90:true far:true
+PASS  en_open D1 gate (calm lined mech at 120 m, t 30 s): acts in SQUAD (enOpenBlock 8)  ::  off {"move":[0.7071067811865475,-0.7071067811865475],"boost":true,"aim":[0.000862529492037023,0.016298079969484913],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[1,0],"boost":false,"aim":[0,0],"fire":[false,false]}HOLDhunt-
+PASS  en_open D1 gate (calm lined mech at 120 m, t 30 s): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_open D1 gate (calm lined mech at 120 m, t 30 s): after one foreign death identical to off  ::  same true, counter 0
+PASS  en_open 'on' answers a shooter at 120 m, 'strict' does not  ::  on target 11 FIGHT; strict target - DISENGAGE
+PASS  en_band D2 gun band (hostile at 100 m): acts in SQUAD (enBandGun 12)  ::  off {"move":[0.7071067811865475,-0.7071067811865475],"boost":true,"aim":[0.001035213857921491,0.01447094445913724],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[0,1],"boost":true,"aim":[-0.0014624989572844527,0.014455973796541371],"fire":[true,false]}FIGHTenband11
+PASS  en_band D2 gun band (hostile at 100 m): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_band D2 gun band (hostile at 100 m): after one foreign death identical to off  ::  same true, counter 0
+PASS  en_band D4 boost-away (shooter at 60 m): acts in SQUAD (enAwayStart 1)  ::  off {"move":[0,-1],"boost":true,"aim":[0.002437495172624704,0.0010259624020200599],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[-0.5547001962252291,-0.8320502943378437],"boost":true,"aim":[0.0020253813381132524,0.0010245780332366913],"fire":[true,false]}FIGHTenaway11
+PASS  en_band D4 boost-away (shooter at 60 m): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_band D4 boost-away (shooter at 60 m): after one foreign death identical to off  ::  same true, counter 0
+PASS  en_band D3 laser band (full-hp hostile at 110 m): acts in SQUAD (enBandLaser 12)  ::  off {"move":[0,-1],"boost":true,"aim":[0.0013295446711376613,0.014898887568267493],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[0,1],"boost":true,"aim":[-0.0013295446711376613,0.014898887568267493],"fire":[true,false]}FIGHTenband11
+PASS  en_band D3 laser band (full-hp hostile at 110 m): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_band D3 laser band (full-hp hostile at 110 m): after one foreign death identical to off  ::  same true, counter 0
+PASS  en_band D6 lined mech at 200 m at 50% hp: acts in SQUAD (enD6Cand 6)  ::  off {"move":[0.9897283568439539,0.14296076265523777],"boost":false,"aim":[0,0],"fire":[false,false]}HOLDroam-
+        on  {"move":[0,-1],"boost":true,"aim":[0.0007312498696605552,0.009230024572184439],"fire":[false,false]}FIGHTenband11
+PASS  en_band D6 lined mech at 200 m at 50% hp: forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_band D6 lined mech at 200 m at 50% hp: after one foreign death identical to off  ::  same true, counter 0
+PASS  en_retarget D5 (we die first: B 450 hp appears): acts in SQUAD (enRetarget 1)  ::  off {"move":[0,-1],"boost":true,"aim":[0.0016249985696639158,0.012648844149461592],"fire":[true,true]}FIGHTstandoff11
+        on  {"move":[0.9990482215818577,-0.04361938736533595],"boost":false,"aim":[0.7426274615896276,0.010351530434968512],"fire":[false,true]}FIGHTstandoff12
+PASS  en_retarget D5 (we die first: B 450 hp appears): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_retarget D5 (we die first: B 450 hp appears): after one foreign death identical to off  ::  same true, counter 0
+PASS  en_retarget bonus 60 (B 450 hp cheaper than A + 60): acts in SQUAD (enRescore 1)  ::  off {"move":[0,0],"boost":false,"aim":[2.5,-0.022723360841641064],"fire":[false,false]}FIGHTregain50
+        on  {"move":[0,1],"boost":true,"aim":[0.7408656351264322,0.010351132189688016],"fire":[false,true]}FIGHTisolate12
+PASS  en_retarget bonus 60 (B 450 hp cheaper than A + 60): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_retarget bonus 60 (B 450 hp cheaper than A + 60): after one foreign death identical to off  ::  same true, counter 0
+        target off 11, on 12; tDie 4.00, enRetarget 1
+PASS  en_contra C (hp 30%, 3 shooters): acts in SQUAD (ecLegs 8)  ::  off {"move":[0,-1],"boost":true,"aim":[0.0016249985696639158,0.012648844149461592],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[1,0],"boost":true,"aim":[0,0.012669446500993328],"fire":[true,false]}FIGHTencontra11
+PASS  en_contra C (hp 30%, 3 shooters): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  en_contra C (hp 30%, 3 shooters): after one foreign death identical to off  ::  same true, counter 0
+PASS  fi_gate e1 (200 m, residual 0.007 rad): acts in SQUAD (fiGateExtra 4)  ::  off {"move":[0.7071067811865475,-0.7071067811865475],"boost":true,"aim":[0.0005173392891877349,0.00923480058872893],"fire":[false,false]}FIGHTstandoff11
+        on  {"move":[0.7071067811865475,-0.7071067811865475],"boost":true,"aim":[0.0005173392891877349,0.00923480058872893],"fire":[true,false]}FIGHTstandoff11
+PASS  fi_gate e1 (200 m, residual 0.007 rad): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  fi_gate e1 (200 m, residual 0.007 rad): after one foreign death identical to off  ::  same true, counter 0
+PASS  fi_save e2 (80 hp mech at 100 m, full charge): acts in SQUAD (beamHeldForGun 2)  ::  off {"move":[0.7071067811865475,-0.7071067811865475],"boost":false,"aim":[0.0031120759877771853,0.041561864969381156],"fire":[true,false]}FIGHTstandoff11
+        on  {"move":[0.7071067811865475,-0.7071067811865475],"boost":false,"aim":[0.0031120759877771853,0.041561864969381156],"fire":[true,true]}FIGHTstandoff11
+PASS  fi_save e2 (80 hp mech at 100 m, full charge): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  fi_save e2 (80 hp mech at 100 m, full charge): after one foreign death identical to off  ::  same true, counter 0
+PASS  fi_reload e3 (7 rounds, target behind cover): acts in SQUAD (earlyReloads 4)  ::  off {"move":[0.48591523073887904,-0.8740059430781818],"boost":true,"aim":[0.34986828844049667,0.00936990152418206],"fire":[false,false],"jump":true}FIGHTr
+        on  {"move":[0.48591523073887904,-0.8740059430781818],"boost":true,"aim":[0.34986828844049667,0.00936990152418206],"fire":[false,false],"jump":true,"reloa
+PASS  fi_reload e3 (7 rounds, target behind cover): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  fi_reload e3 (7 rounds, target behind cover): after one foreign death identical to off  ::  same true, counter 0
+PASS  fi_snap e5 (closing mech behind cover): acts in SQUAD (fiSnapStart 1)  ::  off {"move":[0.6997798348164428,0.7143585813751188],"boost":true,"aim":[0.7234408299750812,0.006694769550183952],"fire":[false,false]}FIGHTregain11
+        on  {"move":[0.6997798348164428,0.7143585813751188],"boost":true,"aim":[0.7234408299750812,0.006694769550183952],"fire":[false,true]}FIGHTregain11
+PASS  fi_snap e5 (closing mech behind cover): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  fi_snap e5 (closing mech behind cover): after one foreign death identical to off  ::  same true, counter 0
+PASS  fi_rung e6 (0.5 rung in the open): acts in SQUAD (fiRungAim 1)  ::  off {"move":[0,-1],"boost":true,"aim":[0.004387471846971636,0.04143287197493582],"fire":[true,true]}FIGHTstandoff11
+        on  {"move":[0,-1],"boost":true,"aim":[0.004387471846971636,0.014455850135731793],"fire":[true,true]}FIGHTstandoff11
+PASS  fi_rung e6 (0.5 rung in the open): forced FFA identical to off  ::  FFA same true, counter 0
+PASS  fi_rung e6 (0.5 rung in the open): after one foreign death identical to off  ::  same true, counter 0
+
+40/40 checks passed

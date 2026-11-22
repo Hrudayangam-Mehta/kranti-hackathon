@@ -1,0 +1,6 @@
+craft_u plain NCPU=1 MATCH NCPU=3 MATCH | surviving events 174, user_daily rows 102 | id prefixes: user Some('u'), event Some('e'), click Some('k') | event copies 2606, winners 174, clicks 879, linked 88, exotic 202
+craft_quotes quotes NCPU=1 MATCH NCPU=3 MATCH | surviving events 180, user_daily rows 98 | id prefixes: user Some('u'), event Some('e'), click Some('k') | event copies 2567, winners 180, clicks 878, linked 81, exotic 205
+craft_long mostly_long NCPU=1 MATCH NCPU=3 MATCH | surviving events 185, user_daily rows 99 | id prefixes: user Some('u'), event Some('e'), click Some('k') | event copies 2575, winners 185, clicks 932, linked 89, exotic 157
+craft_noprefix noprefix NCPU=1 MATCH NCPU=3 MATCH | surviving events 199, user_daily rows 112 | id prefixes: user None, event Some('e'), click Some('k') | event copies 2610, winners 199, clicks 887, linked 86, exotic 210
+craft_other plain NCPU=1 MATCH NCPU=3 MATCH | surviving events 196, user_daily rows 90 | id prefixes: user Some('x'), event Some('y'), click Some('z') | event copies 2578, winners 196, clicks 866, linked 85, exotic 206
+craft_same plain NCPU=1 MATCH NCPU=3 MATCH | surviving events 197, user_daily rows 115 | id prefixes: user Some('u'), event Some('u'), click Some('u') | event copies 2580, winners 197, clicks 917, linked 89, exotic 167

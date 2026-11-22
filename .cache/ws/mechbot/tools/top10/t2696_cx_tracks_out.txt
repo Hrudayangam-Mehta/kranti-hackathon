@@ -1,0 +1,189 @@
+seeds 30; FFA ctx (myHpf 0.9, alive 10); levels = avoid/respond-only/opportunistic/attack share of decisions
+
+== farm-gun (opening / mid-game farming, gun only)   [our gun+laser]   D0 aim flag 14% of decisions, with 0.3 s dwell 7%, 0.6 s 1%
+  farming     BEFORE labels: FARMER 74%, UNKNOWN 26%
+                     advice: FM/watch 40%, FM/strike 32%, N/unknown 26%, N/lowconf 2% | lvl 0%/38%/62%/0% | band 134-194 | x1.04
+              AFTER  (identical)
+
+== farm-gun+laser (farming, laser found, we are in its view)   [our gun+laser]   D0 aim flag 11% of decisions, with 0.3 s dwell 5%, 0.6 s 1%
+  farming     BEFORE labels: FARMER 75%, UNKNOWN 25%
+                     advice: FM/watch 42%, FM/strike 30%, N/unknown 25%, N/lowconf 3% | lvl 0%/38%/62%/0% | band 134-194 | x1.04
+              AFTER  (identical)
+
+== farm-laser-crates (farming, full charge on each crate)   [our gun+laser]   D0 aim flag 16% of decisions, with 0.3 s dwell 6%, 0.6 s 1%
+  farming     BEFORE labels: UNKNOWN 52%, LASER_KITER 27%, FARMER 20%
+                     advice: N/unknown 52%, LK/cover 24%, FM/watch 12%, FM/strike 8%, LK/third 2%, N/lowconf 1% | lvl 0%/26%/74%/0% | band 131-190 | x0.97
+              AFTER  labels: UNKNOWN 54%, LASER_KITER 29%, FARMER 17%
+                     advice: N/unknown 54%, LK/cover 25%, FM/watch 10%, FM/strike 7%, LK/third 3%, N/lowconf 1% | lvl 0%/25%/75%/0% | band 131-189 | x0.96
+
+== kite-100 vs our gun+laser, corner peeks   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 99%
+  kiting      BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/53%/47%/0% | band 139-193 | x0.83
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+
+== kite-100 vs our gun+laser, open strafe   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 99%
+  kiting      BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/77%/23%/0% | band 141-194 | x0.81
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+
+== kite-95 vs our gun+laser, corner peeks   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 99%
+  kiting      BEFORE labels: LASER_KITER 56%, UNKNOWN 44%
+                     advice: LK/cover 56%, N/unknown 44% | lvl 0%/6%/94%/0% | band 131-188 | x0.93
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 146-198 | x0.75
+
+== kite-55 vs our laser+lightning, corner peeks   [our laser+lightning]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 99%
+  kiting      BEFORE labels: UNKNOWN 100%
+                     advice: N/unknown 100% | lvl 0%/0%/100%/0% | band 125-185 | x1.00
+              AFTER  labels: LASER_BRAWLER 100%
+                     advice: LB/cover 100%, N/lowconf 0% | lvl 0%/100%/0%/0% | band 125-185 | x0.91
+
+== fights another mech at 100 m (we watch from the side)   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  kiting      BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 98%, LK/third 2% | lvl 0%/96%/4%/0% | band 144-197 | x0.77
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 98%, LK/third 2% | lvl 0%/98%/2%/0% | band 147-198 | x0.74
+
+== kite-70 vs our gun+laser, corner peeks (LB/LK boundary)   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 98%
+  kiting      BEFORE labels: UNKNOWN 100%
+                     advice: N/unknown 100% | lvl 0%/0%/100%/0% | band 125-185 | x1.00
+              AFTER  labels: LASER_BRAWLER 99%, UNKNOWN 1%, LASER_KITER 0%
+                     advice: LB/cover 98%, N/lowconf 1%, N/unknown 1%, LK/cover 0% | lvl 0%/97%/3%/0% | band 125-185 | x0.91
+
+== kite-85 vs our gun+laser, corner peeks (LB/LK boundary)   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 98%
+  kiting      BEFORE labels: UNKNOWN 100%, LASER_KITER 0%
+                     advice: N/unknown 100%, LK/cover 0% | lvl 0%/0%/100%/0% | band 125-185 | x1.00
+              AFTER  labels: UNKNOWN 61%, LASER_KITER 39%
+                     advice: N/unknown 61%, LK/cover 39% | lvl 0%/4%/96%/0% | band 129-187 | x0.95
+
+== retreat at 35%, attacker hidden from us, we 90 deg off its torso   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  fight       BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 59%, LK/third 41% | lvl 0%/59%/41%/0% | band 128-193 | x1.01
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 59%, LK/third 41% | lvl 0%/59%/41%/0% | band 129-195 | x1.01
+  ret boost   BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/cover 47% | lvl 0%/29%/71%/0% | band 121-192 | x1.14
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/finish 47% | lvl 0%/0%/100%/0% | band 105-189 | x1.39
+  ret <=40%   BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/95%/5%/0% | band 146-197 | x0.75
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/finish 100%, LK/cover 0% | lvl 0%/0%/100%/0% | band 104-189 | x1.41
+  ret 40-50%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/finish 100%, LK/cover 0% | lvl 0%/0%/100%/0% | band 103-190 | x1.45
+  ret 50-80%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100%, LK/finish 0% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+
+== retreat at 35%, attacker hidden from us, we 45 deg off its torso   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  fight       BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 67%, LK/third 33% | lvl 0%/67%/33%/0% | band 131-194 | x0.97
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 67%, LK/third 33% | lvl 0%/67%/33%/0% | band 133-196 | x0.97
+  ret boost   BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/cover 47% | lvl 0%/28%/72%/0% | band 121-192 | x1.14
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/cover 47% | lvl 0%/28%/72%/0% | band 121-192 | x1.15
+  ret <=40%   BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/95%/5%/0% | band 145-197 | x0.75
+              AFTER  (identical)
+  ret 40-50%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  (identical)
+  ret 50-80%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+              AFTER  (identical)
+
+== retreat at 35%, attacker in our view, we 90 deg off its torso   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  fight       BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 66%, LK/third 34% | lvl 0%/66%/34%/0% | band 131-194 | x0.98
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 66%, LK/third 34% | lvl 0%/66%/34%/0% | band 132-195 | x0.97
+  ret boost   BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 100% | lvl 0%/0%/100%/0% | band 106-189 | x1.37
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/third 100% | lvl 0%/0%/100%/0% | band 105-189 | x1.39
+  ret <=40%   BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 100% | lvl 0%/0%/100%/0% | band 104-189 | x1.41
+              AFTER  (identical)
+  ret 40-50%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 100% | lvl 0%/0%/100%/0% | band 103-190 | x1.45
+              AFTER  (identical)
+  ret 50-80%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  (identical)
+
+== retreat at 35% (control: its attacker almost in line with us, torso 15 deg off us)   [our gun+laser]   D0 aim flag 6% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  fight       BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 67%, LK/third 33% | lvl 0%/67%/33%/0% | band 131-194 | x0.97
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 67%, LK/third 33% | lvl 0%/67%/33%/0% | band 133-196 | x0.97
+  ret boost   BEFORE labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/cover 47%, N/lowconf 0% | lvl 0%/28%/72%/0% | band 121-192 | x1.14
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/third 53%, LK/cover 47%, N/lowconf 0% | lvl 0%/28%/72%/0% | band 121-192 | x1.15
+  ret <=40%   BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/94%/6%/0% | band 145-197 | x0.76
+              AFTER  (identical)
+  ret 40-50%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  (identical)
+  ret 50-80%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+              AFTER  (identical)
+
+== retreat at 35% from US (control: torso on us)   [our gun+laser]   D0 aim flag 2% of decisions, with 0.3 s dwell 1%, 0.6 s 0%
+  ret <=40%   BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100%, N/lowconf 0% | lvl 0%/86%/14%/0% | band 144-197 | x0.77
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/93%/7%/0% | band 145-197 | x0.76
+  ret 40-50%  BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  (identical)
+
+== quiet-final 170 m kite (module inert in SQUAD; read only)   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  kite170     BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+              AFTER  (identical)
+
+== BACKFIRE wounded (40%) kiter charging at us   [our gun+laser]   D0 aim flag 68% of decisions, with 0.3 s dwell 67%, 0.6 s 65%
+  wounded     BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+              AFTER  (identical)
+
+== BACKFIRE wounded (40%) gun strafer shooting us   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 98%
+  wounded     BEFORE labels: GUN_STRAFER 100%
+                     advice: GS/break 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.82
+              AFTER  (identical)
+
+== BACKFIRE wounded (40%) gun strafer busy with a hidden mech, side-on   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  wounded     BEFORE labels: UNKNOWN 100%
+                     advice: N/unknown 100% | lvl 0%/0%/100%/0% | band 125-185 | x1.00
+              AFTER  (identical)
+
+== BACKFIRE wounded (40%) gun+lightning closer on a hidden mech at 28 m, side-on   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  wounded     BEFORE labels: LIGHTNING_CLOSER 100%
+                     advice: LZ/keep 100% | lvl 0%/100%/0%/0% | band 76-112 | x1.08
+              AFTER  labels: LIGHTNING_CLOSER 100%
+                     advice: LZ/finish 99%, LZ/keep 1% | lvl 0%/1%/99%/0% | band 104-188 | x1.40
+
+== BACKFIRE healthy gun+laser at 60 m fighting a hidden mech, side-on (LB third-party view)   [our gun+laser]   D0 aim flag 0% of decisions, with 0.3 s dwell 0%, 0.6 s 0%
+  healthy     BEFORE labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 147-198 | x0.73
+              AFTER  labels: LASER_KITER 100%
+                     advice: LK/cover 100% | lvl 0%/100%/0%/0% | band 148-199 | x0.73
+
+== BACKFIRE gun+laser passing at 60 m, never aiming or charging   [our gun+laser]   D0 aim flag 22% of decisions, with 0.3 s dwell 17%, 0.6 s 5%
+  passing     BEFORE labels: UNKNOWN 100%
+                     advice: N/unknown 100% | lvl 0%/0%/100%/0% | band 125-185 | x1.00
+              AFTER  (identical)
+
+== BACKFIRE laser+lightning holding 55 m, charging at us   [our gun+laser]   D0 aim flag 100% of decisions, with 0.3 s dwell 100%, 0.6 s 99%
+  dual55      BEFORE labels: LIGHTNING_CLOSER 77%, UNKNOWN 23%
+                     advice: LZ/keep 77%, N/unknown 23% | lvl 0%/19%/81%/0% | band 105-156 | x1.03
+              AFTER  (identical)

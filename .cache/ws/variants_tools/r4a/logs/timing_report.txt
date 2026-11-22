@@ -1,0 +1,20 @@
+arm H4 vs SNAP4 (fixed bot/lib)
+kit      n 300 | V4 snap p99 0.79 max 1.62 | H p99 0.79 max 2.19 | worst extra 0.57 ms at 0 | A* max 1 extra 0 | hunt hooks max 0.13 p99 0.013 | huntOn 181/300 fuse 0/0/0
+l4800    n 4800 | V4 snap p99 1.64 max 7.65 | H p99 1.72 max 8.41 | worst extra 7.71 ms at 354 | A* max 1 extra 1 | hunt hooks max 0.07 p99 0.016 | huntOn 2500/4800 fuse 0/0/0
+l11      n 4800 | V4 snap p99 1.52 max 5.94 | H p99 1.56 max 6.18 | worst extra 4.37 ms at 826 | A* max 1 extra 1 | hunt hooks max 0.14 p99 0.016 | huntOn 2500/4800 fuse 0/0/0
+l23p     n 4800 | V4 snap p99 6.64 max 9.39 | H p99 6.87 max 9.16 | worst extra 5.24 ms at 473 | A* max 1 extra 1 | hunt hooks max 0.10 p99 0.017 | huntOn 2500/4800 fuse 0/0/0
+cfg1200  n 1200 | V4 snap p99 1.57 max 5.28 | H p99 1.83 max 5.89 | worst extra 4.31 ms at 233 | A* max 1 extra 1 | hunt hooks max 0.10 p99 0.027 | huntOn 430/1200 fuse 0/0/0
+f1       n 1135 | V4 snap p99 0.29 max 1.77 | H p99 0.35 max 3.87 | worst extra 2.10 ms at 218 | A* max 1 extra 0 | hunt hooks max 0.14 p99 0.016 | huntOn 212/1135 fuse 0/0/0
+f2       n 1619 | V4 snap p99 0.54 max 2.39 | H p99 0.55 max 5.84 | worst extra 4.07 ms at 273 | A* max 1 extra 0 | hunt hooks max 0.11 p99 0.007 | huntOn 186/1619 fuse 0/0/0
+fz       n 2949 | V4 snap p99 5.65 max 16.01 | H p99 4.64 max 12.83 | worst extra 7.83 ms at 2080 | A* max 1 extra 1 | hunt hooks max 0.79 p99 0.013 | huntOn 1/2949 fuse 0/0/0
+STREAMS: worst aligned extra 7.83 ms; worst decision H 12.83 vs V4 snapshot 16.01 ms; A* per decision max 1 (extra 1); hunt hooks max 0.79 ms mean 0.0040 ms
+arm HL4 vs SNAP4 (fixed bot/lib)
+kit      n 300 | V4 snap p99 0.79 max 1.62 | H p99 0.90 max 1.81 | worst extra 0.37 ms at 210 | A* max 1 extra 0 | hunt hooks max 0.17 p99 0.019 | huntOn 181/300 fuse 0/0/0
+l4800    n 4800 | V4 snap p99 1.64 max 7.65 | H p99 1.76 max 9.40 | worst extra 9.28 ms at 354 | A* max 1 extra 1 | hunt hooks max 0.51 p99 0.018 | huntOn 2500/4800 fuse 0/0/0
+l11      n 4800 | V4 snap p99 1.52 max 5.94 | H p99 1.55 max 7.24 | worst extra 2.54 ms at 89 | A* max 1 extra 1 | hunt hooks max 0.16 p99 0.016 | huntOn 2500/4800 fuse 0/0/0
+l23p     n 4800 | V4 snap p99 6.64 max 9.39 | H p99 7.20 max 9.79 | worst extra 4.83 ms at 223 | A* max 1 extra 1 | hunt hooks max 0.06 p99 0.015 | huntOn 2500/4800 fuse 0/0/0
+cfg1200  n 1200 | V4 snap p99 1.57 max 5.28 | H p99 1.87 max 6.69 | worst extra 5.02 ms at 117 | A* max 1 extra 1 | hunt hooks max 0.37 p99 0.023 | huntOn 430/1200 fuse 0/0/0
+f1       n 1135 | V4 snap p99 0.29 max 1.77 | H p99 0.31 max 5.64 | worst extra 3.97 ms at 69 | A* max 1 extra 0 | hunt hooks max 0.09 p99 0.010 | huntOn 212/1135 fuse 0/0/0
+f2       n 1619 | V4 snap p99 0.54 max 2.39 | H p99 0.55 max 5.83 | worst extra 3.89 ms at 123 | A* max 1 extra 0 | hunt hooks max 0.10 p99 0.007 | huntOn 186/1619 fuse 0/0/0
+fz       n 2949 | V4 snap p99 5.65 max 16.01 | H p99 4.80 max 11.73 | worst extra 8.19 ms at 2080 | A* max 1 extra 1 | hunt hooks max 0.43 p99 0.012 | huntOn 1/2949 fuse 0/0/0
+STREAMS: worst aligned extra 9.28 ms; worst decision H 11.73 vs V4 snapshot 16.01 ms; A* per decision max 1 (extra 1); hunt hooks max 0.51 ms mean 0.0038 ms

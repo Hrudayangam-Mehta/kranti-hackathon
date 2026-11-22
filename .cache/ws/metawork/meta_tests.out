@@ -1,0 +1,37 @@
+PASS  offer: plating first (stacks 0) over damage  meta plating (want plating), salt-1 plating (today plating), bits 9
+PASS  offer: plating stacks 3: armor first  meta armor (want armor), salt-1 armor (today armor), bits 1
+PASS  offer: no laser, 0 kills, t<45: gun_damage above nanites  meta gun_damage (want gun_damage), salt-1 nanites (today nanites), bits 9
+PASS  offer: no laser, 0 kills, t<45: gun_mag above nanites  meta gun_mag (want gun_mag), salt-1 nanites (today nanites), bits 9
+PASS  offer: SQUAD t=60 1 kill: nanites below gun_damage  meta gun_damage (want gun_damage), salt-1 nanites (today nanites), bits 1
+PASS  offer: hp 30% at zero lines: nanites third again  meta nanites (want nanites), salt-1 nanites (today nanites), bits 0
+PASS  offer: laser, 0 lens, 0 kills, t<45: laser_damage above armor  meta laser_damage (want laser_damage), salt-1 armor (today armor), bits 3
+PASS  offer: laser, 0 lens, t>=45: armor stays above laser_damage  meta armor (want armor), salt-1 armor (today armor), bits 1
+PASS  offer: laser, 1 lens, 3 cubes: laser_damage above nanites (hp 30%)  meta laser_damage (want laser_damage), salt-1 nanites (today nanites), bits 4
+PASS  offer: never plating below an override  meta plating (want plating), salt-1 plating (today plating), bits 3
+PASS  offer: gun_rate after gun_mag (late)  meta gun_mag (want gun_mag), salt-1 gun_rate (today gun_rate), bits 1
+PASS  offer: forced FFA keeps today's order  pick nanites
+PASS  orders: 16 states, plating always first, 22 distinct ids, no mortar_damage / mortar_rate
+PASS  cube: threshold (2 -> 3) at 1 line reaches 100 m
+PASS  cube: threshold at 2 lines only 30 m
+PASS  cube: other cube at 1 line 52 m, 2 lines 30 m
+PASS  cube: other cube at zero lines (LOOT) keeps today's reach
+PASS  cube: refused at 10 cubes, wanted at 13 (within 2 of 15)
+PASS  pile (n = 2): 115 m at 0-1 line, 58 m at 2 lines, 25 m at 3+ lines  115 115 58 25
+PASS  pile: killReachOk false caps at today's non-kill reach
+PASS  pile: walk abandoned after 6 s (cubes become ordinary cubes)
+PASS  crate: 7 gun rounds and hp >= 40% (300 hp crate at 50% hp)
+PASS  crate: refused under 40% hp
+PASS  drone: hp >= 50% and no mech seen for 4 s
+PASS  mortar: never taken in SQUAD (empty slot, nothing better for 60 s)  meta took false, salt-1 took true, mortarNo 17
+PASS  laser at 30 m, none held: sought at 0 kills, on-path only from 3 kills  meta k0 true, meta k3 null, salt-1 k3 true
+PASS  lightning into the empty slot only within 35 m  meta 50 m null, meta 20 m true, salt-1 50 m true
+PASS  gun finish: a target the gun kills in 2 rounds keeps the beam held (gun fires)  gunFin 71, held-instead-of-release 67, decisions with the beam held only by the meta 67, gun shots meta 41 / salt-1 35 (mech pulled to 90 m, 80 hp)
+PASS  gun finish: not for a target above 90 hp x damage multiplier
+PASS  reload: in a lull with 7 rounds the meta reloads first (today waits for <= 4 or 2 s quiet without a target)  lull from decision 100: meta reloads at 123, salt-1 at 139, reload8 18
+PASS  band: gun 55-95 and laser 125-185 as today (band overrides deferred in v1)  gun 55-95, laser 125-185
+PASS  T-F2: forced FFA, meta slot = salt-1 slot on the kit stream  differ 0 of 300, meta decisions on 0
+PASS  kit stream: meta slot on in SQUAD and identical actions (no offer, kill or quiet low magazine in it)  differ 0, meta on 181 decisions, counters {"dec":181,"offers":0,"orderDiff":0,"mortarNo":0,"laserK3":0,"lightCap":2,"cubeDiff":0,"pileDiff":0,"pileAbort":0,"cubeRefuse":0,"crateLow":0,"droneLow":0,"droneNo":0,"reload8":0,"gunFin":0,"gunFinHold":0}
+PASS  decision time: worst < 15 ms CPU on the kit stream (meta slot)  worst 5.83 ms, p99 3.22 ms, mean 0.16 ms CPU
+PASS  kit stream + offer at decision 30: the meta acts (gun_damage, today nanites)  meta pick 1, salt-1 pick 0, decisions that differ 1 (first 30)
+
+35 passed, 0 failed

@@ -1,0 +1,21 @@
+body scale 1: roof post table built in 537 ms, 351154 rays (at 4 us per ray: 1.4 s); roofs with a post (>= 300 m2, climb 10-45 m): 67
+posts whose single best cell is one-sided to >= 25% of the directions at 100 m: 31; >= 40%: 10
+best cell, all roofs: one-sided at 100 m p50 23% p90 43%; two-sided p50 17%; at 60 m one-sided p50 8%, two-sided p50 22%
+moving on the roof: directions (100 m) that SOME cell of the roof covers one-sidedly: p50 46% p90 83%
+climb of the >= 25% posts: p50 18.7 m (2.2 s, 36 energy), p90 23.6 m
+straight distance from a random ground point to the nearest >= 25% post launch: p25 61 p50 106 p75 228 p90 363 m
+  >= 25% posts within 380 m of the start centre: 16
+  >= 25% posts within 240 m of the start centre: 7
+  >= 25% posts within 140 m of the start centre: 1
+  >= 25% posts within 70 m of the start centre: 0
+top posts: xy, roof z, climb, area, one-sided/two-sided at 100 m, at 60 m, union
+  (-71, 320) z 17.4 climb 16.3 m area 3996 m2  100 m: 56%/22%  60 m: 6%/13%  union 76%  launch (-19, 334)
+  (457, -236) z 23.5 climb 20.3 m area 2724 m2  100 m: 47%/0%  60 m: 0%/0%  union 96%  launch (491, -206)
+  (53, 116) z 23.8 climb 20.1 m area 1660 m2  100 m: 44%/22%  60 m: 13%/33%  union 43%  launch (67, 116)
+  (409, 340) z 29.0 climb 23.6 m area 872 m2  100 m: 44%/11%  60 m: 27%/20%  union 65%  launch (435, 324)
+  (61, -320) z 13.1 climb 12.9 m area 3664 m2  100 m: 43%/0%  60 m: 0%/0%  union 82%  launch (95, -292)
+  (157, -144) z 25.7 climb 19.7 m area 4388 m2  100 m: 43%/0%  60 m: 0%/0%  union 100%  launch (185, -138)
+  (269, 136) z 25.4 climb 20.4 m area 1820 m2  100 m: 43%/14%  60 m: 0%/13%  union 83%  launch (243, 96)
+  (289, 328) z 38.1 climb 34.1 m area 448 m2  100 m: 43%/14%  60 m: 19%/0%  union 38%  launch (287, 352)
+  (405, -240) z 17.4 climb 14.2 m area 656 m2  100 m: 42%/11%  60 m: 0%/22%  union 60%  launch (365, -236)
+  (41, 268) z 13.6 climb 11.4 m area 4412 m2  100 m: 40%/0%  60 m: 0%/17%  union 46%  launch (59, 230)

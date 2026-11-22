@@ -1,0 +1,7 @@
+PASS  setup: two hostile mechs at 80 m / 100 m with clear lines on open ground  ::  (101, 28) (120, 37)
+PASS  ISO two lines (isolate branch active)  ::  {"any25":true,"near25":true,"near8":true,"near8x":true,"any8x":true}
+PASS  ISO best cell 25 m: any -> isolate, near -> standoff  ::  any isolate, near standoff
+PASS  ISO cell 8 m with xOther 0 -> isolate; 8 m exposed to the other threat -> standoff (any: isolate)  ::  near 8 m isolate, near 8 m exposed standoff, any 8 m exposed isolate
+PASS  ISO firewall: FFA identical to any  ::  near hide, any hide
+
+5/5 ISO checks passed

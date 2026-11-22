@@ -1,0 +1,14 @@
+tw: { off: {}, bad: { sqOverrides: { hideMaxR: 80 } } },
+322 |     const v = o[k], d = PARAMS[k]
+323 |     if (!Object.prototype.hasOwnProperty.call(PARAMS, k)) bad.push(`${k}: not a PARAMS key`)
+324 |     else if (Object.prototype.hasOwnProperty.call(SQ_REFUSED, k)) bad.push(`${k}: refused (${SQ_REFUSED[k]})`)
+325 |     else if (typeof v !== typeof d || Array.isArray(v) !== Array.isArray(d) || (typeof v === 'number' && !Number.isFinite(v))) bad.push(`${k}: ${JSON.stringify(v)} is not of the type of ${JSON.stringify(d)}`)
+326 |   }
+327 |   if (bad.length) throw new Error('sqOverrides refused: ' + bad.join('; '))
+                                  ^
+error: sqOverrides refused: hideMaxR: refused (init: hide-cell lattice)
+      at checkSqOverrides (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/r7work/tw_scratch/vfy/tkt_bad2/bot/lib/params.js:327:29)
+      at resolveParams (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/r7work/tw_scratch/vfy/tkt_bad2/bot/lib/params.js:346:46)
+      at /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/r7work/tw_scratch/vfy/tkt_bad2/bot/lib/[eval]:1:54
+
+Bun v1.4.4 (Linux x64)

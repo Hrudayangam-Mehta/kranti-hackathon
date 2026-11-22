@@ -1,0 +1,53 @@
+G1v: 108/108
+info merged=trunk G1v: 108/108
+G1s: 48/48
+G1x: 20/20
+VB b3 = CH1_s1: 5/5
+VC c3 = SV4: 5/5
+VC cc = SV4 (FFA streams, env auto): 4/4
+T-F2 b: 9/9
+T-F2 c: 9/9
+T-F2 base = MX_base: 9/9
+G1s flips act (hash != all-1 native): 48/48
+VB:
+  kit auto IDENTICAL n=300 hash db31dd08 offTick=182
+  kit squad IDENTICAL n=300 hash 24df41fd offTick=182
+  l48 auto IDENTICAL n=4800 hash 46200596 offTick=2501
+  l11 auto IDENTICAL n=4800 hash 899caeca offTick=2501
+  l23p auto IDENTICAL n=4800 hash bcf2c7d9 offTick=2501
+VC:
+  kit auto IDENTICAL n=300 hash 5705aa3a offTick=182 sv={'svHold': 1, 'svHoldDec': 24, 'svHoldReload': 15, 'svHoldEndLine': 1}
+  kit squad IDENTICAL n=300 hash dd16bc00 offTick=182 sv={'svHold': 1, 'svHoldDec': 24, 'svHoldReload': 15, 'svHoldEndLine': 1}
+  l48 auto IDENTICAL n=4800 hash 398cd654 offTick=2501 sv={'svRlLow': 22, 'svDropLatch': 1, 'svDropGo': 1}
+  l11 auto IDENTICAL n=4800 hash 2bffad35 offTick=2501 sv={'svRlLow': 24, 'svDropLatch': 1, 'svDropGo': 1, 'svDropLost': 1}
+  l23p auto IDENTICAL n=4800 hash 0df21233 offTick=2501 sv={'svHold': 2, 'svHoldDec': 4, 'svHoldEndLine': 2, 'svRlLow': 26, 'svDropLatch': 1, 'svDropGo': 1}
+  f1 auto (cc) IDENTICAL n=1135 offTick=213
+  f2 auto (cc) IDENTICAL n=1619 offTick=187
+  f3 auto (cc) IDENTICAL n=1578 offTick=256
+  f4 auto (cc) IDENTICAL n=312 offTick=206
+T-F2:
+  kit: bb==T1 True cc==T1 True T1==MX True n=300 hash 3c8831c2
+  f1: bb==T1 True cc==T1 True T1==MX True n=1135 hash 3015f86d
+  f2: bb==T1 True cc==T1 True T1==MX True n=1619 hash 5c487acd
+  f3: bb==T1 True cc==T1 True T1==MX True n=1578 hash d45e87d7
+  f4: bb==T1 True cc==T1 True T1==MX True n=312 hash cd0918b5
+  sim 411: bb==T1 True cc==T1 True T1==MX True n=739 kills=1 place=7
+  sim 412: bb==T1 True cc==T1 True T1==MX True n=2205 kills=1 place=2
+  sim 413: bb==T1 True cc==T1 True T1==MX True n=311 kills=1 place=14
+  sim 414: bb==T1 True cc==T1 True T1==MX True n=519 kills=1 place=10
+info auto f1: cc vs T1 differ 47/1135 decisions; offTick=213 firstForeign=422 latch=640
+info auto f2: cc vs T1 differ 119/1619 decisions; offTick=187 firstForeign=370 latch=680
+info auto f3: cc vs T1 differ 64/1578 decisions; offTick=256 firstForeign=508 latch=676
+info auto f4: cc vs T1 differ 21/312 decisions; offTick=206 firstForeign=408 latch=-1
+SIMS:
+  SIMC merged all 'c': n=24 kills=108 mean=4.50 alive=1668 errors=0 fuse=0 maxMs=17.25 dropEv=1
+  ref S ALL4 (CH1 + four sv, S tree): n=24 kills=108 mean=4.50 alive=1668 errors=0 fuse=0 maxMs=80.51 dropEv=1
+  ref CH1 (chaos): n=24 kills=108 mean=4.50 alive=1673 errors=0 fuse=0 maxMs=28.07 dropEv=0
+  SIMT1 merged all '1': n=24 kills=95 mean=3.96 alive=1692 errors=0 fuse=0 maxMs=12.49 dropEv=0
+  ref FNV base (chaos): n=24 kills=95 mean=3.96 alive=1692 errors=0 fuse=0 maxMs=157.81 dropEv=0
+    merged cc == S ALL4 per seed (hash): 24/24; kills up 3 down 4 vs CH1
+    merged all-1 == FNV base per seed (hash): 24/24
+    sv counters (sum): svCbBeam=2 svCbStart=2 svDropBoost=65 svDropCap=1 svDropGo=381 svDropHold=39 svDropIn=29 svDropLatch=4 svHold=21 svHoldDec=356 svHoldEndFin=1 svHoldEndHp=1 svHoldEndLine=19 svHoldReload=10 svRlLow=10 svRlMid=5
+    matches reaching: svDropGo:4 svHoldDec:7 svCbBeam:2 svRlLow:6 svRlMid:5 svRlTop:0 svHoldReload:5
+    variantOffTick set in 2/24
+NO PROBLEMS

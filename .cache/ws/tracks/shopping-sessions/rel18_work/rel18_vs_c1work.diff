@@ -1,0 +1,35 @@
+diff -ruN c1copy/src/main.rs tree/src/main.rs
+--- c1copy/src/main.rs	2026-11-21 22:05:45.000000000 +0000
++++ tree/src/main.rs	2026-11-22 02:45:28.612794819 +0000
+@@ -38,6 +38,7 @@
+ 
+ fn main() {
+     let config = Config::from_env();
++    output::remove_stale_parts(&config.output_dir);
+     let mode = env::var("SESSIONS_PATH").unwrap_or_default();
+     if mode != "slow" {
+         let fast_config = fast::Config {
+diff -ruN c1copy/src/output.rs tree/src/output.rs
+--- c1copy/src/output.rs	2026-11-21 22:05:44.000000000 +0000
++++ tree/src/output.rs	2026-11-22 02:45:26.232794678 +0000
+@@ -72,6 +72,20 @@
+     Ok(())
+ }
+ 
++pub fn remove_stale_parts(output_dir: &Path) {
++    for name in ["user_daily", "campaign_daily"] {
++        let Ok(entries) = fs::read_dir(output_dir.join(name)) else {
++            continue;
++        };
++        for entry in entries.flatten() {
++            let path = entry.path();
++            if path.extension().is_some_and(|ext| ext == "parquet") {
++                let _ = fs::remove_file(&path);
++            }
++        }
++    }
++}
++
+ pub fn write_table(path: &Path, table: Table, columns: Vec<Column>) -> Result<()> {
+     let schema = match table {
+         Table::UserDaily => USER_DAILY_SCHEMA,

@@ -1,0 +1,17 @@
+==16067== Cachegrind, a high-precision tracing profiler
+==16067== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==16067== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==16067== Command: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/bin/x_split2p_v4
+==16067== 
+setup       234.3 ms
+links        93.6 ms on one thread, 44658 lines, 60395 ids
+parse      2906.8 ms
+merge      2935.8 ms
+dedup      3330.7 ms
+people     4092.4 ms
+surviving events 977930, user_daily rows 117038
+sessions 179366 / 179366, revenue 376461330 / 376461330, assisted 1932099 >= 109923
+event copies 1071554, winners 977930, clicks 252348, linked 60395, local ids 67129, distinct ids 74568
+write      4094.4 ms
+==16067== 
+==16067== I refs:        1,264,125,140

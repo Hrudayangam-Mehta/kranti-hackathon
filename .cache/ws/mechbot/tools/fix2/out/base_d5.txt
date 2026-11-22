@@ -1,0 +1,9 @@
+a = mech 10 (15% hp, finishable, 80 m), B = mech 11 (full hp, attacker, 180 deg off), one char per decision
+10 alone first, then 11 appears behind us: aaaaaaaaaaaaBaaaaaaaaBaaaaaaaaaaaaaaaBBB
+both from the start:                        BaaaaaaaaBaaaaaaaaaaaaaaaBBBBBBBBBBBBBBB
+11 appears 60 deg off (no veto):           aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+FAIL  D5 a target under 25% hp is never left for a fresh one (attacker behind us)  ::  10 first: aaaaaaaaaaaaBaaaaaaaaBaaaaaaaaaaaaaaaBBB | both at once: BaaaaaaaaBaaaaaaaaaaaaaaaBBBBBBBBBBBBBBB (a = the 15% target, B = the fresh attacker)
+
+real	0m0.084s
+user	0m0.059s
+sys	0m0.019s

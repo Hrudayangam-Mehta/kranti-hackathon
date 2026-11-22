@@ -1,0 +1,85 @@
+{
+ "args": {
+  "bot": "proc:python3 -B /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/tee_rec.py /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/sq_s2.jsonl -- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/dist/bot.js",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 2,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/sq_s2.sim.json",
+  "latency": 0,
+  "timeout": 2000,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": null,
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": null,
+  "trace": null,
+  "traceTag": null
+ },
+ "summary": {
+  "matches": 1,
+  "meanScore": 4,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 4,
+  "meanTimeAlive": 138.7,
+  "meanDmgDealt": 6823,
+  "meanDmgTaken": 2549,
+  "lates": 2,
+  "errors": 0,
+  "causes": {
+   "lightning/hunt": 1
+  },
+  "meanWallMs": 8998,
+  "wallS": 10
+ },
+ "matches": [
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "aegis-16",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 138.7,
+   "alive": false,
+   "dmgDealt": 6823,
+   "dmgTaken": 2549,
+   "cause": "lightning",
+   "killedBy": 1,
+   "killRange": 25.6,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:easy",
+   "lates": 2,
+   "missed": 0,
+   "cubes": 13,
+   "upgrades": [
+    "gun_rate",
+    "lightning_efficiency",
+    "plating",
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 138.7,
+   "wallMs": 8998,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 88.5,
+   "meanMs": 0
+  }
+ ]
+}

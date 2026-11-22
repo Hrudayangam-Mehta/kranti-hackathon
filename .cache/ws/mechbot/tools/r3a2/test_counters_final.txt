@@ -1,0 +1,18 @@
+PASS  archetype tracks: correct within 5 s of observation and stable for 60 s (noise, 5% dropouts)  ::  130/130 runs over 13 tracks x 10 seeds; slowest first read 4.6 s of observation
+PASS  mixed / ambiguous tracks stay UNKNOWN for the whole run  ::  40/40 runs (traveller, mixedRandom, midDual, farmKiteMix)
+PASS  hysteresis: a 1.5 s burst of other behaviour does not flip the label  ::  labels after 12 s: GUN_STRAFER
+PASS  hysteresis: a lasting change relabels, at least 3 s after it began  ::  first change at 28.9 s to UNKNOWN; final HIDER
+PASS  minimum observation: no label before 1 s + 3 s of observation  ::  0 early labels
+PASS  SQUAD / non-FFA env: adviceFor is neutral and threatRank empty on every tick  ::  127500/127500 calls neutral
+PASS  FFA advice follows the archetype counters (D11 + intel)  ::  kiterAbot=LK/cover closerWV=LZ/keep strafWV=GS/break rusher=BR/hold hiderBob=HD/pass farmerWV=FM/watch
+PASS  bounded loss: advice = neutral + weight x (counter - neutral), weight <= 0.9, 0 at low confidence  ::  low-confidence advice N/lowconf w=0
+PASS  rail: never avoid a mech that is shooting us (D0)  ::  default: HIDER w=0.00 opportunistic; label kept: HIDER w=0.90 respond-only; not shooting: avoid
+PASS  threatRank (FFA): attackers above the hider; empty in SQUAD  ::  order 5,6,7
+PASS  fuzz: no exception escapes, all advice numbers finite, internal catch never used  ::  30000 junk observations; thrown 0, non-finite 0, internal errors 0
+PASS  determinism: two instances fed one stream give identical reads and advice  ::  state 11740 bytes
+PASS  input is read-only: frozen observations and contexts are accepted  ::  0 failures, 0 internal errors
+PASS  real kit stream replay: no exception, no internal error  ::  300 obs; mech 10 (house bot) read LASER_KITER after 17.2 s observed, scores {"LASER_KITER":0.705,"LIGHTNING_CLOSER":0,"GUN_STRAFER":0,"BOOST_RUSHER":0,"HIDER":0,"FARMER":0,"LASER_BRAWLER":0}
+PASS  cost: update with 15 mechs + 12 drones + 30 crates under 0.3 ms  ::  mean 31.3 us, p99 56.4 us, max 2960.0 us over 20000 updates (15 listed mechs); 16 x adviceFor + threatRank 8.2 us
+
+15/15 passed
+exit 0

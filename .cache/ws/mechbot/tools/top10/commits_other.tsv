@@ -1,0 +1,837 @@
+FDS-Dark/buildathon-shopping-sessions	77f1e5bf7b	1795236625	1795236625	Austin Koske	Austin Koske	main	Fuse dense event and compact pipeline passes
+FDS-Dark/buildathon-shopping-sessions	e1bc898673	1795233511	1795233511	Austin Koske	Austin Koske	main	Remove test data from submission tree
+FDS-Dark/buildathon-shopping-sessions	ec57236b32	1795233192	1795233192	Austin Koske	Austin Koske	main	Optimize mmap chunk scheduling and click overlap
+FDS-Dark/buildathon-shopping-sessions	24cc5c425e	1795221985	1795221985	Austin Koske	Austin Koske	main	Promote PGO-trained native Rust pipeline
+FDS-Dark/buildathon-shopping-sessions	10800d16a0	1795217184	1795217184	Austin Koske	Austin Koske	main	Implement exact Shopping Sessions pipeline
+FDS-Dark/buildathon-shopping-sessions	3ce7b01854	1795213551	1795213551	Austin Koske	Austin Koske	main	Initial commit
+Js-Hwang1/buildathon_databricks	3c00ee379d	1795239071	1795239071	JsHwang0916	JsHwang0916	main	Prefetch identity lookups sixteen events ahead on x86
+Js-Hwang1/buildathon_databricks	dc98c6464f	1795238887	1795238887	JsHwang0916	JsHwang0916	bench/intel-prefetch	Measure prefetch variants on rotated shards of the same Intel workload
+Js-Hwang1/buildathon_databricks	a0e0b22074	1795238718	1795238718	JsHwang0916	JsHwang0916	bench/intel-prefetch,main	Train the native x86 scorer build with Clang profile feedback
+Js-Hwang1/buildathon_databricks	91810dbe25	1795238296	1795238296	JsHwang0916	JsHwang0916	bench/intel-prefetch,main	Coalesce Parquet row groups and compare compiler profiles on Intel
+Js-Hwang1/buildathon_databricks	0330de4002	1795238024	1795238024	JsHwang0916	JsHwang0916	bench/intel-prefetch,main	Batch SIMD validation and reduce memory traffic across parallel stages
+Js-Hwang1/buildathon_databricks	e37f25c644	1795237799	1795237799	JsHwang0916	JsHwang0916	bench/intel-prefetch,main	Implement native Shopping Sessions pipeline and x86 benchmark
+Kalyan-Lankireddy/buildathon-blast-radius	6647299aa8	1795229767	1795229767	Kalyan-Lankireddy	Kalyan-Lankireddy	main	Document TRANSFORMS entry narrowing and harness totals
+Kalyan-Lankireddy/buildathon-blast-radius	88431693b6	1795229388	1795229388	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.9: edits to one TRANSFORMS entry select only the tests that looked that key up
+Kalyan-Lankireddy/buildathon-blast-radius	5d3247c3ca	1795228999	1795228999	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.8: a new method in a class body selects the class's users again
+Kalyan-Lankireddy/buildathon-blast-radius	124cc023a5	1795226352	1795226352	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.7: import-time crashes follow the whole importer chain; new methods in a class run everything
+Kalyan-Lankireddy/buildathon-blast-radius	914ec1663e	1795224562	1795224562	Kalyan-Lankireddy	Kalyan-Lankireddy	main	Harness: read keyword-style subtest failures, flag unreadable ones; record lessons
+Kalyan-Lankireddy/buildathon-blast-radius	7adc787013	1795224389	1795224389	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.6: import-time statements that could crash an import widen; new package files run everything
+Kalyan-Lankireddy/buildathon-blast-radius	ae03d65f41	1795222585	1795222585	Kalyan-Lankireddy	Kalyan-Lankireddy	main	Record mutation harness results
+Kalyan-Lankireddy/buildathon-blast-radius	fb19ba5769	1795221893	1795221893	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.5: class-level setup is shared with every test in the class, sample 170.72 s, 0 misses
+Kalyan-Lankireddy/buildathon-blast-radius	eb26701cf5	1795221120	1795221120	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.4: a removed comment never stands in for added code; very large changes run everything
+Kalyan-Lankireddy/buildathon-blast-radius	df46fd64da	1795221071	1795221071	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.3: a crash only breaks everything when `import sqlglot` loads the module
+Kalyan-Lankireddy/buildathon-blast-radius	70ae7196e6	1795220993	1795220993	Kalyan-Lankireddy	Kalyan-Lankireddy	main	Add README and test-file and fixture mutant generation
+Kalyan-Lankireddy/buildathon-blast-radius	ad2ce6d18f	1795220953	1795220953	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.2: import-time lines widen, replaced lines use their own tests, sample 170.72 s, 0 misses
+Kalyan-Lankireddy/buildathon-blast-radius	32fd6b0d29	1795220524	1795220524	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1.1: class constants narrowed to their readers, sample 177.44 s, 0 misses
+Kalyan-Lankireddy/buildathon-blast-radius	9eba2f92ee	1795220176	1795220176	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v1: selection from coverage and class maps, sample 185.35 s, 0 misses, cpu 0.85 s
+Kalyan-Lankireddy/buildathon-blast-radius	73ffd39b49	1795218996	1795218996	Kalyan-Lankireddy	Kalyan-Lankireddy	main	v0: all tests on every commit, optimally packed, sample 1104.5 s, 0 misses
+MahmoodMI1/Buildathon-databricks-1	18cd82264c	1795236421	1795236421	MahmoodMI1	MahmoodMI1	track-b	Track B round 6: fused scanner, batched link lookups, reusable dedup tables, populated mmaps
+MahmoodMI1/Buildathon-databricks-1	74c2a9ec25	1795234654	1795234654	MahmoodMI1	MahmoodMI1	track-b	Track B round 5: 24-byte rows, 16-byte keys, huge-page slabs, AVX2 build
+MahmoodMI1/Buildathon-databricks-1	fb47c4ab5d	1795233685	1795233685	MahmoodMI1	MahmoodMI1	track-b	Track B round 4b: skip product lookup for views/carts, denser link table
+MahmoodMI1/Buildathon-databricks-1	652aa393f6	1795233265	1795233265	MahmoodMI1	MahmoodMI1	track-b	Track B round 4: bucketed partition load, hand-written Parquet, static binary in scratch image
+MahmoodMI1/Buildathon-databricks-1	7ec6d69e1e	1795232768	1795232768	MahmoodMI1	MahmoodMI1	track-b	Track B round 3: two-stage scanner, one-pass fingerprints, table-based timestamps
+MahmoodMI1/Buildathon-databricks-1	6d1335ae51	1795232028	1795232028	MahmoodMI1	MahmoodMI1	track-b	Track B round 2: route rows to person partitions while parsing; 56 bytes per event
+MahmoodMI1/Buildathon-databricks-1	5a2d193868	1795229625	1795229625	MahmoodMI1	MahmoodMI1	track-b	Track B round 1: SIMD scanner, partitioned ID resolution, parallel sessions and output
+MahmoodMI1/Buildathon-databricks-1	36a0e36f76	1795226942	1795226942	MahmoodMI1	MahmoodMI1	track-b	Track B: Rust pipeline v1, correct first (36/36 fixtures, dev MATCH, 20M == Track A)
+MahmoodMI1/Buildathon-databricks-1	53b6432954	1795224014	1795224014	MahmoodMI1	MahmoodMI1	main,track-a,track-b	Fix R-E5: sessionize over distinct (person, ts) so tied events cannot split
+MahmoodMI1/Buildathon-databricks-1	32e0e57d0c	1795221318	1795221131	MahmoodMI1	MahmoodMI1	main,track-a,track-b	Team name: Conquer The World; ignore big*/ data dirs
+MahmoodMI1/Buildathon-databricks-1	cbb54ae701	1795221318	1795220864	MahmoodMI1	MahmoodMI1	main,track-a,track-b	Full SQL pipeline: 36/36 fixtures, dev set MATCH
+MahmoodMI1/Buildathon-databricks-1	4f1fec6de6	1795221317	1795220185	MahmoodMI1	MahmoodMI1	main,track-a,track-b	Starter setup (DuckDB track A)
+MahmoodMI1/Buildathon-databricks-1	a33312b8ef	1795218529	1795218529	Mahmood Idelbi	GitHub	main,track-a,track-b	Initial commit
+NecritsSoup/blast-radius-buildathon-2026	822e4abc67	1795238802	1795238802	Sean Schwartz	Sean Schwartz	feature/attr-narrowing-runtime-verify	Never select more than class consumers for constant edits
+NecritsSoup/blast-radius-buildathon-2026	faceaf05f1	1795238266	1795238266	Sean Schwartz	GitHub	main	Merge pull request #1 from NecritsSoup/feature/attr-narrowing-runtime-verify
+NecritsSoup/blast-radius-buildathon-2026	2b403028ff	1795238132	1795238132	Sean Schwartz	Sean Schwartz	feature/attr-narrowing-runtime-verify,main	Narrow class-constant edits and verify cheap selections at run time
+NecritsSoup/blast-radius-buildathon-2026	7e14c6cf63	1795231025	1795231025	Sean Schwartz	GitHub	feature/attr-narrowing-runtime-verify,main	Docker file fix
+NecritsSoup/blast-radius-buildathon-2026	89985381dd	1795229719	1795229719	Sean Schwartz	GitHub	feature/attr-narrowing-runtime-verify,main	Add files via upload
+NecritsSoup/blast-radius-buildathon-2026	7110e4c3b3	1795229422	1795229422	Sean Schwartz	GitHub	feature/attr-narrowing-runtime-verify,main	Initial commit
+NoahH273/buildathon-databricks	fc914cf28b	1795235355	1795235355	Noah Hymson	Noah Hymson	rust-pipeline	Add detailed event-phase profiling and measured breakdowns
+NoahH273/buildathon-databricks	8976cc03d6	1795234808	1795234808	Noah Hymson	Noah Hymson	rust-hybrid	Implement Rust-DuckDB hybrid ingestion and attribution
+NoahH273/buildathon-databricks	819a52ec81	1795233989	1795233989	Noah Hymson	Noah Hymson	rust-pipeline	Implement exact Rust Shopping Sessions pipeline
+NoahH273/buildathon-databricks	fbcef8cd26	1795232532	1795232532	Noah	Noah	main,rust-hybrid,rust-pipeline	add rust hybrid spec
+NoahH273/buildathon-databricks	628b9f6abb	1795232187	1795232187	Noah	Noah	main,rust-hybrid,rust-pipeline	Merge branch 'work'
+NoahH273/buildathon-databricks	777aaf9e05	1795232073	1795232073	NoahH273	NoahH273	main,rust-hybrid,rust-pipeline	Document Rust pipeline algorithms, harness integration and acceptance tests
+NoahH273/buildathon-databricks	203b5a6082	1795231656	1795231656	Noah Hymson	Noah Hymson	main,rust-hybrid,rust-pipeline,work	Merge remote-tracking branch 'origin/main' into work
+NoahH273/buildathon-databricks	491b1787ce	1795231656	1795231656	Noah Hymson	Noah Hymson	main,rust-hybrid,rust-pipeline,work	Implement DuckDB baseline and cross-language benchmark harness
+NoahH273/buildathon-databricks	288b9205b8	1795219578	1795219578	Noah	Noah	main,rust-hybrid,rust-pipeline,work	Add duckdb baseline spec
+NoahH273/buildathon-databricks	405e158e51	1795219574	1795219574	Noah	Noah	main,rust-hybrid,rust-pipeline,work	Merge branch 'main' of https://github.com/NoahH273/buildathon-databricks
+NoahH273/buildathon-databricks	8db44b2a22	1795219464	1795219464	NoahH273	NoahH273	main,rust-hybrid,rust-pipeline,work	Add Codex Cloud agent workflow and collaboration instructions
+NoahH273/buildathon-databricks	8283698070	1795218087	1795218087	Noah	Noah	main,rust-hybrid,rust-pipeline,work	add description
+NoahH273/buildathon-databricks	5bcaa83e1a	1795217889	1795217889	Noah	Noah	main,rust-hybrid,rust-pipeline,work	initial commit
+PhoebeY05/blast-radius-selector	bf9d38d006	1795239055	1795237289	Phoebe Yap	Phoebe Yap	main	Task 4: selector library (patch parser, scheduler, maps, file-level policy)
+PhoebeY05/blast-radius-selector	82412873e4	1795239055	1795236048	Phoebe Yap	Phoebe Yap	main	Task 2/3 tooling: ground-truth oracle, tracer, map collector, --fast mode
+PhoebeY05/blast-radius-selector	5d708e9733	1795239055	1795234603	Phoebe Yap	Phoebe Yap	main	Add project-local Kiro config for Blast Radius
+PhoebeY05/blast-radius-selector	4d3b95e30f	1795239055	1795233456	Phoebe Yap	Phoebe Yap	main	Task 1: lab environment, baseline (1210.47s), collection check
+PhoebeY05/blast-radius-selector	92ab14ba85	1795239043	1795232878	Phoebe Yap	Phoebe Yap	main	Add Blast Radius starter kit at repo root + solution plan
+PhoebeY05/blast-radius-selector	2c1b1c39e6	1795236174	1795236174	Phoebe Yap	GitHub	main	Initial commit
+RagoSpams/shopping-sessions	aaf2481b86	1795237034	1795237034	RagoSpams	RagoSpams	main	Record the event ordering pairing experiment
+RagoSpams/shopping-sessions	66800b258f	1795236949	1795236949	RagoSpams	RagoSpams	main	Record the separate click ordering pass experiment
+RagoSpams/shopping-sessions	76281a8219	1795236863	1795236863	RagoSpams	RagoSpams	main	Map event and click files while links parse
+RagoSpams/shopping-sessions	2e2d65e22b	1795236771	1795236771	RagoSpams	RagoSpams	main	Record the joined parse experiment
+RagoSpams/shopping-sessions	050240ec69	1795236716	1795236716	RagoSpams	RagoSpams	main	Order events while clicks resolve
+RagoSpams/shopping-sessions	65693faecf	1795236600	1795236600	RagoSpams	RagoSpams	main	Resolve events while clicks deduplicate
+RagoSpams/shopping-sessions	b725354728	1795236600	1795236520	RagoSpams	RagoSpams	main	Record stage-overlap experiments and per-stage idle time
+RagoSpams/shopping-sessions	cd37b70896	1795236600	1795236387	RagoSpams	RagoSpams	main	Record the resolve-side person count experiment
+RagoSpams/shopping-sessions	c23eba19dc	1795236595	1795236290	RagoSpams	RagoSpams	main	Carry clicks as packed sortable words from parse to aggregation
+RagoSpams/shopping-sessions	8c1a42712c	1795236595	1795236072	RagoSpams	RagoSpams	main	Record time-bucketed ordering and narrow cursor experiments
+RagoSpams/shopping-sessions	c27f78d516	1795236417	1795236417	RagoSpams	RagoSpams	main	Record the oversubscribed pool experiment
+RagoSpams/shopping-sessions	fe313fee6c	1795236334	1795236334	RagoSpams	RagoSpams	main	Record the link reservation experiment
+RagoSpams/shopping-sessions	6f1ea801c1	1795236201	1795236201	RagoSpams	RagoSpams	main	Record the click-copy experiment
+RagoSpams/shopping-sessions	b5a10fae67	1795236042	1795236042	RagoSpams	RagoSpams	main	Record the masked-load key packing experiment
+RagoSpams/shopping-sessions	af53ca3eb4	1795235933	1795235561	RagoSpams	RagoSpams	main	Record allocator metadata and pool start-up experiments
+RagoSpams/shopping-sessions	4d4e5b294c	1795235933	1795235251	RagoSpams	RagoSpams	main	Remove duplicated rows from the experiment log after rebase
+RagoSpams/shopping-sessions	d8b856d0e9	1795235933	1795235232	RagoSpams	RagoSpams	main	Order clicks as packed time-campaign words when the span fits
+RagoSpams/shopping-sessions	aa3dc4a795	1795235933	1795235113	RagoSpams	RagoSpams	main	Record aggregation cost diagnostics
+RagoSpams/shopping-sessions	fe9779811b	1795235933	1795235005	RagoSpams	RagoSpams	main	Dictionary-encode user and category strings in user files
+RagoSpams/shopping-sessions	a270eb27d0	1795235873	1795235873	RagoSpams	RagoSpams	main	Record the partition fanout experiments
+RagoSpams/shopping-sessions	8d6ebdb38f	1795235796	1795235796	RagoSpams	RagoSpams	main	Deduplicate in 128 ID partitions so bitmaps stay in L2
+RagoSpams/shopping-sessions	16caffc0af	1795235597	1795235597	RagoSpams	RagoSpams	main	Record the dedup and click parse overlap experiment
+RagoSpams/shopping-sessions	648cac568d	1795235542	1795235542	RagoSpams	RagoSpams	main	Reserve forward lists and tighten the in-place resolve loop
+RagoSpams/shopping-sessions	184ee1b43c	1795235465	1795235465	RagoSpams	RagoSpams	main	Record the background page provisioning experiment
+RagoSpams/shopping-sessions	580f70452a	1795235234	1795235234	RagoSpams	RagoSpams	main	Record the paired dedup bitmap experiment
+RagoSpams/shopping-sessions	9c4f1869d6	1795235135	1795235135	RagoSpams	RagoSpams	main	Map click and link inputs in smaller chunks
+RagoSpams/shopping-sessions	b413d9ed04	1795235085	1795235085	RagoSpams	RagoSpams	main	Record scanner variants and keep a randomized scanner test
+RagoSpams/shopping-sessions	a1bd272f86	1795234188	1795234175	RagoSpams	RagoSpams	main	Write output integer columns as INT32 when every value fits
+RagoSpams/shopping-sessions	30af53f21c	1795234179	1795233602	RagoSpams	RagoSpams	main	Sum dense campaign totals without a hash map
+RagoSpams/shopping-sessions	3ca06ef16c	1795234179	1795233463	RagoSpams	RagoSpams	main	Record time-bucket ordering and bucket sort experiments
+RagoSpams/shopping-sessions	9e111ed797	1795233933	1795233933	RagoSpams	RagoSpams	main	Load catalogs into word indexes alongside link parsing
+RagoSpams/shopping-sessions	4d90b57122	1795233726	1795233726	RagoSpams	RagoSpams	main	Record the input prefault experiment
+RagoSpams/shopping-sessions	965fab42a9	1795233147	1795233147	RagoSpams	RagoSpams	main	Carry events as packed sortable words from parse to aggregation
+RagoSpams/shopping-sessions	9860e539c4	1795232783	1795232783	RagoSpams	RagoSpams	main	Merge branch 'fm/shop-r3-out' into fm/shop-r3
+RagoSpams/shopping-sessions	88e2949fb6	1795232567	1795232567	RagoSpams	RagoSpams	main	Record the deferred campaign-cell update experiment
+RagoSpams/shopping-sessions	125f3ebbb7	1795232390	1795232390	RagoSpams	RagoSpams	main	Drop row packing so in-place resolve keeps equal record layouts
+RagoSpams/shopping-sessions	dd664b773e	1795232354	1795232354	RagoSpams	RagoSpams	main	Decode catalog names, packed-key hashes and epoch timestamps with word operations
+RagoSpams/shopping-sessions	d9f0bec209	1795232312	1795232312	RagoSpams	RagoSpams	main	Merge branch 'fm/shop-r3' into fm/shop-r3-out
+RagoSpams/shopping-sessions	8c520f7b5b	1795232067	1795232067	RagoSpams	RagoSpams	main	Pack routed event and click rows to four-byte alignment
+RagoSpams/shopping-sessions	e76932aa24	1795231950	1795231950	RagoSpams	RagoSpams	main	Record the block-chain person grouping experiment
+RagoSpams/shopping-sessions	e536a5b801	1795231844	1795231844	RagoSpams	RagoSpams	main	Resolve user partitions in place and forward only foreign persons
+RagoSpams/shopping-sessions	3842f1a55d	1795231702	1795231702	RagoSpams	RagoSpams	main	Merge branch 'fm/shop-r3' into fm/shop-r3-out
+RagoSpams/shopping-sessions	6e65451518	1795231696	1795231696	RagoSpams	RagoSpams	main	Record the lazy assist counting experiment
+RagoSpams/shopping-sessions	46e04cd1ed	1795231447	1795231447	RagoSpams	RagoSpams	main	Aggregate the largest remaining user shard first
+RagoSpams/shopping-sessions	45f099be70	1795231373	1795231373	RagoSpams	RagoSpams	main	Write user files and release input page tables as workers finish
+RagoSpams/shopping-sessions	91c5c65fa3	1795231176	1795231176	RagoSpams	RagoSpams	main	Discard input page tables in parallel while writing outputs
+RagoSpams/shopping-sessions	5d4b2a4a44	1795230798	1795230798	RagoSpams	RagoSpams	main	Count campaign assists in a compact day-major matrix
+RagoSpams/shopping-sessions	bb49389612	1795230192	1795230192	RagoSpams	RagoSpams	main	Record the per-worker user handle experiment
+RagoSpams/shopping-sessions	61a9ed938b	1795230179	1795230179	RagoSpams	RagoSpams	main	Merge branch 'fm/shop-r3' into fm/shop-r3-out
+RagoSpams/shopping-sessions	b46669ee59	1795229759	1795229759	RagoSpams	RagoSpams	main	Use finer partitions for prefetched alias probes
+RagoSpams/shopping-sessions	9c1616ceab	1795229677	1795229677	RagoSpams	RagoSpams	main	Combine the measured output path with validated alias prefetch
+RagoSpams/shopping-sessions	0b22a56ec4	1795229669	1795229669	RagoSpams	RagoSpams	main	Record correctness and isolated timing for reserved scatter inputs
+RagoSpams/shopping-sessions	572c0b5962	1795229648	1795229648	RagoSpams	RagoSpams	main	Batch and prefetch exact canonical alias probes
+RagoSpams/shopping-sessions	5fcf16e037	1795229639	1795229639	RagoSpams	RagoSpams	main	Compare ticket and alias scaling at 60M
+RagoSpams/shopping-sessions	2e41af55b6	1795229562	1795229562	RagoSpams	RagoSpams	main	Measure the event-ID-only prepass and sparse loser offsets
+RagoSpams/shopping-sessions	ec3efb5adc	1795229459	1795229459	RagoSpams	RagoSpams	main	Combine final output measurements with reserved input scatter buffers
+RagoSpams/shopping-sessions	621180b152	1795229457	1795229457	RagoSpams	RagoSpams	main	Measure and reject linear-probing alias slots
+RagoSpams/shopping-sessions	c2fbd8f64e	1795229450	1795229450	RagoSpams	RagoSpams	main	Record packed shard sorting, earlier unmap and singleton credit trials
+RagoSpams/shopping-sessions	0ff36c3a4d	1795229389	1795229389	RagoSpams	RagoSpams	main	Record inline-word dimension indexing
+RagoSpams/shopping-sessions	beee85375b	1795229322	1795229322	RagoSpams	RagoSpams	main	Record the per-shard recent-alias cache experiment
+RagoSpams/shopping-sessions	224c13ebde	1795229269	1795229269	RagoSpams	RagoSpams	main	Release input mappings while writing owned Parquet columns
+RagoSpams/shopping-sessions	642d7d4033	1795229167	1795229167	RagoSpams	RagoSpams	main	Record the two-word decimal timestamp experiment
+RagoSpams/shopping-sessions	0339ac6c88	1795229108	1795229108	RagoSpams	RagoSpams	main	Record guaranteed-F1 ingest specialization
+RagoSpams/shopping-sessions	39dbc7aed0	1795229094	1795229094	RagoSpams	RagoSpams	main	Use jemalloc with transparent huge page hints in the redesign
+RagoSpams/shopping-sessions	9a587b2a95	1795229018	1795229018	RagoSpams	RagoSpams	main	Measure and reject global alias probes in the parse loop
+RagoSpams/shopping-sessions	572e871bf1	1795228921	1795228921	RagoSpams	RagoSpams	main	Reserve input-derived capacities for worker scatter buffers
+RagoSpams/shopping-sessions	ffcb32d5e3	1795228750	1795228750	RagoSpams	RagoSpams	main	Stack output changes on validated ticket deduplication
+RagoSpams/shopping-sessions	f0d9ff6f7e	1795228744	1795228744	RagoSpams	RagoSpams	main	Radix-sort long person histories by their timestamp bytes
+RagoSpams/shopping-sessions	0338629f98	1795228705	1795228705	RagoSpams	RagoSpams	main	Record the canonical-value alias table experiment
+RagoSpams/shopping-sessions	f7e5c38f15	1795228610	1795228610	RagoSpams	RagoSpams	main	Reduce the user scatter fanout for compact ID tickets
+RagoSpams/shopping-sessions	903893ccf5	1795228600	1795228600	RagoSpams	RagoSpams	main	Expire campaign assists by their most recent eligible click
+RagoSpams/shopping-sessions	55c1badff8	1795228527	1795228527	RagoSpams	RagoSpams	main	Record the cumulative ticket-dedup milestone
+RagoSpams/shopping-sessions	d02701706e	1795228511	1795228511	RagoSpams	RagoSpams	main	Record exit probes and combined native and container gates
+RagoSpams/shopping-sessions	c70f8183ef	1795228429	1795228429	RagoSpams	RagoSpams	main	Send compact row tickets through ID deduplication
+RagoSpams/shopping-sessions	7b73c9142e	1795228279	1795228279	RagoSpams	RagoSpams	main	Combine output optimizations with the packed-key input pipeline
+RagoSpams/shopping-sessions	cb5f645240	1795228273	1795228273	RagoSpams	RagoSpams	main	Reuse validated date prefixes and decode clock fields in one word
+RagoSpams/shopping-sessions	f0426d5867	1795228270	1795228270	RagoSpams	RagoSpams	main	Sort eligible person events as lossless 64-bit values
+RagoSpams/shopping-sessions	d2836ef756	1795228195	1795228195	RagoSpams	RagoSpams	main	Process counted person ranges directly in session attribution
+RagoSpams/shopping-sessions	3d11a9671b	1795228152	1795228152	RagoSpams	RagoSpams	main	Record direct click routing and its two timing series
+RagoSpams/shopping-sessions	e98e976189	1795228121	1795228121	RagoSpams	RagoSpams	main	Use bounded dense campaign-day totals within each worker
+RagoSpams/shopping-sessions	9a6a4cd69d	1795228065	1795228065	RagoSpams	RagoSpams	main	Verify the packed-key milestone with the root container
+RagoSpams/shopping-sessions	24a43d826a	1795228054	1795228054	RagoSpams	RagoSpams	main	Group resolved rows by dense person index before sorting
+RagoSpams/shopping-sessions	dbceb110fc	1795227931	1795227931	RagoSpams	RagoSpams	main	Record allocator and mapped-page teardown trials
+RagoSpams/shopping-sessions	53b6ea04fa	1795227865	1795227865	RagoSpams	RagoSpams	main	Pack short ASCII keys losslessly for partition-local processing
+RagoSpams/shopping-sessions	06a270911a	1795227749	1795227749	RagoSpams	RagoSpams	main	Measure cache residency, page faults and stage scaling at 60M
+RagoSpams/shopping-sessions	07d19c86bf	1795227727	1795227727	RagoSpams	RagoSpams	main	Write redesign output from column buffers with fastpq
+RagoSpams/shopping-sessions	11c957df18	1795227691	1795227691	RagoSpams	RagoSpams	main	Record the masked short-key load experiment
+RagoSpams/shopping-sessions	9ddea37122	1795227334	1795227334	RagoSpams	RagoSpams	main	Narrow the parse scatter after selective deduplication
+RagoSpams/shopping-sessions	e28d4824e3	1795227271	1795227271	RagoSpams	RagoSpams	main	Group rows by dense person ID before sorting timestamps
+RagoSpams/shopping-sessions	a693c010d2	1795227174	1795227174	RagoSpams	RagoSpams	main	Bypass the winner table for provably unique IDs
+RagoSpams/shopping-sessions	e840f236a5	1795227055	1795227055	RagoSpams	RagoSpams	main	Record the exact contiguous-parse and deferred-radix experiment
+RagoSpams/shopping-sessions	bf4855f298	1795227055	1795226916	RagoSpams	RagoSpams	main	Measure parse self time on the pinned 20M redesign
+RagoSpams/shopping-sessions	b9c43d2b52	1795226975	1795226975	RagoSpams	RagoSpams	main	Package the partition-local redesign for calibration
+RagoSpams/shopping-sessions	015a9b8d6f	1795226707	1795226183	RagoSpams	RagoSpams	main	Add standalone fast Parquet writer for shopping outputs
+RagoSpams/shopping-sessions	224d9d8c2a	1795226173	1795226173	RagoSpams	RagoSpams	main	Fuse structural CSV scanning and record the M2 stopping gate
+RagoSpams/shopping-sessions	07cb42ead1	1795225903	1795225903	RagoSpams	RagoSpams	main	Add exact partition-local shopping sessions redesign alongside default
+RagoSpams/shopping-sessions	88fee99ffb	1795222659	1795222659	RagoSpams	RagoSpams	main	Package and verify the Rust submission image
+RagoSpams/shopping-sessions	3e4a42586b	1795222297	1795222297	RagoSpams	RagoSpams	main	Record campaign tally experiment
+RagoSpams/shopping-sessions	be64d7575e	1795222161	1795222161	RagoSpams	RagoSpams	main	Pack linked alias keys and reuse the union-find interner
+RagoSpams/shopping-sessions	cb84bf3345	1795221911	1795221911	RagoSpams	RagoSpams	main	Scan CSV separators and quotes together with SSE2
+RagoSpams/shopping-sessions	689b01aed1	1795221844	1795221844	RagoSpams	RagoSpams	main	Add exact static Rust Shopping Sessions pipeline
+RagoSpams/shopping-sessions	82d43a8140	1795220676	1795220344	RagoSpams	RagoSpams	main	Implement and freeze Shopping Sessions reference pipeline
+RagoSpams/shopping-sessions	15873bbb81	1795220129	1795220129	RagoSpams	RagoSpams	main	Set up the local Shopping Sessions test loop
+RagoSpams/shopping-sessions	38d4b2ebc2	1795219902	1795219902	RagoSpams	RagoSpams	main	Import Shopping Sessions DuckDB starter
+SnowySlug/buildathon-rwx	011bf5e4a6	1795228404	1795228404	SnowySlug	SnowySlug	main	Distinguish import-time function signatures from executed function bodies
+SnowySlug/buildathon-rwx	3a59e1aaab	1795224871	1795224871	SnowySlug	SnowySlug	main	Add pristine metadata/import consumers and bounded import validation with independent holdouts
+SnowySlug/buildathon-rwx	54a22840fd	1795221451	1795221451	SnowySlug	SnowySlug	main	Add validated pristine-coverage selector with compact equivalent map
+SnowySlug/buildathon-rwx	860a27803e	1795221357	1795221357	SnowySlug	SnowySlug	main	Initialize Sluggington RWX Blast Radius entry
+SnowySlug/buildathon-shopping	7baddbec40	1795228274	1795228274	SnowySlug	SnowySlug	main	Use exact fingerprint-prefilter dedup and stable radix ordering
+SnowySlug/buildathon-shopping	9253b122f1	1795227534	1795227534	SnowySlug	SnowySlug	main	Evaluate compact collision-checked event records with exact full-scale output equivalence
+SnowySlug/buildathon-shopping	180b6d4084	1795224054	1795224054	SnowySlug	SnowySlug	main	Replace large SQL intermediates with validated native session aggregation
+SnowySlug/buildathon-shopping	b93713f823	1795221780	1795221780	SnowySlug	SnowySlug	main	Parallelize strict CSV frontend; validate fixtures, public dev and independent seeds
+SnowySlug/buildathon-shopping	14c161f147	1795221306	1795221306	SnowySlug	SnowySlug	main	Add exact Shopping Sessions pipeline validated on 36 fixtures and 1M events
+SnowySlug/buildathon-shopping	ba1ba64bbc	1795221263	1795221263	SnowySlug	SnowySlug	main	Initialize Sluggington Shopping Sessions entry
+SophieZ596/shopping-sessions	e6c2821d31	1795221759	1795221725	Buildathon submission	Buildathon submission	main	Implement Shopping Sessions pipeline
+SuperHuyGaming/shopping-sessions	687f489b0f	1795228548	1795228548	SuperHuyGaming	SuperHuyGaming	main	v11: compact pipeline: dense person ids, 16-byte keys + in-place payload, exact dedup, u64 (pid,ts) keys with two-pass direct write, pid co-scan fold (20M ~1.4-1.5s local engine vs v8 1.8-2.0)
+SuperHuyGaming/shopping-sessions	aa857c9bbd	1795224084	1795224084	SuperHuyGaming	SuperHuyGaming	main	v9: links table built on its own thread, overlapped with events parsing; persons resolved after dedup
+SuperHuyGaming/shopping-sessions	d05d1011e9	1795223154	1795223154	SuperHuyGaming	SuperHuyGaming	main	v8: bucket-parallel fold with click co-scan, dense campaign_daily array, parallel parquet writes (20M ~1.65-1.97s local engine)
+SuperHuyGaming/shopping-sessions	fd0652f6e7	1795222797	1795222797	SuperHuyGaming	SuperHuyGaming	main	v7: AVX-512 structural CSV scan, fast timestamp parse (compile-time month table), flat inline person table, memcmp-free short-id equality; Rust 1.89 (20M ~1.8-2.1s local engine)
+SuperHuyGaming/shopping-sessions	090d685bdb	1795220895	1795220895	SuperHuyGaming	SuperHuyGaming	main	v6: clicks direct person scatter + adjacent dedup, numeric-key bucket sorts with exact collision fallback, early exit (20M ~2.4s local engine)
+SuperHuyGaming/shopping-sessions	6c910275dd	1795219981	1795219981	SuperHuyGaming	SuperHuyGaming	main	v4: inline validation, id-hash bucketed dedup, person-bucketed local sorts, single-pass CSV split (20M: 5.8s -> ~3.0s local)
+SuperHuyGaming/shopping-sessions	d309bf861f	1795219131	1795219131	SuperHuyGaming	SuperHuyGaming	main	v3: deferred parsing, compact-key dedup, events||clicks, mimalloc (20M: 7.4s -> 5.8s local)
+SuperHuyGaming/shopping-sessions	119676d957	1795218421	1795218421	SuperHuyGaming	SuperHuyGaming	main	Native Rust engine: exact rules.md, 36/36 fixtures, dev MATCH
+SuperHuyGaming/shopping-sessions	801b214d79	1795215979	1795215979	SuperHuyGaming	SuperHuyGaming	main	Start from the official DuckDB starter (skeleton + 36 fixtures)
+TsubakiLine/buildathon-shopping	687bc1b58e	1795226812	1795226812	TsubakiLine	TsubakiLine	main	Run compiled pipeline binary directly without run.sh
+TsubakiLine/buildathon-shopping	c6d26772f8	1795226630	1795226630	TsubakiLine	TsubakiLine	main	Native Rust shopping-sessions pipeline
+Vijayragav-V/Buildathon-RWX	7eb86f54a8	1795223164	1795223164	Codex	Codex	main	Buildathon project submission
+Vijayragav-V/Buildathon-RWX	ebb55fa5e8	1795220562	1795220550	Codex	Codex	main	Build baseline coverage and fixture-aware test selector
+ZheXie/shopping-sessions	d24a0b772e	1795239303	1795239303	Codex	Codex	yluxue	Merge optimized shopping sessions pipeline into yluxue
+ZheXie/shopping-sessions	7e79e8a178	1795239113	1795239113	Codex	Codex	yluxue	Reduce shopping sessions parse, scatter and aggregation time
+ZheXie/shopping-sessions	d30f0e50da	1795233273	1795233273	ZheXie	ZheXie	yluxue	Docker: set Rust flags in the Dockerfile; commit the cargo config
+ZheXie/shopping-sessions	fc1de37177	1795233228	1795233228	ZheXie	ZheXie	yluxue	Rust port of the pipeline; the Dockerfile now builds it
+ZheXie/shopping-sessions	ad075c9af7	1795232077	1795232077	Cursor Agent	Cursor Agent	main,yluxue	Document the current pipeline and timings
+ZheXie/shopping-sessions	22bbf21aa7	1795231987	1795231987	ZheXie	ZheXie	yluxue	README: list only the test hooks that exist
+ZheXie/shopping-sessions	cc1946ffe6	1795231973	1795231973	ZheXie	ZheXie	yluxue	Profile-driven speedups: 8-byte IDs, smaller records, fewer page faults
+ZheXie/shopping-sessions	249651f1b7	1795230547	1795230547	Cursor Agent	Cursor Agent	main,yluxue	Start the binary directly instead of through run.sh
+ZheXie/shopping-sessions	d837fc3eeb	1795230547	1795230547	Cursor Agent	Cursor Agent	main,yluxue	Use the date memo per worker, prefetch the next partition block, drop debug knobs
+ZheXie/shopping-sessions	2a95093e00	1795230547	1795230547	Cursor Agent	Cursor Agent	main,yluxue	Memoize dates and parse clock fields and epoch digits with SWAR
+ZheXie/shopping-sessions	dc3817f474	1795230541	1795230541	Cursor Agent	Cursor Agent	main,yluxue	Format with rustfmt
+ZheXie/shopping-sessions	cfb5d9c08e	1795230102	1795230102	Cursor Agent	Cursor Agent	main,yluxue	Back the link table with huge pages by writing it first
+ZheXie/shopping-sessions	a591cc635a	1795229782	1795229782	Cursor Agent	Cursor Agent	main,yluxue	Inline person names, 16-byte dedup keys, in-place link table finalize
+ZheXie/shopping-sessions	dd15772b2d	1795229603	1795229603	Cursor Agent	Cursor Agent	main,yluxue	Scan without per-line vectors, write-combining scatter, populate file pages
+ZheXie/shopping-sessions	78f0063431	1795229024	1795229024	Cursor Agent	Cursor Agent	main,yluxue	Rewrite pipeline: SIMD CSV scan, hash-partitioned dedup, per-person aggregation, own Parquet writer
+ZheXie/shopping-sessions	bdff55a9b0	1795228559	1795228559	ZheXie	ZheXie	yluxue	Cut memory traffic for the scorer's 4-core, 4 KB-page setup
+ZheXie/shopping-sessions	c1e3a6419c	1795227121	1795227121	Cursor Agent	Cursor Agent	main,yluxue	Rust speed path for Shopping Sessions
+ZheXie/shopping-sessions	6e89d2997f	1795226888	1795226888	ZheXie	ZheXie	yluxue	Shopping Sessions: fast C++ pipeline
+ZheXie/shopping-sessions	67be642c2d	1795225416	1795225416	Cursor Agent	Cursor Agent	main,yluxue	Implement correctness baseline for Shopping Sessions
+ZheXie/shopping-sessions	754458663c	1795223827	1795223827	Cursor Agent	Cursor Agent	main,yluxue	Scaffold Shopping Sessions contest with implementation plan
+ZheXie/shopping-sessions	a65e5b6cb8	1795223635	1795223635	Yilun Luxue	Yilun Luxue	main,yluxue	Initialize project
+adadi-bit/OSU_Buildathon_Databricks	6f696e3375	1795238274	1795238274	akshitadadi260	akshitadadi260	devin/scorer-probe-2	Scorer probe v2: diagnostics returned in the five smallest user_daily rows (never part of a candidate)
+adadi-bit/OSU_Buildathon_Databricks	039939fd94	1795232652	1795232652	akshitadadi260	akshitadadi260	devin/scorer-probe	PROBE (not a candidate): scorer diagnostics on stderr, writes empty tables so dev deliberately fails
+adadi-bit/OSU_Buildathon_Databricks	06f12607f6	1795229701	1795229701	akshitadadi260	akshitadadi260	devin/scorer-probe,devin/scorer-probe-2,devin/shopping-sessions-rust,main	m2: PGO build, static scratch image, faster scanner (m1 + bot 4 + bot 1 + encode-bounds fix)
+adadi-bit/OSU_Buildathon_Databricks	a77768f0ad	1795228039	1795228039	akshitadadi260	akshitadadi260	devin/scorer-probe,devin/scorer-probe-2,devin/shopping-sessions-rust,main	Merged m1: own Parquet writer, per-thread user_daily, counting sort, two-pointer click window, in-place dedup
+adadi-bit/OSU_Buildathon_Databricks	15460e47cf	1795226897	1795226897	akshitadadi260	akshitadadi260	devin/scorer-probe,devin/scorer-probe-2,devin/shopping-sessions-rust,main	Speed up dedup with prefetch (v3)
+adadi-bit/OSU_Buildathon_Databricks	ef93db3480	1795226398	1795226398	akshitadadi260	akshitadadi260	devin/scorer-probe,devin/scorer-probe-2,devin/shopping-sessions-rust,main	Speed up pipeline: custom allocator (halloc.rs), faster CSV scan
+adadi-bit/OSU_Buildathon_Databricks	5dd7c96bbd	1795226176	1795226176	akshitadadi260	akshitadadi260	devin/scorer-probe,devin/scorer-probe-2,devin/shopping-sessions-rust,main	Shopping Sessions: native Rust pipeline, Dockerfile, fixtures and scorer scripts
+adman40/shopping-sessions-buildathon	160cbf2286	1795239283	1795239283	adman40	adman40	v2/v2-identity	no-mistakes(document): Refresh V2 identity documentation and formatting
+adman40/shopping-sessions-buildathon	d19480dad4	1795238250	1795238250	adman40	adman40	v2/v2-identity	no-mistakes(review): Align memory accounting and remove review artifacts
+adman40/shopping-sessions-buildathon	5590e9ea25	1795236689	1795236689	adman40	adman40	v2/v2-sweep	no-mistakes(document): Refresh V2 Slice 5 documentation
+adman40/shopping-sessions-buildathon	ecd6b5dbea	1795236111	1795236111	adman40	adman40	v2/v2-identity	no-mistakes(review): Compact identity indexes and guard telemetry self-copies
+adman40/shopping-sessions-buildathon	bdff91628c	1795236096	1795236096	adman40	adman40	v2/slice0-contracts	no-mistakes(ci): Fixed the Validate V2 Clippy failure by formatting `CompactEventBatch` as code in its generated documentation. Verified the full CI Rust sequence with Rust 1.100: fmt, check, Clippy w
+adman40/shopping-sessions-buildathon	e489786dac	1795235865	1795235865	adman40	adman40	v2/v2-sweep	no-mistakes(review): Remove duplicate click ordering tie-break
+adman40/shopping-sessions-buildathon	df6647e4b5	1795235580	1795235580	adman40	adman40	v2/v2-output	no-mistakes(document): Refresh Slice 6 output documentation
+adman40/shopping-sessions-buildathon	48bc144eb4	1795235573	1795235573	adman40	adman40	v2/v2-parser	no-mistakes(document): Refresh V2 parser documentation
+adman40/shopping-sessions-buildathon	3bcf4478e5	1795235047	1795235047	adman40	adman40	v2/v2-clicks	no-mistakes(document): Refresh V2 click reducer documentation
+adman40/shopping-sessions-buildathon	f166c2cb9e	1795234736	1795234736	adman40	adman40	v2/v2-parser	no-mistakes(review): Split parser rows across bounded byte arenas
+adman40/shopping-sessions-buildathon	180cff570e	1795234057	1795234057	Andrew Manoni	GitHub	v2-rust-plan	Add V2 pull request CI workflow (#3)
+adman40/shopping-sessions-buildathon	27abae55f8	1795231755	1795231755	adman40	adman40	v2/v2-ci-workflow	Add V2 pull request CI workflow
+adman40/shopping-sessions-buildathon	ac36480517	1795231390	1795231390	adman40	adman40	v2/v2-output	Implement V2 Parquet output publication
+adman40/shopping-sessions-buildathon	89afb181fc	1795231238	1795231238	adman40	adman40	v2/v2-identity	Implement deterministic V2 identity graph
+adman40/shopping-sessions-buildathon	68eb55ca20	1795231229	1795231229	adman40	adman40	v2/v2-parser	Implement exact V2 input parser
+adman40/shopping-sessions-buildathon	53073947db	1795231060	1795231060	adman40	adman40	v2/v2-sweep	Implement V2 per-person sweep
+adman40/shopping-sessions-buildathon	4911bac064	1795230975	1795230975	adman40	adman40	v2/v2-clicks	Implement V2 click reducer
+adman40/shopping-sessions-buildathon	6a88a6087a	1795229859	1795229859	adman40	adman40	v2/gcp-bench-integration	Add manual GCP benchmark harness
+adman40/shopping-sessions-buildathon	265b02aad1	1795228130	1795228130	adman40	adman40	v2/slice0-contracts,v2/v2-clicks,v2/v2-identity,v2/v2-output,v2/v2-parser,v2/v2-	no-mistakes(document): Refresh Slice 0 contract documentation
+adman40/shopping-sessions-buildathon	f01ef78797	1795226492	1795226492	adman40	adman40	v2/slice0-contracts,v2/v2-clicks,v2/v2-identity,v2/v2-output,v2/v2-parser,v2/v2-	no-mistakes(review): Force candidate comparisons through Parquet outputs
+adman40/shopping-sessions-buildathon	6c1c1ca5d4	1795226005	1795226005	adman40	adman40	v2/slice0-contracts,v2/v2-clicks,v2/v2-identity,v2/v2-output,v2/v2-parser,v2/v2-	no-mistakes(review): Enforce semantic output nullability contracts
+adman40/shopping-sessions-buildathon	f3b8be61ee	1795225130	1795225130	adman40	adman40	v2/slice0-contracts,v2/v2-clicks,v2/v2-identity,v2/v2-output,v2/v2-parser,v2/v2-	no-mistakes(review): Fix Slice 0 contracts and harness gates
+adman40/shopping-sessions-buildathon	84b843cb16	1795223670	1795223670	adman40	adman40	v2/slice0-contracts,v2/v2-clicks,v2/v2-identity,v2/v2-output,v2/v2-parser,v2/v2-	Freeze V2 Slice 0 contracts and harness
+adman40/shopping-sessions-buildathon	4673e5a41f	1795222386	1795222386	adman40	adman40	v2-rust-plan,v2/gcp-bench-integration,v2/slice0-contracts,v2/v2-ci-workflow,v2/v	Add V2 Rust parallel implementation plan
+adman40/shopping-sessions-buildathon	8a35b964ae	1795222146	1795222146	adman40	adman40	main,v2-rust-plan,v2/gcp-bench-integration,v2/slice0-contracts,v2/v2-ci-workflow	Publish validated Polars baseline
+anthonyteti/buildathon-blast-radius	b9a246e068	1795237909	1795237909	anthonyteti	anthonyteti	main	Unpatched import fingerprint built into the image; recalibrate verification CPU costs from the practice board
+anthonyteti/buildathon-blast-radius	c09919f3b3	1795237361	1795237361	anthonyteti	anthonyteti	main	Verification: run each test class contiguously; budgeted evidence for the expensive-test rule (still off), stop probe runs at the first infection
+anthonyteti/buildathon-blast-radius	3de2d193df	1795237086	1795237086	anthonyteti	anthonyteti	main	Lazy-load coverage: skip lines that run at import time; subprocess tests only for eagerly imported modules
+anthonyteti/buildathon-blast-radius	e23efe7f62	1795236960	1795236960	anthonyteti	anthonyteti	main	Cheaper import checks; ignore annotations that are never evaluated
+anthonyteti/buildathon-blast-radius	c1a75c820b	1795236551	1795236551	anthonyteti	anthonyteti	main	Import-time change checks, lazy-load coverage, run-time verification
+anthonyteti/buildathon-blast-radius	3f4725a905	1795233694	1795233694	anthonyteti	anthonyteti	main	Coverage-based test selection with worker packing
+anthonyteti/buildathon-blast-radius	4c015ab7cd	1795232641	1795232641	Anthony Teti	GitHub	main	Initial commit
+anthonyteti/buildathon-cad-deid	dcac66c650	1795239498	1795239498	anthonyteti	anthonyteti	main	Single-threaded tesseract per worker; cap OCR image size
+anthonyteti/buildathon-cad-deid	7a975de60d	1795238799	1795238799	anthonyteti	anthonyteti	main	More generic author values
+anthonyteti/buildathon-cad-deid	7998060763	1795238773	1795238773	anthonyteti	anthonyteti	main	Require two-word names from title blocks; skip document titles in author fields
+anthonyteti/buildathon-cad-deid	e8a5b2ad9e	1795238298	1795238298	anthonyteti	anthonyteti	main	Never treat generic field names as site identities
+anthonyteti/buildathon-cad-deid	6f2e40b5b2	1795238290	1795238290	anthonyteti	anthonyteti	main	Keep URL domains found in content (standards, vendors, XMP namespaces); stricter site-name tokens
+anthonyteti/buildathon-cad-deid	031dab194f	1795238077	1795238077	anthonyteti	anthonyteti	main	Harvest title-block names from DXF text too
+anthonyteti/buildathon-cad-deid	33dcc40920	1795237361	1795237361	anthonyteti	anthonyteti	main	README: describe raster OCR handling
+anthonyteti/buildathon-cad-deid	f27b747b9d	1795237345	1795237345	anthonyteti	anthonyteti	main	Tighten identity filters: machine names, DOMAIN\\user pairs, junk accounts, 8.3 short names
+anthonyteti/buildathon-cad-deid	b3a7f2efe5	1795237244	1795237244	anthonyteti	anthonyteti	main	OCR scanned PDF pages and replace identity words in the image layer
+anthonyteti/buildathon-cad-deid	3b3f8356dd	1795237012	1795237012	anthonyteti	anthonyteti	main	OCR images and paint pseudonyms over identity words
+anthonyteti/buildathon-cad-deid	3626ff5af0	1795236931	1795236931	anthonyteti	anthonyteti	main	Pseudonymise contact phone numbers; scan visible PDF text for e-mails and phones
+anthonyteti/buildathon-cad-deid	4df35bdeea	1795236852	1795236852	anthonyteti	anthonyteti	main	Harvest person names from drawing title blocks
+anthonyteti/buildathon-cad-deid	6563aadefe	1795236783	1795236783	anthonyteti	anthonyteti	main	Generate README.txt from the run log and validation summary
+anthonyteti/buildathon-cad-deid	84a1f81af9	1795236698	1795236698	anthonyteti	anthonyteti	main	Patch native SolidWorks, Inventor, Solid Edge and Creo files in place; PDF raw leftovers; OLE property sets
+anthonyteti/buildathon-cad-deid	54bf45b435	1795235823	1795235823	anthonyteti	anthonyteti	main	Vendor the public-domain word lists used to tell ordinary words from names
+anthonyteti/buildathon-cad-deid	836da570b7	1795235476	1795235476	anthonyteti	anthonyteti	main	Add exact author-field pseudonyms, never-replace word list, Linux reflink clones, supervised workers
+anthonyteti/buildathon-cad-deid	a2916d3c22	1795234962	1795234962	anthonyteti	anthonyteti	main	Add core de-identification pipeline: registry, pseudonyms, format rewriters, validator
+anthonyteti/buildathon-cad-deid	90b9d97cac	1795232646	1795232646	Anthony Teti	GitHub	main	Initial commit
+anthonyteti/buildathon-shopping-sessions	c6798b2b00	1795239865	1795239865	anthonyteti	anthonyteti	main	Arena takes every allocation of 4 KiB or more (partition buffers get huge pages)
+anthonyteti/buildathon-shopping-sessions	7739c60cd9	1795239581	1795239581	anthonyteti	anthonyteti	main	Dockerfile: default TARGETARCH so the legacy builder works too
+anthonyteti/buildathon-shopping-sessions	2df5d51514	1795239333	1795239333	anthonyteti	anthonyteti	main	Per-thread busy times in the phase log; input-touch floor benchmark mode
+anthonyteti/buildathon-shopping-sessions	403ffcda6d	1795239084	1795239084	anthonyteti	anthonyteti	main	Date lookup table for timestamps; simpler quote stripping in the field splitter
+anthonyteti/buildathon-shopping-sessions	a5a07abb75	1795238381	1795238381	anthonyteti	anthonyteti	main	Silence unused-constant warning on non-Linux builds
+anthonyteti/buildathon-shopping-sessions	8a923c5632	1795238369	1795238369	anthonyteti	anthonyteti	main	Arena: huge-page request behind a constant
+anthonyteti/buildathon-shopping-sessions	1d3abed2d1	1795238295	1795238295	anthonyteti	anthonyteti	main	Field splitter: 64-bit path for lines shorter than 64 bytes
+anthonyteti/buildathon-shopping-sessions	07c68a4d47	1795238178	1795238178	anthonyteti	anthonyteti	main	Dedup output: 16-byte records for views and carts, purchases separate
+anthonyteti/buildathon-shopping-sessions	d0f04b588b	1795238116	1795238116	anthonyteti	anthonyteti	main	Dockerfile: optional JOBS build argument for local builds
+anthonyteti/buildathon-shopping-sessions	41d3e31a59	1795237984	1795237984	anthonyteti	anthonyteti	main	Sessions: 16-byte events inside grouped person slices
+anthonyteti/buildathon-shopping-sessions	245611b68c	1795237912	1795237912	anthonyteti	anthonyteti	main	Separate person-partition count (SS_PDELTA, default unchanged)
+anthonyteti/buildathon-shopping-sessions	f52bc5998b	1795237773	1795237773	anthonyteti	anthonyteti	main	BMI2 pext for ID packing on x86; README memory note
+anthonyteti/buildathon-shopping-sessions	b5cce1bfde	1795237543	1795237543	anthonyteti	anthonyteti	main	Grouping: smaller person-id table that grows on demand
+anthonyteti/buildathon-shopping-sessions	df91a2be9d	1795237498	1795237498	anthonyteti	anthonyteti	main	Arena: return pages of dead large blocks to the OS
+anthonyteti/buildathon-shopping-sessions	fdf1fa9f3d	1795237322	1795237322	anthonyteti	anthonyteti	main	Bump-allocated huge-page arena for large buffers, person-map filter, compact assisted counters
+anthonyteti/buildathon-shopping-sessions	2d7cbfa738	1795236980	1795236980	anthonyteti	anthonyteti	main	Word compares for event type, light ingest decode, allocation-free products/campaigns loading; README dependency list
+anthonyteti/buildathon-shopping-sessions	99d8c5bedb	1795236622	1795236622	anthonyteti	anthonyteti	main	Branch-free quote check, month-table timestamps, direct product/campaign lookup, compact dedup table, own Parquet writer (drops the parquet crate)
+anthonyteti/buildathon-shopping-sessions	e3d2e72efe	1795234736	1795234736	anthonyteti	anthonyteti	main	Faster parse and grouping: SIMD line splitter, 32-byte event records, hash dedup with prefetched person lookups, union-find overlapped with parsing, counting sort by person
+anthonyteti/buildathon-shopping-sessions	13972548bd	1795233624	1795233624	anthonyteti	anthonyteti	main	Rust pipeline v1: parallel parse, dedup, sessions and attribution, Parquet output, static scratch image
+anthonyteti/buildathon-shopping-sessions	4f4324b999	1795232637	1795232637	Anthony Teti	GitHub	main	Initial commit
+ayaanma/databricks-buildathon	d9cbcc67d0	1795221015	1795221015	Ayaan Malik	Ayaan Malik	main	feat: sub 1
+ayaanma/databricks-buildathon	01c826b422	1795219698	1795219698	Ayaan Malik	Ayaan Malik	main	Verify and harden Docker submission
+ayaanma/databricks-buildathon	71758038c6	1795219035	1795219035	Ayaan Malik	Ayaan Malik	main	Implement exact optimized shopping sessions pipeline
+ayaanma/databricks-buildathon	153d2eeecc	1795217757	1795217757	Ayaan Malik	GitHub	main	Initial commit
+cherylaurelia/builders-hackathon	473cc3043d	1795239608	1795239608	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30	dedup: take the table line from the product bits below the event-key bucket's (bucket and line used the same top bits once the bucket is spread(key): parseB + the SIMD line table = 17 s at 20M)
+cherylaurelia/builders-hackathon	6b0501e9b1	1795239301	1795235471	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	release_regions: nothing in it can end the run
+cherylaurelia/builders-hackathon	af3c0b56f5	1795239301	1795234520	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	128 KiB reads; memory given back on all threads before the exit; bulk page requests where THP is off
+cherylaurelia/builders-hackathon	07f87c711e	1795239232	1795230235	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouched page maps the shared zero page and the write after it flushes that mapping from every CPU of the process; th
+cherylaurelia/builders-hackathon	7ddab708f2	1795239232	1795230000	cloud agent	Cheryl Aurelia	cand/6b0501e	read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 KiB fadvise. Cold 20M (drop_caches before every run), 12 interleaved: base 474 -> 438 ms median, mean 485 -> 444
+cherylaurelia/builders-hackathon	47ef4e1074	1795239232	1795230550	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	Parquet writer on c1: DELTA_BINARY_PACKED for day/sessions/events/revenue_cents, packed IDs unpacked through a 4096-entry digit-pair table, one write(2) per file; user_daily 60.6 -> 24.7 MB, per-threa
+cherylaurelia/builders-hackathon	eea0d64c77	1795239232	1795230260	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	c1: campaign_daily merged and written by the main thread while the workers write their user files (it ran after the last file: 5-8 ms serial); box: dups->end median 154 -> 144 ms
+cherylaurelia/builders-hackathon	2e745da54c	1795239232	1795230565	Cheryl Aurelia	Cheryl Aurelia	cand/6b0501e	sessions: a person's events go into 30-minute bins (thread-wide table + bitmap) instead of being sorted; the bins in order are the sessions, purchases join them by bin. Sessions-phase cpu 0.495 -> 0.4
+cherylaurelia/builders-hackathon	d1bb094722	1795238567	1795235471	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	release_regions: nothing in it can end the run
+cherylaurelia/builders-hackathon	bf992287ac	1795238567	1795234520	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	128 KiB reads; memory given back on all threads before the exit; bulk page requests where THP is off
+cherylaurelia/builders-hackathon	6153968d96	1795238567	1795233558	cloud agent	Cheryl Aurelia	cand/d1bb094	dedup: table pass without per-record bounds and Option checks: records of a block in groups of 4 with the look-ahead (stream 40 on, table line 8 on) unchecked except in each block's last 40, insert as
+cherylaurelia/builders-hackathon	701c35f408	1795238567	1795233243	cloud agent	Cheryl Aurelia	cand/d1bb094	dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the hardware prefetcher loses at each boundary (dup cpu 0.151-0.154 -> 0.144-0.145 s in three 14-run sets on tmpf
+cherylaurelia/builders-hackathon	d1131df3e0	1795238567	1795230318	cloud agent	Cheryl Aurelia	cand/d1bb094	dedup: groups built in the table pass (a slot that meets a repeat holds a group number, members chained, the current record copied in hand) instead of sorting (tag, position) pairs and gathering every
+cherylaurelia/builders-hackathon	237bfdd8b5	1795238567	1795230125	cloud agent	Cheryl Aurelia	cand/d1bb094	dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/phi) instead of two mix() per record; candidate records and the events they mark prefetched 16 ahead (dup phase 
+cherylaurelia/builders-hackathon	f6143026ee	1795238567	1795229847	cloud agent	Cheryl Aurelia	cand/d1bb094	dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 positions, one AVX2 compare per probe) instead of two bit-filter passes and a 24-byte candidate sort; candidates ga
+cherylaurelia/builders-hackathon	8c9e522ae0	1795238567	1795230235	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouched page maps the shared zero page and the write after it flushes that mapping from every CPU of the process; th
+cherylaurelia/builders-hackathon	b77e685b33	1795238562	1795230000	cloud agent	Cheryl Aurelia	cand/d1bb094	read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 KiB fadvise. Cold 20M (drop_caches before every run), 12 interleaved: base 474 -> 438 ms median, mean 485 -> 444
+cherylaurelia/builders-hackathon	f2f87e8a59	1795238562	1795230550	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	Parquet writer on c1: DELTA_BINARY_PACKED for day/sessions/events/revenue_cents, packed IDs unpacked through a 4096-entry digit-pair table, one write(2) per file; user_daily 60.6 -> 24.7 MB, per-threa
+cherylaurelia/builders-hackathon	3d5d51ffb1	1795238562	1795230260	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	c1: campaign_daily merged and written by the main thread while the workers write their user files (it ran after the last file: 5-8 ms serial); box: dups->end median 154 -> 144 ms
+cherylaurelia/builders-hackathon	022ac1345c	1795238561	1795230565	Cheryl Aurelia	Cheryl Aurelia	cand/d1bb094	sessions: a person's events go into 30-minute bins (thread-wide table + bitmap) instead of being sorted; the bins in order are the sessions, purchases join them by bin. Sessions-phase cpu 0.495 -> 0.4
+cherylaurelia/builders-hackathon	d37b87cf22	1795238533	1795238533	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	stackB: resolve the zero-page (filled()) conflict in IdMap::new (parseB's shift field + filled slots)
+cherylaurelia/builders-hackathon	675ca5d42e	1795238523	1795235471	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	release_regions: nothing in it can end the run
+cherylaurelia/builders-hackathon	a1aa58ea23	1795238523	1795234520	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	128 KiB reads; memory given back on all threads before the exit; bulk page requests where THP is off
+cherylaurelia/builders-hackathon	864f7b643d	1795238523	1795233558	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	dedup: table pass without per-record bounds and Option checks: records of a block in groups of 4 with the look-ahead (stream 40 on, table line 8 on) unchecked except in each block's last 40, insert as
+cherylaurelia/builders-hackathon	ecabedfe5b	1795238523	1795233243	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the hardware prefetcher loses at each boundary (dup cpu 0.151-0.154 -> 0.144-0.145 s in three 14-run sets on tmpf
+cherylaurelia/builders-hackathon	5209e642d8	1795238523	1795230318	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	dedup: groups built in the table pass (a slot that meets a repeat holds a group number, members chained, the current record copied in hand) instead of sorting (tag, position) pairs and gathering every
+cherylaurelia/builders-hackathon	d8a7776718	1795238523	1795230125	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/phi) instead of two mix() per record; candidate records and the events they mark prefetched 16 ahead (dup phase 
+cherylaurelia/builders-hackathon	082d921eed	1795238523	1795229847	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 positions, one AVX2 compare per probe) instead of two bit-filter passes and a 24-byte candidate sort; candidates ga
+cherylaurelia/builders-hackathon	8be9fffd6a	1795238523	1795230235	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouched page maps the shared zero page and the write after it flushes that mapping from every CPU of the process; th
+cherylaurelia/builders-hackathon	b95eac6128	1795238517	1795230000	cloud agent	Cheryl Aurelia	cand/473cc30,cand/d37b87c	read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 KiB fadvise. Cold 20M (drop_caches before every run), 12 interleaved: base 474 -> 438 ms median, mean 485 -> 444
+cherylaurelia/builders-hackathon	7e3ab7ac7c	1795238517	1795230550	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	Parquet writer on c1: DELTA_BINARY_PACKED for day/sessions/events/revenue_cents, packed IDs unpacked through a 4096-entry digit-pair table, one write(2) per file; user_daily 60.6 -> 24.7 MB, per-threa
+cherylaurelia/builders-hackathon	12c5402ad1	1795238517	1795230260	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	c1: campaign_daily merged and written by the main thread while the workers write their user files (it ran after the last file: 5-8 ms serial); box: dups->end median 154 -> 144 ms
+cherylaurelia/builders-hackathon	d0e01f1f6d	1795238517	1795230565	Cheryl Aurelia	Cheryl Aurelia	cand/473cc30,cand/d37b87c	sessions: a person's events go into 30-minute bins (thread-wide table + bitmap) instead of being sorted; the bins in order are the sessions, purchases join them by bin. Sessions-phase cpu 0.495 -> 0.4
+cherylaurelia/builders-hackathon	fc563eda6c	1795238287	1795234282	cloud agent	Cheryl Aurelia	cand/d1bb094	parse(c1): IdMap (campaigns, products) homes a key with one multiply (high bits) instead of mix. Dev 1-thread cycles_u p25 0.4043G -> 0.3974G, links+parse min -2.7% at the 20M geometry; AB (tmpfs) rat
+cherylaurelia/builders-hackathon	233b9d8033	1795238287	1795232819	cloud agent	Cheryl Aurelia	cand/d1bb094	parse(c1): lines shorter than 64 bytes (all clicks) take a u64 mask path (one masks64, u64 split); u128 masks cut with bzhi. -0.78G user instructions on 20M, cycles_u 11.13G -> 10.85G (tmpfs, median o
+cherylaurelia/builders-hackathon	b94f049eeb	1795238287	1795232369	cloud agent	Cheryl Aurelia	cand/d1bb094	parse(c1): IDs pack from a table-loaded length mask and nibble-table classes (pack_at): -1.0G of 26.2G user instructions on 20M; AB ratio=.970 / .954; guard ok
+cherylaurelia/builders-hackathon	82a50c9681	1795238263	1795237255	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): CORRECTNESS FIX for 0004 (prefetch-ring re-queue): a lookup moves on to the next table line only when all four slots of this one were read holding other keys. Before, a line read as [.., em
+cherylaurelia/builders-hackathon	1da1833c4a	1795238263	1795237141	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): 13-digit epoch ms without the 128-bit shift, line mask from two instructions, one-multiply hash in the small-table map. Parse user instructions 15.33G -> 15.04G (20M; 19.46G at base); AB vs
+cherylaurelia/builders-hackathon	c68b5e81bc	1795238263	1795236812	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): remove Interner::key_at, unused since the paired ID packing (a build warning; no change in behaviour). AB vs base at this commit: 20M tmpfs ratio 0.891 (.413 -> .368), 60M tmpfs ratio 0.838
+cherylaurelia/builders-hackathon	82a25c5bb8	1795238263	1795236312	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): a line's last 32 of 128 bytes are scanned only when it has no newline in the first 96; time of day from one multiply. Parse user instructions 15.86G -> 15.33G (20M; 19.46G at base); AB 20M 
+cherylaurelia/builders-hackathon	77ea7871be	1795238263	1795235902	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): event ID and user ID (click ID and user ID) packed together in one 256-bit pass, loaded and masked in SIMD. Parse user instructions 16.62G -> 15.86G (20M; 19.46G at base); AB vs base: 20M t
+cherylaurelia/builders-hackathon	931e794abe	1795238263	1795235276	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): an ID not in its home cache line goes back in the prefetch ring for the next line instead of waiting for it (60M: the table is half full and 4.8M lookups spilled; 12K still wait). AB vs bas
+cherylaurelia/builders-hackathon	c6f28d6d57	1795238263	1795234718	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): field split in two packed words (PEXT/PDEP): quote checks without reading the line, all starts and lengths from three additions. Parse user instructions 18.19G -> 16.59G (20M; 19.46G at bas
+cherylaurelia/builders-hackathon	75fb1b2d21	1795238263	1795234024	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): fewer instructions per line: commas taken a 64-bit word at a time, slot and bucket picked by a one-multiply hash, ID packing by nibble lookups. Parse user instructions 19.46G -> 18.19G (20M
+cherylaurelia/builders-hackathon	c33868a5b5	1795238263	1795232801	cloud agent	Cheryl Aurelia	cand/473cc30,cand/6b0501e,cand/82a50c9,cand/d37b87c	parse(c1): ID lookup compares the 4 slots of the key's home cache line without a branch (linear probe only when the line was full), slot -> person is one xor (Slot::px). AB 20M ratio 0.969 (base .404 
+cherylaurelia/builders-hackathon	4a7294a55b	1795237566	1795232801	cloud agent	Cheryl Aurelia	cand/4a7294a	parse(c1): ID lookup compares the 4 slots of the key's home cache line without a branch (linear probe only when the line was full), slot -> person is one xor (Slot::px). AB 20M ratio 0.969 (base .404 
+cherylaurelia/builders-hackathon	a0b5e91920	1795237562	1795236340	cloud agent	Cheryl Aurelia	cand/4a7294a	parse: second 64 bytes of a line scanned 32 at a time, at most 4 commas taken from them - INTELAB 0.998 (median 0.990)
+cherylaurelia/builders-hackathon	50e6b9f583	1795237562	1795235633	cloud agent	Cheryl Aurelia	cand/4a7294a	parse: trims - date memo slot by pext and one validity test, quoting test by xor, event type as one test, ring swap in place
+cherylaurelia/builders-hackathon	c1885a4bd1	1795236167	1795235471	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/c1885a4	release_regions: nothing in it can end the run
+cherylaurelia/builders-hackathon	baa6034497	1795235608	1795235608	Cheryl Aurelia	Cheryl Aurelia	cand/baa6034	ids: slot_from probes round the 4 slots of home's cache
+cherylaurelia/builders-hackathon	2a22316df6	1795235608	1795235608	Cheryl Aurelia	Cheryl Aurelia	cand/baa6034	parse(c1): IdTable::home with one multiply instead of mix
+cherylaurelia/builders-hackathon	5e65ad0668	1795235608	1795235608	Cheryl Aurelia	Cheryl Aurelia	cand/baa6034	parse(c1): dedup bucket from one multiply instead of mix
+cherylaurelia/builders-hackathon	b42f9baca9	1795235471	1795235471	Cheryl Aurelia	Cheryl Aurelia	arena/c4	release_regions: nothing in it can end the run
+cherylaurelia/builders-hackathon	fffb006801	1795235329	1795235329	Cheryl Aurelia	Cheryl Aurelia	arena/c4	sessions: each thread frees its own rows and work buffers
+cherylaurelia/builders-hackathon	b2844daa78	1795234960	1795234520	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/b2844da,cand/baa6034,cand/c1885a4	128 KiB reads; memory given back on all threads before the exit; bulk page requests where THP is off
+cherylaurelia/builders-hackathon	a61e2f7b37	1795234891	1795234520	Cheryl Aurelia	Cheryl Aurelia	arena/c4	128 KiB reads; memory given back on all threads before the exit; bulk page requests where THP is off
+cherylaurelia/builders-hackathon	0cb4aca9cc	1795234823	1795234149	cloud agent	Cheryl Aurelia	cand/0cb4aca	dedup records of 16 bytes (were 24): ingest_ts as whole seconds after the window base in a u32 (any other value keeps its exact i64 in a per-shard list, named by the u32), the event record's address a
+cherylaurelia/builders-hackathon	4831c77c1a	1795234823	1795233837	cloud agent	Cheryl Aurelia	cand/0cb4aca	dedup + sessions: the passes over a stream's blocks ask for the record 512 bytes ahead, across the block boundary (blocks of a stream lie apart, the hardware prefetcher starts over at each); guard ok;
+cherylaurelia/builders-hackathon	e8e4bbc336	1795234823	1795233809	cloud agent	Cheryl Aurelia	cand/0cb4aca	timestamps: a 13-digit F3 (epoch ms as the generator writes it) is two 8-digit SWAR conversions instead of the 128-bit right-align; guard ok, unit test ts_at_matches_parse_ts covers it; vs the previou
+cherylaurelia/builders-hackathon	2ce240562b	1795234823	1795233540	cloud agent	Cheryl Aurelia	cand/0cb4aca	dedup: the filter word and its two bits come from the bits of spread(key) below the bucket bits instead of a second 5-step mix per record and pass; same candidates (2,484,524 at 20M); guard ok; tmpfs 
+cherylaurelia/builders-hackathon	e7398d4b0b	1795234823	1795233477	cloud agent	Cheryl Aurelia	cand/0cb4aca	hash: the ID-table slot and the event-key bucket come from one multiplication (high bits) instead of the 5-step mix; guard ok; tmpfs input AB 0.363 -> 0.320 (ratio 0.882 vs base, cumulative); vs the p
+cherylaurelia/builders-hackathon	576eb40236	1795234823	1795230820	cloud agent	Cheryl Aurelia	cand/0cb4aca	parse: event records and dedup records go through 192-byte write-combining buffers and reach their blocks with non-temporal stores (no fetch of every new block line, the buffers stay in the cache); gu
+cherylaurelia/builders-hackathon	9e0605bd45	1795234823	1795230624	cloud agent	Cheryl Aurelia	cand/0cb4aca	ids: pack an ID of up to 9 ASCII bytes at 7 bits a byte with one pext (was 10 bytes of [0-9A-Z_a-z] at 6 bits through SIMD tables); still exact and order-preserving, any other ID is interned as before
+cherylaurelia/builders-hackathon	4250178dfa	1795234823	1795230189	cloud agent	Cheryl Aurelia	cand/0cb4aca	sessions: 30-minute bins per person instead of a sort (first/last ts and count per bin, sessions from the bins in time order; purchases land in their bin's session, top category from per-day sums); gu
+cherylaurelia/builders-hackathon	58e3e9e7fc	1795234361	1795234361	Cheryl Aurelia	Cheryl Aurelia	diag/v3	DIAGNOSTIC ONLY (not an entry): write machine facts (THP, vmstat, smaps, wall phases, cpu, meminfo) into top_category of the 8 smallest user_daily rows; base c9a415f
+cherylaurelia/builders-hackathon	60bdc225e9	1795233673	1795233558	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/b2844da,cand/baa6034,cand/c1885a4	dedup: table pass without per-record bounds and Option checks: records of a block in groups of 4 with the look-ahead (stream 40 on, table line 8 on) unchecked except in each block's last 40, insert as
+cherylaurelia/builders-hackathon	b430ee7d92	1795233672	1795233243	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/b2844da,cand/baa6034,cand/c1885a4	dedup: the table pass prefetches its record stream ~1 KB ahead, across the 6 KB blocks the hardware prefetcher loses at each boundary (dup cpu 0.151-0.154 -> 0.144-0.145 s in three 14-run sets on tmpf
+cherylaurelia/builders-hackathon	2e4261f184	1795233574	1795233574	Cheryl Aurelia	Cheryl Aurelia	main	main: take c9a415f (aed7d00 + parse2 pack/scan words/pack2/prefetch + sessions bins + writer delta/campaign thread + readahead + zero-page fix + dedup SIMD table): gate warm 0.769, fuzz PASS
+cherylaurelia/builders-hackathon	c9a415f8d4	1795232527	1795230318	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/b2844da,cand/baa6034,cand/c1885a4,cand/c9a415f,di	dedup: groups built in the table pass (a slot that meets a repeat holds a group number, members chained, the current record copied in hand) instead of sorting (tag, position) pairs and gathering every
+cherylaurelia/builders-hackathon	838452e6c1	1795232527	1795230125	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/b2844da,cand/baa6034,cand/c1885a4,cand/c9a415f,di	dedup: line and tag from one multiply (Fibonacci hashing: line = top bits of key * 2^64/phi) instead of two mix() per record; candidate records and the events they mark prefetched 16 ahead (dup phase 
+cherylaurelia/builders-hackathon	905724d906	1795232527	1795229847	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/b2844da,cand/baa6034,cand/c1885a4,cand/c9a415f,di	dedup: one pass over the event-key records into a table of 64-byte lines (8 tags + 8 positions, one AVX2 compare per probe) instead of two bit-filter passes and a 24-byte candidate sort; candidates ga
+cherylaurelia/builders-hackathon	83e9492ab8	1795232413	1795232354	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	parse: a second prefetch for the ID table, three slots past the home slot - AB 60M 0.776 0.891, 20M 0.899 1.012 (cumulative)
+cherylaurelia/builders-hackathon	c166174fea	1795231740	1795230235	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	tables filled by real writes (filled()) instead of vec![0; n]: a first read of an untouched page maps the shared zero page and the write after it flushes that mapping from every CPU of the process; th
+cherylaurelia/builders-hackathon	6ed29d8d90	1795231719	1795231719	Cheryl Aurelia	Cheryl Aurelia	diag/v2	DIAGNOSTIC ONLY (not an entry): put host/runtime diagnostics into top_category of 8 smallest user_daily rows
+cherylaurelia/builders-hackathon	0fcf3a4f42	1795231469	1795230000	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	read-ahead: 2 threads issuing readahead(2) in 512 KiB calls instead of 4 threads of 128 KiB fadvise. Cold 20M (drop_caches before every run), 12 interleaved: base 474 -> 438 ms median, mean 485 -> 444
+cherylaurelia/builders-hackathon	e3bdd51fe5	1795231439	1795231381	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	parse: the two IDs of a line packed in one 256-bit operation (pack2_at) - AB 0.984 0.979 0.898 (cumulative)
+cherylaurelia/builders-hackathon	9307ad613a	1795231439	1795230990	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	parse: line scan and field split on 64-bit words, fields as packed bytes - AB 0.904 0.920 0.950 (with pack_at)
+cherylaurelia/builders-hackathon	88ed99d8b1	1795231197	1795230550	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	Parquet writer on c1: DELTA_BINARY_PACKED for day/sessions/events/revenue_cents, packed IDs unpacked through a 4096-entry digit-pair table, one write(2) per file; user_daily 60.6 -> 24.7 MB, per-threa
+cherylaurelia/builders-hackathon	4d04e62f8b	1795231197	1795230260	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	c1: campaign_daily merged and written by the main thread while the workers write their user files (it ran after the last file: 5-8 ms serial); box: dups->end median 154 -> 144 ms
+cherylaurelia/builders-hackathon	5a062ff3b7	1795231197	1795230565	Cheryl Aurelia	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	sessions: a person's events go into 30-minute bins (thread-wide table + bitmap) instead of being sorted; the bins in order are the sessions, purchases join them by bin. Sessions-phase cpu 0.495 -> 0.4
+cherylaurelia/builders-hackathon	6e2def6609	1795230687	1795230687	Cheryl Aurelia	Cheryl Aurelia	arena/c4,main	main: take aed7d00 (c1 line: writer graft + parse NT stores + read-ahead 2 threads + sessions AVX2): gate cold 0.616 vs faac7bf, fuzz PASS
+cherylaurelia/builders-hackathon	9a37097c4a	1795230630	1795230367	cloud agent	Cheryl Aurelia	cand/4a7294a,cand/60bdc22,cand/83e9492,cand/b2844da,cand/baa6034,cand/c1885a4,ca	parse: IDs packed by nibble tables straight from the line (pack_at) - AB 0.933 0.962 0.930
+cherylaurelia/builders-hackathon	f2df3658db	1795230320	1795230320	Cheryl Aurelia	Cheryl Aurelia	arena/c4,main	main: take cfedecc (arena/c1 + writer graft): gate cold 0.474 vs faac7bf, fuzz PASS
+cherylaurelia/builders-hackathon	aed7d0087a	1795230294	1795230294	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/60bdc22,cand/6b0501e,cand/82a50c9,cand/8	integ: merge d8f1773
+cherylaurelia/builders-hackathon	82ac6a04bc	1795230294	1795230294	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/60bdc22,cand/6b0501e,cand/82a50c9,cand/8	integ: merge 564f8e86af80d1eafc7ceae16ac6be6b13b39c87
+cherylaurelia/builders-hackathon	d8f17731b9	1795230261	1795230261	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/60bdc22,cand/6b0501e,cand/82a50c9,cand/8	cold read-ahead: 2 helper threads instead of 4 (fadvise hints are asynchronous; more threads crowd the parse). Cold 20M on the box, drop_caches before every run, 10 alternating runs: median 0.50 -> 0.
+cherylaurelia/builders-hackathon	564f8e86af	1795230174	1795230015	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/564f8e8,cand/60bdc22,cand/6b0501e,cand/8	tests(c1): arena/c2's differential tests for the parse fast paths
+cherylaurelia/builders-hackathon	bbb551b262	1795230174	1795229944	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/564f8e8,cand/60bdc22,cand/6b0501e,cand/8	parse(c1): stream records reach memory a 192-byte group at a time with non-temporal stores
+cherylaurelia/builders-hackathon	ca9e524083	1795229977	1795229977	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/473cc30,cand/4a7294a,cand/60bdc22,cand/6b0501e,cand/82a50c9,cand/8	c1 sessions: AVX2 rank sort for the events and clicks of people with up to 64 of them, vector 7-day window (credit + last click per campaign for assists) for up to 64 clicks; scalar window only up to 
+cherylaurelia/builders-hackathon	cfedeccfd5	1795229628	1795229628	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/0cb4aca,cand/473cc30,cand/4a7294a,cand/564f8e8,cand/60bdc22,cand/6	graft integ's Parquet writer onto c1 (82dbb63 + 3458d27): 16K-row pages through one reused buffer, INT32 sessions/events (inputs of 2^31+ events refused), user_id as RLE_DICTIONARY over runs of a pers
+cherylaurelia/builders-hackathon	b71d13bd65	1795229532	1795229532	Cheryl Aurelia	Cheryl Aurelia	arena/c4,main	main: take arena/c1 435b6db (gate cold 0.717 vs faac7bf, fuzz PASS); replaces the fast_exit zap line
+cherylaurelia/builders-hackathon	f309eab2e8	1795229216	1795229216	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: header describes the final phases; THP advice unconditional
+cherylaurelia/builders-hackathon	435b6db335	1795229166	1795229166	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,cand/564f8	arena(c1): header comment names the read-ahead and the restart
+cherylaurelia/builders-hackathon	ffb9581292	1795228953	1795228953	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: flush of an empty list does nothing (no copy to a null block)
+cherylaurelia/builders-hackathon	27f6e6185e	1795228843	1795228843	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,cand/564f8	arena(c1): read-ahead for a cold page cache, plain _exit
+cherylaurelia/builders-hackathon	2abf37d968	1795228794	1795228794	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: read-ahead thread queues MADV_WILLNEED over all inputs at startup, in consumption order (cold 0.99 -> 0.77 s at 20M; warm unchanged: cached ranges are skipped via mincore)
+cherylaurelia/builders-hackathon	4bf30dc493	1795228723	1795228723	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: exit releases only its own regions (arenas, ID table, input maps) in parallel, then _exit: no zapping of the malloc heap (inherited fast_exit could fault)
+cherylaurelia/builders-hackathon	c7894f85e8	1795228600	1795228600	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: prefetch batch 128
+cherylaurelia/builders-hackathon	759961b989	1795228542	1795228542	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: prefetch batch 64
+cherylaurelia/builders-hackathon	01026e9143	1795228503	1795228503	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: LSD radix sort for persons with 192+ events or clicks
+cherylaurelia/builders-hackathon	f4fddd6286	1795228446	1795228446	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: products/campaigns load on their own thread during the link phase (setup 9 -> 4 ms); F3 tail digits scalar; campaign lookup inlined
+cherylaurelia/builders-hackathon	460ecd682f	1795228406	1795228406	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: header comment
+cherylaurelia/builders-hackathon	fcb6fb3335	1795228404	1795228404	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,cand/564f8	arena(c1): huge pages for the ID table, links beside the small tables, date memo
+cherylaurelia/builders-hackathon	0eda2fb9ab	1795228320	1795228320	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: differential tests (fast tokenizer vs split, near-window timestamps vs general parser, keys, prices)
+cherylaurelia/builders-hackathon	725b0bebd2	1795228319	1795228319	Cheryl Aurelia	Cheryl Aurelia	diag/scorer	DIAGNOSTIC ONLY: time the first run before anything warms the page cache
+cherylaurelia/builders-hackathon	ee366cc5c7	1795228307	1795228307	Cheryl Aurelia	Cheryl Aurelia	diag/scorer	DIAGNOSTIC ONLY (not an entry): print scoring-machine facts, then a deliberately incomplete run so the dev check returns logs
+cherylaurelia/builders-hackathon	57d91aa0f9	1795228287	1795228287	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa	integ-nozap: skip fast_exit (parallel MADV_DONTNEED zap segfaults on ~1/1500 small runs), plain process::exit
+cherylaurelia/builders-hackathon	e298539423	1795228260	1795228260	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: event_id identified by hash + 25 bits of a second hash instead of the 16 byte ID (R1 40 -> 32 bytes, no rehash in dedup)
+cherylaurelia/builders-hackathon	d19ed70b04	1795228254	1795228254	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: dedup records carry the event_id as a 12-byte key plus 32 hash bits (no rehash: dedup 33 -> 24 ms); insertion sort unchecked; price with any number of leading zeros is valid again
+cherylaurelia/builders-hackathon	34a8a55fe1	1795228095	1795228095	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: links in 256 KiB pieces (the link files are few and uneven), prefetch for key writes, union parents and finalize
+cherylaurelia/builders-hackathon	74e1cb6ad1	1795227891	1795227891	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	integ: merge worktree-agent-a2edbf6db5c1df577 (parse: KeyMap for product/campaign lookups)
+cherylaurelia/builders-hackathon	323d0a4d05	1795227814	1795227814	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	parse: KeyMap for product/campaign lookups (keys of 1..15 bytes probed as one 128-bit value: hash16 + compare, no copy or memcmp); click fast-path test
+cherylaurelia/builders-hackathon	40edc99838	1795227754	1795227754	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: 16-byte ID table slots (12-byte inline keys up to 11 bytes, person id beside the key): table 128 -> 64 MB at 20M, parse 232 -> 215 ms
+cherylaurelia/builders-hackathon	20dcdcbba6	1795227748	1795227748	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: huge pages for the table's hot slots
+cherylaurelia/builders-hackathon	a9d9bdc09a	1795227683	1795227683	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	integ: merge worktree-agent-a66ca6296c055f954
+cherylaurelia/builders-hackathon	21b5cb40fe	1795227683	1795227683	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	integ: merge worktree-agent-a12ad86492cd4bcbc
+cherylaurelia/builders-hackathon	9962b83443	1795227682	1795227682	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,cand/564f8	arena(c1): one shuffle, no pointers into the input
+cherylaurelia/builders-hackathon	947b967982	1795227673	1795227521	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	sessions: branch-free rank sort (AVX2) for per-person entries and clicks, SIMD 7-day window for people with up to 64 clicks (credit + last-click-per-campaign assists) (sessions-phase cpu 0.535 -> 0.49
+cherylaurelia/builders-hackathon	b606f0e55f	1795227654	1795227654	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: person phase marks dropped copies in place, unchecked indexing, prefetches names, flat row state (sessions 83 -> 71 ms)
+cherylaurelia/builders-hackathon	124786962a	1795227603	1795227603	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: IdMap for products and campaigns (inline IDs, no byte hashing)
+cherylaurelia/builders-hackathon	8ca46df6b4	1795227506	1795227506	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	fast_exit: the calling thread is the last zap worker and idle workers sleep in pause() (at most NCPU runnable threads, so a --cpus quota cannot throttle the exit); box guard ok, ncpu sweep and 60 dev 
+cherylaurelia/builders-hackathon	c976b56587	1795227440	1795227440	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	integ: merge worktree-agent-a370764944f8fe2f9
+cherylaurelia/builders-hackathon	489500229b	1795227440	1795227440	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	integ: merge worktree-agent-a66ca6296c055f954
+cherylaurelia/builders-hackathon	430bf451cb	1795227382	1795227382	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2: streaming stores for bucket appends, ingest kept in seconds
+cherylaurelia/builders-hackathon	c0977d3d2f	1795227333	1795227333	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: 16-byte hot slots with a 96-bit ID fingerprint (keys, smallest-ID arrays kept apart), bucket arenas instead of per-bucket vectors
+cherylaurelia/builders-hackathon	97ac99a6bc	1795227331	1795227331	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	clicks: parsed in the event-parse par (no barrier, small last tasks even out the threads), 40-byte PClick (click_id as Packed, ts as u32 offset); box guard ok, AB 0.759 -> 0.744 (ratio 0.980 vs faac7b
+cherylaurelia/builders-hackathon	42bcb07803	1795227084	1795227084	Cheryl Aurelia	Cheryl Aurelia	cand/57d91aa,cand/74e1cb6	events: 40-byte event records; event_id and ingest_ts live only in the dedup record (which now also stands for invalid lines: no side list); dedup groups read ingest from the record instead of chasing
+cherylaurelia/builders-hackathon	0f92b3c897	1795227038	1795227038	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2 v3: branch-free quote check (carry trick), SWAR F3, masked SStr loads, fixed date prefixes (parse 285 -> 250 ms); guard ok
+cherylaurelia/builders-hackathon	faac7bfa15	1795227007	1795227007	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	integ: merge worktree-agent-a66ca6296c055f954 (writer: start-up side thread, RLE dictionary user_id)
+cherylaurelia/builders-hackathon	3458d27f5f	1795226990	1795226990	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	Parquet writer: user_id as RLE_DICTIONARY (one entry per run of equal IDs, pages are runs of the index): user_daily files 9.8 -> 7.6 MB, write-phase cpu 0.137 -> 0.116 s; box guard + pyarrow + polars 
+cherylaurelia/builders-hackathon	2f45a4d687	1795226900	1795226900	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	start-up: products/campaigns tables on a side thread while the links are built (7 ms off the serial start), one write(2) per lap line (box guard ok, AB 0.695 -> 0.668, ratio 0.961 vs e7264da)
+cherylaurelia/builders-hackathon	bbfed9d396	1795226899	1795226899	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	integ: merge worktree-agent-a2edbf6db5c1df577 (parse: prefetch-for-write, month-start table)
+cherylaurelia/builders-hackathon	1733145773	1795226871	1795226871	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	parse: prefetch-for-write ahead of each bucket Vec tail; month-start table instead of days_from_civil in civil_at
+cherylaurelia/builders-hackathon	26c0d6ad1c	1795226801	1795226801	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	integ: merge worktree-agent-a12ad86492cd4bcbc (sessions: person table, branch-free entry lines)
+cherylaurelia/builders-hackathon	d32e154911	1795226726	1795226726	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	sessions: person table + branch-free (person, bin) entry lines (4 slots/line, SIMD key match), counting-sort grouping, clicks counting-sorted per person; window credit only for small persons (sessions
+cherylaurelia/builders-hackathon	552ac22a72	1795226683	1795226683	Cheryl Aurelia	Cheryl Aurelia	arena/c3	arena/c3: port the one-shuffle design onto origin/main (fast event parser, hand-written Parquet writer, fast exit kept)
+cherylaurelia/builders-hackathon	e7264da635	1795226664	1795226664	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	clicks: fused per-line click parser (same bit-mask split, quote check and SWAR timestamps as the event parser); clicks-phase cpu 1.55 -> 0.89 s, box guard ok, AB ratio 0.969 vs 82dbb63 (noisy box)
+cherylaurelia/builders-hackathon	ca4d03928e	1795226650	1795226650	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2 v2: hand-written Parquet writer + parallel exit from b363c5d; parsers inlined (no closure calls per line); ID table and parent array prefaulted by writes (no COW faults + TLB shootdowns)
+cherylaurelia/builders-hackathon	5bbcca2713	1795226385	1795226344	Cheryl Aurelia	Cheryl Aurelia	arena/c2,cand/f309eab	c2 v1: one-shuffle design (global ID table resolves persons at parse time; 24 B dedup records point at 12 B person records)
+cherylaurelia/builders-hackathon	82dbb63bc6	1795226307	1795226307	Cheryl Aurelia	Cheryl Aurelia	arena/c4,cand/57d91aa,cand/74e1cb6,cand/faac7bf,diag/scorer,main	Parquet writer: 16K-row pages through one reused buffer, INT32 sessions/events, 16-byte inline-ID copies and plain loops in the encoders (write-phase user cpu -0.17 s per write, microbench; AB not res
+cherylaurelia/builders-hackathon	6fb569f923	1795225874	1795225874	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,c	integ: merge worktree-agent-a12ad86492cd4bcbc (sessions phase)
+cherylaurelia/builders-hackathon	b363c5d5cc	1795225553	1795225553	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	integ: merge worktree-agent-a370764944f8fe2f9 (ids/links/resolve); resolve import conflict
+cherylaurelia/builders-hackathon	3558032278	1795225531	1795225531	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	integ: merge worktree-agent-a2edbf6db5c1df577
+cherylaurelia/builders-hackathon	53c7b16143	1795225531	1795225531	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	integ: merge worktree-agent-a66ca6296c055f954
+cherylaurelia/builders-hackathon	3cdd98bd28	1795225472	1795225472	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/4a7294a,c	sessions phase: aggregate events per (person, 30-min bin) in one hash pass instead of sorting every event; window credit/assists for people with few clicks (sessions-phase cpu 0.78 -> 0.63 s, AB total
+cherylaurelia/builders-hackathon	85935f7ae2	1795225249	1795225249	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	resolve in place: user_id buckets = person buckets; events are rewritten as PEvents over their own parse buffer and clicks filtered in place; only IDs whose person hashes to another bucket are copied 
+cherylaurelia/builders-hackathon	33cb933970	1795225097	1795225097	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	parse: fused per-line event parser (bit-mask split + quote check, SWAR timestamps, 16-byte loads for hash/SStr)
+cherylaurelia/builders-hackathon	0fe0250cc4	1795224975	1795224975	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Hand-written Parquet writer (drops the parquet crate) + parallel memory release at exit (AB ratio 0.867 vs 714fe31: write phase 0.12s -> 0.05s wall, exit tail 0.14s -> 0.06s)
+cherylaurelia/builders-hackathon	5ac4247123	1795224563	1795224563	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	links: build on every thread before the event parse (parallel parse, per-bucket interning, lock-free union-find, CAS min name); the side thread no longer trails the parse (AB 1.034 -> 0.837, ratio 0.8
+cherylaurelia/builders-hackathon	714fe31d56	1795223969	1795223969	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Merge climb step: inline short IDs (box 2.55s -> 2.17s)
+cherylaurelia/builders-hackathon	c434a5b821	1795223945	1795223945	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(box2): step 3 IDs up to 15 bytes stored inline (SStr): hash-map key checks compare 128 bits instead of memcmp through pointers into the CSVs (perf: 27% in memcmp; expect -15%)
+cherylaurelia/builders-hackathon	73501b4f29	1795223430	1795223430	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Box climb: dup-hash prepass, parse routes by user_id with (hash, loc) dup records
+cherylaurelia/builders-hackathon	ee47dfee40	1795223303	1795223303	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(box2): step 2 parse routes events by user_id + 16B (hash, loc) records by event_id; dup detection marks dropped copies in place; no dedup copy pass (expect -12%)
+cherylaurelia/builders-hackathon	8dd2213190	1795222735	1795222735	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(box2): step 1 dedup: one hash-set pass finds duplicated event_id hashes; only those (2-4%) are copied and sorted (expect -15% on box: dedup 5.5 of 14 cpu-s)
+cherylaurelia/builders-hackathon	4172721f71	1795222466	1795222466	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(box2): add the check
+cherylaurelia/builders-hackathon	cba3cc0b14	1795222221	1795222221	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Overlap link build with parsing; 48-byte dedup records, hash-only sort, uid fan-out 256
+cherylaurelia/builders-hackathon	84a32f782b	1795219715	1795219715	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(speed5): step 3 retry under 4-thread metric: dedup 48B records, hash-only sort, uid fan-out 256 (A/B at 4 threads: -8% wall)
+cherylaurelia/builders-hackathon	1665c3b28e	1795219579	1795219579	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(speed5): fix the check
+cherylaurelia/builders-hackathon	400f7da634	1795219263	1795219263	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	climb(speed5): step 1 build links on its own thread overlapped with parse+dedup (A/B: wall 1.33->1.00)
+cherylaurelia/builders-hackathon	47a56120fd	1795219063	1795219063	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Resolve user IDs per bucket against link-table slices; pre-size bucket vectors
+cherylaurelia/builders-hackathon	32de52c2a8	1795218571	1795218571	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	SIMD bitmask CSV scanner, fast timestamp parser, per-phase cpu/instruction log
+cherylaurelia/builders-hackathon	14e529c84a	1795218239	1795218239	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	One memchr3 pass per chunk for CSV records
+cherylaurelia/builders-hackathon	c959345b5d	1795216884	1795216884	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	bench: 20M timer and correctness guard
+cherylaurelia/builders-hackathon	bc84bbdc80	1795216734	1795216734	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Rust pipeline for Shopping Sessions, Python oracle, agent board
+cherylaurelia/builders-hackathon	c77efd8850	1795215667	1795215667	Cheryl Aurelia	Cheryl Aurelia	arena/c1,arena/c2,arena/c3,arena/c4,cand/0cb4aca,cand/435b6db,cand/473cc30,cand/	Initial commit
+deltaparticle/Databricks-Buildathon	903ebacc9f	1795239966	1795239966	Sumit Prabhakar	Sumit Prabhakar	main	C++: clicks prefetch the alias filter word instead of the full ID table slot
+deltaparticle/Databricks-Buildathon	71104aadfe	1795239951	1795239951	Sumit Prabhakar	Sumit Prabhakar	main	C++: compact alias table behind a cache-resident filter for person lookups; one step fewer person partitions
+deltaparticle/Databricks-Buildathon	e6d565358d	1795239647	1795239647	Sumit Prabhakar	Sumit Prabhakar	main	Restore huge pages after the diagnostic commit
+deltaparticle/Databricks-Buildathon	1685eaa99c	1795239646	1795239646	Sumit Prabhakar	Sumit Prabhakar	main	DIAGNOSTIC: shipped pipeline with huge pages disabled (NOHUGE=1); tests whether the scorer kernel provides transparent huge pages
+deltaparticle/Databricks-Buildathon	f83c98f0d2	1795239343	1795239343	Sumit Prabhakar	Sumit Prabhakar	main	CI: sweep partition counts, batch and chunk sizes of the shipped pipeline
+deltaparticle/Databricks-Buildathon	547de6cbd1	1795238974	1795238974	Sumit Prabhakar	Sumit Prabhakar	main	CI: perf profile of the shipped C++ pipeline
+deltaparticle/Databricks-Buildathon	eaabc0395a	1795238719	1795238719	Sumit Prabhakar	Sumit Prabhakar	main	CI: sweep run-time switches and compiler variants (LTO, PGO) of the shipped pipeline
+deltaparticle/Databricks-Buildathon	5355eaac7f	1795237664	1795237664	Sumit Prabhakar	Sumit Prabhakar	main	Ship the C++ pipeline adapted from Dremix10/shopping-sessions-fast (8452f3a); keep the Rust pipeline as the CI reference
+deltaparticle/Databricks-Buildathon	004e44a381	1795237423	1795237423	Sumit Prabhakar	Sumit Prabhakar	main	ID keys: column letter + up to 8 raw bytes (one load and a mask); interned otherwise
+deltaparticle/Databricks-Buildathon	aafe4bc14b	1795236659	1795236659	Sumit Prabhakar	Sumit Prabhakar	main	Restore the optimized pipeline after the diagnostic commit
+deltaparticle/Databricks-Buildathon	f39fd9539e	1795236636	1795236636	Sumit Prabhakar	Sumit Prabhakar	main	DIAGNOSTIC: ba90900 pipeline run twice per container (measures warm compute vs fixed cost)
+deltaparticle/Databricks-Buildathon	1000516a12	1795236271	1795236271	Sumit Prabhakar	Sumit Prabhakar	main	Resolve clicks to persons while parsing (once links are ready); drop the click-routing pass
+deltaparticle/Databricks-Buildathon	1dd48cfe71	1795235767	1795235767	Sumit Prabhakar	Sumit Prabhakar	main	Partition output into 16 KB blocks of one huge-page region, staged and flushed with non-temporal stores
+deltaparticle/Databricks-Buildathon	bafbb2ce78	1795235221	1795235221	Sumit Prabhakar	Sumit Prabhakar	main	CI: per-phase timings for the fastest public pipeline next to ours
+deltaparticle/Databricks-Buildathon	c0e6a5525d	1795234850	1795234850	Sumit Prabhakar	Sumit Prabhakar	main	Back to the ba90900 pipeline code (last two changes measured slightly slower); CI: compare against public competitor pipelines on the same machine, read-only token
+deltaparticle/Databricks-Buildathon	5f33c4d353	1795234550	1795234550	Sumit Prabhakar	Sumit Prabhakar	main	Alias table: one (key, name) slot per probe; word-blocked 2-bit filter at 8 bits/alias
+deltaparticle/Databricks-Buildathon	cb05cf61f3	1795234468	1795234468	Sumit Prabhakar	Sumit Prabhakar	main	Runtime-tunable partition counts and chunk size (env overrides); CI parameter sweep
+deltaparticle/Databricks-Buildathon	261b6ef0d5	1795234064	1795234064	Sumit Prabhakar	Sumit Prabhakar	main	CI: fix workflow YAML
+deltaparticle/Databricks-Buildathon	92f6dac7b2	1795233972	1795233972	Sumit Prabhakar	Sumit Prabhakar	main	CI: cold page cache runs and raw disk throughput
+deltaparticle/Databricks-Buildathon	07a2956ca2	1795232953	1795232953	Sumit Prabhakar	Sumit Prabhakar	main	CI: measure a profile-guided build against the normal build
+deltaparticle/Databricks-Buildathon	ba90900e42	1795232923	1795232923	Sumit Prabhakar	Sumit Prabhakar	main	Revert to table-based 6-bit ID packing (the SWAR version measured slower on Linux)
+deltaparticle/Databricks-Buildathon	d63d95523a	1795232731	1795232731	Sumit Prabhakar	Sumit Prabhakar	main	Per-thread date cache for ISO timestamps: the date half becomes a lookup
+deltaparticle/Databricks-Buildathon	7ac12bf622	1795232617	1795232617	Sumit Prabhakar	Sumit Prabhakar	main	CI: same-machine A/B of this commit vs a base commit
+deltaparticle/Databricks-Buildathon	f12df4249d	1795232445	1795232445	Sumit Prabhakar	Sumit Prabhakar	main	SWAR 7-bit ID packing (up to 9 ASCII bytes); force-inline timestamp parsing
+deltaparticle/Databricks-Buildathon	a5b0dd1e97	1795232204	1795232204	Sumit Prabhakar	Sumit Prabhakar	main	CI: line-level perf profile on Linux; drop counterproductive alias prefetch in emit
+deltaparticle/Databricks-Buildathon	b4fc5b9a06	1795232027	1795232027	Sumit Prabhakar	Sumit Prabhakar	main	CI: Linux benchmark of the real Docker image with scorer flags on a generated 20M dataset
+deltaparticle/Databricks-Buildathon	be1e3b31ca	1795231993	1795231993	Sumit Prabhakar	Sumit Prabhakar	main	Hand-written minimal Parquet writer (PLAIN v1 pages, Thrift compact footer); drop the parquet crate
+deltaparticle/Databricks-Buildathon	37069580be	1795231826	1795231826	Sumit Prabhakar	Sumit Prabhakar	main	Don't free phase buffers on the critical path; the OS reclaims them at exit
+deltaparticle/Databricks-Buildathon	0b2cddca1c	1795231042	1795231042	Sumit Prabhakar	Sumit Prabhakar	main	Scanner as a reusable stream state machine; right-size per-partition person index
+deltaparticle/Databricks-Buildathon	ad44ffc67a	1795230691	1795230691	Sumit Prabhakar	Sumit Prabhakar	main	Write user_daily from each sessions worker as it finishes; 32-bit sessions/events columns
+deltaparticle/Databricks-Buildathon	d2b1acbd57	1795230492	1795230492	Sumit Prabhakar	Sumit Prabhakar	main	Faster links: SIMD scan, mulhi table with batched prefetch, union-find over slots, prefetched naming
+deltaparticle/Databricks-Buildathon	65d883f19f	1795230226	1795230226	Sumit Prabhakar	Sumit Prabhakar	main	Memory-map inputs again: the fast scanner now reads page cache directly (no copy past L2)
+deltaparticle/Databricks-Buildathon	49aec85e3b	1795229594	1795229594	Sumit Prabhakar	Sumit Prabhakar	main	Branch-free quote handling in the scanner (scan ~34 -> ~18 ns/line); 128 person partitions
+deltaparticle/Databricks-Buildathon	2adea1fe8d	1795229034	1795229034	Sumit Prabhakar	Sumit Prabhakar	main	SWAR timestamp parsing (ISO and 13-digit epoch) with fuzz tests against the reference
+deltaparticle/Databricks-Buildathon	4cc9757259	1795228178	1795228178	Sumit Prabhakar	Sumit Prabhakar	main	Scanner: walk newline bits and take commas by mask (no per-separator branch); parse benchmark mode
+deltaparticle/Databricks-Buildathon	b27ccaa0c4	1795227811	1795227811	Sumit Prabhakar	Sumit Prabhakar	main	Month-table timestamps, 16-byte person records sorted as u64, larger-first scheduling
+deltaparticle/Databricks-Buildathon	b745b2b6fe	1795227222	1795227222	Sumit Prabhakar	Sumit Prabhakar	main	SIMD line scanner; fix split so commas always separate fields
+deltaparticle/Databricks-Buildathon	dcb4dcc22e	1795227042	1795227042	Sumit Prabhakar	Sumit Prabhakar	main	Faster dedup and grouping: compact records, bitmap dedup, alias filter, counting sort, positioned reads
+deltaparticle/Databricks-Buildathon	6510e952e6	1795226203	1795226203	Sumit Prabhakar	Sumit Prabhakar	main	Add low-memory generator and benchmark script for practice-size data
+deltaparticle/Databricks-Buildathon	7ae6acf70b	1795225930	1795225922	Sumit Prabhakar	Sumit Prabhakar	main	Exact native Rust pipeline: 36/36 fixtures, dev answer match
+depuc8/RWX-buildathon	d4f85e55b3	1795224223	1795224223	depuc8	depuc8	main	Track class attribute reads made while modules import
+depuc8/RWX-buildathon	1b30bbda2e	1795220082	1795220082	depuc8	depuc8	main	Track class attribute and dict-key reads per test
+depuc8/RWX-buildathon	b98970314b	1795218056	1795218056	depuc8	depuc8	main	Coverage-map test selector for Blast Radius
+depuc8/databricks-ps-buildathon	7c9bdafcca	1795227885	1795227885	depuc8	depuc8	main	Avoid a store-forwarding stall; inline the line handlers
+depuc8/databricks-ps-buildathon	249ede351e	1795227475	1795227475	depuc8	depuc8	main	PEXT ID packing; visit only filled hash slots
+depuc8/databricks-ps-buildathon	5f0799e243	1795227103	1795227103	depuc8	depuc8	main	Bloom-filtered person lookups, cache-friendly links build
+depuc8/databricks-ps-buildathon	dbfa69366c	1795225492	1795225492	depuc8	depuc8	main	Hand-written Parquet writer; branch-free quote handling
+depuc8/databricks-ps-buildathon	29047c5632	1795224516	1795224516	depuc8	depuc8	main	Parse faster: fields on demand, table dates, prefetched click lookups
+depuc8/databricks-ps-buildathon	6b9dbbcee4	1795220205	1795220205	depuc8	depuc8	main	Faster pipeline: packed u64 IDs, AVX2 CSV scan, SWAR timestamps
+depuc8/databricks-ps-buildathon	6b12766cf0	1795218445	1795218445	depuc8	depuc8	main	Native Rust pipeline for Shopping Sessions
+devakchow/team-kanyaraasi-blast-radius	c58df73a27	1795235289	1795235289	Devak	Devak	main	Refine baseline comparisons for exact built-in None operands
+devakchow/team-kanyaraasi-blast-radius	37ee591fbd	1795231532	1795231532	Devak	Devak	main	Refine code dependencies with validated compiler observations
+devakchow/team-kanyaraasi-blast-radius	549f8603c6	1795227759	1795227733	Devak	Devak	main	Refine selection with baseline operand and class dependencies
+devakchow/team-kanyaraasi-blast-radius	9012c2eb1b	1795221069	1795221069	Devak	Devak	main	feat: select tests from pinned baseline dependencies
+devakchow/team-kanyaraasi-blast-radius	6f616f8c8d	1795218795	1795218795	Devak	Devak	main	Initial commit
+devakchow/team-kanyaraasi-databricks-shopping-sessions	d1cd3a6901	1795238844	1795238844	Devak	Devak	main	Fuse CSV chunk scanning and exact key encoding
+devakchow/team-kanyaraasi-databricks-shopping-sessions	9307f59383	1795236067	1795236067	Devak	Devak	main	Specialize CSV parsing and reuse encoded key hashes
+devakchow/team-kanyaraasi-databricks-shopping-sessions	14fa361f6d	1795234639	1795234639	Devak	Devak	main	Compact exact keys and parallelize Parquet output
+devakchow/team-kanyaraasi-databricks-shopping-sessions	458de300de	1795232475	1795232475	Devak	Devak	main	Fuse exact ingestion and contract session buckets
+devakchow/team-kanyaraasi-databricks-shopping-sessions	0778d2bd3c	1795228921	1795228921	Devak	Devak	main	Implement exact shopping sessions pipeline
+devakchow/team-kanyaraasi-databricks-shopping-sessions	2ff7cb8605	1795216121	1795216121	Devak	Devak	main	Initial commit
+enkyuan/polaris	9f20a22bef	1795227570	1795227570	enkyuan	enkyuan	main	perf: deduplicate event versions in place and route user spans
+enkyuan/polaris	4e0641d86d	1795226621	1795226621	enkyuan	enkyuan	main	docs: record runtime research and prototype benchmarks
+enkyuan/polaris	58ee89adf4	1795224073	1795224073	enkyuan	enkyuan	main	chore: preserve scored submission history
+enkyuan/polaris	0c549d1334	1795224012	1795224012	enkyuan	enkyuan	main	perf: reduce CSV ingestion overhead
+enkyuan/polaris	437d311307	1795223635	1795222928	enkyuan	enkyuan	main	feat: build and optimize the shopping sessions pipeline
+enkyuan/polaris	eeb4e126ec	1795222928	1795222928	enkyuan	enkyuan	main	Build and optimize the Shopping Sessions pipeline
+explorer-skp/buildathon-shopping-sessions	d70476ab0e	1795235855	1795235855	explorer-skp	explorer-skp	sort	Third scratch region: routed clicks reuse the dedup-key memory, sessionize buffers reuse records and raw clicks
+explorer-skp/buildathon-shopping-sessions	d58857c786	1795235535	1795235535	explorer-skp	explorer-skp	main,sort	Write-combining stages with streaming stores for dedup keys, records and clicks too
+explorer-skp/buildathon-shopping-sessions	e4c1d90574	1795235471	1795235471	explorer-skp	explorer-skp	main,sort	Routed events go through an eight-row write-combining stage per partition, flushed with streaming stores
+explorer-skp/buildathon-shopping-sessions	333fd23a7d	1795235219	1795235219	explorer-skp	explorer-skp	main,sort	Back to the block scanner: the index version measured 6% slower on x86 twice
+explorer-skp/buildathon-shopping-sessions	0a9f36d4b3	1795234970	1795234970	explorer-skp	explorer-skp	main,sort	Scanner: delimiter index per block with a fixed unrolled write, lines taken N entries at a time (generic taker so the record code inlines)
+explorer-skp/buildathon-shopping-sessions	bd47d9c0de	1795234748	1795234748	explorer-skp	explorer-skp	main,sort	Start the largest routing slices and sessionize tasks first
+explorer-skp/buildathon-shopping-sessions	2277aa6c07	1795234677	1795234677	explorer-skp	explorer-skp	main,sort	Large person groups: rank the few people, sort packed u64 keys
+explorer-skp/buildathon-shopping-sessions	e23e3aaea0	1795234488	1795234488	explorer-skp	explorer-skp	prof	Profiling build
+explorer-skp/buildathon-shopping-sessions	66a1827ebd	1795234209	1795234209	explorer-skp	explorer-skp	main,prof,sort	SS_TMUL switch for the sessionize task count (A/B in bench)
+explorer-skp/buildathon-shopping-sessions	8334db551b	1795233449	1795233449	explorer-skp	explorer-skp	main,prof,sort	Revert "Scanner: per-block delimiter index written with a fixed unrolled loop, then lines taken N entries at a time"
+explorer-skp/buildathon-shopping-sessions	1d85397385	1795233438	1795233438	explorer-skp	explorer-skp	main,prof,sort	Bench: compare against a chosen commit
+explorer-skp/buildathon-shopping-sessions	82d6b270c8	1795233289	1795233289	explorer-skp	explorer-skp	main,prof,sort	Large person groups sort packed u128 keys with the primitive sort, then permute the rows
+explorer-skp/buildathon-shopping-sessions	a1ff3304a1	1795233209	1795233209	explorer-skp	explorer-skp	main,prof,sort	Scanner: per-block delimiter index written with a fixed unrolled loop, then lines taken N entries at a time
+explorer-skp/buildathon-shopping-sessions	966fac7115	1795232996	1795232996	explorer-skp	explorer-skp	main,prof,sort	Back to about 8 events per person group
+explorer-skp/buildathon-shopping-sessions	94829ac2a6	1795232673	1795232673	explorer-skp	explorer-skp	main,prof,sort	Finer person groups in sessionize (about 2 events each), SS_GDIV to tune; bench can A/B an env switch
+explorer-skp/buildathon-shopping-sessions	e67e49bc66	1795232500	1795232500	explorer-skp	explorer-skp	main,prof,sort	Test: no hash collisions on 5M generator-shaped IDs
+explorer-skp/buildathon-shopping-sessions	dd4cec32cf	1795232380	1795232380	explorer-skp	explorer-skp	main,prof,sort	Routing writes each person's name into their rows from the cached table slice; drop the per-person name lookups and the link filter
+explorer-skp/buildathon-shopping-sessions	196faf2169	1795232282	1795232282	explorer-skp	explorer-skp	main,prof,sort	Load the product and campaign tables while the pool parses link lines
+explorer-skp/buildathon-shopping-sessions	df02977d59	1795231910	1795231910	explorer-skp	explorer-skp	main,prof,sort	SSSE3 ISO timestamp parse on x86 (one load checks separators and digits, shuffle and multiply-add give the fields); unit tests also run on x86 in CI
+explorer-skp/buildathon-shopping-sessions	9e9105a1b9	1795231524	1795231524	explorer-skp	explorer-skp	main,prof,sort	Scratch region for dedup keys and raw clicks, reused for routed events so those pages skip kernel zeroing
+explorer-skp/buildathon-shopping-sessions	847e50766c	1795230918	1795230918	explorer-skp	explorer-skp	main,prof,sort	Group records and clicks by link table slice while parsing, so person lookups walk one cached slice at a time; bench A/B against the previous commit
+explorer-skp/buildathon-shopping-sessions	543ec2c3bf	1795230623	1795230623	explorer-skp	explorer-skp	main,prof,sort	Each sessionize task writes its own user_daily file, so encoding overlaps other tasks
+explorer-skp/buildathon-shopping-sessions	dcbec6348f	1795229786	1795229786	explorer-skp	explorer-skp	main,prof,sort	Campaign totals per worker thread instead of per task; bench A/B of 1024 dedup buckets
+explorer-skp/buildathon-shopping-sessions	65576da303	1795229635	1795229635	explorer-skp	explorer-skp	main,prof,sort	Short-ID hash: first and last words plus length, mixed with 128-bit multiplies; xxh3 above 16 bytes
+explorer-skp/buildathon-shopping-sessions	992fc81a46	1795229510	1795229510	explorer-skp	explorer-skp	main,prof,sort	24-byte parse records: purchases in a per-chunk side list, keep implied by a non-zero name ref
+explorer-skp/buildathon-shopping-sessions	f5d71b44f7	1795229300	1795229300	explorer-skp	explorer-skp	main,prof,sort	Back to one-stage link prefetch, which measured faster on x86
+explorer-skp/buildathon-shopping-sessions	4cfbe789d4	1795229183	1795229183	explorer-skp	explorer-skp	main,prof,sort	Link pipeline: dense IDs from sorted line ends instead of a hash table
+explorer-skp/buildathon-shopping-sessions	c2a3163c17	1795229079	1795229079	explorer-skp	explorer-skp	main,prof,sort	Two-stage prefetch of link slots: filter word first, slot only when the filter allows; SS_PF1 for A/B
+explorer-skp/buildathon-shopping-sessions	7be5aa421f	1795228859	1795228859	explorer-skp	explorer-skp	main,prof,sort	24-byte person rows with purchases in side arrays, prefetch the next person's name, SS_NB override for bucket A/B
+explorer-skp/buildathon-shopping-sessions	acb453ce57	1795228616	1795228616	explorer-skp	explorer-skp	main,prof,sort	Scanner: check quotes a block at a time with the quote parity mask, then a few steps per field
+explorer-skp/buildathon-shopping-sessions	48f15040ee	1795228417	1795228417	explorer-skp	explorer-skp	main,prof,sort	Parse into records in file order plus 24-byte dedup keys; dedup marks losing copies only and runs before the union-find is joined; a sequential pass routes the winners
+explorer-skp/buildathon-shopping-sessions	eb5fad69e7	1795228005	1795228005	explorer-skp	explorer-skp	main,prof,sort	Dedup in one pass over the copies: leaders are kept as seen and the rare beaten ones dropped after; stamped table never cleared
+explorer-skp/buildathon-shopping-sessions	ba9d36b756	1795227292	1795227292	explorer-skp	explorer-skp	main,prof,sort	Link table: 16-byte slots, names in a side array, a bit filter for IDs without links
+explorer-skp/buildathon-shopping-sessions	c9718f9099	1795226979	1795226979	explorer-skp	explorer-skp	main,prof,sort	Parquet strings without copies, events and clicks parsed in one phase, time-only sort for one-person groups
+explorer-skp/buildathon-shopping-sessions	616a649f0d	1795226649	1795226649	explorer-skp	explorer-skp	main,prof,sort	Dedup with an 8-byte slot table walked in file order, bucket count scaled to the input, system allocator for output
+explorer-skp/buildathon-shopping-sessions	ef1c689d43	1795226376	1795226376	explorer-skp	explorer-skp	main,prof,sort	Bench: A/B the old sort
+explorer-skp/buildathon-shopping-sessions	0207a105bf	1795226313	1795226313	explorer-skp	explorer-skp	main,prof,sort	Group person rows with a counting pass and small insertion sorts
+explorer-skp/buildathon-shopping-sessions	b0f6fa8fa5	1795221207	1795221207	explorer-skp	explorer-skp	main,prof,sort,ts	Parse timestamps with 8-byte loads and a month table
+explorer-skp/buildathon-shopping-sessions	f09cfaf08b	1795220840	1795220840	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Huge-page bump allocator for blocks of 1 KB or more
+explorer-skp/buildathon-shopping-sessions	40317f7c3f	1795220648	1795220648	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Bench: check the 20M output on x86 against a known-good build
+explorer-skp/buildathon-shopping-sessions	f1f11ec278	1795220629	1795220629	explorer-skp	explorer-skp	exp,main,prof,sort,ts	SIMD line scanner: classify 64 bytes at a time and step once per delimiter
+explorer-skp/buildathon-shopping-sessions	b0bb9a384c	1795220140	1795220140	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Use huge-page malloc in the image, clean bench outputs with sudo
+explorer-skp/buildathon-shopping-sessions	57fb1f3094	1795219851	1795219851	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Bench workflow: time the image on a 20M-event dataset on x86 Linux
+explorer-skp/buildathon-shopping-sessions	8891d883e3	1795219791	1795219791	explorer-skp	explorer-skp	exp,main,prof,sort,ts	One-pass line and field scanner, link union-find on its own thread, reuse dedup table
+explorer-skp/buildathon-shopping-sessions	80a5e6a0d6	1795219695	1795219695	explorer-skp	explorer-skp	exp,main,prof,sort,ts	CI: run fixture containers as the runner's user so outputs can be cleaned up
+explorer-skp/buildathon-shopping-sessions	3f97a84880	1795219531	1795219531	explorer-skp	explorer-skp	exp,main,prof,sort,ts	CI: mount fixture folders by absolute path
+explorer-skp/buildathon-shopping-sessions	66e1f8869c	1795219399	1795219399	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Overlap linking with parsing, hash dedup, one-pass field split, prefetch link lookups
+explorer-skp/buildathon-shopping-sessions	239d67db5a	1795218788	1795218788	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Resolve linked IDs before parsing events, then dedup into person partitions
+explorer-skp/buildathon-shopping-sessions	d130bdc901	1795218268	1795218268	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Add README
+explorer-skp/buildathon-shopping-sessions	b69da23953	1795217922	1795217922	explorer-skp	explorer-skp	exp,main,prof,sort,ts	Rust pipeline: exact CSV dialect, dedup, linked IDs, sessions, attribution, parquet out
+fernando-ace/Buildathon_Databricks	3c75be69be	1795235067	1795235067	Fernando Acevedo	Fernando Acevedo	main	Cache timestamp year starts during parsing
+fernando-ace/Buildathon_Databricks	f1ca404869	1795233738	1795233738	Fernando Acevedo	Fernando Acevedo	main	Pre-size per-file interners and click sets
+fernando-ace/Buildathon_Databricks	f723dc2918	1795233075	1795233075	Fernando Acevedo	Fernando Acevedo	main	Intern products only for purchase events
+fernando-ace/Buildathon_Databricks	3bfaf84553	1795229405	1795229405	Fernando Acevedo	Fernando Acevedo	main	Pre-size event deduplication maps
+fernando-ace/Buildathon_Databricks	327b459d38	1795228338	1795228338	Fernando Acevedo	Fernando Acevedo	main	Attribute campaign sessions in parallel
+fernando-ace/Buildathon_Databricks	f83084cfda	1795228033	1795228033	Fernando Acevedo	Fernando Acevedo	main	Aggregate sessions by user in parallel
+fernando-ace/Buildathon_Databricks	3133a6d42a	1795227666	1795227666	Fernando Acevedo	Fernando Acevedo	main	Balance event file batches by input size
+fernando-ace/Buildathon_Databricks	1e10a74d43	1795225863	1795225863	Fernando Acevedo	Fernando Acevedo	main	Release event source files after each merge batch
+fernando-ace/Buildathon_Databricks	f0e8970b23	1795225396	1795225396	Fernando Acevedo	Fernando Acevedo	main	Avoid interning click IDs
+fernando-ace/Buildathon_Databricks	17eb11ea89	1795225110	1795225110	Fernando Acevedo	Fernando Acevedo	main	Avoid copying event batches during shard merge
+fernando-ace/Buildathon_Databricks	a828273980	1795224659	1795224659	Fernando Acevedo	Fernando Acevedo	main	Parallelize cross-file event deduplication
+fernando-ace/Buildathon_Databricks	2dd6c0876d	1795223884	1795223884	Fernando Acevedo	Fernando Acevedo	main	Speed up event ID deduplication
+fernando-ace/Buildathon_Databricks	3f31624e00	1795222469	1795222469	Fernando Acevedo	Fernando Acevedo	main	Avoid event ID string copies while deduplicating
+fernando-ace/Buildathon_Databricks	b463bb9bbe	1795221628	1795221628	Fernando Acevedo	Fernando Acevedo	main	Parallelize parsing and add scale checks
+fernando-ace/Buildathon_Databricks	b441a29beb	1795219463	1795219463	Fernando Acevedo	Fernando Acevedo	main	Implement exact shopping sessions pipeline
+fernando-ace/Buildathon_Mechina_CAD	022ae55b95	1795239649	1795239649	Fernando Acevedo	Fernando Acevedo	main	perf: casefold Unicode alias scans
+fernando-ace/Buildathon_Mechina_CAD	25c7b179b1	1795238822	1795238822	Fernando Acevedo	Fernando Acevedo	main	perf: find file references by suffix
+fernando-ace/Buildathon_Mechina_CAD	7a8389febd	1795237977	1795237977	Fernando Acevedo	Fernando Acevedo	main	perf: stream alias replacements in source order
+fernando-ace/Buildathon_Mechina_CAD	5361d08726	1795237579	1795237579	Fernando Acevedo	Fernando Acevedo	main	perf: match new aliases with automaton
+fernando-ace/Buildathon_Mechina_CAD	f1411672ea	1795236790	1795236790	Fernando Acevedo	Fernando Acevedo	main	perf: batch identity ledger writes
+fernando-ace/Buildathon_Mechina_CAD	24aa12161d	1795236487	1795236487	Fernando Acevedo	Fernando Acevedo	main	perf: accelerate identity alias matching
+fernando-ace/Buildathon_Mechina_CAD	0aebd41635	1795234296	1795234296	Fernando Acevedo	Fernando Acevedo	main	perf: scan references with compiled token search
+fernando-ace/Buildathon_Mechina_CAD	6bbf55d100	1795230602	1795230602	Fernando Acevedo	Fernando Acevedo	main	perf: scan reference tokens linearly
+fernando-ace/Buildathon_Mechina_CAD	c2af9aafa2	1795229911	1795229911	Fernando Acevedo	Fernando Acevedo	main	docs: disclose visual and attachment limits
+fernando-ace/Buildathon_Mechina_CAD	b3f4efd60f	1795229809	1795229809	Fernando Acevedo	Fernando Acevedo	main	fix: report mirror 404s as source omissions
+fernando-ace/Buildathon_Mechina_CAD	6720976ec2	1795229040	1795229040	Fernando Acevedo	Fernando Acevedo	main	fix: honor encoded manifest download paths
+fernando-ace/Buildathon_Mechina_CAD	a8f2d4c638	1795228278	1795228278	Fernando Acevedo	Fernando Acevedo	main	perf: support parallel corpus shards
+fernando-ace/Buildathon_Mechina_CAD	152a172e6e	1795227484	1795227484	Fernando Acevedo	Fernando Acevedo	main	perf: reduce archive rewriting overhead
+fernando-ace/Buildathon_Mechina_CAD	b29f6788b4	1795226364	1795226364	Fernando Acevedo	Fernando Acevedo	main	fix: preserve STL geometry and archive contents
+fernando-ace/Buildathon_Mechina_CAD	35f58dc445	1795224742	1795224742	Fernando Acevedo	Fernando Acevedo	main	feat: build resumable CAD de-identification pipeline
+fernando-ace/Buildathon_Mechina_CAD	bba6e870ae	1795218400	1795218400	Fernando Acevedo	Fernando Acevedo	main	chore: scaffold CAD de-identification project
+h-ardy/buildathon-blast-radius	ef0bb991e8	1795236603	1795236603	Hardy	Hardy	main	Keep numeric libraries and DuckDB to one thread when running tests in the container
+h-ardy/buildathon-blast-radius	63df37c571	1795236039	1795236039	Hardy	Hardy	main	Blast Radius selector: coverage, attribute and fixture maps, import check, in-container test runs
+h-ardy/buildathon-blast-radius	a215da6ec5	1795227287	1795227287	Hardy	GitHub	main	Initial commit
+h-ardy/buildathon-shopping-sessions	c013c024e5	1795236578	1795236578	Hardy Wang	Hardy Wang	main	Faster timestamps, purchase-only category lookup, per-person grouping, parallel link interning
+h-ardy/buildathon-shopping-sessions	5fe3457095	1795234885	1795234885	Hardy Wang	Hardy Wang	main	Two-pass dedup and prefetched person lookups
+h-ardy/buildathon-shopping-sessions	242e7a24e1	1795231497	1795231497	Hardy Wang	Hardy Wang	main	Map input files instead of copying; cheaper grouping and key compares
+h-ardy/buildathon-shopping-sessions	39c1686139	1795230872	1795230872	Hardy Wang	Hardy Wang	main	Native Rust pipeline: same rules, about 4x faster than DuckDB
+h-ardy/buildathon-shopping-sessions	dc85a34ea9	1795228552	1795228096	Hardy Wang	Hardy Wang	main	Shopping Sessions DuckDB pipeline: passes all 36 fixtures and the dev set
+h-ardy/buildathon-shopping-sessions	0942ef7046	1795227381	1795227381	Hardy	GitHub	main	Initial commit
+j3278wan/shopping-sessions-buildathon	6eb22b37b9	1795223096	1795223096	Jessie Wang	Jessie Wang	perf/linux-compare	Verify scorer image on larger input and compare three independent runtime improvements
+j3278wan/shopping-sessions-buildathon	324215822b	1795222805	1795222805	Jessie Wang	Jessie Wang	perf/linux-compare	Compare exact duplicate filters, compact tickets and vector field extraction
+j3278wan/shopping-sessions-buildathon	e3b3d46d8e	1795222596	1795222596	Jessie Wang	Jessie Wang	perf/linux-compare	Test compact event records, paired timestamps and scorer image on Linux
+j3278wan/shopping-sessions-buildathon	61ccfc6144	1795222072	1795222072	Jessie Wang	Jessie Wang	perf/linux-compare	Compare compact event de-duplication and runtime-selected SIMD on Linux
+j3278wan/shopping-sessions-buildathon	6c0bd8af0a	1795221682	1795221682	Jessie Wang	Jessie Wang	perf/linux-compare	Compare GCC, Clang and profile-guided builds on independent Linux input
+j3278wan/shopping-sessions-buildathon	aa826e3d4c	1795221432	1795221432	Jessie Wang	Jessie Wang	main,perf/linux-compare	Parallelize exact identity resolution and streamline daily report output
+j3278wan/shopping-sessions-buildathon	a1daa5402c	1795219900	1795219900	Jessie Wang	Jessie Wang	main,perf/linux-compare	Accelerate Shopping Sessions with parallel CSV ingestion and native Parquet reports
+j3278wan/shopping-sessions-buildathon	ec136af0da	1795217622	1795217622	Jessie Wang	Jessie Wang	main,perf/linux-compare	Implement the Shopping Sessions pipeline and include the official verification fixtures
+j3278wan/shopping-sessions-buildathon	c791e8c5af	1795217591	1795217591	Jessie Wang	GitHub	main,perf/linux-compare	Initial commit
+joshuamuellenbach25/Databricks---Shopping-Sessions	ea4ae1d15c	1795239755	1795239755	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	2f532e6bd2	1795238583	1795238583	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	27faa5dd6d	1795238423	1795238423	joshuamuellenbach25	joshuamuellenbach25	opt/parse-fix	Remove the comments added with the word-at-a-time parse
+joshuamuellenbach25/Databricks---Shopping-Sessions	d40aff375d	1795238376	1795238376	joshuamuellenbach25	joshuamuellenbach25	main	Let the volume runner pin the container to fixed CPUs and print its compute limits
+joshuamuellenbach25/Databricks---Shopping-Sessions	050184819e	1795238264	1795238264	joshuamuellenbach25	joshuamuellenbach25	opt/writer-fix	Remove added comments and free user_daily buffers after use
+joshuamuellenbach25/Databricks---Shopping-Sessions	a1a14f97fe	1795237965	1795237965	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	ef05a85588	1795237129	1795237129	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	80b56e7ed5	1795236806	1795236806	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	a6f730c65a	1795236472	1795236472	joshuamuellenbach25	joshuamuellenbach25	opt/cand1	Merge branch 'opt/dedupbuf' into opt/cand1
+joshuamuellenbach25/Databricks---Shopping-Sessions	74f389fee9	1795236471	1795236471	joshuamuellenbach25	joshuamuellenbach25	opt/cand1	Merge branch 'opt/writer' into opt/cand1
+joshuamuellenbach25/Databricks---Shopping-Sessions	8893fd617b	1795236433	1795236433	joshuamuellenbach25	joshuamuellenbach25	opt/parse,opt/parse-fix	Inline the event parse and read civil days and prices a word at a time
+joshuamuellenbach25/Databricks---Shopping-Sessions	e8c62e9f3a	1795236038	1795236038	joshuamuellenbach25	joshuamuellenbach25	opt/cand1,opt/dedupbuf	Reuse processed raw buffers as dedup output chunks
+joshuamuellenbach25/Databricks---Shopping-Sessions	572a42dd71	1795235987	1795235987	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1	Update the status page
+joshuamuellenbach25/Databricks---Shopping-Sessions	e29abdaf5e	1795235830	1795235830	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1	Add a status page with the current score, target and branches in progress
+joshuamuellenbach25/Databricks---Shopping-Sessions	02883c1e38	1795235735	1795235735	joshuamuellenbach25	joshuamuellenbach25	opt/cand1,opt/writer,opt/writer-fix	Write user IDs and categories from shared buffers
+joshuamuellenbach25/Databricks---Shopping-Sessions	590a4d3883	1795234820	1795234820	joshuamuellenbach25	joshuamuellenbach25	opt/coldread	Read the event and click CSVs with pread into reused buffers on Linux
+joshuamuellenbach25/Databricks---Shopping-Sessions	039c093169	1795234740	1795234740	joshuamuellenbach25	joshuamuellenbach25	opt/prefault	Prefault parse record vectors on Linux before the scan loops
+joshuamuellenbach25/Databricks---Shopping-Sessions	4ea55a81d7	1795233949	1795233949	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/hugepages,opt/writer,opt/writer-fix	Let the allocator use huge pages and commit its arenas up front
+joshuamuellenbach25/Databricks---Shopping-Sessions	b4c44e1731	1795233881	1795233881	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/parse,o	Exit right after the output check instead of freeing every buffer
+joshuamuellenbach25/Databricks---Shopping-Sessions	86307b4eb1	1795232888	1795232888	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/merged' into opt/main-next
+joshuamuellenbach25/Databricks---Shopping-Sessions	f90bc3d631	1795232696	1795232696	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/memory' into opt/merged
+joshuamuellenbach25/Databricks---Shopping-Sessions	9ff4aeda04	1795232414	1795232414	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/fields' into opt/merged
+joshuamuellenbach25/Databricks---Shopping-Sessions	5bf3ff78a0	1795232380	1795232380	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Add a README that explains the solver, its checks and how to run it
+joshuamuellenbach25/Databricks---Shopping-Sessions	7722285a7c	1795232273	1795232273	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/tokenizer' into opt/merged
+joshuamuellenbach25/Databricks---Shopping-Sessions	17d0278cfb	1795232165	1795232165	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/records' into opt/merged
+joshuamuellenbach25/Databricks---Shopping-Sessions	7a44d1aacb	1795231400	1795231400	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Correct the Buckets doc comment for chunked dedup output
+joshuamuellenbach25/Databricks---Shopping-Sessions	0ae0b25708	1795231256	1795231256	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/tokenizer' into opt/merged-now
+joshuamuellenbach25/Databricks---Shopping-Sessions	09f1ba5d24	1795231255	1795231255	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/fields' into opt/merged-now
+joshuamuellenbach25/Databricks---Shopping-Sessions	a2bab819e6	1795231254	1795231254	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Merge branch 'opt/records' into opt/merged-now
+joshuamuellenbach25/Databricks---Shopping-Sessions	09fe36c425	1795230581	1795230581	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Split each line from its comma and quote masks
+joshuamuellenbach25/Databricks---Shopping-Sessions	39a23b4c9f	1795230541	1795230541	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Parse timestamps and pack IDs a word at a time
+joshuamuellenbach25/Databricks---Shopping-Sessions	2f875adef7	1795230314	1795230314	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Keep freed memory mapped and fill dedup output in fixed chunks
+joshuamuellenbach25/Databricks---Shopping-Sessions	db83c1512a	1795229908	1795229908	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/hugepages,opt/main-ne	Shrink event and click records and store each click once
+joshuamuellenbach25/Databricks---Shopping-Sessions	16378dcac6	1795227412	1795227412	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Group each bucket by person with a counting scatter instead of sorting the whole bucket
+joshuamuellenbach25/Databricks---Shopping-Sessions	213ce9a747	1795226704	1795226704	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Return to memory-mapped input; paired Linux container runs favored it over buffered reads
+joshuamuellenbach25/Databricks---Shopping-Sessions	b18fa5164f	1795226428	1795226428	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Read input chunks with positional reads into a reused buffer instead of memory maps
+joshuamuellenbach25/Databricks---Shopping-Sessions	bbf91cd031	1795225854	1795225854	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Resolve click persons in a prefetched pass; add a volume-based container runner
+joshuamuellenbach25/Databricks---Shopping-Sessions	9ff8f938b1	1795225186	1795225186	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Prefetch person lookups through an open-addressing table; time the sessions phase
+joshuamuellenbach25/Databricks---Shopping-Sessions	2bf4623fe5	1795224588	1795224588	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Speed up parsing and dedup: 64-bit keys, tokenizer, mimalloc, smaller dedup buckets
+joshuamuellenbach25/Databricks---Shopping-Sessions	42f935aa38	1795223663	1795223663	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Add a plain reference implementation and a differential test against it
+joshuamuellenbach25/Databricks---Shopping-Sessions	df014cec4c	1795220917	1795220917	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Add the Rust solver, the Docker image and the fixture checks
+joshuamuellenbach25/Databricks---Shopping-Sessions	5be2d9c3ec	1795219138	1795219138	joshuamuellenbach25	joshuamuellenbach25	main,opt/cand1,opt/coldread,opt/dedupbuf,opt/fast-exit,opt/fields,opt/hugepages,	Add the glossary and the first design record
+joshuamuellenbach25/RWX---Blast-Radius	087d0fa4ab	1795239977	1795239977	joshuamuellenbach25	joshuamuellenbach25	main	Follow every sqlglot import, bound analysis time, narrow replacements
+joshuamuellenbach25/RWX---Blast-Radius	9c2388f62b	1795239768	1795239768	joshuamuellenbach25	joshuamuellenbach25	main	List callers for moved statements and loaders for unbound names
+joshuamuellenbach25/RWX---Blast-Radius	99b1fd1c8e	1795239531	1795239531	joshuamuellenbach25	joshuamuellenbach25	main	Point a closed stderr at null before copying stdout
+joshuamuellenbach25/RWX---Blast-Radius	1e7034ea20	1795239157	1795239157	joshuamuellenbach25	joshuamuellenbach25	main	List every test that loads a file whose class body changes a call
+joshuamuellenbach25/RWX---Blast-Radius	26e3fcec89	1795239030	1795239030	joshuamuellenbach25	joshuamuellenbach25	main	Status: practice board leader and target updated
+joshuamuellenbach25/RWX---Blast-Radius	c7821b1670	1795238559	1795238559	joshuamuellenbach25	joshuamuellenbach25	main	List unknown tests from the map verdicts, never answer nothing
+joshuamuellenbach25/RWX---Blast-Radius	16f624c09d	1795238254	1795238254	joshuamuellenbach25	joshuamuellenbach25	main	List callers for inserted lines and edited slow tests
+joshuamuellenbach25/RWX---Blast-Radius	a311584b14	1795238049	1795238049	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page (00:14 EST)
+joshuamuellenbach25/RWX---Blast-Radius	3d87b39e52	1795237681	1795237681	joshuamuellenbach25	joshuamuellenbach25	main	List the loaders of a class whose body now calls code
+joshuamuellenbach25/RWX---Blast-Radius	788fca11a4	1795237396	1795237396	joshuamuellenbach25	joshuamuellenbach25	main	Remove the diagnostic CPU spend from the stage report
+joshuamuellenbach25/RWX---Blast-Radius	304103a4f3	1795237078	1795237078	joshuamuellenbach25	joshuamuellenbach25	main	List subprocess tests always and send import-time calls to every test
+joshuamuellenbach25/RWX---Blast-Radius	4eb766ca97	1795236699	1795236699	joshuamuellenbach25	joshuamuellenbach25	main	Update the status page (23:51 EST)
+joshuamuellenbach25/RWX---Blast-Radius	2950e8ea7a	1795236136	1795236136	joshuamuellenbach25	joshuamuellenbach25	main	Never spend diagnostic CPU on a final-sized batch
+joshuamuellenbach25/RWX---Blast-Radius	d49166f303	1795236046	1795236046	joshuamuellenbach25	joshuamuellenbach25	main	Fall back for every lambda edit on a line that ran at import
+joshuamuellenbach25/RWX---Blast-Radius	f2969e3d6a	1795234795	1795234795	joshuamuellenbach25	joshuamuellenbach25	main	Keep verifying when one fork or one warm import fails
+joshuamuellenbach25/RWX---Blast-Radius	1b0b82fd12	1795234726	1795234726	joshuamuellenbach25	joshuamuellenbach25	main	Send the warm worker's output to /dev/null
+joshuamuellenbach25/RWX---Blast-Radius	0ad9466fb7	1795234401	1795234401	joshuamuellenbach25	joshuamuellenbach25	main	Log each local test run's wall time and CPU
+joshuamuellenbach25/RWX---Blast-Radius	5eb6e31f03	1795234199	1795234199	joshuamuellenbach25	joshuamuellenbach25	main	Report how far verification got through the run's CPU time
+joshuamuellenbach25/RWX---Blast-Radius	56f35a28a2	1795233648	1795233648	joshuamuellenbach25	joshuamuellenbach25	main	List tests for edited one-line lambdas the map cannot see
+joshuamuellenbach25/RWX---Blast-Radius	7a780d1223	1795233254	1795233254	joshuamuellenbach25	joshuamuellenbach25	main	Print one line per standings poll
+joshuamuellenbach25/RWX---Blast-Radius	c6940cb895	1795232997	1795232997	joshuamuellenbach25	joshuamuellenbach25	main	Skip disassembly for code objects whose raw fields match
+joshuamuellenbach25/RWX---Blast-Radius	27d6b4772e	1795232612	1795232612	joshuamuellenbach25	joshuamuellenbach25	main	Run cheap class setups first and keep a run complete when its last test fails
+joshuamuellenbach25/RWX---Blast-Radius	cf4ea942fe	1795232141	1795232141	joshuamuellenbach25	joshuamuellenbach25	main	Freeze the warm worker's heap before forking and poll less often
+joshuamuellenbach25/RWX---Blast-Radius	c5f5a3ea88	1795231611	1795231611	joshuamuellenbach25	joshuamuellenbach25	main	Send riskier patches down the safe paths and run tests under 7 seconds
+joshuamuellenbach25/RWX---Blast-Radius	e423dd06e4	1795231154	1795231154	joshuamuellenbach25	joshuamuellenbach25	main	Write all answers in one complete write and keep logs best effort
+joshuamuellenbach25/RWX---Blast-Radius	17bf863e58	1795230883	1795230883	joshuamuellenbach25	joshuamuellenbach25	main	Run a commit's tests locally only when that is expected to pay
+joshuamuellenbach25/RWX---Blast-Radius	9b7de8d9d2	1795230599	1795230599	joshuamuellenbach25	joshuamuellenbach25	main	List test_typing for changes under sqlglot/typing and track a lead target
+joshuamuellenbach25/RWX---Blast-Radius	c173e8cfdb	1795230390	1795230390	joshuamuellenbach25	joshuamuellenbach25	main	End a commit's run at the first test that passes its time limit
+joshuamuellenbach25/RWX---Blast-Radius	620be490a7	1795230142	1795230142	joshuamuellenbach25	joshuamuellenbach25	main	Stop a commit's local test run at its first failure
+joshuamuellenbach25/RWX---Blast-Radius	56b8385e69	1795228933	1795228933	joshuamuellenbach25	joshuamuellenbach25	main	Check two commits at a time and keep the build going if precompiling fails
+joshuamuellenbach25/RWX---Blast-Radius	f3ffffa9bf	1795228266	1795228266	joshuamuellenbach25	joshuamuellenbach25	main	Run each commit's cheap candidate tests against the patched code
+joshuamuellenbach25/RWX---Blast-Radius	81f5182e51	1795227876	1795227876	joshuamuellenbach25	joshuamuellenbach25	main	Select tests from a per-test coverage map of the pinned sqlglot
+joshuamuellenbach25/RWX---Blast-Radius	16781c9cbd	1795224845	1795224845	joshuamuellenbach25	joshuamuellenbach25	main	Add coverage map tools, patch analysis and a local scorer harness
+joshuamuellenbach25/RWX---Blast-Radius	75c885a038	1795219175	1795219175	joshuamuellenbach25	joshuamuellenbach25	main	Add baseline selector that runs every test on three workers
+kleongf/buildathon-solution	940e3a0ec2	1795234682	1795234682	Kevin Fong	Kevin Fong	main	Qualify the compact Rust candidate and prepare one pinned Linux screen
+kleongf/buildathon-solution	aec3eeba75	1795233820	1795233820	pickerof	pickerof	main	Sync buildercomp candidate to iter 7 (70c856a, 1281.6 ms at 20M)
+kleongf/buildathon-solution	c796cabd64	1795233481	1795233481	pickerof	pickerof	main	Sync buildercomp candidate to iter 6 (11dae9c, 1356.8 ms at 20M)
+kleongf/buildathon-solution	304ce1f21f	1795232881	1795232881	pickerof	pickerof	main	Sync buildercomp candidate to iter 5 (1306817, 1443.4 ms at 20M)
+kleongf/buildathon-solution	e8dbaf768b	1795232880	1795232880	pickerof	pickerof	main	Update buildercomp findings and E013 for iter 4 (1516 ms, -22% vs Alex at 20M)
+kleongf/buildathon-solution	264dc8848f	1795231998	1795231998	pickerof	pickerof	main	Import buildercomp native candidate (iter 2) and optimization findings
+matthewf725/shopping-sessions	f554a42008	1795236949	1795236949	matthewf725	matthewf725	adaptive-session-buckets	Support 24 GiB guests and measure the effect of run order
+matthewf725/shopping-sessions	6a01d57e5c	1795235208	1795235208	matthewf725	matthewf725	adaptive-session-buckets	Run the AVX-512 scorer in a local instrumented Linux guest
+matthewf725/shopping-sessions	38509a2b13	1795231830	1795231830	matthewf725	matthewf725	adaptive-session-buckets	Record the 1.12 second official Xeon practice score
+matthewf725/shopping-sessions	1018e6495b	1795231652	1795231652	matthewf725	matthewf725	adaptive-session-buckets	Reuse partition hashes for exact deduplication and vectorize Xeon epoch decoding
+matthewf725/shopping-sessions	10198d351f	1795230618	1795230618	matthewf725	matthewf725	adaptive-session-buckets	Reduce post-write teardown and group daily campaign assist updates
+matthewf725/shopping-sessions	4c18cb2973	1795228105	1795228105	matthewf725	matthewf725	adaptive-session-buckets	Read only the event columns needed during the scored CSV pass
+matthewf725/shopping-sessions	d4a5099a3e	1795224985	1795224985	matthewf725	matthewf725	adaptive-session-buckets	Select CSV exceptions by rank and aggregate campaign assist windows
+matthewf725/shopping-sessions	131243f9a9	1795223380	1795223380	matthewf725	matthewf725	adaptive-session-buckets	Refine session slots on a witnessed gap and index CSV shape exceptions
+matthewf725/shopping-sessions	04ec7ca735	1795221484	1795221484	matthewf725	matthewf725	adaptive-session-buckets,xeon-tuning	Use same-day arrivals and common ID widths in the event parser
+matthewf725/shopping-sessions	4f7d3e7022	1795219887	1795219887	matthewf725	matthewf725	adaptive-session-buckets,xeon-tuning	Group raw aliases once and reuse their observation ranges
+matthewf725/shopping-sessions	ef41f89be7	1795218935	1795218935	matthewf725	matthewf725	adaptive-session-buckets,main,xeon-tuning	Tune the Xeon build and reduce exact dedup table probes
+matthewf725/shopping-sessions	b18782ca69	1795218075	1795218075	matthewf725	matthewf725	adaptive-session-buckets,main,xeon-tuning	Keep benchmarking local
+matthewf725/shopping-sessions	08c18da7c2	1795217976	1795217976	matthewf725	matthewf725	adaptive-session-buckets,main,xeon-tuning	Build exact shopping sessions from half-hour occupancy and click coverage
+mike200004/blast-radius-sel	b74bc58a13	1795231694	1795231694	Michael	Michael	main	v4: TPC executor replay (hash-compared on the patched tree), per-test cost map, cost-aware planner, fixture-reader fix for code+fixture patches, cheaper verification children
+mike200004/blast-radius-sel	d4bc91c335	1795224226	1795224226	Michael	Michael	main	v3.5: copy into the overlay only test files that resolve their own path (cuts per-verification file copying)
+mike200004/blast-radius-sel	984593e59a	1795224055	1795224055	Michael	Michael	main	v3.4: skeptic fixes — global deadline + per-commit analysis alarm (never exceed the run limit), sweeping edits short-circuit, import check parses once; test files copied into the overlay (no symlink e
+mike200004/blast-radius-sel	d02bfc9617	1795222911	1795222911	Michael	Michael	main	v3.3: import check — a patched module that no longer imports (e.g. a class-body set expression that now raises) adds all its users; fixes 3 misses found on the CI-labelled holdout
+mike200004/blast-radius-sel	93ae605639	1795222766	1795222766	Michael	Michael	main	v3.2: docstring-only edits select nothing; probe-able commits may verify up to 14 s; unittest diff/pprint shims scoped; per-verification CPU logged
+mike200004/blast-radius-sel	f44e67c620	1795220247	1795220247	Michael	Michael	main	v3.1: per-test timeout scales with recorded durations; config edits outside pytest sections select nothing
+mike200004/blast-radius-sel	9fef380b63	1795220114	1795220114	Michael	Michael	main	v3: class-usage narrowing, dynamic verification in a warm fork, weak-mutation probe
+mike200004/blast-radius-sel	b08fed7c0b	1795218638	1795218638	Michael	Michael	main	Map built in the scorer image (python 3.13.18, sqlite 3.46.1; all 1620 tests pass at base)
+mike200004/blast-radius-sel	8b90db5b0c	1795218139	1795218139	Michael	Michael	main	Blast Radius selector v0: isolated per-test coverage map, static candidates, optimal worker packing
+mike200004/shopping-sessions-rs	a05140b8c6	1795232063	1795232063	Michael	Michael	main	CI: manual experiment workflow timing Linux-only flags at 20M
+mike200004/shopping-sessions-rs	e11005c7ee	1795231930	1795231930	Michael	Michael	main	fast3: two-stage SIMD splitter, format-batched parsing, lock-free union-find during link parsing, bitmap dedup, bin-grouped sessionize, parallel unmap at exit
+mike200004/shopping-sessions-rs	59568007d1	1795224903	1795224903	Michael	Michael	main	fast2: SIMD line splitting (AVX2/NEON + fallbacks), fixed-chunk records, union-find overlapped with event parsing, link-filter, per-person sorted groups, parallel startup; legacy pipeline kept as fall
+mike200004/shopping-sessions-rs	7511761dca	1795218087	1795218087	Michael	Michael	main	Shopping Sessions: Rust std-only pipeline with Dockerfile and CI validation
+mike200004/shopping-sessions-v1	7511761dca	1795218087	1795218087	Michael	Michael	main	Shopping Sessions: Rust std-only pipeline with Dockerfile and CI validation
+niranjankumarnk/blast-radius	313e9f9088	1795232747	1795232747	Niranjan Kumar	Niranjan Kumar	inproc-experiment	In-process runs: calibrated estimate, and cheap tests next to a heavy test are run too
+niranjankumarnk/blast-radius	cb4f8e9efa	1795231160	1795231160	Niranjan Kumar	Niranjan Kumar	inproc-experiment	Verify cheap selections by running them in-process with unittest on a fresh import of the patched tree
+niranjankumarnk/blast-radius	71fda6451c	1795230073	1795230073	Niranjan Kumar	Niranjan Kumar	inproc-experiment	Do not count csv loading in the estimate of a compile-only check; add the excess-selection analysis
+niranjankumarnk/blast-radius	5769c29578	1795229903	1795229903	Niranjan Kumar	Niranjan Kumar	inproc-experiment	Cheaper compile-only check: faster canonical text, table pickles made at build time
+niranjankumarnk/blast-radius	52e5b2fcbb	1795229661	1795229661	Niranjan Kumar	Niranjan Kumar	inproc-experiment	Decide test_execute_tpcds without running a query whose data phase the patch cannot touch
+niranjankumarnk/blast-radius	1e6d4e1a53	1795229122	1795229122	Niranjan Kumar	Niranjan Kumar	inproc-experiment	WIP, unverified: compile-only digest for test_execute_tpcds and the data-phase unit map
+niranjankumarnk/blast-radius	3fee962f02	1795228632	1795228632	Niranjan Kumar	Niranjan Kumar	exact-experiment,inproc-experiment	Turn the non-pool witness set off: 2 wrong drops in 13 on labelled patches
+niranjankumarnk/blast-radius	b286dac32c	1795228498	1795228498	Niranjan Kumar	Niranjan Kumar	exact-experiment,inproc-experiment	Import the numeric libraries once in the parent; skip the re-check for tests proven to run here
+niranjankumarnk/blast-radius	2b989c4b2e	1795228178	1795228178	Niranjan Kumar	Niranjan Kumar	exact-static	Variant: static selection plus exact unit replays only (BR_RUN=0)
+niranjankumarnk/blast-radius	b5acc6685f	1795228158	1795228158	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment	Exact verdicts for two heavy tests by replaying only the units a patch can affect
+niranjankumarnk/blast-radius	c7cb0ee1b8	1795226596	1795226581	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,witness2-experiment	A second, cheaper witness set for heavy tests; stop a run at its first failure
+niranjankumarnk/blast-radius	4eaa5d9da3	1795226518	1795226518	Niranjan Kumar	Niranjan Kumar	witness-experiment	Stop a witness run at its first failure and shorten its time limits
+niranjankumarnk/blast-radius	f42b61220f	1795224778	1795224778	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,witness-experiment,witness2-expe	Decide heavy tests by running the cheaper selected tests
+niranjankumarnk/blast-radius	b06f26ba52	1795224079	1795224079	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,main,witness-experiment,witness2	Statement-level selection, static only
+niranjankumarnk/blast-radius	2f96b1f9d0	1795220122	1795220122	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,main,witness-experiment,witness2	Harden selection for unseen kinds of change
+niranjankumarnk/blast-radius	650b9b34c1	1795219181	1795219181	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,main,witness-experiment,witness2	Run cheap candidate tests in the container and schedule only the failures
+niranjankumarnk/blast-radius	27cc3bd61e	1795217349	1795217349	Niranjan Kumar	Niranjan Kumar	exact-experiment,exact-static,inproc-experiment,main,witness-experiment,witness2	Blast Radius: coverage-map test selector
+niranjankumarnk/shopping-sessions	37ecd07330	1795237052	1795237052	Niranjan Kumar	Niranjan Kumar	main	13-digit timestamps a word at a time; cheaper dictionary index encoding
+niranjankumarnk/shopping-sessions	394a763797	1795233334	1795233334	Niranjan Kumar	Niranjan Kumar	main,writer-thread	Write user_daily from its own thread while the session stage runs
+niranjankumarnk/shopping-sessions	3fcf2f21b2	1795233186	1795233186	Niranjan Kumar	Niranjan Kumar	main,writer-thread	Smaller output: one row group per partition, dictionary pages with RLE/bit-packed indices
+niranjankumarnk/shopping-sessions	4bc22c0baf	1795231165	1795231165	Niranjan Kumar	Niranjan Kumar	diagnostic-3-not-an-entry	Benchmark diagnostic, not an entry: a dozen timed 20M-scale runs in under 2 KB of stderr, exit 1
+niranjankumarnk/shopping-sessions	cb14059468	1795230162	1795226866	Niranjan Kumar	Niranjan Kumar	diagnostic-3-not-an-entry	Diagnostic build on the current pipeline: remove the output and exit with status 1
+niranjankumarnk/shopping-sessions	cbc8ddb25a	1795230162	1795223276	Niranjan Kumar	Niranjan Kumar	diagnostic-3-not-an-entry	Diagnostic build: leave a deliberately wrong campaign table and exit normally; print no value from the data
+niranjankumarnk/shopping-sessions	01b4ee0d0c	1795230162	1795223167	Niranjan Kumar	Niranjan Kumar	diagnostic-3-not-an-entry	DIAGNOSTIC BUILD, not an entry: measure the machine, print to stderr, exit 1
+niranjankumarnk/shopping-sessions	6b74b36760	1795227318	1795227318	Niranjan Kumar	Niranjan Kumar	diagnostic-3-not-an-entry,main,writer-thread	Link building on its own threads, finished while the events are still being parsed
+niranjankumarnk/shopping-sessions	662f9189c1	1795226866	1795226866	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry	Diagnostic build on the current pipeline: remove the output and exit with status 1
+niranjankumarnk/shopping-sessions	cc049ee33a	1795226818	1795223276	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry	Diagnostic build: leave a deliberately wrong campaign table and exit normally; print no value from the data
+niranjankumarnk/shopping-sessions	7f011a4582	1795226818	1795223167	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry	DIAGNOSTIC BUILD, not an entry: measure the machine, print to stderr, exit 1
+niranjankumarnk/shopping-sessions	35230e10af	1795226786	1795226786	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Clicks stay in per-chunk blocks ordered by partition; no second copy
+niranjankumarnk/shopping-sessions	5b387407a0	1795226399	1795226399	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Write each dedup group's survivors back over its own parsed events
+niranjankumarnk/shopping-sessions	c53fa98824	1795226009	1795226009	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	24-byte click records: time and campaign share one word
+niranjankumarnk/shopping-sessions	ba6ec1cd0b	1795225791	1795225791	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Dedup: resolve people in the same pass, with the table slots requested ahead
+niranjankumarnk/shopping-sessions	644e32cbe1	1795225566	1795225566	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Session stage: order each person's clicks through keys; drop the click de-duplication
+niranjankumarnk/shopping-sessions	65ce7aa55e	1795225478	1795225478	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Session stage: order each person's events through 64-bit keys; fetch names ahead
+niranjankumarnk/shopping-sessions	a2e9ba712d	1795224646	1795224646	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Scanner: every line ends in one loop, so the per-line work is inlined into the parsers
+niranjankumarnk/shopping-sessions	f8bee206d0	1795224422	1795224422	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Session stage: largest partitions first, one task each
+niranjankumarnk/shopping-sessions	5b73ae7f6a	1795224067	1795224067	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Faster link building: prefetched batches on one thread, table filled on all threads
+niranjankumarnk/shopping-sessions	b1d9a42907	1795223680	1795223680	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,main,writer-thread	Chunk parsers compiled for AVX2, BMI and POPCNT when the CPU has them, baseline otherwise
+niranjankumarnk/shopping-sessions	3943e92ec3	1795223276	1795223276	Niranjan Kumar	Niranjan Kumar	diagnostic-not-an-entry	Diagnostic build: leave a deliberately wrong campaign table and exit normally; print no value from the data
+niranjankumarnk/shopping-sessions	2b9cf64b67	1795223167	1795223167	Niranjan Kumar	Niranjan Kumar	diagnostic-not-an-entry	DIAGNOSTIC BUILD, not an entry: measure the machine, print to stderr, exit 1
+niranjankumarnk/shopping-sessions	b28507cd35	1795222774	1795222774	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	40-byte event records in exactly sized blocks; return their pages on all threads after dedup
+niranjankumarnk/shopping-sessions	871eec9d3a	1795222401	1795222401	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Cache validated dates in the timestamp parser
+niranjankumarnk/shopping-sessions	4608dd27e0	1795222073	1795222073	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Static binary on a pinned minimal image; one block per parsed chunk; release big regions before exit
+niranjankumarnk/shopping-sessions	07fd8c867c	1795221197	1795221197	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Linear-time campaign loading; README lists the current libraries
+niranjankumarnk/shopping-sessions	ca5c79b04b	1795220480	1795220480	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Keep freed memory in the heap, ask for huge pages, smaller buckets
+niranjankumarnk/shopping-sessions	960688fd6c	1795220010	1795220010	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	SIMD line scanner, word-at-a-time timestamps, group people without a full sort
+niranjankumarnk/shopping-sessions	0bf091439e	1795218717	1795218717	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Hand-written Parquet, compact records, in-cache dedup, links on a side thread
+niranjankumarnk/shopping-sessions	15c56867db	1795217331	1795217331	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Drop compiled Python cache
+niranjankumarnk/shopping-sessions	0c5cdf0adb	1795217319	1795217319	Niranjan Kumar	Niranjan Kumar	diagnostic-2-not-an-entry,diagnostic-3-not-an-entry,diagnostic-not-an-entry,main	Shopping Sessions: multi-threaded Rust pipeline
+orbitautomation/buildathon-blast-radius	6c5b8b07a1	1795234941	1795234941	orbitautomation	orbitautomation	main	
+orbitautomation/buildathon-blast-radius	2ad4916a01	1795232215	1795232215	orbitautomation	orbitautomation	main	
+orbitautomation/buildathon-shopping-sessions	3d9adc3bf8	1795223357	1795223357	orbitautomation	orbitautomation	main	Build 1
+ramsha-codes/rwx-blast-radius	15f74dbbe2	1795223870	1795223870	ramsha-codes	ramsha-codes	milestone-3-research	HANDOFF: fix image build command
+ramsha-codes/rwx-blast-radius	b504a1693e	1795223865	1795223865	ramsha-codes	ramsha-codes	milestone-3-research	Milestone 3 candidate: traced process-pool coverage, subprocess rule, central fallback (191.773s sample, 0 misses)
+ramsha-codes/rwx-blast-radius	578acca901	1795219432	1795219432	ramsha-codes	ramsha-codes	main,milestone-3-research	Milestone 2: coverage-map test selection + process-pool rule (458.703s sample, 0 misses)
+ramsha-codes/rwx-blast-radius	5ca4a0941a	1795217236	1795217236	ramsha-codes	ramsha-codes	main,milestone-3-research	Duration-aware worker scheduling (1-8 workers, LPT): 1104.510s sample
+ramsha-codes/rwx-blast-radius	e1874db85e	1795217018	1795217018	ramsha-codes	ramsha-codes	main,milestone-3-research	Baseline: verified starter submission, 1210.470s local score
+sarveshjoshi29/buildathonShoppingSessions	37bb3b44de	1795238058	1795238058	Sarvesh	Sarvesh	main	v3
+sarveshjoshi29/buildathonShoppingSessions	e741e3ebaf	1795233396	1795233396	Sarvesh	Sarvesh	main	init
+shanmukha-here/eagle-eye-blast-radius	51028fdeb2	1795231374	1795231374	Eagle Eye	Eagle Eye	main	Track observable configuration values and separate execution paths
+shanmukha-here/eagle-eye-blast-radius	ceaa94bc68	1795227042	1795226937	Eagle Eye	Eagle Eye	main	Narrow clean execution paths and replay bounded executor queries
+shanmukha-here/eagle-eye-blast-radius	0cebd68361	1795221394	1795221394	Eagle Eye	Eagle Eye	main	Scope collection failures and dialect field reads; score frozen images locally
+shanmukha-here/eagle-eye-blast-radius	a67ceee0a9	1795218747	1795218747	Eagle Eye	Eagle Eye	main	Refine test selection with clean-base line and receiver coverage
+shanmukha-here/eagle-eye-blast-radius	1afdcc3e58	1795217179	1795217179	Eagle Eye	Eagle Eye	main	Select and schedule tests from child-aware coverage of the pinned base
+shanmukha-here/eagle-eye-shopping-sessions	9e3c34ad61	1795235719	1795235719	Eagle Eye	Eagle Eye	main	Parallelize identity finalization and retire resident mappings during dedup
+shanmukha-here/eagle-eye-shopping-sessions	e65efe0190	1795231444	1795231444	Eagle Eye	Eagle Eye	main	Build identity components concurrently and overlap click parsing
+shanmukha-here/eagle-eye-shopping-sessions	b5b1ce6473	1795226886	1795226886	Eagle Eye	Eagle Eye	main	Read cold CSV shards in aligned blocks and compact event candidates
+shanmukha-here/eagle-eye-shopping-sessions	e6bd6a7f8c	1795225791	1795225791	Eagle Eye	Eagle Eye	main	Refit the local board predictor with four scored native releases
+shanmukha-here/eagle-eye-shopping-sessions	9ea71a030f	1795224005	1795224005	Eagle Eye	Eagle Eye	main	Reduce CPU work in CSV decoding and per-person timelines
+shanmukha-here/eagle-eye-shopping-sessions	995a55bf60	1795222345	1795222345	Eagle Eye	Eagle Eye	main	Overlap cold CSV reads and calibrate the full Docker run
+shanmukha-here/eagle-eye-shopping-sessions	5dc4593f9d	1795219759	1795219759	Eagle Eye	Eagle Eye	main	Accelerate exact event reduction and add a calibrated local leaderboard
+shanmukha-here/eagle-eye-shopping-sessions	e088484fab	1795217912	1795217912	Eagle Eye	Eagle Eye	main	Process shopping sessions in a single static Rust binary
+shanmukha-here/eagle-eye-shopping-sessions	3c70613684	1795216988	1795216988	Eagle Eye	Eagle Eye	main	Implement exact shopping session and campaign attribution pipeline
+skbgp/buildathon-rwx	a031a6bb8f	1795237771	1795237771	Shubham Kumar	Shubham Kumar	main	Track SQL configuration reads and individual dispatch handlers
+skbgp/buildathon-rwx	4f5f6b3518	1795229911	1795229911	Shubham Kumar	Shubham Kumar	main	Track shared fixtures and replay observed comparison operands
+skbgp/buildathon-rwx	6278f59587	1795228223	1795228223	Shubham Kumar	Shubham Kumar	main	Add RWX Blast Radius submission
+sophiayuanproj/RWX---Blast-Radius	24bdeef850	1795239879	1795239879	sophiayuanproj	sophiayuanproj	main	fixed tokenizer class and safety check
+sophiayuanproj/RWX---Blast-Radius	0427eb78b0	1795228585	1795228585	sophiayuanproj	sophiayuanproj	main	lowering sample score
+sophiayuanproj/RWX---Blast-Radius	2985cbd96d	1795225294	1795225294	sophiayuanproj	sophiayuanproj	main	Code push
+sshasteen2/shopping-sessions	2414a85db3	1795231535	1795231535	Stephanie Shasteen	Stephanie Shasteen	main	perf: hash-key dedup on slices, skip event/click intern
+sshasteen2/shopping-sessions	24f27b2ad5	1795229705	1795229705	Stephanie Shasteen	Stephanie Shasteen	main	perf: fast-path unquoted CSV rows
+sshasteen2/shopping-sessions	0f0283170b	1795228731	1795228731	Stephanie Shasteen	Stephanie Shasteen	main	perf: sharded intern + parallel CSV parse
+sshasteen2/shopping-sessions	26d68b7e0a	1795227900	1795227900	Stephanie Shasteen	Stephanie Shasteen	main	perf: intern IDs, zero-copy CSV rows
+sshasteen2/shopping-sessions	e15033a940	1795225554	1795225554	Stephanie Shasteen	Stephanie Shasteen	main	feat: rust pipeline, 36/36 fixtures
+sshasteen2/shopping-sessions	a2d8d15334	1795224035	1795224035	Stephanie Shasteen	Stephanie Shasteen	main	fix: keep E20 CR payload in fixture CSVs
+sshasteen2/shopping-sessions	b63a0ad62f	1795223944	1795223944	Stephanie Shasteen	Stephanie Shasteen	main	chore: polars starter, fixtures, generator source
+vishvap-bhupathi/databricks-shopping-sessions-buildathon	7d8c790bde	1795231573	1795231573	Vishva Bhupathi	Vishva Bhupathi	main	chore: initialize buildathon project and documentation workflow
+whyMiso/buildathon-blast-radius	eb003136b7	1795219603	1795219603	whyMiso	whyMiso	main	Static coverage-map selector (safe baseline)
+wzardomri/buildathon-shopping-sessions	d725de1a9c	1795235467	1795235467	wzardomri	wzardomri	shopping/tagged-calendar-d725de1	Cache date parsing and index exact winners with SIMD tags
+wzardomri/buildathon-shopping-sessions	15bcb318d9	1795231850	1795231850	wzardomri	wzardomri	shopping/one-pass-wide-15bcb31,shopping/tagged-calendar-d725de1	Parse events in one pass and resolve identity links in parallel
+wzardomri/buildathon-shopping-sessions	d4430c1ffe	1795229204	1795229204	wzardomri	wzardomri	shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calendar-d	Group shopping records before canonical identity routing
+wzardomri/buildathon-shopping-sessions	6ac92d638c	1795225589	1795225589	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Pack validated click timestamps and campaign keys
+wzardomri/buildathon-shopping-sessions	a95e9ad5d9	1795225041	1795225041	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Resolve duplicate event winners before CSV normalization
+wzardomri/buildathon-shopping-sessions	9fd0d87462	1795224197	1795224197	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Validate CSV quote boundaries and ingest clocks in compact masks
+wzardomri/buildathon-shopping-sessions	1b589e37c9	1795224196	1795224196	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Resolve linked aliases directly to canonical names
+wzardomri/buildathon-shopping-sessions	f54ee53518	1795223582	1795223582	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Build linked identities with sharded parallel indexing
+wzardomri/buildathon-shopping-sessions	5032824b28	1795221968	1795221968	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Overlap event screening and remove redundant click work
+wzardomri/buildathon-shopping-sessions	9e796eb20f	1795220600	1795220600	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Pack event records while preserving exact wide fallbacks
+wzardomri/buildathon-shopping-sessions	6943473d44	1795219778	1795219778	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Group rows contiguously and write Parquet natively
+wzardomri/buildathon-shopping-sessions	6b2dd689f8	1795218336	1795218336	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Accelerate exact parsing, deduplication, and identity lookup
+wzardomri/buildathon-shopping-sessions	54caa96169	1795217442	1795217442	wzardomri	wzardomri	main,shopping/one-pass-wide-15bcb31,shopping/raw-groups-v1,shopping/tagged-calen	Implement exact parallel Shopping Sessions pipeline
+yakbas3/blast-radius	a6fdec19e8	1795218174	1795218174	Yaman B Akbas	Yaman B Akbas	main	Submission 1: local 1104.8 s

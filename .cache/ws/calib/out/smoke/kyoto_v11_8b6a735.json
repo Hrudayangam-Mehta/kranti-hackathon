@@ -1,0 +1,124 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh kyoto_v11_8b6a735",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/kyoto_v11_8b6a735.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 3,
+  "stdErr": 1,
+  "sd": 1.414,
+  "winFrac": 0,
+  "meanKills": 3,
+  "meanTimeAlive": 58.2,
+  "meanDmgDealt": 5690,
+  "meanDmgTaken": 1943,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1,
+   "lightning/hunt": 1
+  },
+  "meanWallMs": 1919,
+  "wallS": 2.7
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "survivor-farm",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 77.35,
+   "alive": false,
+   "dmgDealt": 7382,
+   "dmgTaken": 2317,
+   "cause": "laser",
+   "killedBy": 2,
+   "killRange": 54.9,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 10,
+   "upgrades": [
+    "armor",
+    "lightning_efficiency",
+    "nanites",
+    "reactor"
+   ],
+   "loadout": [
+    "laser",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 77.35,
+   "wallMs": 2021,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 12.7,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "survivor-farm",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 39.1,
+   "alive": false,
+   "dmgDealt": 3997,
+   "dmgTaken": 1568,
+   "cause": "lightning",
+   "killedBy": 1,
+   "killRange": 33.5,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 3,
+   "upgrades": [
+    "gun_rate",
+    "nanites"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 39.1,
+   "wallMs": 1817,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 55.6,
+   "meanMs": 0
+  }
+ ]
+}

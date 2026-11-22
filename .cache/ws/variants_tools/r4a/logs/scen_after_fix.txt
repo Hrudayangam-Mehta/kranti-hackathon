@@ -1,0 +1,27 @@
+PASS  C0 params: with hunt/seek off (explicit and default) no resolved R3a2 key changes (V1, V4); only new keys added; all flags false  ::  V1 changed 0 V4 changed 0, added 61 (hunt50,seekOn + h50*), gone 0
+PASS  C0b arms: H = hunt50+pulse, HL = hunt50 no pulse, S = seek only; all keep retreat d3; spec 2.1 values  ::  H true/true/false HL true/false S true/false
+PASS  B1 burst3 = GP table 1.3 within 1% at 30/60/100/130/160 m for gun(0,5 cubes), gun+laser(0,5), gun+lightning; = my closed form exactly  ::  gun0 513/486/405/405/0 | gun5 616/583/486/486/0 | gl0 828/801/720/720/315 | gl5 994/961/864/864/378 | gli0 993/966/405/405/0
+PASS  B2 burst3 details: reloading 1.2 s -> floor(1.8/cd) shots; 4 rounds -> 4 shots; beam counts at cooldown+charge 1.45 s, not 1.55 s; rear x1.5; mortar carrier beam x1.6  ::  reload 284 (284) | 4 rnd 162 | beam 1.55 486 1.45 801 | rear 1202 | mortar 990
+PASS  B3 TTK: 12 rounds in 11 x 0.24 = 2.64 s (+0.05 step), the 13th after the 2.4 s reload; 1400 hp gun only -> 99; one ready beam (300 hp) at latency 0.1 s  ::  12 rnd 2.6500000000000004 | 13 rnd 5.050000000000001 | 1400 99 | beam 0.1
+PASS  G1 gate on CURRENT hp: gun at 60 m opens at hp 2*burst3-1, not +1; fresh 1400 no, from the rear yes; line < 1 s (ours or its) needed; <= 200 m; never an NPC or unlisted; not under 35% hp  ::  b60 486 lo true hi false 1400 false rear true noline false inline true 201m false 130m true npc false unlisted false hp34 false hp36 true
+PASS  G2 reserve: hp 600, TTK 7.45 s: 400 dps no, 20 dps yes, edge exact at 0.30 x maxHp; finishable within 1.5 s always  ::  400 false 40 true edge true/false finish true
+PASS  G3 IN = 98 x hit(d) (+117 laser) per line-on-us mech without samples, measured dps with >= 3 samples; stale line (1.2 s) and NPCs ignored; lines within 160 m  ::  IN 330.86 (want 330.86) lines 3
+PASS  I1 (T6) gun only, fresh 1400 hp non-hostile at 80 m with a line: H / HL no first shot in 5 s; off and S (seek alone keeps R3a2 candidates) engage  ::  H 0 shots | HL 0 | off 12 (from 25) | S 12 (from 25)
+PASS  I2 (T6b/T7) 600 hp current -> engaged; the same fresh mech turning to aim at us at 26.0 s or hitting us -> answered at once  ::  600 hp 25 | aims from 26.0: 26 | hits (first hit 25.75 s): 25.8
+PASS  I3 opening guard: a 300 hp mech at 80 m is not started on before 20.0 s under H  ::  first 20
+PASS  I4 (GP T1) gun + laser at 115 m: fresh 1400 hp engaged (720 >= 700), 1500 hp not  ::  1400 25 | 1500 -1
+PASS  K1 commit: gated pick committed, kept while picked, cleared with no pick; leave at 3.1 s without our damage (not 2.9 s), at burst < 0.3 hp with the laser cooling 1.2 s (not 0.9 s), on death  ::  true true true | none false 3.1 true 2.9 false cool1.2 true cool0.9 false dead true
+PASS  K2 (T9) committed at 45% hp with 2 lines -> not LOSING (FIGHT); V4 off LOSING; 24% LOSING; 3 lines: 39% LOSING, 41% not  ::  H45 FIGHT never-losing true commit true lines 2 | off45 DISENGAGE losing true | H24 losing true FIGHT | 3 lines (3) H39 losing true H41 never true
+PASS  P1 (T10/T11) kill + 1 other line, tCover 1.0 s: pulse; never longer than 4.0 s (40 decisions); ends when loaded (8 rounds, laser <= 0.3 s); tCover 2.5 s none; lite none; no other line none  ::  cap 40 | loaded at 2.4 s 25 | tCover 2.5 0 | lite 0 | 0 lines 0
+PASS  P2 trigger (b): gun reloading, laser not ready within 1 s, 2 lines -> pulse (info: starts/decisions over 10 s while kept spent)  ::  pulse decisions 80 of 100, starts 2 (back-to-back pulses after the 4 s cap)
+PASS  F1 (T12/T13) firewall: forced FFA, a foreign death at 15 s (before the 20 s guard), next radius 65 m, 3 alive -> H, HL, S byte-identical to off over 30 s; control (none of these) differs for H  ::  ffa: H same HL same S same | foreign: H same HL same S same | late: H same HL same S same | three: H same HL same S same | control: H DIFF HL DIFF S DIFF
+PASS  S1 (T2) listed prey at 150 m, gun only: HOLD / legKind hunt toward it, stops near 90 m  ::  hunt legs 80/80, end distance 88.0 m, first legs hunt,hunt,hunt,hunt
+PASS  S2 (T2) remembered prey (out of view after 30.5 s): at 8 s still hunting toward its remembered spot; gone after 12 s  ::  8 s: hunt goal (180.0, 0.0) | 13 s: huntlast
+PASS  S3 (T5) prey cost: 700 hp at 170 m over 1400 hp at 150 m; 150 m over 195 m; crowd +100 moves it to the lone mech at 175 m  ::  c1 11 c2 10 c3 11
+PASS  S4 (T3) gun sound mid at 1.0 rad -> goal 120 m along it (64.8, 101.0)  ::  goal (64.8, 101.0)
+PASS  S5 far laser sound at -2.0 rad -> 200 m along it  ::  goal (-83.2, -181.9)
+PASS  S6 (T4) ring: first goal on the 0.41 x 300 = 123 m ring nearest point (angle pi from next centre at (300,0) for us at origin), then 30 deg steps  ::  first (177.0, 0.0) r 123.0, steps 30,30,30,30
+PASS  S7 seek gating: 55% hp none, t < 20 s none, a cube near -> loot first; off -> no hunt legs  ::  55%: roam | t15: roam | cube: grab,grab,grab,grab,grab taken 1 | off: roam
+PASS  S8 seek walking (info): boosts during a 195 m prey walk (goal 105 m beyond arrive)   ::  boost decisions 10
+
+SCEN 25/25 PASS

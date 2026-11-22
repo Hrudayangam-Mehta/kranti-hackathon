@@ -1,0 +1,7 @@
+binary step2 ed17af145644d675a202276d92e06e12d45109a55ffb8de29c63ca95354f2f90 
+fixtures NCPU=4 : 36/36 fixtures passed
+dev NCPU=1 : exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+dev NCPU=8 : exit=0 stdout_bytes=0 files=5/1 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+binary step2 ed17af145644d675a202276d92e06e12d45109a55ffb8de29c63ca95354f2f90 SESSIONS_F2=0
+dev NCPU=1 SESSIONS_F2=0: exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH | buckets off: SESSIONS_F2=0
+dev NCPU=8 SESSIONS_F2=0: exit=0 stdout_bytes=0 files=8/1 MATCH / MATCH | buckets off: SESSIONS_F2=0

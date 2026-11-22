@@ -1,0 +1,5 @@
+PASS  zone: outside the next circle, shrink in 5 s -> reaches it, never outside the current circle  ::  distance to next centre 462 -> 354 m (next radius 380), ticks outside 0, hp 1400
+PASS  zone: outside the zone -> boosts in  ::  132 m outside, inside after 8.1 s (walking alone: 11.3 s), boost on 56/56 decisions with energy, hp left 1400
+PASS  decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms  ::  1000 decisions, mean 0.08 p99 0.90 max 12.88 ms
+
+3/3 checks passed

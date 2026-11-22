@@ -1,0 +1,39 @@
+PASS x01_no_trailing_newline (hand=yes) rows u=2
+PASS x02_empty_files (hand=yes) rows u=1
+PASS x03_crlf (hand=yes) rows u=3
+PASS x04_quotes (hand=yes) rows u=5
+PASS x05_ts_forms (hand=yes) rows u=9
+PASS x06_f3_extremes (hand=yes) rows u=4
+PASS x07_prices (hand=yes) rows u=8
+PASS x08_late (hand=yes) rows u=4
+PASS x09_dedup (hand=yes) rows u=6
+PASS x10_gaps (hand=yes) rows u=5
+PASS x11_top_category (hand=yes) rows u=8
+PASS x12_big_revenue (hand=yes) rows u=301
+PASS x13_click_bounds (hand=yes) rows u=9
+PASS x14_click_tiebreak (hand=yes) rows u=18
+PASS x15_person_names (hand=yes) rows u=17
+PASS x16_long_chains (hand=no) rows u=7
+PASS x17_link_dirt (hand=yes) rows u=14
+PASS x18_file_selection (hand=yes) rows u=1
+CHECK x18b_hidden_csv (hand=no) rows u=3
+    ENG!=REF user_daily: only eng [] only ref [('hidden', '2026-10-03', 1, 1, 0, None)]
+    ENG!=REF campaign_daily: only eng [('organic', 'organic', '2026-10-03', 2, 0, 0, 0)] only ref [('organic', 'organic', '2026-10-03', 3, 0, 0, 0)]
+PASS x19_manifest_variants (hand=yes) rows u=3
+PASS x20_long_window (hand=no) rows u=7
+PASS x21_leap (hand=yes) rows u=5
+PASS x21b_newyear (hand=yes) rows u=3
+PASS x22_assists (hand=yes) rows u=4
+PASS x23_all_invalid (hand=yes) rows u=0
+PASS x23b_no_files (hand=yes) rows u=0
+PASS x24_unicode (hand=no) rows u=7
+PASS x24b_nul_and_controls (hand=no) rows u=6
+PASS x25_huge_fields (hand=yes) rows u=2
+PASS x26_equal_ts_order (hand=yes) rows u=1
+PASS x28_dup_clicks (hand=yes) rows u=2
+PASS x29_header_skip (hand=yes) rows u=2
+PASS x19b_manifest_nested (hand=yes) rows u=1
+PASS x31_event_types (hand=yes) rows u=3
+PASS x32_whale_ties (hand=no) rows u=2
+CHECK x33_click_copies_differ (hand=no) rows u=1
+    ENG!=REF campaign_daily: only eng [('c_2', 'social', '2026-10-03', 0, 0, 0, 1)] only ref []

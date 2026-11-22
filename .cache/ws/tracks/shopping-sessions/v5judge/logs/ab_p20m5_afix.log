@@ -1,0 +1,30 @@
+round 0 NCPU 2 rel17: cpu 14.938 user 11.303 sys 3.635 wall 9.107 maxrss 1529MB exit 0 stdout 0 psi10 1.22 load 3.74
+round 0 NCPU 2 B: cpu 7.862 user 5.364 sys 2.498 wall 4.062 maxrss 3275MB exit 0 stdout 0 psi10 2.58 load 3.71
+round 0 NCPU 2 Afix: cpu 6.532 user 5.743 sys 0.788 wall 3.400 maxrss 3121MB exit 0 stdout 0 psi10 1.88 load 3.73
+round 0 NCPU 4 rel17: cpu 14.720 user 11.211 sys 3.510 wall 6.543 maxrss 1583MB exit 0 stdout 0 psi10 1.88 load 3.73
+round 0 NCPU 4 B: cpu 6.960 user 5.087 sys 1.874 wall 1.844 maxrss 3390MB exit 0 stdout 0 psi10 8.45 load 3.69
+round 0 NCPU 4 Afix: cpu 7.088 user 6.087 sys 1.001 wall 2.225 maxrss 3239MB exit 0 stdout 0 psi10 7.28 load 3.69
+round 1 NCPU 2 B: cpu 7.778 user 5.256 sys 2.522 wall 4.042 maxrss 3278MB exit 0 stdout 0 psi10 6.32 load 4.28
+round 1 NCPU 2 Afix: cpu 6.453 user 5.654 sys 0.800 wall 3.363 maxrss 3077MB exit 0 stdout 0 psi10 8.16 load 4.28
+round 1 NCPU 2 rel17: cpu 14.463 user 11.473 sys 2.990 wall 9.406 maxrss 1529MB exit 0 stdout 0 psi10 7.63 load 4.26
+round 1 NCPU 4 B: cpu 5.459 user 4.917 sys 0.542 wall 2.132 maxrss 3379MB exit 0 stdout 0 psi10 7.15 load 4.22
+round 1 NCPU 4 Afix: cpu 6.765 user 5.773 sys 0.992 wall 2.514 maxrss 3215MB exit 0 stdout 0 psi10 13.28 load 4.22
+round 1 NCPU 4 rel17: cpu 13.699 user 11.177 sys 2.523 wall 7.300 maxrss 1572MB exit 0 stdout 0 psi10 19.39 load 4.36
+round 2 NCPU 2 Afix: cpu 6.511 user 5.759 sys 0.752 wall 3.382 maxrss 3105MB exit 0 stdout 0 psi10 26.75 load 4.41
+round 2 NCPU 2 rel17: cpu 13.346 user 11.023 sys 2.323 wall 7.968 maxrss 1521MB exit 0 stdout 0 psi10 23.71 load 4.38
+round 2 NCPU 2 B: cpu 6.078 user 5.270 sys 0.808 wall 3.106 maxrss 3282MB exit 0 stdout 0 psi10 11.57 load 4.32
+round 2 NCPU 4 Afix: cpu 6.379 user 5.508 sys 0.871 wall 2.456 maxrss 3181MB exit 0 stdout 0 psi10 8.09 load 4.32
+round 2 NCPU 4 rel17: cpu 14.810 user 11.652 sys 3.157 wall 7.938 maxrss 1573MB exit 0 stdout 0 psi10 11.87 load 4.45
+round 2 NCPU 4 B: cpu 6.404 user 4.996 sys 1.409 wall 2.739 maxrss 3323MB exit 0 stdout 0 psi10 22.79 load 4.50
+SUMMARY NCPU 2 rel17: cpu median 14.463 min 13.346 | user 11.303 sys 2.990 | wall median 9.107 min 7.968 | n 3
+SUMMARY NCPU 2 B: cpu median 7.778 min 6.078 | user 5.270 sys 2.498 | wall median 4.042 min 3.106 | n 3
+SUMMARY NCPU 2 Afix: cpu median 6.511 min 6.453 | user 5.743 sys 0.788 | wall median 3.382 min 3.363 | n 3
+PAIRED NCPU 2 B - rel17: median -7.076 cpu-s, lower in 3/3
+PAIRED NCPU 2 Afix - rel17: median -8.010 cpu-s, lower in 3/3
+PAIRED NCPU 2 Afix - B: median -1.325 cpu-s, lower in 2/3
+SUMMARY NCPU 4 rel17: cpu median 14.720 min 13.699 | user 11.211 sys 3.157 | wall median 7.300 min 6.543 | n 3
+SUMMARY NCPU 4 B: cpu median 6.404 min 5.459 | user 4.996 sys 1.409 | wall median 2.132 min 1.844 | n 3
+SUMMARY NCPU 4 Afix: cpu median 6.765 min 6.379 | user 5.773 sys 0.992 | wall median 2.456 min 2.225 | n 3
+PAIRED NCPU 4 B - rel17: median -8.240 cpu-s, lower in 3/3
+PAIRED NCPU 4 Afix - rel17: median -7.633 cpu-s, lower in 3/3
+PAIRED NCPU 4 Afix - B: median +0.127 cpu-s, lower in 1/3

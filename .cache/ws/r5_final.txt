@@ -1,0 +1,18 @@
+Written: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/notes/panel_r5_design.md (toy arithmetic: tools/panel_r5/design_arith.py). None of these rules is in the bot yet.
+
+The squad deals every style about 1,350 HP per minute, so the score depends on our damage while exposed. Our biggest misfit: a laser in only 1 of 6 simulator matches.
+
+Practice:
+- **Opening, 0-30 s** (`laserGrab: 'arm'`): torso sweep in the first 1.6 s, then a laser within 240 m of path. No voluntary fight before 20 s. At 110 m a fresh hunter dies in 19.7 s to the gun, 7.7 s to gun + laser.
+- **First hunter** (`dodge: 'sync'`, `killDrop: 'weapons'`): commit; retreat only below 35% HP against a healthier target. Push in its 2.5 s reload; brake or start on its fire ticks beyond 86 m. Then take its cubes and laser within 130 m.
+- **Escalation, kills 1-4** (`focus: 'av'`, `isolate: 'near'`, `seek: 'lull'`, keep `retreat: 'd3'`): target by time-to-kill per threat; a laser hunter is 3.8x a gun hunter. Isolate only within 12 m. After a kill, at 70% HP or more seek the next hunter; below 70%, heal near cover (10 s = 225 HP).
+- **Late hunt, 5+ kills or 3+ lines** (`loseCover: 'near'`, `lastGasp: 'on'`): retreat only to cover within 1.5 s, or below 25% HP. Under 2.5 s from death, take the quickest kill.
+- **Last circles:** zone first, plating first, the next centre from 375 s at full HP.
+
+Final:
+- **16-12 alive, circle 560-380 m** (`ffaOpenGuard: 'on'`): no voluntary fight before 90 s; every mech beyond 60 m.
+- **11-6 alive, circle 380-140 m** (`ffaHunt: 'h50'`, `laserRangeFfa: 'far'`): start only on a mech fighting someone else when our burst takes half its HP, on a mech under 50% HP, or on attackers. Then break the line for at least 5 s.
+- **5-3 alive, circle 140-70 m:** hold half the radius from the centre, never nearest to two mechs. Only third-party a duel survivor under 50%.
+- **2 alive or circle 25 m or less** (`finalPoint`, `ffaTwo`): the next centre from 375 s at full HP; no boost after 380 s.
+
+hunt50 fits best at 11-6 alive in the final: the duel supplies the other 50%, and nobody shares vision, so breaking the line sheds pursuit. In practice it fits only the escalation, as `hunt: 'esc'`: R4 hunt50 with cover within 7 m, not 1.5 s, which the walk back cancels.

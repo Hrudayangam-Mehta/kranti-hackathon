@@ -1,0 +1,23 @@
+visibility matrix: 240 ordered pairs, 2098 frames, 181 ms; an alive pair has sight 3.3% of the time
+per observer-frame: in sight 0.37, in 5 s memory 0.36, untracked 10.33 other live mechs
+sight-loss episodes: 269; unseen duration p50 2.7 s p75 8.9 p90 31.1; share lasting > 5 s (track really lost) 34.9%; end by re-sighting 81.0%
+displacement from the LAST SEEN position (no memory):
+  after 2 s: n=145  displacement p10 4.1 p50 13.2 p90 19.1 max 24.7 m ; as a fraction of walk speed x time p50 0.73 p90 1.06 max 1.37 ; share within 16 m of the last position 64.8% ; scaled to today's walk speed p50 17.1 p90 24.8 m
+  after 5 s: n=94  displacement p10 8.0 p50 24.0 p90 43.2 max 53.0 m ; as a fraction of walk speed x time p50 0.53 p90 0.96 max 1.18 ; share within 16 m of the last position 26.6% ; scaled to today's walk speed p50 31.2 p90 56.2 m
+  after 10 s: n=64  displacement p10 9.8 p50 36.1 p90 79.7 max 95.7 m ; as a fraction of walk speed x time p50 0.40 p90 0.89 max 1.06 ; share within 16 m of the last position 18.8% ; scaled to today's walk speed p50 46.9 p90 103.6 m
+  after 20 s: n=39  displacement p10 9.0 p50 61.8 p90 120.3 max 159.0 m ; as a fraction of walk speed x time p50 0.34 p90 0.67 max 0.88 ; share within 16 m of the last position 20.5% ; scaled to today's walk speed p50 80.4 p90 156.4 m
+displacement from the LAST KNOWN position (end of the 5 s memory), episodes longer than 5 s: 94
+  after 2 s: n=79  displacement p10 2.6 p50 13.0 p90 18.9 max 27.1 m ; as a fraction of walk speed x time p50 0.72 p90 1.05 max 1.50 ; share within 16 m of the last position 64.6% ; scaled to today's walk speed p50 16.9 p90 24.6 m
+  after 5 s: n=64  displacement p10 7.4 p50 23.5 p90 45.6 max 52.5 m ; as a fraction of walk speed x time p50 0.52 p90 1.01 max 1.17 ; share within 16 m of the last position 32.8% ; scaled to today's walk speed p50 30.5 p90 59.3 m
+  after 10 s: n=49  displacement p10 7.1 p50 26.2 p90 69.8 max 87.1 m ; as a fraction of walk speed x time p50 0.29 p90 0.78 max 0.97 ; share within 16 m of the last position 26.5% ; scaled to today's walk speed p50 34.1 p90 90.7 m
+  after 20 s: n=36  displacement p10 17.7 p50 53.5 p90 106.8 max 154.0 m ; as a fraction of walk speed x time p50 0.30 p90 0.59 max 0.86 ; share within 16 m of the last position 2.8% ; scaled to today's walk speed p50 69.6 p90 138.8 m
+  range change over 5 s untracked: closer by > 8 m 42.2%, farther by > 8 m 40.6%, median change 4.0 m (n=64)
+  range change over 10 s untracked: closer by > 8 m 32.7%, farther by > 8 m 57.1%, median change 14.8 m (n=49)
+re-sightings after a real track loss: 57; untracked time p50 8.2 s p90 44.3 s
+  distance from last known position at re-sighting p50 19.0 p90 80.9 m; inside the walk-speed disc 93.0%, inside 0.5 x disc 66.7%, inside 1.67 x (boost) 100.0%
+  bearing of the re-sighting vs bearing of the last known position: within 30 deg 93.0%, within 60 deg 94.7%, median 6.9 deg; range at re-sighting p50 87.2 m; by proximity sensor (< 45 m) 8.8%
+
+first hit of an engagement (attacker had not hit this victim for 10 s): 64
+  victim had the attacker in sight 46.9%, in 5 s memory 15.6%, UNTRACKED 37.5% (never seen before 12, median time since last seen 18.9 s)
+  hit landed outside the victim's 180 deg front arc: in sight 0/30, memory 5/10, untracked 15/24
+visibility matrix cached to out_vis.bin

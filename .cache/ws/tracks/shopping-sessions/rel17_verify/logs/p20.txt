@@ -1,0 +1,35 @@
+p20 base rel16 NCPU=8: exit=0 stdout_bytes=0 files=37/1 user=4.87 sys=3.45 maxrss=2.80GB
+p20 cand rel17v NCPU=8 : exit=0 stdout_bytes=0 files=47/4 user=4.01 sys=1.53 maxrss=1.15GB compare MATCH/MATCH rowdiff IDENTICAL/IDENTICAL
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393, files 47 vs 37, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+   campaign_daily: rows 28014 vs 28014, files 4 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+   ROWDIFF IDENTICAL
+   stderr: surviving events 19563061, user_daily rows 2242393 | sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518 | event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+p20 cand rel17v NCPU=3 : exit=0 stdout_bytes=0 files=38/3 user=4.05 sys=3.33 maxrss=1.07GB compare MATCH/MATCH rowdiff IDENTICAL/IDENTICAL
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393, files 38 vs 37, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+   campaign_daily: rows 28014 vs 28014, files 3 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+   ROWDIFF IDENTICAL
+   stderr: surviving events 19563061, user_daily rows 2242393 | sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518 | event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+p20 cand rel17v NCPU=1 : exit=0 stdout_bytes=0 files=35/1 user=3.95 sys=1.90 maxrss=0.93GB compare MATCH/MATCH rowdiff IDENTICAL/IDENTICAL
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+   campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+   MATCH
+   user_daily: rows 2242393 vs 2242393, files 35 vs 37, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+   campaign_daily: rows 28014 vs 28014, files 1 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+   ROWDIFF IDENTICAL
+   stderr: surviving events 19563061, user_daily rows 2242393 | sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518 | event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+done

@@ -134,6 +134,9 @@ report's limitations section and the track rules on the official page before inv
 
 ## 6. File map of this branch
 
+- `STATUS.md`: live status, roadmap, next steps and the planned-submissions table with every queued hash.
+- `.cache/ws/`: everything else from the working folder (same paths); `.cache/EXCLUDED.tsv`: what was not pushed and why.
+
 - `HANDOFF.md` (this file); `mechbot/` (bot source `bot/`, simulator `sim/`, tools, kit, replay, all notes); `variants6/FNV_s1`
   (the 5.38 bot) and `variants7/*` (per-slot builds: MX_base2, MX_meta, MX_p26, every pushed bundle with bot/ and dist/);
   `variants_tools/` (mkvar.py, patch_lc.py, package_variant_r7.sh, batch scripts); `fable_work/` (switch, chaos, trunk, w2, struct,

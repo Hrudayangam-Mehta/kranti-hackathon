@@ -1,0 +1,21 @@
+   ok  1 threat, hp 34%, target 45% (>= ours+10): losing=true mode DISENGAGE
+   ok  1 threat, hp 34%, target 40% (< ours+10): losing=false mode FIGHT
+   ok  1 threat, hp 36%: losing=false mode FIGHT
+   ok  2 threats, hp 49%: losing=true mode DISENGAGE
+   ok  2 threats, hp 51%: losing=false mode FIGHT
+   ok  3 threats, hp 59%: losing=true mode DISENGAGE
+   ok  3 threats, hp 61%: losing=false mode FIGHT
+   ok  5 threats, hp 59%: losing=true mode DISENGAGE
+   ok  6 threats, hp 100%: losing=true mode DISENGAGE
+   ok  finish: 2 threats 60 deg apart, hp 30%, target 15%: losing=false mode FIGHT
+   ok  finish row with the threats 180 deg apart (torso-veto flip, see D5 check): LOSING expected only because of the flip: losing=true mode DISENGAGE
+   ok  no finish with 3 threats: hp 30%, target 15%: losing=true mode DISENGAGE
+   ok  finish: 1 threat, hp 10%, target 15%: losing=false mode FIGHT
+PASS  D3 LOSING table literal (12 rows incl. finish exception)  ::  13/13 rows as written
+PASS  D3 LOSING retreat keeps shooting (2 threats, 45% hp)  ::  DISENGAGE 30/30 decisions, gun trigger down on 20
+PASS  D3 LOSING hysteresis +5 points  ::  0.48:true 0.52:true 0.56:false
+PASS  D3 HEAL entry below 55% out of contact (54% enters, 56% does not)  ::  54%: HEAL from decision 0 (t+0.0 s) | 56%: modes HOLD
+PASS  D3 HEAL exit at healExit 70% (preset healExit=90 -> 90%)  ::  default exit at hp 0.701 | healExit=90: exit at 0.902
+PASS  D3 HEAL after a LOSING retreat while hp < 90% (6 s window), then leaves (80% >= healExit)  ::  losing before true; HEAL decisions 46, from +1.5 s to +6.0 s after the threats vanished; final HOLD
+PASS  D3 HEAL left when a mech has a line and we are not LOSING  ::  before HEAL; then FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT
+PASS  D3 no hide at hp >= 55% when not LOSING (1 threat, 60%)  ::  {"FIGHT":30}

@@ -1,0 +1,540 @@
+
+## 2696  [('02:05:34', 4.65), ('04:45:24', 4.9), ('05:32:56', 4.96), ('05:40:15', 5.42), ('06:58:15', 5.6)]
+  jackbalseca/mech-royale-bot                        subs_hit 5  p_cov 0.401  n_win  40  pval 0.0103
+      02:05:34 4.65  gap  192s (+0 more)  b62bd5f2f0 02:02:22 [Jack Balseca|exp-v10-commit,exp-v] Bot v0: world model, nav graph, aim/lead, combat, loot, zone
+      04:45:24 4.90  gap  328s (+0 more)  3254fb0957 04:39:57 [Jack Balseca|exp-v10-commit,exp-v] live harness: spectator-feed recorder that measures real house-bot hit rates by tier and d
+      05:32:56 4.96  gap  -41s (+0 more)  03dedf9e42 05:33:38 [Jack Balseca|main] Log v10 official score 3.92 (new best); park v11
+      05:40:15 5.42  gap  318s (+0 more)  1c8f31a71b 05:34:57 [Jack Balseca|exp-v12-strafe] v12 (from v10 4c977b2): faster, unpredictable strafe reversal - random direction every 0.3
+      06:58:15 5.60  gap  193s (+1 more)  caf388d490 06:55:03 [Claude|main] rule: highest official score is always the baseline; check repeated scores
+  bsrikumar855-dot/Mech-Royale                       subs_hit 3  p_cov 0.114  n_win   8  pval 0.0124
+      04:45:24 4.90  gap  120s (+0 more)  3fae0bfa14 04:43:25 [ShreeKumar|main] feat: Phase 1 MVP rules (economy, combat, locomotion), simple rules only
+      05:32:56 4.96  gap  -26s (+0 more)  0ad430a40a 05:33:23 [ShreeKumar|main] Revert "feat(locomotion): tactical utility scorer with 3D cover, mortar dodge, FOV threat,
+      05:40:15 5.42  gap  -59s (+0 more)  650a1dc0ad 05:41:14 [ShreeKumar|main] feat(combat,economy): high-DPS laser/gun weaving, distance gate, kill-confirm focus, crate
+  gokulj-umich/gocool-mech                           subs_hit 3  p_cov 0.160  n_win  12  pval 0.0319
+      04:45:24 4.90  gap  182s (+0 more)  420c9b578c 04:42:23 [Gocool|main] v1: survival-first bot (zone, nav, cover, dodge, combat, loot)
+      05:32:56 4.96  gap   14s (+0 more)  fd47cb38f9 05:32:43 [Gocool|main] v5: aggressive - 360 opening scan + pickup memory for lasers, boost jinks in fights, press
+      06:58:15 5.60  gap  266s (+1 more)  54e2562461 06:53:50 [Gocool|main] v10: assassin all match - roam until the end, down to 50% HP, hunting beats crate farming
+  gonvaz-nocode/NoCodeHack                           subs_hit 3  p_cov 0.177  n_win  34  pval 0.0418
+      02:05:34 4.65  gap   58s (+5 more)  e8a5d295ca 02:04:36 [Guillermo Gonzal|main] B1: open by walking to a half-sheltered spot near the map centre, then to the zone through
+      05:40:15 5.42  gap   -3s (+0 more)  5c99fcf069 05:40:18 [Guillermo Gonzal|main] D2: A9 + economy loop: farm crates, drones and cubes wider, opportunistic farm shots
+      06:58:15 5.60  gap   46s (+2 more)  854bac8d7e 06:57:30 [Guillermo Gonzal|main] E3: C8 + dodge bullets too
+  Jiackary/buildathon_26                             subs_hit 3  p_cov 0.179  n_win  30  pval 0.0434
+      02:05:34 4.65  gap  200s (+2 more)  53a11be634 02:02:14 [Zachary|ambush] v3-ambush: set STRATEGY=ambush
+      04:45:24 4.90  gap   12s (+3 more)  aedfdcd47c 04:45:13 [Zachary|v6-ffa] v6-ffa: STRATEGY economy+consolidate+ffa
+      06:58:15 5.60  gap  182s (+2 more)  4ccbbbbe66 06:55:14 [Zachary|v9-oddspick] v9-oddspick: STRATEGY wolverine+aim+retaliate+oddspick
+  chandrakanth-19/builders_buildathon                subs_hit 2  p_cov 0.090  n_win   7  pval 0.0678
+      04:45:24 4.90  gap  234s (+0 more)  2612d25ac9 04:41:31 [chandrakanth|feature/duckdb-pipel] first commit
+      06:58:15 5.60  gap  151s (+0 more)  4063d4497c 06:55:45 [chandrakanth|feature/rust-engine,] Implement native multi-threaded Rust engine: 2.39s on 1M dev set, 36/36 fixtures pass
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 2  p_cov 0.093  n_win   8  pval 0.0713
+      05:32:56 4.96  gap  178s (+0 more)  81e237a2de 05:29:59 [Shrey Patel|main] Hold position when safe instead of wandering to zone center
+      05:40:15 5.42  gap  265s (+0 more)  3534874762 05:35:50 [Shrey Patel|main] Lead airborne targets with gravity
+  blanc-team/mech_royale                             subs_hit 2  p_cov 0.104  n_win   7  pval 0.0878
+      02:05:34 4.65  gap  138s (+0 more)  bdc1cd398c 02:03:16 [Rajas129|main] Initial commit of Apex Mech bot
+      06:58:15 5.60  gap  137s (+0 more)  3ca322ce6b 06:55:59 [Rajas129|main] Harden the action path and ship the simulator with the repo
+  Hoangchuyenanh/mech-royale-bot                     subs_hit 1  p_cov 0.021  n_win   2  pval 0.1023
+      04:45:24 4.90  gap   45s (+0 more)  c64c37fd94 04:44:40 [Hoang357|main] Add Mech Royale v3 bot
+  sphugne/mech-royale-bot                            subs_hit 2  p_cov 0.161  n_win  12  pval 0.1855
+      05:32:56 4.96  gap  138s (+0 more)  55a92bfc12 05:30:39 [Shupeng Cao|main] fix isolation bot mvt priorities
+      06:58:15 5.60  gap  248s (+0 more)  3018b5d899 06:54:08 [Shupeng Cao|main] Test corner firing positions and sheltered reloads
+  pedduvedcharan/mech-royale-bot                     subs_hit 1  p_cov 0.046  n_win   3  pval 0.2111
+      05:40:15 5.42  gap  255s (+0 more)  0658e4dff5 05:36:00 [pedduvedcharan|main] v3: only treat real attackers as threats
+  dmclaughlin-bit/mech-bot                           subs_hit 5  p_cov 0.736  n_win 169  pval 0.2163
+      02:05:34 4.65  gap  263s (+2 more)  3dd99948ce 02:01:11 [Claude|build-10-geom-audit,] Correct S2 board rank in log
+      04:45:24 4.90  gap   97s (+1 more)  8f2c7c8ef0 04:43:48 [D McLaughlin|build-12-farm,build-] Build 12: farm cubes when safe
+      05:32:56 4.96  gap   12s (+4 more)  85a595f1d8 05:32:45 [D McLaughlin|build-15-aim] Build 15: EXPERIMENTS row and log entry (not submitted)
+      05:40:15 5.42  gap   21s (+4 more)  bd6d1a2a60 05:39:54 [D McLaughlin|build-17-laser,build] Tool: local practice sim (tools/sim)
+      06:58:15 5.60  gap  283s (+0 more)  89cae913a2 06:53:33 [D McLaughlin|build-24-glance,buil] log: Build 23 3.46 closed; overnight loop restarted
+  praggybhat/mech-royale-bot                         subs_hit 2  p_cov 0.178  n_win  13  pval 0.2176
+      05:32:56 4.96  gap  198s (+0 more)  894f96bcfe 05:29:39 [Prajna Bhat|main] Timing safety: A* budget 12 ms, freeze GC after map load
+      06:58:15 5.60  gap  230s (+0 more)  281280ba14 06:54:26 [Prajna Bhat|main] Farming from memory (crates + NPC drone memory), radii kept at previous values (sim A/B ne
+  anthonyteti/buildathon-mech-royale                 subs_hit 2  p_cov 0.180  n_win  15  pval 0.2224
+      05:32:56 4.96  gap  309s (+0 more)  0fe4720f3e 05:27:48 [anthonyteti|main] Bot switches for cube range in fights and roof holding (off by default)
+      05:40:15 5.42  gap  202s (+0 more)  4cc68a6191 05:36:53 [anthonyteti|main] Simulator: run protocol bots as black-box child processes (async match loop, --opp seats)
+  varadanvk/mech-royale-bot                          subs_hit 2  p_cov 0.183  n_win  19  pval 0.2281
+      05:32:56 4.96  gap  -52s (+0 more)  2c0aa1266e 05:33:49 [varadanvk|cand-2,cand-3,cand-4] Step out of sight to reload and away from charging lasers; no early long-range farming
+      05:40:15 5.42  gap  185s (+0 more)  206640efba 05:37:10 [varadanvk|cand-3,cand-4,cand-5] Count recently seen enemies when deciding to disengage; break sight instead of backing awa
+
+## benchmaster  [('06:15:21', 5.42)]
+  chandrakanth-19/builders_buildathon                subs_hit 1  p_cov 0.090  n_win   7  pval 0.0903
+      06:15:21 5.42  gap   75s (+0 more)  911298eaf8 06:14:07 [chandrakanth|feature/duckdb-pipel] problem_statement added
+  zuhayrkabir/unos-mech                              subs_hit 1  p_cov 0.094  n_win   8  pval 0.0943
+      06:15:21 5.42  gap   29s (+0 more)  54a661c6ad 06:14:53 [Zuhayr Kabir|main] Adjust laser power settings in knobs.json
+  bsrikumar855-dot/Mech-Royale                       subs_hit 1  p_cov 0.114  n_win   8  pval 0.1140
+      06:15:21 5.42  gap  247s (+0 more)  82a8b76c8c 06:11:15 [ShreeKumar|main] docs(experiments): 880a315 scored 4.00 (BB-80B78B08), +2.10 over 1.90; new best-known-good
+  h-ardy/buildathon-mech-royale                      subs_hit 1  p_cov 0.134  n_win  10  pval 0.1340
+      06:15:21 5.42  gap   73s (+0 more)  b080aaf675 06:14:09 [Hardy|main] Arm first, predictive aim latency
+  sntin/mech-royale                                  subs_hit 1  p_cov 0.152  n_win  11  pval 0.1520
+      06:15:21 5.42  gap  304s (+0 more)  8948f3fbe4 06:10:18 [sntin|main] Search farther for a secondary weapon, prefer laser
+  ruiyifan0114-design/OSUhackathon                   subs_hit 1  p_cov 0.153  n_win  12  pval 0.1533
+      06:15:21 5.42  gap   99s (+0 more)  1e74313422 06:13:43 [嘎子的刀锋|backup/score-4.44,fe] Add high-mobility boost and upgrade build
+  himagna16/mech-royale-bot                          subs_hit 1  p_cov 0.154  n_win  18  pval 0.1541
+      06:15:21 5.42  gap  103s (+2 more)  8f287a71e0 06:13:39 [Sai Maruvada|exp/bunker,exp/f-bre] Experiment exp/bunker: bunker=1.0 swapgun=0.0
+  Russell-Day/builders-mech-royale                   subs_hit 1  p_cov 0.161  n_win  30  pval 0.1606
+      06:15:21 5.42  gap   38s (+3 more)  c62b4b30dd 06:14:44 [Russell-Day|main] v15: v13b without low-HP and laser retreats (still backs off when outnumbered)
+  nguyenphuquang1234567/kestrel                      subs_hit 1  p_cov 0.165  n_win  21  pval 0.1648
+      06:15:21 5.42  gap  169s (+2 more)  2ce42f4561 06:12:33 [Nguyen Phu Quang|main] kestrel P3: v9 + probe: closer spacing (gun 70 m, laser 90 m)
+  Jiackary/buildathon_26                             subs_hit 1  p_cov 0.179  n_win  30  pval 0.1795
+      06:15:21 5.42  gap  -39s (+2 more)  1358d63628 06:16:01 [Zachary|main,v8-retaliate,v8] Port options: retaliate, mapfix
+  Hermes-25/builders-mech-royale                     subs_hit 1  p_cov 0.229  n_win  22  pval 0.2290
+      06:15:21 5.42  gap    4s (+0 more)  486921473c 06:15:18 [Hermes-25|practice-loadout-v4] Stabilize inventory preferences across changing arena observations
+  Mouhamadmm466/aku-namu-tata                        subs_hit 1  p_cov 0.233  n_win  16  pval 0.2334
+      06:15:21 5.42  gap  340s (+0 more)  b9cf85f681 06:09:42 [Mouhamad|direct-drawing-links] Recover FreeCAD package members and complex PDF metadata alongside CAD references
+  JosiahAklog/nexus-mech-royale                      subs_hit 1  p_cov 0.235  n_win  18  pval 0.2350
+      06:15:21 5.42  gap   62s (+1 more)  667baa207e 06:14:20 [Josiah Aklog|trial-v37a,trial-v38] Evaluate V37A engagement selection and weapon timing
+  lolstershwjav/OSU-Hackathon---Builders---Mech-Royale subs_hit 1  p_cov 0.236  n_win  18  pval 0.2363
+      06:15:21 5.42  gap  162s (+0 more)  9e2e2f020d 06:12:40 [Abhijoy Sarkar|main] Add arena-backed self-play, match diagnostics, and practice calibration
+  arnabxero/xero-mech-royale                         subs_hit 1  p_cov 0.290  n_win  35  pval 0.2905
+      06:15:21 5.42  gap  280s (+3 more)  13319903d8 06:10:42 [Eftakhar Ahmed A|v56-upg-damage] variant v56-upg-damage: XERO_TUNE=upg_mode=2
+
+## giddygiddyboy  [('05:24:48', 4.96), ('05:45:45', 5.31), ('06:55:42', 5.35)]
+  Spandana00/aegis-royale                            subs_hit 2  p_cov 0.089  n_win   6  pval 0.0225
+      05:24:48 4.96  gap   53s (+0 more)  5209875b7f 05:23:56 [Spandana Bharadw|main] Fix shared weapon aim, heal recovery, and obstacle escapes in AEGIS v2
+      06:55:42 5.35  gap  335s (+0 more)  1fa9554ef8 06:50:08 [Spandana Bharadw|main] Use short reload cover maneuvers without delaying loaded combat in AEGIS v5
+  shanmukha-here/eagle-eye-mech-royale               subs_hit 3  p_cov 0.304  n_win  43  pval 0.0281
+      05:24:48 4.96  gap   85s (+1 more)  5ea8c8256f 05:23:24 [Eagle Eye|main] Document how the entry derives its cover grid from the mounted map
+      05:45:45 5.31  gap  197s (+0 more)  04cd0616ac 05:42:29 [Eagle Eye|main] Disengage under pressure and budget quiet travel to the next circle
+      06:55:42 5.35  gap  291s (+6 more)  0563682c01 06:50:52 [Eagle Eye|main] Prioritize visible mechs within three gun hits of elimination
+  bsrikumar855-dot/Mech-Royale                       subs_hit 2  p_cov 0.114  n_win   8  pval 0.0360
+      05:24:48 4.96  gap  109s (+0 more)  fe8bb4bd02 05:23:00 [ShreeKumar|main] feat(locomotion): tactical utility scorer with 3D cover, mortar dodge, FOV threat, and rim
+      05:45:45 5.31  gap  272s (+0 more)  650a1dc0ad 05:41:14 [ShreeKumar|main] feat(combat,economy): high-DPS laser/gun weaving, distance gate, kill-confirm focus, crate
+  Himanshu253/mech-bot                               subs_hit 2  p_cov 0.122  n_win   9  pval 0.0412
+      05:24:48 4.96  gap  103s (+0 more)  5581358c75 05:23:06 [Himanshu Singh|main] v7: kite mode, string out multiple hunters
+      05:45:45 5.31  gap  253s (+0 more)  284490ea8a 05:41:33 [Himanshu Singh|main] v8: explore for crates/drones, farm cubes harder
+  charliescull/mech-royale-bot                       subs_hit 2  p_cov 0.132  n_win  11  pval 0.0479
+      05:24:48 4.96  gap  340s (+0 more)  2495a99d89 05:19:09 [Charlie Scullion|main] Mech Royale variant M6: veteran brain, F-style practice mode
+      05:45:45 5.31  gap  -20s (+0 more)  c68fce3689 05:46:06 [Charlie Scullion|main] Mech Royale variant S3: S2 plus armor-first upgrades, FFA third-party
+  georgegcal1-arch/mech-royale-bot                   subs_hit 2  p_cov 0.135  n_win  10  pval 0.0500
+      05:24:48 4.96  gap  276s (+0 more)  841db86b06 05:20:13 [georgegcal1-arch|main] v4: survive longer
+      05:45:45 5.31  gap  147s (+0 more)  39a223794b 05:43:19 [georgegcal1-arch|main] v5
+  gokulj-umich/gocool-mech                           subs_hit 2  p_cov 0.160  n_win  12  pval 0.0688
+      05:24:48 4.96  gap  -42s (+0 more)  e2d364bfa1 05:25:31 [Gocool|main] v4: laser-first like the top bots - hunt lasers early, gun fires while laser charges (aim 
+      06:55:42 5.35  gap  113s (+0 more)  54e2562461 06:53:50 [Gocool|main] v10: assassin all match - roam until the end, down to 50% HP, hunting beats crate farming
+  devakchow/team-kanyaraasi-mech-royale              subs_hit 3  p_cov 0.416  n_win  30  pval 0.0718
+      05:24:48 4.96  gap  202s (+0 more)  97040d73e6 05:21:27 [Devak|main] Prepare Mech Royale submission
+      05:45:45 5.31  gap  220s (+0 more)  fd746ff720 05:42:06 [Devak|main] Prepare Mech Royale submission
+      06:55:42 5.35  gap  230s (+0 more)  4d556015f9 06:51:53 [Devak|main] Prepare Mech Royale submission
+  gonvaz-nocode/NoCodeHack                           subs_hit 2  p_cov 0.177  n_win  34  pval 0.0829
+      05:24:48 4.96  gap   94s (+0 more)  8f4d0083a4 05:23:15 [Guillermo Gonzal|main] C9: A9 + heal between fights + one fight at a time (C5 + C6)
+      05:45:45 5.31  gap  328s (+0 more)  5c99fcf069 05:40:18 [Guillermo Gonzal|main] D2: A9 + economy loop: farm crates, drones and cubes wider, opportunistic farm shots
+  praggybhat/mech-royale-bot                         subs_hit 2  p_cov 0.178  n_win  13  pval 0.0834
+      05:24:48 4.96  gap   70s (+0 more)  f2f6194fa2 05:23:39 [Prajna Bhat|main] Roof climbing (jump + jets) implemented but disabled: no gain in sim A/B; sim gains vertic
+      06:55:42 5.35  gap   77s (+0 more)  281280ba14 06:54:26 [Prajna Bhat|main] Farming from memory (crates + NPC drone memory), radii kept at previous values (sim A/B ne
+  Jiackary/buildathon_26                             subs_hit 2  p_cov 0.179  n_win  30  pval 0.0851
+      05:24:48 4.96  gap  349s (+3 more)  41223ee40c 05:19:00 [Zachary|v7-full] v7-full: STRATEGY wolverine+aim+consolidate+rotate+watch
+      06:55:42 5.35  gap   29s (+2 more)  4ccbbbbe66 06:55:14 [Zachary|v9-oddspick] v9-oddspick: STRATEGY wolverine+aim+retaliate+oddspick
+  fernando-ace/Buildathon_Mech_Royal                 subs_hit 3  p_cov 0.487  n_win  46  pval 0.1152
+      05:24:48 4.96  gap   18s (+0 more)  3aa2aec597 05:24:31 [Fernando Acevedo|main] Strafe while engaging from safe zone
+      05:45:45 5.31  gap   18s (+2 more)  8ceb2b93ca 05:45:28 [Fernando Acevedo|main] Randomize evasion timing against charged attacks
+      06:55:42 5.35  gap  224s (+0 more)  a8a512aa8a 06:51:59 [Fernando Acevedo|main] Prioritize healing and armor upgrades
+  arnav3013s/mech-bot                                subs_hit 2  p_cov 0.254  n_win  22  pval 0.1613
+      05:24:48 4.96  gap  156s (+0 more)  f53fa93f35 05:22:13 [Arnav Reddy Mami|main] Refactor Bot class attributes and logic
+      05:45:45 5.31  gap   34s (+0 more)  5bd8e0c976 05:45:12 [usvarshith-sudo|main] Fix navigation, sightlines, laser escape and cover validation
+  colton-boi/Mech-Bot                                subs_hit 2  p_cov 0.285  n_win  29  pval 0.1980
+      05:24:48 4.96  gap  146s (+0 more)  8dedf43f56 05:22:23 [TheCodingDuck|main] feat(bot): update behaviour
+      06:55:42 5.35  gap  317s (+0 more)  7061d73aca 06:50:26 [TheCodingDuck|main] chore: diagnostic build
+  poyrazyongaci/mech-royale-bot                      subs_hit 1  p_cov 0.079  n_win   6  pval 0.2190
+      05:45:45 5.31  gap  -12s (+0 more)  4fe578f4ed 05:45:58 [Poyraz Yongaci|main] Mech Royale bot v2: steadier navigation, laser discipline, no retreat, forget killed mechs
+
+## sonion  [('03:12:28', 4.06), ('04:53:34', 4.35), ('05:31:21', 5.0), ('07:12:26', 5.27)]
+  Jaelucard/joinbuilders-mech-royale                 subs_hit 2  p_cov 0.060  n_win   4  pval 0.0196
+      05:31:21 5.00  gap   95s (+0 more)  fbec40d2c2 05:29:47 [Jaelucard|master] feat: vanguard-v2 fast height-field LoS, laser duck/peek, rooftop control, and cover fixes
+      07:12:26 5.27  gap  136s (+0 more)  411af5f530 07:10:10 [Jaelucard|master] vanguard-v3: fix 5s memory/regen sync, roof/hill nav, laser-duck abort, anti-lightning & c
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 2  p_cov 0.093  n_win   8  pval 0.0455
+      04:53:34 4.35  gap  182s (+0 more)  4179067075 04:50:32 [Shrey Patel|main] Initial bot
+      05:31:21 5.00  gap   83s (+1 more)  81e237a2de 05:29:59 [Shrey Patel|main] Hold position when safe instead of wandering to zone center
+  nelsonwong506-lang/mech-royale                     subs_hit 2  p_cov 0.099  n_win  10  pval 0.0513
+      04:53:34 4.35  gap  139s (+0 more)  87823c0d55 04:51:15 [Nelson|main] Run Mech Royale bot in native C++
+      07:12:26 5.27  gap  316s (+0 more)  6b289fbbcc 07:07:10 [Nelson|main] Take clear gun shots at visible opponents
+  Hoangchuyenanh/mech-royale-bot                     subs_hit 1  p_cov 0.021  n_win   2  pval 0.0827
+      04:53:34 4.35  gap  352s (+0 more)  b6829a65d2 04:47:42 [Hoang Tran|main] Add MIT License file
+  charliescull/mech-royale-bot                       subs_hit 2  p_cov 0.132  n_win  11  pval 0.0875
+      05:31:21 5.00  gap    3s (+1 more)  20a5fe0360 05:31:19 [Charlie Scullion|main] Mech Royale variant S1: survival veteran for practice
+      07:12:26 5.27  gap   73s (+0 more)  7f495df3a5 07:11:13 [Charlie Scullion|main] Variant S8: ship the MIT practice driver (Dockerfile fix), no FFA switch
+  georgegcal1-arch/mech-royale-bot                   subs_hit 2  p_cov 0.135  n_win  10  pval 0.0911
+      03:12:28 4.06  gap  144s (+0 more)  c0864b26b8 03:10:05 [georgegcal1-arch|main] v2: safety net + zone
+      04:53:34 4.35  gap  -22s (+0 more)  cee53b737a 04:53:56 [georgegcal1-arch|main] tests: run the suite against v3
+  OHc99/mechfight-bot                                subs_hit 1  p_cov 0.030  n_win   2  pval 0.1139
+      03:12:28 4.06  gap   84s (+0 more)  39e7ee8f74 03:11:05 [OHc99|main] Add files via upload
+  skibidies/yo-john-xie                              subs_hit 2  p_cov 0.154  n_win  15  pval 0.1142
+      03:12:28 4.06  gap  -22s (+0 more)  e1ab82fa14 03:12:51 [skibidies|main] Add files via upload
+      04:53:34 4.35  gap  164s (+1 more)  24c55bdae9 04:50:50 [skibidies|main] Add files via upload
+  nguyenphuquang1234567/kestrel                      subs_hit 2  p_cov 0.165  n_win  21  pval 0.1293
+      04:53:34 4.35  gap  261s (+3 more)  13ece8c609 04:49:13 [Nguyen Phu Quang|main] kestrel v6d: unarmed early: don't start distant fights
+      07:12:26 5.27  gap  186s (+2 more)  7a94972d01 07:09:20 [Nguyen Phu Quang|main] kestrel D3: v9 + probe: engage within 110 m, cover early when outnumbered, heal to 90%
+  bhattyuvraj22/mechfight-bot                        subs_hit 2  p_cov 0.173  n_win  12  pval 0.1407
+      04:53:34 4.35  gap  134s (+0 more)  445b03ed48 04:51:20 [bhattyuvraj22|main] Restore scored v2 strategy and fix crate positioning
+      05:31:21 5.00  gap  331s (+0 more)  b22c40467d 05:25:51 [bhattyuvraj22|main] Rebuild match strategy around enemy pressure, terrain, and finishing opportunities
+  moonriver0922/mech-royale-planner                  subs_hit 2  p_cov 0.177  n_win  18  pval 0.1469
+      03:12:28 4.06  gap  157s (+3 more)  2f343ebeb3 03:09:52 [moonriver0922|master] Compare the local simulator against four scored competition builds
+      07:12:26 5.27  gap  326s (+0 more)  3757dc975d 07:07:00 [moonriver0922|experiment/reactive-] React immediately to damage and confirm firing contacts
+  moonriver0922/wgsrobot                             subs_hit 2  p_cov 0.177  n_win  18  pval 0.1469
+      03:12:28 4.06  gap  157s (+3 more)  2f343ebeb3 03:09:52 [moonriver0922|master] Compare the local simulator against four scored competition builds
+      07:12:26 5.27  gap  326s (+0 more)  3757dc975d 07:07:00 [moonriver0922|experiment/reactive-] React immediately to damage and confirm firing contacts
+  praggybhat/mech-royale-bot                         subs_hit 2  p_cov 0.178  n_win  13  pval 0.1475
+      04:53:34 4.35  gap  169s (+1 more)  91edb9e818 04:50:45 [Prajna Bhat|main] v5.1: robust free-for-all detection (deaths we did not cause), no false triggers in practi
+      05:31:21 5.00  gap  103s (+0 more)  894f96bcfe 05:29:39 [Prajna Bhat|main] Timing safety: A* budget 12 ms, freeze GC after map load
+  Koodsu/BuildersHackathonMechRoyale                 subs_hit 1  p_cov 0.045  n_win   3  pval 0.1671
+      05:31:21 5.00  gap  301s (+0 more)  11398bdbde 05:26:21 [Sofia Palek|main] Build 2: fight from cover, heal first, rooftop weapons
+  jerrywang255-spec/Mech-royale-bot                  subs_hit 2  p_cov 0.192  n_win  17  pval 0.1681
+      03:12:28 4.06  gap   94s (+1 more)  a7635724be 03:10:55 [jerrywang255-spe|main,navigation-opti] Add files via upload
+      07:12:26 5.27  gap  240s (+0 more)  0123a96ef9 07:08:26 [hansen-cao|main] v1
+
+## kyoto-max  [('05:36:12', 5.19), ('06:00:10', 5.25)]
+  shaunkar1/harrier-sparring-bot                     subs_hit 2  p_cov 0.089  n_win  29  pval 0.0080
+      05:36:12 5.19  gap  241s (+6 more)  8554c794c6 05:32:11 [Shaun Karani|main] GPT: mark firststrike simulator wrapper executable
+      06:00:10 5.25  gap   65s (+2 more)  05fdb6d6e0 05:59:06 [Shaun Karani|main] GPT: regression tests for firststrike regen and fire suppression
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 2  p_cov 0.093  n_win   8  pval 0.0086
+      05:36:12 5.19  gap   22s (+0 more)  3534874762 05:35:50 [Shrey Patel|main] Lead airborne targets with gravity
+      06:00:10 5.25  gap  319s (+0 more)  c56e4afa92 05:54:52 [Shrey Patel|main] Revert gravity lead; wounded bots regenerate instead of chasing unseen enemies
+  charliescull/mech-royale-bot                       subs_hit 2  p_cov 0.132  n_win  11  pval 0.0175
+      05:36:12 5.19  gap  263s (+1 more)  2a35e240cf 05:31:49 [Charlie Scullion|main] Mech Royale variant S2: M6 practice play plus the hold agent
+      06:00:10 5.25  gap  241s (+0 more)  0e9ba074dd 05:56:10 [Charlie Scullion|main] Mech Royale variant S4: S3 plus the dodge reflex
+  varadanvk/mech-royale-bot                          subs_hit 2  p_cov 0.183  n_win  19  pval 0.0335
+      05:36:12 5.19  gap  143s (+1 more)  2c0aa1266e 05:33:49 [varadanvk|cand-2,cand-3,cand-4] Step out of sight to reload and away from charging lasers; no early long-range farming
+      06:00:10 5.25  gap  263s (+0 more)  972a3c63ed 05:55:48 [varadanvk|cand-6] Fight from spots with cover one step away from the target's line of fire
+  pedduvedcharan/mech-royale-bot                     subs_hit 1  p_cov 0.046  n_win   3  pval 0.0905
+      05:36:12 5.19  gap   12s (+0 more)  0658e4dff5 05:36:00 [pedduvedcharan|main] v3: only treat real attackers as threats
+  rishit-u/thebigO-buildathon                        subs_hit 1  p_cov 0.060  n_win   4  pval 0.1156
+      06:00:10 5.25  gap   83s (+0 more)  1ae2bd481f 05:58:48 [Claude|claude/blast-radius,] Blast Radius v1: coverage-map selector
+  ourux/MechRoyale                                   subs_hit 2  p_cov 0.347  n_win  34  pval 0.1203
+      05:36:12 5.19  gap  236s (+0 more)  34ddf85f26 05:32:16 [vmech|main] Add DROP_RUSH option (off: plays as laser1st); sim: supply drops
+      06:00:10 5.25  gap   90s (+0 more)  bd4b8f03b3 05:58:41 [vmech|main] offense: offensive upgrade picks in practice (gun/laser damage, fire rate first); defensiv
+  jackbalseca/mech-royale-bot                        subs_hit 2  p_cov 0.401  n_win  40  pval 0.1606
+      05:36:12 5.19  gap   75s (+1 more)  1c8f31a71b 05:34:57 [Jack Balseca|exp-v12-strafe] v12 (from v10 4c977b2): faster, unpredictable strafe reversal - random direction every 0.3
+      06:00:10 5.25  gap  126s (+1 more)  3881e26cdd 05:58:05 [Jack Balseca|exp-v16-still,exp-v1] v16 (from v10 4c977b2): stay put when idle - no drift toward the zone hold point; move onl
+  Arnav-M10/BuildersMechRoyale                       subs_hit 1  p_cov 0.107  n_win  17  pval 0.2033
+      06:00:10 5.25  gap  244s (+1 more)  de6158f792 05:56:07 [Arnav Mittal|exp/v4b] exp v4b: regen discipline after fights (hold still in cover until 85% HP)
+  bsrikumar855-dot/Mech-Royale                       subs_hit 1  p_cov 0.114  n_win   8  pval 0.2150
+      05:36:12 5.19  gap  169s (+0 more)  0ad430a40a 05:33:23 [ShreeKumar|main] Revert "feat(locomotion): tactical utility scorer with 3D cover, mortar dodge, FOV threat,
+  KennethLei1492/Builder-Mech-Royale                 subs_hit 1  p_cov 0.117  n_win   8  pval 0.2207
+      05:36:12 5.19  gap   72s (+0 more)  eeb0d4b8bb 05:35:00 [Kenneth Lei|main] Combat: face unseen rear attackers, prefer back shots, chase wounded enemies
+  fernando-ace/Buildathon_Mech_Royal                 subs_hit 2  p_cov 0.487  n_win  46  pval 0.2367
+      05:36:12 5.19  gap   35s (+0 more)  fc218f1df5 05:35:37 [Fernando Acevedo|main] Recover safe supply drops when damaged
+      06:00:10 5.25  gap   98s (+2 more)  97432d70dc 05:58:33 [Fernando Acevedo|main] Evade unseen laser and mortar warnings
+  h-ardy/buildathon-mech-royale                      subs_hit 1  p_cov 0.134  n_win  10  pval 0.2501
+      05:36:12 5.19  gap  -20s (+0 more)  234c41cc9d 05:36:32 [Hardy|main] Target enemies facing away (rear hits x1.5), hold instead of chasing out of sight, ambush 
+  SunnyChanPolyU/BuildersMechRoyale                  subs_hit 1  p_cov 0.138  n_win  12  pval 0.2570
+      06:00:10 5.25  gap   80s (+0 more)  93a4052824 05:58:51 [SunnyChanPolyU|main] update
+  whyMiso/buildathon-mech-royale                     subs_hit 1  p_cov 0.142  n_win  24  pval 0.2647
+      05:36:12 5.19  gap  128s (+4 more)  1aaf71ed0b 05:34:04 [Dylan|main] Variant gun30: {"ghostEngage":150,"lootRadius":160,"gunWant":30}
+
+## Huss Huss Husss  [('01:04:46', 4.21), ('05:10:10', 4.27), ('05:25:58', 4.88), ('05:49:29', 5.23)]
+  praggybhat/mech-royale-bot                         subs_hit 3  p_cov 0.178  n_win  13  pval 0.0194
+      05:10:10 4.27  gap   47s (+0 more)  4db513de4d 05:09:23 [Prajna Bhat|main] v5.2: free-for-all needs 4 deaths we did not cause (0/40 false triggers in practice sim)
+      05:25:58 4.88  gap  139s (+0 more)  f2f6194fa2 05:23:39 [Prajna Bhat|main] Roof climbing (jump + jets) implemented but disabled: no gain in sim A/B; sim gains vertic
+      05:49:29 5.23  gap   46s (+0 more)  2721c5f04d 05:48:44 [Prajna Bhat|main] v6: laser/lightning first (real engine: 10.2 vs 6.8 pts, 3x damage), instant aim for laser
+  varadanvk/mech-royale-bot                          subs_hit 3  p_cov 0.183  n_win  19  pval 0.0211
+      05:10:10 4.27  gap  140s (+1 more)  b46be7ec28 05:07:50 [varadanvk|exp-b] Adjust defaults (exp-b)
+      05:25:58 4.88  gap   78s (+0 more)  294f3b5312 05:24:40 [varadanvk|cand-1,cand-2,cand-3] Focus fire, loot memory, early farming, cube pickup in fights, heal out of sight, fight ra
+      05:49:29 5.23  gap  155s (+0 more)  72c012d43c 05:46:55 [varadanvk|cand-4,cand-5,cand-6] Go looking for enemies by sound and sight when healthy and idle
+  Spandana00/aegis-royale                            subs_hit 2  p_cov 0.089  n_win   6  pval 0.0424
+      05:25:58 4.88  gap  122s (+0 more)  5209875b7f 05:23:56 [Spandana Bharadw|main] Fix shared weapon aim, heal recovery, and obstacle escapes in AEGIS v2
+      05:49:29 5.23  gap   71s (+0 more)  790c32ab40 05:48:19 [Spandana Bharadw|main] Improve survival with persistent healing, safer fights, and earlier zone rotations
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 2  p_cov 0.093  n_win   8  pval 0.0455
+      05:10:10 4.27  gap  177s (+1 more)  87a5da18c0 05:07:13 [Shrey Patel|main] Fight at longer range, no hopping, grab cubes mid-fight, laser upgrades first
+      05:25:58 4.88  gap   36s (+0 more)  d144970c51 05:25:22 [Shrey Patel|main] Gun keeps aim while laser charges; looser gun fire tolerance
+  Arnav-M10/BuildersMechRoyale                       subs_hit 2  p_cov 0.107  n_win  17  pval 0.0597
+      05:10:10 4.27  gap  188s (+1 more)  b5a308682f 05:07:02 [Arnav Mittal|exp/v2,exp/v3,exp/v4] Keep the gun, pair with laser; winners' upgrade order; laser band 50-120 m (from live-room
+      05:49:29 5.23  gap  233s (+0 more)  2bbdf120e7 05:45:37 [Arnav Mittal|exp/v3,exp/v4a,exp/v] Lead shots with a motion model fitted on live house-bot trajectories
+  colton-boi/Mech-Bot                                subs_hit 3  p_cov 0.285  n_win  29  pval 0.0732
+      01:04:46 4.21  gap   49s (+1 more)  d6dfb7a803 01:03:57 [TheCodingDuck|main] chore(probe): switch strategy to aggro
+      05:10:10 4.27  gap  104s (+0 more)  4578932d93 05:08:26 [TheCodingDuck|main] build: switch bot implementation
+      05:25:58 4.88  gap  215s (+0 more)  8dedf43f56 05:22:23 [TheCodingDuck|main] feat(bot): update behaviour
+  Himanshu253/mech-bot                               subs_hit 2  p_cov 0.122  n_win   9  pval 0.0758
+      05:10:10 4.27  gap  215s (+0 more)  8d07eefd0e 05:06:35 [Himanshu Singh|main] v6: stuck escape, drop fix, heal before farming
+      05:25:58 4.88  gap  172s (+0 more)  5581358c75 05:23:06 [Himanshu Singh|main] v7: kite mode, string out multiple hunters
+  jmonked/monked-mech-royale                         subs_hit 3  p_cov 0.330  n_win  30  pval 0.1080
+      05:10:10 4.27  gap   40s (+0 more)  bd90bb8184 05:09:30 [Julian Monk|v21] v21d: without a laser, sweep the torso 360 deg every 10 s (1.8 s per sweep) when nothing i
+      05:25:58 4.88  gap    6s (+0 more)  5672b6632c 05:25:52 [Julian Monk|v21] v21g: DeepSeek red team - no late loot hunts after 230 s (matches v15 no-chase), sweep onl
+      05:49:29 5.23  gap   37s (+0 more)  49e8d601c6 05:48:53 [Julian Monk|main,v23,v26,v27,v28] v23: cubes + crates on v15 (not on v21g, which scored 2.85) - no cube cap (upgrades at 15/
+  ruiyifan0114-design/OSUhackathon                   subs_hit 2  p_cov 0.153  n_win  12  pval 0.1138
+      05:10:10 4.27  gap  142s (+0 more)  9d7a00025d 05:07:48 [嘎子的刀锋|backup/score-4.44,fe] Add sound awareness and survival risk controls
+      05:25:58 4.88  gap  -45s (+0 more)  e8f0ba35e1 05:26:43 [嘎子的刀锋|backup/score-4.44,fe] Harden zone timing and long-range engagement safety
+  ourux/MechRoyale                                   subs_hit 3  p_cov 0.347  n_win  34  pval 0.1235
+      01:04:46 4.21  gap  338s (+0 more)  801b15ab17 00:59:08 [vmech|main] Add RELOAD_COVER option (off by default; main still plays as v4)
+      05:25:58 4.88  gap  208s (+0 more)  aefd9757bf 05:22:30 [vmech|main] laser1st: hunt a second weapon (laser > lightning) and spin-scan for pickups early; keeps 
+      05:49:29 5.23  gap  207s (+0 more)  a760ed846a 05:46:03 [vmech|main] mrm140: MRM + 140 m, no weapon hunt / loot scan / drop rush
+  anthonyteti/buildathon-mech-royale                 subs_hit 2  p_cov 0.180  n_win  15  pval 0.1509
+      05:10:10 4.27  gap  134s (+0 more)  b7cf9bb911 05:07:56 [anthonyteti|main] Simulator damage-by-source; bot switches for drone avoidance, strafe timing, target HP wei
+      05:25:58 4.88  gap  105s (+1 more)  204440e157 05:24:13 [anthonyteti|main] Open fights with mechs out to 200 m (was 150 m)
+  orbitautomation/buildathon-mech-royale             subs_hit 1  p_cov 0.045  n_win   3  pval 0.1671
+      05:10:10 4.27  gap    3s (+0 more)  b8cd9fea38 05:10:07 [orbitautomation|main] 
+  prakash-218/buildathon-blast                       subs_hit 1  p_cov 0.045  n_win   3  pval 0.1671
+      05:10:10 4.27  gap  227s (+0 more)  158c2601c6 05:06:23 [Prakash Kumar|main] v3: trace import-time code to the bodies it serves; index dynamic imports
+  Koodsu/BuildersHackathonMechRoyale                 subs_hit 1  p_cov 0.045  n_win   3  pval 0.1671
+      05:25:58 4.88  gap  -23s (+0 more)  11398bdbde 05:26:21 [Sofia Palek|main] Build 2: fight from cover, heal first, rooftop weapons
+  pedduvedcharan/mech-royale-bot                     subs_hit 1  p_cov 0.046  n_win   3  pval 0.1728
+      05:25:58 4.88  gap  -18s (+0 more)  79710fa44f 05:26:16 [pedduvedcharan|main] v2: map model, zone hold, cover, lone-hunter fights, lead aim
+
+## Hacktoolz  [('06:32:25', 5.23)]
+  pcetner/mech-royale-bot                            subs_hit 1  p_cov 0.089  n_win   7  pval 0.0892
+      06:32:25 5.23  gap  266s (+0 more)  b7f72cbd68 06:27:59 [PCetner|main] v1.1: nav fixes from review (resumed path trim, penalty-aware shortcuts, same-cell clearan
+  Evans-Kwashie/mech-royale-bot                      subs_hit 1  p_cov 0.089  n_win   6  pval 0.0894
+      06:32:25 5.23  gap  222s (+0 more)  3fd07bebc6 06:28:43 [Evans Klenam Kwa|main] Improve Mech Royale economy and shared weapon control
+  chandrakanth-19/builders_buildathon                subs_hit 1  p_cov 0.090  n_win   7  pval 0.0903
+      06:32:25 5.23  gap  -29s (+0 more)  4cb20e755f 06:32:54 [chandrakanth|feature/duckdb-pipel] Implement DuckDB+Python pipeline passing all 36 edge-case fixtures
+  h-ardy/buildathon-mech-royale                      subs_hit 1  p_cov 0.134  n_win  10  pval 0.1340
+      06:32:25 5.23  gap  274s (+0 more)  bed54e20a6 06:27:51 [Hardy|main] Collect kill cubes during fights
+  F0RF31T/Mechfight                                  subs_hit 1  p_cov 0.147  n_win  15  pval 0.1474
+      06:32:25 5.23  gap  154s (+0 more)  20d870bfe4 06:29:51 [F0RF31T|main] Add files via upload
+  himagna16/mech-royale-bot                          subs_hit 1  p_cov 0.154  n_win  18  pval 0.1541
+      06:32:25 5.23  gap  118s (+1 more)  043ce37648 06:30:27 [Sai Maruvada|exp/f-break8,exp/f-f] Sprint for the first weapon, close faster with lightning
+  sphugne/mech-royale-bot                            subs_hit 1  p_cov 0.161  n_win  12  pval 0.1611
+      06:32:25 5.23  gap  336s (+0 more)  7c045964e1 06:26:49 [Shupeng Cao|main] Retreat early
+  bhattyuvraj22/mechfight-bot                        subs_hit 1  p_cov 0.173  n_win  12  pval 0.1729
+      06:32:25 5.23  gap   49s (+0 more)  ecab0e6dba 06:31:36 [bhattyuvraj22|main] experimentation
+  varadanvk/mech-royale-bot                          subs_hit 1  p_cov 0.183  n_win  19  pval 0.1829
+      06:32:25 5.23  gap  284s (+1 more)  f9326166d9 06:27:41 [varadanvk|main] Faster raycasts and lazy path fields
+  caioplcerda/oval-pilot                             subs_hit 1  p_cov 0.195  n_win  30  pval 0.1947
+      06:32:25 5.23  gap  301s (+3 more)  7e488a9e54 06:27:24 [Caio Lacerda|practice-ideas] chore: v2 re-roll salt2
+  Mouhamadmm466/aku-namu-tata                        subs_hit 1  p_cov 0.233  n_win  16  pval 0.2334
+      06:32:25 5.23  gap  244s (+0 more)  b0f269da66 06:28:21 [Mouhamad|direct-drawing-links] Speed up fully rewritten large PDFs in the engineering recovery pipeline
+  JosiahAklog/nexus-mech-royale                      subs_hit 1  p_cov 0.235  n_win  18  pval 0.2350
+      06:32:25 5.23  gap   80s (+0 more)  e3e848def5 06:31:05 [Josiah Aklog|trial-v39-endgame] Allow safe laser charges inside the final circle
+  lolstershwjav/OSU-Hackathon---Builders---Mech-Royale subs_hit 1  p_cov 0.236  n_win  18  pval 0.2363
+      06:32:25 5.23  gap  239s (+0 more)  b6659d2e9e 06:28:26 [Abhijoy Sarkar|main] Track failed promotion trials and explore individual tactical changes
+  shanmukha-here/eagle-eye-mech-royale               subs_hit 1  p_cov 0.304  n_win  43  pval 0.3040
+      06:32:25 5.23  gap  104s (+2 more)  4abb56a929 06:30:41 [Eagle Eye|main] Pair long-range laser search with cube-cluster collection
+  micah-andelman/mech-royale                         subs_hit 1  p_cov 0.309  n_win  32  pval 0.3087
+      06:32:25 5.23  gap   20s (+0 more)  1faa168399 06:32:05 [micah-andelman|fightctl,main] v19: v18a base (FIRE_ANY off after v18b 3.08 < v18a 3.40) + CRATES: with no mech seen for 
+
+## Team Inventors  [('05:17:19', 4.48), ('05:24:58', 4.67), ('06:30:07', 4.9), ('06:58:41', 5.15)]
+  gokulj-umich/gocool-mech                           subs_hit 3  p_cov 0.160  n_win  12  pval 0.0145
+      05:17:19 4.48  gap   57s (+0 more)  91d958a898 05:16:22 [Gocool|main] v3: lightning brawler, cover while reloading, shuffle while hiding
+      05:24:58 4.67  gap  -33s (+0 more)  e2d364bfa1 05:25:31 [Gocool|main] v4: laser-first like the top bots - hunt lasers early, gun fires while laser charges (aim 
+      06:58:41 5.15  gap  291s (+1 more)  54e2562461 06:53:50 [Gocool|main] v10: assassin all match - roam until the end, down to 50% HP, hunting beats crate farming
+  rohaanafzal/mech-bot                               subs_hit 2  p_cov 0.129  n_win   9  pval 0.0839
+      05:17:19 4.48  gap   43s (+0 more)  294c18d304 05:16:36 [Rohaan Afzal|main] update
+      06:58:41 5.15  gap  352s (+0 more)  94c95651b2 06:52:49 [Rohaan Afzal|main] update
+  charliescull/mech-royale-bot                       subs_hit 2  p_cov 0.132  n_win  11  pval 0.0875
+      05:24:58 4.67  gap  349s (+0 more)  2495a99d89 05:19:09 [Charlie Scullion|main] Mech Royale variant M6: veteran brain, F-style practice mode
+      06:30:07 4.90  gap  273s (+0 more)  59e714ebbe 06:25:35 [Charlie Scullion|main] Mech Royale variant S5: S4 (dodge) plus aggressive farming
+  himagna16/mech-royale-bot                          subs_hit 2  p_cov 0.154  n_win  18  pval 0.1150
+      06:30:07 4.90  gap  118s (+1 more)  a9aa22de99 06:28:10 [Sai Maruvada|exp/f-break8,exp/f-f] Weapon rewrite, bunker option, latency and acceleration-aware lead
+      06:58:41 5.15  gap  249s (+0 more)  7b17fe6d52 06:54:32 [Sai Maruvada|exp/f-break8,exp/f-f] Latch free-for-all mode on two early deaths we did not cause
+  sphugne/mech-royale-bot                            subs_hit 2  p_cov 0.161  n_win  12  pval 0.1242
+      06:30:07 4.90  gap  199s (+0 more)  7c045964e1 06:26:49 [Shupeng Cao|main] Retreat early
+      06:58:41 5.15  gap  273s (+0 more)  3018b5d899 06:54:08 [Shupeng Cao|main] Test corner firing positions and sheltered reloads
+  bhattyuvraj22/mechfight-bot                        subs_hit 2  p_cov 0.173  n_win  12  pval 0.1407
+      05:17:19 4.48  gap  209s (+0 more)  6e8fb1134b 05:13:50 [bhattyuvraj22|main] Keep isolated drones in tracking range while fighting
+      05:24:58 4.67  gap  -53s (+0 more)  b22c40467d 05:25:51 [bhattyuvraj22|main] Rebuild match strategy around enemy pressure, terrain, and finishing opportunities
+  gonvaz-nocode/NoCodeHack                           subs_hit 2  p_cov 0.177  n_win  34  pval 0.1466
+      05:24:58 4.67  gap  103s (+0 more)  8f4d0083a4 05:23:15 [Guillermo Gonzal|main] C9: A9 + heal between fights + one fight at a time (C5 + C6)
+      06:58:41 5.15  gap   71s (+2 more)  854bac8d7e 06:57:30 [Guillermo Gonzal|main] E3: C8 + dodge bullets too
+  praggybhat/mech-royale-bot                         subs_hit 2  p_cov 0.178  n_win  13  pval 0.1475
+      05:24:58 4.67  gap   79s (+0 more)  f2f6194fa2 05:23:39 [Prajna Bhat|main] Roof climbing (jump + jets) implemented but disabled: no gain in sim A/B; sim gains vertic
+      06:58:41 5.15  gap  255s (+0 more)  281280ba14 06:54:26 [Prajna Bhat|main] Farming from memory (crates + NPC drone memory), radii kept at previous values (sim A/B ne
+  Jiackary/buildathon_26                             subs_hit 2  p_cov 0.179  n_win  30  pval 0.1501
+      05:24:58 4.67  gap  358s (+0 more)  41223ee40c 05:19:00 [Zachary|v7-full] v7-full: STRATEGY wolverine+aim+consolidate+rotate+watch
+      06:58:41 5.15  gap  207s (+2 more)  4ccbbbbe66 06:55:14 [Zachary|v9-oddspick] v9-oddspick: STRATEGY wolverine+aim+retaliate+oddspick
+  anthonyteti/buildathon-mech-royale                 subs_hit 2  p_cov 0.180  n_win  15  pval 0.1509
+      05:17:19 4.48  gap   -9s (+0 more)  a1df384b4e 05:17:28 [anthonyteti|main] Bot v7: stop sidestepping bullets and jinking from lasers
+      05:24:58 4.67  gap   45s (+1 more)  204440e157 05:24:13 [anthonyteti|main] Open fights with mechs out to 200 m (was 150 m)
+  varadanvk/mech-royale-bot                          subs_hit 2  p_cov 0.183  n_win  19  pval 0.1551
+      05:24:58 4.67  gap   18s (+0 more)  294f3b5312 05:24:40 [varadanvk|cand-1,cand-2,cand-3] Focus fire, loot memory, early farming, cube pickup in fights, heal out of sight, fight ra
+      06:30:07 4.90  gap  147s (+1 more)  f9326166d9 06:27:41 [varadanvk|main] Faster raycasts and lazy path fields
+  caioplcerda/oval-pilot                             subs_hit 2  p_cov 0.195  n_win  30  pval 0.1727
+      05:17:19 4.48  gap  -20s (+0 more)  d8216db0e2 05:17:39 [Caio Lacerda|practice-ideas] feat(practice-ideas): ldodge (wider laser dodge) and losbreak (break LOS while unarmed) fl
+      06:30:07 4.90  gap  164s (+3 more)  7e488a9e54 06:27:24 [Caio Lacerda|practice-ideas] chore: v2 re-roll salt2
+  Th3r0n/mech-royale-bot                             subs_hit 3  p_cov 0.423  n_win  90  pval 0.2061
+      05:17:19 4.48  gap  -51s (+0 more)  3975c0faab 05:18:10 [Th3r0n|main] v14: reset navigator stuck timers after warmup (no more hops in the first 4 s); free-for-a
+      05:24:58 4.67  gap  114s (+3 more)  107c11bac4 05:23:04 [Th3r0n|main] v15: free-for-all plays the plain economy core (the TTUN method that scores best in the re
+      06:30:07 4.90  gap   68s (+7 more)  7333fa110f 06:29:00 [Th3r0n|main] back to v18 defaults
+  skandra08/robo-fight                               subs_hit 4  p_cov 0.677  n_win 201  pval 0.2098
+      05:17:19 4.48  gap   45s (+13 more)  65db67b9e2 05:16:34 [Claude|try/g-greedier] try/g-greedier: greedy pushed further (cubes to 200 m, crates to 200 m when no mech within
+      05:24:58 4.67  gap  142s (+4 more)  73e1a9ecc4 05:22:36 [skandra08|cursor/best-275-d272] docs: declare best-275 (2.75) as new baseline + next A/B hashes
+      06:30:07 4.90  gap   41s (+6 more)  d2674c3e20 06:29:27 [Claude|cursor/best-302-6849] try/bet-farm: gz-noroof (2.90) + farm cubes, crates and drones at any range until 75 s, ig
+      06:58:41 5.15  gap   75s (+0 more)  ca4adb05ae 06:57:26 [Claude|try/bf-drones] try/bf-drones: bet-farm (3.02) + stop avoiding drones
+  Mouhamadmm466/aku-namu-tata                        subs_hit 2  p_cov 0.233  n_win  16  pval 0.2340
+      05:17:19 4.48  gap   33s (+0 more)  8af1ca242c 05:16:46 [Mouhamad|cad-references-and-a] Combine mapped SolidWorks references with verified STEP archive restoration
+      06:30:07 4.90  gap  107s (+0 more)  b0f269da66 06:28:21 [Mouhamad|direct-drawing-links] Speed up fully rewritten large PDFs in the engineering recovery pipeline
+
+## TigerTown27  [('00:30:43', 4.73), ('05:04:39', 5.31), ('06:00:05', 5.42)]
+  arnav3013s/mech-bot                                subs_hit 3  p_cov 0.254  n_win  22  pval 0.0165
+      00:30:43 4.73  gap   39s (+1 more)  cf68fbef0d 00:30:05 [Arnav Reddy Mami|main] Add files via upload
+      05:04:39 5.31  gap  269s (+0 more)  81f53388f2 05:00:11 [Arnav Reddy Mami|main] Update survivor.py
+      06:00:05 5.42  gap  -59s (+0 more)  b323b3cd03 06:01:05 [Arnav Reddy Mami|main] Update survivor.py
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 2  p_cov 0.093  n_win   8  pval 0.0243
+      05:04:39 5.31  gap  157s (+0 more)  59be1c6b39 05:02:03 [Shrey Patel|main] Keep gun, prefer lightning, upgrade priorities, hop in fights
+      06:00:05 5.42  gap  314s (+0 more)  c56e4afa92 05:54:52 [Shrey Patel|main] Revert gravity lead; wounded bots regenerate instead of chasing unseen enemies
+  Arnav-M10/BuildersMechRoyale                       subs_hit 2  p_cov 0.107  n_win  17  pval 0.0322
+      05:04:39 5.31  gap  198s (+0 more)  454bced2ac 05:01:22 [Arnav Mittal|exp/gunlaser] Keep the gun, pair with laser; winners' upgrade order; laser band 50-120 m (from live-room
+      06:00:05 5.42  gap  239s (+1 more)  de6158f792 05:56:07 [Arnav Mittal|exp/v4b] exp v4b: regen discipline after fights (hold still in cover until 85% HP)
+  ourux/MechRoyale                                   subs_hit 3  p_cov 0.347  n_win  34  pval 0.0417
+      00:30:43 4.73  gap  135s (+0 more)  2d700d7dce 00:28:29 [vmech|main,v5-test] v4: fight at 110 m preferred range, 3 m aim tolerance
+      05:04:39 5.31  gap   45s (+0 more)  935b8a003a 05:03:55 [vmech|main] mrm: r140 + Minimum Risk Movement while holding
+      06:00:05 5.42  gap   85s (+0 more)  bd4b8f03b3 05:58:41 [vmech|main] offense: offensive upgrade picks in practice (gun/laser damage, fire rate first); defensiv
+  skibidies/yo-john-xie                              subs_hit 2  p_cov 0.154  n_win  15  pval 0.0635
+      00:30:43 4.73  gap   86s (+2 more)  75c38bd990 00:29:18 [skibidies|main] Add files via upload
+      06:00:05 5.42  gap  348s (+0 more)  12845c6db4 05:54:18 [skibidies|main] Add files via upload
+  nguyenphuquang1234567/kestrel                      subs_hit 2  p_cov 0.165  n_win  21  pval 0.0725
+      05:04:39 5.31  gap  283s (+0 more)  e58db65393 04:59:57 [Nguyen Phu Quang|main] kestrel v7: stricter free-for-all detection, fault containment
+      06:00:05 5.42  gap   72s (+2 more)  c252fce3b7 05:58:54 [Nguyen Phu Quang|main] kestrel v8c: v8 + never break off to cover when outnumbered
+  varadanvk/mech-royale-bot                          subs_hit 2  p_cov 0.183  n_win  19  pval 0.0881
+      05:04:39 5.31  gap   81s (+0 more)  3ccda9eff0 05:03:19 [varadanvk|cand-1,cand-2,cand-3] Keep moving when idle, hold range, retreat earlier, parameterise thresholds
+      06:00:05 5.42  gap  258s (+0 more)  972a3c63ed 05:55:48 [varadanvk|cand-6] Fight from spots with cover one step away from the target's line of fire
+  Sharmileer/mech-royale                             subs_hit 1  p_cov 0.045  n_win   3  pval 0.1281
+      00:30:43 4.73  gap  247s (+0 more)  b3067c0bf4 00:26:37 [Sharmileer|main] Record first official practice score and successful Docker sandbox check
+  Mouhamadmm466/aku-namu-tata                        subs_hit 2  p_cov 0.233  n_win  16  pval 0.1380
+      05:04:39 5.31  gap  -54s (+0 more)  3c7fbf4968 05:05:34 [Mouhamad|restored-archive-mod] Restore verified CAD models inside pointer archives after canonical cleaning
+      06:00:05 5.42  gap  -47s (+0 more)  97f6e630fb 06:00:53 [Mouhamad|pdf-object-recovery] Recover sparse PDF object tables and preserve literal metadata keys
+  rishit-u/thebigO-buildathon                        subs_hit 1  p_cov 0.060  n_win   4  pval 0.1683
+      06:00:05 5.42  gap   78s (+0 more)  1ae2bd481f 05:58:48 [Claude|claude/blast-radius,] Blast Radius v1: coverage-map selector
+  arnabxero/xero-mech-royale                         subs_hit 2  p_cov 0.290  n_win  35  pval 0.2041
+      05:04:39 5.31  gap    0s (+0 more)  ee06a80f4c 05:04:40 [Eftakhar Ahmed A|master,v551-fightbac] v5.4: enemy avoidance on by default (avoid_r=200 m, sound-located threats)
+      06:00:05 5.42  gap   80s (+3 more)  5e90d6b1cc 05:58:46 [Eftakhar Ahmed A|v551-fightback] variant v551-fightback: XERO_TUNE=fight_back_range=250,cover_from_far=0
+  shanmukha-here/eagle-eye-mech-royale               subs_hit 2  p_cov 0.304  n_win  43  pval 0.2211
+      05:04:39 5.31  gap  147s (+1 more)  8491f4c3b0 05:02:13 [Eagle Eye|main] Use the protocol sound distance and packed crown bounds for sight checks
+      06:00:05 5.42  gap   37s (+2 more)  7b2492ccb4 05:59:29 [Eagle Eye|main] Search farther for a secondary weapon while collecting cubes
+  pcetner/mech-royale-bot                            subs_hit 1  p_cov 0.089  n_win   7  pval 0.2444
+      00:30:43 4.73  gap    3s (+0 more)  8aaa44d572 00:30:41 [PCetner|main] v0.1: fix lead, reload, target choice, stuck detour, upgrade answer on error
+  JorgeN0/Mech-Royal                                 subs_hit 1  p_cov 0.089  n_win   6  pval 0.2448
+      00:30:43 4.73  gap  355s (+0 more)  81fef72008 00:24:49 [Jorge Naranjo|main] First Mecha V1
+  jklein07/mech-royale-bot                           subs_hit 1  p_cov 0.089  n_win   6  pval 0.2448
+      00:30:43 4.73  gap  213s (+0 more)  40e4b6d65b 00:27:11 [jon|main] Rust mechfight/1 bot v1: map model, A* nav, zone/loot/fight logic
+
+## r1ver  [('03:01:48', 5.1), ('06:46:28', 5.27)]
+  h-ardy/buildathon-mech-royale                      subs_hit 2  p_cov 0.134  n_win  10  pval 0.0180
+      03:01:48 5.10  gap  146s (+1 more)  02e51b74cf 02:59:22 [Hardy|main] Mech Royale bot v1: zone-aware A* navigation, combat, cover, loot
+      06:46:28 5.27  gap  102s (+0 more)  0cf452faa4 06:44:46 [Hardy|main] Fight on instead of retreating
+  moonriver0922/mech-royale-planner                  subs_hit 2  p_cov 0.177  n_win  18  pval 0.0314
+      03:01:48 5.10  gap  185s (+0 more)  af337d5c12 02:58:43 [moonriver0922|experiment/reactive-] Check game-grid clearance on short resource and zone routes
+      06:46:28 5.27  gap   42s (+0 more)  818232cebf 06:45:46 [moonriver0922|experiment/reactive-] Coordinate resource gathering and retreat in Mech Royale combat
+  moonriver0922/wgsrobot                             subs_hit 2  p_cov 0.177  n_win  18  pval 0.0314
+      03:01:48 5.10  gap  185s (+0 more)  af337d5c12 02:58:43 [moonriver0922|experiment/reactive-] Check game-grid clearance on short resource and zone routes
+      06:46:28 5.27  gap   42s (+0 more)  818232cebf 06:45:46 [moonriver0922|experiment/reactive-] Coordinate resource gathering and retreat in Mech Royale combat
+  rishit-u/thebigO-buildathon                        subs_hit 1  p_cov 0.060  n_win   4  pval 0.1156
+      06:46:28 5.27  gap  154s (+0 more)  fe47eb028b 06:43:54 [Rishit Upadhyay|main] Merge pull request #1 from rishit-u/claude/blast-radius
+  SeanCowen/oval-runner                              subs_hit 1  p_cov 0.074  n_win   5  pval 0.1434
+      03:01:48 5.10  gap  326s (+0 more)  34bbb13862 02:56:22 [SeanCowen|main] Route to the moving safe region and improve early resource collection
+  Anurisha-Dunuwila/mech-royale-bot                  subs_hit 1  p_cov 0.084  n_win   6  pval 0.1602
+      03:01:48 5.10  gap  266s (+0 more)  8ca0fed7df 02:57:22 [Anurisha-Dunuwil|main] Mech Royale bot
+  jackbalseca/mech-royale-bot                        subs_hit 2  p_cov 0.401  n_win  40  pval 0.1606
+      03:01:48 5.10  gap  276s (+0 more)  81d2537412 02:57:12 [Jack Balseca|exp-v10-commit,exp-v] v2: break line of sight to cover when hurt/outnumbered, regen, re-engage; wider weapon sea
+      06:46:28 5.27  gap  196s (+0 more)  1db8cb836b 06:43:12 [Claude|exp-v19-pkmem,exp-v2] v19 (from v16 3881e26): remember weapon pickups after they leave view; fetch one when a sl
+  brycehcmcgrath/mechfight-bot                       subs_hit 2  p_cov 0.422  n_win  49  pval 0.1783
+      03:01:48 5.10  gap   58s (+2 more)  6435e28485 03:00:50 [Bryce McGrath|main,releases/r2,rel] fix: preserve quiet charged movement without false recovery
+      06:46:28 5.27  gap   35s (+1 more)  a6c3d2ba7f 06:45:53 [Bryce McGrath|releases/r9] Update runtime payload
+  mahathio/mechfight                                 subs_hit 1  p_cov 0.097  n_win   9  pval 0.1855
+      03:01:48 5.10  gap  114s (+1 more)  497f4647b9 02:59:54 [mahathio|main] Add files via upload
+  nelsonwong506-lang/mech-royale                     subs_hit 1  p_cov 0.099  n_win  10  pval 0.1881
+      06:46:28 5.27  gap  231s (+0 more)  9114c80964 06:42:37 [Nelson|main] Dodge laser charges and react to active enemy fights
+  Rebecca922/mech-royale-bot                         subs_hit 1  p_cov 0.104  n_win   7  pval 0.1976
+      03:01:48 5.10  gap    6s (+0 more)  4b3cb874c0 03:01:42 [Rebecca|main] Freeze SARSA updates for controlled comparison
+  blanc-team/mech_royale                             subs_hit 1  p_cov 0.104  n_win   7  pval 0.1976
+      06:46:28 5.27  gap  253s (+0 more)  f3de1e93c9 06:42:15 [Rajas129|main] Unlock the laser, heal between fights, and degrade gracefully without the map
+  fernando-ace/Buildathon_Mech_Royal                 subs_hit 2  p_cov 0.487  n_win  46  pval 0.2367
+      03:01:48 5.10  gap  131s (+0 more)  d0c99a5381 02:59:37 [Fernando Acevedo|main] Hold target lock to steady aim
+      06:46:28 5.27  gap   52s (+0 more)  cf1242d956 06:45:36 [Fernando Acevedo|main] Bound line-of-sight cover search cost
+  amoorgy/mech-royale-bot-b                          subs_hit 1  p_cov 0.127  n_win  18  pval 0.2380
+      03:01:48 5.10  gap   12s (+4 more)  65f5132a05 03:01:36 [amoorgy|main] experiment: G5 faithful port with navigation on
+  amoorgy/mech-royale-bot                            subs_hit 1  p_cov 0.127  n_win  18  pval 0.2380
+      03:01:48 5.10  gap   12s (+4 more)  65f5132a05 03:01:36 [amoorgy|main] experiment: G5 faithful port with navigation on
+
+## not even close  [('04:21:19', 5.02), ('06:31:41', 5.08), ('07:06:49', 5.21)]
+  h-ardy/buildathon-mech-royale                      subs_hit 2  p_cov 0.134  n_win  10  pval 0.0491
+      06:31:41 5.08  gap  230s (+0 more)  bed54e20a6 06:27:51 [Hardy|main] Collect kill cubes during fights
+      07:06:49 5.21  gap  348s (+0 more)  71c5656b13 07:01:01 [Hardy|main] Detect free-for-all, play it safe
+  Achintya-Lakshmanan/mech-royale-bot                subs_hit 3  p_cov 0.388  n_win  67  pval 0.0584
+      04:21:19 5.02  gap   48s (+0 more)  7269a809dd 04:20:32 [Achintya-Lakshma|ambush,ambush-cube,a] Magazine-aware finishing: prioritise and finish enemies our current burst can kill; don't 
+      06:31:41 5.08  gap  332s (+2 more)  902a16ec08 06:26:09 [Achintya-Lakshma|main,practice-sim] Submit own3
+      07:06:49 5.21  gap  184s (+8 more)  facf3b89e9 07:03:45 [Achintya-Lakshma|ambush-cube,ambush-f] ambush-fix: ambush plus bug fixes (no false stuck-jumps while fighting, never take the mor
+  caioplcerda/oval-pilot                             subs_hit 2  p_cov 0.195  n_win  30  pval 0.0989
+      06:31:41 5.08  gap  257s (+3 more)  7e488a9e54 06:27:24 [Caio Lacerda|practice-ideas] chore: v2 re-roll salt2
+      07:06:49 5.21  gap  153s (+3 more)  11c408cad1 07:04:16 [Caio Lacerda|practice-ideas] chore: real-practice probe v2+PmanyN5,PprefL160
+  orbitautomation/buildathon-mech-royale             subs_hit 1  p_cov 0.045  n_win   3  pval 0.1281
+      04:21:19 5.02  gap    2s (+0 more)  3134eaf9e0 04:21:18 [orbitautomation|main] 
+  lolstershwjav/OSU-Hackathon---Builders---Mech-Royale subs_hit 2  p_cov 0.236  n_win  18  pval 0.1411
+      06:31:41 5.08  gap  195s (+0 more)  b6659d2e9e 06:28:26 [Abhijoy Sarkar|main] Track failed promotion trials and explore individual tactical changes
+      07:06:49 5.21  gap  250s (+0 more)  78e864c873 07:02:39 [Abhijoy Sarkar|main] Add paired tactic ablation audit
+  swan28pande/oval-tools                             subs_hit 1  p_cov 0.055  n_win   5  pval 0.1569
+      04:21:19 5.02  gap   90s (+0 more)  87d517694f 04:19:50 [Swanand Pande|main] Back to 85 m preferred range; stay outside enemy lightning range
+  mliao0128/fraun-ringkeeper                         subs_hit 1  p_cov 0.060  n_win   5  pval 0.1706
+      04:21:19 5.02  gap  205s (+0 more)  5f14a5ae25 04:17:55 [Mike Liao|cube-detour] Use short safe-zone cube detours on the recovery bot
+  Kay-kach/mech-fight-bot                            subs_hit 1  p_cov 0.062  n_win   5  pval 0.1754
+      04:21:19 5.02  gap  -39s (+0 more)  bca4404c85 04:21:59 [Kay-kach|main] Upgrade bot to Tactical Survival, Stealth & Endgame
+  VivekRnx/bob-the-builder-2026                      subs_hit 1  p_cov 0.074  n_win   5  pval 0.2072
+      04:21:19 5.02  gap   -1s (+0 more)  e480cab1be 04:21:21 [VivekRnx|main] Fix navigation dead-ends: body-width walkability, path hysteresis, courtyard climb-out
+  poyrazyongaci/mech-royale-bot                      subs_hit 1  p_cov 0.079  n_win   6  pval 0.2190
+      07:06:49 5.21  gap  132s (+1 more)  8152aceed1 07:04:37 [Poyraz Yongaci|main] Wait behind cover while hurt and unseen
+  pcetner/mech-royale-bot                            subs_hit 1  p_cov 0.089  n_win   7  pval 0.2444
+      06:31:41 5.08  gap  222s (+0 more)  b7f72cbd68 06:27:59 [PCetner|main] v1.1: nav fixes from review (resumed path trim, penalty-aware shortcuts, same-cell clearan
+  JorgeN0/Mech-Royal                                 subs_hit 1  p_cov 0.089  n_win   6  pval 0.2448
+      04:21:19 5.02  gap  239s (+0 more)  167fa392ed 04:17:21 [Jorge Naranjo|main] bot
+  Evans-Kwashie/mech-royale-bot                      subs_hit 1  p_cov 0.089  n_win   6  pval 0.2448
+      06:31:41 5.08  gap  178s (+0 more)  3fd07bebc6 06:28:43 [Evans Klenam Kwa|main] Improve Mech Royale economy and shared weapon control
+  chandrakanth-19/builders_buildathon                subs_hit 1  p_cov 0.090  n_win   7  pval 0.2471
+      07:06:49 5.21  gap  226s (+0 more)  41c66e160f 07:03:03 [chandrakanth|feature/rust-engine,] Fix Docker build: downgrade to edition 2021, remove C-sys deps, fix unused imports
+  nelsonwong506-lang/mech-royale                     subs_hit 1  p_cov 0.099  n_win  10  pval 0.2685
+      07:06:49 5.21  gap  -21s (+0 more)  6b289fbbcc 07:07:10 [Nelson|main] Take clear gun shots at visible opponents
+
+## Wolverines  [('00:57:15', 5.19), ('05:31:17', 5.21)]
+  himanshu-thalor/apexmech-buildathon                subs_hit 1  p_cov 0.015  n_win   1  pval 0.0296
+      00:57:15 5.19  gap   -1s (+0 more)  4c97b81e49 00:57:16 [himanshu-thalor|main] Add ApexMech Mech Royale bot
+  gonvaz-nocode/NoCodeHack                           subs_hit 2  p_cov 0.177  n_win  34  pval 0.0313
+      00:57:15 5.19  gap  100s (+1 more)  d9c70fdac9 00:55:35 [Claude|main] Survivor bot v1
+      05:31:17 5.21  gap  309s (+0 more)  3c9a7ab00f 05:26:08 [Guillermo Gonzal|main] D1: A9, fight harder: retreat only when nearly dead or swarmed
+  Koodsu/BuildersHackathonMechRoyale                 subs_hit 1  p_cov 0.045  n_win   3  pval 0.0874
+      05:31:17 5.21  gap  296s (+0 more)  11398bdbde 05:26:21 [Sofia Palek|main] Build 2: fight from cover, heal first, rooftop weapons
+  pedduvedcharan/mech-royale-bot                     subs_hit 1  p_cov 0.046  n_win   3  pval 0.0905
+      05:31:17 5.21  gap  301s (+0 more)  79710fa44f 05:26:16 [pedduvedcharan|main] v2: map model, zone hold, cover, lone-hunter fights, lead aim
+  jmonked/monked-mech-royale                         subs_hit 2  p_cov 0.330  n_win  30  pval 0.1088
+      00:57:15 5.19  gap   -4s (+0 more)  d1a5eb1d20 00:57:19 [Julian Monk|main,v10,v12,v13,v14] v6: hide behind a building and heal when low (v5 base, check PASS, score pending)
+      05:31:17 5.21  gap  325s (+0 more)  5672b6632c 05:25:52 [Julian Monk|v21] v21g: DeepSeek red team - no late loot hunts after 230 s (matches v15 no-chase), sweep onl
+  Jaelucard/joinbuilders-mech-royale                 subs_hit 1  p_cov 0.060  n_win   4  pval 0.1156
+      05:31:17 5.21  gap   90s (+0 more)  fbec40d2c2 05:29:47 [Jaelucard|master] feat: vanguard-v2 fast height-field LoS, laser duck/peek, rooftop control, and cover fixes
+  prakash-218/Buildathon-sessions                    subs_hit 1  p_cov 0.066  n_win   5  pval 0.1277
+      00:57:15 5.19  gap  178s (+0 more)  581d3f3844 00:54:17 [Prakash Kumar|main] Speed up parsing and key handling
+  VivekRnx/bob-the-builder-2026                      subs_hit 1  p_cov 0.074  n_win   5  pval 0.1434
+      05:31:17 5.21  gap  224s (+0 more)  b76c216d8a 05:27:33 [VivekRnx|main] Add risk knobs (A/B tested, kept at the best-scoring values)
+  caitlinthaeler/mech-royale                         subs_hit 1  p_cov 0.084  n_win   6  pval 0.1607
+      00:57:15 5.19  gap  -34s (+0 more)  afa8e801bd 00:57:49 [Haziel Osunde|main] offesive notes
+  JorgeN0/Mech-Royal                                 subs_hit 1  p_cov 0.089  n_win   6  pval 0.1707
+      00:57:15 5.19  gap  321s (+0 more)  4d6cade4c2 00:51:54 [Jorge Naranjo|main] v2: commit to winning fights, ambush from cover, loot wrecks
+  LeeYongLiangGit/mech-royale-bot                    subs_hit 1  p_cov 0.089  n_win   6  pval 0.1707
+      00:57:15 5.19  gap  221s (+0 more)  6e8af91afd 00:53:34 [Lee Yong Liang|main] Initial commit: Mech Royale TypeScript starter bot
+  jklein07/mech-royale-bot                           subs_hit 1  p_cov 0.089  n_win   6  pval 0.1707
+      00:57:15 5.19  gap   13s (+0 more)  40ba362c99 00:57:02 [jon|main] v4: remember seen loot/crates/cubes, capture uncontested supply drops, crate looting; sim 
+  shaunkar1/harrier-sparring-bot                     subs_hit 1  p_cov 0.089  n_win  29  pval 0.1707
+      05:31:17 5.21  gap   17s (+6 more)  cd37c0dcd3 05:31:00 [Shaun Karani|main] GPT: add long-range first-strike sparring adversary
+  shreypatel1/quokka-lattice-7f3k                    subs_hit 1  p_cov 0.093  n_win   8  pval 0.1771
+      05:31:17 5.21  gap   78s (+1 more)  81e237a2de 05:29:59 [Shrey Patel|main] Hold position when safe instead of wandering to zone center
+  tup86303/Buildathon-2026                           subs_hit 1  p_cov 0.097  n_win   7  pval 0.1846
+      00:57:15 5.19  gap  241s (+0 more)  6d03367d34 00:53:14 [NathanAmpofo04|main,rwx/elizer-cove] perf: narrow coverage-guided test selection
+
+## BackwardsDeployeds  [('04:17:54', 5.06), ('06:01:50', 5.1)]
+  poyrazyongaci/mech-royale-bot                      subs_hit 2  p_cov 0.079  n_win   6  pval 0.0063
+      04:17:54 5.06  gap  269s (+0 more)  c3cc3be749 04:13:26 [Poyraz Yongaci|main] Mech Royale bot v1: cover and peek play, nav graph, zone and loot logic
+      06:01:50 5.10  gap  -50s (+0 more)  d478733308 06:02:40 [Poyraz Yongaci|main] Mech Royale bot v3: take a second weapon early, lightning standoff, mortar shell dodge, gu
+  Arnav-M10/BuildersMechRoyale                       subs_hit 2  p_cov 0.107  n_win  17  pval 0.0115
+      04:17:54 5.06  gap   12s (+2 more)  e0aad22862 04:17:43 [Arnav Mittal|exp/both,exp/gunlase] Stuck detection: use measured speed, not displacement (strafe reversals tripped it)
+      06:01:50 5.10  gap  343s (+1 more)  de6158f792 05:56:07 [Arnav Mittal|exp/v4b] exp v4b: regen discipline after fights (hold still in cover until 85% HP)
+  Mouhamadmm466/aku-namu-tata                        subs_hit 2  p_cov 0.233  n_win  16  pval 0.0545
+      04:17:54 5.06  gap  351s (+0 more)  c300f1b1c5 04:12:04 [Mouhamad|cad-references-and-a] Build the full second CAD de-identification candidate and pin its evidence recipe
+      06:01:50 5.10  gap   57s (+0 more)  97f6e630fb 06:00:53 [Mouhamad|pdf-object-recovery] Recover sparse PDF object tables and preserve literal metadata keys
+  atharv109/mech-royale                              subs_hit 1  p_cov 0.030  n_win   2  pval 0.0587
+      04:17:54 5.06  gap  321s (+0 more)  1a02c2364e 04:12:34 [atharv109|main] Task 2-3: full bot brain/nav/combat/map, act() A* deadline with 10 ms cap, JIT-off Docker 
+  OHc99/mechfight-bot                                subs_hit 1  p_cov 0.030  n_win   2  pval 0.0587
+      06:01:50 5.10  gap  -20s (+0 more)  8ade081287 06:02:10 [OHc99|main] Add files via upload
+  arnav3013s/mech-bot                                subs_hit 2  p_cov 0.254  n_win  22  pval 0.0647
+      04:17:54 5.06  gap  155s (+1 more)  5efeef0ab5 04:15:20 [Arnav Reddy Mami|main] Add files via upload
+      06:01:50 5.10  gap   45s (+1 more)  b323b3cd03 06:01:05 [Arnav Reddy Mami|main] Update survivor.py
+  swan28pande/oval-tools                             subs_hit 1  p_cov 0.055  n_win   5  pval 0.1076
+      04:17:54 5.06  gap  198s (+0 more)  0566bf37b7 04:14:37 [Swanand Pande|main] Tune combat from live house-bot data: longer range, faster jinks
+  Jaelucard/joinbuilders-mech-royale                 subs_hit 1  p_cov 0.060  n_win   4  pval 0.1156
+      04:17:54 5.06  gap  287s (+0 more)  e9d05dc9ff 04:13:08 [Jaelucard|master] feat: add vanguard-v1 Rust mechfight/1 bot
+  rishit-u/thebigO-buildathon                        subs_hit 1  p_cov 0.060  n_win   4  pval 0.1156
+      06:01:50 5.10  gap  182s (+0 more)  1ae2bd481f 05:58:48 [Claude|claude/blast-radius,] Blast Radius v1: coverage-map selector
+  mliao0128/fraun-ringkeeper                         subs_hit 1  p_cov 0.060  n_win   5  pval 0.1173
+      04:17:54 5.06  gap    0s (+0 more)  5f14a5ae25 04:17:55 [Mike Liao|cube-detour] Use short safe-zone cube detours on the recovery bot
+  Kay-kach/mech-fight-bot                            subs_hit 1  p_cov 0.062  n_win   5  pval 0.1207
+      04:17:54 5.06  gap  209s (+0 more)  a6ca76de25 04:14:26 [Kay-kach|main] Tactical Survival v6.1
+  jackbalseca/mech-royale-bot                        subs_hit 2  p_cov 0.401  n_win  40  pval 0.1606
+      04:17:54 5.06  gap  336s (+0 more)  c7efbd114e 04:12:19 [Jack Balseca|exp-v10-commit,exp-v] Log v4 score (3.50), v5 (not submitted), v6 submission; record experiment protocol
+      06:01:50 5.10  gap  225s (+1 more)  3881e26cdd 05:58:05 [Jack Balseca|exp-v16-still,exp-v1] v16 (from v10 4c977b2): stay put when idle - no drift toward the zone hold point; move onl
+  Evans-Kwashie/mech-royale-bot                      subs_hit 1  p_cov 0.089  n_win   6  pval 0.1707
+      04:17:54 5.06  gap  279s (+0 more)  cfd180285e 04:13:16 [Evans Klenam Kwa|main] Fight earlier and retreat only when seriously threatened
+  JorgeN0/Mech-Royal                                 subs_hit 1  p_cov 0.089  n_win   6  pval 0.1707
+      04:17:54 5.06  gap   34s (+0 more)  167fa392ed 04:17:21 [Jorge Naranjo|main] bot
+  shaunkar1/harrier-sparring-bot                     subs_hit 1  p_cov 0.089  n_win  29  pval 0.1707
+      06:01:50 5.10  gap  164s (+2 more)  05fdb6d6e0 05:59:06 [Shaun Karani|main] GPT: regression tests for firststrike regen and fire suppression

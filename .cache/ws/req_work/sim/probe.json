@@ -1,0 +1,87 @@
+{
+ "args": {
+  "bot": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/req_bot/lib/brain.js",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/req_work/sim/probe.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": [
+   1
+  ],
+  "logDir": null,
+  "overrides": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/req_work/sim/on.json",
+  "verbose": false,
+  "mapDir": null,
+  "trace": null,
+  "traceTag": null
+ },
+ "summary": {
+  "matches": 1,
+  "meanScore": 8,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 8,
+  "meanTimeAlive": 105.4,
+  "meanDmgDealt": 11717,
+  "meanDmgTaken": 2921,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1
+  },
+  "meanWallMs": 2196,
+  "wallS": 2.8
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "brain.js",
+   "place": 8,
+   "score": 8,
+   "kills": 8,
+   "timeAlive": 105.35,
+   "alive": false,
+   "dmgDealt": 11717,
+   "dmgTaken": 2921,
+   "cause": "laser",
+   "killedBy": 10,
+   "killRange": 33.6,
+   "killerRole": "hunt",
+   "hunters": 7,
+   "killerName": "squad:hard",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 10,
+   "upgrades": [
+    "armor",
+    "plating",
+    "plating",
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 105.35,
+   "wallMs": 2196,
+   "deadOthers": 8,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 12.2,
+   "meanMs": 0.276
+  }
+ ]
+}

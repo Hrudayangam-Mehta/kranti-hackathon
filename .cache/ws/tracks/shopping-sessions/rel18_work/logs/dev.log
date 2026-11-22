@@ -1,0 +1,11 @@
+dev n1       env={'NCPU': '1'} rc=0 stdout=0B compare(out,answer)=MATCH compare(answer,out)=MATCH -> MATCH
+    lane F on: user key 0xf94d067aa5, person cap 92706, 1.0 ms | buckets on: event key 0xf24638c44b, number cap 2818048, 32768 slots, 1.3 ms
+dev n4       env={'NCPU': '4'} rc=0 stdout=0B compare(out,answer)=MATCH compare(answer,out)=MATCH -> MATCH
+    lane F on: user key 0xf94d067aa5, person cap 92706, 1.0 ms | buckets on: event key 0xf24638c44b, number cap 2818048, 32768 slots, 1.1 ms
+dev n8       env={'NCPU': '8'} rc=0 stdout=0B compare(out,answer)=MATCH compare(answer,out)=MATCH -> MATCH
+    lane F on: user key 0xf94d067aa5, person cap 92706, 1.0 ms | buckets on: event key 0xf24638c44b, number cap 2818048, 32768 slots, 1.0 ms
+dev f2off_n4 env={'NCPU': '4', 'SESSIONS_F2': '0'} rc=0 stdout=0B compare(out,answer)=MATCH compare(answer,out)=MATCH -> MATCH
+    lane F on: user key 0xf94d067aa5, person cap 92706, 1.0 ms | buckets off: SESSIONS_F2=0
+dev f2off_n1 env={'NCPU': '1', 'SESSIONS_F2': '0'} rc=0 stdout=0B compare(out,answer)=MATCH compare(answer,out)=MATCH -> MATCH
+    lane F on: user key 0xf94d067aa5, person cap 92706, 10.7 ms | buckets off: SESSIONS_F2=0
+DEV ALL MATCH

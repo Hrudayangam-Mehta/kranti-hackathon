@@ -1,0 +1,14 @@
+r0 b8           wall  18.211 cpu  10.208 (u 5.73 s 4.47) rss 3265M st 0 stdout 0 events=2.28+2.87 clicks=0.52+0.61 unmap=0.00+0.03 dedup=1.55+0.39 people=1.00+0.03 user_write=0.16+0.22 last_write=0.00+0.00 links=0.19+0.26
+r0 xnover       wall  13.168 cpu   7.423 (u 5.36 s 2.06) rss 3235M st 0 stdout 0 events=2.29+0.82 clicks=0.57+0.57 unmap=0.00+0.03 dedup=1.23+0.31 people=0.89+0.03 user_write=0.17+0.21 last_write=0.00+0.00 links=0.18+0.03
+r1 xnover       wall  15.073 cpu   7.768 (u 5.29 s 2.47) rss 3229M st 0 stdout 0 events=2.28+1.25 clicks=0.55+0.59 unmap=0.00+0.04 dedup=1.22+0.33 people=0.87+0.02 user_write=0.15+0.18 release=0.00+0.01 links=0.18+0.03
+r1 b8           wall  12.810 cpu   7.769 (u 5.27 s 2.50) rss 3217M st 0 stdout 0 events=2.13+1.17 clicks=0.57+0.62 unmap=0.00+0.03 dedup=1.27+0.33 people=0.93+0.04 user_write=0.12+0.22 wait_jobs=0.01+0.00 links=0.21+0.05
+r2 b8           wall  12.149 cpu   7.112 (u 5.22 s 1.89) rss 3219M st 0 stdout 0 links=0.16+0.05 events=2.03+0.61 clicks=0.56+0.58 unmap=0.00+0.03 dedup=1.34+0.34 people=0.95+0.03 user_write=0.13+0.21
+r2 xnover       wall  17.576 cpu   8.799 (u 5.33 s 3.47) rss 3217M st 0 stdout 0 events=2.42+2.18 clicks=0.54+0.54 unmap=0.00+0.06 dedup=1.16+0.31 people=0.83+0.04 user_write=0.17+0.21 links=0.20+0.10
+r3 xnover       wall  13.952 cpu   7.527 (u 5.03 s 2.50) rss 3247M st 0 stdout 0 events=2.18+1.26 clicks=0.55+0.59 unmap=0.00+0.04 dedup=1.11+0.31 bar_dedup=0.01+0.00 people=0.83+0.03 user_write=0.16+0.20 links=0.17+0.05
+r3 b8           wall  13.563 cpu   7.612 (u 5.18 s 2.43) rss 3225M st 0 stdout 0 events=2.20+1.14 clicks=0.51+0.60 unmap=0.00+0.04 dedup=1.23+0.33 people=0.89+0.03 user_write=0.12+0.23 last_write=0.01+0.00 links=0.20+0.04
+STAGES b8           median user+sys s: clicks=0.54+0.60 dedup=1.30+0.34 events=2.17+1.15 links=0.19+0.05 people=0.94+0.03 unmap=0.00+0.03 user_write=0.13+0.22
+MIN    b8           cpu 7.112 user 5.183
+MEDIAN b8           cpu 7.691 user 5.245 sys 2.463 wall 13.187 rss 3222.0M
+STAGES xnover       median user+sys s: clicks=0.55+0.58 dedup=1.19+0.31 events=2.29+1.26 links=0.18+0.04 people=0.85+0.03 unmap=0.00+0.04 user_write=0.16+0.21
+MIN    xnover       cpu 7.423 user 5.027
+MEDIAN xnover       cpu 7.647 user 5.311 sys 2.487 wall 14.513 rss 3232.0M

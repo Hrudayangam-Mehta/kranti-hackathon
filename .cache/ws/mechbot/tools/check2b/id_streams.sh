@@ -1,0 +1,9 @@
+#!/bin/bash
+cd /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/check2b
+S=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/check2a/streams
+for f in kit $S/ffa_s1.jsonl.gz $S/ffa_s2.jsonl.gz $S/ffa_s3.jsonl.gz $S/ffa_s4.jsonl.gz /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/long4800.jsonl.gz /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long11.jsonl.gz /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long23p.jsonl.gz; do
+  for env in squad auto; do taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js $f $env map; done
+done
+taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js kit squad nomap
+taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js kit auto nomap
+for ps in 7 23 99 1234; do taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js kit squad map $ps; taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js $S/ffa_s2.jsonl.gz squad map $ps; taskset -c ${CORE:-2} /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun stream_dual.js $S/ffa_s3.jsonl.gz auto map $ps; done

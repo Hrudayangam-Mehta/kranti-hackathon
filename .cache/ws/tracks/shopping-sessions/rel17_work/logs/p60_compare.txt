@@ -1,0 +1,14 @@
+files: rel16 103/1 step4 113/4
+user_daily: rows 6643842 vs 6643842; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+user_daily: rows 6643842 vs 6643842; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+user_daily: rows 6643842 vs 6643842, files 113 vs 103, sorted-row sha256 e9459e5025f32616 vs e9459e5025f32616: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 1, sorted-row sha256 bb2e628ea648bd4b vs bb2e628ea648bd4b: IDENTICAL
+ROWDIFF IDENTICAL
+surviving events 58878508, user_daily rows 6643842
+sessions 10048041 / 10048041, revenue 27294794736 / 27294794736, assisted 103904934 >= 6198406
+surviving events 58878508, user_daily rows 6643842
+sessions 10048041 / 10048041, revenue 27294794736 / 27294794736, assisted 103904934 >= 6198406

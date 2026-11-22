@@ -1,0 +1,735 @@
+{
+ "house": {
+  "easy": {
+   "aimSigmaDeg": 5,
+   "aimDriftS": 0.9,
+   "lead": 0.4,
+   "reactionS": 2,
+   "reactionSigma": 0.8,
+   "fireProb": 0.25,
+   "aimTolDeg": 5,
+   "maxTof": 0.5,
+   "commitTof": 0.45,
+   "prefTof": [
+    0.22,
+    0.36
+   ],
+   "closeFrac": 0.3,
+   "backFrac": 0.1,
+   "strafeFrac": 0.45,
+   "strafeS": [
+    2.2,
+    0.5
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 20,
+   "speedVar": 0.2,
+   "zigDeg": 15,
+   "standProb": 0.4,
+   "crateOverMech": 0.15,
+   "hopPerMin": 2,
+   "hopPerMinFight": 2,
+   "lootRadius": 50,
+   "cubeRadius": 35,
+   "crateRange": 60,
+   "crateProb": 0.2,
+   "npcProb": 0.05,
+   "dropProb": 0.15,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.1,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 2.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.2,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "plating",
+    "gun_damage",
+    "reactor",
+    "armor",
+    "nanites",
+    "gyros",
+    "gun_mag",
+    "servos"
+   ]
+  },
+  "medium": {
+   "aimSigmaDeg": 2,
+   "aimDriftS": 0.6,
+   "lead": 0.9,
+   "reactionS": 1.2,
+   "reactionSigma": 0.8,
+   "fireProb": 0.45,
+   "aimTolDeg": 3.5,
+   "maxTof": 0.75,
+   "commitTof": 0.4,
+   "prefTof": [
+    0.2,
+    0.33
+   ],
+   "closeFrac": 0.5,
+   "backFrac": 0.1,
+   "strafeFrac": 0.9,
+   "strafeS": [
+    0.9,
+    0.7
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.15,
+   "hopPerMin": 3.1,
+   "hopPerMinFight": 4.4,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 60,
+   "crateProb": 0.4,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.3,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 2,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "armor",
+    "reactor",
+    "plating",
+    "gun_damage",
+    "laser_damage"
+   ]
+  },
+  "hard": {
+   "aimSigmaDeg": 0.3,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 0.9,
+   "commitTof": 0.4,
+   "prefTof": [
+    0.25,
+    0.5
+   ],
+   "closeFrac": 0.3,
+   "backFrac": 0,
+   "strafeFrac": 0.8,
+   "strafeS": [
+    1.1,
+    0.72
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.3,
+   "hopPerMin": 5,
+   "hopPerMinFight": 5.6,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 90,
+   "crateProb": 0.7,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "plating",
+    "gun_mag",
+    "nanites",
+    "gun_damage",
+    "armor"
+   ]
+  },
+  "expert": {
+   "aimSigmaDeg": 0,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.5,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 0.8,
+   "commitTof": 0.4,
+   "prefTof": [
+    0.55,
+    0.72
+   ],
+   "closeFrac": 0.4,
+   "backFrac": 0.15,
+   "strafeFrac": 0.8,
+   "strafeS": [
+    0.9,
+    0.7
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0,
+   "hopPerMin": 4.3,
+   "hopPerMinFight": 7.7,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 30,
+   "crateProb": 0.1,
+   "npcProb": 0.8,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0.3,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.2,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.7,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "gun_damage",
+    "reactor",
+    "plating",
+    "armor",
+    "gyros"
+   ]
+  },
+  "ffa_medium": {
+   "aimSigmaDeg": 0.8,
+   "aimDriftS": 0.6,
+   "lead": 0.9,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 0.75,
+   "commitTof": 0.4,
+   "prefTof": [
+    0.2,
+    0.33
+   ],
+   "closeFrac": 0.5,
+   "backFrac": 0.1,
+   "strafeFrac": 0.9,
+   "strafeS": [
+    0.9,
+    0.7
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.15,
+   "hopPerMin": 3.1,
+   "hopPerMinFight": 4.4,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 60,
+   "crateProb": 0.4,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "armor",
+    "reactor",
+    "plating",
+    "gun_damage",
+    "laser_damage"
+   ]
+  },
+  "brawler": {
+   "aimSigmaDeg": 0,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 1.4,
+   "commitTof": 1,
+   "prefTof": [
+    0.05,
+    0.15
+   ],
+   "closeFrac": 0.65,
+   "backFrac": 0,
+   "strafeFrac": 0.5,
+   "strafeS": [
+    1.4,
+    0.72
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.15,
+   "hopPerMin": 7,
+   "hopPerMinFight": 6.6,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 60,
+   "crateProb": 0.3,
+   "npcProb": 0.1,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.8,
+   "swap": false,
+   "weaponPref": [
+    "lightning",
+    "laser",
+    "mortar"
+   ],
+   "upgrades": [
+    "gun_damage",
+    "lightning_efficiency",
+    "lightning_chain",
+    "plating",
+    "servos"
+   ]
+  },
+  "sniper": {
+   "aimSigmaDeg": 0,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 1.4,
+   "commitTof": 0.9,
+   "prefTof": [
+    0.5,
+    1
+   ],
+   "closeFrac": 0.15,
+   "backFrac": 0.17,
+   "strafeFrac": 0.5,
+   "strafeS": [
+    1,
+    0.8
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0.3,
+   "crateOverMech": 0.15,
+   "hopPerMin": 7,
+   "hopPerMinFight": 6,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 120,
+   "crateProb": 0.4,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.25,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": false,
+   "weaponPref": [
+    "laser",
+    "lightning",
+    "mortar"
+   ],
+   "upgrades": [
+    "gyros",
+    "plating",
+    "gun_velocity",
+    "gun_damage"
+   ]
+  },
+  "thirdparty": {
+   "aimSigmaDeg": 0,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 0.7,
+   "commitTof": 0.4,
+   "prefTof": [
+    0.7,
+    1.2
+   ],
+   "closeFrac": 0.05,
+   "backFrac": 0.5,
+   "strafeFrac": 0.65,
+   "strafeS": [
+    1.1,
+    0.72
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.15,
+   "hopPerMin": 7.8,
+   "hopPerMinFight": 12,
+   "lootRadius": 110,
+   "cubeRadius": 35,
+   "crateRange": 60,
+   "crateProb": 0.5,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.5,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": false,
+   "weaponPref": [
+    "mortar",
+    "laser",
+    "lightning"
+   ],
+   "upgrades": [
+    "mortar_splash",
+    "nanites",
+    "plating",
+    "servos"
+   ]
+  },
+  "farmer": {
+   "aimSigmaDeg": 0,
+   "aimDriftS": 0.6,
+   "lead": 1,
+   "reactionS": 0.7,
+   "reactionSigma": 0.8,
+   "fireProb": 0.65,
+   "aimTolDeg": 2.5,
+   "maxTof": 1.2,
+   "commitTof": 0.6,
+   "prefTof": [
+    0.72,
+    0.86
+   ],
+   "closeFrac": 0.3,
+   "backFrac": 0.2,
+   "strafeFrac": 0.65,
+   "strafeS": [
+    1.55,
+    0.65
+   ],
+   "jinkS": [
+    0.25,
+    0.7
+   ],
+   "jinkDeg": 55,
+   "speedVar": 0.45,
+   "zigDeg": 50,
+   "standProb": 0,
+   "crateOverMech": 0.6,
+   "hopPerMin": 5.5,
+   "hopPerMinFight": 8.4,
+   "lootRadius": 150,
+   "cubeRadius": 35,
+   "crateRange": 170,
+   "crateProb": 1,
+   "npcProb": 0.2,
+   "dropProb": 0.4,
+   "dropRadius": 160,
+   "mortarRange": [
+    38,
+    140
+   ],
+   "mortarProb": 0.4,
+   "laserMaxTof": 0.75,
+   "openingS": 12,
+   "targetNearPow": 3,
+   "targetRunS": [
+    1.9,
+    1
+   ],
+   "dodge": 0,
+   "dodgeSound": 0.75,
+   "dodgeSoundS": 0.4,
+   "dodgeShot": 0,
+   "dodgeMinS": 0.12,
+   "turnDelayS": 1.6,
+   "holdFrac": [
+    0.2,
+    0.6
+   ],
+   "boost": 0.5,
+   "swap": true,
+   "weaponPref": [
+    "mortar",
+    "lightning",
+    "laser"
+   ],
+   "upgrades": [
+    "mortar_reload",
+    "plating",
+    "gun_damage",
+    "reactor"
+   ]
+  }
+ },
+ "squad": {
+  "roster": [
+   "easy",
+   "easy",
+   "easy",
+   "easy",
+   "medium",
+   "medium",
+   "medium",
+   "medium",
+   "hard",
+   "hard",
+   "hard",
+   "hard",
+   "expert",
+   "expert",
+   "expert"
+  ],
+  "tierOrder": [
+   "easy",
+   "medium",
+   "hard",
+   "expert",
+   "farmer",
+   "thirdparty",
+   "sniper",
+   "brawler"
+  ],
+  "hunterCount": null,
+  "huntersStart": 1,
+  "huntersPerKill": 1,
+  "huntersMax": 15,
+  "allFromS": 300,
+  "allInLastPhases": 2,
+  "passiveFactor": 0.5,
+  "passiveWindowS": 25,
+  "passiveMinHunters": 1,
+  "defendRadius": 15,
+  "fightBackS": 1.5,
+  "holdFireMult": 0.25,
+  "holdSecondary": false,
+  "reassignS": 3,
+  "knows": "vision",
+  "lostAfterS": 6,
+  "searchRadiusFrac": 0.6,
+  "friendlyLineCheck": true
+ }
+}

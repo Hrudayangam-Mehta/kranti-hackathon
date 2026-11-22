@@ -1,0 +1,69 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling libm v0.2.16
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling crossbeam-utils v0.8.23
+   Compiling syn v2.0.119
+   Compiling crossbeam-epoch v0.9.21
+   Compiling zerocopy v0.8.63
+   Compiling libc v0.2.191
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.3.4
+   Compiling version_check v0.9.5
+   Compiling crossbeam-deque v0.8.8
+   Compiling ahash v0.8.12
+   Compiling zerocopy-derive v0.8.63
+   Compiling rayon-core v1.13.0
+   Compiling num-integer v0.1.47
+   Compiling iana-time-zone v0.1.65
+   Compiling once_cell v1.21.4
+   Compiling chrono v0.4.45
+   Compiling num-bigint v0.5.1
+   Compiling half v2.7.1
+   Compiling bytes v1.12.1
+   Compiling seq-macro v0.3.6
+   Compiling twox-hash v2.1.5
+   Compiling either v1.19.0
+   Compiling hashbrown v0.17.1
+   Compiling rayon v1.12.0
+   Compiling parquet v60.1.0
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/snap/step3)
+    Finished `release` profile [optimized] target(s) in 2m 53s
+     Running unittests src/main.rs (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/target_test/release/deps/sessions-bd327df2680a8873)
+
+running 30 tests
+test csv::tests::chunking_covers_every_data_byte ... ok
+test csv::tests::dialect ... ok
+test events::tests::prices ... ok
+test fast::bucket::tests::record_order_and_fields ... ok
+test fast::ident::tests::alias_union_find ... ok
+test fast::ident::tests::canonical_roundtrip ... ok
+test fast::ident::tests::inverses ... ok
+test fast::bucket::tests::recovers_event_key ... ok
+test fast::ident::tests::non_canonical ... ok
+test fast::ident::tests::recovers_key ... ok
+test fast::keys::tests::order_and_roundtrip ... ok
+test fast::keys::tests::small_map ... ok
+test fast::people::tests::names ... ok
+test fast::keys::tests::random_order ... ok
+test fast::scan::tests::fixed_cases ... ok
+test fast::scan::tests::large_buffers ... ok
+test fast::scan::tests::random_lines ... ok
+test fast::scan::tests::simd_mixed_matches ... ok
+test fast::scan::tests::simd_pack_matches ... ok
+test fast::ts::tests::digit_words ... ok
+test fast::ts::tests::matches_reference ... ok
+test fast::ts::tests::random_matches_reference ... ok
+test links::tests::link_lines ... ok
+test links::tests::star_names_smallest_member ... ok
+test links::tests::transitive_names ... ok
+test manifest::tests::top_level_only ... ok
+test time::tests::bad_forms ... ok
+test time::tests::civil_days ... ok
+test time::tests::forms ... ok
+test fast::scan::tests::differential_files ... ok
+
+test result: ok. 30 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 21.31s
+

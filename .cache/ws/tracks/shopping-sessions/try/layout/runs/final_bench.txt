@@ -1,0 +1,32 @@
+base                     NCPU=1 cores=3 wall med 6.049 min 5.627 | cpu med 5.794 (user 4.29 sys 1.51) | rss 3.38 GB minflt 107606
+    phases ms (median): setup=17 parse=3441 dedup=1147 join=0 people=1172 write=9 exit=53 links1=199
+    phases ms (min):    setup=14 parse=3169 dedup=1005 join=0 people=1022 write=9 exit=49 links1=166  cpu min 5.245
+    walls: 6.343 5.657 5.627 6.049 6.182  cpus: 5.79 5.24 5.53 5.97 6.13  psi: 70.9 64.0 66.5 60.0 25.3
+final                    NCPU=1 cores=3 wall med 5.871 min 5.314 | cpu med 5.436 (user 4.12 sys 1.39) | rss 3.17 GB minflt 105429
+    phases ms (median): setup=25 parse=3744 dedup=583 join=514 people=1049 write=10 exit=53 links1=217
+    phases ms (min):    setup=14 parse=3113 dedup=404 join=460 people=958 write=9 exit=48 links1=179  cpu min 5.301
+    walls: 6.919 6.251 5.871 5.432 5.314  cpus: 6.17 5.78 5.44 5.37 5.30  psi: 87.5 61.0 64.8 26.6 24.6
+base                     NCPU=2 cores=2,3 wall med 3.153 min 2.791 | cpu med 5.485 (user 4.03 sys 1.38) | rss 3.46 GB minflt 109557
+    phases ms (median): setup=15 parse=1626 dedup=663 join=0 people=654 write=10 exit=62 links1=174
+    phases ms (min):    setup=12 parse=1366 dedup=488 join=0 people=463 write=10 exit=51 links1=158  cpu min 4.931
+    walls: 3.201 2.886 3.395 2.791 3.153  cpus: 5.50 4.96 5.49 4.93 6.12  psi: 24.4 29.9 24.8 23.4 22.8
+b2                       NCPU=2 cores=2,3 wall med 3.040 min 2.779 | cpu med 5.392 (user 4.43 sys 0.96) | rss 3.31 GB minflt 108506
+    phases ms (median): setup=13 parse=1806 dedup=566 join=0 people=572 write=11 exit=59 links1=243
+    phases ms (min):    setup=13 parse=1368 dedup=489 join=0 people=487 write=9 exit=53 links1=143  cpu min 4.825
+    walls: 2.779 3.707 2.881 4.852 3.040  cpus: 4.93 6.34 5.39 5.62 4.82  psi: 29.7 25.8 27.5 24.4 15.3
+final                    NCPU=2 cores=2,3 wall med 3.445 min 2.752 | cpu med 5.721 (user 4.27 sys 1.31) | rss 3.32 GB minflt 110931
+    phases ms (median): setup=14 parse=2013 dedup=423 join=275 people=631 write=10 exit=54 links1=246
+    phases ms (min):    setup=13 parse=1502 dedup=336 join=207 people=560 write=9 exit=49 links1=153  cpu min 5.302
+    walls: 3.499 3.210 2.752 3.445 9.050  cpus: 6.08 5.58 5.30 6.63 5.72  psi: 26.3 27.6 28.5 27.9 16.6
+base                     NCPU=4 cores=0-3 wall med 3.939 min 2.383 | cpu med 8.392 (user 4.34 sys 4.09) | rss 3.60 GB minflt 113400
+    phases ms (median): setup=13 parse=2565 dedup=896 join=0 people=448 write=10 exit=55 links1=629
+    phases ms (min):    setup=12 parse=1263 dedup=590 join=0 people=398 write=9 exit=54 links1=308  cpu min 6.270
+    walls: 2.769 2.383 3.939 9.112 4.890  cpus: 7.07 6.27 8.39 8.44 8.59  psi: 26.2 27.0 40.2 41.5 45.5
+b2                       NCPU=4 cores=0-3 wall med 3.740 min 1.724 | cpu med 6.634 (user 4.17 sys 2.46) | rss 3.57 GB minflt 111933
+    phases ms (median): setup=14 parse=2200 dedup=789 join=0 people=598 write=10 exit=56 links1=810
+    phases ms (min):    setup=13 parse=978 dedup=284 join=0 people=354 write=10 exit=51 links1=199  cpu min 4.569
+    walls: 1.724 1.773 4.747 3.740 6.040  cpus: 4.57 4.71 8.40 6.63 8.37  psi: 26.5 27.0 34.8 61.2 48.2
+final                    NCPU=4 cores=0-3 wall med 4.547 min 2.225 | cpu med 6.412 (user 4.27 sys 2.38) | rss 3.55 GB minflt 112248
+    phases ms (median): setup=21 parse=2157 dedup=827 join=405 people=1016 write=20 exit=59 links1=603
+    phases ms (min):    setup=12 parse=1102 dedup=409 join=176 people=458 write=9 exit=57 links1=173  cpu min 5.737
+    walls: 2.225 4.547 4.173 9.163 7.579  cpus: 5.74 6.41 5.90 8.21 8.09  psi: 26.8 27.0 41.1 44.8 42.1

@@ -1,0 +1,28 @@
+variant V1 snap {"select":{}} new {"select":{"hunt":"off","seek":"off"}}
+stream kit squad | snap {"cmd":"stream","a1":"kit","a2":"squad","n":300,"hash":"faf9ded7277d24b12936","latchTick":-1,"env":"SQUAD","fuse":0,"errors":0} | off "n":300,"hash":"faf9ded7277d24b12936" | IDENTICAL
+stream kit auto | snap {"cmd":"stream","a1":"kit","a2":"auto","n":300,"hash":"4621f1058ed994e2594e","latchTick":498,"env":"FFA","fuse":0,"errors":0} | off "n":300,"hash":"4621f1058ed994e2594e" | IDENTICAL
+stream long4800 squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/long4800.jsonl.gz","a2":"squad","n":4800,"hash":"7feb0d67 | off "n":4800,"hash":"7feb0d67245f5c16850b" | IDENTICAL
+stream long4800 auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/long4800.jsonl.gz","a2":"auto","n":4800,"hash":"7feb0d672 | off "n":4800,"hash":"7feb0d67245f5c16850b" | IDENTICAL
+stream long11 squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long11.jsonl.gz","a2":"squad","n":4800,"hash":"0898b5cbff37 | off "n":4800,"hash":"0898b5cbff379e530add" | IDENTICAL
+stream long11 auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long11.jsonl.gz","a2":"auto","n":4800,"hash":"0898b5cbff379 | off "n":4800,"hash":"0898b5cbff379e530add" | IDENTICAL
+stream long23p squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long23p.jsonl.gz","a2":"squad","n":4800,"hash":"4cc0f6fe393 | off "n":4800,"hash":"4cc0f6fe393f33c0f756" | IDENTICAL
+stream long23p auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long23p.jsonl.gz","a2":"auto","n":4800,"hash":"4cc0f6fe393f | off "n":4800,"hash":"4cc0f6fe393f33c0f756" | IDENTICAL
+match 1 | snap "n":803,"hash":"4f38cc00cdd758e24f02"
+"score":4 | off "n":803,"hash":"4f38cc00cdd758e24f02"
+"score":4 | IDENTICAL
+match 2 | snap "n":867,"hash":"9139b362585734b0eb0a"
+"score":3 | off "n":867,"hash":"9139b362585734b0eb0a"
+"score":3 | IDENTICAL
+match 3 | snap "n":571,"hash":"46ecdba34edfb72b9278"
+"score":3 | off "n":571,"hash":"46ecdba34edfb72b9278"
+"score":3 | IDENTICAL
+match 4 | snap "n":735,"hash":"e49933d5ce5707757d92"
+"score":5 | off "n":735,"hash":"e49933d5ce5707757d92"
+"score":5 | IDENTICAL
+match 5 | snap "n":960,"hash":"92ed8a316020d909ae86"
+"score":4 | off "n":960,"hash":"92ed8a316020d909ae86"
+"score":4 | IDENTICAL
+match 6 | snap "n":597,"hash":"eb62f2c55bae812af782"
+"score":2 | off "n":597,"hash":"eb62f2c55bae812af782"
+"score":2 | IDENTICAL
+IDENTITY V1 off: 14/14 byte-identical

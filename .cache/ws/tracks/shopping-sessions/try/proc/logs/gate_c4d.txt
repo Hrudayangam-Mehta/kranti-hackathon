@@ -1,0 +1,12 @@
+fixtures NCPU=None: PASS 36/36 fixtures passed
+fixtures NCPU=1: PASS 36/36 fixtures passed
+fixtures NCPU=8: PASS 36/36 fixtures passed
+dev NCPU=4: MATCH user_daily: rows 117038 vs 117038; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 27400 vs 27400; only in A 0; only in B 0; duplicate keys 0 vs 0
+dev NCPU=8: MATCH user_daily: rows 117038 vs 117038; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 27400 vs 27400; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 26790 NCPU=7: MATCH user_daily: rows 37326 vs 37326; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 22204 vs 22204; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 476077 NCPU=6: MATCH user_daily: rows 37171 vs 37171; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 22410 vs 22410; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 624029 NCPU=6: MATCH user_daily: rows 36690 vs 36690; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 21925 vs 21925; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 600321 NCPU=2: MATCH user_daily: rows 37055 vs 37055; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 22278 vs 22278; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 363463 NCPU=8: MATCH user_daily: rows 37252 vs 37252; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 22029 vs 22029; only in A 0; only in B 0; duplicate keys 0 vs 0
+seed 980821 NCPU=6: MATCH user_daily: rows 37105 vs 37105; only in A 0; only in B 0; duplicate keys 0 vs 0 | campaign_daily: rows 21988 vs 21988; only in A 0; only in B 0; duplicate keys 0 vs 0
+GATE PASS

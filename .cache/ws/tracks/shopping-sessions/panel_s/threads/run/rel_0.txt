@@ -1,0 +1,112 @@
+trace m setup:reference 3.767
+trace m setup:map 4.981
+trace m setup:chunks 5.005
+lane F on: user key 0x2e3f48c523, person cap 1847094, 1.2 ms
+trace m setup:decoder 6.292
+setup         7.5 ms
+trace m setup:dirs 7.694
+links    split and merged in 3147.7 ms; lane F 873116 lines, general 21656 lines, odd persons 3630
+links      3185.2 ms on one thread
+thread 0 parse busy   8356.0 ms
+parse      8421.7 ms
+dedup      9923.7 ms
+surviving events 19563061, user_daily rows 2242393
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518
+people    11908.5 ms
+lane F winners 19371006, lane G share 0.98%
+event copies 21582714, winners 19563061, clicks 5082806, linked 21467, exotic 0
+write     11909.0 ms
+trace t0 links 8.328 3193.520 3185.192 1
+trace t0 events 3193.522 6019.212 2825.663 26
+trace t0 clicks 6209.683 8355.999 262.128 15
+trace t0 bar_parse 8412.620 8421.752 9.133 1
+trace t0 unmap 8437.926 8485.957 48.029 10
+trace t0 dedup 8485.958 9922.821 1436.720 550
+trace t0 bar_dedup 9922.990 9923.044 0.054 1
+trace t0 order 9923.044 9923.826 0.782 1
+trace t0 bar_order 9923.827 9945.628 21.801 1
+trace t0 people 9945.672 11631.707 1605.969 541
+trace t0 user_write 10828.443 11528.253 79.984 4
+trace t0 last_write 11631.707 11651.341 19.634 1
+trace t0 bar_end 11651.344 11906.427 255.083 1
+trace t1 events 10.345 6031.163 6020.736 68
+trace t1 clicks 6134.579 8387.013 259.386 17
+trace t1 bar_parse 8411.781 8417.851 6.069 1
+trace t1 unmap 8418.111 8461.367 43.253 32
+trace t1 dedup 8461.367 9921.935 1460.467 502
+trace t1 bar_dedup 9922.074 9923.035 0.961 1
+trace t1 bar_order 9923.036 9949.624 26.589 1
+trace t1 people 9949.659 11649.783 1535.311 608
+trace t1 user_write 10562.246 11624.452 164.718 5
+trace t1 last_write 11649.783 11650.047 0.264 1
+trace t1 bar_end 11650.047 11907.322 257.275 1
+trace t6 events 30.030 6089.169 6059.074 59
+trace t6 clicks 6207.277 8413.978 326.625 14
+trace t6 bar_parse 8415.520 8421.766 6.246 1
+trace t6 unmap 8446.038 8489.469 43.427 31
+trace t6 dedup 8489.469 9922.197 1432.613 538
+trace t6 bar_dedup 9922.339 9923.041 0.701 1
+trace t6 bar_order 9923.041 9929.618 6.577 1
+trace t6 people 9929.678 11862.517 1674.854 313
+trace t6 user_write 10755.595 11341.930 257.924 2
+trace t6 last_write 11862.518 11864.376 1.859 1
+trace t6 bar_end 11864.379 11907.683 43.305 1
+trace t5 events 26.051 6038.752 6012.602 58
+trace t5 clicks 6205.531 8379.919 218.540 14
+trace t5 bar_parse 8417.812 8421.670 3.858 1
+trace t5 unmap 8429.941 8478.145 48.201 23
+trace t5 dedup 8478.145 9922.407 1444.160 525
+trace t5 bar_dedup 9922.550 9923.039 0.489 1
+trace t5 bar_order 9923.039 9935.610 12.571 1
+trace t5 people 9935.682 11644.537 1609.776 585
+trace t5 user_write 10693.649 11459.667 98.967 4
+trace t5 last_write 11644.537 11651.329 6.791 1
+trace t5 bar_end 11651.331 11907.756 256.425 1
+trace t4 events 10.360 6019.840 6009.393 62
+trace t4 clicks 6173.914 8344.561 251.929 16
+trace t4 bar_parse 8392.075 8421.785 29.709 1
+trace t4 unmap 8458.171 8460.631 2.457 32
+trace t4 dedup 8460.631 9920.887 1458.862 530
+trace t4 bar_dedup 9921.042 9923.830 2.787 1
+trace t4 bar_order 9923.830 9961.611 37.781 1
+trace t4 people 9961.686 11634.107 1559.198 586
+trace t4 user_write 10583.324 11439.450 113.131 4
+trace t4 last_write 11634.108 11636.129 2.022 1
+trace t4 bar_end 11636.132 11907.819 271.687 1
+trace t7 events 34.062 6037.732 6003.602 61
+trace t7 clicks 6309.691 8372.024 262.144 15
+trace t7 bar_parse 8411.157 8421.744 10.587 1
+trace t7 unmap 8434.515 8473.703 39.186 21
+trace t7 dedup 8473.704 9921.235 1447.393 504
+trace t7 bar_dedup 9921.379 9923.037 1.658 1
+trace t7 bar_order 9923.038 9941.620 18.583 1
+trace t7 people 9941.653 11642.160 1572.197 551
+trace t7 user_write 10750.487 11521.898 128.226 4
+trace t7 last_write 11642.161 11644.163 2.003 1
+trace t7 bar_end 11644.165 11908.106 263.941 1
+trace t2 events 14.356 6140.260 6125.826 65
+trace t2 clicks 6258.596 8364.407 316.780 16
+trace t2 bar_parse 8364.486 8421.778 57.291 1
+trace t2 unmap 8450.376 8475.912 25.534 23
+trace t2 dedup 8475.913 9921.422 1445.409 534
+trace t2 bar_dedup 9921.663 9923.033 1.369 1
+trace t2 bar_order 9923.034 9957.627 34.593 1
+trace t2 people 9957.662 11646.263 1566.520 592
+trace t2 user_write 10621.628 11443.987 121.982 4
+trace t2 last_write 11646.263 11649.319 3.056 1
+trace t2 bar_end 11649.320 11908.184 258.864 1
+trace t3 events 18.029 6227.642 6209.543 58
+trace t3 clicks 6408.237 8398.847 204.321 14
+trace t3 bar_parse 8417.711 8421.630 3.919 1
+trace t3 unmap 8424.811 8467.461 42.648 10
+trace t3 dedup 8467.462 9921.964 1454.425 413
+trace t3 bar_dedup 9922.066 9923.042 0.976 1
+trace t3 bar_order 9923.043 9923.852 0.810 1
+trace t3 people 9923.929 11894.545 1681.125 328
+trace t3 user_write 10745.196 11324.211 289.406 2
+trace t3 campaign 11894.545 11903.035 8.490 1
+trace t3 last_write 11903.037 11906.090 3.053 1
+trace t3 bar_end 11906.092 11908.589 2.497 1
+trace m clock start 1795311401.124717 exit 1795311413.034193 at 11909.476
+epoch popen 1795311401.118217 reaped 1795311413.057177
+exit 0 stdout_bytes 0 wall 11.939 cum_user 5.78 cum_sys 1.55 maxrss_kb 2556452

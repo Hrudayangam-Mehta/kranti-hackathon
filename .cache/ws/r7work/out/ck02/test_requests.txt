@@ -1,0 +1,14 @@
+PASS  R1a crate shot by another mech: no ammunition spent, on the spot at the break (+-1 s), cube + laser ours; FFA shooter 25.5 m away walking to the cube -> ours  ::  SQUAD on: cube 1, laser true, crate shots 0, at the spot -0.1 s before the break, steals 1 | off: cube 1, laser true, crate shots 6, -1.6 s | FFA on: cube 1 (shooter 0), laser true, kept in its sight 14 | off: cube 0 (shooter 1), laser false
+PASS  R1b kill drops: first by path time -> cubes + laser are ours; survivor closer -> we stay away  ::  first: cubes 4, laser true, survivor got 0 cubes, death seen 1 | off: cubes 0, laser false | survivor 8 m away: our closest approach 40 m
+PASS  R1d pickup another mech walks to: ours when first; left alone when it gets there first  ::  first: laser true | it is 16 m away: they took it 1, our end x -16 m, closest to it 43 m | off: end x -8 m, closest 6 m
+PASS  R1e supply drop: free -> DROP; mech in the ring or racing there first -> no DROP  ::  free DROP | mech in the ring FIGHT | mech 80 m beyond the ring boosting at it FIGHT (off: FIGHT)
+PASS  R1 smart shooting: no crate shot while a mech is heard nearby; no drone started while regeneration is pending  ::  quiet: first crate shot at 0.1 s | steps heard until 6 s: 10.4 s (off: 0.1 s) | drone at 93% hp: first shot 6.0 s at hp 99.4% (off: 0.2 s at 93.0%)
+PASS  R2 idle sweep (30 s, late game): no open approach blind for more than 3 s  ::  open ground: max blind 2.50 s | real map near the centre: 1.60 s
+PASS  R2 late game idle: a silent mech 120 m behind (sound in front) is seen within 3 s  ::  on: 0.6 / 0.9 / 0.3 / 0.7 / 0.5 / 1.0 s | off: 99.0 / 3.8 / 99.0 / 99.0 / 99.0 / 0.6 s (99 = not within 10 s)
+PASS  R2 engaged: a 30 dps rear attacker (45 with the rear multiplier, under the 60 dps veto) is faced within 1.5 s  ::  on: faced after 0.40 s, rear hits 5, damage taken 563 | off: never, rear hits 5, damage taken 563
+PASS  R3 low wall: target with only the top over cover at 100-170 m -> laser hits  ::  at 113 m: on: beams 6/6 hit, gun 29/36 | off: beams 1/4 hit, gun 16/24
+PASS  R3 calibration: a hidden 0.02 rad yaw / 0.012 rad pitch beam error is learnt within 3 beams  ::  on: beams 4-15 10/10 hit (1-3: 2/3), learnt yaw 0.0182 pitch 0.0109 latency -0.044 s | off: 0/10 | no bias: 10/10, learnt yaw 0.0000 | own beams absent: 0/10, learnt yaw 0.0000
+PASS  fuzz: 3000 x 2 rich perturbed observations (crates hit by others, own beams, rear hits, deaths, late zones, FFA) never throw, valid actions  ::  threw 0, invalid 0, slowest 12.36 ms, internal stage errors caught 0
+PASS  decision time: stream replay with the map (warm pass) and all request scenarios: mean <= 4, p99 <= 15, max <= 25 ms  ::  stream on: mean 0.06 p99 0.64 max 1.87 | off: mean 0.09 p99 3.18 max 4.11 | scenarios: 4892 decisions, mean 0.05 p99 0.47 max 10.50 ms
+
+12/12 checks passed

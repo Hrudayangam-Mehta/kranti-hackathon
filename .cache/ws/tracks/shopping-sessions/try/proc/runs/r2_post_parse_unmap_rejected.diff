@@ -1,0 +1,70 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 15dd60b..3efea5d 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -8,7 +8,7 @@ pub mod write;
+ 
+ use std::fs;
+ use std::path::{Path, PathBuf};
+-use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
++use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+ use std::sync::{Barrier, Mutex, OnceLock};
+ use std::time::Instant;
+ 
+@@ -322,7 +322,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         .map(|f| if f < event_files.len() { target } else { click_target })
+         .collect();
+     let parts: Vec<u32> = mapped.iter().zip(&targets).map(|(f, &t)| part_count(f, t)).collect();
+-    let remaining: Vec<AtomicU32> = parts.iter().map(|&n| AtomicU32::new(n)).collect();
+     let mut units = vec![Unit::Links];
+     for (f, &n) in parts.iter().enumerate() {
+         for k in 0..n {
+@@ -400,7 +399,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             let campaign_channels = &campaign_channels;
+             let failure = &failure;
+             let categories = &categories;
+-            let remaining = &remaining;
+             let mapped = &mapped;
+             let parts = &parts;
+             let targets = &targets;
+@@ -425,18 +423,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                             let built = build_people(ctx.link_files);
+                             let _ = people.set(built);
+                             links_done.store(true, Ordering::Release);
+-                            for file in ctx.link_files {
+-                                unmap(file);
+-                            }
+                             crate::clock::say(&format!("links    {:>8.1} ms on one thread\n", t0.elapsed().as_secs_f64() * 1e3));
+                         }
+                         Unit::Events(file, k) => {
+                             let bytes = mapped[file as usize];
+                             let chunk = part_bytes(bytes, k as usize, parts[file as usize] as usize, targets[file as usize]);
+                             copies += parse_events(ctx, chunk, &mut scratch, &mut arena, &mut p1);
+-                            if remaining[file as usize].fetch_sub(1, Ordering::AcqRel) == 1 {
+-                                unmap(mapped[file as usize]);
+-                            }
+                         }
+                         Unit::Clicks(file, k) => {
+                             while !links_done.load(Ordering::Acquire) {
+@@ -446,9 +438,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                             let bytes = mapped[file as usize];
+                             let chunk = part_bytes(bytes, k as usize, parts[file as usize] as usize, targets[file as usize]);
+                             click_count += parse_clicks(ctx, people, chunk, &mut scratch, &mut arena, &mut clicks);
+-                            if remaining[file as usize].fetch_sub(1, Ordering::AcqRel) == 1 {
+-                                unmap(mapped[file as usize]);
+-                            }
+                         }
+                     }
+                 }
+@@ -464,6 +453,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 if barrier.wait().is_leader() {
+                     lap("parse");
+                 }
++                for (i, file) in mapped.iter().chain(ctx.link_files.iter()).enumerate() {
++                    if i % threads == id {
++                        unmap(file);
++                    }
++                }
+ 
+                 let people = people.get().unwrap();
+                 let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();

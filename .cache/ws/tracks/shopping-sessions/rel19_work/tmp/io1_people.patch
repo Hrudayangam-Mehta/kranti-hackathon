@@ -1,0 +1,12 @@
+diff -ru '--exclude=target' /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel16/src/fast/people.rs io1/src/fast/people.rs
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel16/src/fast/people.rs	2026-11-22 01:14:57.196616298 +0000
++++ io1/src/fast/people.rs	2026-11-22 01:39:02.194612344 +0000
+@@ -34,7 +34,7 @@
+ 
+     pub fn build(pairs: &[(u64, u64)]) -> People {
+         let size = (pairs.len() * 3).next_power_of_two().max(64);
+-        let memory = super::sink::map_anonymous(size * 16);
++        let memory = super::sink::region(size * 16);
+         let mut people = People {
+             shift: 64 - size.trailing_zeros(),
+             mask: size - 1,

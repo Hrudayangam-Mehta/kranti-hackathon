@@ -1,0 +1,26 @@
+# belief replay validation: lam=0.5 per 0.25 s sub-step (8 m cells), sounds=0, negative evidence=1
+update cost: 4.750 ms per 0.5 s update (mean 2.4 live layers, 165 visible cells, 891 rays); belief collapses 0
+
+calibration of seen-before layers, by time since the track was lost (truth from the replay):
+| age s | n | truth in 50% region | in 90% region | mass within 12 m of truth (mean) | area of 90% region ha (p50) | error of mode m (p50) | error of last known position m (p50) | truth inside belief wedge | inside wedge on last known bearing |
+|---|---|---|---|---|---|---|---|---|---|
+| 2 | 77 | 52% | 87% | 0.34 | 0.18 | 14 | 15 | 99% | 100% |
+| 5 | 63 | 38% | 68% | 0.15 | 0.35 | 27 | 24 | 97% | 98% |
+| 10 | 49 | 43% | 63% | 0.08 | 0.63 | 34 | 27 | 96% | 100% |
+| 20 | 36 | 36% | 58% | 0.04 | 1.10 | 55 | 53 | 100% | 97% |
+| 40 | 19 | 21% | 53% | 0.02 | 1.73 | 81 | 64 | 95% | 89% |
+
+"is this area empty": expected number of untracked mechs within 80 m (belief) vs actual (replay), all observer steps
+  predicted 0-0.02: n=1045  mean predicted 0.006  actual mean 0.033  actual P(at least one) 3.3%
+  predicted 0.02-0.1: n=1268  mean predicted 0.052  actual mean 0.066  actual P(at least one) 6.4%
+  predicted 0.1-0.3: n=1001  mean predicted 0.182  actual mean 0.127  actual P(at least one) 12.7%
+  predicted 0.3-0.7: n=413  mean predicted 0.457  actual mean 0.366  actual P(at least one) 32.2%
+  predicted 0.7-99: n=215  mean predicted 0.961  actual mean 0.874  actual P(at least one) 72.1%
+  base rate: an untracked mech within 80 m in 13.5% of steps
+
+first hits scored 0.5-1.0 s before impact: 64
+  attacker sight: n=23  median range 80 m | house torso had it within 60 deg 21/23, within 90 deg 22/23 | belief danger wedge covers it 8/23 (victim not busy with another tracked mech: 5/17) | wedge on the last heard sound - | its own layer's wedge -
+  attacker memory: n=9  median range 67 m | house torso had it within 60 deg 7/9, within 90 deg 8/9 | belief danger wedge covers it 4/9 (victim not busy with another tracked mech: 3/7) | wedge on the last heard sound - | its own layer's wedge -
+  attacker lost: n=16  median range 76 m | house torso had it within 60 deg 3/16, within 90 deg 8/16 | belief danger wedge covers it 12/16 (victim not busy with another tracked mech: 3/4) | wedge on the last heard sound - | its own layer's wedge 16/16
+  attacker never: n=16  median range 123 m | house torso had it within 60 deg 3/16, within 90 deg 7/16 | belief danger wedge covers it 7/16 (victim not busy with another tracked mech: 1/3) | wedge on the last heard sound - | its own layer's wedge -
+  untracked attackers together: house torso within 60 deg 6/32; belief wedge 19/32; random wedge would cover 33%

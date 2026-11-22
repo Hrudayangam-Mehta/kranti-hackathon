@@ -1,0 +1,12 @@
+PASS  LG presets: std off; wide 130 m / 50% / 1 line / yield 1 s / 200 m / 90 s; wide45 45 s  ::  std false, wide 130 / 0.5 / 1 / 200 / 90, wide45 45
+PASS  LG 1v1 at 110 m, laser 90 m: wide grabs in the first decision (leg grab), std does not  ::  wide pickup:8001 / grab, std - / standoff
+PASS  LG two lines on us: no grab  ::  wide -, leg standoff
+PASS  LG yield: a new attacker (drone) hit us within 1 s -> no wide grab  ::  wide -, target 10
+PASS  LG hp 40%: no wide grab  ::  wide -
+FAIL  LG laser-first window: closing non-hostile mech at 170 m is a candidate under std, not under wide  ::  std target 12, wide target 12 (lgKnown true, held 2)
+PASS  LG laser-first window: a hostile mech is still answered  ::  target 12
+PASS  LG after lgUntilT (90 s; wide45 45 s): the engaged clause is back  ::  wide at 95 s 12, wide45 at 50 s 12
+PASS  LG laser held: identical to std  ::  wide - t10, std - t10
+PASS  T-F2 laserGrab wide: forced FFA identical to std (grab case and engaged case)  ::  grab -/-, target -1/-1
+
+9/10 LG checks passed

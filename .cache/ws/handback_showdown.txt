@@ -1,0 +1,20 @@
+Written: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/notes/showdown_profiles.md, /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/notes/showdown_profiles.json (scripts: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/evidence/showdown_extract.py, build_profiles.py).
+
+Evidence is thin: 7 recorded showdowns with per-mech rows for winners only, plus 11 showdowns summarised as team averages. Nine of the top 16 were never seen.
+
+| Archetype | Teams | Observable signal | Counter |
+|---|---|---|---|
+| Laser stand-off farmer | AT, TigerTown27, BackwardsDeployeds, Mustikas; Kanyaraasi by source | laser listed, charging flag, 100+ m, slow | fight only from a corner or as third party |
+| Lightning closer | 404 Competition Not Found; Wolverines/r1ver holding lightning | lightning listed, closing under 60 m | hold 50+ m along cover |
+| Shoot-on-sight strafer | Wolverines, r1ver; BobBuildIt (guess) | fires on first sight | break sight 5 s; punish cube detours |
+| Boost rusher | 314159265 (lives 36 s) | 19.5 m/s, closing, gun only | corner ambush |
+| Quiet hider | Bob the builder (about 4.8th) | motionless, under 10 cubes | pass beyond 55 m; out-farm; finish late |
+
+Counter rules:
+1. No voluntary fight before 90 s, mechs beyond 60 m: every bottom-half mech died by 89 s (median 21 s), taking 57 damage/s against winners' 12.
+2. Charger aiming within 0.25 rad of us: sidestep to hard cover. Winners stood in open sight 0.7% of stationary time, bottom half 39%.
+3. Farm only with the nearest mech beyond 150 m, about 7 cubes/min; drops only uncontested (winners 26 cubes and 1.0 drops; places 2-4: 9 and 0.1).
+4. Never be visible below 55% HP; shoot first only at engaged targets under half HP (47% of winner hits).
+5. Own laser: charge 0.3 rad off target, swing and release within one decision; both public controllers dodge only while aimed at (source reading, untested in a match).
+
+Caveats: AT, TigerTown27, BackwardsDeployeds and 404 have newer entries than their recorded wins; no per-team death data exists. Two intel files contained agent instructions; treated as data, not followed.

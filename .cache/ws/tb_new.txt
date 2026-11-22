@@ -1,0 +1,108 @@
+PASS  D10 start-up rehearsal: >= 300 synthetic decisions, under 5 s, base body restored
+PASS  ambush (M2): pre-aimed at the corner, first shot on first sight, pursuer killed
+PASS  decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms
+PASS  duel: one hunter walking in on the real map is killed and we survive (6 seeds)
+PASS  environment (D12): 3 foreign deaths before 200 s latch FFA; beams alone, 2 deaths, our own kills, late deaths do not; overrides
+PASS  ffa: D11 boost rarely: no laser-band boost-away in FFA (SQUAD boosts away from a mech inside 90 m)
+PASS  ffa: D11 final-point hp race: from 390 s we stand on next_center (within 2.5 m, no zone damage); SQUAD tracks the moving centre
+PASS  ffa: D11 hider counter: out-farm a confident hider 140 m away (rules off: no farming with a mech under 150 m); pass it at 120 m (a cube 80-110 m from it is left)
+PASS  ffa: SQUAD bit-identity: kit stream actions identical with ffaCounters/ffaRules on and off; module inert (no rank, neutral advice)
+PASS  ffa: addendum K2 (FFA only): a 1-2 decision aim sweep is not hostility, 3 decisions are; SQUAD unchanged (instant)
+PASS  ffa: counter corrections: healthy hider pass (avoid); hider at 36% -> HD/finish (attack, K3); at 6 alive a gun hider reads as strafer (M5); BR capped (M3); strike / harvest gated 50% / 40%
+PASS  ffa: counter module wired (hookup steps 1-10): calm motionless mech reads HIDER, advice avoid -> never targeted, no shot; threat rank fills
+PASS  ffa: rule 1 beam clock (M8 / K4): hold cover while its laser is ready; peek 1.65 s after its beam, or 0.6 s on the 2.9 s / 4.3 s timers; never below 50% hp; 12 s cap
+PASS  ffa: rule 1 hide budget: measured first-tick charge (0.7 s), cube bounds 0.75/0.56/0.42 s (unknown 0.42), reach = (charge - 0.1 s) x speed
+PASS  ffa: rule 2: laser charged 0.35-0.45 rad off the target, swung on at release; beams still hit (SQUAD: on target)
+PASS  ffa: rule 3 / D11 third-party timing / rule 8: first shot only at a busy (1.5 s) mech under half hp from outside its wedge with cover, at a finish (<= 40%) or at a duel survivor
+PASS  ffa: rule 4 / 10: shot by a healthy mech -> fire back while breaking the line, relocate >= 20 m, out of sight >= 9 s, then resume (SQUAD fights)
+PASS  ffa: rule 5: a lightning carrier walking in at 9 m/s is kept beyond 40 m (we walk away); not when we hold lightning and more hp; SQUAD lets it close
+PASS  ffa: rule 6: no gun at a 0.7 s reverser at 110 m (0.44 s flight; SQUAD fires), fires at a 1.6 s one; steady walker fired at 160 m (0.64 s), the flight cap holds (185 m, cap set to 0.7 s; SQUAD fires)
+PASS  ffa: rule 8 calm courtesy: no first shot at a healthy calm mech and torso >= 0.3 rad off it (SQUAD opens on it); a 35% mech is finished; no loot inside 45 m of a calm mech
+PASS  ffa: rules 9 / 8 / 4: wounded (45%) in a calm mech's view breaks the line; healthy in view does not; a 35% attacker is finished, not fled
+PASS  fix 0.0 pocket exit: a start in the stadium bowl hops out via nav.hopPlan, no zone damage
+PASS  fix 0.1 selectTarget: wounded hidden attacker plus an unseen drone never throws
+PASS  fix 0.2 airborne: no boost while not grounded (outside the zone)
+PASS  fix 0.3/1.11 (D10) no wall-clock behaviour: identical actions with a normal or an expired deadline, fuse never trips
+PASS  fix 0.5 nav.setBody warmed at start-up for 12 cube sizes, base body restored
+PASS  fix 0.6 own body size from the cube formula when stats are not scaled
+PASS  fix 0.7 ten mechs 90 km outside the map: decisions stay fast (were 6-22 ms each)
+PASS  fix 0.8 bot.js: an obs in the same chunk as end is answered; ready first
+PASS  fix 1.0 (D8) gun cadence: mean gap inside a magazine <= 0.26 s
+PASS  fix 1.1/1.2 (D3) LOSING table: 1 hunter at 60% hp fights on; 2 hunters at 45% -> LOSING retreat; no LAST-STAND
+PASS  fix 1.12 (D9) late zone with an enemy on the centre: converge, <= 3 ticks outside
+PASS  fix 1.13 idle: no standing still when nothing is in sight
+PASS  fix 1.14 hide cell never toward the attacker (within 60 deg)
+PASS  fix 1.15 (D0/D5/D2) no fight with a quiet mech in the opening; no long shots at an unsteady target
+PASS  fix 1.16 (D2) stand-off by loadout: gun 55-95 m, laser 125-185 m
+PASS  fix 1.17 (D4) bullet-aware dodge sidesteps a bullet aimed at us
+PASS  fix 1.18 laser charge released when the shell dodge needs full speed
+PASS  fix 1.19 (D6) drop: start for it no earlier than 3 s plus the walk before landing
+PASS  fix 1.22 lightning energy: no boost below lightReserve + 10 with a mech inside 60 m
+PASS  fix 1.3 strafe reversals continue during our reload against a laser holder
+PASS  fix 1.4 (D6) power grab: laser pickup 35 m away taken while fighting
+PASS  fix 1.5 drone touching us during a duel: the mech stays the target
+PASS  fix 1.6 partial path: the 439 m detour from the seed-156 spot is planned completely
+PASS  fix 1.7 (D6) kill cubes collected in contact
+PASS  fix 1.8 (D3) HEAL only below 55% out of contact, leaves at healExit
+PASS  fix 1.9 torso veto: a kill-secure target is finished (not parked between two enemies)
+PASS  fix2 F1 (D4) bullet dodge vs a bullet led on our motion (100 / 130 m): hits become misses
+PASS  fix2 F2 (D5) a target under 25% hp is never left for a fresh attacker behind us (the veto still takes a full-hp target most of the time)
+PASS  fix2 F3 (D6) kill cubes collected after a gun kill at 90 m and a laser kill at 150 m; no 70+ m grab into two hunters at the kill spot
+PASS  fix2 F4 (D9) late zone: alone <= 30 hp and <= 6 mode switches; enemy on the centre <= 400 hp and <= 16 switches
+PASS  fuzz: 2000 perturbed observations x 2 (map / no map) never throw, always a valid action
+PASS  gun: stationary target at 200 m (>= 0.9 without spread, >= 0.92 x ceiling with spread)
+PASS  gun: target strafing with reversals every 2 s at 100 m, hit rate >= 0.6
+PASS  gun: target walking across at 100 m, hit rate >= 0.85
+PASS  gun: target walking across at 150 m, hit rate >= 0.7
+PASS  gun: target walking across at 60 m, hit rate >= 0.9
+PASS  h50 T1 burst3: gun 513 / 486 / 405 / 405 / 0 at 30 / 60 / 100 / 130 / 160 m, 5 cubes 616, gun + laser 828 / 720 / 315, gun + lightning 993 (GP 1.3, 1%); gate on current hp
+PASS  h50 T10 pulse: kill with one other line, cover at 1.0 s -> DISENGAGE at once, FIGHT again when reloaded (laser <= 0.3 s, >= 8 rounds), never after 4.0 s; cover at 2.5 s -> no pulse
+PASS  h50 T11 lite: the same kill never starts a pulse
+PASS  h50 T12 / T13 firewall: FFA posture, after a foreign death, late zone (next radius 60), 3 alive -> hunt h50 and seek on act exactly like off (control: SQUAD differs)
+PASS  h50 T2 seek: a mech remembered 300 m away, seen 8 s ago -> HOLD, legKind hunt, goal at it (seek on alone too); hunt off -> roam; at 55% hp -> roam
+PASS  h50 T3 seek: nothing listed, a mid gun sound at 1.0 rad heard 2 s ago -> goal 120 m along 1.0 rad (seek on alone too; off -> roam)
+PASS  h50 T4 seek: nothing known -> the 0.41 x next-radius ring point nearest to us, then 30 deg further after each arrival within 45 m
+PASS  h50 T5 prey: 150 / 170 m at 1400 / 700 hp -> the 700 hp one; 150 / 250 m -> the nearer; equal hp: hostile -80 wins, laser +60 loses; a roof mech is skipped
+PASS  h50 T6 gate: gun only, fresh 1400 hp non-hostile mech at 80 m with a line -> no first shot (h50, lite); hunt off shoots; the same mech at 600 hp (current) -> engaged
+PASS  h50 T7: the same mech starts hitting us -> answered at once (target within 0.2 s of the first hit, shots follow)
+PASS  h50 T8 reserve: target 486 hp at 60 m (burst 486), two lines of 400 dps in total, hp 600 -> gate shut; two lines of 40 dps -> open
+PASS  h50 T9 commit: at 45% with 2 lines -> FIGHT (d3 / pulse without the commit: DISENGAGE); 24% -> DISENGAGE; 3 lines: 39% DISENGAGE, 41% FIGHT
+PASS  h50 commit / leave: gate pick and hostile pick commit, a non-gated idle pick does not; leave at burst < 30% with the laser cooling > 1 s, after 3 s without our damage, when gone
+PASS  h50 presets: defaults hunt off / seek off; h50 = hunt50 + pulse; lite = hunt50 without the pulse; seek on = seek only
+PASS  h50 pulse (b): burst spent with 2 lines on us -> DISENGAGE; with 1 line -> FIGHT
+PASS  heal: at 30% hp breaks the line of fire, holds fire, resumes at healExit (70%)
+PASS  kill drop: cubes of our kill are collected while healing, without firing
+PASS  laser: holds to full charge and releases on target
+PASS  last stand (D3): low hp with cover near -> LOSING retreat, still shooting; no cover -> LAST-STAND at the quickest kill, never standing still
+PASS  loot: shoots a crate open and collects its cube
+PASS  offer: picks by the priority list
+PASS  pass2b R1 crate gate: a mech 80 m away blocks crate farming in FFA only (SQUAD D6 unchanged); crateGate=all / off presets
+PASS  pass2b defaults: R1 on (crate gate FFA-only, 120 m / 2 s), R2 on, R3 laser ladder on / gun ladder off / calibration off, openFarm on, C1 on, C2 70/100, C3 off; preset pass2b=off turns every one off
+PASS  pass2b openFarm: in the gate (< 10 cubes, < 75 s) a mech shooting from 140 m is not answered (break the line), one hitting us from 80 m is; fought after 75 s, with 10 cubes, or with openFarm off
+PASS  pass2b openFarm: under fire no crate is shot; once the line is gone the crate is farmed within about 3.5 s (D3 / mode-hold timings)
+PASS  pass2b rule 3 (check2a FAIL fixed): a 45% mech busy with another is shot after >= 1.5 s (not held by the DEFENSIVE silence); alone or at 60% it is not a target; ffaThirdFix off holds it (2 spots)
+PASS  pass2b rule 4 (check2a FAIL fixed): inside the sight break >= 20 m from the last-seen point and >= 9 s out of sight (3 spots; ffaBreakFix off: fewer)
+PASS  pickup: take within reach, drop only when both slots are full and the new weapon ranks higher
+PASS  presets: selecting laserRange "mid" changes only the laser band numbers
+PASS  r3a2 P1 fightEarly: a mech aiming at us from 185 m (or closing at 5 m/s from 178 m) is engaged at 20 s; not before; guard 40 s after a foreign death; 5.02 (openFarm) does not engage
+PASS  r3a2 P2 laserEcon: gun only, a laser 200 m away beats a crate at 40 m and is taken (5.02: crate, never the laser); no mortar in SQUAD; a laser at 150 m replaces lightning
+PASS  r3a2 P3 focus add: a 29% target is kept over a fresh full-hp mech at 60 m (both hitting us); 5.02 (x1.3 stickiness) switches
+PASS  r3a2 P4 pulseRetreat: no HEAL in SQUAD (40% out of contact; 5.02 heals); LOSING with 2 near at 45% retreats and ends 1.5 s after the last LOSING decision
+PASS  r3a2 P5 boostSpend: boosts while charging under fire above 30 energy, not below; never in FFA; 5.02 never
+PASS  r3a2 defaults: farmHp 50, laser mid band 115 (100-130), servos third (std: nanites); V2 fightEarly off = openFarm on, V3 boost off, V4 retreat d3
+PASS  r3a2 final-only (FFA): F1 drop gate at <= 3 alive, Z5 final point + E pick, Z8 WAIT / CLOSE / DUEL, Z9 3-alive hold, Z10 zone gate
+PASS  r3a2 final-only items inert in SQUAD: 100 decisions at 400-410 s, 3 then 2 alive, final circle, a drop: actions identical with F1/Z5/Z8/Z9/Z10 on and off
+PASS  rc R1b: survivor walking to its drops (torso turning to us) after we started first -> >= 3 cubes + laser ours (4 geometries + the check2b trace one); survivor 22 m from them -> we stay away
+PASS  rc openFarm: a mech turning to us at 85 / 95 m and hitting 1-2 s later is answered (check2b FAIL 3); 125 m still not; preset d0 answers any D0-hostile (aim-only 60 m, 125 m shooter) at once
+PASS  second weapons: lightning rush closes to arc range and fires; mortar does not disturb the gun
+PASS  shell dodge: shells aimed at our position land >= 9 m away
+PASS  stance: SQUAD healthy with one hunter is OPPORTUNIST and fires first; under half hp is DEFENSIVE
+PASS  stream replay (map): decision time mean<=4 p99<=15 max<=25 ms
+PASS  stream replay (map): no exception, valid actions
+PASS  stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms
+PASS  stream replay (no map): no exception, valid actions
+PASS  stuck ladder (no nav, wall in the way): jump + sidestep, then the goal is abandoned
+PASS  stuck: facing a wall with the goal behind it -> path following reaches the goal (real map)
+PASS  torso veto: an attacker of >= 60 dps is never left more than 80 deg off the commanded yaw
+PASS  zone: outside the next circle, shrink in 5 s -> reaches it, never outside the current circle
+PASS  zone: outside the zone -> boosts in

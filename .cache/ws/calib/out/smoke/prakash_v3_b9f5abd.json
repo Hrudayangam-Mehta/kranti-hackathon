@@ -1,0 +1,117 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh prakash_v3_b9f5abd",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/prakash_v3_b9f5abd.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 2,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 2,
+  "meanTimeAlive": 89.4,
+  "meanDmgDealt": 5209,
+  "meanDmgTaken": 1827,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "lightning/hunt": 1
+  },
+  "meanWallMs": 2072,
+  "wallS": 2.8
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "osu-mech",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 82,
+   "alive": false,
+   "dmgDealt": 5311,
+   "dmgTaken": 1519,
+   "cause": "gun",
+   "killedBy": 3,
+   "killRange": 76.1,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 82,
+   "wallMs": 1931,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 15,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "osu-mech",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 96.75,
+   "alive": false,
+   "dmgDealt": 5106,
+   "dmgTaken": 2134,
+   "cause": "lightning",
+   "killedBy": 1,
+   "killRange": 34.2,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "gun_rate",
+    "armor"
+   ],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 96.75,
+   "wallMs": 2212,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 37,
+   "meanMs": 0
+  }
+ ]
+}

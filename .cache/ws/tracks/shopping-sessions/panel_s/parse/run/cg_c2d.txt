@@ -1,0 +1,10 @@
+==22267== I refs:        1,315,514,380
+==22267== Mispredicts:       4,227,603  (  4,226,838 cond +     765 ind)
+> 634,740,352 (48.3%, 48.3%) 1,203,820 (28.5%, 28.5%)  sessions::fast::parse_events_avx2:
+> 316,867,384 (24.1%, 72.3%) 1,785,130 (42.2%, 70.7%)  sessions::fast::run::{closure#14}::{closure#0}:
+> 119,539,632  (9.1%, 81.4%)   366,861  (8.7%, 79.4%)  sessions::fast::parse_clicks_avx2:
+>  66,664,110  (5.1%, 86.5%)   384,775  (9.1%, 88.5%)  sessions::fast::dedup::{closure#0}:
+>  48,677,976  (3.7%, 90.2%)    17,828  (0.4%, 88.9%)  __memcpy_avx_unaligned_erms:./string/../sysdeps/x86_64/multiarch/
+>  34,735,740  (2.6%, 92.8%)     1,572  (0.0%, 89.0%)  __memset_avx2_unaligned_erms:./string/../sysdeps/x86_64/multiarch
+>  13,294,338  (1.0%, 93.8%)     5,038  (0.1%, 89.1%)  sessions::fast::keys::bytes_of:
+>  12,774,568  (1.0%, 94.8%)    12,251  (0.3%, 89.4%)  <sessions::fast::ident::Decoder>::packed_of:

@@ -1,0 +1,55 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.27
+   Compiling libm v0.2.16
+   Compiling quote v1.0.47
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling crossbeam-utils v0.8.23
+   Compiling syn v2.0.119
+   Compiling zerocopy v0.8.63
+   Compiling crossbeam-epoch v0.9.21
+   Compiling libc v0.2.191
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.3.4
+   Compiling crossbeam-deque v0.8.8
+   Compiling version_check v0.9.5
+   Compiling ahash v0.8.12
+   Compiling rayon-core v1.13.0
+   Compiling num-integer v0.1.47
+   Compiling once_cell v1.21.4
+   Compiling iana-time-zone v0.1.65
+   Compiling chrono v0.4.45
+   Compiling zerocopy-derive v0.8.63
+   Compiling num-bigint v0.5.1
+   Compiling hashbrown v0.17.1
+   Compiling half v2.7.1
+   Compiling seq-macro v0.3.6
+   Compiling bytes v1.12.1
+   Compiling either v1.19.0
+   Compiling twox-hash v2.1.5
+   Compiling rayon v1.12.0
+   Compiling parquet v60.1.0
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/tree_wb)
+    Finished `release` profile [optimized] target(s) in 1m 10s
+     Running unittests src/main.rs (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/target_wb/x86_64-unknown-linux-gnu/release/deps/sessions-e8537b958aef71fc)
+
+running 2 tests
+test fast::verify_keys::people_names_across_classes ... ok
+domain Domain { prefix: 0, plen: 0 }: 10543 samples, 2981 short, 276 long, 7286 odd: ok
+domain Domain { prefix: 117, plen: 1 }: 14054 samples, 2036 short, 276 long, 11742 odd: ok
+domain Domain { prefix: 48, plen: 1 }: 17443 samples, 2135 short, 374 long, 14934 odd: ok
+test fast::verify_keys::production_keys_match_byte_order has been running for over 60 seconds
+domain Domain { prefix: 97, plen: 1 }: 17563 samples, 2030 short, 365 long, 15168 odd: ok
+domain Domain { prefix: 102, plen: 1 }: 17479 samples, 2046 short, 363 long, 15070 odd: ok
+domain Domain { prefix: 122, plen: 1 }: 17493 samples, 2012 short, 276 long, 15205 odd: ok
+domain Domain { prefix: 85, plen: 1 }: 17565 samples, 1048 short, 276 long, 16241 odd: ok
+domain Domain { prefix: 34, plen: 1 }: 17573 samples, 1048 short, 276 long, 16249 odd: ok
+domain Domain { prefix: 32, plen: 1 }: 17571 samples, 1051 short, 276 long, 16244 odd: ok
+domain Domain { prefix: 255, plen: 1 }: 17571 samples, 1048 short, 276 long, 16247 odd: ok
+domain Domain { prefix: 13, plen: 1 }: 17571 samples, 1048 short, 276 long, 16247 odd: ok
+domain Domain { prefix: 95, plen: 1 }: 17573 samples, 1050 short, 276 long, 16247 odd: ok
+test fast::verify_keys::production_keys_match_byte_order ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 281.35s
+
+WB_RC=0

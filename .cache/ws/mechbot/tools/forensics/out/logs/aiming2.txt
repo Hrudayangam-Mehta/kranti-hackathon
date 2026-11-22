@@ -1,0 +1,51 @@
+## residual of bullet direction vs first-order-intercept model for different reference ticks / velocity estimates (deg)
+| hypothesis | n | yaw mean | yaw sd | pitch mean | pitch sd |
+|---|---|---|---|---|---|
+| obs tick E=tf-1, backward vel | 805 | 0.04 | 0.73 | -0.54 | 2.05 |
+| E, central vel | 805 | 0.04 | 0.76 | -0.53 | 1.84 |
+| E, forward vel | 805 | 0.05 | 0.99 | -0.52 | 1.74 |
+| stale obs E-2, backward vel | 805 | 0.06 | 1.35 | -0.63 | 2.18 |
+| fire tick tf (E+1), backward vel | 805 | 0.03 | 0.84 | -0.53 | 2.15 |
+| E, no lead (direct) | 805 | 0.15 | 2.76 | -0.62 | 2.08 |
+
+## same (E, backward vel) restricted to targets with nearly constant velocity around the shot (|v_fwd - v_back| < 1 m/s), per type
+| type | n | yaw mean | yaw sd | pitch mean | pitch sd |
+|---|---|---|---|---|---|
+| ALL | 111 | 0.05 | 0.89 | -0.24 | 1.12 |
+| expert | 24 | 0.26 | 0.56 | 0.23 | 0.73 |
+| hard | 18 | 0.14 | 0.50 | -0.73 | 1.57 |
+| medium | 7 | 0.49 | 2.03 | -0.30 | 0.65 |
+| brawler | 21 | -0.07 | 0.55 | -0.46 | 1.49 |
+| sniper | 28 | 0.04 | 0.69 | -0.06 | 0.53 |
+| thirdparty | 3 | -1.82 | 2.64 | -2.10 | 1.04 |
+| farmer | 10 | -0.02 | 0.68 | 0.10 | 0.59 |
+  |yaw resid| percentiles: p50 0.39 p90 1.05 p99 4.53 ; for a Gaussian with sd 0.6: p50 0.40 p90 0.99 p99 1.55
+
+## airborne vs grounded targets (unblocked)
+| range | target grounded at fire | target airborne at fire |
+|---|---|---|
+| 0-40 | 35/35 = 100% | 24/24 = 100% |
+| 40-80 | 125/178 = 70% | 134/144 = 93% |
+| 80-130 | 38/164 = 23% | 45/97 = 46% |
+| 130-231 | 27/127 = 21% | 5/24 = 21% |
+vertical lead for airborne targets with |vz|>3: n 245 slope pitch_used vs pitch_needed(first order, no gravity) = 0.54 ; sd(used-needed) 2.92 deg ; sd(used) 3.18 deg
+   bullet height above target feet at closest approach: p10 -2.2 p50 3.5 p90 5.1 (body spans 0..9)
+
+## where do missed bullets go? (signed lateral error wrt true intercept, m at target; + = ahead of the motion)
+| range | n | mean | p10 | p50 | p90 | % ahead by >2.8 m | % behind by >2.8 m |
+|---|---|---|---|---|---|---|---|
+| 40-80 | 273 | 1.00 | -1.32 | 1.13 | 3.47 | 18.32 | 1.47 |
+| 80-130 | 216 | 2.10 | -2.70 | 2.91 | 5.42 | 51.85 | 9.72 |
+| 130-231 | 134 | 2.45 | -3.85 | 3.29 | 8.42 | 52.24 | 15.67 |
+
+## shooter state when firing at mechs
+| type | shots | % fired while airborne | median own speed | % standing still (<1 m/s) | % boosting (>10 m/s) |
+|---|---|---|---|---|---|
+| ALL | 851 | 34.55 | 7.90 | 3.76 | 15.39 |
+| expert | 125 | 48.00 | 8.82 | 0.00 | 27.20 |
+| hard | 182 | 27.47 | 7.03 | 3.30 | 13.74 |
+| medium | 77 | 35.06 | 8.46 | 0.00 | 6.49 |
+| brawler | 168 | 19.64 | 8.92 | 0.60 | 15.48 |
+| sniper | 114 | 28.95 | 5.81 | 19.30 | 13.16 |
+| thirdparty | 57 | 64.91 | 7.52 | 5.26 | 15.79 |
+| farmer | 128 | 42.19 | 8.60 | 0.00 | 13.28 |

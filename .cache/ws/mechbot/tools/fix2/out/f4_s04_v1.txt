@@ -1,0 +1,51 @@
+
+== A. alone, start 40 m outside the next circle
+   decisions outside the zone before t=74.5: 0; zone damage before t=74.5 (zone still open): 0 hp; within 4 m of the edge before t=70: 0; ZONE<->other mode switches 2; final shrink (t=50..74): 112/240 decisions more than 3 m from the final centre
+   legs: {"ZONE/zone":69,"HOLD/roam":560,"HOLD/zonehold":131}
+  t=    1 zone r= 70 next r=25 | dist to centre  35.6, to next centre  63.0 | ZONE/zone inZone=true zm=12.1 tgt=-1 d=-1 boost=false
+  t=  9.9 zone r= 70 next r=25 | dist to centre  31.8, to next centre   1.7 | HOLD/roam inZone=true zm=inf tgt=-1 d=-1 boost=false
+  t=   20 zone r= 52 next r=25 | dist to centre  17.7, to next centre   1.3 | HOLD/roam inZone=true zm=inf tgt=-1 d=-1 boost=false
+  t=   30 zone r= 34 next r=25 | dist to centre   5.8, to next centre   0.5 | HOLD/roam inZone=true zm=inf tgt=-1 d=-1 boost=false
+  t= 34.9 zone r= 25 next r=25 | dist to centre   1.5, to next centre   1.5 | HOLD/roam inZone=true zm=inf tgt=-1 d=-1 boost=false
+  t=   45 zone r= 25 next r= 0 | dist to centre   9.5, to next centre   0.5 | HOLD/roam inZone=true zm=27.9 tgt=-1 d=-1 boost=false
+  t= 49.9 zone r= 25 next r= 0 | dist to centre   9.5, to next centre   0.1 | HOLD/roam inZone=true zm=23.0 tgt=-1 d=-1 boost=false
+  t=   55 zone r= 20 next r= 0 | dist to centre   1.7, to next centre   6.0 | HOLD/roam inZone=true zm=14.4 tgt=-1 d=-1 boost=false
+  t=   60 zone r= 15 next r= 0 | dist to centre   2.5, to next centre   3.2 | HOLD/roam inZone=true zm=11.5 tgt=-1 d=-1 boost=false
+  t=   65 zone r= 10 next r= 0 | dist to centre   1.7, to next centre   2.1 | HOLD/zonehold inZone=true zm=7.4 tgt=-1 d=-1 boost=false
+  t=   70 zone r=  5 next r= 0 | dist to centre   0.8, to next centre   1.1 | HOLD/zonehold inZone=true zm=3.4 tgt=-1 d=-1 boost=false
+  t=   72 zone r=  3 next r= 0 | dist to centre   0.4, to next centre   0.7 | HOLD/zonehold inZone=true zm=1.4 tgt=-1 d=-1 boost=false
+  t=   74 zone r=  1 next r= 0 | dist to centre   0.0, to next centre   0.4 | HOLD/zonehold inZone=true zm=-0.0 tgt=-1 d=-1 boost=false
+
+== B. passive enemy that walks to the next centre and stands there
+   decisions outside the zone before t=74.5: 12; zone damage before t=74.5 (zone still open): 312 hp; within 4 m of the edge before t=70: 0; ZONE<->other mode switches 8; final shrink (t=50..74): 153/240 decisions more than 3 m from the final centre
+   legs: {"ZONE/zone":83,"FIGHT/zonefight":1,"FIGHT/zonestrafe":590,"FIGHT/zonestand":86}
+  t=    1 zone r= 70 next r=25 | dist to centre  35.6, to next centre  63.0 | ZONE/zone inZone=true zm=12.1 tgt=-1 d=-1 boost=false
+  t=  9.9 zone r= 70 next r=25 | dist to centre  34.7, to next centre   6.0 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=6 boost=false
+  t=   20 zone r= 52 next r=25 | dist to centre  22.8, to next centre   5.9 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=6 boost=false
+  t=   30 zone r= 34 next r=25 | dist to centre   8.9, to next centre   4.2 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=5 boost=false
+  t= 34.9 zone r= 25 next r=25 | dist to centre   3.0, to next centre   2.9 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=5 boost=false
+  t=   45 zone r= 25 next r= 0 | dist to centre   5.3, to next centre   4.1 | FIGHT/zonestrafe inZone=true zm=25.5 tgt=1 d=6 boost=false
+  t= 49.9 zone r= 25 next r= 0 | dist to centre   5.4, to next centre   4.1 | FIGHT/zonestrafe inZone=true zm=20.5 tgt=1 d=6 boost=false
+  t=   55 zone r= 20 next r= 0 | dist to centre   0.8, to next centre   6.7 | FIGHT/zonestrafe inZone=true zm=13.9 tgt=1 d=8 boost=false
+  t=   60 zone r= 15 next r= 0 | dist to centre   1.5, to next centre   4.1 | FIGHT/zonestrafe inZone=true zm=10.9 tgt=1 d=6 boost=false
+  t=   65 zone r= 10 next r= 0 | dist to centre   0.9, to next centre   2.9 | FIGHT/zonestand inZone=true zm=6.8 tgt=1 d=5 boost=false
+  t=   70 zone r=  5 next r= 0 | dist to centre   1.0, to next centre   2.9 | FIGHT/zonestand inZone=true zm=1.7 tgt=1 d=5 boost=false
+  t=   72 zone r=  3 next r= 0 | dist to centre   1.8, to next centre   2.9 | FIGHT/zonestand inZone=true zm=-0.3 tgt=1 d=5 boost=false
+  t=   74 zone r=  1 next r= 0 | dist to centre   1.3, to next centre   1.7 | ZONE/zone inZone=false zm=-0.2 tgt=1 d=5 boost=true
+
+== C. shooting enemy that walks to the next centre
+   decisions outside the zone before t=74.5: 12; zone damage before t=74.5 (zone still open): 286 hp; within 4 m of the edge before t=70: 0; ZONE<->other mode switches 10; final shrink (t=50..74): 152/240 decisions more than 3 m from the final centre
+   legs: {"ZONE/zone":93,"FIGHT/zonefight":1,"FIGHT/zonestrafe":580,"FIGHT/zonestand":86}
+  t=    1 zone r= 70 next r=25 | dist to centre  35.6, to next centre  63.0 | ZONE/zone inZone=true zm=12.1 tgt=-1 d=-1 boost=false
+  t=  9.9 zone r= 70 next r=25 | dist to centre  33.8, to next centre   5.8 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=6 boost=false
+  t=   20 zone r= 52 next r=25 | dist to centre  22.9, to next centre   6.1 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=7 boost=false
+  t=   30 zone r= 34 next r=25 | dist to centre   7.8, to next centre   4.6 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=5 boost=false
+  t= 34.9 zone r= 25 next r=25 | dist to centre   3.1, to next centre   3.0 | FIGHT/zonestrafe inZone=true zm=inf tgt=1 d=5 boost=false
+  t=   45 zone r= 25 next r= 0 | dist to centre   6.0, to next centre   3.6 | FIGHT/zonestrafe inZone=true zm=26.1 tgt=1 d=5 boost=false
+  t= 49.9 zone r= 25 next r= 0 | dist to centre   6.9, to next centre   4.0 | FIGHT/zonestrafe inZone=true zm=20.6 tgt=1 d=6 boost=false
+  t=   55 zone r= 20 next r= 0 | dist to centre   0.9, to next centre   6.6 | FIGHT/zonestrafe inZone=true zm=13.9 tgt=1 d=8 boost=false
+  t=   60 zone r= 15 next r= 0 | dist to centre   1.6, to next centre   4.1 | FIGHT/zonestrafe inZone=true zm=10.9 tgt=1 d=6 boost=false
+  t=   65 zone r= 10 next r= 0 | dist to centre   1.0, to next centre   2.8 | FIGHT/zonestand inZone=true zm=6.8 tgt=1 d=5 boost=false
+  t=   70 zone r=  5 next r= 0 | dist to centre   1.1, to next centre   2.9 | FIGHT/zonestand inZone=true zm=1.7 tgt=1 d=5 boost=false
+  t=   72 zone r=  3 next r= 0 | dist to centre   1.8, to next centre   2.9 | FIGHT/zonestand inZone=true zm=-0.3 tgt=1 d=5 boost=false
+  t=   74 zone r=  1 next r= 0 | dist to centre   1.2, to next centre   1.6 | ZONE/zone inZone=false zm=-0.2 tgt=1 d=5 boost=true

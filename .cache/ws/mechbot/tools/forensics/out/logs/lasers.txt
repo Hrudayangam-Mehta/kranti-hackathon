@@ -1,0 +1,58 @@
+lasers fired 39 ; hits 11 (28%) ; charge durations (s): {0.65: 39}
+| type | beams | hits | median range |
+|---|---|---|---|
+| expert | 12 | 3 | 69.49 |
+| hard | 13 | 1 | 138.67 |
+| medium | 8 | 4 | 61.90 |
+| brawler | 4 | 2 | 148.99 |
+| sniper | 2 | 1 | 98.98 |
+
+per beam: shooter type t range hit | victim | lateral speed of victim | beam yaw error vs victim centre at release (deg) | signed lateral miss (m; + = ahead of victim motion) | body miss (m) | pitch err (m) | blocked
+   0 expert    t= 218 rng  64.1 miss | v= 7 | vlat  +0.4 spd  9.0 gnd | yaw err +2.48 | signed  +2.8 | miss  2.6 | dz -0.0 | 
+  14 hard      t= 254 rng 114.2 miss | v=13 | vlat  -0.3 spd  2.5 air | yaw err -1.60 | signed  +3.2 | miss  3.1 | dz -1.7 | 
+   0 expert    t= 318 rng  43.3 miss | v= 7 | vlat  -4.9 spd  5.2 gnd | yaw err +8.74 | signed  -6.6 | miss  5.7 | dz +0.3 | 
+  14 hard      t= 414 rng 204.9 miss | v=15 | vlat  -3.3 spd  9.0 gnd | yaw err -11.03 | signed +39.4 | miss 38.6 | dz -4.4 | BLOCKED
+   0 expert    t= 440 rng 195.1 miss | v=11 | vlat -13.7 spd 13.7 gnd | yaw err +1.87 | signed  -6.4 | miss  5.7 | dz +0.0 | 
+  14 hard      t= 492 rng  40.9 miss | v=13 | vlat  -5.6 spd  8.2 air | yaw err -4.41 | signed  +3.1 | miss  2.9 | dz +0.2 | 
+  14 hard      t= 560 rng 278.2 miss | v=10 | vlat  +3.8 spd  4.7 air | yaw err -4.46 | signed -21.7 | miss 21.3 | dz -7.3 | BLOCKED
+   0 expert    t= 640 rng  69.9 HIT  | v= 7 | vlat  +1.2 spd  9.0 gnd | yaw err -0.83 | signed  -1.0 | miss  0.9 | dz +0.2 | 
+  14 hard      t= 648 rng  79.3 HIT  | v=13 | vlat  +8.4 spd  9.3 air | yaw err +0.85 | signed  +1.2 | miss  1.1 | dz -1.9 | 
+   0 expert    t= 706 rng  91.3 miss | v= 7 | vlat  -7.0 spd  8.9 gnd | yaw err +3.45 | signed  -5.5 | miss  5.0 | dz +1.4 | 
+  14 hard      t= 764 rng  72.7 miss | v= 5 | vlat  -1.4 spd  4.7 air | yaw err +2.15 | signed  -2.7 | miss  2.5 | dz +1.3 | BLOCKED
+   0 expert    t= 790 rng  67.9 miss | v= 7 | vlat  -9.1 spd 10.5 air | yaw err -2.39 | signed  +2.8 | miss  3.2 | dz -5.6 | 
+   0 expert    t= 876 rng  83.9 miss | v= 7 | vlat  -3.9 spd  5.4 air | yaw err -2.96 | signed  +4.3 | miss  4.2 | dz +1.3 | 
+   8 medium    t= 894 rng 116.6 HIT  | v= 3 | vlat  -7.3 spd  8.9 gnd | yaw err +0.87 | signed  -1.8 | miss  1.2 | dz +0.1 | 
+   0 expert    t= 942 rng  96.8 miss | v= 7 | vlat  -4.1 spd  6.9 air | yaw err -2.09 | signed  +3.5 | miss  3.6 | dz +6.2 | 
+   8 medium    t=1008 rng  42.6 miss | v=11 | vlat  -5.2 spd  5.3 air | yaw err +7.89 | signed  -5.9 | miss  5.3 | dz +6.9 | 
+   8 medium    t=1076 rng  44.4 miss | v=10 | vlat -15.0 spd 15.1 gnd | yaw err +7.58 | signed  -5.9 | miss  4.7 | dz -0.0 | 
+   0 expert    t=1092 rng 180.5 HIT  | v=11 | vlat  +0.4 spd  9.0 gnd | yaw err +0.62 | signed  +1.9 | miss  1.9 | dz -0.6 | 
+  14 hard      t=1128 rng 188.9 miss | v= 9 | vlat +14.7 spd 14.7 gnd | yaw err -1.74 | signed  -5.7 | miss  4.9 | dz -0.0 | 
+   8 medium    t=1178 rng  50.9 HIT  | v=10 | vlat  +7.9 spd  9.0 air | yaw err +1.03 | signed  +0.9 | miss  0.9 | dz -2.3 | 
+  14 hard      t=1194 rng 161.2 miss | v= 9 | vlat +12.2 spd 12.2 gnd | yaw err -3.34 | signed  -9.4 | miss  8.8 | dz -0.1 | 
+   8 medium    t=1254 rng 139.2 miss | v= 0 | vlat  -2.0 spd  7.7 gnd | yaw err -1.91 | signed  +4.6 | miss  4.4 | dz +1.4 | 
+  14 hard      t=1260 rng 138.7 miss | v= 9 | vlat -15.0 spd 15.1 gnd | yaw err +3.84 | signed  -9.3 | miss  8.5 | dz -0.1 | 
+   8 medium    t=1322 rng  64.0 miss | v=10 | vlat +14.9 spd 15.0 gnd | yaw err -6.26 | signed  -7.0 | miss  6.0 | dz +4.4 | 
+  14 hard      t=1328 rng 110.1 miss | v= 9 | vlat +15.0 spd 15.0 gnd | yaw err -4.04 | signed  -7.8 | miss  6.9 | dz +0.0 | BLOCKED
+   0 expert    t=1356 rng  49.1 HIT  | v=11 | vlat  -8.7 spd  9.0 gnd | yaw err +0.75 | signed  -0.6 | miss  0.6 | dz +0.1 | 
+   8 medium    t=1390 rng  59.8 HIT  | v=10 | vlat  -3.3 spd  4.0 air | yaw err +0.64 | signed  -0.7 | miss  0.7 | dz -3.8 | 
+  14 hard      t=1434 rng 178.4 miss | v= 3 | vlat  +2.6 spd  9.0 gnd | yaw err -1.26 | signed  -3.9 | miss  3.8 | dz -0.0 | 
+  14 hard      t=1520 rng 148.2 miss | v= 3 | vlat -11.1 spd 12.3 gnd | yaw err -1.10 | signed  +2.8 | miss  2.8 | dz -0.1 | 
+  14 hard      t=1592 rng 135.5 miss | v= 3 | vlat  -2.2 spd  4.2 air | yaw err +1.26 | signed  -3.0 | miss  3.1 | dz -6.2 | 
+   8 medium    t=1706 rng 156.8 HIT  | v= 0 | vlat  -0.4 spd  9.0 gnd | yaw err -0.30 | signed  +0.8 | miss  0.8 | dz +0.1 | 
+   0 expert    t=1808 rng  51.2 miss | v= 3 | vlat  +0.9 spd  4.1 gnd | yaw err -1.95 | signed  -1.7 | miss  2.0 | dz +4.9 | 
+   0 expert    t=1890 rng  69.1 miss | v= 3 | vlat  +5.2 spd  5.8 gnd | yaw err -4.81 | signed  -5.8 | miss 11.2 | dz -15.4 | BLOCKED
+   3 sniper    t=2424 rng  82.1 HIT  | v= 8 | vlat  -5.1 spd  9.0 gnd | yaw err +1.18 | signed  -1.7 | miss  1.4 | dz +0.3 | 
+   2 brawler   t=2522 rng 132.6 miss | v= 5 | vlat  +7.7 spd  9.0 gnd | yaw err -0.46 | signed  -1.1 | miss  1.5 | dz +5.6 | 
+   2 brawler   t=3186 rng 144.2 HIT  | v=12 | vlat  -3.6 spd  3.6 air | yaw err +0.22 | signed  -0.6 | miss  0.4 | dz +1.5 | 
+   2 brawler   t=3306 rng 153.8 miss | v=12 | vlat  -6.7 spd  9.0 gnd | yaw err +2.31 | signed  -6.2 | miss  6.2 | dz +6.1 | 
+   2 brawler   t=3372 rng 191.9 HIT  | v=12 | vlat  -3.5 spd  4.4 gnd | yaw err -0.59 | signed  +2.0 | miss  1.9 | dz +1.7 | 
+   3 sniper    t=3722 rng 115.9 miss | v= 9 | vlat -15.0 spd 15.0 gnd | yaw err +3.86 | signed  -7.8 | miss  7.0 | dz -3.6 | 
+
+misses with an identified victim (unblocked): 23 ; signed lateral miss mean -2.5 m ; ahead of motion (>+2.5 m): 8 ; behind (<-2.5 m): 13 ; within 2.5 m laterally (vertical/other): 2
+hits: victim lateral speed |vlat| median 3.6 ; misses: 6.7
+range: hits median 82 m (min 49 max 192) ; misses median 114 m
+regression signed_miss = k * |vlat| * range + b: k = -0.00319 s/m -> implied projectile speed 1/k = -313 m/s ; b = 0.63 ; n = 34
+
+## victim behaviour during the 0.65 s charge (victim identified at release)
+{'n': 39, 'in_fov': 19, 'fov_flip': 6, 'fov_jump': 0, 'fov_boost': 10, 'fov_los_broken': 0, 'fov_hit': 3, 'within_140m_sound': 25, 'not_in_fov': 20, 'nofov_flip': 2, 'nofov_jump': 2, 'nofov_boost': 7, 'nofov_los_broken': 2, 'nofov_hit': 8}
+baseline (0.7 s windows while being shot at with guns): {'n': 552, 'flip': 181, 'jump': 55, 'boost': 285}  -> flip 33% jump 10% boost-start 52%

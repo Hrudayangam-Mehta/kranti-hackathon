@@ -1,0 +1,8 @@
+PASS  D5 finishable bonus: a finishable mech at 78 m beats a full-hp one at 60 m  ::  finishable case target 11 (want 11) | control (1000 hp) target 10 (want 10)
+PASS  D5 hostile-first: the mech that hit us (90 m) beats a closer quiet one (70 m)  ::  with hits: 11 (want 11) | no hits: 10 (want 10)
+PASS  D0 opening guard: quiet mech at 60 m untouched before 40 s; returns fire at once when hit  ::  target while quiet 0/30; target 0 decisions after the hit, trigger down 0 decisions after
+PASS  D0 hostility by aim: aiming within 12 deg inside 160 m -> target in the opening; at 170 m not  ::  150 m: 10 | 170 m: null
+PASS  D5 drones are below mechs in contact  ::  targets 10 (want 10 only after the first decisions)
+PASS  D8 trigger down at cooldown <= 0.10 s  ::  0.15:false 0.1:true 0.05:true 0:true
+PASS  D7 upgrade order (12 offers)  ::  12/12 picks follow plating > armor > nanites > laser_damage > laser_charge > lightning_efficiency > gun_damage > ...
+PASS  D7 pickups: laser > lightning > mortar, mortar after 60 s, SQUAD keeps the gun, FFA pair, no swap while charging  ::  gun+empty, laser: take | gun+empty, lightning: take | gun+empty, mortar at t=100 (nothing better seen): take | gun+lightning, laser: take drop 1 | gun+laser, lightning (SQUAD keeps gun+laser): no | gun+mortar, lightning: take drop 1 | charging laser: no | gun+mortar, laser: take drop 1 | mortar at 30 s: no | FFA: take drop 0

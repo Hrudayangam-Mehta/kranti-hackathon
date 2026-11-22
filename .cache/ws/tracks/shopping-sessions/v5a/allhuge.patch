@@ -1,0 +1,10 @@
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/sink.rs	2026-11-22 05:07:53.100489697 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/allhuge_tree/src/fast/sink.rs	2026-11-22 05:15:46.620566959 +0000
+@@ -34,6 +34,7 @@
+             return;
+         }
+         let start = (p as usize).div_ceil(HUGE) * HUGE;
++        libc::madvise(start as *mut libc::c_void, bytes, libc::MADV_HUGEPAGE);
+         RESERVED_NEXT.store(start, Ordering::Relaxed);
+         RESERVED_END.store(start + bytes, Ordering::Release);
+     }

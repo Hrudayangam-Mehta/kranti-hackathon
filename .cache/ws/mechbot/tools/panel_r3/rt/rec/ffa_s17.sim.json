@@ -1,0 +1,83 @@
+{
+ "args": {
+  "bot": "proc:python3 -B /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/tee_rec.py /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s17.jsonl -- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/dist/bot.js",
+  "mode": "ffa",
+  "matches": 1,
+  "seed": 17,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s17.sim.json",
+  "latency": 0,
+  "timeout": 2000,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": null,
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": null,
+  "trace": null,
+  "traceTag": null
+ },
+ "summary": {
+  "matches": 1,
+  "meanScore": 13,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 2,
+  "meanTimeAlive": 93.2,
+  "meanDmgDealt": 3163,
+  "meanDmgTaken": 2544,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "gun": 1
+  },
+  "meanWallMs": 2679,
+  "wallS": 3
+ },
+ "matches": [
+  {
+   "seed": 17,
+   "slot": 14,
+   "name": "aegis-16",
+   "place": 3,
+   "score": 13,
+   "kills": 2,
+   "timeAlive": 93.15,
+   "alive": false,
+   "dmgDealt": 3163,
+   "dmgTaken": 2544,
+   "cause": "gun",
+   "killedBy": 10,
+   "killRange": 129.9,
+   "killerRole": null,
+   "hunters": 0,
+   "killerName": "house:thirdparty",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "lightning_efficiency",
+    "plating"
+   ],
+   "loadout": [
+    "laser",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 93.15,
+   "wallMs": 2679,
+   "deadOthers": 13,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 3.9,
+   "meanMs": 0
+  }
+ ]
+}

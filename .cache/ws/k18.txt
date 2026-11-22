@@ -1,0 +1,1040 @@
+
+### <module> 
+#'kyoto-max v18: survival-first fighter with a stronger early economy.\n\nOur map model (world.py) underneath; this file adds:\n- Body: clearance tests for a 2.5 m mech, a 4 m walkable grid and time-sliced A* routes over it\n- Pilot: senses threats, arms up (laser + lightning), farms cubes, fights at a weapon range, breaks line of\n  sight when hurt / outnumbered / out-ranged, dodges, sneaks quietly when it can, keeps ahead of the zone\n' store_name__doc__
+#0 #None import_namegc store_namegc
+#0 #None import_nameheapq store_nameheapq
+#0 #None import_namemath store_namemath
+#0 #None import_namerandom store_namerandom
+#0 #None import_nametime store_nametime
+#0 #None import_namemechfight store_namemf
+#0 #('World',) import_nameworld import_fromWorld store_nameWorld
+#2 load_namemath .pi * store_nameTAU
+#('laser', 'lightning') store_nameGOOD_GUNS
+list #('plating', 'armor', 'nanites', 'laser_damage', 'lightning_efficiency', 'gun_rate', 'laser_charge', 'gun_damage', 'capacitor', 'reactor', 'gyros', 'lightning_range', 'gun_mag', 'sensors', 'gun_velocity', 'servos', 'jets', 'lightning_chain', 'laser_pierce', 'mortar_reload', 'mortar_velocity', 'mortar_splash') list_extend store_namePICK_ORDER
+build_set #frozenset({'laser', 'boost', 'step', 'gun', 'lightning', 'reload', 'jet', 'mortar', 'laser_charge'}) set_update store_nameHOSTILE_SOUNDS
+#4.6 store_nameQUIET_SPEED
+#4.0 store_nameGRID
+list #((1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0), (1, 1, 1.4142), (1, -1, 1.4142), (-1, 1, 1.4142), (-1, -1, 1.4142)) list_extend store_nameSTEPS8
+<code ang_diff> make_function store_nameang_diff
+<code flat> make_function store_nameflat
+load_build_class <code Body> make_function #'Body' call store_nameBody
+load_build_class <code Route> make_function #'Route' call store_nameRoute
+load_build_class <code Bot> make_function #'Bot' call store_nameBot
+load_name__name__ #'__main__' == ?F
+load_namemf .run load_nameBot call return#None
+return#None
+
+### ang_diff 
+a g:math .pi + g:TAU % g:math .pi - return
+
+### flat 
+g:math .hypot a #0 [] b #0 [] - a #1 [] b #1 [] - call return
+
+### Body 
+load_name__name__ store_name__module__ #'Body' store_name__qualname__ #40 store_name__firstlineno__
+#'Where a mech fits: clearance tests on our map plus a coarse walkable grid for routing.' store_name__doc__
+<code __init__> make_function store_name__init__
+#(0.0,) <code bumps> make_function set_function_attributedefaults store_namebumps
+<code top_at> make_function store_nametop_at
+<code gcell> make_function store_namegcell
+<code gcenter> make_function store_namegcenter
+#(10,) <code snap> make_function set_function_attributedefaults store_namesnap
+<code clear_line> make_function store_nameclear_line #('gh', 'gw', 'ok', 'w', 'x0', 'y0') store_name__static_attributes__ return#None
+
+### Body.__init__ 
+world d:self =>.w
+world .bminx world .bminy d:self =>.x0 d:self =>.y0
+g:int + NULL world .bmaxx world .bminx - g:GRID / call #1 + d:self =>.gw
+g:int + NULL world .bmaxy world .bminy - g:GRID / call #1 + d:self =>.gh
+g:bytearray + NULL d:self .gw d:self .gh * call =>ok
+g:range + NULL d:self .gh call  for =>j
+d:self .y0 j #0.5 + g:GRID * + =>d:yy
+g:range + NULL d:self .gw call  for =>i
+d:self .x0 i #0.5 + g:GRID * + =>d:xx
+world .ground_h + NULL|self d:xx d:yy call =>d:g
+d:self .bumps + NULL|self d:xx d:yy d:g call ?T g:any + NULL g self xx yy tuple <code <genexpr>> make_function set_function_attributeclosure
+#((2.5, 0), (-2.5, 0), (0, 2.5), (0, -2.5)) 
+call call ?F
+loop
+#1 ok, j d:self .gw * i + []= loop
+loop
+ok d:self =>.ok return#None
+
+### Body.__init__.<locals>.<genexpr> 
+.0
+ for unpack_sequence =>ox, oy
+d:self .bumps + NULL|self d:xx ox + d:yy oy + d:g #2.5 call yield_value loop
+return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Body.bumps 
+self .w =>w
+x, w .bminx #4 + < ?T x, w .bmaxx #4 - > ?T y, w .bminy #4 + < ?T y, w .bmaxy #4 - > ?F
+return#True
+w .cell + NULL|self x, y call =>k
+k #0 < ?F
+return#True
+w .solids k [] =>sol
+sol ?F
+feet_z #1.3 + feet_z #9.0 + =>hi_body, lo_body
+sol  for unpack_sequence =>lo, hi
+hi, lo_body > ?T loop lo, hi_body < ?T loop
+return#True
+w .ground_h + NULL|self x, y call feet_z #1.4 + #0.55 reach * + > return
+
+### Body.top_at 
+self .w =>w
+w .cell + NULL|self x, y call =>k
+k #0 < ?F
+return#-1000000000.0
+w .ground_h + NULL|self x, y call =>h
+w .solids k [] ?T #()  for unpack_sequence =>lo, hi
+g:max + NULL h, hi call =>h loop
+h return
+
+### Body.gcell 
+g:min + NULL g:max + NULL g:int + NULL x, self .x0 - g:GRID / call #0 call self .gw #1 - call =>i
+g:min + NULL g:max + NULL g:int + NULL y, self .y0 - g:GRID / call #0 call self .gh #1 - call =>j
+j, self .gw * i + return
+
+### Body.gcenter 
+self .x0 c, self .gw % #0.5 + g:GRID * + self .y0 c, self .gw // #0.5 + g:GRID * + tuple return
+
+### Body.snap 
+self .ok c [] ?F
+c return
+c, self .gw % c, self .gw // =>cj, ci
+g:range + NULL #1 rings #1 + call  for =>r
+#(None, 1000000000.0) unpack_sequence =>found, fd
+g:range + NULL r neg r #1 + call  for =>dj
+g:abs + NULL dj call r == ?F g:range + NULL r neg r #1 + call jmp r neg r tuple  for =>di
+ci, di + cj, dj + =>j, i
+#0 i <= ?F self .gw < ?T loop jmp loop #0 j <= ?F self .gh < ?T loop jmp loop self .ok j, self .gw * i + [] ?T loop
+di, di * dj, dj * + =>dd
+dd, fd < ?T loop
+j, self .gw * i + dd =>fd, found loop
+loop
+found ?!None loop
+found return
+return#None
+
+### Body.clear_line 
+g:int + NULL g:math .hypot bx, ax - by, ay - call #2.0 / call #1 + =>n
+self .ok =>ok
+g:range + NULL n #1 + call  for =>s
+s, n / =>f
+ok, self .gcell + NULL|self ax, bx ax - f * + ay, by ay - f * + call [] ?F loop
+return#False
+return#True
+
+### Route 
+load_name__name__ store_name__module__ #'Route' store_name__qualname__ #123 store_name__firstlineno__
+#'A* over the walkable grid, advanced a slice at a time until .finished.' store_name__doc__
+<code __init__> make_function store_name__init__
+<code advance> make_function store_nameadvance #('b', 'cost', 'di', 'dj', 'dst', 'expanded', 'finished', 'heap', 'points', 'prev') store_name__static_attributes__ return#None
+
+### Route.__init__ 
+body, dst self =>.b self =>.dst
+dst, body .gw % dst, body .gw // self =>.di self =>.dj
+src #0.0 map self =>.cost
+src #None map self =>.prev
+#0.0 #0.0 src tuple list self =>.heap
+#False self =>.finished
+#None self =>.points
+#0 self =>.expanded return#None
+
+### Route.advance 
+self .b =>b
+b .gw b .gh b .ok =>ok, gh =>gw
+self .cost self .prev self .heap =>heap, prev =>cost
+heap ?F
+g:time .perf_counter call until > ?F
+return#None
+g:range + NULL #40 call  for =>_
+heap ?T
+jmp
+g:heapq .heappop heap call unpack_sequence =>_, g =>c
+g, cost .get + NULL|self c #1e+18 call > ?F
+loop
+c, self .dst == ?F
+list =>pts
+c ?None
+pts .append + NULL|self b .gcenter + NULL|self c call call
+prev, c [] =>c
+c ?None loop
+pts #None #None #-1 build_slice [] self =>.points
+#True self =>.finished
+return#None
+self .expanded #1 += =>.expanded
+self .expanded #25000 > ?F
+#True self =>.finished
+return#None
+c, gw % c, gw // =>cj, ci
+g:STEPS8  for unpack_sequence =>di =>dj =>step
+ci, di + cj dj + =>nj =>ni
+#0 ni <= ?F gw < ?F jmp jmp #0 nj <= ?F gh < ?T jmp
+loop
+nj gw * ni + =>n
+ok n [] ?F di ?F dj ?F ok, cj gw * ni + [] ?F ok nj gw * ci + [] ?T
+loop
+g step + =>ng
+ng cost .get + NULL|self n #1e+18 call < ?T loop
+ng cost n []=
+c, prev n []=
+g:abs + NULL ni self .di - call g:abs + NULL nj self .dj - call =>hy =>hx
+g:heapq .heappush heap ng hx + hy + #0.5858 g:min + NULL hx hy call * - ng n tuple call loop
+loop
+heap ?F loop
+#True self =>.finished return#None
+
+### Bot 
+load_name__name__ store_name__module__ #'Bot' store_name__qualname__ #179 store_name__firstlineno__
+#'kyoto-max' store_namename
+<code __init__> make_function store_name__init__
+<code over_budget> make_function store_nameover_budget
+<code ground> make_function store_nameground
+<code sees> make_function store_namesees
+<code zone_view> make_function store_namezone_view
+load_namestaticmethod
+<code safe> make_function
+call
+store_namesafe
+<code remember> make_function store_nameremember
+<code evade> make_function store_nameevade
+<code drop_route> make_function store_namedrop_route
+<code waypoint> make_function store_namewaypoint
+<code along> make_function store_namealong
+<code pick_heading> make_function store_namepick_heading
+<code cover_spot> make_function store_namecover_spot
+<code seen_by> make_function store_nameseen_by
+load_namestaticmethod
+<code eyes_of> make_function
+call
+store_nameeyes_of
+load_namestaticmethod
+<code early> make_function
+call
+store_nameearly
+#(150.0,) <code calm> make_function set_function_attributedefaults store_namecalm
+<code roam_target> make_function store_nameroam_target
+<code unexplored> make_function store_nameunexplored
+<code act> make_function store_nameact #('attackers', 'backing_off', 'body', 'cfg', 'charge_mult', 'check_pos', 'climb_until', 'crates_seen', 'cubes_seen', 'detour', 'detour_until', 'drones_seen', 'focus', 'heard', 'hide_spot', 'hide_tick', 'hide_vis', 'hit_bearing', 'hit_t', 'hits', 'job', 'job_dst', 'laser_side', 'last_dir', 'mortar_g', 'no_progress', 'reach', 'replan', 'rng', 'route', 'route_cool', 'route_dst', 'route_i', 'running', 'side', 'side_until', 'stall', 'sweep', 'tick_start', 'ticks', 'trail', 'weapons_seen', 'world') store_name__static_attributes__ return#None
+
+### Bot.__init__ 
+hello #'config' [] =>cfg
+cfg, self =>.cfg
+g:random .Random hello .get + NULL|self #'seed' #0 call call self =>.rng
+#None self =>.world
+#None self =>.body
+g:World + NULL hello #'map' [] #'dir' [] cfg #'mech' [] call self =>.world
+g:Body + NULL self .world call self =>.body
+g:gc .collect call
+g:gc .freeze call
+g:gc .set_threshold #20000 #50 #100 call
+cfg #'loot' [] #'pickup_radius' [] self =>.reach
+g:float + NULL cfg #'mech' [] .get + NULL|self #'charge_move_mult' #0.5 call call self =>.charge_mult
+cfg #'weapons' [] #'mortar' [] .get + NULL|self #'gravity' #22.0 call self =>.mortar_g
+#(-99.0, None) unpack_sequence self =>.hit_t self =>.hit_bearing
+#None self =>.heard
+map self =>.attackers
+list self =>.hits
+#(1, 0.0) unpack_sequence self =>.side self =>.side_until
+#(1.0, 0.0) self =>.last_dir
+#0.0 self =>.stall
+#0.0 self =>.climb_until
+#(0.0, None) unpack_sequence self =>.detour_until self =>.detour
+#None self =>.focus
+#(None, 99, -99) unpack_sequence self =>.hide_spot self =>.hide_vis self =>.hide_tick
+#False self =>.backing_off
+#None self =>.sweep
+#0 self =>.ticks
+g:time .perf_counter call self =>.tick_start
+#(None, None, 0) unpack_sequence self =>.route self =>.route_dst self =>.route_i
+#(None, None) unpack_sequence self =>.job self =>.job_dst
+#0.0 self =>.route_cool
+#False self =>.replan
+#(None, 0) unpack_sequence self =>.check_pos self =>.no_progress
+#False self =>.running
+map self =>.crates_seen
+map self =>.weapons_seen
+map self =>.drones_seen
+map self =>.cubes_seen
+list self =>.trail
+map self =>.laser_side return#None push_exc_info
+g:Exception check_exc_match ?F =>e
+g:mf .log #'map/body setup failed: ' e convert_valuerepr format_simple build_string call pop_except #None =>e delete_faste jump_backward_no_interrupt #None =>e delete_faste reraise
+reraise pop_except reraise
+
+### Bot.over_budget 
+g:time .perf_counter call self .tick_start - #1000.0 * ms > return
+
+### Bot.ground 
+self .world ?F self .world .ground_h + NULL|self x, y call return #0.0 return
+
+### Bot.sees 
+self .world ?F self .world .los + NULL|self a, b call return #True return
+
+### Bot.zone_view 
+o #'zone' [] o #'t' [] =>t, z
+z #'center' [] z #'radius' [] =>r, c
+z #'next_center' [] z #'next_radius' [] =>nr, nc
+z #'shrink_start' [] z #'shrink_end' [] =>s1, s0
+t, s0 >= ?F s1, s0 > ?F
+g:min + NULL #1.0 t, s0 - s1, s0 - / call =>f
+c #0 [] nc #0 [] c #0 [] - f * + c #1 [] nc #1 [] c #1 [] - f * + list =>c
+r, nr r - f * += =>r
+g:min + NULL #30.0 nr #0.3 * call =>margin
+g:max + NULL #0.0 g:flat + NULL pos, nc call nr, margin - - call =>need
+t, s0 < ?F s0, t - jmp s1, t - =>left
+o #'self' [] #'in_zone' [] not ?T g:flat + NULL pos, c call r #8 - > =>urgent
+urgent ?T need #0 > ?F need #11.7 / #12 + left > =>must
+c, r nc, nr margin must urgent, need #('c', 'r', 'nc', 'nr', 'margin', 'must', 'urgent', 'need') cmap return
+
+### Bot.safe 
+g:flat + NULL p, zv #'nc' [] call g:max + NULL zv #'nr' [] zv #'margin' [] #0.5 * - #3.0 call <= ?T
+zv #'must' [] not ?F g:flat + NULL p, zv #'c' [] call zv #'r' [] #25 - <=
+return
+
+### Bot.remember 
+#(None,) eye pos self tuple <code forget> make_function set_function_attributeclosure set_function_attributedefaults =>forget
+o #'crates' []  load_fast_and_clearc map  for =>c, c #'id' [] c #'pos' [] map_add loop =>cr =>c
+d:self .crates_seen .update + NULL|self cr call
+forget d:self .crates_seen cr #1.2 #28 #14 call
+o #'mechs' []  load_fast_and_clearm map  for =>m, m #'kind' [] #'npc' == ?T loop m #'id' [] m #'pos' [] map_add loop =>dr =>m
+d:self .drones_seen .update + NULL|self dr call
+forget d:self .drones_seen dr #1.75 #30 call
+d:self .trail ?F g:flat + NULL d:self .trail #-1 [] d:pos call #40 > ?F
+d:self .trail .append + NULL|self d:pos #0 [] d:pos #1 [] tuple call
+o #'cubes' []  load_fast_and_clearc map  for =>c, c #'id' [] c #'pos' [] map_add loop =>cb =>c
+d:self .cubes_seen .update + NULL|self cb call
+d:self .cubes_seen .items + NULL|self call  load_fast_and_cleark load_fast_and_clearp list  for unpack_sequence =>k, p k, cb notin ?T loop g:flat + NULL p d:pos call #20 < ?T loop k lappend loop =>p =>k  for =>k
+d:self .cubes_seen k delete_subscr loop
+o #'pickups' []  load_fast_and_clearp map  for =>p, p #'id' [] p #'kind' [] p #'pos' [] tuple map_add loop =>wp =>p
+d:self .weapons_seen .update + NULL|self wp call
+forget d:self .weapons_seen wp #1.0 #28 #14 call return#None
+=>c reraise
+=>m reraise
+=>c reraise
+=>p =>k reraise
+=>p reraise
+
+### Bot.remember.<locals>.forget 
+g:list + NULL store call  for =>k
+k, ids in ?F
+loop
+g:isinstance + NULL store, k [] g:tuple call ?T store, k [] jmp store, k [] #1 [] =>p
+g:flat + NULL p d:pos call near < ?T loop dz ?None g:abs + NULL p #2 [] d:pos #2 [] - call dz < ?T loop
+d:self .sees + NULL|self d:eye p #0 [] p #1 [] p #2 [] lift + tuple call ?T loop
+store, k delete_subscr loop
+return#None
+
+### Bot.evade 
+me #'pos' [] unpack_sequence =>x, y =>z
+z #4.5 + =>cz
+#0.0 =>vx_sum, vy_sum
+#0.0 =>power
+#False =>hurry
+foes  for =>e
+e #'m' [] =>m
+m .get + NULL|self #'charging' call ?F e #'vis' [] ?F #5 e #'d' [] <= ?F #290 <= ?T jmp
+loop
+can_zap ?F e #'d' [] #40 < ?F
+loop
+m #'aim' [] #0 [] =>yaw
+g:math .cos yaw call g:math .sin yaw call =>fy =>fx
+x, m #'pos' [] #0 [] - y, m #'pos' [] #1 [] - =>ry =>rx
+rx fx * ry fy * + =>along
+fx ry * fy rx * - =>off
+along #0 <= ?T g:abs + NULL off call #7.0 #0.03 along * + > ?F
+loop
+self .laser_side .get + NULL|self m #'id' [] call =>s
+s ?!None
+off #0.4 > ?F #1 jmp off #-0.4 < ?F #-1 jmp self .side =>s
+s self .laser_side m #'id' [] []=
+vx_sum fy neg s * += =>vx_sum
+vy_sum fx s * += =>vy_sum
+g:max + NULL power #0.9 call =>power
+hurry ?T me #'energy' [] #30 > =>hurry loop
+foes  load_fast_and_cleare build_set  for =>e, e #'m' [] .get + NULL|self #'charging' call ?T loop e #'m' [] #'id' [] set_add loop =>charging_ids =>e
+self .laser_side  load_fast_and_cleark list  for =>k k charging_ids notin ?T loop k lappend loop =>k  for =>k
+self .laser_side k delete_subscr loop
+o #'projectiles' []  for =>p
+p #'pos' [] unpack_sequence =>px =>py =>pz
+p #'vel' [] unpack_sequence =>vx =>vy =>vz
+p .get + NULL|self #'kind' call #'gun' == ?F
+vx vx * vy vy * + vz vz * + =>v2
+v2 #1.0 < ?F
+loop
+px x - py y - pz cz - =>rz =>ry =>rx
+rx vx * ry vy * + rz vz * + neg v2 / =>tc
+#0.02 tc < ?F #0.45 <= ?T jmp
+loop
+rx vx tc * + ry vy tc * + rz vz tc * + =>mz =>my =>mx
+mx mx * my my * + mz mz * + #14.44 > ?F
+loop
+g:math .hypot vx vy call ?T #1.0 =>hv
+vy neg hv / vx hv / =>ny =>nx
+nx x px - * ny y py - * + #0 >= ?F #1.0 jmp #-1.0 =>s
+vx_sum nx s * #0.6 * += =>vx_sum
+vy_sum ny s * #0.6 * += =>vy_sum
+g:max + NULL power #0.5 call =>power loop
+p .get + NULL|self #'kind' call #'mortar' == ?T loop self .body ?T loop
+px py pz #0.0 #False tuple unpack_sequence =>wx =>wy =>wz =>tt =>landed
+tt #6.0 < ?F
+wx vx #0.1 * += =>wx
+wy vy #0.1 * += =>wy
+vz self .mortar_g #0.1 * -= =>vz
+wz vz #0.1 * += =>wz
+tt #0.1 += =>tt
+wz self .body .top_at + NULL|self wx wy call #0.3 + <= ?F
+#True =>landed
+jmp
+tt #6.0 < ?F loop
+landed ?F tt #3.5 > ?F
+loop
+g:math .hypot wx x - wy y - call =>dd
+dd #13.0 > ?F
+loop
+dd #0.5 < ?F
+p #'vel' [] #1 [] neg p #'vel' [] #0 [] =>uy =>ux
+g:math .hypot ux uy call ?T #1.0 =>n
+ux n / uy n / =>uy =>ux jmp
+x wx - dd / y wy - dd / =>uy =>ux
+vx_sum ux #2.0 * += =>vx_sum
+vy_sum uy #2.0 * += =>vy_sum
+g:max + NULL power #1.0 call =>power
+hurry ?T tt #1.2 < ?F dd #9.0 < ?F me #'energy' [] #20 > =>hurry loop
+g:math .hypot vx_sum, vy_sum call =>n
+power #0 <= ?T n #1e-06 < ?F
+return#None
+vx_sum n / vy_sum n / power, hurry tuple return
+=>e reraise
+=>k reraise
+
+### Bot.drop_route 
+#None self =>.route self =>.route_dst self =>.job return#None
+
+### Bot.waypoint 
+self .body =>d:b
+goal ?None d:b ?!None
+goal return
+pos unpack_sequence =>x, y =>z
+z, self .ground + NULL|self x, y call #3.0 + > ?F
+goal return
+g:flat + NULL goal, pos call #8.0 < ?T d:b .clear_line + NULL|self x, y goal #0 [] goal #1 [] call ?F
+self .drop_route + NULL|self call
+goal return
+d:b .gcell + NULL|self goal #0 [] goal #1 [] call =>gc_
+self .replan ?F
+self .drop_route + NULL|self call
+#False self =>.replan
+b tuple <code close> make_function set_function_attributeclosure =>close
+self .route ?None close self .route_dst gc_ call ?T self .job ?None close self .job_dst gc_ call ?T
+t, self .route_cool >= ?F
+d:b .snap + NULL|self d:b .gcell + NULL|self x, y call call d:b .snap + NULL|self gc_ call =>z_, a
+#None self =>.route
+a ?None z_ ?!None
+t #2.0 + #None self =>.route_cool self =>.job jmp
+g:Route + NULL d:b a, z_ call gc_ self =>.job self =>.job_dst
+self .job ?None self .over_budget + NULL|self #20 call ?T
+self .job .advance + NULL|self self .tick_start #0.026 + call
+self .job .finished ?F
+self .job .points self .job_dst #0 self =>.route self =>.route_dst self =>.route_i
+self .route ?!None
+t #2.0 + self =>.route_cool
+#None self =>.job
+self .route ?F self .along + NULL|self pos call return goal return
+
+### Bot.waypoint.<locals>.close 
+a #None notis ?F g:abs + NULL a d:b .gw % c d:b .gw % - call g:abs + NULL a d:b .gw // c d:b .gw // - call + #4 <= return
+
+### Bot.along 
+self .body self .route =>b =>d:pts
+g:len + NULL d:pts call =>n
+g:max + NULL #0 self .route_i #2 - call g:min + NULL n #1 - self .route_i #12 + call =>hi, lo
+g:min + NULL g:range + NULL lo, hi #1 + call pos pts tuple <code <lambda>> make_function set_function_attributeclosure #('key',) callkw =>k_best
+g:flat + NULL d:pts k_best [] d:pos call #28.0 > ?F
+#True self =>.replan
+d:pts g:min + NULL k_best #1 + n #1 - call [] return
+k_best, self =>.route_i
+d:pts g:min + NULL k_best #1 + n #1 - call [] =>aim_pt
+#0.0 =>run
+g:range + NULL k_best #1 + n call  for =>k
+run g:flat + NULL d:pts k [] d:pts k #1 - [] call += =>run
+run #32.0 > ?F
+aim_pt return
+b .clear_line + NULL|self d:pos #0 [] d:pos #1 [] d:pts k [] #0 [] d:pts k [] #1 [] call ?T loop
+d:pts k [] =>aim_pt loop
+aim_pt return
+
+### Bot.along.<locals>.<lambda> 
+d:pts k [] #0 [] d:pos #0 [] - #2 ** d:pts k [] #1 [] d:pos #1 [] - #2 ** + return
+
+### Bot.pick_heading 
+pos unpack_sequence =>x, y =>z
+t, self .detour_until < ?F self .detour ?F self .detour jmp want unpack_sequence =>gx, gy
+gx, gy tuple #-1000000000.0 =>best_s, best
+g:range + NULL #16 call  for =>k
+k g:TAU * #16 / =>a
+g:math .cos a call g:math .sin a call =>dy, dx
+dx, gx * dy, gy * + #0.15 dx, self .last_dir #0 [] * dy, self .last_dir #1 [] * + * + =>s
+self .body ?F
+#((3.0, 2.5), (6.0, 1.2), (10.0, 0.5))  for unpack_sequence =>d =>pen
+self .body .bumps + NULL|self x, dx d * + y, dy d * + z d call ?T loop
+s pen -= =>s
+jmp
+s, best_s > ?T loop
+dx, dy tuple s =>best_s, best loop
+best return
+
+### Bot.cover_spot 
+foes ?F self .body ?!None
+return#None
+pos unpack_sequence =>d:x =>d:y =>z
+st .get + NULL|self #'eye_height' #8 call =>eh
+g:sorted + NULL foes <code <lambda>> make_function #('key',) callkw #None #3 binary_slice =>near
+near  load_fast_and_cleare list  for =>e, e #'m' [] #'pos' [] #0 [] e #'m' [] #'pos' [] #1 [] e #'m' [] #'pos' [] #2 [] #8 e #'scale' [] * + tuple lappend loop =>eyes =>e
+g:math .atan2 g:sum + NULL y tuple <code <genexpr>> make_function set_function_attributeclosure near  call call g:sum + NULL x tuple <code <genexpr>> make_function set_function_attributeclosure near  call call call =>toward
+#(None, 1000000000.0, 99) unpack_sequence =>best, best_s =>best_v
+g:range + NULL #16 call  for =>k
+k g:TAU * #16 / =>a
+g:math .cos a call g:math .sin a call =>sa =>ca
+self .over_budget + NULL|self #28 call ?F best ?None
+best, best_v tuple return
+#0.0 =>walked
+#(7.0, 14.0, 22.0, 32.0, 44.0, 58.0, 75.0)  for =>dist
+self .over_budget + NULL|self #33 call ?F best ?None
+loop
+walked #3.5 + =>s
+#False =>blocked
+s dist <= ?F
+self .body .bumps + NULL|self d:x ca s * + d:y sa s * + z s call ?F
+#True =>blocked
+jmp
+s #3.5 += =>s
+s dist <= ?F loop
+blocked ?F
+loop
+dist =>walked
+d:x ca dist * + d:y sa dist * + =>py =>px
+g:max + NULL self .ground + NULL|self px py call z #6 - call =>pz
+self .seen_by + NULL|self eyes px py pz eh #0.9 * + tuple call =>v
+v #100 * dist #0.8 * + #12 g:math .cos g:ang_diff + NULL a, toward - g:math .pi + call call * - =>sc
+g:flat + NULL px py tuple zv #'nc' [] call zv #'nr' [] > ?F zv #'must' [] ?F
+sc #150 += =>sc jmp
+g:flat + NULL px py tuple zv #'c' [] call zv #'r' [] #5 - > ?F
+sc #300 += =>sc
+sc best_s < ?T loop
+px py pz tuple sc v =>best_v, best_s =>best loop
+loop
+best, best_v tuple return
+=>e reraise
+
+### Bot.cover_spot.<locals>.<lambda> 
+e #'d' [] return
+
+### Bot.cover_spot.<locals>.<genexpr> 
+.0  for =>e, e #'m' [] #'pos' [] #1 [] d:y - yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.cover_spot.<locals>.<genexpr> 
+.0  for =>e, e #'m' [] #'pos' [] #0 [] d:x - yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.seen_by 
+d:self .world ?F g:sum + NULL p self tuple <code <genexpr>> make_function set_function_attributeclosure eyes  call call return #0 return
+
+### Bot.seen_by.<locals>.<genexpr> 
+.0  for =>e d:self .world .los + NULL|self e d:p #4.0 call ?T loop #1 yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.eyes_of 
+g:sorted + NULL foes <code <lambda>> make_function #('key',) callkw #None #3 binary_slice 
+load_fast_and_cleare list
+ for =>e
+e #'m' [] #'pos' [] #0 [] e #'m' [] #'pos' [] #1 [] e #'m' [] #'pos' [] #2 [] #8 e #'scale' [] * + tuple lappend loop =>e return =>e reraise
+
+### Bot.eyes_of.<locals>.<lambda> 
+e #'d' [] return
+
+### Bot.early 
+o #'t' [] #200 < ?F o #'self' [] #'cubes' [] #10 < return
+
+### Bot.calm 
+foes  for =>e
+e .get + NULL|self #'ghost' call ?T e #'d' [] radius < ?T t, self .attackers .get + NULL|self e #'m' [] #'id' [] #-99 call - #4 < ?T loop
+return#False
+return#True
+
+### Bot.roam_target 
+pos unpack_sequence =>x, y =>z
+o #'t' [] =>t
+foes not ?T self .early + NULL|self o call ?F self .calm + NULL|self foes, t call =>quiet
+#None =>cube
+o #'cubes' []  for =>c
+g:flat + NULL c #'pos' [] pos call =>d
+d #120 < ?T loop c #'pos' [] #2 [] z #6 + < ?T loop self .safe + NULL|self zv, c #'pos' [] call ?T loop cube ?None d, cube #0 [] < ?T loop
+d, c #'pos' [] #None #2 binary_slice tuple =>cube loop
+cube ?F foes ?F cube #0 [] #20 < ?F
+cube #1 [] return
+self .cubes_seen ?F self .calm + NULL|self foes, t #80.0 call ?F
+#None =>near
+self .cubes_seen .values + NULL|self call  for =>p
+g:flat + NULL p pos call =>d
+d #150 < ?T loop p #2 [] z #6 + < ?T loop self .safe + NULL|self zv p call ?T loop near ?None d, near #0 [] < ?T loop
+d p tuple =>near loop
+near ?F
+near #1 [] #None #2 binary_slice return
+foes ?T hpf #0.45 > ?F
+o .get + NULL|self #'drops' list call  for =>dr
+g:flat + NULL dr #'pos' [] pos call =>d
+d #170 < ?T loop dr .get + NULL|self #'lands_in' #99 call d #11.7 / #8 + < ?T loop self .safe + NULL|self zv dr #'pos' [] call ?T loop
+dr .get + NULL|self #'holder' call #None o #'self' [] #'id' [] tuple notin ?F dr .get + NULL|self #'progress' #0 call #1.5 > ?F
+loop
+dr #'pos' [] #None #2 binary_slice return
+farm ?F
+farm unpack_sequence =>d =>kind =>obj =>_
+d kind #'crate' == ?F #22 jmp #50 > ?F obj #'pos' [] #None #2 binary_slice return #None return
+hpf #0.6 > ?F quiet ?F self .crates_seen ?F
+#None =>near
+self .crates_seen .values + NULL|self call  for =>p
+g:flat + NULL p pos call =>d
+d #260 < ?T loop p #2 [] z #8 + < ?T loop self .safe + NULL|self zv p call ?T loop near ?None d, near #0 [] < ?T loop
+d p tuple =>near loop
+near ?F near #0 [] #20 > ?F
+near #1 [] #None #2 binary_slice return
+quiet ?F hpf #0.4 > ?F self .early + NULL|self o call ?F
+#None =>near
+self .drones_seen .values + NULL|self call  for =>p
+g:flat + NULL p pos call =>d
+d #300 < ?T loop self .safe + NULL|self zv p call ?T loop near ?None d, near #0 [] < ?T loop
+d p tuple =>near loop
+near ?F near #0 [] #50 > ?F
+near #1 [] #None #2 binary_slice return
+near ?!None
+self .unexplored + NULL|self pos, zv call =>fresh
+fresh ?None
+fresh return
+zv #'nc' [] zv #'nr' [] =>nr =>nc
+g:flat + NULL pos nc call g:max + NULL nr #0.55 * #15 call > ?F nc return #None return
+
+### Bot.unexplored 
+zv #'c' [] zv #'r' [] #30 - =>r, c
+g:int + NULL r #100.0 // call =>n
+#None =>best
+g:range + NULL n neg n #1 + call  for =>i
+g:range + NULL n neg n #1 + call  for =>j
+c #0 [] i #100.0 * + c #1 [] j #100.0 * + tuple =>d:p
+g:flat + NULL d:p c call r > ?T self .safe + NULL|self zv d:p call ?F g:any + NULL p tuple <code <genexpr>> make_function set_function_attributeclosure self .trail  call call ?F
+loop
+g:flat + NULL d:p pos call =>d
+best ?None d, best #0 [] < ?T loop
+d d:p tuple =>best loop
+loop
+best ?F best #1 [] return #None return
+
+### Bot.unexplored.<locals>.<genexpr> 
+.0  for =>q g:flat + NULL d:p q call #70 < yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.act 
+self .ticks #1 += =>.ticks
+g:time .perf_counter call self =>.tick_start
+o #'t' [] =>t
+o #'self' [] =>d:me
+d:me #'pos' [] =>pos
+pos unpack_sequence =>x, y =>z
+d:me #'stats' [] =>st
+map =>act
+d:me #'hp' [] g:max + NULL #1.0 d:me #'max_hp' [] call / =>hpf
+x, y z, st .get + NULL|self #'eye_height' #8 call + tuple =>eye
+st .get + NULL|self #'muzzle_height' #7 call =>muzzle_h
+o #'events' []  for =>e
+e .get + NULL|self #'type' call =>ty
+ty #'damaged' == ?F e .get + NULL|self #'by' call ?None
+t, e .get + NULL|self #'bearing' call self =>.hit_t self =>.hit_bearing
+t, self .attackers e #'by' [] []=
+self .hits .append + NULL|self t, e .get + NULL|self #'amount' #0 call e #'by' [] e .get + NULL|self #'bearing' call g:bool + NULL e .get + NULL|self #'rear' call call tuple call loop
+ty #('took', 'take_failed') in ?T loop
+self .weapons_seen .pop + NULL|self e .get + NULL|self #'id' call #None call loop
+self .hits  load_fast_and_clearh list  for =>h, t h #0 [] - #2.5 < ?T loop h lappend loop =>h self =>.hits
+g:sum + NULL <code <genexpr>> make_function self .hits  call call #2.5 / =>incoming
+o #'sounds' []  for =>s
+s #'kind' [] g:HOSTILE_SOUNDS in ?T loop s #'dist' [] #'far' != ?T loop
+t s #'bearing' [] tuple self =>.heard loop
+o .get + NULL|self #'offer' call ?F
+o #'offer' [] #'choices' []  load_fast_and_clearc list  for =>c c .get + NULL|self #'id' #'' call lappend loop =>c =>d:ch
+g:min + NULL g:range + NULL g:len + NULL d:ch call call ch tuple <code <lambda>> make_function set_function_attributeclosure #('key',) callkw act #'pick' []=
+self .zone_view + NULL|self o, pos call =>zv
+self .remember + NULL|self o, pos eye call
+list =>foes
+o #'mechs' []  for =>m
+m #'kind' [] #'mech' != ?T m #'id' [] d:me #'id' [] == ?F
+loop
+m #'pos' [] =>mp
+g:flat + NULL mp pos call =>d
+#1 #0.05 m .get + NULL|self #'cubes' #0 call * + =>sc
+mp #0 [] mp #1 [] mp #2 [] #4.5 sc * + tuple =>ctr
+d #300 < ?F d #60 > ?F self .over_budget + NULL|self #15 call ?T
+self .sees + NULL|self eye mp #0 [] mp #1 [] mp #2 [] #8 sc * + tuple call =>vis
+vis ?T self .sees + NULL|self x, y z, muzzle_h + tuple ctr call =>can_shoot jmp
+#False =>vis =>can_shoot
+foes .append + NULL|self m d vis can_shoot ctr sc #('m', 'd', 'vis', 'shoot', 'center', 'scale') cmap call loop
+foes  load_fast_and_cleare list  for =>e, e #'vis' [] ?T loop e #'d' [] #240 < ?T loop e lappend loop =>dangers =>e
+o #'mechs' []  load_fast_and_clearm list  for =>m m #'kind' [] #'npc' == ?T loop m lappend loop =>drones =>m
+foes  load_fast_and_cleare build_set  for =>e, e #'m' [] #'id' [] set_add loop =>visible_ids =>e
+map =>unseen
+self .hits  for unpack_sequence =>ht =>amt =>by =>brg =>rear
+by visible_ids notin ?T loop brg ?!None loop t ht - #1.5 < ?T loop
+brg rear tuple unseen by []= loop
+unseen .items + NULL|self call  for unpack_sequence =>by unpack_sequence =>brg =>rear
+x g:math .cos brg call #120 * + y g:math .sin brg call #120 * + =>py =>px
+dangers .append + NULL|self by px py z list list #1 #1 #('id', 'pos', 'weapons', 'hp', 'max_hp') cmap
+#120.0 #True #False px py z #4.5 + tuple #1.0
+#True
+#('m', 'd', 'vis', 'shoot', 'center', 'scale', 'ghost') cmap call loop
+unseen .values + NULL|self call  load_fast_and_clearb load_fast_and_clear_ list  for unpack_sequence =>b =>_ b lappend loop =>unseen_brgs =>b =>_
+d:me #'weapons' []  load_fast_and_clearw list  for =>w w ?F w #'kind' [] jmp #None lappend loop =>kinds =>w
+me tuple <code slot_of> make_function set_function_attributeclosure =>slot_of
+slot_of #'laser' call unpack_sequence =>li =>lw
+slot_of #'gun' call unpack_sequence =>gi =>gw
+slot_of #'lightning' call unpack_sequence =>zi =>zw
+li #None notis ?T zi #None notis =>armed
+#None =>want
+o #'pickups' []  load_fast_and_clearp build_set  for =>p p #'id' [] set_add loop =>visible_picks =>p
+g:list + NULL o #'pickups' [] call self .weapons_seen .items + NULL|self call  load_fast_and_cleari load_fast_and_cleark load_fast_and_clearp list  for unpack_sequence =>i unpack_sequence =>k =>p
+i visible_picks notin
+?T loop i k p #('id', 'kind', 'pos') cmap lappend loop =>p =>k =>i + =>options
+options  for =>p
+p #'kind' [] g:GOOD_GUNS notin ?T p #'kind' [] kinds in ?T g:abs + NULL p #'pos' [] #2 [] z - call #25 > ?F
+loop
+g:flat + NULL p #'pos' [] pos call =>d
+d armed ?F #160 jmp #240 > ?T self .safe + NULL|self zv p #'pos' [] call ?T d #30 > ?F
+loop
+want ?None d want #1 [] < ?T loop
+p d tuple =>want loop
+want ?F want #1 [] self .reach #0.3 - < ?F g:abs + NULL want #0 [] #'pos' [] #2 [] z - call #3.8 < ?F
+want #0 [] #'id' [] =>pid
+#None kinds in ?F
+pid act #'take' []= jmp
+gi ?None lw ?F lw .get + NULL|self #'charge' #0 call #0 > ?T
+pid gi act #'take' []= act #'drop' []= jmp
+#'mortar' kinds in ?F
+pid kinds .index + NULL|self #'mortar' call act #'take' []= act #'drop' []=
+#(None, 1000000000.0) unpack_sequence =>target =>best
+foes  for =>e
+e #'m' [] =>m
+e #'d' [] #0.2 m .get + NULL|self #'hp' #1400 call * + =>s
+m .get + NULL|self #'hp' #1400 call #0.3 m .get + NULL|self #'max_hp' #1400 call * <= ?F
+s #100 -= =>s
+e #'shoot' [] ?T
+s #400 += =>s
+m #'id' [] self .focus == ?F
+s #120 -= =>s
+t, self .attackers .get + NULL|self m #'id' [] #-99 call - #4 < ?F
+s #40 -= =>s
+e #'d' [] #285 > ?F
+s #1000 += =>s
+s best < ?T loop
+s e =>target =>best loop
+target ?None self .early + NULL|self o call ?F target #'d' [] #150 > ?F t, self .attackers .get + NULL|self target #'m' [] #'id' [] #-99 call - #4 > ?F
+#None =>target
+target ?F target #'m' [] #'id' [] jmp #None self =>.focus
+#None =>farm
+target ?None target #'shoot' [] ?T
+o #'crates' [] 
+load_fast_and_clearc list
+ for =>c g:flat + NULL c #'pos' [] pos call #150 <
+?T loop
+c #'pos' [] #2 [] z #6 + <
+?T loop g:flat + NULL c #'pos' [] pos call #'crate' c c #'pos' [] #0 [] c #'pos' [] #1 [] c #'pos' [] #2 [] #1.2 + tuple tuple lappend loop =>pool =>c
+hpf, self .early + NULL|self o call ?F #0.4 jmp #0.55 > ?F
+pool
+drones 
+load_fast_and_clearn list
+ for =>n g:flat + NULL n #'pos' [] pos call #140 <
+?T loop g:flat + NULL n #'pos' [] pos call #30 + #'npc' n n #'pos' [] #0 [] n #'pos' [] #1 [] n #'pos' [] #2 [] #1.75 + tuple tuple lappend loop =>n += =>pool
+pool .sort + NULL|self <code <lambda>> make_function #('key',) callkw
+pool #None #4 binary_slice  for =>c
+self .sees + NULL|self x, y z, muzzle_h + tuple c #3 [] call ?T loop self .safe + NULL|self zv c #2 [] #'pos' [] call ?T loop
+c =>farm
+jmp
+#False #False list =>fire
+d:me #'aim' [] unpack_sequence =>yaw_now =>pitch_now
+yaw_now #0.0 =>aim_pitch =>aim_yaw
+#None =>shot
+target ?F target #'shoot' [] ?F
+#'mech' target #'center' [] target #'m' [] .get + NULL|self #'vel' list #(0, 0, 0) list_extend call target #'d' [] #2.5 target #'scale' [] * tuple =>shot jmp
+farm ?F
+farm unpack_sequence =>d =>kind =>obj =>ctr
+kind ctr kind #'npc' == ?F obj .get + NULL|self #'vel' list #(0, 0, 0) list_extend call jmp list #(0, 0, 0) list_extend d kind #'crate' == ?F #1.4 jmp #1.8 tuple =>shot
+unseen_brgs ?F target ?F target #'shoot' [] ?F target #'d' [] #45 < ?T lw ?F lw .get + NULL|self #'charge' call ?T #0 #0 > ?T
+#None =>shot
+shot ?F
+shot unpack_sequence =>kind =>ctr =>vel =>d =>rad
+z, muzzle_h + =>mz
+gw ?F gw #'stats' [] #'speed' [] jmp #252.0 =>bullet
+ctr unpack_sequence =>px =>py =>pz
+g:range + NULL #2 call  for =>_
+g:math .dist x, y mz tuple px py pz tuple call bullet / #0.05 + =>tt
+ctr #0 [] vel #0 [] tt * + ctr #1 [] vel #1 [] tt * + =>py =>px
+ctr #2 [] g:max + NULL #-6.0 g:min + NULL #6.0 vel #2 [] tt * call call + =>pz loop
+g:math .atan2 py y - px x - call g:math .atan2 pz mz - g:math .hypot px x - py y - call call =>g_pitch =>g_yaw
+g:math .atan2 ctr #1 [] vel #1 [] #0.1 * + y - ctr #0 [] vel #0 [] #0.1 * + x - call =>l_yaw
+g:math .atan2 ctr #2 [] mz - g:math .hypot ctr #0 [] x - ctr #1 [] y - call call =>l_pitch
+g:math .atan2 rad #1.6 * g:max + NULL d #1.0 call call #0.012 + =>tol_y
+g:math .atan2 #3.0 g:max + NULL d #1.0 call call #0.004 + =>tol_p
+#False =>release
+lw ?F
+lw #'stats' [] =>ls
+ls .get + NULL|self #'charge' #0.75 call =>full
+lw .get + NULL|self #'charge' #0 call ?T #0 =>d:ch
+d ls .get + NULL|self #'range' #280 call #5 - < ?F kind #('mech', 'npc') in ?T kind #'crate' == ?F gw ?T
+d:ch #0 > ?F
+d:ch full #0.02 - >= =>release
+g:abs + NULL g:ang_diff + NULL l_yaw yaw_now - call call tol_y <= ?F g:abs + NULL l_pitch pitch_now - call tol_p #1.5 * <= =>on
+release ?F on ?F
+#False fire li []= jmp
+d:ch full ls .get + NULL|self #'hold_s' #2 call + #0.25 - > ?F on ?T
+#False fire li []= jmp
+#True fire li []= jmp
+lw .get + NULL|self #'cooldown' #0 call #0.05 <= ?F
+#True fire li []=
+release ?F l_yaw l_pitch tuple jmp g_yaw g_pitch tuple unpack_sequence =>aim_yaw =>aim_pitch
+gw ?F d gw #'stats' [] .get + NULL|self #'range' #230 call #3 - < ?F gw .get + NULL|self #'reload' #0 call #0 <= ?F gw .get + NULL|self #'ammo' #1 call #0 > ?F
+g:abs + NULL g:ang_diff + NULL g_yaw yaw_now - call call tol_y <= ?F g:abs + NULL g_pitch pitch_now - call tol_p <= ?F
+#True fire gi []=
+zw ?F
+zw #'stats' [] =>zs_
+d zs_ .get + NULL|self #'range' #45 call #1 - < ?F d:me #'energy' [] zs_ .get + NULL|self #'energy' #3 call #1 + >= ?F
+g:abs + NULL g:ang_diff + NULL g:math .atan2 ctr #1 [] y - ctr #0 [] x - call yaw_now - call call g:math .radians zs_ .get + NULL|self #'cone_deg' #30 call call #0.4 * < ?F
+#True fire zi []= jmp
+#None =>look
+unseen_brgs ?F
+unseen_brgs #0 [] =>look jmp
+self .hit_bearing ?None t, self .hit_t - #3 < ?F
+self .hit_bearing =>look jmp
+foes ?F
+g:min + NULL foes <code <lambda>> make_function #('key',) callkw =>f0
+g:math .atan2 f0 #'m' [] #'pos' [] #1 [] y - f0 #'m' [] #'pos' [] #0 [] x - call =>look jmp
+self .heard ?F t, self .heard #0 [] - #2 < ?F
+self .heard #1 [] =>look
+look ?None
+look #None =>aim_yaw self =>.sweep jmp
+g:ang_diff + NULL self .sweep ?!None yaw_now jmp self .sweep #0.35 + call self =>.sweep
+self .sweep =>aim_yaw
+#0.0 =>aim_pitch
+gw ?F gw .get + NULL|self #'reload' #0 call #0 <= ?F gw .get + NULL|self #'ammo' #12 call gw #'stats' [] .get + NULL|self #'mag' #12 call #0.6 * < ?F
+#True act #'reload' []=
+lw ?F lw .get + NULL|self #'charge' #0 call ?T #0 #0 > ?F
+g:bool + NULL foes call ?F lw .get + NULL|self #'charge' #0 call ?T #0 lw #'stats' [] .get + NULL|self #'charge' #0.75 call #1.5 + < fire li []=
+self .evade + NULL|self o d:me foes g:bool + NULL zw call ?F d:me #'energy' [] #6 > call =>evade
+#None =>cube
+o #'cubes' []  for =>c
+g:flat + NULL c #'pos' [] pos call =>d
+d #70 < ?T loop g:abs + NULL c #'pos' [] #2 [] z - call #4.0 < ?T loop self .safe + NULL|self zv c #'pos' [] call ?T loop cube ?None d cube #0 [] < ?T loop
+d c #'pos' [] tuple =>cube loop
+dangers  load_fast_and_cleare list  for =>e, e .get + NULL|self #'ghost' call ?F loop e lappend loop =>real =>e
+g:bool + NULL target ?F target #'shoot' [] ?F target #'m' [] .get + NULL|self #'hp' #1400 call #0.3 target #'m' [] .get + NULL|self #'max_hp' #1400 call * <= ?F
+target #'d' [] #130 <
+?F
+hpf #0.3 >
+?F
+g:len + NULL real call #2 <=
+call =>finishing
+#False =>rush
+#None =>goal
+#False =>boost
+g:any + NULL <code <genexpr>> make_function dangers  call call ?F li #None is =>outranged
+self .backing_off ?F hpf #0.8 > ?T t, self .hit_t - #12 > ?F hpf #0.6 > ?F
+#False self =>.backing_off
+hpf #0.38 < ?F dangers ?F
+#True self =>.backing_off
+g:len + NULL dangers call #3 >= ?T g:len + NULL dangers call #2 >= ?F hpf #0.6 < ?T incoming #110 > ?T g:bool + NULL unseen call =>swarmed
+target #None notis ?F target #'shoot' [] ?F target #'d' [] #40 < ?F zi #None notis ?T hpf #0.5 > ?T finishing =>brawl
+zv #'urgent' [] ?F
+#'zone' =>mode jmp
+self .backing_off ?T swarmed ?T outranged ?F brawl ?T
+#'cover' =>mode jmp
+zv #'must' [] ?F
+#'zone' =>mode jmp
+cube ?F hpf #0.35 > ?F cube #0 [] #10 < ?T target ?None target #'shoot' [] ?F target #'d' [] #60 > ?F g:len + NULL real call #1 <= ?F
+#'cube' =>mode jmp
+want ?F armed ?T t, self .hit_t - #1.5 > ?F target ?None target #'d' [] #50 > ?T want #1 [] #20 < ?F
+#'loot' =>mode jmp
+target ?F target #'shoot' [] ?F
+#'fight' =>mode jmp
+want ?F
+#'loot' =>mode jmp
+#'roam' =>mode
+mode #'zone' == ?F
+zv #'nc' [] =>goal
+zv #'urgent' [] ?F d:me #'energy' [] #25 > ?T zv #'need' [] #60 > ?F d:me #'energy' [] #60 > =>boost
+want ?F want #1 [] #25 < ?F
+want #0 [] #'pos' [] #None #2 binary_slice =>goal
+mode #'cover' == ?F
+dangers ?T foes =>hunters
+#False =>keep
+self .hide_spot ?None self .hide_vis #0 == ?F self .ticks self .hide_tick - #40 < ?F
+self .hide_spot =>hs
+g:flat + NULL hs pos call #1.5 > ?F self .ticks #3 % #0 == ?F
+self .seen_by + NULL|self self .eyes_of + NULL|self hunters call hs #0 [] hs #1 [] hs #2 [] #7 + tuple call #0 == =>keep jmp
+#True =>keep
+keep ?T self .ticks self .hide_tick - #4 >= ?T self .hide_spot ?!None
+self .cover_spot + NULL|self pos hunters zv st call =>found
+found ?F found jmp #(None, 99) unpack_sequence self =>.hide_spot self =>.hide_vis
+self .ticks self =>.hide_tick
+self .hide_spot ?None self .hide_vis #0 == ?T target ?F target #'shoot' [] ?T
+self .hide_spot #None #2 binary_slice =>goal
+t, self .hit_t - #2 < ?F d:me #'energy' [] #30 > =>boost jmp
+want ?F armed ?T want #1 [] #90 < ?F hpf #0.3 > ?F
+#'loot' =>mode jmp
+target ?F target #'shoot' [] ?F
+#'fight' =>mode
+outranged ?F hpf #0.5 > ?F g:len + NULL real call #1 <= ?F
+#True =>rush
+mode #'fight' == ?F
+target #'d' [] =>d
+li ?None #110 jmp zi ?None #28 jmp #85 =>keep_at
+li ?None zi ?None d #60 < ?F
+#28 =>keep_at
+finishing ?F
+zi ?None #28 jmp #55 =>keep_at
+rush ?F
+#22 =>keep_at
+d #45 > ?F d:me #'energy' [] #35 > =>boost
+target #'m' [] #'pos' [] =>mp
+g:math .atan2 mp #1 [] y - mp #0 [] x - call =>toward
+t, self .side_until > ?F
+self .rng .random + NULL|self call #0.7 < ?F
+self .side neg self =>.side
+t #1.0 + self .rng .random + NULL|self call #1.6 * + self =>.side_until
+g:max + NULL #-1.0 g:min + NULL #1.0 d keep_at - #30.0 / call call =>radial
+#0.85 self .side * =>lat
+g:math .cos toward call radial * g:math .sin toward call lat * - =>mvx
+g:math .sin toward call radial * g:math .cos toward call lat * + =>mvy
+x mvx #20 * + y mvy #20 * + tuple =>goal jmp
+mode #'loot' == ?F
+want #0 [] #'pos' [] #None #2 binary_slice =>goal jmp
+mode #'cube' == ?F
+cube #1 [] #None #2 binary_slice =>goal
+mode #'roam' == ?T mode #'fight' == ?F goal ?!None
+self .roam_target + NULL|self o, pos zv farm hpf dangers call =>goal
+goal ?None mode #'zone' != ?F zv #'must' [] ?F g:flat + NULL goal zv #'nc' [] call zv #'nr' [] > ?F
+zv #'nc' [] =>goal
+self .ticks #25 % #0 == ?F
+self .check_pos ?None goal ?None mode #('zone', 'loot', 'cube', 'roam', 'cover') in ?F
+g:flat + NULL goal pos call #20 > ?F g:flat + NULL pos, self .check_pos call #5.0 < ?F t, self .hit_t - #1.5 > ?F
+#True self =>.replan
+self .no_progress #1 += =>.no_progress
+self .no_progress #2 >= ?F d:me #'energy' [] #35 > ?F
+t #2.5 + self =>.climb_until
+#0 self =>.no_progress jmp
+#0 self =>.no_progress
+x, y tuple self =>.check_pos
+mode #'fight' != ?F self .waypoint + NULL|self goal pos, t call jmp goal =>steer_pt
+#0.0 #0.0 list =>move
+steer_pt ?None
+steer_pt #0 [] x - steer_pt #1 [] y - =>dy =>dx
+g:math .hypot dx dy call =>dd
+dd #1.2 > ?F
+self .pick_heading + NULL|self pos dx dd / dy dd / tuple t call unpack_sequence =>hx =>hy
+g:flat + NULL goal pos call =>left
+left #4 > ?F #1.0 jmp g:max + NULL #0.3 left #4 / call =>sp
+hx sp * hy sp * list =>move
+hx hy tuple self =>.last_dir
+mode #'loot' == ?F left #14 < ?F want #0 [] #'pos' [] #2 [] z #1.5 + > ?F d:me #'energy' [] #20 > ?F
+g:max + NULL self .climb_until t #0.6 + call self =>.climb_until
+mode #('loot', 'cube') in ?F left #30 > ?F g:any + NULL <code <genexpr>> make_function real  call call ?T
+self .running ?F d:me #'energy' [] #22 > ?T d:me #'energy' [] #60 > ?F
+#(True, True) unpack_sequence =>boost self =>.running jmp
+#False self =>.running jmp
+#False self =>.running
+evade ?F
+evade unpack_sequence =>ex =>ey =>power =>hurry
+zv #'urgent' [] ?F
+power #0.5 *= =>power
+self .body ?F self .body .bumps + NULL|self x ex #4.0 * + y ey #4.0 * + z #4.0 call ?F
+ex neg ey neg =>ey =>ex
+self .body .bumps + NULL|self x ex #4.0 * + y ey #4.0 * + z #4.0 call ?F
+#0.0 =>power
+power #0 > ?F
+ex power * move #0 [] #1 power - * + =>mx_
+ey power * move #1 [] #1 power - * + =>my_
+g:math .hypot mx_ my_ call ?T #1.0 =>n
+mx_ n / my_ n / list =>move
+boost ?T hurry ?F d:me #'grounded' [] =>boost
+move #0 [] move #1 [] tuple self =>.last_dir
+mode #('roam', 'cube', 'hold', 'cover') in ?F boost ?T evade ?!None zv #'must' [] ?T
+zv #'urgent' [] ?T t, self .hit_t - #3.0 > ?F foes ?T self .heard ?F t, self .heard #0 [] - #8.0 < ?F
+g:QUIET_SPEED g:max + NULL #1.0 st .get + NULL|self #'walk_speed' #11.7 call call / =>cap
+g:math .hypot move call_function_ex =>n
+n cap > ?F
+move #0 [] n / cap * move #1 [] n / cap * list =>move
+g:math .hypot d:me #'vel' [] #0 [] d:me #'vel' [] #1 [] call =>hs
+g:any + NULL <code <genexpr>> make_function d:me #'weapons' []  call call =>charging
+g:min + NULL #1.0 g:math .hypot move call_function_ex call st .get + NULL|self #'walk_speed' #11.7 call * charging ?F st .get + NULL|self #'charge_move_mult' self .charge_mult call jmp #1.0 * =>asked
+g:math .hypot move call_function_ex #0.3 > ?F hs g:min + NULL #2.5 #0.45 asked * call < ?F d:me #'grounded' [] ?F
+self .stall #0.1 += =>.stall jmp
+g:max + NULL #0.0 self .stall #0.05 - call self =>.stall
+#False =>jump
+self .stall #0.6 > ?F
+#0.0 self =>.stall
+self .body ?F self .body .top_at + NULL|self x move #0 [] #4 * + y move #1 [] #4 * + call z - #40 < ?F d:me #'energy' [] #35 > ?F
+t #2.5 + self =>.climb_until jmp
+g:math .atan2 move #1 [] move #0 [] call self .rng .choice + NULL|self #(-1, 1) call g:math .pi #2 / self .rng .random + NULL|self call + * + =>a
+g:math .cos a call g:math .sin a call tuple t #1.5 + self =>.detour self =>.detour_until
+t, self .climb_until < ?F
+d:me #'grounded' [] ?F
+#True =>jump jmp
+d:me #'energy' [] #5 > ?F
+#True =>boost
+d:me #'grounded' [] ?T steer_pt ?None
+steer_pt #0 [] x - steer_pt #1 [] y - =>dy =>dx
+g:math .hypot dx dy call ?T #1.0 =>n
+dx n / dy n / list =>move jmp
+d:me #'grounded' [] ?T mode #'zone' != ?F
+#False =>boost
+boost ?F d:me #'grounded' [] ?F d:me #'energy' [] #20 < ?F
+#False =>boost
+g:round + NULL move #0 [] #4 call g:round + NULL move #1 [] #4 call list act #'move' []=
+g:round + NULL g:ang_diff + NULL aim_yaw call #5 call g:round + NULL g:max + NULL #-0.69 g:min + NULL #1.29 aim_pitch call call #5 call list act #'aim' []=
+fire act #'fire' []=
+g:bool + NULL boost call act #'boost' []=
+jump act #'jump' []=
+g:mf .draw .label + NULL|self mode format_simple #' hp' d:me #'hp' [] #'.0f' format_with_spec build_string call
+act return
+=>h reraise
+=>c reraise
+=>e reraise
+=>m reraise
+=>e reraise
+=>_ =>b reraise
+=>w reraise
+=>p reraise
+=>p =>k =>i reraise
+=>c reraise
+=>n reraise
+=>e reraise
+
+### Bot.act.<locals>.<genexpr> 
+.0  for =>h, h #1 [] yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.act.<locals>.<lambda> 
+d:ch i [] g:PICK_ORDER in ?F g:PICK_ORDER .index + NULL|self d:ch i [] call return #50 return
+
+### Bot.act.<locals>.slot_of 
+g:enumerate + NULL d:me #'weapons' [] call  for unpack_sequence =>i, w
+w ?T loop w #'kind' [] kind == ?T loop
+i, w tuple return
+return#(None, None)
+
+### Bot.act.<locals>.<lambda> 
+c #0 [] return
+
+### Bot.act.<locals>.<lambda> 
+e #'d' [] return
+
+### Bot.act.<locals>.<genexpr> 
+.0  for =>e #'laser' e #'m' [] .get + NULL|self #'weapons' list call in ?F e #'d' [] #70 > yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.act.<locals>.<genexpr> 
+.0  for =>e, e #'d' [] #80 < yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise
+
+### Bot.act.<locals>.<genexpr> 
+.0  for =>w, w ?F w .get + NULL|self #'kind' call #'laser' == ?F w .get + NULL|self #'charge' #0 call #0 > yield_value loop return#None intrINTRINSIC_STOPITERATION_ERROR reraise

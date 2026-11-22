@@ -1,0 +1,8 @@
+whale45: MATCH
+  f2n2 [f2 n2]: MATCH 0.58s | F on | buckets off: no event key candidate passed | G 0.43%
+  f2n8 [f2 n8]: MATCH 1.06s | F on | buckets off: no event key candidate passed | G 0.43%
+  f2G [f2 n2 LANE=G]: MATCH 0.97s | lane F off: SESSIONS_LANE=G | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.73s | F on | buckets off: SESSIONS_F2=0 | G 0.43%
+  f2b9 [f2 n3 TEST_BUCKET_BITS=9]: MATCH 0.68s | F on | buckets off: no event key candidate passed | G 0.43%
+  f1n2 [f1 n2]: MATCH 0.71s | F on | G 0.43%
+  rel15 [rel15 n2]: MATCH 0.68s | 

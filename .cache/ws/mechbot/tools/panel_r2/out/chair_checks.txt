@@ -1,0 +1,64 @@
+== 1. zone schedule (hello.config.zone) ==
+hold 0-60 s, shrink 60-110 s: radius 560 -> 380 m, 20 HP/s, edge speed 3.60 m/s
+hold 110-155 s, shrink 155-195 s: radius 380 -> 240 m, 35 HP/s, edge speed 3.50 m/s
+hold 195-230 s, shrink 230-265 s: radius 240 -> 140 m, 60 HP/s, edge speed 2.86 m/s
+hold 265-295 s, shrink 295-325 s: radius 140 -> 70 m, 100 HP/s, edge speed 2.33 m/s
+hold 325-350 s, shrink 350-375 s: radius 70 -> 25 m, 160 HP/s, edge speed 1.80 m/s
+hold 375-390 s, shrink 390-415 s: radius 25 -> 0 m, 260 HP/s, edge speed 1.00 m/s
+final shrink 390-415 s: radius = 415 - t; dps 260
+
+== 2. cost of standing d metres off the final point (centre moves linearly from the old centre) ==
+rho 0.00: 1 m off costs toward old centre / sideways / away =    260 /   260 /   260 HP  (closed form 260 / 260 / 260)
+rho 0.33: 1 m off costs toward old centre / sideways / away =    195 /   275 /   388 HP  (closed form 195 / 275 / 388)
+rho 0.67: 1 m off costs toward old centre / sideways / away =    156 /   350 /   788 HP  (closed form 156 / 350 / 788)
+rho 0.90: 1 m off costs toward old centre / sideways / away =    137 /   596 /  2600 HP  (closed form 137 / 596 / 2600)
+if the final point is uniform in the 25 m circle: rho mean 0.67, median 0.71
+rho 0.00, rival 5.0 m off: loses  1300 HP if on the old-centre side,  1300 HP if on the far side
+rho 0.00, rival 7.5 m off: loses  1950 HP if on the old-centre side,  1950 HP if on the far side
+rho 0.67, rival 5.0 m off: loses   778 HP if on the old-centre side,  3939 HP if on the far side
+rho 0.67, rival 7.5 m off: loses  1168 HP if on the old-centre side,  5909 HP if on the far side
+
+== 3. HP pools and death times after 415 s (no fire, no regen outside) ==
+0 cubes: 1400 HP, on the point dies at 420.4 s
+10 cubes: 1960 HP, on the point dies at 422.5 s
+rival 1512 HP, 5 m off (rho 0): dies at 415.8 s
+rival 2518 HP, 5 m off (rho 0): dies at 419.7 s
+body radius 2.5 m (x1.50 at 10 cubes): two centres are at least 5.0 to 7.5 m apart
+
+== 4. sound discs against the zone ==
+gun 320 m: 33% of the 560 m circle, 71% of the 380 m circle, 100% of the 240 m circle, 100% of the 140 m circle
+laser 380 m: 46% of the 560 m circle, 100% of the 380 m circle, 100% of the 240 m circle, 100% of the 140 m circle
+death 600 m: 100% of the 560 m circle, 100% of the 380 m circle, 100% of the 240 m circle, 100% of the 140 m circle
+
+== 5. truel and duel thresholds ==
+three equal mechs all shooting: 14.0 ; hold fire then beat the survivor 9 times in 10: 14.9
+P 1.0: win chance P^3/(1+P^3) = 0.50
+P 1.25: win chance P^3/(1+P^3) = 0.66
+P 1.35: win chance P^3/(1+P^3) = 0.71
+P 1.4: win chance P^3/(1+P^3) = 0.73
+P 1.5: win chance P^3/(1+P^3) = 0.77
+P 1.6: win chance P^3/(1+P^3) = 0.80
+P 1.85: win chance P^3/(1+P^3) = 0.86
+P 2.4: win chance P^3/(1+P^3) = 0.93
+p*(n) needs V(n-1); the memo printed V only at [16, 12, 8, 6, 4, 3, 2] -> adjacent values exist for n = 4 and 3:
+  hunter-like field value, n=4: p* = (13.6 - 12) / (14.0 - 12) = 0.80 -> P* = 1.59
+  hunter-like field value, n=3: p* = (14.0 - 13) / (14.4 - 13) = 0.71 -> P* = 1.36
+standard error of a 64-match mean with per-match sd 1.4: 0.175
+
+== 6. replay (house-bot FFA, older balance): gun retention and death clock ==
+weapon kinds ['gun', 'mortar', 'laser', 'lightning']; live mech-frames 19757, without a gun in either slot 0 (0.00%), mechs ever gunless []
+final loadouts: [('gun',), ('gun',), ('gun',), ('gun',), ('gun',), ('gun', 'laser'), ('gun', 'laser'), ('gun', 'laser'), ('gun', 'laser'), ('gun', 'lightning'), ('gun', 'mortar'), ('gun', 'mortar'), ('gun', 'mortar'), ('gun', 'mortar'), ('gun', 'mortar'), ('gun', 'mortar')]
+death times (s): [41.7, 66.1, 67.7, 67.8, 69.5, 81.3, 98.5, 125.0, 136.5, 136.8, 137.8, 160.7, 168.6, 197.9, 209.7]
+2nd death 66 s, 3rd death 68 s, 4th 68 s (an observer's own kills would be subtracted)
+killed_with: {'gun': 9, 'zone': 1, 'lightning': 1, 'mortar': 1, 'None': 1, 'laser': 3}
+
+== 7. belief-lite: marginal HP per engagement in practice (model, replay priors) ==
+house torso -> belief wedge: 24 HP per engagement
+chance -> belief wedge: 17 HP per engagement
+last-sound wedge -> belief wedge: 6 HP per engagement
+
+== 8. latch rule: expected practice cost of a looser rule ==
+false-latch rate 4% x about 5.0 points lost in that match = 0.20 points of practice mean
+false-latch rate 0% x about 5.0 points lost in that match = 0.00 points of practice mean
+roof A/Bs on the official scorer (measured_deltas C02-C07, E06): [-0.37, 0.73, -0.93, -0.18, 0.06, -0.21] -> C03 is the roof-off test read as +0.73 for roofs (confounded); mean of the other five -0.33
+hide-first A/Bs (A01 A13 A15 A17 A18 A19 A20 A22 A24 A31): 10 tests, all negative, mean -0.81 range -0.33 -1.75

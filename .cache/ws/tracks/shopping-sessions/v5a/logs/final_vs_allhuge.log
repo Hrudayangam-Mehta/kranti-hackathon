@@ -1,0 +1,14 @@
+round 0 final: exit 0 wall 12.909 user 5.728 sys 1.044 cpu 6.772 maxrss 3.16 GB minflt 330173 majflt 0 in 0MB stdout 0
+round 0 x_allhuge: exit 0 wall 15.980 user 5.434 sys 4.026 cpu 9.460 maxrss 3.20 GB minflt 61518 majflt 0 in 0MB stdout 0
+round 1 x_allhuge: exit 0 wall 11.003 user 4.923 sys 1.521 cpu 6.445 maxrss 3.15 GB minflt 61561 majflt 0 in 0MB stdout 0
+round 1 final: exit 0 wall 9.019 user 5.626 sys 0.953 cpu 6.579 maxrss 3.15 GB minflt 328678 majflt 0 in 0MB stdout 0
+round 2 final: exit 0 wall 9.080 user 5.630 sys 0.890 cpu 6.520 maxrss 3.15 GB minflt 328794 majflt 0 in 0MB stdout 0
+round 2 x_allhuge: exit 0 wall 12.414 user 5.113 sys 3.667 cpu 8.779 maxrss 3.16 GB minflt 61440 majflt 0 in 0MB stdout 0
+round 3 x_allhuge: exit 0 wall 11.088 user 5.156 sys 1.612 cpu 6.767 maxrss 3.16 GB minflt 61311 majflt 0 in 0MB stdout 0
+round 3 final: exit 0 wall 10.682 user 5.555 sys 0.889 cpu 6.444 maxrss 3.15 GB minflt 329127 majflt 0 in 0MB stdout 0
+SUMMARY final n=4/4: cpu median 6.549 (min 6.444) user 5.628 sys 0.921 wall 9.881 maxrss 3.15 GB
+  stages (thread CPU s, median): events=2.950 dedup=0.776 people=0.768 clicks=0.432 events/sys=0.368 links=0.248 user_write/sys=0.218 user_write=0.184 merge=0.111 reclick=0.093 links/sys=0.075 release/sys=0.061 clicks/sys=0.056 people/sys=0.034 unmap/sys=0.031 dedup/sys=0.030 merge/sys=0.022 persons=0.016 reclick/sys=0.013 release=0.007 unmap=0.004 bar_parse=0.002 bar_dedup=0.002 bar_merge=0.001 bar_parse/sys=0.000 wait_jobs=0.000 bar_merge/sys=0.000 persons/sys=0.000 bar_dedup/sys=0.000 wait_jobs/sys=0.000 last_write/sys=0.000 wait_events=0.000 wait_events/sys=0.000 order=0.000 order/sys=0.000 campaign=0.000 campaign/sys=0.000 last_write=0.000
+SUMMARY x_allhuge n=4/4: cpu median 7.773 (min 6.445) user 5.134 sys 2.639 wall 11.751 maxrss 3.16 GB
+  stages (thread CPU s, median): events=2.592 events/sys=1.638 people=0.745 dedup=0.734 clicks/sys=0.545 clicks=0.380 links=0.235 user_write=0.200 user_write/sys=0.196 merge=0.119 reclick=0.084 links/sys=0.078 dedup/sys=0.038 people/sys=0.038 unmap/sys=0.028 persons=0.016 merge/sys=0.013 release/sys=0.007 unmap=0.004 reclick/sys=0.003 bar_dedup=0.002 bar_parse=0.002 release=0.001 bar_parse/sys=0.001 wait_jobs=0.001 bar_merge=0.001 bar_merge/sys=0.001 wait_jobs/sys=0.001 persons/sys=0.000 campaign=0.000 bar_dedup/sys=0.000 wait_events=0.000 wait_events/sys=0.000 order=0.000 order/sys=0.000 last_write=0.000 last_write/sys=0.000 campaign/sys=0.000
+PAIRED x_allhuge - final cpu: median +1.291 s, lower in 1/4
+PAIRED x_allhuge - final wall: median +2.528 s, lower in 0/4

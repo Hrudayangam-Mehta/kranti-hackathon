@@ -1,0 +1,8 @@
+threat-aware A* (each exposed metre costs 3 m), 175 retreats of 60-150 m to a hidden goal with one enemy at 80-150 m:
+  shortest path: length 126 m, of which exposed 66 m (53%)
+  threat-aware:  length 133 m (x1.06), exposed 61 m (47%); exposed metres saved per route 5.1 (8%); routes with at least 20 m saved 12%; A* 0.29 -> 0.84 ms
+  at 11.7 m/s that is 0.43 s less under fire per retreat, about 17 HP at 100 m against one house gun (107 dps x 0.36)
+threat-aware A* (each exposed metre costs 6 m), 152 retreats of 60-150 m to a hidden goal with one enemy at 80-150 m:
+  shortest path: length 125 m, of which exposed 61 m (49%)
+  threat-aware:  length 138 m (x1.10), exposed 56 m (42%); exposed metres saved per route 4.9 (8%); routes with at least 20 m saved 9%; A* 0.09 -> 0.66 ms
+  at 11.7 m/s that is 0.42 s less under fire per retreat, about 16 HP at 100 m against one house gun (107 dps x 0.36)

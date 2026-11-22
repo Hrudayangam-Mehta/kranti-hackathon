@@ -1,0 +1,116 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh prakash_v2_e7319ff",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/prakash_v2_e7319ff.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 1,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 1,
+  "meanTimeAlive": 83.5,
+  "meanDmgDealt": 3727,
+  "meanDmgTaken": 1884,
+  "lates": 2,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 2
+  },
+  "meanWallMs": 1782,
+  "wallS": 2.7
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "osu-mech",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 65.95,
+   "alive": false,
+   "dmgDealt": 3515,
+   "dmgTaken": 1519,
+   "cause": "gun",
+   "killedBy": 0,
+   "killRange": 38.5,
+   "killerRole": "hunt",
+   "hunters": 2,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 65.95,
+   "wallMs": 1414,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 16.5,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "osu-mech",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 101.05,
+   "alive": false,
+   "dmgDealt": 3938,
+   "dmgTaken": 2248,
+   "cause": "gun",
+   "killedBy": 2,
+   "killRange": 16,
+   "killerRole": "hunt",
+   "hunters": 2,
+   "killerName": "squad:easy",
+   "lates": 2,
+   "missed": 0,
+   "cubes": 3,
+   "upgrades": [
+    "gun_rate",
+    "nanites"
+   ],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 101.05,
+   "wallMs": 2149,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 108.3,
+   "meanMs": 0
+  }
+ ]
+}

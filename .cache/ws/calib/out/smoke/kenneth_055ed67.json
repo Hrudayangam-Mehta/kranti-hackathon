@@ -1,0 +1,121 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh kenneth_055ed67",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/kenneth_055ed67.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 2,
+  "stdErr": 2,
+  "sd": 2.828,
+  "winFrac": 0,
+  "meanKills": 2,
+  "meanTimeAlive": 73.1,
+  "meanDmgDealt": 3251,
+  "meanDmgTaken": 1775,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "npc": 1
+  },
+  "meanWallMs": 1698,
+  "wallS": 2.8
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "ironclad",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 51.3,
+   "alive": false,
+   "dmgDealt": 6433,
+   "dmgTaken": 2094,
+   "cause": "gun",
+   "killedBy": 4,
+   "killRange": 80.9,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "armor",
+    "plating"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 51.3,
+   "wallMs": 1298,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 38,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "ironclad",
+   "place": 16,
+   "score": 0,
+   "kills": 0,
+   "timeAlive": 94.9,
+   "alive": false,
+   "dmgDealt": 68,
+   "dmgTaken": 1456,
+   "cause": "npc",
+   "killedBy": 110,
+   "killRange": null,
+   "killerRole": null,
+   "hunters": 1,
+   "killerName": "npc",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 1,
+   "upgrades": [
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 94.9,
+   "wallMs": 2098,
+   "deadOthers": 0,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 74,
+   "meanMs": 0
+  }
+ ]
+}

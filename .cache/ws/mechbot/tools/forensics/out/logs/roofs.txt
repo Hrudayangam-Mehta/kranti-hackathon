@@ -1,0 +1,47 @@
+## share of alive time grounded more than 3 m above terrain (roof / bridge / stadium deck)
+| type | alive s | roof s | % on roof | % airborne |
+|---|---|---|---|---|
+| expert | 289.70 | 20.00 | 6.90 | 26.82 |
+| hard | 259.80 | 0.50 | 0.19 | 26.56 |
+| medium | 205.60 | 0.00 | 0.00 | 19.11 |
+| brawler | 419.50 | 2.40 | 0.57 | 25.91 |
+| sniper | 267.50 | 5.50 | 2.06 | 24.11 |
+| thirdparty | 204.30 | 0.60 | 0.29 | 40.33 |
+| farmer | 329.30 | 14.50 | 4.40 | 28.88 |
+| ALL | 1975.70 | 43.50 | 2.20 | 27.17 |
+per mech roof seconds: {3: 5.5, 4: 0.6, 5: 4.5, 6: 20.0, 7: 0.5, 9: 2.4, 12: 10.0}
+
+roof visits (>= 0.5 s):
+| mech | type | t (s) | duration s | median height above terrain | surface | climb m from take-off | horiz m | energy used | gun shots | ..at mechs | weapons taken | cubes | crates killed | dmg taken | dist to nearest roof loot at arrival |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 3 | sniper | 187.10 | 5.50 | 7.10 | building | 9.0 | 48 | 53 | 1 | 1 | 0 | 0 | 0 | 453.24 | 31.66 |
+| 4 | thirdparty | 121.20 | 0.60 | 4.23 | building | 4.9 | 31 | 75 | 1 | 1 | 0 | 0 | 0 | 0 | 119.00 |
+| 5 | farmer | 53.80 | 3.90 | 6.65 | building | 7.3 | 29 | 18 | 0 | 0 | 0 | 0 | 0 | 0 | 56.60 |
+| 5 | farmer | 60.70 | 0.60 | 6.64 | building | 0.0 | 24 | 13 | 0 | 0 | 0 | 0 | 0 | 0 | 62.69 |
+| 6 | expert | 11.60 | 8.10 | 12.45 | building | 14.1 | 30 | 29 | 4 | 4 | 0 | 0 | 0 | 0 | 59.70 |
+| 6 | expert | 35.50 | 3.30 | 9.62 | building | 8.7 | 26 | 20 | 1 | 0 | 0 | 0 | 0 | 0 | 19.39 |
+| 6 | expert | 51.50 | 2.90 | 9.35 | building | 9.0 | 30 | 19 | 1 | 1 | 0 | 0 | 0 | 48.60 | 22.82 |
+| 6 | expert | 56.40 | 2.40 | 9.15 | building | 0.0 | 14 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 30.27 |
+| 6 | expert | 77.80 | 3.30 | 9.12 | building | 9.8 | 19 | 22 | 0 | 0 | 0 | 0 | 0 | 0 | 30.88 |
+| 7 | hard | 123.40 | 0.50 | 13.92 | building | 14.0 | 17 | 62 | 1 | 1 | 0 | 0 | 0 | 46.80 | 43.34 |
+| 9 | brawler | 207.40 | 2.40 | 8.51 | building | 8.7 | 20 | 20 | 0 | 0 | 0 | 1 | 0 | 0 | 8.61 |
+| 12 | farmer | 123.60 | 3.90 | 8.93 | building | 11.9 | 10 | 28 | 0 | 0 | 0 | 0 | 0 | 0 | 73.49 |
+| 12 | farmer | 130.50 | 2.50 | 8.71 | building | 0.0 | 5 | 13 | 0 | 0 | 0 | 0 | 0 | 0 | 54.72 |
+| 12 | farmer | 136.00 | 3.60 | 9.31 | building | 0.0 | 10 | 13 | 0 | 0 | 0 | 0 | 0 | 0 | 64.15 |
+roof height above terrain: p10 6.7 p50 9.1 p90 12.5 max 14.0
+roof crates: 9 of 36 (destroyed: 2) ; roof weapon pickups: 10 of 40 (taken: 0) ; ground crates destroyed 14 of 27 ; ground pickups taken 11 of 30
+roof crate heights above terrain: [4.0, 4.8, 8.6, 18.2, 19.3, 20.8, 20.9, 22.8, 34.6]
+roof pickup heights above terrain: [13.3, 15.5, 16.7, 17.0, 19.0, 20.1, 21.0, 21.0, 22.7, 23.2]
+gun shots at roof crates: 22 by {(6, 'expert'): 2, (13, 'expert'): 1, (14, 'hard'): 1, (12, 'farmer'): 7, (3, 'sniper'): 6, (8, 'medium'): 5}
+
+## shots at elevated targets (target feet more than 3 m above its terrain and grounded = on a roof)
+ground shooter -> roof target: 8 shots, 3 hits (38%), blocked by geometry 0, median range 90
+roof shooter -> ground target: 10 shots, 2 hits (20%), blocked 2, median range 96
+  by shooter (ground->roof): {(12, 6): 6, (7, 4): 1, (9, 3): 1}  (roof->ground): {(6, 13): 4, (6, 15): 1, (6, 12): 1, (4, 7): 1, (7, 4): 1, (3, 9): 2}
+| target feet z minus shooter feet z (m), range 40-130 | shots | hits | hit % | % blocked |
+|---|---|---|---|---|
+| -99..-6 | 117 | 61 | 52.14 | 1.71 |
+| -6..-2 | 92 | 45 | 48.91 | 2.17 |
+| -2..2 | 180 | 90 | 50.00 | 4.44 |
+| 2..6 | 94 | 54 | 57.45 | 5.32 |
+| 6..99 | 134 | 92 | 68.66 | 12.69 |

@@ -1,0 +1,113 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh afiapoks_aim_082352b",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/afiapoks_aim_082352b.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 2,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 2,
+  "meanTimeAlive": 69.8,
+  "meanDmgDealt": 3877,
+  "meanDmgTaken": 1500,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 2
+  },
+  "meanWallMs": 1647,
+  "wallS": 2.5
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "bloom-aim-v1",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 63.15,
+   "alive": false,
+   "dmgDealt": 3433,
+   "dmgTaken": 1418,
+   "cause": "gun",
+   "killedBy": 2,
+   "killRange": 64.6,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 63.15,
+   "wallMs": 1567,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 18.7,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "bloom-aim-v1",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 76.35,
+   "alive": false,
+   "dmgDealt": 4320,
+   "dmgTaken": 1582,
+   "cause": "gun",
+   "killedBy": 0,
+   "killRange": 85.4,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 76.35,
+   "wallMs": 1727,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 50.2,
+   "meanMs": 0
+  }
+ ]
+}

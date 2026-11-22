@@ -1,0 +1,123 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh gtgoats_4cb4a9e",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/gtgoats_4cb4a9e.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 4.5,
+  "stdErr": 0.5,
+  "sd": 0.707,
+  "winFrac": 0,
+  "meanKills": 4.5,
+  "meanTimeAlive": 141.8,
+  "meanDmgDealt": 8865,
+  "meanDmgTaken": 2542,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1,
+   "gun/hunt": 1
+  },
+  "meanWallMs": 2593,
+  "wallS": 3.4
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "Astra",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 152.95,
+   "alive": false,
+   "dmgDealt": 9296,
+   "dmgTaken": 2116,
+   "cause": "laser",
+   "killedBy": 10,
+   "killRange": 201.2,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:hard",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 3,
+   "upgrades": [
+    "armor",
+    "nanites"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 152.95,
+   "wallMs": 2717,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 20.6,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "Astra",
+   "place": 11,
+   "score": 5,
+   "kills": 5,
+   "timeAlive": 130.7,
+   "alive": false,
+   "dmgDealt": 8433,
+   "dmgTaken": 2967,
+   "cause": "gun",
+   "killedBy": 6,
+   "killRange": 50.8,
+   "killerRole": "hunt",
+   "hunters": 6,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 8,
+   "upgrades": [
+    "armor",
+    "nanites",
+    "gun_damage"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 130.7,
+   "wallMs": 2469,
+   "deadOthers": 5,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 17.8,
+   "meanMs": 0
+  }
+ ]
+}

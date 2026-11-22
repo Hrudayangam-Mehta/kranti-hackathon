@@ -1,0 +1,122 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh lance_patient_42d652b",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/lance_patient_42d652b.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 4,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 4,
+  "meanTimeAlive": 86.7,
+  "meanDmgDealt": 6288,
+  "meanDmgTaken": 2226,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 2
+  },
+  "meanWallMs": 2131,
+  "wallS": 3.1
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "mech-royale-probe",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 73.95,
+   "alive": false,
+   "dmgDealt": 6567,
+   "dmgTaken": 2094,
+   "cause": "gun",
+   "killedBy": 7,
+   "killRange": 63.5,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "armor",
+    "plating"
+   ],
+   "loadout": [
+    "laser",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 73.95,
+   "wallMs": 1814,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 21.3,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "mech-royale-probe",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 99.45,
+   "alive": false,
+   "dmgDealt": 6009,
+   "dmgTaken": 2358,
+   "cause": "gun",
+   "killedBy": 6,
+   "killRange": 82.5,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:medium",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 7,
+   "upgrades": [
+    "servos",
+    "plating",
+    "lightning_range"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 99.45,
+   "wallMs": 2447,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 56.2,
+   "meanMs": 0
+  }
+ ]
+}

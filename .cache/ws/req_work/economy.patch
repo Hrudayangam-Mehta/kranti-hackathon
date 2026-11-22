@@ -1,0 +1,133 @@
+--- a/lib/economy.js	2026-11-21 08:14:26.339375154 +0000
++++ b/lib/economy.js	2026-11-21 08:10:23.605353146 +0000
+@@ -70,26 +70,35 @@
+   function chooseLoot() {
+     const me = B.me, t = me.t
+     B.loot = null; B.farmNpc = -1
++    const S = B.steal
+     const quiet = t - B.lastContactT >= 3 && B.A === 0
+-    if (!quiet && B.everSawMech) return
++    if (!quiet && B.everSawMech) {
++      // R1: a steal in progress is kept; in FFA one may start while the only lines of fire on us are busy loot shooters
++      const k = S && (S.keep() || (B.env === 'FFA' ? S.choose(0, true) : null))
++      if (k) B.loot = k
++      return
++    }
+     const ffa = B.env === 'FFA'
+     const farm = me.hpf >= P.farmHp && t < P.farmStopT && !(me.cubes >= P.farmStopCubes && me.laser) && (!ffa || nearestMechD() > P.ffaFarmClear)
+     let best = null, bestV = 0
+     const consider = (type, o, value, extraT, maxPath) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+       const d = pathEst(o.x, o.y)
+-      if (d > maxPath) return
++      const di = S && (type === 'cube' || type === 'pickup') ? S.deathItem(o.x, o.y, d) : 0     // R1b kill drops
++      if (di < 0) return
++      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+       const tt = d / me.walk + extraT
+       if (zoneSlack(B, o.x, o.y, t + tt + P.zoneArriveSlack) < 3) return
+       if (type !== 'drone' && nearDrone(o.x, o.y)) return
+       if (!reachable(o.x, o.y, o.z)) return
+-      const v = value / (tt + 0.5)
+-      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o } }
++      let v = value / (tt + 0.5) * (di > 0 ? 1.5 : 1)
++      if (S && (type === 'cube' || type === 'pickup') && di === 0) { const r = S.race(o.x, o.y, tt); if (r < 0) return; if (r > 0) v *= P.raceBonus }   // R1d
++      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
+     }
+     const cubeV = me.cubes >= (B.cfg.cubes.stat_cap || 10) ? 0.4 : P.cubeValue
+     if (cubesWanted()) for (const c of B.cubes.values()) {
+       const nearKill = isKillCube(c)
+-      consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? P.grabCubeHi : P.lootCubePath)
++      consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? (P.stealOn ? P.deathCubeR : P.grabCubeHi) : P.lootCubePath)
+     }
+     for (const p of B.pickups.values()) {
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+@@ -97,17 +106,20 @@
+     }
+     if (farm) {
+       const wantW = !me.weapons[0] || !me.weapons[1]
+-      if (me.gun && !(ffa && nearestMechD() < 320)) for (const c of B.crates.values()) {
++      if (me.gun && !(ffa && nearestMechD() < 320) && (!S || S.farmOk('crate'))) for (const c of B.crates.values()) {
++        if (S && S.beingShot(c.id)) continue                              // R1a: someone else spends the ammunition (steal instead)
+         const shootT = Math.max(1, c.hp) / Math.max(1, me.gun.damage * me.dmgMult) * me.gun.cd + 1
+         consider('crate', c, 1 + (wantW ? 0.5 * P.weaponValue : 0), shootT, P.lootCratePath)
+       }
+-      if (me.gun) for (let k = 0; k < B.trackList.length; k++) {
++      if (me.gun && (!S || S.farmOk('drone'))) for (let k = 0; k < B.trackList.length; k++) {
+         const tr = B.trackList[k]
+         if (!tr.npc || !tr.listed || tr.hp <= 0) continue
++        if (S && S.beingShot(tr.id)) continue                             // R1a
+         const shootT = tr.hp / Math.max(1, me.gun.damage * me.dmgMult * 0.8) * me.gun.cd + 1
+         consider('drone', tr, 2, shootT, P.lootDronePath)
+       }
+     }
++    if (S) { const s = S.choose(bestV); if (s) best = s }                 // R1a / R1b: steals and kill-drop rushes
+     B.loot = best
+     if (best && best.type === 'drone') B.farmNpc = best.id
+   }
+@@ -133,16 +145,23 @@
+     const lose = B.losing
+     const cubeR = lose ? P.grabCubeLose : me.hpf > P.grabHpf ? P.grabCubeHi : P.grabCubeLo
+     let best = null, bestV = 0
++    const S = B.steal
+     const tryOne = (type, o, value, maxPath) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+       const d = pathEst(o.x, o.y)
+-      if (d > maxPath) return
++      const di = S ? S.deathItem(o.x, o.y, d) : 0                       // R1b kill drops: first by path time, else leave them
++      if (di < 0) return
++      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+       if (zoneSlack(B, o.x, o.y, t + d / me.walk + P.zoneArriveSlack) < 3) return
+       if (nearDrone(o.x, o.y) || !reachable(o.x, o.y, o.z)) return
+-      const v = value / (d / me.walk + 0.5)
+-      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o } }
++      let v = value / (d / me.walk + 0.5) * (di > 0 ? 1.5 : 1)
++      if (S && di === 0) { const r = S.race(o.x, o.y, d / me.walk); if (r < 0) return; if (r > 0) v *= P.raceBonus }     // R1d
++      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
++    }
++    if (cubesWanted()) for (const c of B.cubes.values()) {
++      const kc = isKillCube(c)
++      if (t - c.seen <= (kc && P.stealOn ? P.deathCubeMemS : P.cubeMemS)) tryOne('cube', c, kc ? 1.5 : 1, cubeR)     // R1c
+     }
+-    if (cubesWanted()) for (const c of B.cubes.values()) if (t - c.seen <= P.cubeMemS) tryOne('cube', c, isKillCube(c) ? 1.5 : 1, cubeR)
+     if (!lose) for (const p of B.pickups.values()) {
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+       if (t - p.seen > 60 || !wantPickup(p.kind)) continue
+@@ -164,6 +183,7 @@
+       if (dist > (landed ? P.dropLeaveR : P.dropMaxD)) continue
+       const path = dist * P.pathFactor, tApp = path / me.walk
+       if (!landed && tApp < d.landsIn - P.dropEarlyS) continue                 // too early: no waiting in the ring
++      if (B.steal && !B.steal.dropOk(d, tApp)) continue                        // R1e: occupied ring, capture running, or a mech gets there first
+       if (me.hp <= B.A * (tApp + P.dropCaptureS) + P.dropHpBase) continue
+       if (zoneSlack(B, d.x, d.y, t + Math.max(tApp, d.landsIn) + P.dropCaptureS + 3) < d.radius) continue
+       let contested = false
+@@ -185,6 +205,7 @@
+     if (t - grabT >= 0.25 || (B.grab && !lootStillThere(B.grab))) { grabT = t; chooseGrab() }
+   }
+   function lootStillThere(l) {
++    if (l.type === 'steal' || l.type === 'rush') return !!B.steal && B.steal.stillValid(l)
+     if (l.type === 'drone') { const tr = B.tracks.get(l.id); return !!tr && tr.hp > 0 }
+     const map = l.type === 'cube' ? B.cubes : l.type === 'crate' ? B.crates : B.pickups
+     return map.has(l.id)
+@@ -193,6 +214,7 @@
+   function lootLegs() {
+     const me = B.me, l = B.loot
+     if (!l) { B.cmd.mx = 0; B.cmd.my = 0; return }
++    if ((l.type === 'steal' || l.type === 'rush') && B.steal) { B.steal.legs(l); return }
+     const d = Math.hypot(l.x - me.x, l.y - me.y)
+     B.lookHint = true; B.lookX = l.x; B.lookY = l.y
+     if (l.type === 'drone') {
+@@ -227,6 +249,7 @@
+     if (!g) return false
+     const d = mover.moveTo(g.x, g.y, 1, g.type === 'pickup' ? 1.2 : 0.6)
+     if (d < 1.5) return true
++    if (g.rush && d > 20 && me.energy >= P.boostReserve + 10 && me.grounded) cmd.boost = true      // R1b: rush kill drops
+     const tgt = B.target
+     if (tgt && strafeW > 0 && d > 6) {
+       const bx = tgt.x - me.x, by = tgt.y - me.y, bl = Math.hypot(bx, by) || 1, s = mover.jink.sign
+@@ -283,5 +306,5 @@
+     out.pick = best
+   }
+ 
+-  return { update, lootLegs, dropLegs, grabLegs, hands, pick, wantPickup }
++  return { update, lootLegs, dropLegs, grabLegs, hands, pick, wantPickup, reachable, pathEst }
+ }

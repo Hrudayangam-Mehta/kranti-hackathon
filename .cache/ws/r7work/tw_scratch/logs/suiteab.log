@@ -1,0 +1,9 @@
+suite07 test_world rc=0 :: 39/39 checks passed in 35.3 s
+suite test_world rc=1 :: 37/39 checks passed in 49.5 s  FAILED: D3 findPath steady state: p50 < 3 ms and worst case bounded ; D1 init: World.loadSync + new Nav < 3 s (Nav < 1.5 s)
+suite07 test_brain rc=1 :: 105/109 checks passed  FAILED: stream replay (map): decision time mean<=4 p99<=15 max<=25 ms | stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms | fuzz: 2000 perturbed observations x 2 (map / no map) never throw, always a valid action | decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms
+suite test_brain rc=1 :: 104/109 checks passed  FAILED: stream replay (map): decision time mean<=4 p99<=15 max<=25 ms | stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms | fix 0.7 ten mechs 90 km outside the map: decisions stay fast (were 6-22 ms each) | fuzz: 2000 perturbed observations x 2 (map / no map) never throw, always a valid action | decision time over all closed-loop scenarios: mean<=4 p99<=15 max
+suite07 test_requests rc=1 :: 10/12 checks passed  FAILED: fuzz: 3000 x 2 rich perturbed observations (crates hit by others, own beams, rear hits, deaths, late zones, FFA) never throw, valid actions | decision time: stream replay with the map (warm pass) and all request scenarios: mean <= 4, p99 <= 15, max <= 25 ms
+suite test_requests rc=1 :: 10/12 checks passed  FAILED: fuzz: 3000 x 2 rich perturbed observations (crates hit by others, own beams, rear hits, deaths, late zones, FFA) never throw, valid actions | decision time: stream replay with the map (warm pass) and all request scenarios: mean <= 4, p99 <= 15, max <= 25 ms
+suite07 test_counters rc=0 :: 15/15 passed
+suite test_counters rc=0 :: 15/15 passed
+SUITEAB_DONE

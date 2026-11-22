@@ -1,0 +1,16 @@
+stress dev NCPU=2 rep=0: exit=0 stdout_bytes=0 files=4/2 user=0.16 sys=0.06 maxrss=0.07GB MATCH/MATCH
+stress dev NCPU=2 rep=1: exit=0 stdout_bytes=0 files=4/2 user=0.18 sys=0.05 maxrss=0.07GB MATCH/MATCH
+stress dev NCPU=2 rep=2: exit=0 stdout_bytes=0 files=4/2 user=0.20 sys=0.05 maxrss=0.07GB MATCH/MATCH
+stress dev NCPU=5 rep=0: exit=0 stdout_bytes=0 files=10/4 user=0.21 sys=0.01 maxrss=0.08GB MATCH/MATCH
+stress dev NCPU=5 rep=1: exit=0 stdout_bytes=0 files=11/4 user=0.16 sys=0.04 maxrss=0.08GB MATCH/MATCH
+stress dev NCPU=5 rep=2: exit=0 stdout_bytes=0 files=10/4 user=0.18 sys=0.03 maxrss=0.08GB MATCH/MATCH
+stress dev NCPU=7 rep=0: exit=0 stdout_bytes=0 files=10/4 user=0.19 sys=0.02 maxrss=0.09GB MATCH/MATCH
+stress dev NCPU=7 rep=1: exit=0 stdout_bytes=0 files=10/4 user=0.18 sys=0.11 maxrss=0.09GB MATCH/MATCH
+stress dev NCPU=7 rep=2: exit=0 stdout_bytes=0 files=10/4 user=0.22 sys=0.03 maxrss=0.09GB MATCH/MATCH
+stress dev NCPU=16 rep=0: exit=0 stdout_bytes=0 files=11/4 user=0.19 sys=0.02 maxrss=0.12GB MATCH/MATCH
+stress dev NCPU=16 rep=1: exit=0 stdout_bytes=0 files=12/4 user=0.21 sys=0.03 maxrss=0.12GB MATCH/MATCH
+stress dev NCPU=16 rep=2: exit=0 stdout_bytes=0 files=12/4 user=0.22 sys=0.02 maxrss=0.11GB MATCH/MATCH
+stress dev NCPU=64 rep=0: exit=0 stdout_bytes=0 files=15/4 user=0.25 sys=0.09 maxrss=0.26GB MATCH/MATCH
+stress dev NCPU=64 rep=1: exit=0 stdout_bytes=0 files=12/4 user=0.25 sys=0.07 maxrss=0.24GB MATCH/MATCH
+stress dev NCPU=64 rep=2: exit=0 stdout_bytes=0 files=13/4 user=0.25 sys=0.06 maxrss=0.22GB MATCH/MATCH
+STRESS-ALL-OK

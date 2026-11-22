@@ -1,0 +1,55 @@
+obs 300 tick range 0 736 gaps [(590, 718), (718, 722), (722, 730), (730, 736)]
+alive counts [(13, 51), (14, 22), (15, 47), (16, 180)]
+entities seen: {(10, 'mech', ('gun', 'laser')): 169}
+
+charging enemy trace (tick, id, pos, aim yaw/pitch, charging, bearing enemy->me, my lateral speed wrt enemy):
+  t=142 id=10 rng=150.4 aim=(-2.202,-0.043) charging=True bearing_to_me=-2.206 aim-bearing=+0.24 deg my_vlat=-3.1  beams=[] ev=[]
+  t=144 id=10 rng=151.2 aim=(-2.220,-0.043) charging=True bearing_to_me=-2.204 aim-bearing=-0.89 deg my_vlat=-8.0  beams=[] ev=[]
+  t=146 id=10 rng=152.0 aim=(-2.235,-0.044) charging=True bearing_to_me=-2.200 aim-bearing=-1.98 deg my_vlat=-2.4  beams=[] ev=[]
+  t=148 id=10 rng=152.5 aim=(-2.208,-0.044) charging=True bearing_to_me=-2.193 aim-bearing=-0.87 deg my_vlat=+3.3  beams=[] ev=[]
+  t=150 id=10 rng=152.6 aim=(-2.184,-0.045) charging=True bearing_to_me=-2.182 aim-bearing=-0.10 deg my_vlat=+8.9  beams=[] ev=[]
+  t=152 id=10 rng=152.3 aim=(-2.165,-0.045) charging=True bearing_to_me=-2.171 aim-bearing=+0.35 deg my_vlat=+14.4  beams=[] ev=[]
+  t=154 id=10 rng=151.9 aim=(-2.152,-0.046) charging=True bearing_to_me=-2.166 aim-bearing=+0.78 deg my_vlat=+8.6  beams=[] ev=[]
+  t=156 id=10 rng=151.6 aim=(-2.160,-0.046) charging=True bearing_to_me=-2.168 aim-bearing=+0.44 deg my_vlat=+2.7  beams=[] ev=[]
+  t=158 id=10 rng=151.1 aim=(-2.168,-0.046) charging=False bearing_to_me=-2.175 aim-bearing=+0.40 deg my_vlat=-3.1  beams=[(10, 'laser', 0.1)] ev=[('damaged', 'laser', 315)]
+  t=196 id=10 rng=150.7 aim=(-2.287,-0.045) charging=True bearing_to_me=-2.290 aim-bearing=+0.19 deg my_vlat=-0.8  beams=[] ev=[]
+  t=198 id=10 rng=150.5 aim=(-2.294,-0.046) charging=True bearing_to_me=-2.294 aim-bearing=-0.03 deg my_vlat=-6.7  beams=[] ev=[]
+  t=200 id=10 rng=150.4 aim=(-2.320,-0.046) charging=True bearing_to_me=-2.299 aim-bearing=-1.22 deg my_vlat=-0.8  beams=[] ev=[('damaged', 'gun', 45)]
+  t=202 id=10 rng=150.3 aim=(-2.301,-0.046) charging=True bearing_to_me=-2.298 aim-bearing=-0.18 deg my_vlat=+5.0  beams=[] ev=[]
+  t=204 id=10 rng=150.1 aim=(-2.284,-0.046) charging=True bearing_to_me=-2.289 aim-bearing=+0.31 deg my_vlat=+10.9  beams=[] ev=[]
+  t=206 id=10 rng=149.8 aim=(-2.268,-0.046) charging=True bearing_to_me=-2.282 aim-bearing=+0.79 deg my_vlat=+5.0  beams=[] ev=[]
+  t=208 id=10 rng=149.5 aim=(-2.275,-0.047) charging=True bearing_to_me=-2.278 aim-bearing=+0.17 deg my_vlat=-0.8  beams=[] ev=[]
+  t=210 id=10 rng=149.3 aim=(-2.279,-0.047) charging=True bearing_to_me=-2.278 aim-bearing=-0.05 deg my_vlat=-6.7  beams=[] ev=[]
+  t=212 id=10 rng=148.9 aim=(-2.278,-0.047) charging=False bearing_to_me=-2.275 aim-bearing=-0.14 deg my_vlat=-0.8  beams=[(10, 'laser', 0.1)] ev=[('damaged', 'laser', 315)]
+  t=252 id=10 rng=149.9 aim=(-2.280,-0.047) charging=True bearing_to_me=-2.277 aim-bearing=-0.15 deg my_vlat=-0.8  beams=[] ev=[]
+  t=254 id=10 rng=149.6 aim=(-2.281,-0.048) charging=True bearing_to_me=-2.272 aim-bearing=-0.54 deg my_vlat=+5.0  beams=[] ev=[]
+  t=256 id=10 rng=149.3 aim=(-2.251,-0.048) charging=True bearing_to_me=-2.262 aim-bearing=+0.62 deg my_vlat=+10.9  beams=[] ev=[]
+  t=258 id=10 rng=149.0 aim=(-2.225,-0.048) charging=True bearing_to_me=-2.254 aim-bearing=+1.67 deg my_vlat=+5.0  beams=[] ev=[]
+  t=260 id=10 rng=148.6 aim=(-2.241,-0.048) charging=True bearing_to_me=-2.248 aim-bearing=+0.43 deg my_vlat=-0.8  beams=[] ev=[]
+  t=262 id=10 rng=148.3 aim=(-2.250,-0.048) charging=True bearing_to_me=-2.248 aim-bearing=-0.10 deg my_vlat=-6.7  beams=[] ev=[]
+  t=264 id=10 rng=148.0 aim=(-2.257,-0.048) charging=True bearing_to_me=-2.246 aim-bearing=-0.61 deg my_vlat=-0.8  beams=[] ev=[]
+  t=360 id=10 rng=99.6 aim=(-2.379,-0.081) charging=False bearing_to_me=-2.518 aim-bearing=+7.98 deg my_vlat=+4.2  beams=[] ev=[]
+  t=370 id=10 rng=97.1 aim=(-2.553,-0.073) charging=True bearing_to_me=-2.564 aim-bearing=+0.63 deg my_vlat=+2.9  beams=[] ev=[]
+  t=372 id=10 rng=97.5 aim=(-2.545,-0.073) charging=True bearing_to_me=-2.561 aim-bearing=+0.91 deg my_vlat=-2.4  beams=[] ev=[]
+  t=374 id=10 rng=98.0 aim=(-2.575,-0.075) charging=True bearing_to_me=-2.559 aim-bearing=-0.92 deg my_vlat=-7.6  beams=[] ev=[]
+  t=376 id=10 rng=98.5 aim=(-2.597,-0.076) charging=True bearing_to_me=-2.552 aim-bearing=-2.55 deg my_vlat=-2.0  beams=[] ev=[]
+  t=378 id=10 rng=99.0 aim=(-2.560,-0.076) charging=True bearing_to_me=-2.545 aim-bearing=-0.88 deg my_vlat=+3.8  beams=[] ev=[]
+  t=380 id=10 rng=99.3 aim=(-2.533,-0.076) charging=True bearing_to_me=-2.537 aim-bearing=+0.23 deg my_vlat=+9.5  beams=[] ev=[]
+  t=382 id=10 rng=99.6 aim=(-2.518,-0.077) charging=True bearing_to_me=-2.538 aim-bearing=+1.17 deg my_vlat=+3.6  beams=[] ev=[]
+  t=384 id=10 rng=99.8 aim=(-2.535,-0.077) charging=True bearing_to_me=-2.549 aim-bearing=+0.79 deg my_vlat=-2.2  beams=[] ev=[]
+  t=386 id=10 rng=100.0 aim=(-2.549,-0.077) charging=False bearing_to_me=-2.567 aim-bearing=+1.01 deg my_vlat=-8.0  beams=[(10, 'laser', 0.1)] ev=[('damaged', 'laser', 315)]
+  t=484 id=10 rng=115.9 aim=(-2.606,-0.132) charging=True bearing_to_me=-2.603 aim-bearing=-0.19 deg my_vlat=-1.0  beams=[] ev=[]
+  t=486 id=10 rng=117.7 aim=(-2.608,-0.137) charging=True bearing_to_me=-2.599 aim-bearing=-0.50 deg my_vlat=+4.0  beams=[] ev=[]
+  t=488 id=10 rng=119.4 aim=(-2.208,0.000) charging=False bearing_to_me=-2.592 aim-bearing=+22.02 deg my_vlat=+9.1  beams=[(10, 'laser', 0.1)] ev=[]
+  t=718 id=10 rng=55.6 aim=(-2.774,-0.042) charging=False bearing_to_me=-2.767 aim-bearing=-0.38 deg my_vlat=-6.1  beams=[(10, 'laser', 0.1)] ev=[('damaged', 'laser', 315)]
+
+laser beams seen: 5 ; laser damage events on me: 4
+sounds: Counter({'gun': 62, 'laser': 6, 'explosion': 5, 'death': 3, 'crate': 2, 'laser_charge': 2, 'mortar': 1, 'boost': 1})
+  t=158 sound laser bearing 1.106 dist mid ; bearing to mech 10 (last seen t=158) 0.967 ; mech 10 visible now: True ; laser damage this obs: True
+  t=212 sound laser bearing 0.848 dist mid ; bearing to mech 10 (last seen t=212) 0.866 ; mech 10 visible now: True ; laser damage this obs: True
+  t=268 sound laser bearing 0.866 dist mid ; bearing to mech 10 (last seen t=264) 0.899 ; mech 10 visible now: False ; laser damage this obs: False
+  t=370 sound laser_charge bearing 0.806 dist mid ; bearing to mech 10 (last seen t=370) 0.578 ; mech 10 visible now: True ; laser damage this obs: False
+  t=386 sound laser bearing 0.301 dist mid ; bearing to mech 10 (last seen t=386) 0.575 ; mech 10 visible now: True ; laser damage this obs: True
+  t=484 sound laser_charge bearing 0.773 dist mid ; bearing to mech 10 (last seen t=484) 0.539 ; mech 10 visible now: True ; laser damage this obs: False
+  t=488 sound laser bearing 0.653 dist mid ; bearing to mech 10 (last seen t=488) 0.549 ; mech 10 visible now: True ; laser damage this obs: False
+  t=718 sound laser bearing 0.228 dist near ; bearing to mech 10 (last seen t=718) 0.374 ; mech 10 visible now: True ; laser damage this obs: True

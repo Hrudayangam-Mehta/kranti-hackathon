@@ -1,0 +1,89 @@
+--- bot/lib/counters.js	2026-11-21 07:36:07.257852489 +0000
++++ tools/top10/t2696_cx_mod.js	2026-11-21 08:33:20.924524530 +0000
+@@ -10,9 +10,10 @@
+ // [AT] top_AT_and_BobBuildIt.md, [BD] top_BackwardsDeployeds.md, [IL] top_ImagineLosing.md, [KY] top_Kanyaraasi.md,
+ // [MH] top_Mahalas.md, [WV] top_Wolverines.md, [TT] top_tigerbyte_TigerTown27.md, [D11] DOCTRINE V4 D11.
+ 
+-export const ARCHETYPES = Object.freeze(['UNKNOWN', 'LASER_KITER', 'LIGHTNING_CLOSER', 'GUN_STRAFER', 'BOOST_RUSHER', 'HIDER', 'FARMER'])
++export const ARCHETYPES = Object.freeze(['UNKNOWN', 'LASER_KITER', 'LIGHTNING_CLOSER', 'GUN_STRAFER', 'BOOST_RUSHER', 'HIDER', 'FARMER', 'LASER_BRAWLER'])
++const FIN_REASON = Object.freeze(['N/finish', 'LK/finish', 'LZ/finish', 'GS/finish', 'BR/finish', 'HD/finish', 'FM/finish', 'LB/finish'])
+ export const ENGAGE = Object.freeze(['avoid', 'respond-only', 'opportunistic', 'attack'])
+-const UNK = 0, LK = 1, LZ = 2, GS = 3, BR = 4, HD = 5, FM = 6, NA = 7
++const UNK = 0, LK = 1, LZ = 2, GS = 3, BR = 4, HD = 5, FM = 6, LB = 7, NA = 8
+ 
+ export const COUNTER_PARAMS = {
+   // ---------------------------------------------------------------- bookkeeping
+@@ -63,7 +64,7 @@
+   // LASER_KITER: laser held, nearest foe held beyond ~100 m, walking pace, not rushing in. Kiters hold 95-125 m
+   // [WV][KY] (laser), 110 m [BD], 100-165 m [IL], 125-185 m [AB], ~100 m [TT], 100-200 m [AT: BobBuildIt]; AT beams
+   // median 99 m [AT]; lightning closers sit at 13-43 m. Winners boost 7-14% of the time [S1].
+-  lkR0: 80, lkR1: 110, lkBoost0: 0.2, lkBoost1: 0.35, lkClose0: 3, lkClose1: 7,
++  lkR0: 70, lkR1: 100, lkBoost0: 0.2, lkBoost1: 0.35, lkClose0: 3, lkClose1: 7,
+   lkFarm0: 0.12, lkFarm1: 0.35, lkFarmCut: 0.7, lkEvidence: 0.45,   // a laser holder that never charges or aims stays below minScore
+   // LIGHTNING_CLOSER: lightning held and closing on its foe (8.7 m/s walking, 14.5 boosting [WV][KY]; +9.8 to +13.1 m/s
+   // [AT]; ~9 m/s [BD]) or holding inside 45-70 m (28 m band [WV][KY][BD], 30 m [MH], arcs at 22-42 m [AT]).
+@@ -91,6 +92,7 @@
+   // 3/min, bottom half 1.5/min [S1].
+   fmLoot0: 0.12, fmLoot1: 0.35, fmRate0: 3, fmRate1: 7, fmMinGain: 2, fmRateW: 0.85, fmRateMinS: 30,
+   fmAimUs0: 0.3, fmAimUs1: 0.6, fmAimMech0: 0.35, fmAimMech1: 0.6,
++  lbOn: true, lbR0: 38, lbR1: 46, lbR2: 70, lbR3: 82, lbBoost0: 0.3, lbBoost1: 0.5, lbBoostCut: 0.5,
+ 
+   // ---------------------------------------------------------------- advice: bounded-loss blend
+   confFloor: 0.35, confFull: 0.85, blendMax: 0.9,   // weight = blendMax x ramp(confidence, floor, full)
+@@ -122,12 +124,15 @@
+   hdLateLo: 90, hdLateHi: 200, hdLateMult: 1.2, hdWoundHpf: 0.5, hdLateAlive: 4,
+   // FARMER: strike from 140-200 m (beyond the 140 m charge sound) when its torso is away and we hold a laser [KY 3][AT A2][WV C3].
+   fmLo: 140, fmHi: 200, fmMult: 0.9, fmDodge: 0.6, fmStrikeMult: 1.3, fmStrikeHpf: 0.7,
++  lbLoLaser: 125, lbHiLaser: 185, lbLo: 200, lbHi: 280, lbMult: 0.9, lbDodge: 0.8,
++  lbDashAlive: 0, lbDashLo: 0, lbDashHi: 43, lbDashMult: 1.3, lbDashDodge: 0.6, lbDashHpf: 0.7, lbDashEnergy: 70,
++  finOn: true, finHpf: 0.5, finFaceCos: 0.5, finLoLaser: 100, finHiLaser: 190, finLo: 60, finHi: 150, finMult: 1.5,
+ 
+   // ---------------------------------------------------------------- threat rank (FFA only)
+   rankMaxAge: 5, rankDist: 120,
+   rankLaser: 0.5, rankLaserR: 280, rankLight: 0.7, rankLightR: 90, rankGun: 0.2, rankGunR: 230, rankMortar: 0.2, rankMortarR: 235,
+   rankAim: 1.5, rankCharge: 2.0, rankHurt: 1.8, rankHurtS: 3, rankBusy: 0.6, rankFirst: 1.2, rankCube: 0.04, rankCubeCap: 10, rankHpBase: 0.5,
+-  rankArch: [1, 1.4, 1.5, 1.2, 1.3, 0.5, 0.8],
++  rankArch: [1, 1.4, 1.5, 1.2, 1.3, 0.5, 0.8, 1.3],
+ }
+ 
+ // --------------------------------------------------------------------------------------------- helpers
+@@ -547,6 +552,17 @@
+     const Lt = ramp(f.aimLoot, P.fmLoot0, P.fmLoot1)
+     const Cr = s.cubeGain >= P.fmMinGain ? P.fmRateW * ramp(f.cubeRate, P.fmRate0, P.fmRate1) : 0
+     out[FM] = Math.max(Lt, Cr) * (1 - ramp(f.aimUs, P.fmAimUs0, P.fmAimUs1)) * (1 - ramp(f.aimMech, P.fmAimMech0, P.fmAimMech1))
++    v = 0
++    if (P.lbOn && s.gun && s.laser && !s.lightning && f.rFoe >= 0) {
++      const H = f.chR >= 0 ? f.chR : f.rFoe
++      const Rm = ramp(H, P.lbR0, P.lbR1) * (1 - ramp(H, P.lbR2, P.lbR3))
++      const E = Math.max(f.chR >= 0 ? 1 : 0, ramp(f.aimMech, P.gsAimMech0, P.gsAimMech1))
++      const N = 1 - ramp(f.cl90, P.lkClose0, P.lkClose1) * f.cl90w
++      const Wk = 1 - P.lbBoostCut * ramp(f.boost, P.lbBoost0, P.lbBoost1)
++      const Fm = 1 - P.lkFarmCut * ramp(f.aimLoot, P.lkFarm0, P.lkFarm1)
++      v = Rm * E * N * Wk * Fm
++    }
++    out[LB] = v
+     out[UNK] = 0
+   }
+ 
+@@ -657,9 +673,21 @@
+         CT.dodge = P.fmDodge; CT.brk = s.laser
+         break
+       }
++      case LB: {
++        const dash = P.lbDashAlive > 0 && myLight && !s.lightning && nAlive <= P.lbDashAlive && myHpf >= P.lbDashHpf && myHpf >= s.hpf && myEnergy >= P.lbDashEnergy
++        if (dash) { CT.lo = P.lbDashLo; CT.hi = P.lbDashHi; CT.level = 3; CT.mult = P.lbDashMult; CT.dodge = P.lbDashDodge; CT.reason = 'LB/dash' }
++        else { CT.lo = myLaser ? P.lbLoLaser : P.lbLo; CT.hi = myLaser ? P.lbHiLaser : P.lbHi; CT.level = 1; CT.mult = P.lbMult; CT.dodge = P.lbDodge; CT.reason = 'LB/cover' }
++        CT.brk = true
++        break
++      }
+       default:
+         CT.lo = 0; CT.hi = 0; CT.level = P.neutralLevel; CT.mult = 1; CT.dodge = P.neutralDodge; CT.reason = 'N/unknown'
+     }
++    if (P.finOn && s.label !== UNK && CT.level < 2 && s.hpf < P.finHpf && !(s.aimDot > P.finFaceCos) && !s.chargeOn && t - s.lastDmgUsT > P.hostileS) {
++      CT.lo = myLaser ? P.finLoLaser : P.finLo; CT.hi = myLaser ? P.finHiLaser : P.finHi
++      if (s.lightning && !myLight) CT.lo = Math.max(CT.lo, P.lzLo)
++      CT.level = 2; CT.mult = Math.max(CT.mult, P.finMult); CT.reason = FIN_REASON[s.label]
++    }
+   }
+ 
+   function adviceFor(id, ctx) {

@@ -1,0 +1,16 @@
+FAIL  aggr presets: off = defaults, h70 = 0.7 / 8 / 0.7 (KA), any70 = 0.7 / 0 / 0.7 (KB)  ::  off 0.9/20/0.7, h70 0.7/8/0.7, any70 0.7/0/0.7
+FAIL  healDoc: off = 0.55 / 0.7, on = 0.7 / 0.8, last SELECT key  ::  off 0.4/0.7, on 0.7/0.8, last key healDoc
+PASS  healDoc full = enter 0.7, SQUAD exit hfExit 1.0 (HF), healExit unchanged; seekCrowd wide = h50CrowdR 120, off = 60  ::  full 0.7/1 (healExit 0.7), crowd 60 -> 120
+PASS  ioMerge / pocketCfg switches: default on, select off -> off  ::  ioMerge true, pocketCfg true
+PASS  setup: listed mech ~180 m away with no line either way on the real map  ::  us (21, 28), it at 175 m
+PASS  A1 hp 75%: off ignores the unengaged mech; h70, any70 and any70f take it  ::  {"off":-1,"h70":11,"any70":11,"any70f":11}
+PASS  A1 hp 65%: no value takes it  ::  {"off":-1,"h70":-1,"any70":-1,"any70f":-1}
+PASS  A1 hp 92%: every value takes it (the old 90% / 20 s gate)  ::  {"off":11,"h70":11,"any70":11,"any70f":11}
+PASS  A2 contact 5 s ago: only any70 / any70f (no quiet time) take it  ::  {"off":-1,"h70":-1,"any70":11,"any70f":11}
+PASS  A2 contact 10 s ago: h70 and any70 take it (8 s / 0 s), off waits for 20 s  ::  {"off":-1,"h70":11,"any70":11,"any70f":11}
+PASS  A3 FFA posture: no unengaged candidate under any value  ::  {"off":-1,"h70":-1,"any70":-1,"any70f":-1}
+PASS  A4 any70f after a foreign death: closed (as off); any70 (KB, no firewall) still takes it  ::  {"off":-1,"any70":11,"any70f":-1}
+PASS  seek start: off seeks at 65% (60% rule), h70 / any70 not below 70%, h70 seeks at 75%  ::  {"off65":"huntsnd","h70_65":"roam","any70_65":"roam","h70_75":"huntsnd"}
+PASS  healDoc on: 65% out of contact -> HEAL; off -> no HEAL  ::  {"off":"HOLD","on":"HEAL"}
+
+12/14 aggr / healDoc checks passed

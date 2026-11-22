@@ -1,0 +1,244 @@
+Databricks - Shopping Sessions · Builders Buildathon
+Buildathon
+Tracks
+Leaderboard
+Status
+Sign in
+Guide
+Play Mech Royale
+Watch
+Leaderboard
+Builders - Mech Royale
+Databricks - Shopping Sessions
+Machina - CAD De-ID
+RWX - Blast Radius
+Open · closes
+Sun 11:00 AM EST
+Databricks - Shopping Sessions
+Turn 60 million messy click-stream events into two exact daily Parquet tables. Fastest correct pipeline wins.
+The problem
+An online shop logs page views, add-to-carts, purchases, and ad clicks as CSV files. The logs are dirty, with duplicates, malformed lines, bad timestamps, and late events. One shopper can have many user IDs, and a third file links them across long chains and shared devices.
+Clean the logs in /data, join each person's IDs, build sessions, credit each session to the ad click that brought the shopper in, count assisting campaigns from the week before, and write two daily Parquet tables (/output/user_daily/ and /output/campaign_daily/), one per person and one per campaign. The rules are exact so there is one right answer, and a fast answer that is almost right scores nothing.
+Your score is container run time in seconds, and lower is better. You may submit 2 times an hour on hidden practice data (about 20 million events). The final runs on about 60 million events and caps each run at 3 minutes: if any final run goes over, you get no final score, so aim for under about 60 seconds in practice.
+Start locally
+Download rules.md and a starter below (PySpark, DuckDB, or Polars). Any engine, any language, any amount of AI: Spark, DuckDB, Polars, Rust, C++, plain Python.
+Each starter writes both tables with the right columns but no rows, so implementing the rules is up to you.
+Implement the rules.md pipeline and pass the starter's 36 edge-case fixtures.
+Follow Builders
+Instagram
+LinkedIn
+Generate the 1M-event dev set with generator.zip, unzip dev-answer.zip, and run make check-dev to check your output locally.
+What to hand in
+Submit a public GitHub repository with a Dockerfile at its root and the commit to score. Keep the repository at most 50 MB with no data checked in, because the dataset is mounted at run time.
+Container limits
+Your image must be linux/amd64 and at most 8 GB. The build has network access for up to 10 minutes; runs have no network.
+Each run gets 8 pinned vCPUs (hyperthreads), 24 GB of memory, and no swap.
+/data is read-only, and /scratch is writable disk for spills. /output and /scratch together may hold at most 50 GB.
+The root filesystem is read-only except for /tmp (64 MB in memory), and your process runs as uid 1000.
+Environment variables: DATA_DIR=/data, OUTPUT_DIR=/output, SCRATCH_DIR=/scratch, HOME=/scratch, NCPU=8, and MEM_GB=24.
+At most 4,096 processes and threads, and at most 50 MB on stdout (log to stderr).
+Docs and starter files
+rules.md
+Download
+Full spec: inputs, CSV dialect, cleaning, linked IDs, sessions, attribution, assists, and output tables.
+starter-pyspark.zip
+PySpark skeleton (linux/amd64, Java, Spark, and test scripts); writes empty tables.
+starter-duckdb.zip
+DuckDB skeleton (linux/amd64) and test scripts; writes empty tables.
+starter-polars.zip
+Polars skeleton (linux/amd64) and test scripts; writes empty tables.
+dev-answer.zip
+Expected user_daily.csv and campaign_daily.csv for the 1M-event dev set (seed 1), used by make check-dev.
+generator.zip
+Rust source for generate. Makes the 1M-event dev set or any size and seed.
+Scoring
+Metric
+Run time
+,
+lower is better
+Baseline to beat
+172.00 s
+(
+Starter: PySpark, local mode
+)
+Formula
+one run on hidden data (median of 3 under 20 s), start to exit
+Ties
+Equal scores rank the earlier submission first.
+Scorer version
+shopping-sessions-4
+We build your Dockerfile, check it on the dev set, and time it once in a fresh container on hidden practice data (about 20 million events). Runs under 20 seconds are timed 3 times and scored on the median.
+Rules
+Where a starter and rules.md disagree, rules.md wins. Ask the organizers if rules.md leaves you unsure.
+Each submission runs first on the public 1M-event dev set (at most 3 minutes). If it fails there, you get the differing rows and your logs, and it stops.
+A practice run may take at most 2× the baseline's time and never more than 5 minutes. It is timed once, or 3 times if the first run is under 20 seconds; repeats share the first run's time limit, and a repeat that is cut off counts as the full limit. The practice data is about 20 times the dev set, so an entry that takes more than about 15 seconds on the dev set usually runs past this limit.
+A wrong table, a crash, or hitting the memory, disk, stdout, or time limit stops the submission.
+The final uses about 3× the practice data and caps each run at 3 minutes. Any final run over 3 minutes gives no final score, so aim for under about 60 seconds in practice.
+Practice times can vary by up to about 20% across scoring machines, so small gaps on the practice board are not meaningful.
+Hidden runs never show your logs or values from the data: only the exit code, whether memory ran out, and counts of missing, extra, and differing rows.
+The clock runs from container start to container exit, including starting your engine and reading CSVs.
+Your team may submit 2 times an hour. Rejected submissions never change your best score.
+Keep your repository public, with every commit you submitted still in it, until results are published. An entry we cannot fetch or restore for the final scores nothing.
+The final
+At the cutoff, we rebuild your chosen commit (your best, unless you pick another) and time it 3 times on about 60 million new events made after submissions close, each run capped at 3 minutes. If any run goes over 3 minutes, you get no final score; otherwise your score is the median. At least the 10 fastest entries are then retimed 7 times alone on one idle machine, and that median replaces their first score.
+The cutoff is
+Sun 11:00 AM EST
+.
+Sign in
+to submit.
+Shopping Sessions
+by Databricks · $5,000 prize · 279 teams
+Run time, lower is better. Equal scores rank the earlier submission first.
+—
+Baseline
+172.00 s
+22
+1212
+0.67 s
+34
+2.3%
+0.74 s
+15
+2696
+0.61 s
+02
+67
+0.30 s
+45
+Anthony Teti
+0.82 s
+16
+AscendingJabbas
+0.63 s
+47
+avii
+0.84 s
+43
+Bling
+0.82 s
+50
+BobBuildIt
+0.84 s
+33
+bonk
+0.73 s
+39
+Carter Core
+0.79 s
+49
+Eagle Eye
+0.84 s
+07
+Euphoria
+0.48 s
+17
+Fraun
+0.64 s
+21
+Hachimi
+0.66 s
+20
+Hidden Test Cases
+0.65 s
+31
+hillclimbers
+0.72 s
+29
+Huss Huss Husss
+0.72 s
+09
+Jabbas
+0.53 s
+24
+Jackal
+0.67 s
+03
+Junsung Hwang
+0.30 s
+04
+kyoto-max
+0.31 s
+35
+Larp
+0.74 s
+06
+low tide
+0.42 s
+36
+LSU_i_Bosna_Najbolja
+0.75 s
+12
+Mahalas
+0.58 s
+41
+mztv
+0.80 s
+10
+ND
+0.56 s
+11
+pikkerof
+0.57 s
+38
+Pink Fluffy Unicorns
+0.79 s
+48
+potatobug
+0.84 s
+25
+poteto
+0.68 s
+30
+prompt-gods
+0.72 s
+42
+royale-rum
+0.82 s
+18
+Sher-E-Umiam
+0.64 s
+44
+SHjoshi
+0.82 s
+08
+Tark305
+0.50 s
+05
+Team Buck
+0.35 s
+37
+tigerbyte
+0.78 s
+19
+TigerTown27
+0.64 s
+46
+today is yesterday's tomorrow
+0.83 s
+13
+Tyke
+0.60 s
+28
+umbracine
+0.71 s
+14
+Unlimited PTO
+0.61 s
+40
+unos
+0.80 s
+26
+VibDiv
+0.68 s
+23
+vivarium
+0.67 s
+32
+weixiao
+0.72 s
+01
+Winners POV
+0.30 s
+27
+Wix
+0.69 s

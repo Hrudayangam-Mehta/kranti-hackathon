@@ -1,0 +1,16 @@
+fixtures NCPU=1: 36/36 fixtures passed
+fixtures NCPU=4: 36/36 fixtures passed
+dev NCPU=4: MATCH
+dev NCPU=1: MATCH
+seed 311: MATCH / MATCH
+seed 312: MATCH / MATCH
+seed 15: MATCH / MATCH
+seed 62: MATCH / MATCH
+seed 413: MATCH / MATCH
+seed 514: MATCH / MATCH
+p20m vs rel1 output: MATCH / MATCH (36 user files)
+dev NCPU=2: MATCH
+dev NCPU=8: MATCH
+p20m NCPU=8 vs rel1: MATCH / MATCH (38 files)
+fixtures NCPU=8: 36/36 fixtures passed
+verifier edge cases: 34 PASS, 2 CHECK (x18b hidden csv, x33 click copies differ: both outside rules, same as rel1), 0 FAIL

@@ -1,0 +1,7437 @@
+cmd: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/bin/candp
+events: Ir
+fl=/rust/deps/hashbrown-0.17.1/src/alloc.rs
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+18 22
+fn=sessions::main
+18 2
+fl=/rust/deps/hashbrown-0.17.1/src/control/bitmask.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+40 4
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+0 284706
+40 94942
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 3827
+40 14814
+fn=sessions::main
+0 1458
+40 11041
+fl=/rust/deps/hashbrown-0.17.1/src/control/group/sse2.rs
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 10
+115 604
+fl=/rust/deps/hashbrown-0.17.1/src/control/tag.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+30 1
+47 9
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+47 142413
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+47 3580
+fn=sessions::main
+30 2020
+47 18020
+fl=/rust/deps/hashbrown-0.17.1/src/map.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+0 2
+1806 10
+1822 8
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+241 17900
+fn=sessions::main
+241 10000
+fl=/rust/deps/hashbrown-0.17.1/src/raw.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+0 1
+910 1
+1138 2
+1754 2
+2459 6
+2589 1
+2593 1
+2594 1
+2646 1
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+0 94922
+910 20
+1202 142353
+2032 94902
+2452 427239
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 21523
+183 99
+222 10
+223 10
+948 77
+975 99
+1754 7160
+2398 17900
+2589 3580
+2593 3580
+2594 3580
+2624 22
+2696 33
+2705 22
+2752 11
+2755 22
+2756 44
+2786 11
+2945 22
+3944 3580
+3977 247
+3992 7203
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+109 22
+141 21
+156 56
+183 77
+222 11
+223 11
+1604 11
+1615 77
+1624 22
+1640 44
+1643 88
+fn=sessions::main
+0 40
+89 280
+90 560
+910 2000
+914 66
+1076 120
+1138 4092
+1754 4040
+1805 280
+1824 342
+1910 40
+2271 2
+2459 12000
+2589 2020
+2593 2020
+2594 2020
+2646 2020
+fl=/rust/deps/hashbrown-0.17.1/src/rustc_entry.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+0 20
+35 522181
+38 189804
+48 80
+54 427219
+fl=/rust/deps/libc-0.2.185/src/unix/linux_like/linux_l4re_shared.rs
+fn=std::sys::fs::unix::try_statx
+1613 342
+1616 1026
+1617 1026
+1618 684
+1619 1026
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/alloc.rs
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+101 497
+155 897
+206 994
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+220 20
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+0 22
+101 11
+206 22
+fn=sessions::fast::run::{closure#17}::{closure#0}
+101 2923
+198 17
+220 1
+fn=sessions::input::manifest_time
+220 4
+fn=sessions::main
+101 9
+198 3
+220 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/boxed.rs
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+0 15
+877 84
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+1955 2
+2275 2
+fn=alloc::boxed::box_new_uninit
+247 2
+248 2
+252 2
+fn=sessions::fast::parquet::write
+248 56
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1
+248 2
+289 30
+fn=sessions::input::csv_files
+1955 168
+fn=sessions::main
+0 2
+248 2
+317 2
+fn=std::sys::fs::read_dir
+248 10
+289 35
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 1
+581 2
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 5
+248 8
+289 87
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/fix.rs
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+0 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/map.rs
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 2
+1506 6
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/map/entry.rs
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+590 1
+591 2
+595 1
+596 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 4
+405 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/node.rs
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+0 2
+290 1
+314 1
+338 2
+880 3
+1272 1
+1274 2
+1275 1
+1845 3
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+396 1
+641 1
+731 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+396 2
+641 1
+671 1
+731 2
+935 1
+940 2
+962 2
+1827 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/remove.rs
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+26 11
+33 2
+59 5
+74 13
+75 8
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+19 7
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/collections/btree/search.rs
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 1
+57 3
+225 3
+226 12
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 2
+225 3
+226 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/ffi/c_str.rs
+fn=sessions::input::csv_files
+706 84
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/fmt.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+659 36
+fn=alloc::fmt::format::format_inner
+650 120
+656 48
+657 84
+fn=sessions::fast::run::{closure#17}::{closure#0}
+659 4
+fn=sessions::fast::write::user_part
+659 8
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/lib.rs
+fn=<alloc::string::String as core::fmt::Write>::write_char
+0 18
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+0 12
+460 4
+469 4
+fn=<alloc::raw_vec::RawVec<(*mut u8, unsafe extern "C" fn(*mut u8)), std::alloc::System>>::grow_one
+186 4
+189 4
+492 8
+fn=<alloc::raw_vec::RawVec<*mut [u64; 2]>>::grow_one
+186 4056
+189 4056
+492 1014
+522 1014
+528 6084
+776 1014
+777 1014
+fn=<alloc::raw_vec::RawVec<[u64; 2]>>::grow_one
+186 124
+189 124
+492 31
+522 31
+528 186
+776 31
+777 31
+fn=<alloc::raw_vec::RawVec<alloc::sync::Arc<parquet::schema::types::ColumnDescriptor>>>::grow_one
+186 4
+189 4
+492 1
+522 1
+528 6
+776 1
+777 1
+fn=<alloc::raw_vec::RawVec<alloc::vec::Vec<core::option::Option<parquet::bloom_filter::Sbbf>>>>::grow_one
+186 136
+189 136
+492 34
+522 34
+528 204
+776 34
+777 34
+fn=<alloc::raw_vec::RawVec<core::option::Option<i64>>>::grow_one
+186 96
+189 96
+492 24
+522 24
+528 144
+776 24
+777 24
+fn=<alloc::raw_vec::RawVec<core::option::Option<parquet::file::page_index::offset_index::OffsetIndexMetaData>>>::grow_one
+186 56
+189 56
+492 14
+522 14
+528 84
+776 14
+777 14
+fn=<alloc::raw_vec::RawVec<f32>>::grow_one
+186 128
+189 128
+492 32
+522 32
+528 192
+776 32
+777 32
+fn=<alloc::raw_vec::RawVec<i16>>::grow_one
+186 112
+189 112
+492 28
+522 28
+528 168
+776 28
+777 28
+fn=<alloc::raw_vec::RawVec<sessions::events::EventCopy>>::grow_one
+186 4
+189 4
+492 1
+522 1
+528 6
+776 1
+777 1
+fn=<alloc::raw_vec::RawVec<sessions::fast::ClickTmp>>::grow_one
+186 52
+189 52
+492 13
+522 13
+528 78
+776 13
+777 13
+fn=<alloc::raw_vec::RawVec<sessions::fast::Rec>>::grow_one
+186 56
+189 56
+492 14
+522 14
+528 84
+776 14
+777 14
+fn=<alloc::raw_vec::RawVec<u64>>::grow_one
+186 288
+189 288
+492 72
+522 72
+528 288
+776 72
+777 72
+fn=<alloc::raw_vec::RawVec<u8>>::grow_one
+186 378
+189 315
+492 63
+522 63
+528 252
+776 63
+777 63
+fn=<alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+159 752
+522 394
+528 985
+661 803
+671 894
+776 197
+777 197
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::finish_grow
+0 4
+543 14
+563 4
+564 8
+567 12
+634 4
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::grow_amortized
+502 12
+522 4
+528 10
+533 10
+776 2
+777 4
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+0 3076
+543 13604
+563 3076
+564 6152
+567 11872
+634 3076
+fn=<alloc::string::String as core::fmt::Write>::write_char
+614 18
+619 18
+673 18
+767 18
+fn=<alloc::string::String as core::fmt::Write>::write_str
+619 45
+673 45
+675 54
+767 45
+fn=<alloc::sync::Arc<sessions::fast::write::Part>>::drop_slow
+634 14
+fn=<alloc::sync::Arc<std::sys::fs::unix::InnerReadDir>>::drop_slow
+634 10
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+0 2
+460 2
+469 2
+673 1
+767 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+619 1
+673 1
+675 11
+767 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+619 1
+673 1
+675 11
+767 1
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+469 2
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+0 4
+460 2
+469 2
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+0 12
+460 6
+469 6
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+634 18
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+614 85
+fn=<sessions::fast::Worker>::finish_row
+614 708642
+fn=<sessions::fast::ids::Interner>::new
+0 6
+469 26
+fn=<sessions::fast::ids::KeyMap>::new
+0 6
+469 8
+614 104000
+fn=<sessions::fast::parquet::Thrift>::field
+614 608
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+614 1214
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 6
+469 22
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+614 15735
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+614 11366
+fn=<sessions::fast::ts::Calendar>::around
+0 7
+469 2
+614 4
+634 5
+675 12
+fn=<sessions::manifest::Parser>::skip_value
+634 4
+fn=<sessions::manifest::Parser>::string
+614 124
+fn=<std::path::Path>::_join
+0 97
+460 194
+469 194
+614 97
+619 97
+673 97
+675 485
+767 97
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+634 2
+fn=alloc::fmt::format::format_inner
+0 18
+460 24
+469 6
+fn=core::ptr::drop_glue::<sessions::fast::sink::Sink<[u64; 2]>>
+634 15
+fn=sessions::fast::chunks
+614 80
+fn=sessions::fast::link_pairs::<sessions::fast::scan::Avx2>::{closure#0}
+614 44682
+fn=sessions::fast::link_pairs_avx2
+469 22
+fn=sessions::fast::map_folder
+0 6
+469 6
+614 18
+634 183
+675 54
+fn=sessions::fast::parquet::write
+0 17
+460 3
+469 106
+614 16122
+619 91
+634 148
+673 138
+675 24
+767 162
+fn=sessions::fast::parse_clicks_avx2
+469 86
+614 758534
+fn=sessions::fast::parse_events_avx2
+469 78
+614 2285831
+fn=sessions::fast::people::intern_pair
+614 151096
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 150128
+460 1718
+469 1740
+614 7652196
+619 2170
+634 892
+673 3258
+675 140
+767 3354
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+614 118107
+619 118107
+673 118107
+675 178
+767 118107
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+614 9101
+fn=sessions::fast::split_tail
+0 2
+460 2
+469 2
+614 1
+fn=sessions::fast::write::campaign_table::{closure#2}
+614 27457
+619 27457
+673 54898
+675 128
+767 54898
+fn=sessions::fast::write::campaign_table::{closure#3}
+614 27449
+619 27450
+673 54898
+675 8
+767 54898
+fn=sessions::fast::write::campaign_table::{closure#4}
+614 27449
+619 27449
+673 27449
+767 27449
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+614 82347
+619 82347
+673 82365
+767 82347
+fn=sessions::fast::write::campaign_table::{closure#6}
+614 27449
+619 27449
+673 27449
+767 27449
+fn=sessions::fast::write::user_part
+614 2
+634 8
+fn=sessions::fast::write::user_part::{closure#0}
+614 236214
+619 118107
+673 118107
+675 88
+767 118107
+fn=sessions::fast::write::user_part::{closure#1}
+614 118107
+619 118107
+673 118107
+767 118107
+fn=sessions::fast::write::user_part::{closure#2}
+614 118107
+619 118107
+673 118107
+767 118107
+fn=sessions::fast::write::user_part::{closure#3}
+614 118107
+619 118107
+673 118107
+767 118107
+fn=sessions::fast::write::user_part::{closure#4}
+614 118107
+619 118107
+673 118107
+767 118107
+fn=sessions::fast::write::user_part::{closure#5}
+614 139060
+619 139060
+673 41906
+767 41906
+fn=sessions::input::csv_files
+614 252
+fn=sessions::input::manifest_time
+0 2
+634 14
+fn=sessions::main
+0 20
+460 2
+469 8
+614 4061
+634 15
+fn=sessions::output::create_table_dir
+0 4
+460 4
+634 10
+fn=std::fs::read::inner
+460 3
+469 6
+614 3
+619 3
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+619 3
+673 3
+767 6
+fn=std::sys::env::unix::getenv::{closure#0}
+460 6
+469 6
+fn=std::sys::fs::read_dir
+0 5
+460 10
+469 10
+fn=std::sys::thread_local::destructors::linux_like::register
+614 2
+fn=std::sys::thread_local::guard::key::enable::run
+614 1
+634 2
+fn=std::thread::spawnhook::run_spawn_hooks
+0 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/slice.rs
+fn=<std::path::Path>::_join
+0 97
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 256
+452 256
+fn=std::sys::env::unix::getenv::{closure#0}
+0 3
+fn=std::sys::fs::read_dir
+0 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/string.rs
+fn=<alloc::string::String as core::fmt::Write>::write_char
+1433 18
+3363 108
+3366 126
+fn=<alloc::string::String as core::fmt::Write>::write_str
+3357 360
+3360 315
+fn=alloc::fmt::format::format_inner
+494 36
+fn=std::env::_var
+570 12
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/sync.rs
+fn=<alloc::sync::Arc<sessions::fast::write::Part>>::drop_slow
+2132 2
+3353 2
+3505 1
+fn=<alloc::sync::Arc<std::sys::fs::unix::InnerReadDir>>::drop_slow
+2132 25
+3353 10
+3505 5
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+2132 6
+2831 1
+3353 2
+3505 1
+fn=<alloc::sync::Arc<std::thread::scoped::ScopeData>>::drop_slow
+2132 2
+2831 1
+3353 2
+3505 1
+fn=<alloc::sync::Arc<std::thread::thread::Inner, std::alloc::System>>::drop_slow
+2132 4
+3353 2
+3505 1
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+2428 84
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+0 2
+2428 1
+2831 1
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+2831 1
+2874 6
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1
+2428 1
+2445 2
+2831 3
+2874 2
+fn=sessions::input::csv_files
+2831 87
+2874 6
+fn=sessions::output::create_table_dir
+2831 2
+2874 4
+fn=std::sys::fs::read_dir
+427 30
+fn=std::sys::thread_local::guard::key::enable::run
+2831 1
+2874 2
+fn=std::thread::current::init_current
+1836 2
+2428 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 4
+2428 3
+2831 3
+2874 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/into_iter.rs
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+262 1
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1
+262 121
+fn=sessions::fast::split_tail
+262 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/is_zero.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+36 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs
+fn=<alloc::string::String as core::fmt::Write>::write_char
+2221 18
+3054 36
+fn=<alloc::string::String as core::fmt::Write>::write_str
+0 45
+1471 45
+2934 81
+2939 90
+3054 9
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+977 3
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+1471 1
+4049 5
+4078 6
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+1471 1
+4049 5
+4078 6
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 6
+fn=<sessions::fast::Worker>::finish_row
+0 3192
+1037 708642
+1040 1417284
+1041 794
+1046 1417284
+1864 118107
+3035 118107
+fn=<sessions::fast::ids::KeyMap>::new
+1903 104000
+fn=<sessions::fast::parquet::Thrift>::field
+1037 304
+1040 608
+1046 912
+1903 304
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+3054 2
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+1037 219
+1040 436
+1041 517
+1046 436
+1864 281
+1903 217
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+3054 2
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+1037 2959
+1040 5918
+1041 4248
+1046 5918
+1864 3216
+1903 2959
+2844 1317
+2848 852
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+1037 1846
+1040 3692
+1041 3264
+1046 3692
+1864 1974
+1903 1846
+2844 5922
+2848 3760
+fn=<sessions::fast::ts::Calendar>::around
+2221 8
+4030 53
+4032 16
+4041 8
+fn=<sessions::manifest::Parser>::string
+464 24
+1040 372
+1041 100
+1046 248
+fn=<std::path::Path>::_join
+2939 485
+3054 97
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+1864 23
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+1864 2
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+1864 1
+fn=sessions::fast::chunks
+1037 70
+1040 160
+1041 80
+1046 160
+fn=sessions::fast::link_pairs::<sessions::fast::scan::Avx2>::{closure#0}
+1037 44682
+1040 89364
+1046 89364
+fn=sessions::fast::map_folder
+0 162
+2221 81
+4030 417
+4032 162
+4041 81
+fn=sessions::fast::parquet::write
+0 428
+464 27
+977 30
+1037 466
+1040 31779
+1041 59
+1046 17138
+1471 28
+1864 28
+1903 125
+2844 318
+2848 215
+2934 274
+2939 315
+3035 175
+3054 202
+fn=sessions::fast::parse_clicks_avx2
+1864 252246
+2934 86
+fn=sessions::fast::parse_events_avx2
+0 125
+1864 29548
+2934 78
+fn=sessions::fast::people::intern_pair
+1037 60396
+1040 120792
+1041 159
+1046 120792
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1035933
+464 59
+977 1123
+1037 1578243
+1040 3498148
+1041 902
+1046 3512459
+1864 2948840
+1903 1169172
+2221 90542
+2259 181082
+2268 90541
+2844 9
+2848 4
+2934 4328
+2939 4340
+3035 104985
+3054 157653
+3525 256
+3708 9
+3864 4
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+0 118107
+1471 118107
+1864 118107
+2934 236188
+2939 236214
+3054 26
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 50
+1864 325
+fn=sessions::fast::split_tail
+1040 30
+1046 16
+2221 1
+3054 2
+fn=sessions::fast::write::campaign_table::{closure#2}
+0 8
+1471 27449
+1864 1
+2934 54882
+2939 109796
+3054 24
+fn=sessions::fast::write::campaign_table::{closure#3}
+1471 27449
+1864 1
+2934 54898
+2939 109796
+3054 2
+fn=sessions::fast::write::campaign_table::{closure#4}
+1471 1
+1864 1
+2939 54898
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+1471 3
+1864 3
+2939 164694
+fn=sessions::fast::write::campaign_table::{closure#6}
+1471 1
+1864 1
+2939 54898
+fn=sessions::fast::write::user_part
+1864 4
+fn=sessions::fast::write::user_part::{closure#0}
+1864 3
+2939 236214
+3054 236236
+fn=sessions::fast::write::user_part::{closure#1}
+1471 3
+1864 3
+2939 236214
+fn=sessions::fast::write::user_part::{closure#2}
+1471 3
+1864 3
+2939 236214
+fn=sessions::fast::write::user_part::{closure#3}
+1471 3
+1864 3
+2939 236214
+fn=sessions::fast::write::user_part::{closure#4}
+1471 3
+1864 3
+2939 236214
+fn=sessions::fast::write::user_part::{closure#5}
+1037 6
+1040 236214
+1041 84
+1046 236214
+1471 20953
+1864 3
+2934 41906
+2939 83812
+fn=sessions::input::csv_files
+464 12
+1037 84
+1040 168
+1041 36
+1046 252
+1864 168
+1903 3
+fn=sessions::main
+464 18
+977 5
+1037 4020
+1040 164040
+1041 100
+1046 164060
+1204 6
+1608 4
+1864 11
+3054 51477
+fn=sessions::output::create_table_dir
+977 6
+fn=std::fs::read::inner
+2221 3
+3259 6
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+1471 3
+2934 6
+2939 9
+fn=std::sys::thread_local::destructors::linux_like::register
+1037 2
+1040 4
+1041 2
+1046 4
+fn=std::sys::thread_local::guard::key::enable::run
+2844 6
+2848 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/set_len_on_drop.rs
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+0 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+14 1
+31 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+14 1
+31 1
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 128
+19 1548
+fn=sessions::fast::split_tail
+19 2
+fn=sessions::main
+19 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/spec_extend.rs
+fn=sessions::main
+27 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/spec_from_elem.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+0 18
+22 10
+23 14
+29 12
+fn=<sessions::fast::ids::Interner>::new
+0 2
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 4
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/spec_from_iter.rs
+fn=sessions::main
+33 15
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/spec_from_iter_nested.rs
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+50 7
+60 2
+61 3
+62 8
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+50 5
+61 3
+62 4
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+50 4
+61 3
+62 4
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+50 12
+61 9
+62 12
+fn=<sessions::fast::ids::Interner>::new
+0 2
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 2
+fn=<sessions::fast::ts::Calendar>::around
+0 1
+24 3
+27 2
+33 4
+36 10
+42 3
+fn=sessions::fast::map_folder
+0 12
+24 9
+36 9
+41 21
+42 15
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 3
+fn=sessions::fast::split_tail
+0 1
+fn=sessions::main
+0 1
+61 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/avx2.rs
+fn=sessions::fast::link_pairs_avx2
+2163 179624
+fn=sessions::fast::parse_clicks_avx2
+2163 1020588
+fn=sessions::fast::parse_events_avx2
+2163 4287576
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/cpuid.rs
+fn=std_detect::detect::cache::detect_and_initialize
+88 46
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse.rs
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+1488 2
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+1488 2
+fn=sessions::fast::parse_clicks_avx2
+1946 921130
+fn=sessions::fast::parse_events_avx2
+0 4144
+1946 3010027
+fn=sessions::fast::run::{closure#17}::{closure#0}
+1488 5
+1946 1337618
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 4059
+1946 8118
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse2.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+1615 6
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+1615 142453
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+1320 257
+1615 3580
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+1434 5320
+fn=sessions::fast::parse_clicks_avx2
+1434 1009544
+fn=sessions::fast::parse_events_avx2
+1434 4396632
+fn=sessions::fast::people::intern_pair
+1434 120704
+fn=sessions::fast::run::{closure#17}::{closure#0}
+1434 2964488
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+1434 17048
+fn=sessions::main
+1615 15140
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/xsave.rs
+fn=core::core_arch::x86::xsave::_xgetbv
+90 4
+91 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/alloc/layout.rs
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+0 72
+75 72
+113 72
+fn=alloc::fmt::format::format_inner
+113 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/array/equality.rs
+fn=<sessions::fast::ids::KeyMap>::new
+157 264824
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+157 15
+fn=sessions::fast::parse_clicks_avx2
+157 1172024
+fn=sessions::fast::parse_events_avx2
+157 155092
+fn=sessions::fast::run::{closure#17}::{closure#0}
+157 818256
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+157 1824
+fn=std_detect::detect::cache::detect_and_initialize
+157 7
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/bool.rs
+fn=<sessions::fast::ids::Interner>::new
+0 4
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 128
+66 577
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+66 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/cell.rs
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+2066 56
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_str
+0 76
+2066 152
+fn=<std::sys::sync::once::futex::Once>::call
+555 39
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+555 1
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+555 2
+fn=sessions::fast::run::{closure#17}::{closure#0}
+2447 1
+fn=sessions::main
+2347 2
+fn=std::io::stdio::_eprint
+555 10
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+555 2
+fn=std::sys::thread_local::destructors::linux_like::register
+2066 4
+fn=std::sys::thread_local::guard::key::enable::run
+555 2
+2055 2
+2066 4
+fn=std::thread::current::init_current
+555 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+555 1
+fn=std::thread::spawnhook::run_spawn_hooks
+555 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/char/methods.rs
+fn=<alloc::string::String as core::fmt::Write>::write_char
+0 18
+2179 72
+2180 36
+2251 18
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+2179 56
+2251 56
+fn=sessions::main
+408 1
+423 1
+995 5
+997 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/cmp.rs
+fn=<alloc::raw_vec::RawVec<*mut [u64; 2]>>::grow_one
+1039 3042
+fn=<alloc::raw_vec::RawVec<[u64; 2]>>::grow_one
+1039 93
+fn=<alloc::raw_vec::RawVec<alloc::sync::Arc<parquet::schema::types::ColumnDescriptor>>>::grow_one
+1039 3
+fn=<alloc::raw_vec::RawVec<alloc::vec::Vec<core::option::Option<parquet::bloom_filter::Sbbf>>>>::grow_one
+1039 102
+fn=<alloc::raw_vec::RawVec<core::option::Option<i64>>>::grow_one
+1039 72
+fn=<alloc::raw_vec::RawVec<core::option::Option<parquet::file::page_index::offset_index::OffsetIndexMetaData>>>::grow_one
+1039 42
+fn=<alloc::raw_vec::RawVec<f32>>::grow_one
+1039 96
+fn=<alloc::raw_vec::RawVec<i16>>::grow_one
+1039 84
+fn=<alloc::raw_vec::RawVec<sessions::events::EventCopy>>::grow_one
+1039 3
+fn=<alloc::raw_vec::RawVec<sessions::fast::ClickTmp>>::grow_one
+1039 39
+fn=<alloc::raw_vec::RawVec<sessions::fast::Rec>>::grow_one
+1039 42
+fn=<alloc::raw_vec::RawVec<u64>>::grow_one
+1039 216
+fn=<alloc::raw_vec::RawVec<u8>>::grow_one
+1038 189
+fn=<alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+1038 433
+1039 364
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::grow_amortized
+1038 10
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+1916 1
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+1916 3
+fn=<core::fmt::Formatter>::pad
+1916 64
+fn=<core::fmt::Formatter>::pad_formatted_parts
+1916 60
+fn=<core::fmt::Formatter>::pad_integral
+1916 27
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+1916 10
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+1039 33
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+1916 1476
+fn=<sessions::fast::Worker>::finish_row
+0 2016
+501 10864
+615 37482
+1718 5160
+2011 5432
+fn=<sessions::fast::ids::Bytes>::refill
+1039 3
+fn=<sessions::fast::ids::Interner>::grow
+1916 65536
+fn=<sessions::fast::ids::Interner>::grow_wide
+1916 8192
+fn=<sessions::fast::ids::Interner>::new
+0 2
+1039 8
+1916 8
+fn=<sessions::fast::ids::KeyMap>::new
+0 16
+1039 10
+fn=<sessions::fast::sink::Arena>::prepare
+1078 48
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+1916 260
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+1039 3
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+1916 259
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+1916 4
+fn=<sessions::fast::ts::Calendar>::around
+1039 2
+1916 384
+fn=<std::path::Components>::parse_next_component_back
+520 100
+fn=<std::sys::pal::unix::time::Timespec>::sub_timespec
+539 14
+2000 14
+fn=<std::sys::thread::unix::Thread>::new
+1038 3
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+1878 1
+fn=core::slice::sort::shared::pivot::median3_rec::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+398 138
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+482 68
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+398 23
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+398 132
+1916 40
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+482 60
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+398 864
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+482 121
+1078 22
+fn=core::slice::sort::stable::driftsort_main::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt, alloc::vec::Vec<std::path::PathBuf>>
+1039 10
+1078 6
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+482 459
+1916 87
+fn=core::slice::sort::unstable::ipnsort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+398 12
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+398 3
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+398 4408
+1916 114
+fn=sessions::fast::chunks
+1078 240
+fn=sessions::fast::ids::cmp
+2011 351730
+fn=sessions::fast::line_range
+1078 344
+fn=sessions::fast::parquet::write
+1078 59185
+fn=sessions::fast::parse_clicks_avx2
+1918 31497
+fn=sessions::fast::parse_events_avx2
+1918 129564
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1
+398 9520
+1039 2461908
+1078 2460658
+1916 1492490
+2025 640
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+1918 4143
+fn=sessions::fast::split_tail
+1039 4
+1078 24
+fn=sessions::main
+0 2
+1039 3
+1916 5
+2025 48
+fn=std::fs::read::inner
+0 21
+1077 15
+1878 6
+fn=std::path::compare_components
+1077 1380
+2011 1380
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+1038 3
+2011 6
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+1038 6
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+1878 1
+2011 3
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+1916 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/convert/mod.rs
+fn=sessions::output::create_table_dir
+719 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/convert/num.rs
+fn=<core::fmt::Formatter>::pad_formatted_parts
+82 7
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+82 7
+fn=sessions::events::parse_price
+82 1380
+fn=sessions::fast::parse_clicks_avx2
+61 1728
+82 49574
+fn=sessions::fast::parse_events_avx2
+61 8152
+82 364669
+fn=sessions::fast::run::{closure#17}::{closure#0}
+82 978090
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+61 64
+82 2800
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ffi/c_str.rs
+fn=<std::fs::OpenOptions>::_open
+0 174
+355 174
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+767 188
+fn=sessions::input::csv_files
+560 84
+fn=sessions::output::create_table_dir
+355 4
+fn=std::env::_var
+0 10
+355 10
+fn=std::env::_var_os
+0 4
+355 4
+fn=std::fs::read::inner
+0 9
+355 6
+fn=std::sys::env::unix::getenv::{closure#0}
+767 9
+fn=std::sys::fs::metadata
+0 168
+355 168
+fn=std::sys::fs::read_dir
+0 5
+355 10
+fn=std::sys::fs::set_permissions
+0 25
+355 10
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/fmt/float.rs
+fn=<f64 as core::fmt::Display>::fmt
+92 14
+98 21
+217 7
+218 7
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+36 70
+56 7
+57 56
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/fmt/mod.rs
+fn=<&str as core::fmt::Display>::fmt
+2872 18
+2967 12
+fn=<core::fmt::Formatter>::pad
+0 48
+502 66
+517 12
+1757 51
+1910 54
+1912 18
+1934 18
+1938 12
+1939 18
+1946 48
+1966 6
+fn=<core::fmt::Formatter>::pad_formatted_parts
+0 70
+502 70
+1756 21
+1960 7
+1966 7
+1967 33
+1981 70
+1982 28
+1991 7
+1992 14
+2005 14
+2016 14
+2019 21
+2023 7
+2026 56
+fn=<core::fmt::Formatter>::pad_integral
+0 139
+403 18
+418 18
+1826 407
+1830 481
+1838 74
+1855 37
+1856 74
+1858 224
+1859 336
+1860 45
+1863 9
+1865 99
+1867 36
+1869 18
+1878 72
+1966 18
+1967 54
+fn=<core::fmt::Formatter>::pad_integral::write_prefix
+0 37
+1847 370
+1848 74
+1851 74
+1852 222
+fn=<core::fmt::Formatter>::write_formatted_parts
+2031 77
+2037 42
+2040 21
+2043 7
+2044 105
+2069 42
+2075 56
+fn=<f64 as core::fmt::Display>::fmt
+517 14
+2316 7
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+183 252
+184 28
+185 224
+fn=alloc::fmt::format::format_inner
+0 60
+236 60
+767 114
+770 90
+772 48
+774 63
+782 63
+786 168
+788 84
+789 63
+795 33
+878 24
+fn=core::fmt::write
+0 404
+577 284
+878 44
+1631 242
+1653 258
+1656 214
+1665 228
+1666 200
+1700 68
+1704 68
+1708 68
+1712 75
+1717 68
+1724 68
+1740 176
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/fmt/num.rs
+fn=<i64 as core::fmt::Display>::fmt
+156 90
+164 180
+172 90
+185 36
+fn=<u64 as core::fmt::Display>::fmt
+135 95
+143 133
+151 76
+185 38
+fn=<u64>::_fmt_inner
+0 66
+190 74
+198 134
+209 185
+210 10
+211 108
+213 25
+215 27
+220 74
+227 24
+229 84
+231 36
+236 111
+243 18
+248 54
+253 37
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/fmt/rt.rs
+fn=core::fmt::write
+144 50
+152 100
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/hash/mod.rs
+fn=<std::hash::random::RandomState as core::hash::BuildHasher>::hash_one::<&&[u8]>
+393 16740
+694 39060
+702 27900
+824 22320
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/hash/sip.rs
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+0 95042
+78 11160
+79 11160
+126 22320
+132 48335
+134 5655
+135 1885
+137 22320
+139 19050
+258 11160
+262 33480
+278 11160
+279 33480
+282 33480
+288 5580
+290 5580
+292 5580
+298 11160
+fn=<std::hash::random::RandomState as core::hash::BuildHasher>::hash_one::<&&[u8]>
+78 39060
+79 39060
+203 11160
+204 11160
+205 11160
+206 5580
+312 11160
+314 16740
+316 11160
+318 5580
+320 5580
+323 16740
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/hint.rs
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+876 72
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+876 224
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+876 56
+fn=sessions::fast::run::{closure#17}::{closure#0}
+491 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/intrinsics/mod.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+459 4
+fn=<alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+0 573
+459 197
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::finish_grow
+459 4
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+0 1394
+459 4398
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+459 2
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+459 2
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+459 6
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+436 3
+459 3
+2032 1
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+436 47491
+459 20
+2032 54572
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 22
+459 7171
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+459 52
+fn=<sessions::fast::ids::Interner>::new
+0 8
+459 12
+fn=<sessions::fast::ids::KeyMap>::new
+459 4
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 6
+459 10
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+2032 33480
+fn=<std::hash::random::RandomState as core::hash::BuildHasher>::hash_one::<&&[u8]>
+2032 133920
+fn=sessions::fast::link_pairs_avx2
+459 11
+fn=sessions::fast::parquet::write
+459 3
+fn=sessions::fast::parse_clicks_avx2
+459 43
+fn=sessions::fast::parse_events_avx2
+459 39
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 11
+436 14556
+459 145
+fn=sessions::input::csv_files
+436 6
+fn=sessions::main
+0 280
+436 6373
+459 6042
+fn=sessions::output::create_table_dir
+459 4
+fn=std::fs::read::inner
+459 3
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+459 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/chain.rs
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+0 1
+120 1
+123 1
+183 13
+186 1
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 2096
+333 5514
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/copied.rs
+fn=sessions::main
+25 9
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/enumerate.rs
+fn=sessions::fast::parquet::write
+82 11
+fn=sessions::fast::run::{closure#17}::{closure#0}
+82 1664
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/filter.rs
+fn=<core::fmt::Formatter>::pad
+138 66
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/flatten.rs
+fn=sessions::output::create_table_dir
+855 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/fuse.rs
+fn=sessions::output::create_table_dir
+470 2
+471 2
+473 14
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/map.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 10
+106 110
+108 80
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 60396
+88 120792
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/mod.rs
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+0 3
+176 609
+178 783
+195 168
+fn=sessions::fast::map_folder
+161 3
+164 9
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/rev.rs
+fn=sessions::output::create_table_dir
+53 12
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/step_by.rs
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 11
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/take.rs
+fn=sessions::output::create_table_dir
+37 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/adapters/zip.rs
+fn=sessions::fast::parquet::write
+304 41
+fn=sessions::fast::run::{closure#17}::{closure#0}
+304 84042
+308 28014
+fn=std::path::compare_components
+0 920
+304 141104
+308 70092
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/range.rs
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+0 1
+900 20
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+0 2
+900 16
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+0 6
+900 54
+fn=<core::fmt::Formatter>::pad
+900 53
+fn=<core::fmt::Formatter>::pad_formatted_parts
+900 25
+fn=<core::fmt::Formatter>::pad_integral
+900 27
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 9
+900 10
+903 9
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 1390
+900 1705
+fn=<sessions::fast::ids::Bytes>::put
+0 16352
+900 171696
+fn=<sessions::fast::ids::Interner>::grow
+0 65536
+900 65537
+fn=<sessions::fast::ids::Interner>::grow_wide
+0 8192
+900 8193
+fn=<sessions::fast::ids::Interner>::new
+0 4
+900 80
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+0 116
+900 341
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+0 144
+900 517
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 6
+900 180
+fn=<sessions::fast::ts::Calendar>::around
+0 192
+900 192
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 1
+900 16
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 25
+900 133
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+0 52
+900 155
+fn=sessions::fast::parse_clicks_avx2
+0 528
+900 5031
+fn=sessions::fast::parse_events_avx2
+0 28
+900 322
+fn=sessions::fast::people::intern_pair
+900 7539
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 175508
+900 2430727
+990 1
+fn=sessions::fast::write::user_part
+990 4
+fn=sessions::main
+0 2
+900 22
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 1
+900 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/traits/accum.rs
+fn=<core::fmt::Formatter>::pad
+55 7
+fn=sessions::fast::parquet::write
+55 19
+fn=sessions::fast::run::{closure#17}::{closure#0}
+55 424
+fn=sessions::main
+55 46
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/traits/collect.rs
+fn=sessions::fast::map_folder
+323 15
+fn=sessions::output::create_table_dir
+0 4
+323 32
+fn=std::path::compare_components
+0 460
+323 8280
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/traits/double_ended.rs
+fn=sessions::output::create_table_dir
+241 20
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/traits/iterator.rs
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+2494 252
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 9
+2494 9
+fn=sessions::fast::run::{closure#17}::{closure#0}
+2494 70
+fn=sessions::main
+0 2
+2998 156006
+2999 210000
+fn=sessions::output::create_table_dir
+0 8
+3919 22
+4208 8
+fn=std::path::compare_components
+0 2760
+2493 5520
+2494 70552
+3146 70552
+4208 2760
+4210 920
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/macros/mod.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+430 2
+fn=sessions::main
+430 2280
+fn=sessions::output::create_table_dir
+430 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/mem/manually_drop.rs
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+185 6
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/mem/maybe_dangling.rs
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+82 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/mem/maybe_uninit.rs
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 3
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 1
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 224
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 6
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 6
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+574 51
+fn=<u64>::_fmt_inner
+574 163
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+574 18
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/mem/mod.rs
+fn=<sessions::fast::ts::Calendar>::around
+931 9
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+931 84
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_str
+931 152
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 3
+931 2
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 1
+931 1
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 96
+931 64
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 6
+931 2
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 6
+931 2
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+930 9
+931 6
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+931 2
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+930 2
+931 3
+fn=<std::thread::spawnhook::SpawnHooks as core::ops::drop::Drop>::drop
+930 3
+931 3
+fn=sessions::fast::run::{closure#17}::{closure#0}
+930 9
+931 4
+1004 1
+fn=sessions::main
+931 4
+fn=std::sys::thread_local::destructors::linux_like::register
+931 4
+fn=std::sys::thread_local::guard::key::enable::run
+931 5
+fn=std::sys::thread_local::native::eager::destroy::<core::cell::Cell<std::thread::spawnhook::SpawnHooks>>
+931 1
+fn=std::thread::current::init_current
+931 2
+fn=std::thread::spawnhook::run_spawn_hooks
+0 1
+930 3
+931 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/f64.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+788 91
+1224 7
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/diy_float.rs
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt
+26 21
+34 7
+35 14
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/flt2dec/decoder.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+0 14
+71 21
+72 35
+84 70
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/flt2dec/mod.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+0 98
+319 84
+504 42
+617 42
+651 14
+656 56
+657 7
+658 14
+681 21
+fn=core::num::imp::flt2dec::digits_to_dec_str
+0 14
+177 14
+183 14
+184 14
+200 14
+215 7
+216 21
+218 7
+219 28
+220 28
+221 14
+244 21
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+149 4
+152 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/flt2dec/strategy/grisu.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+774 49
+775 28
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt
+0 94
+126 70
+127 35
+147 28
+154 14
+156 14
+157 14
+159 30
+473 56
+478 14
+484 7
+488 21
+489 42
+490 14
+504 21
+526 28
+531 14
+545 63
+565 259
+568 76
+572 76
+573 28
+576 63
+582 62
+590 93
+760 56
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+0 38
+650 70
+675 21
+691 14
+716 52
+718 8
+738 15
+739 3
+753 3
+759 56
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/fmt.rs
+fn=<core::fmt::Formatter>::pad_formatted_parts
+23 105
+26 42
+62 28
+78 21
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/imp/traits.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+179 56
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/int_macros.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+2564 9
+3225 108
+fn=<i64 as core::fmt::Display>::fmt
+2463 72
+fn=<sessions::fast::ts::Calendar>::around
+3225 2543
+fn=sessions::fast::parse_events_avx2
+2202 2194007
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+2202 12429
+fn=sessions::main
+2670 2
+3224 28
+3225 4
+fn=sessions::time::days_from_civil
+3225 24
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/mod.rs
+fn=sessions::events::parse_price
+959 5536
+fn=sessions::fast::parse_events_avx2
+959 374358
+fn=sessions::main
+0 6
+1570 1
+1764 4
+1771 13
+1784 1
+1802 5
+1803 1
+1804 1
+1805 2
+fn=sessions::time::parse_date_time
+0 24
+959 84
+fn=sessions::time::parse_timestamp
+959 20
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/nonzero.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+644 1
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+644 47451
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+644 7160
+fn=core::slice::sort::unstable::ipnsort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+614 2
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+614 2
+fn=sessions::main
+502 171
+644 2191
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs
+fn=<alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+896 197
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::finish_grow
+3178 16
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::grow_amortized
+896 2
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+3178 11584
+fn=<alloc::string::String as core::fmt::Write>::write_char
+2621 18
+fn=<alloc::string::String as core::fmt::Write>::write_str
+2621 45
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+971 35
+2428 3
+3178 8
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+971 20
+2621 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+971 23
+2621 1
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+3178 1
+fn=<core::fmt::Formatter>::pad
+971 7
+fn=<core::fmt::Formatter>::pad_formatted_parts
+2428 42
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+2621 1
+2660 6
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+2660 291927
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+896 32
+2621 3580
+3178 20
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+896 88
+3178 54
+3876 8
+3881 8
+3882 24
+3905 8
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+2472 656
+3758 9
+fn=<sessions::fast::Worker>::finish_row
+971 1426
+fn=<sessions::fast::ids::Bytes>::put
+3758 24528
+fn=<sessions::fast::ids::Interner>::grow
+3758 3
+fn=<sessions::fast::ids::Interner>::grow_wide
+3758 3
+fn=<sessions::fast::ids::Interner>::new
+971 16
+3178 32
+3757 8
+3758 12
+3874 4
+3876 2
+3881 2
+3882 6
+3905 2
+fn=<sessions::fast::ids::KeyMap>::new
+3178 2
+3874 6
+3876 2
+3881 2
+3882 6
+fn=<sessions::fast::sink::Arena>::prepare
+3757 72
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+3757 3
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+971 32
+3178 32
+3756 4
+3758 2
+fn=<sessions::fast::ts::Calendar>::around
+971 192
+2660 29
+fn=<sessions::fast::ts::Calendar>::month_slow
+2584 1211
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+2584 22320
+fn=<std::hash::random::RandomState as core::hash::BuildHasher>::hash_one::<&&[u8]>
+2584 89280
+4026 16740
+fn=<std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back
+0 188
+1050 94
+fn=<std::path::Path>::_join
+2621 97
+fn=<std::sync::barrier::Barrier>::wait
+2584 3
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt
+154 14
+3329 14
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+0 6
+1050 10
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+3843 1
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+154 9
+3757 4
+3758 6
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+3843 3
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+3843 7
+fn=core::str::converts::from_utf8
+2621 202
+fn=sessions::csv::fields::<7>
+1054 8640
+fn=sessions::fast::chunks
+2428 240
+fn=sessions::fast::ids::cmp
+701 307828
+1050 10441
+fn=sessions::fast::line_range
+2472 258
+3757 258
+fn=sessions::fast::link_pairs_avx2
+178 45621
+2228 44163
+2621 267838
+fn=sessions::fast::parquet::write
+971 3
+2621 203
+3178 6
+fn=sessions::fast::parse_clicks_avx2
+85 166653
+178 310698
+2162 413315
+2584 1346943
+2621 1066530
+2660 1026546
+3758 237
+fn=sessions::fast::parse_events_avx2
+85 2143788
+178 2322942
+2043 1008032
+2162 1381346
+2228 3024096
+2584 7609787
+2621 9811975
+2660 6395172
+3758 14
+fn=sessions::fast::people::intern_pair
+2660 16678
+3758 7539
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 514
+154 768
+971 29930
+1050 754046
+2621 2170
+2660 4669098
+3178 1615
+3756 1298
+3757 4
+3758 773
+3874 416
+3876 416
+3881 416
+3882 1248
+3905 288
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+1050 102398
+2621 118107
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+2162 265
+2584 25071
+2621 40
+2660 29056
+fn=sessions::fast::sink::region
+3757 24
+fn=sessions::fast::sink::reserve
+3757 6
+fn=sessions::fast::split_tail
+2472 3
+3756 4
+3758 8
+fn=sessions::fast::write::campaign_table::{closure#2}
+1050 4
+2621 82347
+fn=sessions::fast::write::campaign_table::{closure#3}
+1050 4
+2621 82347
+fn=sessions::fast::write::campaign_table::{closure#4}
+1050 4
+2621 27449
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+1050 12
+2621 82347
+fn=sessions::fast::write::campaign_table::{closure#6}
+1050 4
+2621 27449
+fn=sessions::fast::write::user_part::{closure#0}
+1050 12
+2621 236214
+fn=sessions::fast::write::user_part::{closure#1}
+1050 12
+2621 118107
+fn=sessions::fast::write::user_part::{closure#2}
+1050 12
+2621 118107
+fn=sessions::fast::write::user_part::{closure#3}
+1050 12
+2621 118107
+fn=sessions::fast::write::user_part::{closure#4}
+1050 12
+2621 118107
+fn=sessions::fast::write::user_part::{closure#5}
+1050 12
+2621 62859
+fn=sessions::main
+178 1
+971 4
+2584 1
+2621 2020
+3178 7
+3874 8
+3876 2
+3881 2
+3882 3
+fn=sessions::output::create_table_dir
+3178 16
+fn=std::fs::read::inner
+896 3
+1582 6
+3814 18
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+1050 3
+2621 3
+fn=std::path::compare_components
+0 920
+1050 460
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+896 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ops/arith.rs
+fn=sessions::fast::run::{closure#17}::{closure#0}
+104 177171
+602 530
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ops/bit.rs
+fn=core::fmt::float::float_to_decimal_common_exact::<f64>
+613 14
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ops/function.rs
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+250 5
+fn=sessions::fast::run::{closure#17}::{closure#0}
+310 8048
+fn=sessions::main
+166 104004
+fn=sessions::output::create_table_dir
+250 6
+fn=std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+250 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ops/range.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+873 9
+fn=<sessions::fast::ts::Calendar>::month_slow
+873 4439
+fn=sessions::fast::parse_clicks_avx2
+873 165738
+fn=sessions::fast::parse_events_avx2
+873 690084
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+873 118
+fn=sessions::time::parse_date_time
+873 6
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/option.rs
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+742 4
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 10
+1162 36
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+764 179
+fn=<sessions::fast::Worker>::finish_row
+1227 20953
+fn=<sessions::manifest::Parser>::skip_value
+0 2
+2138 4
+2775 6
+fn=<sessions::manifest::Parser>::string
+2138 272
+2775 8
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+0 89
+1162 504
+fn=<std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back
+633 188
+fn=<std::path::Components>::as_path
+633 6
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+1011 4
+1012 2
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+633 1
+1011 2
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+1011 128
+1012 192
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+1011 4
+1012 3
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+1011 4
+1012 3
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+1011 12
+1012 48
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+2439 2
+fn=<std::thread::spawnhook::SpawnHooks as core::ops::drop::Drop>::drop
+1542 6
+fn=<std::thread::thread::Thread>::new
+1161 8
+fn=<std::time::Instant>::elapsed
+1094 8
+fn=sessions::fast::parse_clicks_avx2
+764 6491
+2775 378
+2776 650
+fn=sessions::fast::parse_events_avx2
+0 15546
+764 195591
+1039 77183
+2775 2038
+2776 5346
+fn=sessions::fast::people::intern_pair
+764 211439
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 7619
+633 5022
+764 35038
+1094 2
+2775 496
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 26
+764 843
+1039 653
+2775 6
+2776 6
+fn=sessions::input::csv_files
+1542 168
+fn=sessions::input::manifest_time
+0 12
+1364 8
+2138 76
+2775 30
+2776 18
+fn=sessions::main
+1062 2
+1226 1
+1227 2
+1580 2
+fn=sessions::output::create_table_dir
+1542 24
+fn=std::env::_var_os
+0 2
+fn=std::fs::read::inner
+1039 12
+fn=std::io::stdio::_eprint
+1062 20
+fn=std::path::compare_components
+633 460
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+764 3
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+1162 1
+1723 2
+2439 2
+fn=std::thread::current::init_current
+1062 2
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 2
+742 3
+1542 4
+fn=std::thread::spawnhook::run_spawn_hooks
+742 1
+2274 2
+2775 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/profiling.rs
+fn=std::sys::fs::metadata
+13 252
+fn=std::sys::fs::unix::try_statx
+0 171
+13 3249
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/const_ptr.rs
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+0 1
+729 12
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+729 6
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+729 6
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+863 9462
+fn=<sessions::fast::Worker>::finish_row
+729 9576
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+863 1885
+fn=<std::path::Components>::parse_next_component_back
+729 200
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+729 2
+fn=core::slice::sort::shared::pivot::median3_rec::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+863 20
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 2
+468 43
+863 7
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+863 42
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+468 192
+863 440
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+729 1
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+468 146
+863 12
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+0 480
+468 254
+729 6
+863 126
+fn=sessions::fast::ids::cmp
+863 15610
+fn=sessions::fast::ids::same_long
+863 13193
+fn=sessions::fast::link_pairs_avx2
+863 134662
+fn=sessions::fast::parquet::write
+863 14764
+fn=sessions::fast::parse_clicks_avx2
+863 255147
+fn=sessions::fast::parse_events_avx2
+863 1071894
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 836
+38 675
+619 1639
+863 2
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+863 15709
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+863 4144
+fn=sessions::fast::split_tail
+863 1
+fn=std::sys::thread_local::guard::key::enable::run
+863 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/metadata.rs
+fn=<sessions::fast::ids::Interner>::new
+133 4
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+133 4
+fn=sessions::fast::run::{closure#17}::{closure#0}
+133 4
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+133 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+0 6
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+642 6
+1733 10
+fn=<alloc::string::String as core::fmt::Write>::write_str
+551 90
+fn=<alloc::sync::Arc<sessions::fast::write::Part>>::drop_slow
+825 6
+fn=<alloc::sync::Arc<std::sys::fs::unix::InnerReadDir>>::drop_slow
+825 15
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+825 6
+fn=<alloc::sync::Arc<std::thread::thread::Inner, std::alloc::System>>::drop_slow
+820 1
+825 2
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+1933 70
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+1933 120
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+1933 138
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+1933 32
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+1933 1
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+1933 3
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+551 4
+1933 3
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+551 137691
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+551 14320
+1452 44
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+713 44
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+551 1053
+1933 5377
+fn=<sessions::fast::Worker>::finish_row
+1933 708642
+fn=<sessions::fast::ids::Bytes>::put
+551 49056
+1933 16352
+fn=<sessions::fast::ids::Interner>::new
+1933 182
+fn=<sessions::fast::ids::KeyMap>::new
+551 520000
+fn=<sessions::fast::parquet::Thrift>::field
+1933 304
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+1733 194
+1933 194
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+1933 219
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+1733 256
+1933 256
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+1933 823
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+1733 426
+1933 2959
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+1733 1880
+1933 1846
+fn=<sessions::fast::ts::Calendar>::around
+1933 32
+fn=<sessions::manifest::Parser>::string
+1933 124
+fn=<std::fs::OpenOptions>::_open
+551 348
+1933 87
+2308 174
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+551 420
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+551 18443
+fn=<std::path::Path>::_join
+551 873
+fn=<std::sys::thread::unix::Thread>::new
+1733 1
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+825 2
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+820 2
+825 4
+fn=<std::thread::thread::Thread>::new
+1933 12
+fn=alloc::fmt::format::format_inner
+1733 57
+fn=core::fmt::write
+1733 311
+fn=core::ptr::drop_glue::<[alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output = ()> + core::marker::Send>]>
+825 18
+fn=core::ptr::drop_glue::<core::iter::adapters::flatten::Flatten<std::fs::ReadDir>>
+825 20
+fn=core::ptr::drop_glue::<sessions::fast::sink::Sink<[u64; 2]>>
+825 18
+fn=core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>>
+825 3
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 11
+551 287
+1733 66
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 3
+551 24
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 145
+551 86
+642 68
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+551 102
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+551 256
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+551 170
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 108
+551 1494
+1733 176
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+551 1531
+642 786
+1733 6
+fn=sessions::csv::fields::<7>
+2308 42972
+fn=sessions::fast::chunks
+1933 240
+fn=sessions::fast::ids::cmp
+551 31323
+1733 15610
+fn=sessions::fast::ids::same_long
+1733 13193
+fn=sessions::fast::link_pairs::<sessions::fast::scan::Avx2>::{closure#0}
+1933 89364
+fn=sessions::fast::link_pairs_avx2
+551 55
+1933 132
+fn=sessions::fast::map_folder
+825 342
+1933 168
+fn=sessions::fast::parquet::write
+551 320
+825 69
+1933 15996
+fn=sessions::fast::parse_clicks_avx2
+0 191
+551 3123450
+1933 507407
+fn=sessions::fast::parse_events_avx2
+0 215714
+551 15376643
+1933 2365966
+fn=sessions::fast::people::intern_pair
+551 296063
+1933 256662
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 261
+551 32139
+642 181082
+825 13
+1452 3072
+1453 6144
+1733 55247
+1933 16772334
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+551 456719
+1733 15709
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+551 61343
+1933 17395
+fn=sessions::fast::split_tail
+1733 4
+1933 32
+fn=sessions::fast::write::campaign_table::{closure#2}
+551 82347
+fn=sessions::fast::write::campaign_table::{closure#3}
+551 82347
+fn=sessions::fast::write::campaign_table::{closure#4}
+551 27449
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+551 82347
+fn=sessions::fast::write::campaign_table::{closure#6}
+551 27449
+fn=sessions::fast::write::user_part::{closure#0}
+551 236214
+fn=sessions::fast::write::user_part::{closure#1}
+551 118107
+fn=sessions::fast::write::user_part::{closure#2}
+551 118107
+fn=sessions::fast::write::user_part::{closure#3}
+551 118107
+fn=sessions::fast::write::user_part::{closure#4}
+551 118107
+fn=sessions::fast::write::user_part::{closure#5}
+551 62859
+1933 118107
+fn=sessions::input::csv_files
+1933 336
+fn=sessions::input::manifest_time
+825 4
+fn=sessions::main
+0 5
+551 2300
+713 10
+825 5
+1933 270150
+fn=sessions::output::create_table_dir
+551 10
+825 8
+1933 2
+fn=std::env::_var
+551 10
+1933 5
+fn=std::env::_var_os
+551 4
+1933 2
+2308 2
+fn=std::fs::read::inner
+551 9
+1933 3
+2308 6
+fn=std::io::stdio::_eprint
+825 10
+fn=std::sys::env::unix::getenv::{closure#0}
+551 15
+fn=std::sys::fs::metadata
+551 252
+1933 84
+2308 168
+fn=std::sys::fs::read_dir
+551 50
+1933 5
+2308 10
+fn=std::sys::fs::set_permissions
+551 15
+1933 5
+2308 10
+fn=std::sys::fs::unix::try_statx
+713 3420
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 1
+825 12
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+713 15
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 3
+551 1
+825 16
+1933 1
+fn=std::sys::thread_local::destructors::linux_like::register
+1933 4
+fn=std::sys::thread_local::guard::key::enable::run
+1733 2
+fn=std::sys::thread_local::native::eager::destroy::<core::cell::Cell<std::thread::spawnhook::SpawnHooks>>
+825 4
+fn=std::thread::spawnhook::run_spawn_hooks
+825 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mut_ptr.rs
+fn=<alloc::collections::btree::node::Handle<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Mut, usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::collections::btree::node::marker::Leaf>, alloc::collections::btree::node::marker::KV>>::remove_leaf_kv::<<alloc::collections::btree::map::entry::OccupiedEntry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>>::remove_kv::{closure#0}, alloc::alloc::Global>
+961 8
+fn=<alloc::string::String as core::fmt::Write>::write_str
+961 45
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+1072 4
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+1072 94902
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+961 247
+1072 14330
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+961 11
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+961 12088
+fn=<sessions::fast::ids::Bytes>::put
+961 8176
+fn=<sessions::fast::ids::Bytes>::refill
+961 1
+fn=<sessions::fast::ids::Interner>::grow
+961 247776
+fn=<sessions::fast::ids::Interner>::grow_wide
+961 30930
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+961 97
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+961 565
+1072 217
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+961 64
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+961 22
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+961 6006
+1072 2959
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+961 2068
+1072 1846
+fn=<std::path::Path>::_join
+961 97
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+961 3
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+961 21
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 1
+961 15
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+961 6
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+961 24
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+961 160
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+961 159
+1072 35
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+961 628
+1072 60
+fn=sessions::fast::map_folder
+961 6
+fn=sessions::fast::parquet::write
+0 3
+961 187
+fn=sessions::fast::parse_clicks_avx2
+961 2596479
+fn=sessions::fast::parse_events_avx2
+961 10839482
+fn=sessions::fast::people::intern_pair
+961 874076
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 15525
+961 8535089
+1072 1923
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+961 220505
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+961 38731
+fn=sessions::fast::split_tail
+961 4
+fn=sessions::fast::write::campaign_table::{closure#2}
+961 27449
+fn=sessions::fast::write::campaign_table::{closure#3}
+961 27449
+fn=sessions::fast::write::user_part::{closure#5}
+961 20953
+fn=sessions::input::csv_files
+961 84
+fn=sessions::main
+961 114048
+1072 8575
+fn=std::fs::read::inner
+961 6
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+1072 1
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+961 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+961 2
+fn=std::sys::thread_local::destructors::linux_like::register
+961 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+441 2
+fn=<alloc::sync::Arc<std::thread::scoped::ScopeData>>::drop_slow
+441 1
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+1714 2
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+1714 1
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+1714 1
+fn=<core::fmt::Formatter>::pad
+1714 6
+fn=<core::fmt::Formatter>::pad_formatted_parts
+1714 7
+fn=<core::fmt::Formatter>::write_formatted_parts
+1714 28
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+656 84
+1714 87
+fn=<sessions::fast::Worker>::finish_row
+656 5160
+1714 139060
+fn=<sessions::fast::ids::KeyMap>::new
+1714 52000
+fn=<sessions::fast::ts::Calendar>::around
+656 1
+1714 20
+fn=<std::path::Components as core::iter::traits::iterator::Iterator>::next
+1714 12880
+fn=<std::path::Components>::parse_next_component_back
+1714 1468
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+441 1
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+441 1
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+1714 1
+fn=alloc::fmt::format::format_inner
+0 24
+656 153
+fn=core::fmt::write
+656 457
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+1714 4
+fn=sessions::csv::fields::<2>
+1714 685049
+fn=sessions::csv::fields::<7>
+1714 544564
+fn=sessions::events::parse_price
+1714 1712
+fn=sessions::fast::chunks
+1714 72
+fn=sessions::fast::line_range
+1714 4728
+fn=sessions::fast::link_pairs_avx2
+1714 237
+fn=sessions::fast::parquet::write
+656 49
+1714 55
+fn=sessions::fast::parse_clicks_avx2
+1714 2947
+fn=sessions::fast::parse_events_avx2
+1714 164586
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 1
+656 4710975
+1714 13143031
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+1714 548772
+fn=sessions::fast::split_tail
+1714 6
+fn=sessions::fast::write::campaign_table::{closure#2}
+1714 54899
+fn=sessions::fast::write::campaign_table::{closure#3}
+1714 54899
+fn=sessions::fast::write::campaign_table::{closure#4}
+1714 54899
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+1714 164697
+fn=sessions::fast::write::campaign_table::{closure#6}
+1714 54899
+fn=sessions::fast::write::user_part::{closure#0}
+1714 236217
+fn=sessions::fast::write::user_part::{closure#1}
+1714 236217
+fn=sessions::fast::write::user_part::{closure#2}
+1714 236217
+fn=sessions::fast::write::user_part::{closure#3}
+1714 236217
+fn=sessions::fast::write::user_part::{closure#4}
+1714 236217
+fn=sessions::fast::write::user_part::{closure#5}
+1714 354324
+fn=sessions::input::csv_files
+441 3
+fn=sessions::main
+656 50004
+1714 787141
+fn=sessions::output::create_table_dir
+441 2
+fn=sessions::time::parse_timestamp
+1714 10
+fn=std::path::compare_components
+1714 4380
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+1714 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+1714 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/result.rs
+fn=<alloc::raw_vec::RawVec<*mut [u64; 2]>>::grow_one
+2173 2028
+2174 1014
+fn=<alloc::raw_vec::RawVec<[u64; 2]>>::grow_one
+2173 62
+2174 31
+fn=<alloc::raw_vec::RawVec<alloc::sync::Arc<parquet::schema::types::ColumnDescriptor>>>::grow_one
+2173 2
+2174 1
+fn=<alloc::raw_vec::RawVec<alloc::vec::Vec<core::option::Option<parquet::bloom_filter::Sbbf>>>>::grow_one
+2173 68
+2174 34
+fn=<alloc::raw_vec::RawVec<core::option::Option<i64>>>::grow_one
+2173 48
+2174 24
+fn=<alloc::raw_vec::RawVec<core::option::Option<parquet::file::page_index::offset_index::OffsetIndexMetaData>>>::grow_one
+2173 28
+2174 14
+fn=<alloc::raw_vec::RawVec<f32>>::grow_one
+2173 64
+2174 32
+fn=<alloc::raw_vec::RawVec<i16>>::grow_one
+2173 56
+2174 28
+fn=<alloc::raw_vec::RawVec<sessions::events::EventCopy>>::grow_one
+2173 2
+2174 1
+fn=<alloc::raw_vec::RawVec<sessions::fast::ClickTmp>>::grow_one
+2173 26
+2174 13
+fn=<alloc::raw_vec::RawVec<sessions::fast::Rec>>::grow_one
+2173 28
+2174 14
+fn=<alloc::raw_vec::RawVec<u64>>::grow_one
+2173 144
+2174 72
+fn=<alloc::raw_vec::RawVec<u8>>::grow_one
+2173 126
+2174 63
+fn=<alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+2173 394
+2174 197
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::grow_amortized
+2173 4
+2174 2
+fn=<core::fmt::Formatter>::pad
+0 36
+2173 63
+fn=<core::fmt::Formatter>::pad_formatted_parts
+0 21
+2173 36
+fn=<core::fmt::Formatter>::pad_integral
+0 9
+2173 137
+fn=<core::fmt::Formatter>::write_formatted_parts
+0 28
+2173 42
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+835 168
+966 168
+967 84
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+1718 9
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+0 11
+2173 33
+fn=<std::fs::OpenOptions>::_open
+0 87
+835 261
+836 261
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+0 252
+2173 168
+fn=<std::sys::fs::unix::File>::open_c
+0 90
+fn=<std::sys::pal::unix::time::Timespec>::now
+1231 10
+fn=<std::thread::thread::Thread>::new
+1620 4
+fn=alloc::fmt::format::format_inner
+1183 24
+fn=core::fmt::write
+0 34
+2173 271
+fn=sessions::fast::map_folder
+0 6
+2168 9
+2173 9
+fn=sessions::fast::parquet::write
+966 6
+967 3
+2173 6
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 6
+1231 5
+2173 2
+fn=sessions::input::csv_files
+0 87
+713 168
+714 84
+835 171
+2173 168
+2174 84
+fn=sessions::main
+0 21
+625 3
+713 2
+714 2
+966 9
+967 3
+1231 3
+1232 1
+1270 2
+1620 4
+1621 8
+2173 20
+2174 1
+fn=sessions::output::create_table_dir
+0 4
+835 2
+2173 4
+fn=std::env::_var
+0 12
+713 15
+fn=std::env::_var_os
+0 2
+713 6
+714 4
+fn=std::fs::read::inner
+835 12
+836 3
+2173 6
+fn=std::sys::fs::read_dir
+2173 10
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+2173 2
+fn=std::sys::random::linux::hashmap_random_keys
+1718 2
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+2173 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/cmp.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+21 94902
+157 427059
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 600
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+331 69
+339 46
+340 46
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 9
+331 210
+339 168
+340 140
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+331 9
+339 9
+340 7
+fn=sessions::fast::ids::cmp
+331 58655
+339 54830
+340 28496
+fn=sessions::fast::ids::same_long
+0 15502
+21 31004
+157 62008
+fn=sessions::fast::people::intern_pair
+0 14288
+fn=sessions::input::csv_files
+157 168
+fn=sessions::input::manifest_time
+0 2
+21 14
+157 18
+fn=sessions::main
+21 250342
+157 105872
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs
+fn=<i64 as core::fmt::Display>::fmt
+89 36
+410 18
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+253 2624
+266 2624
+fn=<sessions::fast::ids::KeyMap>::new
+0 104000
+253 487030
+272 316824
+278 104000
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+272 128
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+272 996
+278 1430
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+272 258
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+272 12350
+278 18268
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+272 7640
+278 11332
+fn=<sessions::manifest::Parser>::skip_value
+0 16
+219 4
+fn=<sessions::manifest::Parser>::string
+0 48
+219 280
+fn=<std::fs::File as std::io::Write>::write_all
+89 6
+568 9
+fn=<std::io::stdio::StderrRaw as std::io::Write>::write_all
+89 208
+568 312
+fn=<std::path::Components as core::iter::traits::iterator::Iterator>::next
+89 920
+568 2760
+fn=<std::path::Components>::parse_next_component_back
+0 100
+89 300
+568 400
+fn=<u64 as core::fmt::Display>::fmt
+89 38
+410 19
+fn=core::num::imp::flt2dec::digits_to_dec_str
+89 7
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+101 6
+585 9
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 3
+272 144
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 140
+272 514
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+101 9
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 2
+272 18
+fn=sessions::csv::fields::<2>
+89 104000
+410 52000
+fn=sessions::csv::fields::<7>
+89 58370
+410 24865
+fn=sessions::fast::line_range
+0 102
+89 266
+438 164
+568 204
+fn=sessions::fast::link_pairs_avx2
+89 11
+fn=sessions::fast::parse_clicks_avx2
+89 86
+253 3163125
+266 2015867
+272 504492
+573 172
+fn=sessions::fast::parse_events_avx2
+89 78
+253 6035187
+266 9280628
+272 59096
+573 156
+fn=sessions::fast::people::intern_pair
+253 195621
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 3781320
+89 641
+219 315918
+221 87
+253 513904
+266 7685178
+272 13107826
+278 2388768
+438 278
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+272 354321
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+253 10914
+266 32460
+272 650
+fn=sessions::fast::write::user_part::{closure#0}
+451 236214
+fn=sessions::input::manifest_time
+0 36
+219 140
+fn=sessions::main
+0 144653
+89 260006
+272 100063
+278 42
+410 52000
+573 2
+fn=std::path::compare_components
+89 920
+568 2760
+fn=std::sys::random::linux::hashmap_random_keys
+101 2
+580 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+1851 1
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+1851 47471
+fn=sessions::csv::fields::<2>
+461 104000
+471 52000
+fn=sessions::csv::fields::<7>
+0 29009
+461 27995
+471 24865
+fn=sessions::fast::parquet::write
+0 28
+1504 29566
+fn=sessions::main
+0 312012
+461 154006
+471 52000
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+0 39
+25 2
+28 17
+279 70
+284 113
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+0 23
+25 1
+284 93
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+0 26
+25 1
+284 105
+fn=<core::fmt::Formatter>::pad
+0 12
+25 6
+279 24
+284 81
+fn=<core::fmt::Formatter>::pad_formatted_parts
+0 21
+25 7
+284 63
+fn=<core::fmt::Formatter>::write_formatted_parts
+0 35
+180 28
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+161 87
+180 87
+185 84
+fn=<sessions::fast::Worker>::finish_row
+0 124775
+25 38714
+28 13786
+180 118107
+284 5962
+fn=<sessions::fast::ids::KeyMap>::new
+0 104018
+180 52002
+fn=<sessions::fast::ts::Calendar>::around
+0 10
+180 24
+315 27
+fn=<std::path::Components as core::iter::traits::iterator::Iterator>::next
+0 4600
+180 12880
+384 12880
+390 12880
+fn=<std::path::Components>::parse_next_component_back
+0 1568
+25 1468
+405 300
+406 1468
+407 2936
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+0 4
+25 4
+406 4
+407 4
+fn=sessions::csv::fields::<2>
+0 156000
+180 685049
+384 1370098
+390 633049
+fn=sessions::csv::fields::<7>
+0 62254
+180 544564
+384 1080840
+390 515555
+fn=sessions::events::parse_price
+180 1712
+fn=sessions::fast::chunks
+0 296
+180 74
+fn=sessions::fast::line_range
+0 86
+180 4830
+384 5378
+390 4728
+fn=sessions::fast::link_pairs_avx2
+0 11
+25 237
+405 44
+407 474
+fn=sessions::fast::parquet::write
+0 29537
+25 3
+180 177202
+284 84
+fn=sessions::fast::parse_clicks_avx2
+0 129
+25 1219
+180 864
+405 172
+407 2438
+fn=sessions::fast::parse_events_avx2
+0 117
+25 1628
+180 158882
+405 156
+407 3256
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 6276578
+25 10
+180 18824297
+279 177592
+284 178361
+332 3931392
+348 84099
+349 46762
+384 280
+390 266
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 4144
+180 544596
+384 552852
+390 540420
+fn=sessions::fast::split_tail
+0 1
+180 9
+fn=sessions::fast::write::campaign_table::{closure#2}
+0 27449
+180 27455
+fn=sessions::fast::write::campaign_table::{closure#3}
+0 27449
+180 27455
+fn=sessions::fast::write::campaign_table::{closure#4}
+0 1
+180 27455
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+180 82353
+fn=sessions::fast::write::campaign_table::{closure#6}
+0 1
+180 27455
+fn=sessions::fast::write::user_part::{closure#0}
+0 3
+180 118122
+fn=sessions::fast::write::user_part::{closure#1}
+0 3
+180 118122
+fn=sessions::fast::write::user_part::{closure#2}
+0 3
+180 118122
+fn=sessions::fast::write::user_part::{closure#3}
+0 3
+180 118122
+fn=sessions::fast::write::user_part::{closure#4}
+0 3
+180 118122
+fn=sessions::fast::write::user_part::{closure#5}
+0 118107
+180 118122
+fn=sessions::main
+0 104042
+25 3
+180 787118
+279 135
+284 189
+384 737089
+390 685087
+fn=sessions::time::parse_timestamp
+180 10
+315 30
+fn=std::path::compare_components
+0 4380
+25 4380
+406 4380
+407 4380
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+180 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+180 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/memchr.rs
+fn=<std::fs::OpenOptions>::_open
+0 783
+19 4716
+27 174
+39 2566
+40 2566
+44 1196
+71 174
+81 1659
+85 786
+86 786
+91 3144
+95 786
+104 87
+fn=<std::thread::thread::Thread>::new
+0 2
+fn=sessions::csv::fields::<2>
+0 260000
+27 208000
+39 1630098
+40 1266098
+44 633049
+fn=sessions::csv::fields::<7>
+0 113832
+19 116767
+27 73270
+39 711023
+40 508436
+44 93739
+71 47935
+81 79752
+85 16681
+89 33362
+90 16681
+91 66724
+95 16064
+fn=sessions::output::create_table_dir
+0 20
+19 108
+27 10
+39 40
+40 40
+44 18
+71 2
+81 38
+85 18
+86 18
+91 72
+95 18
+104 2
+fn=std::env::_var
+0 10
+27 10
+39 98
+40 108
+44 49
+fn=std::env::_var_os
+0 6
+19 5
+27 4
+39 60
+40 62
+44 29
+71 2
+85 1
+86 2
+91 8
+104 1
+fn=std::fs::read::inner
+0 27
+19 162
+27 6
+39 40
+40 40
+44 17
+71 6
+81 57
+85 27
+86 27
+91 108
+95 27
+104 3
+fn=std::sys::fs::metadata
+0 756
+19 4536
+27 168
+39 2492
+40 2492
+44 1162
+71 168
+81 1596
+85 756
+86 756
+91 3024
+95 756
+104 84
+fn=std::sys::fs::read_dir
+0 55
+19 264
+27 10
+39 134
+40 134
+44 62
+71 10
+81 87
+85 44
+86 44
+91 176
+95 42
+104 5
+fn=std::sys::fs::set_permissions
+0 50
+19 288
+27 10
+39 114
+40 114
+44 52
+71 10
+81 101
+85 48
+86 48
+91 192
+95 48
+104 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/mod.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+852 18
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+2054 1
+2155 2
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+0 9462
+2054 94942
+2155 255796
+fn=<sessions::fast::parquet::Thrift>::field
+305 608
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+0 5
+852 366
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+3193 23
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+3193 2
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+3193 1
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+2110 18
+fn=sessions::fast::parquet::write
+305 275
+fn=sessions::fast::run::{closure#17}::{closure#0}
+137 14
+fn=sessions::input::csv_files
+2656 168
+fn=sessions::input::manifest_time
+2625 4
+fn=sessions::main
+0 1
+3193 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/shared/mod.rs
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 19
+25 4
+34 8
+35 2
+36 4
+40 4
+fn=core::slice::sort::unstable::ipnsort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+0 3
+34 2
+35 2
+36 6
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 2
+34 4
+35 1
+36 8
+37 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/shared/pivot.rs
+fn=core::slice::sort::shared::pivot::median3_rec::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+55 72
+65 16
+66 2
+67 4
+68 8
+69 14
+73 72
+82 32
+83 16
+84 16
+89 21
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+28 12
+34 12
+37 4
+82 16
+83 8
+84 8
+89 6
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/shared/smallsort.rs
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 136
+541 65
+560 114
+566 247
+574 8
+593 52
+602 8
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 30
+541 15
+560 42
+566 84
+574 18
+580 2
+593 11
+602 16
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 14
+311 7
+319 2
+329 2
+330 3
+333 12
+339 4
+342 4
+349 8
+351 2
+355 6
+371 8
+395 18
+698 20
+731 20
+735 10
+820 1
+821 6
+822 2
+831 4
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+606 54
+620 24
+621 24
+622 12
+635 24
+636 24
+643 24
+652 48
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+620 32
+621 32
+623 16
+635 32
+636 32
+643 32
+657 40
+674 48
+698 96
+699 88
+731 64
+732 64
+734 32
+831 32
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 675
+226 6
+235 9
+252 12
+254 9
+255 12
+541 184
+560 416
+566 929
+698 140
+699 70
+731 140
+732 70
+734 35
+735 70
+808 6
+820 3
+831 12
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+0 162
+226 14
+235 14
+241 14
+243 8
+244 16
+252 6
+541 200
+560 286
+566 493
+620 8
+621 8
+623 4
+635 8
+636 8
+643 8
+698 120
+699 120
+731 120
+732 120
+734 60
+808 14
+820 7
+821 10
+822 4
+831 28
+fn=core::slice::sort::unstable::quicksort::quicksort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+164 10
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 9279
+541 64953
+560 4620
+566 1718
+593 37116
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/stable/drift.rs
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 35
+20 24
+37 6
+40 6
+57 28
+62 21
+87 20
+90 1
+91 1
+103 5
+104 5
+105 6
+109 5
+113 6
+117 4
+120 16
+168 6
+169 6
+170 9
+203 1
+204 5
+205 1
+208 1
+234 9
+240 14
+249 6
+255 27
+281 10
+296 22
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/stable/merge.rs
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 3
+16 5
+47 2
+48 2
+55 1
+122 156
+124 78
+128 78
+130 196
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/stable/mod.rs
+fn=core::slice::sort::stable::driftsort_main::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt, alloc::vec::Vec<std::path::PathBuf>>
+94 14
+115 8
+124 4
+134 8
+135 4
+136 12
+fn=sessions::input::csv_files
+38 6
+78 3
+79 2
+83 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/stable/quicksort.rs
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+16 36
+26 9
+81 24
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/unstable/mod.rs
+fn=core::slice::sort::unstable::ipnsort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+114 1
+124 2
+136 4
+137 3
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+114 8
+124 2
+136 4
+137 12
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 768
+34 7278
+50 7278
+55 1
+fn=sessions::main
+34 2
+50 1
+55 4
+58 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/sort/unstable/quicksort.rs
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+0 75
+21 63
+30 29
+37 12
+50 13
+51 12
+74 54
+80 56
+126 12
+288 762
+312 570
+325 27
+326 18
+330 21
+fn=core::slice::sort::unstable::quicksort::quicksort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+0 1
+21 9
+30 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/specialize.rs
+fn=core::num::imp::flt2dec::strategy::grisu::format_exact_opt::possibly_round
+34 33
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/str/converts.rs
+fn=core::str::converts::from_utf8
+0 87
+89 348
+94 348
+98 348
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/str/count.rs
+fn=<core::fmt::Formatter>::pad
+28 12
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/str/iter.rs
+fn=sessions::main
+189 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/str/validations.rs
+fn=<core::fmt::Formatter>::pad
+24 27
+fn=core::str::converts::from_utf8
+0 696
+133 261
+145 202
+164 101
+165 202
+222 202
+224 206
+233 16
+234 48
+238 16
+241 4993
+242 1183
+245 28
+fn=sessions::main
+0 1
+37 1
+38 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/sync/atomic.rs
+fn=<alloc::sync::Arc<sessions::fast::write::Part>>::drop_slow
+3956 1
+fn=<alloc::sync::Arc<std::sys::fs::unix::InnerReadDir>>::drop_slow
+3956 5
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+3922 1
+3956 3
+fn=<alloc::sync::Arc<std::thread::scoped::ScopeData>>::drop_slow
+3956 2
+fn=<alloc::sync::Arc<std::thread::thread::Inner, std::alloc::System>>::drop_slow
+3956 1
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+3937 252
+fn=<std::sync::barrier::Barrier>::wait
+3922 3
+3937 3
+3989 9
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+3904 4
+fn=<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<bool>>::initialize::<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 32
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+3905 1
+fn=<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock
+3904 2
+3989 2
+fn=<std::sys::sync::once::futex::Once>::call
+0 117
+3905 234
+3922 39
+4057 78
+fn=<std::sys::thread::unix::Thread>::new
+3890 1
+3905 2
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+3904 1
+3937 1
+3956 1
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+3956 1
+fn=core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>>
+3904 1
+3922 1
+fn=sessions::fast::parse_clicks
+3905 43
+fn=sessions::fast::parse_events
+3905 39
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 32
+3889 308213
+3904 1350573
+3905 120
+3922 11
+3937 1238
+3939 1
+3956 2
+3989 19
+fn=sessions::fast::sink::region
+3905 8
+3937 16
+fn=sessions::fast::sink::reserve
+3889 1
+3890 1
+fn=sessions::input::csv_files
+3956 87
+fn=sessions::main
+539 1
+2631 6
+2870 6
+3904 6
+3905 2
+fn=sessions::output::create_table_dir
+3956 2
+fn=std::io::stdio::_eprint
+3889 30
+3904 10
+3922 10
+3989 20
+fn=std::sys::args::unix::imp::ARGV_INIT_ARRAY::init_wrapper
+3889 1
+fn=std::sys::env::unix::getenv::{closure#0}
+3904 14
+3956 7
+4054 7
+fn=std::sys::fs::unix::try_statx
+3889 1
+3904 171
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+3890 1
+3904 4
+3989 4
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+3904 2
+3905 2
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+3890 2
+3904 10
+3989 8
+fn=std::sys::random::linux::hashmap_random_keys
+3904 2
+fn=std::sys::thread_local::guard::key::enable
+3905 4
+4001 2
+fn=std::sys::thread_local::guard::key::enable::run
+3956 1
+fn=std::thread::current::init_current
+3937 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 1
+3889 1
+3904 4
+3905 2
+3937 4
+3955 1
+3956 4
+3992 2
+4045 1
+fn=std_detect::detect::cache::detect_and_initialize
+3889 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/time.rs
+fn=<std::sys::pal::unix::time::Timespec>::sub_timespec
+195 14
+fn=sessions::fast::run::{closure#0}
+0 33
+867 9
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 12
+867 35
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/tuple.rs
+fn=core::slice::sort::shared::pivot::median3_rec::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+229 23
+fn=core::slice::sort::shared::smallsort::sort8_stable::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+229 144
+fn=core::slice::sort::unstable::ipnsort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+229 2
+fn=core::slice::sort::unstable::quicksort::quicksort::<(usize, usize), <[(usize, usize)]>::sort_unstable_by<sessions::fast::person_order::{closure#1}>::{closure#0}>
+229 714
+fn=sessions::fast::ids::cmp
+229 153914
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/unicode/unicode_data.rs
+fn=sessions::main
+0 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/collections/hash/map.rs
+fn=sessions::main
+401 4
+1014 237355
+1334 8
+3008 142413
+3009 47451
+3010 40
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/collections/hash/set.rs
+fn=sessions::main
+1286 7
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/env.rs
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+260 4
+fn=sessions::main
+223 21
+fn=std::env::_var
+0 9
+226 50
+227 10
+231 35
+fn=std::env::_var_os
+263 22
+265 16
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+260 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/fs.rs
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+1141 84
+1645 252
+1868 252
+fn=<std::fs::OpenOptions>::_open
+1871 783
+1873 609
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+2453 712
+2455 712
+fn=sessions::fast::parquet::write
+1645 9
+1868 12
+3316 6
+fn=sessions::input::csv_files
+2690 336
+3265 3
+fn=sessions::main
+349 15
+fn=sessions::output::create_table_dir
+0 6
+3265 6
+3316 8
+3352 2
+3371 2
+3405 2
+3420 8
+fn=std::fs::read::inner
+342 33
+345 9
+347 15
+348 24
+1141 6
+1645 9
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/hash/random.rs
+fn=<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+130 11160
+132 22320
+fn=<std::hash::random::RandomState as core::hash::BuildHasher>::hash_one::<&&[u8]>
+84 50220
+fn=sessions::main
+68 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/error/repr_bitpacked.rs
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+0 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/mod.rs
+fn=<std::fs::File as std::io::Write>::write_all
+0 24
+1858 21
+1859 12
+1870 27
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+611 140
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_str
+610 608
+611 380
+618 608
+fn=<std::io::stdio::StderrRaw as std::io::Write>::write_all
+0 624
+1859 520
+fn=std::fs::read::inner
+452 24
+457 9
+459 6
+464 6
+491 3
+498 12
+503 18
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+0 3
+425 30
+426 18
+440 27
+fn=std::io::stdio::_eprint
+0 20
+621 30
+622 70
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/stdio.rs
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+1093 56
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_str
+1093 304
+fn=<std::io::stdio::StderrRaw as std::io::Write>::write_all
+190 832
+192 936
+fn=std::io::stdio::_eprint
+1067 30
+1165 20
+1286 130
+1288 80
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/lib.rs
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+0 28
+fn=std::sys::fs::metadata
+0 84
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/os/fd/owned.rs
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+216 336
+fn=sessions::fast::parquet::write
+216 9
+fn=std::fs::read::inner
+216 6
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/panicking.rs
+fn=<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock
+0 1
+464 3
+fn=core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>>
+0 1
+464 3
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 14
+464 30
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 1
+464 3
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 2
+464 6
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 50
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/path.rs
+fn=<std::path::Components as core::iter::traits::double_ended::DoubleEndedIterator>::next_back
+0 886
+705 980
+759 16
+976 1078
+978 498
+979 102
+980 1034
+981 376
+982 188
+986 4
+987 8
+990 4
+1019 784
+fn=<std::path::Components as core::iter::traits::iterator::Iterator>::next
+0 15640
+705 2760
+769 5520
+788 920
+923 7360
+925 4600
+927 1840
+928 3680
+929 4600
+930 2760
+971 5520
+fn=<std::path::Components>::as_path
+0 48
+400 6
+618 48
+728 42
+730 12
+733 12
+736 6
+737 42
+818 12
+819 18
+820 6
+fn=<std::path::Components>::parse_next_component_back
+0 300
+697 100
+741 200
+769 600
+793 200
+796 100
+798 100
+801 500
+802 200
+fn=<std::path::Path>::_join
+0 194
+329 388
+1362 97
+1415 194
+2001 291
+3083 1164
+3086 291
+3087 776
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+329 217
+2299 204
+3239 680
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+329 120
+2299 36
+3239 366
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 2
+329 177
+2299 129
+3239 430
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 21
+329 1290
+2299 957
+3239 3190
+fn=sessions::fast::run::{closure#17}::{closure#0}
+3080 7
+fn=sessions::fast::write::user_part
+3080 14
+fn=sessions::input::csv_files
+329 168
+2704 420
+3080 252
+3239 420
+fn=sessions::main
+3080 53
+fn=sessions::output::create_table_dir
+329 16
+2638 16
+2641 42
+3080 2
+3239 40
+fn=std::path::compare_components
+0 6440
+400 920
+525 4600
+1071 3680
+1081 1840
+1083 72392
+1093 920
+1094 460
+1095 920
+1096 460
+1100 3680
+1101 3680
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/barrier.rs
+fn=<std::sync::barrier::Barrier>::wait
+123 27
+125 3
+126 9
+127 21
+131 3
+132 3
+133 3
+136 24
+fn=sessions::main
+85 8
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/once.rs
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 4
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 6
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 128
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 12
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 12
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+226 12
+fn=<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fn=<std::sync::once_lock::OnceLock<bool>>::initialize::<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>
+221 2
+225 7
+226 7
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>
+221 64
+225 128
+226 224
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fn=<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+221 2
+225 4
+226 7
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/once_lock.rs
+fn=<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::initialize::<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::get_or_init<<std::sync::once_lock::OnceLock<alloc::vec::Vec<(alloc::vec::Vec<[u64; 4]>, [u64; 4])>>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=<std::sync::once_lock::OnceLock<bool>>::initialize::<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>
+0 1
+557 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Merged>>::try_insert::{closure#0}>::{closure#0}, !>
+0 64
+542 64
+557 32
+fn=<std::sync::once_lock::OnceLock<sessions::fast::Space>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::Space>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::people::LinkSpace>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::EventRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::initialize::<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::get_or_init<<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::PersonRec>>>::try_insert::{closure#0}>::{closure#0}, !>
+0 2
+542 2
+557 1
+fn=sessions::fast::parse_clicks
+156 129
+fn=sessions::fast::parse_events
+156 78
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 3
+156 252
+239 5
+279 263
+281 153
+410 107
+fn=sessions::main
+141 2
+156 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/poison.rs
+fn=<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock
+0 3
+123 3
+fn=core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>>
+129 2
+fn=sessions::fast::run::{closure#17}::{closure#0}
+123 5
+129 10
+fn=sessions::main
+113 1
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 3
+123 4
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 6
+123 10
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/poison/condvar.rs
+fn=sessions::main
+65 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/poison/mutex.rs
+fn=<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock
+490 4
+495 4
+fn=sessions::main
+351 17
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/reentrant_lock.rs
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_char
+401 28
+fn=<std::io::default_write_fmt::Adapter<std::io::stdio::StderrLock> as core::fmt::Write>::write_str
+401 76
+fn=std::io::stdio::_eprint
+0 30
+101 10
+290 10
+425 10
+426 10
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/alloc/unix.rs
+fn=<[u64; 4] as alloc::vec::spec_from_elem::SpecFromElem>::from_elem::<alloc::alloc::Global>
+36 6
+fn=<alloc::raw_vec::RawVecInner<std::alloc::System>>::finish_grow
+14 4
+fn=<alloc::raw_vec::RawVecInner>::finish_grow
+0 97
+13 497
+14 1044
+53 897
+54 3145
+fn=<alloc::sync::Arc<sessions::fast::write::Part>>::drop_slow
+48 9
+fn=<alloc::sync::Arc<std::sys::fs::unix::InnerReadDir>>::drop_slow
+48 30
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+48 7
+fn=<alloc::sync::Arc<std::thread::scoped::ScopeData>>::drop_slow
+48 3
+fn=<alloc::sync::Arc<std::thread::thread::Inner, std::alloc::System>>::drop_slow
+48 4
+fn=<alloc::vec::Vec<&[u8]> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<&[u8], core::iter::adapters::copied::Copied<core::iter::adapters::chain::Chain<core::slice::iter::Iter<&[u8]>, core::slice::iter::Iter<&[u8]>>>>>::from_iter
+14 5
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Merged>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Merged>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#13}>>>::from_iter
+14 2
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::Space>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::Space>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#12}>>>::from_iter
+14 6
+fn=<alloc::vec::Vec<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<std::sync::once_lock::OnceLock<sessions::fast::sink::Sink<sessions::fast::ClickRec>>, core::iter::adapters::map::Map<core::ops::range::Range<usize>, sessions::fast::run::{closure#15}>>>::from_iter
+14 18
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+48 9
+fn=<hashbrown::raw::RawTable<(&[u8], ())>>::reserve_rehash::<hashbrown::map::make_hasher<&[u8], (), std::hash::random::RandomState>::{closure#0}>
+48 20
+fn=<hashbrown::raw::RawTableInner>::fallible_with_capacity::<alloc::alloc::Global>
+13 11
+14 55
+fn=<sessions::fast::ids::Interner>::new
+14 12
+36 6
+83 6
+84 2
+fn=<sessions::fast::ids::KeyMap>::new
+36 12
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+14 12
+36 6
+83 6
+84 2
+fn=<sessions::fast::ts::Calendar>::around
+14 2
+48 7
+fn=<sessions::manifest::Parser>::skip_value
+48 4
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+14 168
+fn=<std::path::Path>::_join
+14 194
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+48 4
+fn=<std::thread::thread::Thread>::new
+14 4
+fn=alloc::boxed::box_new_uninit
+14 1
+fn=alloc::fmt::format::format_inner
+14 6
+fn=core::ptr::drop_glue::<sessions::fast::sink::Sink<[u64; 2]>>
+48 13
+fn=sessions::fast::link_pairs_avx2
+14 33
+48 110
+fn=sessions::fast::map_folder
+14 6
+48 174
+fn=sessions::fast::parquet::write
+0 31
+14 162
+48 151
+fn=sessions::fast::parse_clicks_avx2
+14 172
+48 43
+fn=sessions::fast::parse_events_avx2
+14 156
+48 39
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 11
+13 1
+14 33
+36 9
+48 1371
+83 6
+84 2
+fn=sessions::fast::split_tail
+14 3
+48 8
+fn=sessions::fast::write::user_part
+48 16
+fn=sessions::input::csv_files
+48 168
+fn=sessions::input::manifest_time
+0 12
+48 10
+fn=sessions::main
+0 2
+14 4
+48 14
+fn=sessions::output::create_table_dir
+0 2
+48 2
+fn=std::env::_var
+0 16
+fn=std::fs::read::inner
+14 6
+fn=std::io::stdio::_eprint
+0 10
+fn=std::sys::env::unix::getenv::{closure#0}
+14 6
+fn=std::sys::fs::read_dir
+14 20
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 1
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 1
+14 4
+fn=std::sys::thread_local::guard::key::enable::run
+48 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+14 8
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/args/unix.rs
+fn=std::sys::args::unix::imp::ARGV_INIT_ARRAY::init_wrapper
+132 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/backtrace.rs
+fn=std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+162 1
+fn=std::sys::backtrace::__rust_begin_short_backtrace::<sessions::fast::run::{closure#17}::{closure#0}, ()>
+162 1
+166 1
+172 2
+fn=std::sys::backtrace::__rust_begin_short_backtrace::<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1}::{closure#0}::{closure#0}, ()>
+162 1
+172 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/env/unix.rs
+fn=std::sys::env::unix::getenv::{closure#0}
+0 10
+112 56
+114 14
+116 14
+117 8
+122 9
+124 42
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/fd/unix.rs
+fn=<std::fs::File as std::io::Write>::write_all
+346 12
+fn=<std::io::stdio::StderrRaw as std::io::Write>::write_all
+346 416
+fn=std::fs::read::inner
+179 12
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+112 12
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/fs/mod.rs
+fn=std::sys::fs::metadata
+0 84
+111 672
+113 504
+fn=std::sys::fs::read_dir
+66 55
+69 40
+fn=std::sys::fs::set_permissions
+119 55
+120 5
+121 35
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/fs/unix.rs
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+1255 252
+1376 672
+fn=<std::fs::OpenOptions>::_open
+1356 261
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+0 1068
+865 178
+877 198
+878 198
+881 5
+885 10
+910 94
+912 10
+924 84
+931 252
+fn=<std::sys::fs::unix::DirStream as core::ops::drop::Drop>::drop
+1012 25
+1027 5
+1030 10
+1032 10
+1036 20
+fn=<std::sys::fs::unix::File>::open_c
+0 450
+1282 720
+1307 3
+1310 696
+1327 645
+1359 900
+1360 540
+1363 90
+1368 450
+1369 270
+1370 720
+fn=sessions::fast::parquet::write
+1258 3
+1264 12
+1267 3
+fn=sessions::input::csv_files
+809 84
+813 168
+fn=sessions::output::create_table_dir
+1937 10
+fn=std::fs::read::inner
+1255 6
+1356 6
+1376 24
+fn=std::sys::fs::metadata
+2168 420
+fn=std::sys::fs::read_dir
+0 10
+2081 15
+2082 10
+fn=std::sys::fs::set_permissions
+2100 15
+fn=std::sys::fs::unix::try_statx
+153 1197
+179 342
+211 342
+218 171
+219 171
+220 171
+221 171
+222 171
+224 171
+225 171
+226 171
+227 171
+228 171
+230 171
+231 171
+232 171
+233 171
+234 171
+237 171
+238 342
+249 1026
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/helpers/small_c_string.rs
+fn=<std::fs::OpenOptions>::_open
+0 174
+25 174
+47 87
+fn=sessions::output::create_table_dir
+25 6
+47 2
+fn=std::env::_var
+47 5
+48 5
+fn=std::env::_var_os
+47 2
+48 2
+fn=std::fs::read::inner
+0 3
+25 6
+47 3
+fn=std::sys::fs::metadata
+0 84
+25 168
+47 84
+fn=std::sys::fs::read_dir
+0 5
+25 10
+47 5
+fn=std::sys::fs::set_permissions
+0 10
+25 10
+47 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/io/error/unix.rs
+fn=<std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next
+42 10
+51 198
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/os_str/bytes.rs
+fn=sessions::input::csv_files
+296 168
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/futex.rs
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+107 5
+fn=<std::sync::barrier::Barrier>::wait
+0 3
+116 18
+fn=sessions::fast::run::{closure#17}::{closure#0}
+116 7
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+44 2
+73 8
+89 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/mod.rs
+fn=<std::fs::File as std::io::Write>::write_all
+243 12
+fn=<std::io::stdio::StderrRaw as std::io::Write>::write_all
+243 416
+fn=<std::sys::fs::unix::File>::open_c
+233 90
+243 90
+fn=<std::sys::pal::unix::time::Timespec>::now
+233 10
+243 10
+fn=sessions::output::create_table_dir
+0 4
+233 2
+243 2
+fn=std::fs::read::inner
+233 3
+243 3
+fn=std::io::default_read_to_end::small_probe_read::<std::fs::File>
+233 3
+243 3
+fn=std::sys::fs::set_permissions
+233 5
+243 5
+fn=std::sys::fs::unix::try_statx
+233 171
+243 171
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/stack_overflow.rs
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+12 2
+23 2
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+0 1
+284 7
+285 2
+288 4
+298 2
+301 4
+305 7
+310 2
+fn=std::sys::pal::unix::stack_overflow::imp::make_handler
+0 2
+227 12
+229 2
+235 4
+238 8
+239 4
+250 12
+251 4
+255 4
+257 2
+264 4
+266 4
+269 8
+270 4
+272 4
+276 14
+310 4
+586 4
+587 2
+588 3
+589 4
+590 2
+601 4
+602 4
+604 1
+617 4
+623 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/stack_overflow/thread_info.rs
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+96 1
+126 3
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 2
+96 2
+112 20
+116 6
+123 16
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/time.rs
+fn=<std::sys::pal::unix::time::Timespec>::now
+67 10
+75 50
+107 10
+108 20
+110 40
+fn=<std::sys::pal::unix::time::Timespec>::sub_timespec
+0 7
+25 49
+112 42
+119 14
+120 56
+136 21
+143 28
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/weak/dlsym.rs
+fn=<std::sys::thread::unix::Thread>::new
+70 4
+89 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/pal/unix/weak/syscall.rs
+fn=std::sys::fs::unix::try_statx
+12 342
+15 684
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+12 4
+15 8
+fn=std::sys::random::linux::hashmap_random_keys
+15 5
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/path/mod.rs
+fn=<std::path::Components as core::iter::traits::iterator::Iterator>::next
+5 12880
+fn=<std::path::Components>::parse_next_component_back
+5 1468
+fn=<std::path::Path>::_join
+5 291
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+5 353
+fn=core::slice::sort::shared::smallsort::sort4_stable::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 12
+5 180
+fn=core::slice::sort::stable::drift::sort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 78
+5 258
+fn=core::slice::sort::stable::quicksort::quicksort::<std::path::PathBuf, <std::path::PathBuf as core::cmp::PartialOrd>::lt>
+0 132
+5 1676
+fn=sessions::input::csv_files
+5 252
+fn=sessions::output::create_table_dir
+0 4
+5 14
+fn=std::path::compare_components
+5 4380
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/random/linux.rs
+fn=std::sys::random::linux::hashmap_random_keys
+0 5
+89 2
+91 2
+96 6
+106 2
+164 8
+165 2
+170 8
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/sync/mutex/futex.rs
+fn=<std::sync::barrier::Barrier>::wait
+0 3
+32 3
+90 6
+fn=<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock
+32 1
+fn=core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>>
+90 2
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 5
+32 5
+90 10
+fn=std::io::stdio::_eprint
+32 10
+90 20
+fn=std::sys::pal::unix::stack_overflow::imp::drop_handler
+32 1
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+0 4
+32 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/sync/once/futex.rs
+fn=<std::sys::sync::once::futex::Once>::call
+62 78
+146 351
+149 78
+150 78
+151 117
+159 39
+160 39
+177 195
+179 78
+183 39
+210 312
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/sync/rwlock/futex.rs
+fn=std::sys::env::unix::getenv::{closure#0}
+54 14
+97 7
+99 7
+111 7
+118 28
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/sync/thread_parking/futex.rs
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+0 1
+96 2
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 2
+50 1
+57 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread/unix.rs
+fn=<std::sys::thread::unix::Thread>::new
+0 1
+46 9
+49 5
+51 4
+71 4
+98 5
+99 2
+100 2
+122 8
+1008 3
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+0 1
+108 7
+121 8
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+142 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/destructors/linux_like.rs
+fn=std::sys::thread_local::destructors::linux_like::register
+15 18
+40 4
+55 14
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/destructors/list.rs
+fn=std::sys::thread_local::destructors::linux_like::register
+0 4
+10 2
+13 2
+fn=std::sys::thread_local::guard::key::enable::run
+31 1
+36 4
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/guard/key.rs
+fn=std::sys::thread_local::guard::key::enable
+9 16
+31 16
+fn=std::sys::thread_local::guard::key::enable::run
+20 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/key/racy.rs
+fn=std::sys::thread_local::guard::key::enable
+39 8
+55 1
+56 2
+59 1
+65 3
+66 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/key/unix.rs
+fn=std::sys::thread_local::guard::key::enable
+27 4
+28 6
+31 2
+36 8
+48 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/native/eager.rs
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+35 3
+49 2
+fn=std::sys::thread_local::native::eager::destroy::<core::cell::Cell<std::thread::spawnhook::SpawnHooks>>
+64 5
+75 4
+fn=std::thread::spawnhook::run_spawn_hooks
+35 3
+49 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/native/lazy.rs
+fn=sessions::main
+59 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/thread_local/native/mod.rs
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+68 2
+fn=std::thread::spawnhook::run_spawn_hooks
+68 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sys/time/unix.rs
+fn=<std::time::Instant>::elapsed
+74 18
+78 4
+fn=sessions::fast::run::{closure#0}
+74 27
+78 6
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 262
+74 20
+78 6
+fn=sessions::main
+24 5
+74 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/current.rs
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+0 1
+122 2
+126 2
+134 1
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+195 6
+221 4
+fn=std::sys::thread_local::guard::key::enable::run
+326 2
+329 1
+fn=std::thread::current::init_current
+289 5
+290 2
+294 4
+298 1
+320 6
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 1
+243 2
+248 1
+251 3
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/id.rs
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 2
+53 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/lifecycle.rs
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+0 1
+176 4
+188 1
+193 3
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+148 2
+fn=<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+67 4
+68 6
+69 1
+70 2
+76 2
+fn=std::sys::backtrace::__rust_begin_short_backtrace::<std::thread::lifecycle::spawn_unchecked<sessions::fast::run::{closure#17}::{closure#0}, ()>::{closure#1}::{closure#0}::{closure#0}, ()>
+69 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+32 2
+43 1
+48 4
+53 3
+116 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/local.rs
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+0 1
+481 2
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/scoped.rs
+fn=<alloc::sync::Arc<std::thread::lifecycle::Packet<()>>>::drop_slow
+64 1
+67 1
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 5
+51 1
+141 8
+161 4
+163 1
+169 2
+174 8
+265 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/spawnhook.rs
+fn=<std::thread::spawnhook::ChildSpawnHooks>::run
+147 9
+148 1
+149 7
+152 8
+fn=<std::thread::spawnhook::SpawnHooks as core::ops::drop::Drop>::drop
+22 24
+28 21
+fn=std::thread::spawnhook::run_spawn_hooks
+113 10
+116 2
+119 1
+127 4
+133 8
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/thread.rs
+fn=<std::sys::thread::unix::Thread>::new::thread_start
+204 1
+308 3
+310 1
+fn=<std::thread::thread::Thread>::new
+93 14
+111 12
+fn=std::sys::pal::unix::stack_overflow::thread_info::set_current_info
+247 3
+249 1
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/time.rs
+fn=<std::time::Instant>::elapsed
+390 14
+392 10
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std_detect/src/detect/bit.rs
+fn=std_detect::detect::cache::detect_and_initialize
+8 10
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std_detect/src/detect/cache.rs
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+17 1
+92 10
+202 3
+fn=std_detect::detect::cache::detect_and_initialize
+11 1
+99 1
+177 8
+179 9
+fl=/rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std_detect/src/detect/os/x86.rs
+fn=std_detect::detect::cache::detect_and_initialize
+0 18
+50 2
+67 3
+83 3
+93 13
+94 136
+133 2
+158 9
+167 4
+195 2
+197 3
+199 1
+203 4
+205 3
+223 5
+229 1
+245 2
+278 3
+328 5
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/csv.rs
+fn=sessions::csv::fields::<2>
+0 832000
+2 104004
+3 2
+7 789049
+15 260000
+19 52002
+fn=sessions::csv::fields::<7>
+0 132611
+2 8288
+7 568415
+8 58019
+11 116032
+12 29008
+14 8286
+15 66288
+19 4144
+26 41914
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 22
+39 280
+42 14
+43 28
+fn=sessions::main
+34 737049
+60 40
+61 2
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/events.rs
+fn=sessions::events::parse_price
+0 1015
+90 682
+94 1384
+98 2760
+99 4140
+103 984
+104 341
+fn=sessions::fast::parse_events_avx2
+0 342067
+90 62568
+94 124786
+98 248146
+99 372583
+103 30020
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/ids.rs
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 9125
+168 36
+169 54
+180 9
+284 150
+289 1950
+293 6300
+294 3600
+297 450
+338 1153
+340 1361
+341 4944
+342 1111
+344 500
+345 42
+346 126
+347 84
+349 126
+350 84
+355 416
+361 636
+364 672
+365 600
+367 90
+368 9
+372 9
+373 36
+374 27
+379 18
+381 27
+382 18
+387 30
+403 102
+404 153
+fn=<sessions::fast::ids::Bytes>::put
+166 57232
+168 16352
+169 40880
+180 8176
+183 65408
+fn=<sessions::fast::ids::Bytes>::refill
+187 4
+189 3
+190 1
+191 4
+fn=<sessions::fast::ids::Interner>::grow
+0 195971
+35 45871
+36 45871
+46 137613
+279 2
+412 8
+413 4
+414 1
+416 1
+418 65536
+419 131072
+422 91742
+424 116704
+425 24962
+427 91742
+429 2
+430 1
+431 2
+432 6
+433 8
+fn=<sessions::fast::ids::Interner>::grow_wide
+0 18741
+279 2
+437 8
+438 5
+439 1
+441 1
+442 5733
+443 73728
+444 16384
+448 14546
+449 7273
+451 45864
+453 2
+454 1
+455 2
+456 6
+457 8
+fn=<sessions::fast::ids::Interner>::new
+279 8
+303 26
+305 4
+306 60
+308 2
+309 12
+312 2
+313 12
+316 4
+317 14
+320 16
+fn=<sessions::fast::ids::KeyMap>::new
+0 392412
+35 104000
+36 208000
+46 572000
+86 156000
+87 156000
+88 104000
+89 208000
+93 728000
+525 20
+527 22
+531 2
+533 104000
+534 104000
+548 132412
+549 14206
+551 104000
+552 52000
+554 38
+555 16
+558 312000
+581 66206
+584 132412
+587 28412
+fn=sessions::fast::ids::cmp
+0 8778
+41 279664
+100 41580
+101 18055
+102 36110
+115 17556
+121 10441
+130 139832
+131 262108
+132 21289
+133 21289
+137 209748
+fn=sessions::fast::ids::same_long
+100 62008
+101 31004
+102 62008
+146 31004
+148 15502
+fn=sessions::fast::parse_clicks_avx2
+0 3608393
+35 1070731
+36 1295569
+46 2406140
+73 124910
+75 1278788
+76 249712
+80 561879
+81 62428
+87 890904
+88 695544
+89 2716148
+168 948
+169 1395
+180 573
+203 134
+217 504749
+219 157485
+220 190521
+284 30637
+289 367644
+293 1266543
+294 643377
+297 91911
+328 663945
+333 92793
+338 220711
+340 258533
+341 1280644
+342 952632
+344 78314
+345 1462
+346 4386
+347 4063
+349 4386
+350 2924
+355 45777
+361 130175
+364 135432
+365 146446
+367 17878
+368 210
+372 420
+373 630
+374 462
+379 630
+381 630
+382 420
+387 6442
+403 3344
+404 3344
+568 506960
+578 253480
+581 293006
+582 504492
+584 81520
+587 79052
+fn=sessions::fast::parse_events_avx2
+0 25256276
+35 4282509
+36 4129324
+46 8523154
+51 3810209
+73 504427
+75 4269975
+76 1008800
+80 2253193
+81 252200
+87 1888947
+88 1888947
+89 4741589
+168 56
+169 70
+180 14
+203 43
+217 7411305
+219 665245
+220 553022
+284 117950
+289 1415400
+293 4953900
+294 2476950
+297 353850
+328 2764755
+333 367908
+338 917500
+340 3943468
+341 4029398
+342 2486015
+344 387560
+345 57046
+346 228185
+347 171138
+349 171138
+350 114097
+355 136734
+361 637483
+364 555030
+365 360353
+367 94464
+370 40755
+372 16302
+373 24453
+374 16302
+379 24452
+381 24453
+382 16302
+387 31488
+403 138545
+404 138545
+568 71409
+578 47351
+581 38773
+582 76666
+584 18450
+587 18166
+fn=sessions::fast::people::intern_pair
+0 375597
+35 228455
+36 223172
+46 234736
+73 11111
+75 177776
+76 44444
+80 77777
+81 11111
+87 117368
+88 78253
+89 195644
+168 22617
+169 41477
+170 6
+172 3
+180 22617
+284 3572
+289 46436
+293 150024
+294 85728
+297 10716
+338 234759
+340 150088
+341 350968
+342 50792
+344 249384
+345 52857
+346 158571
+347 105714
+349 158571
+350 105714
+351 5
+355 143670
+361 50034
+362 31841
+364 62328
+365 8927
+367 34408
+368 7539
+372 7539
+373 30156
+374 15078
+379 18860
+381 22617
+382 15078
+383 6
+387 19330
+393 223410
+403 128331
+404 132113
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 644374
+35 1102192
+36 1049335
+41 127597
+46 6184347
+51 3214137
+111 47802
+141 351475
+242 271128
+249 223326
+253 334989
+323 2
+461 12
+462 10
+464 1
+465 1
+477 9
+485 96
+490 64
+498 428113
+499 149156
+500 74578
+503 13188
+504 106038
+506 21304
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+41 236214
+100 47127
+101 15709
+102 31418
+115 236214
+121 102398
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 107904
+35 78203
+36 41662
+46 978
+73 16320
+75 139518
+76 32808
+80 57414
+81 8202
+87 326
+88 326
+89 978
+217 8286
+219 20715
+220 20715
+284 494
+289 5928
+293 20748
+294 13338
+297 1482
+333 12177
+338 3536
+340 15306
+341 17758
+342 3280
+344 1674
+345 256
+346 1024
+347 768
+349 768
+350 768
+355 581
+361 1038
+362 3633
+364 2422
+365 2470
+367 456
+370 125
+372 50
+373 75
+374 50
+379 100
+381 75
+382 50
+387 152
+403 587
+404 868
+568 978
+578 652
+581 701
+582 975
+584 210
+587 208
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/mod.rs
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#10}>>
+457 80
+fn=<alloc::vec::Vec<sessions::fast::Unit>>::extend_trusted::<core::iter::adapters::map::Map<core::slice::iter::Iter<(usize, usize, usize)>, sessions::fast::run::{closure#11}>>
+458 92
+fn=<core::iter::adapters::GenericShunt<core::iter::adapters::map::Map<core::slice::iter::Iter<std::path::PathBuf>, sessions::fast::map_folder::{closure#0}>, core::result::Result<core::convert::Infallible, alloc::boxed::Box<dyn core::error::Error + core::marker::Sync + core::marker::Send>>> as core::iter::traits::iterator::Iterator>::next
+255 168
+259 588
+260 168
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 1630
+158 1312
+209 1312
+210 2624
+211 3936
+212 1312
+219 1312
+222 1804
+223 328
+224 2624
+226 164
+227 1312
+fn=<sessions::fast::Worker>::finish_row
+0 20953
+1759 826749
+1763 1426
+1767 944856
+fn=core::slice::sort::shared::smallsort::insertion_sort_shift_left::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+411 92
+fn=core::slice::sort::shared::smallsort::small_sort_network::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+411 362
+fn=core::slice::sort::unstable::ipnsort::<u32, <[u32]>::sort_unstable_by<sessions::fast::run::{closure#5}>::{closure#0}>
+411 12
+fn=sessions::fast::chunks
+0 140
+272 16
+273 70
+275 950
+281 16
+fn=sessions::fast::line_range
+0 4
+299 5104
+308 172
+309 344
+310 258
+319 774
+322 188
+323 258
+328 602
+fn=sessions::fast::link_pairs::<sessions::fast::scan::Avx2>::{closure#0}
+0 223410
+928 581757
+929 357456
+931 44878
+fn=sessions::fast::link_pairs_avx2
+0 11
+921 88
+927 66
+fn=sessions::fast::map_folder
+267 27
+268 3
+270 24
+fn=sessions::fast::parse_clicks
+1165 387
+1174 86
+1175 387
+fn=sessions::fast::parse_clicks_avx2
+0 11670225
+158 306461
+185 701553
+195 756738
+196 504492
+199 1568844
+200 504492
+201 252246
+202 252246
+203 252246
+204 1510614
+209 251558
+210 503116
+211 700138
+212 251558
+219 251558
+1182 430
+1191 344
+1212 1020058
+1217 1267710
+1220 506960
+1222 559677
+1228 252246
+1229 1064022
+1234 645
+1247 602
+1261 43
+1267 43
+fn=sessions::fast::parse_events
+1025 351
+1034 78
+1035 351
+fn=sessions::fast::parse_events_avx2
+0 68083631
+151 1043601
+185 2088618
+195 3132663
+196 2088442
+199 7309631
+200 2088442
+201 2088442
+202 2088350
+203 1044221
+204 4060931
+209 3130803
+210 2087202
+211 5217925
+212 1043601
+219 2029466
+1021 7411117
+1022 4268944
+1042 390
+1051 312
+1072 3201966
+1075 4209499
+1077 1067236
+1078 4209409
+1094 2130394
+1096 6359859
+1100 5123695
+1101 5234195
+1103 2031110
+1108 30020
+1109 29690
+1114 1044309
+1115 59380
+1116 4176972
+1123 46030
+1128 624
+1141 546
+1155 39
+1162 78
+fn=sessions::fast::run::{closure#0}
+360 66
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 12830262
+231 70
+232 140
+233 210
+234 100
+240 6
+242 128
+243 128
+348 2
+360 47
+567 10
+569 5
+571 1
+572 8
+573 6
+574 14
+581 87
+582 346
+586 15
+588 3
+593 16
+594 28
+599 80
+600 80
+601 80
+602 312
+603 39
+604 156
+609 92
+610 92
+611 92
+612 387
+620 3
+621 2
+623 2
+624 2
+625 21
+629 20
+630 2
+635 6
+636 5
+639 3
+645 1
+650 101
+653 32
+654 192
+658 32
+660 3
+664 3
+665 5
+668 2
+673 1
+674 2
+675 2
+678 10
+679 6
+680 2
+681 20
+682 17
+685 1
+689 1
+696 259
+704 2
+705 1
+710 20
+712 3
+713 5
+717 4
+721 5
+723 6
+734 384
+736 640
+738 256
+741 9
+745 2
+747 1
+754 4
+761 106
+769 2
+770 1
+771 6
+775 1
+778 2
+784 3
+785 2
+786 1
+787 1
+792 1
+802 2
+811 4
+815 1
+816 9
+825 2
+826 3
+828 4
+837 1
+838 6
+843 6
+856 10
+857 8
+903 9
+905 28
+909 33
+910 88
+916 4
+917 1
+935 32
+937 256
+939 96
+940 128
+943 120792
+944 60396
+946 120792
+948 120792
+952 160
+959 134402
+963 192
+967 3
+971 134402
+972 173239
+973 106038
+991 756738
+994 1009050
+1000 1479
+1001 2017968
+1002 252246
+1003 504492
+1015 2460672
+1286 2682
+1291 384
+1293 128
+1294 2042
+1299 256
+1307 1024
+1309 3214137
+1311 2142758
+1314 3741972
+1315 999615
+1318 584998
+1320 215292
+1321 57572
+1324 85956
+1328 175945
+1338 978578
+1341 1956180
+1351 512
+1352 3214137
+1353 7824720
+1354 978090
+1355 978090
+1356 1956180
+1384 1024
+1393 3690972
+1395 19685184
+1401 3456
+1402 1572864
+1408 2752512
+1409 1572864
+1412 14763888
+1415 18454860
+1416 3690972
+1450 3
+1451 218496
+1456 2
+1478 5
+1483 112056
+1486 6
+1487 10
+1492 256
+1495 256
+1508 640
+1510 978090
+1511 1956180
+1513 998514
+1514 1997028
+1516 33392
+1517 33392
+1520 100176
+1528 1930244
+1531 20424
+1533 1956180
+1534 1956180
+1546 256
+1548 33392
+1550 33392
+1557 512
+1558 978090
+1559 4890450
+1560 978090
+1570 640
+1572 252246
+1573 504492
+1575 258162
+1576 1032624
+1579 5916
+1582 504468
+1583 252234
+1585 504468
+1588 252234
+1598 33392
+1600 33392
+1614 384
+1615 252234
+1617 1261170
+1618 252234
+1619 252234
+1623 252234
+1627 100176
+1628 33392
+1629 557402
+1630 1143065
+1633 99726
+1636 9520
+1645 66784
+1646 66784
+1649 128
+1676 133568
+1677 428848
+1678 543096
+1679 1629288
+1680 362064
+1681 236214
+1682 931865
+1685 708642
+1690 2861340
+1691 1125730
+1692 2251460
+1693 4650560
+1699 2934270
+1700 56066
+1701 28033
+1702 70122
+1703 3296
+1707 978090
+1709 1783423
+1710 252037
+1711 252037
+1712 504074
+1713 367870
+1716 252037
+1718 1903740
+1719 137153
+1720 137153
+1721 274306
+1722 90541
+1724 79164
+1725 158328
+1728 137153
+1731 444452
+1735 181032
+1736 181032
+1737 181032
+1738 362064
+1739 147486
+1742 181032
+1743 2180464
+1744 1958238
+1746 543096
+1747 543096
+1748 362064
+1750 66784
+1751 166960
+1753 93394
+1754 93394
+fn=sessions::fast::run::{closure#17}::{closure#0}::{closure#7}
+0 118107
+723 708642
+724 1401575
+725 708642
+fn=sessions::fast::run::{closure#1}
+361 15
+362 6
+365 12
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 178788
+151 4055
+185 8118
+195 12177
+196 8118
+199 28413
+200 8118
+201 8118
+202 4059
+203 4059
+204 16236
+209 8110
+210 8110
+211 24330
+212 4055
+219 8110
+1021 24858
+1022 16572
+1072 8286
+1075 16572
+1077 8286
+1078 8286
+1094 16572
+1096 28882
+1100 22470
+1101 24516
+1102 341
+1103 7550
+1108 682
+1109 978
+1115 652
+1116 24342
+1123 168
+fn=sessions::fast::split_tail
+0 6
+283 7
+285 4
+289 41
+290 8
+fn=sessions::main
+0 46
+331 29
+335 3
+357 2
+358 1
+360 1
+362 2
+367 4
+368 3
+375 9
+388 3
+391 3
+394 8792
+398 47491
+399 142433
+401 60
+412 21
+414 21
+415 21
+417 7
+418 150000
+420 2
+433 2
+437 4
+438 4
+439 4
+440 6
+444 1
+445 7
+446 13
+448 4
+450 5
+451 2
+454 1
+456 1
+461 7
+462 6
+463 2
+464 2
+466 2
+467 65
+468 1
+472 2
+473 1
+475 2
+482 3
+483 7
+484 6
+487 4
+488 3
+490 4
+495 6
+518 2
+519 3
+528 8
+529 7
+532 4
+533 5
+534 2
+535 7
+537 68
+860 2
+863 6
+864 4
+871 8
+874 12
+876 21
+881 1
+885 6
+886 2
+898 2
+fn=std::thread::scoped::scope::<sessions::fast::run::{closure#17}, ()>
+0 1
+538 2
+567 10
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/parquet.rs
+fn=<sessions::fast::parquet::Thrift>::field
+46 1520
+48 608
+49 304
+50 912
+51 608
+57 1824
+fn=sessions::fast::parquet::write
+0 45405
+10 38
+32 146
+34 3
+39 1534
+40 725
+41 770
+43 3
+48 150
+49 175
+50 450
+51 575
+60 358
+61 219
+65 410
+66 189
+70 94
+76 151
+90 179
+92 12
+116 114
+127 48
+131 14773
+132 73854
+140 9
+146 12
+150 50
+151 25
+154 75
+156 72
+157 9
+162 25
+168 25
+195 19
+197 76
+198 77
+218 3
+225 19
+227 19
+232 57
+234 19
+235 19
+252 6
+253 3
+255 21
+258 12
+261 30
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/people.rs
+fn=sessions::fast::people::intern_pair
+57 848958
+64 446820
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 509677
+14 1668887
+15 298389
+16 198926
+25 44682
+28 89364
+29 164676
+30 41169
+35 60396
+36 1026732
+37 29664
+40 120792
+46 3
+49 24
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/scan.rs
+fn=<std::sync::once::Once>::call_once_force::<<std::sync::once_lock::OnceLock<bool>>::initialize<<std::sync::once_lock::OnceLock<bool>>::get_or_init<sessions::fast::scan::has_avx2::{closure#0}>::{closure#0}, !>::{closure#0}>::{closure#0}
+432 2
+433 2
+434 1
+435 1
+fn=sessions::fast::link_pairs_avx2
+0 722696
+20 358309
+53 91242
+66 273726
+67 228105
+68 94102
+268 44163
+270 88326
+271 264978
+272 44163
+278 1430
+283 9295
+284 1430
+285 1430
+286 1430
+287 3575
+291 9295
+296 3575
+298 5005
+299 9295
+300 715
+304 2860
+310 89834
+314 89812
+332 220927
+337 88382
+389 474
+396 22
+fn=sessions::fast::parse_clicks_avx2
+0 4467644
+53 876395
+66 1864188
+67 1553490
+68 843600
+268 199487
+270 199487
+278 111102
+283 722163
+284 111102
+285 111102
+286 111102
+287 277755
+291 222190
+296 833010
+297 222136
+298 944078
+299 55534
+300 166602
+304 111102
+310 510466
+314 765441
+332 997856
+337 598788
+389 2438
+396 86
+fn=sessions::fast::parse_events_avx2
+0 19536724
+53 4287576
+66 12862728
+67 12862822
+68 9647046
+256 4032128
+257 2016064
+258 6048192
+259 10080320
+268 1007872
+278 127724
+279 45584
+283 776334
+284 119436
+285 119436
+286 119436
+287 298590
+291 536539
+296 1961850
+297 713396
+298 1902404
+299 118896
+300 356700
+304 238856
+305 4144
+310 3151847
+341 2143788
+342 4287670
+343 4287576
+344 2143788
+345 4287576
+346 2016064
+355 1008032
+359 3215682
+360 7429010
+372 2016064
+373 3024006
+374 3024006
+381 6047832
+389 3256
+396 117
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+245 41440
+247 544564
+248 24863
+251 8288
+252 33152
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/sink.rs
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+190 1363
+193 4089
+194 1313
+195 2643
+196 27
+199 6
+200 678
+202 698
+fn=<sessions::fast::ids::Interner>::grow
+43 3
+44 6
+fn=<sessions::fast::ids::Interner>::grow_wide
+43 3
+44 6
+fn=<sessions::fast::ids::Interner>::new
+0 2
+43 12
+44 28
+174 6
+fn=<sessions::fast::sink::Arena>::prepare
+141 96
+142 96
+143 24
+144 24
+145 72
+146 48
+148 24
+149 96
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::finish
+0 114
+216 14
+219 128
+222 344
+227 194
+230 64
+234 16
+fn=<sessions::fast::sink::Sink<[u64; 2]>>::refill
+0 348
+118 562
+119 562
+124 1405
+125 3
+126 5
+128 3
+129 5
+132 281
+133 842
+134 5
+238 2248
+239 562
+240 562
+241 217
+244 281
+245 281
+246 2248
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::finish
+0 193
+216 14
+219 258
+222 320
+227 128
+230 129
+234 16
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::new
+0 1
+173 18
+174 4
+175 32
+184 16
+fn=<sessions::fast::sink::Sink<sessions::fast::ClickRec>>::refill
+0 3769
+118 6432
+119 6432
+124 13950
+132 2790
+133 8370
+134 110
+238 25728
+239 6432
+240 6432
+241 2959
+244 3216
+245 3216
+246 25728
+fn=<sessions::fast::sink::Sink<sessions::fast::PersonRec>>::refill
+0 2383
+118 3948
+119 3948
+124 470
+132 94
+133 282
+134 5
+238 15792
+239 3948
+240 3948
+241 1846
+244 1974
+245 1974
+246 15792
+fn=sessions::fast::parse_clicks_avx2
+0 1800
+190 254734
+193 761152
+194 126193
+195 504637
+196 7066
+199 1008
+200 252386
+202 253676
+fn=sessions::fast::parse_events_avx2
+0 369793
+190 1131814
+193 5378424
+194 565863
+195 2141839
+196 36386
+199 4598
+200 1087733
+202 1075007
+fn=sessions::fast::people::intern_pair
+0 16
+190 60396
+193 188727
+194 15088
+195 45264
+196 1383
+199 256
+200 16975
+202 45308
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 131806
+81 7
+94 2
+97 5
+102 11638
+105 9665
+107 4
+110 19332
+174 4
+175 34
+190 1230336
+193 3691008
+194 615031
+195 1356153
+196 26669
+199 5050
+200 496642
+202 985918
+219 512
+222 1044
+223 24
+226 4
+227 546
+230 256
+249 1792
+252 2656
+254 1568
+263 128
+270 609
+271 737
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 4336
+190 8756
+193 13294
+194 2203
+195 8418
+196 90
+199 20
+200 10303
+202 10409
+fn=sessions::fast::sink::region
+48 24
+49 24
+51 16
+53 48
+58 40
+fn=sessions::fast::sink::reserve
+22 1
+23 3
+25 6
+27 1
+33 2
+36 3
+38 1
+40 2
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/trace.rs
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 42
+55 89
+66 2
+72 720
+82 716
+124 2
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/ts.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 19
+18 7
+25 1
+63 81
+64 54
+fn=<sessions::fast::ts::Calendar>::around
+0 385
+18 76
+22 1152
+25 108
+31 9
+33 2
+34 14
+37 2
+38 14
+40 4
+41 13
+43 9
+44 8
+48 3072
+49 192
+50 192
+51 192
+55 72
+58 1
+60 7
+72 2
+74 9
+78 1
+79 27
+80 9
+81 18
+82 10
+83 10
+89 1
+fn=<sessions::fast::ts::Calendar>::month_slow
+0 3633
+93 3224
+94 1612
+96 2418
+104 1211
+107 4844
+110 2422
+111 2422
+114 12102
+115 4836
+116 1211
+117 1211
+120 2418
+121 1211
+187 2422
+fn=sessions::fast::parse_clicks_avx2
+0 1711535
+126 171561
+127 343252
+128 342744
+130 756
+132 171502
+134 514506
+137 1715020
+138 514506
+142 171367
+145 685468
+146 1541427
+149 1467340
+156 1462807
+159 121775
+165 243550
+168 97420
+170 97420
+173 97420
+174 146130
+176 82869
+187 679687
+192 330217
+193 495543
+196 164922
+200 1071993
+206 495833
+211 165326
+214 82518
+216 247383
+220 412
+226 1080
+228 2160
+231 2592
+232 864
+fn=sessions::fast::parse_events_avx2
+0 19943991
+126 1786533
+127 6933324
+128 7773963
+130 4076
+132 1786188
+134 3760374
+137 17921415
+138 6367247
+142 1785551
+145 9517784
+146 16140292
+149 15728916
+150 1067240
+156 15838838
+159 509790
+165 1019580
+168 407832
+170 407832
+173 305874
+174 889945
+176 345042
+187 6051166
+192 1036033
+193 1374981
+196 686224
+200 4460456
+206 2063711
+211 1710036
+214 343431
+216 696440
+220 1972
+226 5095
+228 10190
+231 15968
+232 4076
+fn=sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+0 99101
+126 8225
+127 38379
+128 16444
+130 9
+132 8224
+134 8224
+137 86383
+138 20611
+142 8220
+145 41100
+146 79454
+149 61938
+150 4143
+156 52548
+159 6670
+165 13340
+168 5336
+170 5336
+173 4002
+174 10672
+176 59
+187 45422
+192 106
+193 265
+196 106
+200 636
+206 318
+211 106
+214 53
+216 106
+220 12
+226 40
+228 80
+231 96
+232 32
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/fast/write.rs
+fn=<sessions::fast::Worker>::finish_row
+44 118107
+45 118107
+46 118107
+fn=sessions::fast::run::{closure#17}::{closure#0}
+0 28033
+124 5
+125 1
+126 3
+128 2
+130 224112
+136 28014
+137 56028
+138 112056
+139 392210
+146 56028
+147 84042
+148 54898
+152 7
+156 3
+157 10
+158 3
+163 3
+168 3
+174 6
+183 1
+188 54
+197 8
+199 2
+fn=sessions::fast::write::campaign_table::{closure#2}
+0 3
+156 192115
+158 8
+159 1
+160 27449
+162 8
+fn=sessions::fast::write::campaign_table::{closure#3}
+0 3
+157 274420
+163 8
+164 1
+165 27449
+167 8
+fn=sessions::fast::write::campaign_table::{closure#4}
+0 2
+168 8
+169 1
+170 54898
+172 8
+fn=sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+0 9
+174 18
+175 3
+176 82350
+178 18
+fn=sessions::fast::write::campaign_table::{closure#6}
+0 1
+183 6
+184 1
+185 27449
+187 6
+fn=sessions::fast::write::report
+201 2
+202 8
+203 9
+204 10
+205 20
+206 9
+209 3
+fn=sessions::fast::write::user_part
+51 22
+60 2
+62 12
+71 8
+76 4
+81 4
+86 4
+91 6
+101 98
+109 14
+110 12
+fn=sessions::fast::write::user_part::{closure#0}
+0 9
+62 27
+63 118125
+66 354321
+67 236214
+68 118107
+70 24
+fn=sessions::fast::write::user_part::{closure#1}
+0 6
+71 21
+72 118122
+73 118107
+75 24
+fn=sessions::fast::write::user_part::{closure#2}
+0 3
+76 15
+77 118122
+80 18
+fn=sessions::fast::write::user_part::{closure#3}
+0 3
+81 15
+82 118122
+85 18
+fn=sessions::fast::write::user_part::{closure#4}
+0 3
+86 15
+87 118122
+90 18
+fn=sessions::fast::write::user_part::{closure#5}
+0 15
+91 27
+92 236235
+93 118107
+97 125718
+100 24
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/hash.rs
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::insert
+0 1
+14 1
+26 4
+27 3
+46 4
+48 4
+50 2
+fn=<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+0 45110
+14 54572
+26 94942
+27 135330
+46 189884
+48 189884
+50 142413
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/input.rs
+fn=sessions::input::csv_files
+0 90
+49 30
+51 6
+56 618
+61 252
+65 3
+66 15
+67 24
+fn=sessions::input::manifest_time
+90 20
+93 8
+94 16
+fn=sessions::main
+76 7
+77 6
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/main.rs
+fn=<sessions::fast::Ring<sessions::fast::ClickRec>>::drain
+0 1111
+fn=sessions::fast::parse_clicks_avx2
+0 712964
+fn=sessions::fast::parse_events_avx2
+0 3581997
+fn=sessions::main
+28 1
+31 10
+39 9
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/manifest.rs
+fn=<sessions::manifest::Parser>::skip_value
+0 12
+44 6
+115 4
+118 2
+120 6
+127 2
+173 2
+fn=<sessions::manifest::Parser>::string
+0 124
+44 156
+49 280
+54 8
+72 56
+76 396
+77 32
+108 248
+112 72
+fn=sessions::input::manifest_time
+0 74
+2 4
+3 2
+15 12
+19 6
+20 6
+25 6
+49 2
+54 8
+58 54
+59 26
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/output.rs
+fn=sessions::output::create_table_dir
+68 24
+72 16
+77 4
+79 22
+fl=/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5a/tree/src/time.rs
+fn=<core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::ops::range::Range<i64>, <sessions::fast::ts::Calendar>::around::{closure#0}>, <sessions::fast::ts::Calendar>::around::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+0 15
+86 36
+88 18
+89 27
+90 99
+91 126
+92 63
+fn=<sessions::fast::ts::Calendar>::around
+86 769
+88 388
+90 2113
+91 2907
+92 581
+fn=sessions::time::days_from_civil
+85 2
+86 6
+88 4
+89 14
+90 14
+91 32
+92 6
+93 2
+fn=sessions::time::parse_date_time
+0 88
+42 20
+51 10
+54 12
+57 2
+58 18
+59 4
+63 28
+fn=sessions::time::parse_timestamp
+0 4
+6 2
+7 4
+10 4
+11 6
+31 4
+fl=???
+fn=(below main)
+0 166
+fn=???
+0 928
+fn=_Exit
+0 6
+fn=_IO_default_finish
+0 20
+fn=_IO_doallocbuf
+0 29
+fn=_IO_enable_locks
+0 22
+fn=_IO_file_close
+0 3
+fn=_IO_file_close_it
+0 56
+fn=_IO_file_doallocate
+0 52
+fn=_IO_file_finish
+0 14
+fn=_IO_file_fopen
+0 97
+fn=_IO_file_open
+0 39
+fn=_IO_file_read
+0 12
+fn=_IO_file_stat
+0 3
+fn=_IO_file_underflow
+0 113
+fn=_IO_link_in
+0 88
+fn=_IO_new_file_init_internal
+0 13
+fn=_IO_no_init
+0 590
+fn=_IO_setb
+0 614
+fn=_IO_sputbackc
+0 1672
+fn=_IO_str_init_static_internal
+0 760
+fn=_IO_switch_to_get_mode
+0 52
+fn=_IO_un_link
+0 8
+fn=_IO_un_link.part.0
+0 64
+fn=_IO_unsave_markers
+0 14
+fn=____strtoul_l_internal
+0 10148
+fn=__clone_internal
+0 49
+fn=__close_nocancel
+0 36
+fn=__ctype_init
+0 34
+fn=__cxa_atexit
+0 38
+fn=__errno_location
+0 368
+fn=__getdents
+0 90
+fn=__ieee754_log
+0 8
+fn=__ieee754_pow
+0 7
+fn=__init_misc
+0 24
+fn=__isoc23_sscanf
+0 1007
+fn=__libc_cleanup_pop_restore
+0 189
+fn=__libc_cleanup_push_defer
+0 273
+fn=__libc_dlerror_result_free
+0 12
+fn=__libc_early_init
+0 49
+fn=__libc_init_first
+0 23
+fn=__libc_setup_tls
+0 146
+fn=__libc_sigaction
+0 340
+fn=__libc_thread_freeres
+0 15
+fn=__lll_elision_init
+0 39
+fn=__longjmp
+0 27
+fn=__malloc_arena_thread_freeres
+0 3810
+fn=__memchr_avx2
+0 815
+fn=__memcmp_avx2_movbe
+0 1686578
+fn=__memcpy_avx_unaligned_erms
+0 51104432
+fn=__memcpy_chk
+0 4
+fn=__mempcpy_avx_unaligned_erms
+0 24
+fn=__memset_avx2_unaligned_erms
+0 44859143
+fn=__new_exitfn
+0 33
+fn=__nptl_deallocate_tsd
+0 680
+fn=__nptl_stack_list_add
+0 13
+fn=__open_nocancel
+0 162
+fn=__printf_buffer
+0 222
+fn=__printf_buffer_done
+0 19
+fn=__printf_buffer_write
+0 95
+fn=__pthread_attr_extension
+0 36
+fn=__pthread_disable_asynccancel
+0 1515
+fn=__pthread_enable_asynccancel
+0 1818
+fn=__pthread_tunables_init
+0 27
+fn=__read_nocancel
+0 12
+fn=__res_thread_freeres
+0 19
+fn=__resolv_context_freeres
+0 22
+fn=__rustc::__rust_alloc
+0 7623
+fn=__rustc::__rust_alloc_zeroed
+0 72
+fn=__set_vma_name
+0 54
+fn=__sigjmp_save
+0 39
+fn=__sigsetjmp
+0 69
+fn=__strchr_avx2
+0 21
+fn=__strchrnul_avx2
+0 38
+fn=__strcspn_sse42
+0 41
+fn=__strlen_avx2
+0 2326
+fn=__strncmp_avx2
+0 342
+fn=__strrchr_avx2
+0 81
+fn=__strstr_sse2_unaligned
+0 47
+fn=__strtoul_internal
+0 190
+fn=__tls_init_tp
+0 54
+fn=__tls_pre_init_tp
+0 14
+fn=__tunable_get_val
+0 768
+fn=__tunable_set_val
+0 310
+fn=__tunables_init
+0 5168
+fn=__underflow
+0 73
+fn=__vfscanf_internal
+0 21729
+fn=__vsnprintf_internal
+0 38
+fn=_dl_allocate_tls
+0 112
+fn=_dl_aux_init
+0 279
+fn=_dl_catch_error
+0 26
+fn=_dl_catch_exception
+0 36
+fn=_dl_cet_setup_features
+0 4
+fn=_dl_debug_initialize
+0 37
+fn=_dl_early_allocate
+0 24
+fn=_dl_exception_create_format
+0 600
+fn=_dl_find_dso_for_object
+0 25
+fn=_dl_find_object_from_map
+0 116
+fn=_dl_find_object_init
+0 159
+fn=_dl_get_dl_main_map
+0 3
+fn=_dl_get_origin
+0 87
+fn=_dl_init_paths
+0 226
+fn=_dl_lookup_symbol_x
+0 239
+fn=_dl_non_dynamic_init
+0 192
+fn=_dl_protect_relro
+0 24
+fn=_dl_relocate_static_pie
+0 34299
+fn=_dl_signal_exception
+0 16
+fn=_dl_sym
+0 29
+fn=_dl_tls_static_surplus_init
+0 40
+fn=_dlerror_run
+0 55
+fn=_dlfo_process_initial
+0 291
+fn=_int_free
+0 136808
+fn=_int_free_maybe_consolidate
+0 29865
+fn=_int_free_merge_chunk
+0 76842
+fn=_int_malloc
+0 458985
+fn=_int_memalign
+0 634
+fn=_int_realloc
+0 76755
+fn=_itoa_word
+0 81
+fn=_mid_memalign.isra.0
+0 463
+fn=_setjmp
+0 6
+fn=alloc_new_heap
+0 90
+fn=alloc_perturb
+0 4328
+fn=arena_get2.part.0
+0 866
+fn=bcmp
+0 52
+fn=brk
+0 72
+fn=calloc
+0 2113
+fn=chmod
+0 30
+fn=clock_gettime
+0 100
+fn=clone
+0 26
+fn=clone3
+0 16
+fn=close
+0 756
+fn=closedir
+0 65
+fn=create_thread
+0 58
+fn=dirfd
+0 15
+fn=dlsym
+0 32
+fn=dlsym_doit
+0 10
+fn=do_lookup_x
+0 54
+fn=expand_dynamic_string_token
+0 24
+fn=fclose
+0 67
+fn=fillin_rpath.isra.0
+0 130
+fn=floor
+0 5
+fn=fopen
+0 43
+fn=free
+0 45916
+fn=fstat
+0 36
+fn=get_common_cache_info.constprop.0
+0 218
+fn=get_common_indices.constprop.0
+0 74
+fn=get_free_list
+0 18
+fn=getauxval
+0 435
+fn=getdelim
+0 1575
+fn=getenv
+0 884
+fn=getline
+0 76
+fn=getpagesize
+0 30
+fn=getrlimit
+0 20
+fn=handle_intel.constprop.0
+0 516
+fn=index
+0 21
+fn=init_cpu_features.constprop.0
+0 420
+fn=intel_check_word.constprop.0
+0 5586
+fn=madvise
+0 699
+fn=main
+0 171
+fn=malloc
+0 104439
+fn=malloc_consolidate
+0 30250
+fn=mallopt
+0 86
+fn=memchr
+0 24
+fn=memcpy
+0 23
+fn=memmove
+0 23
+fn=mempcpy
+0 23
+fn=memset
+0 25
+fn=mkdir
+0 12
+fn=mmap
+0 2314
+fn=mprotect
+0 66
+fn=munmap
+0 564
+fn=name_stack_maps
+0 40
+fn=open
+0 3273
+fn=opendir
+0 255
+fn=poll
+0 8
+fn=posix_memalign
+0 222
+fn=pthread_attr_destroy
+0 40
+fn=pthread_attr_getguardsize
+0 5
+fn=pthread_attr_getstack
+0 18
+fn=pthread_attr_init
+0 54
+fn=pthread_attr_setaffinity_np
+0 80
+fn=pthread_attr_setstacksize
+0 7
+fn=pthread_create
+0 307
+fn=pthread_detach
+0 13
+fn=pthread_getaffinity_np
+0 44
+fn=pthread_getattr_np
+0 699
+fn=pthread_key_create
+0 45
+fn=pthread_key_delete
+0 16
+fn=pthread_mutex_lock
+0 88
+fn=pthread_mutex_unlock
+0 71
+fn=pthread_self
+0 6
+fn=pthread_setspecific
+0 148
+fn=ptmalloc_init.part.0
+0 847
+fn=read
+0 48
+fn=readdir
+0 3936
+fn=realloc
+0 103858
+fn=rindex
+0 25
+fn=sbrk
+0 189
+fn=sigaction
+0 40
+fn=sigaltstack
+0 30
+fn=signal
+0 36
+fn=snprintf
+0 26
+fn=start_thread
+0 113
+fn=stpcpy
+0 19
+fn=strcasecmp
+0 21
+fn=strcasecmp_l
+0 21
+fn=strchrnul
+0 25
+fn=strcmp_ifunc
+0 21
+fn=strcpy
+0 19
+fn=strcspn
+0 6
+fn=strdup
+0 20
+fn=strlen
+0 25
+fn=strncasecmp
+0 21
+fn=strncasecmp_l
+0 21
+fn=strncmp
+0 21
+fn=strncpy
+0 21
+fn=strnlen
+0 25
+fn=strpbrk
+0 6
+fn=strsep
+0 33
+fn=strspn
+0 6
+fn=strstr
+0 9
+fn=syscall
+0 2160
+fn=sysconf
+0 52
+fn=tcache_init.part.0
+0 234
+fn=unlink_chunk.isra.0
+0 67575
+fn=update_active.constprop.0
+0 213
+fn=wcslen
+0 21
+fn=wcsnlen
+0 21
+fn=wmemchr
+0 24
+fn=wmemset
+0 9
+fn=write
+0 2376
+summary: 1304626855

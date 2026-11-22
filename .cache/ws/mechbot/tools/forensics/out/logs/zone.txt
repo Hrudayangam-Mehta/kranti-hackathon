@@ -1,0 +1,68 @@
+zone schedule: [([41.3, -72.8], 560, 0, 0), ([1.55, -156.06], 380, 60, 110), ([37.35, -89.64], 240, 155, 195), ([103.05, -81.33], 140, 230, 265), ([44.89, -43.07], 70, 295, 325), ([27.94, -53.27], 25, 350, 375), ([29.71, -48.84], 0, 390, 415)]
+zone damage taken per mech: {2: (1456.0, 31.2)} (damage, seconds outside)
+all damage taken by mechs by source: {'npc': 930, 'gun': 23852, 'mortar': 2425, 'laser': 7386, 'lightning': 3000, 'zone': 1456}
+
+## where they stand: distance from current zone centre / current radius (alive frames, every 1 s)
+| type | samples | r/R p10 | p50 | p90 | % of time in the outer 20% ring | margin to edge p10 (m) | p50 |
+|---|---|---|---|---|---|---|---|
+| ALL | 1982 | 0.22 | 0.41 | 0.71 | 7.06 | 138.92 | 277.76 |
+| expert | 292 | 0.18 | 0.41 | 0.53 | 0.00 | 210.34 | 325.77 |
+| hard | 261 | 0.23 | 0.32 | 0.61 | 0.00 | 220.01 | 337.31 |
+| medium | 206 | 0.33 | 0.43 | 0.63 | 3.40 | 188.48 | 272.09 |
+| brawler | 420 | 0.27 | 0.57 | 0.89 | 22.86 | 36.15 | 218.17 |
+| sniper | 268 | 0.14 | 0.29 | 0.41 | 0.00 | 249.38 | 323.30 |
+| thirdparty | 205 | 0.27 | 0.39 | 0.49 | 0.00 | 253.88 | 318.25 |
+| farmer | 330 | 0.34 | 0.51 | 0.82 | 11.21 | 68.16 | 210.29 |
+| window | samples | r/R p50 | p90 | margin p10 | margin p50 | % outside |
+|---|---|---|---|---|---|---|
+| 0-60 s | 957 | 0.41 | 0.61 | 217.09 | 329.69 | 0.00 |
+| 60-110 s | 553 | 0.40 | 0.64 | 160.67 | 281.20 | 0.00 |
+| 110-155 s | 328 | 0.45 | 0.86 | 52.23 | 210.25 | 0.00 |
+| 155-195 s | 143 | 0.36 | 1.03 | -8.23 | 200.06 | 11.89 |
+| 195-210 s | 33 | 0.29 | 1.25 | -60.99 | 169.77 | 45.45 |
+
+## rotation timing: for each mech alive at shrink_start, relation to the NEXT circle
+ phase 1: next circle centre (2,-156) r=380, announced at 0s, shrink 60-110s
+| mech | type | dist outside next circle at announce (m; <0 inside) | at shrink_start | starts moving in (s rel. shrink_start) | inside next circle at (s rel. shrink_start) | (s rel. shrink_end) | zone dmg this phase |
+|---|---|---|---|---|---|---|---|
+| 0 | expert | -140.49 | -196.85 | inside | -60.0 | -110.0 | 0 |
+| 2 | brawler | 24.93 | -5.25 | -60.0 | -58.0 | -108.0 | 0 |
+| 3 | sniper | -242.96 | -213.63 | inside | -60.0 | -110.0 | 0 |
+| 4 | thirdparty | -265.82 | -233.08 | inside | -60.0 | -110.0 | 0 |
+| 5 | farmer | -139.74 | -290.21 | inside | -60.0 | -110.0 | 0 |
+| 6 | expert | -3.20 | -40.57 | inside | -60.0 | -110.0 | 0 |
+| 7 | hard | -44.62 | -250.41 | inside | -60.0 | -110.0 | 0 |
+| 8 | medium | 145.64 | -137.86 | -55.0 | -33.6 | -83.6 | 0 |
+| 9 | brawler | -87.15 | -98.59 | inside | -60.0 | -110.0 | 0 |
+| 10 | sniper | -43.99 | -92.74 | inside | -60.0 | -110.0 | 0 |
+| 11 | thirdparty | 83.71 | -169.87 | -60.0 | -49.9 | -99.9 | 0 |
+| 12 | farmer | 69.05 | -102.58 | -55.5 | -38.7 | -88.7 | 0 |
+| 13 | expert | -210.43 | -189.05 | inside | -60.0 | -110.0 | 0 |
+| 14 | hard | -101.44 | -192.22 | inside | -60.0 | -110.0 | 0 |
+| 15 | medium | 86.27 | -141.56 | -60.0 | -47.8 | -97.8 | 0 |
+ phase 2: next circle centre (37,-90) r=240, announced at 110s, shrink 155-195s
+| mech | type | dist outside next circle at announce (m; <0 inside) | at shrink_start | starts moving in (s rel. shrink_start) | inside next circle at (s rel. shrink_start) | (s rel. shrink_end) | zone dmg this phase |
+|---|---|---|---|---|---|---|---|
+| 2 | brawler | 59.31 | 44.14 | -25.0 | never | never | 1456.00 |
+| 3 | sniper | -171.45 | -199.93 | inside | -45.0 | -85.0 | 0 |
+| 5 | farmer | 92.24 | -95.66 | -44.5 | -32.7 | -72.7 | 0 |
+| 9 | brawler | -199.37 | -134.71 | inside | -45.0 | -85.0 | 0 |
+| 12 | farmer | -8.81 | -63.58 | inside | -45.0 | -85.0 | 0 |
+
+## mech 2 (brawler) zone death trace (every 5 s): t, pos, height above terrain, speed, hp, energy, flags, dist to zone centre - radius
+   t=130s pos (-259.4, 83.2, -1.6) h=7.7 net speed over next 1 s 3.1 hp 1456 en 31 fl 0 outside by -26 m ; aim yaw -1.10
+   t=135s pos (-224.7, 66.0, 2.6) h=-0.0 net speed over next 1 s 7.9 hp 1456 en 79 fl 1 outside by -63 m ; aim yaw -1.17
+   t=140s pos (-236.7, 53.2, 17.4) h=17.6 net speed over next 1 s 6.0 hp 1456 en 54 fl 0 outside by -63 m ; aim yaw 0.01
+   t=145s pos (-227.4, 49.5, 10.0) h=6.4 net speed over next 1 s 10.1 hp 1456 en 27 fl 2 outside by -72 m ; aim yaw -0.56
+   t=150s pos (-224.3, 51.5, 3.6) h=-0.0 net speed over next 1 s 0.3 hp 1456 en 38 fl 3 outside by -73 m ; aim yaw -0.58
+   t=155s pos (-207.3, 54.9, 20.2) h=-0.0 net speed over next 1 s 8.7 hp 1456 en 40 fl 1 outside by -83 m ; aim yaw -0.63
+   t=160s pos (-208.5, 55.7, 42.5) h=23.1 net speed over next 1 s 3.7 hp 1456 en 9 fl 0 outside by -67 m ; aim yaw -0.44
+   t=165s pos (-192.8, 64.2, 37.6) h=8.6 net speed over next 1 s 6.0 hp 1456 en 16 fl 6 outside by -57 m ; aim yaw -0.43
+   t=170s pos (-208.3, 58.5, 18.9) h=-0.0 net speed over next 1 s 8.5 hp 1456 en 22 fl 1 outside by -34 m ; aim yaw -0.64
+   t=175s pos (-190.7, 75.3, 42.6) h=14.1 net speed over next 1 s 5.1 hp 1456 en 8 fl 0 outside by -21 m ; aim yaw -0.98
+   t=180s pos (-206.4, 79.3, 37.7) h=20.4 net speed over next 1 s 4.8 hp 1404 en 0 fl 0 outside by 9 m ; aim yaw -0.96
+   t=185s pos (-219.8, 59.8, 5.3) h=-0.0 net speed over next 1 s 9.1 hp 1229 en 0 fl 1 outside by 24 m ; aim yaw -0.46
+   t=190s pos (-223.3, 63.0, 5.9) h=2.4 net speed over next 1 s 5.0 hp 1054 en 0 fl 2 outside by 45 m ; aim yaw -0.76
+   t=195s pos (-223.6, 48.9, 4.5) h=0.0 net speed over next 1 s 1.5 hp 879 en 0 fl 1 outside by 55 m ; aim yaw -0.35
+   t=200s pos (-221.6, 51.2, 5.3) h=-0.0 net speed over next 1 s 1.4 hp 579 en 0 fl 1 outside by 55 m ; aim yaw -0.44
+   t=205s pos (-223.8, 48.0, 5.6) h=0.0 net speed over next 1 s 1.5 hp 279 en 0 fl 3 outside by 55 m ; aim yaw -0.42

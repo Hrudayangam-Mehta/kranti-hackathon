@@ -1,0 +1,16 @@
+r0 rel17        wall  19.678 cpu  14.095 (u 10.33 s 3.77) rss 1494M st 0 stdout 0 events=6.78+2.57 clicks=1.46+0.50 unmap=0.01+0.04 dedup=0.86+0.18 people=0.76+0.02 user_write=0.16+0.20 last_write=0.01+0.00 links=0.27+0.19
+r0 final        wall  10.092 cpu   7.020 (u 5.30 s 1.72) rss 3230M st 0 stdout 0 events=2.25+0.51 clicks=0.56+0.52 unmap=0.00+0.05 dedup=1.30+0.31 people=0.87+0.02 user_write=0.13+0.22 links=0.18+0.05
+r1 final        wall   7.566 cpu   5.935 (u 4.87 s 1.06) rss 3280M st 0 stdout 0 links=0.19+0.03 events=2.07+0.27 clicks=0.49+0.23 unmap=0.01+0.03 dedup=1.04+0.28 people=0.90+0.02 user_write=0.14+0.16
+r1 rel17        wall  13.449 cpu  12.357 (u 9.84 s 2.51) rss 1498M st 0 stdout 0 events=6.35+1.48 clicks=1.44+0.44 unmap=0.01+0.03 dedup=0.84+0.19 people=0.74+0.03 user_write=0.19+0.24 links=0.26+0.04
+r2 rel17        wall  18.313 cpu  12.904 (u 10.18 s 2.72) rss 1501M st 0 stdout 0 links=0.25+0.04 events=6.73+1.60 clicks=1.40+0.48 unmap=0.01+0.04 dedup=0.81+0.19 people=0.80+0.04 user_write=0.17+0.26
+r2 final        wall  10.421 cpu   7.725 (u 5.43 s 2.29) rss 3269M st 0 stdout 0 links=0.22+0.03 events=2.30+0.91 clicks=0.55+0.62 unmap=0.00+0.04 dedup=1.30+0.37 people=0.91+0.03 user_write=0.13+0.25 release=0.00+0.00
+r3 final        wall   8.636 cpu   6.702 (u 5.11 s 1.60) rss 3282M st 0 stdout 0 events=2.10+0.45 clicks=0.53+0.36 unmap=0.00+0.04 dedup=1.18+0.42 people=0.94+0.02 user_write=0.14+0.23 wait_jobs=0.01+0.00 links=0.19+0.04
+r3 rel17        wall  14.835 cpu  12.644 (u 10.17 s 2.47) rss 1487M st 0 stdout 0 links=0.31+0.04 events=6.79+1.44 clicks=1.34+0.46 unmap=0.01+0.04 dedup=0.88+0.20 people=0.67+0.03 user_write=0.16+0.22
+r4 rel17        wall  12.921 cpu  13.229 (u 10.46 s 2.76) rss 1478M st 0 stdout 0 events=6.77+2.00 clicks=1.45+0.41 unmap=0.00+0.02 dedup=0.93+0.04 people=0.86+0.03 user_write=0.13+0.05 links=0.31+0.17
+r4 final        wall   4.896 cpu   6.491 (u 5.04 s 1.45) rss 3237M st 0 stdout 0 events=2.06+0.22 clicks=0.49+0.53 unmap=0.00+0.04 dedup=1.21+0.35 bar_dedup=0.01+0.00 people=0.95+0.03 user_write=0.10+0.21 links=0.19+0.04
+STAGES rel17        median user+sys s: clicks=1.44+0.46 dedup=0.86+0.19 events=6.77+1.60 links=0.27+0.04 people=0.76+0.03 unmap=0.01+0.04 user_write=0.16+0.22
+MIN    rel17        cpu 12.357 user 9.843
+MEDIAN rel17        cpu 12.904 user 10.185 sys 2.719 wall 14.835 rss 1494M
+STAGES final        median user+sys s: clicks=0.53+0.52 dedup=1.21+0.35 events=2.10+0.45 links=0.19+0.04 people=0.91+0.02 unmap=0.00+0.04 user_write=0.13+0.22
+MIN    final        cpu 5.935 user 4.870
+MEDIAN final        cpu 6.702 user 5.107 sys 1.595 wall 8.636 rss 3269M

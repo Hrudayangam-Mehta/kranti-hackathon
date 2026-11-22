@@ -1,0 +1,49 @@
+binary Afix 6b6c3a69d67343a6e41e4cbf41e4a5b4ed75b81e9660820da60f84bb57e6eb76
+fixtures NCPU=1: 36/36 fixtures passed
+fixtures NCPU=4: 36/36 fixtures passed
+dev5_n1 NCPU=1 : exit=0 stdout=0 MATCH / MATCH
+dev5_n3 NCPU=3 : exit=0 stdout=0 MATCH / MATCH
+dev5_n4 NCPU=4 : exit=0 stdout=0 MATCH / MATCH
+dev5_n8 NCPU=8 : exit=0 stdout=0 MATCH / MATCH
+dev5_slow_n4 NCPU=4 SESSIONS_PATH=slow: exit=0 stdout=0 MATCH / MATCH
+dev5 rerun into non-empty NCPU=4 (files before 17 after 16): exit=0 stdout=0 MATCH / MATCH
+dev4_n1 NCPU=1 : exit=0 stdout=0 MATCH / MATCH
+dev4_n4 NCPU=4 : exit=0 stdout=0 MATCH / MATCH
+craft1 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+craft1 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+craft1 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+craft2 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+craft2 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+craft2 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+craft_pb Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+craft_pb Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+craft_pb Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+empty1 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+empty1 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+empty1 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+empty2 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+empty2 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+empty2 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+empty3 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+empty3 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+empty3 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+repro_emptycamp Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+repro_emptycamp Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+repro_emptycamp Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+min_1_5 Afix NCPU=1: exit=0 stdout=0 MATCH / MATCH
+min_1_5 Afix NCPU=4: exit=0 stdout=0 MATCH / MATCH
+min_1_5 Afix NCPU=8: exit=0 stdout=0 MATCH / MATCH
+Afix p20m5 NCPU=2 fresh: exit=0 stdout=0
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/runs/Afix_p20m5_n2 vs rel17 p20m5: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 37 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL
+B p20m5 NCPU=2 fresh: exit=0 stdout=0
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/runs/B_p20m5_n2 vs rel17 p20m5: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 37 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL
+fx1160 seed=1160 E=300000 C=75000 {"window_start":"2028-02-24T00:00:00Z","window_end":"2028-03-09T00:00:00Z"} files={'events': 160, 'clicks': 33, 'links': 13} Afix/n1:exit=0,stdout=0,MATCH Afix/n4:exit=0,stdout=0,MATCH Afix/n8:exit=0,stdout=0,MATCH ALL-MATCH
+fx999 seed=999 E=1000 C=100 {"window_start":"2025-01-26T00:00:00Z","window_end":"2025-02-09T00:00:00Z"} files={'events': 37, 'clicks': 26, 'links': 11} Afix/n1:exit=0,stdout=0,MATCH Afix/n4:exit=0,stdout=0,MATCH Afix/n8:exit=0,stdout=0,MATCH ALL-MATCH
+fx543 seed=543 E=200000 C=300000 {"window_start":"2025-12-09T00:00:00Z","window_end":"2025-12-23T00:00:00Z"} files={'events': 24, 'clicks': 38, 'links': 22} Afix/n1:exit=0,stdout=0,MATCH Afix/n4:exit=0,stdout=0,MATCH Afix/n8:exit=0,stdout=0,MATCH ALL-MATCH
+cachegrind Afix rc=0 ==4281== I refs:        1,305,547,173

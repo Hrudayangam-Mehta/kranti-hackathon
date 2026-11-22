@@ -1,0 +1,11 @@
+binary step4try 1fd09a1fd96534923b3cc2b2b1b0e46c7fd797b85c52cd0070089fc374632201 
+fixtures NCPU=4 : 36/36 fixtures passed
+dev NCPU=1 : exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+dev NCPU=8 : exit=0 stdout_bytes=0 files=10/4 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+binary step4try 1fd09a1fd96534923b3cc2b2b1b0e46c7fd797b85c52cd0070089fc374632201 SESSIONS_F2=0
+dev NCPU=1 SESSIONS_F2=0: exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH | buckets off: SESSIONS_F2=0
+dev NCPU=8 SESSIONS_F2=0: exit=0 stdout_bytes=0 files=9/4 MATCH / MATCH | buckets off: SESSIONS_F2=0
+binary step4try 1fd09a1fd96534923b3cc2b2b1b0e46c7fd797b85c52cd0070089fc374632201 SESSIONS_TEST_BUCKET_BITS=6
+dev NCPU=2 SESSIONS_TEST_BUCKET_BITS=6: exit=0 stdout_bytes=0 files=4/2 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+dev NCPU=3 SESSIONS_TEST_BUCKET_BITS=6: exit=0 stdout_bytes=0 files=9/3 MATCH / MATCH | buckets on: event key 0xf24638c44b, numb
+rerun step4try: NCPU8 exit=0 files 11/4, then NCPU1 into same dir exit=0 stdout=0 entries after: user_daily [notes.txt part-00000.parquet part-00001.parquet sub.parquet ] campaign_daily [_SUCCESS part-00000.parquet ] -> MATCH / MATCH

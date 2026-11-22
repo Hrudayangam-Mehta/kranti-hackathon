@@ -1,0 +1,53 @@
+24918 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v4/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+24918 open("/proc/sys/vm/overcommit_memory", O_RDONLY) = 3
+24918 open("/sys/kernel/mm/transparent_hugepage/enabled", O_RDONLY) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/bot/bunfig.toml", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/bot/bot.js", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/proc/sys/vm/mmap_min_addr", O_RDONLY) = 3
+24918 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/proc/stat", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/proc/self/cgroup", O_RDONLY|O_CLOEXEC) = 3
+24918 openat(AT_FDCWD, "/sys/fs/cgroup/cpu/mechtest/cpu.cfs_quota_us", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/", O_RDONLY|O_LARGEFILE|O_CLOEXEC|O_DIRECTORY) = 3
+24918 openat(AT_FDCWD, "/bot", O_RDONLY|O_LARGEFILE|O_CLOEXEC|O_DIRECTORY) = 4
+24918 openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/proc/self/cgroup", O_RDONLY|O_CLOEXEC) = 5
+24918 openat(AT_FDCWD, "/sys/fs/cgroup/memory/process_api/01a1fc54-f92b-73b0-9389-d5e2b088a540/claude-code-bash/mechsbx/memory.soft_limit_in_bytes", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/sys/fs/cgroup/memory/process_api/01a1fc54-f92b-73b0-9389-d5e2b088a540/claude-code-bash/mechsbx/memory.limit_in_bytes", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/sys/fs/cgroup/memory/memory.soft_limit_in_bytes", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/sys/fs/cgroup/memory/memory.limit_in_bytes", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/bot/bot.js", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fbac16d4990, parent_tid=0x7fbac16d4990, exit_signal=0, stack=0x7fbac1654000, stack_size=0x7a7c0, tls=0x7fbac16d46c0} => {parent_tid=[24919]}, 88) = 24919
+24919 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fbac11ff990, parent_tid=0x7fbac11ff990, exit_signal=0, stack=0x7fbac09ff000, stack_size=0x7fa7c0, tls=0x7fbac11ff6c0} => {parent_tid=[24920]}, 88) = 24920
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/arena/v2/world.json", O_RDONLY|O_NOCTTY|O_LARGEFILE|O_CLOEXEC) = 5
+24918 openat(AT_FDCWD, "/arena/v2/terrain.i16", O_RDONLY|O_NOCTTY|O_LARGEFILE|O_CLOEXEC) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 5
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+24918 openat(AT_FDCWD, "/proc/self/statm", O_RDONLY) = 6
+24918 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fbac09fe990, parent_tid=0x7fbac09fe990, exit_signal=0, stack=0x7fbac05fe000, stack_size=0x3fa7c0, tls=0x7fbac09fe6c0} => {parent_tid=[24928]}, 88) = 24928
+24928 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fbac05fd990, parent_tid=0x7fbac05fd990, exit_signal=0, stack=0x7fbac01fd000, stack_size=0x3fa7c0, tls=0x7fbac05fd6c0} => {parent_tid=[24929]}, 88) = 24929

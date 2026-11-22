@@ -1,0 +1,128 @@
+--- a/lib/firecontrol.js	2026-11-21 08:14:26.341152950 +0000
++++ b/lib/firecontrol.js	2026-11-21 07:58:51.072268129 +0000
+@@ -8,6 +8,12 @@
+   const ps = { x: 0, y: 0, z: 0 }                 // our predicted feet position when the shot leaves
+   const sol = { ok: false, yaw: 0, pitch: 0, x: 0, y: 0, z: 0, dist: 0, t: 0, hi: false }
+   const st = { scanDir: 1, scanFlipT: 0, dwellUntil: -1, dwellYaw: 0 }
++  // R3: aim-point ladders as fractions of the target height (cubes included): laser from the top down, gun from
++  // gunLadderTop down and then the higher rungs (a target showing only its top over cover)
++  const MID = [0.5]
++  const LASER_RUNGS = Array.isArray(P.aimLadder) && P.aimLadder.length ? P.aimLadder.filter((f) => f > 0 && f < 1) : MID
++  const GUN_RUNGS = LASER_RUNGS.filter((f) => f <= P.gunLadderTop + 1e-9).sort((a, b) => b - a).concat(LASER_RUNGS.filter((f) => f > P.gunLadderTop + 1e-9).sort((a, b) => a - b))
++  const rel = { t: 0, id: -1, tl: 0, frac: 0.5, yaw: 0, pitch: 0, pyaw: 0, ppitch: 0, settled: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, n: 0 }
+ 
+   function predictSelf(tl) {
+     const me = B.me, cmd = B.cmd
+@@ -102,6 +108,13 @@
+     const at = B.topAttacker
+     if (at) { out.aim[0] = Math.atan2(at.y - me.y, at.x - me.x); out.aim[1] = pitchTo(at.x, at.y, at.z + at.height * 0.5); return 'attacker' }
+     if (t - B.unseenHurtT <= P.faceAttackerS) { out.aim[0] = B.unseenHurtBearing; out.aim[1] = 0; return 'bearing' }
++    // R2 late game: sector sweep; the corner pre-aim and the look hint become wishes inside it
++    if (B.scanner && B.scanner.active()) {
++      const pre = B.lostTarget && t - B.lostTargetT <= P.preAimS
++      const wish = pre ? Math.atan2(B.lostY - me.y, B.lostX - me.x) : B.lookHint ? Math.atan2(B.lookY - me.y, B.lookX - me.x) : NaN
++      const y = B.scanner.look(wish)
++      if (y === y) { out.aim[0] = y; out.aim[1] = pre && y === wish ? pitchTo(B.lostX, B.lostY, B.lostZ) : 0; return y === wish ? 'sweepwish' : 'sweep' }
++    }
+     // 2. the corner where the target disappeared
+     if (B.lostTarget && t - B.lostTargetT <= P.preAimS) { out.aim[0] = Math.atan2(B.lostY - me.y, B.lostX - me.x); out.aim[1] = pitchTo(B.lostX, B.lostY, B.lostZ); return 'preaim' }
+     // 3. a look hint from the mode (ambush corner, drop ring, loot)
+@@ -137,7 +150,7 @@
+       out.aim[0] = Math.atan2(tgt.y - me.y, tgt.x - me.x); out.aim[1] = pitchTo(tgt.x, tgt.y, tgt.z + tgt.height * 0.5)
+       B.aimKind = 'memory'
+       tgt = null
+-    } else if (!tgt && B.shootCrate && !hold) shootObj = B.shootCrate
++    } else if (!tgt && B.shootCrate && !hold && (!B.steal || B.steal.crateFireOk())) shootObj = B.shootCrate
+ 
+     let laserRelease = false, laserKeep = false
+     if (tgt && B.ambushAim && !tgt.losOut) {
+@@ -157,11 +170,24 @@
+       let gunOk = false, gunFire = false, gunReady = false, gYaw = 0, gPitch = 0, yawGate = 0, pitGate = 0
+       const tlg = g ? gunLatency(g.cooldown) : tl
+       if (g) predictSelf(tlg)
+-      if (g && gunSolve(o, tlg, 0.5)) {
++      const head = !!tgt && P.headAimOn
++      if (g && gunSolve(o, tlg, head ? GUN_RUNGS[0] : 0.5)) {
+         gunOk = true
+         let clear = muzzleClear(sol.yaw, sol.pitch, sol.x, sol.y, sol.z)
+         let hFrac = 0.5
+-        if (!clear && tgt) {
++        if (head) {
++          // R3 ladder: first rung with a clear line; the pitch gate keeps the room left above / below that rung
++          hFrac = Math.min(GUN_RUNGS[0], 1 - GUN_RUNGS[0])
++          if (!clear) {
++            const y0 = sol.yaw, p0 = sol.pitch, d0 = sol.dist, x0 = sol.x, yy0 = sol.y, z0 = sol.z, t0 = sol.t
++            for (let k = 1; k < GUN_RUNGS.length && !clear; k++) {
++              const f = GUN_RUNGS[k]
++              if (gunSolve(o, tlg, f) && muzzleClear(sol.yaw, sol.pitch, sol.x, sol.y, sol.z)) { clear = true; hFrac = Math.min(f, 1 - f) }
++            }
++            if (!clear) { sol.ok = true; sol.yaw = y0; sol.pitch = p0; sol.dist = d0; sol.x = x0; sol.y = yy0; sol.z = z0; sol.t = t0 }
++          }
++          if (P.calGun && B.aimcal) { sol.yaw = wrapPi(sol.yaw - B.aimcal.yaw()); sol.pitch -= B.aimcal.pitch() }
++        } else if (!clear && tgt) {
+           // D8 aim-point ladder: centre, +2 m, +3.6 m (scaled by size), first with a clear line; small upward gate
+           const y0 = sol.yaw, p0 = sol.pitch, d0 = sol.dist, x0 = sol.x, yy0 = sol.y, z0 = sol.z, t0 = sol.t
+           const sc = o.height / (B.cfg.mech.height || 9)
+@@ -193,24 +219,37 @@
+       // ---------------- laser (hitscan: aim at where the target will be when the beam leaves)
+       if (g) predictSelf(tl)
+       if (lz && tgt) {
+-        const lx = tgt.x + tgt.vx * tl, ly = tgt.y + tgt.vy * tl, lzc = tgt.z + tgt.height * 0.5 + (Math.abs(tgt.vz) >= 0.5 ? tgt.vz * tl : 0)
++        // R3: lead with the calibrated latency, aim at the highest clear rung, command minus the calibrated aim bias
++        const AC = B.aimcal
++        const ltl = tl + (AC ? AC.lat() : 0)
++        if (ltl !== tl) predictSelf(ltl)
++        const lx = tgt.x + tgt.vx * ltl, ly = tgt.y + tgt.vy * ltl, zAir = Math.abs(tgt.vz) >= 0.5 ? tgt.vz * ltl : 0
+         const sx = ps.x, sy = ps.y, sz = ps.z + me.muzzleH
+         const ldx = lx - sx, ldy = ly - sy, lh = Math.hypot(ldx, ldy) || 1
+-        const lyaw = Math.atan2(ldy, ldx), lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
+-        const lR = Math.hypot(lh, lzc - sz)
++        const rungs = P.headAimOn ? LASER_RUNGS : MID
++        let frac = rungs[0], lzc = tgt.z + tgt.height * frac + zAir
++        const lyaw = Math.atan2(ldy, ldx)
++        let lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
++        let lR = Math.hypot(lh, lzc - sz)
+         const inRange = lR <= lz.range * P.laserRangeFrac
+         const charge = lz.charge
+         if (charge > 0 || wasHolding) {
++          let clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          for (let k = 1; k < rungs.length && inRange && !clear; k++) {
++            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, pt = clamp(Math.atan2(z - sz, lh), me.minPitch, me.maxPitch)
++            if (muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = Math.hypot(lh, z - sz) }
++          }
++          const cyaw = AC ? wrapPi(lyaw - AC.yaw()) : lyaw, cpitch = AC ? clamp(lpitch - AC.pitch(), me.minPitch, me.maxPitch) : lpitch
+           const full = charge >= P.laserFullFrac * lz.full
+           if (full) { if (lz.fullSince < 0) lz.fullSince = t } else lz.fullSince = -1
+           const takeAim = charge >= P.laserTakeFrac * lz.full - 1e-6
+-          const cy = takeAim ? lyaw : out.aim[0], cp = takeAim ? lpitch : out.aim[1]
+-          const ey = Math.abs(angDiff(predYaw(cy, tl), lyaw)), ep = Math.abs(predPitch(cp, tl) - lpitch)
+-          const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * 0.5 * P.laserGateK, lR)
+-          const clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          const cy = takeAim ? cyaw : out.aim[0], cp = takeAim ? cpitch : out.aim[1]
++          const ey = Math.abs(angDiff(predYaw(cy, tl), cyaw)), ep = predPitch(cp, tl) - cpitch
++          const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * (1 - frac) * P.laserGateK, lR) && -ep <= Math.atan2(tgt.height * frac * P.laserGateK, lR)
+           const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
+           const killNow = charge >= (lz.st.min_charge || 0.15) && laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp
+-          if (takeAim || killNow) { out.aim[0] = lyaw; out.aim[1] = lpitch; B.aimKind = 'laser' }
++          if (takeAim || killNow) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
++          rel.t = t; rel.id = tgt.id; rel.tl = ltl; rel.frac = frac; rel.yaw = lyaw; rel.pitch = lpitch; rel.x = tgt.x; rel.y = tgt.y; rel.z = tgt.z; rel.vx = tgt.vx; rel.vy = tgt.vy
+           if (gate && clear && (full || killNow)) laserRelease = true
+           else if (full && t - lz.fullSince >= P.laserForceS) laserRelease = true
+           else if (B.noCharge && charge < lz.full - 0.1) laserRelease = true      // the legs need full speed now
+@@ -258,7 +297,15 @@
+     }
+     if (lz) {
+       if (laserKeep && !laserRelease) { out.fire[lz.slot] = true; lz.heldT = t }
+-      else if (laserRelease) { B.counters.laserShots++; lz.fullSince = -1 }
++      else if (laserRelease) {
++        B.counters.laserShots++; lz.fullSince = -1
++        if (B.aimcal && P.aimCalOn && tgt && rel.t === t && rel.id === tgt.id) {
++          // R3 calibration record: the torso aim at release is the command when the torso has settled on it
++          rel.pyaw = out.aim[0]; rel.ppitch = out.aim[1]
++          rel.settled = Math.abs(angDiff(me.yaw, out.aim[0])) < 0.012 && Math.abs(me.pitch - out.aim[1]) < 0.012
++          B.aimcal.onRelease({ ...rel })
++        }
++      }
+     }
+     // ---------------- lightning: nearest mech inside the cone, no lead
+     if (li && !hold && li.cooldown <= P.readyCd + 0.05) {

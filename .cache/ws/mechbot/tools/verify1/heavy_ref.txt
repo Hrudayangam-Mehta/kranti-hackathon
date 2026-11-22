@@ -1,0 +1,14 @@
+== heavy x4800 (15 mechs, 10 projectiles)
+ready in 850 ms wall; CPU until ready: main thread 839 ms, all 5 threads 845 ms ({"type":"ready","name":"aegis-16"})
+CPU per decision, main thread : mean 0.476 p50 0.32 p90 0.74 p99 2.87 p999 12.33 max 15.5 ms | >15ms 1 >25ms 0 >50ms 0
+CPU per decision, all threads : mean 0.486 p50 0.33 p90 0.82 p99 2.90 p999 12.33 max 15.7 ms | >15ms 1 >25ms 0 >50ms 0
+top by all-thread CPU: #812(tick 1624) all 15.7 main 15.5 wall 15.9 cubes=4 mechs=18 | #1866(tick 3732) all 14.5 main 14.5 wall 14.6 cubes=10 mechs=18 | #2163(tick 4326) all 13.3 main 13.2 wall 13.5 cubes=12 mechs=18 | #613(tick 1226) all 12.8 main 12.8 wall 15.3 cubes=3 mechs=18 | #4044(tick 8088) all 12.3 main 12.3 wall 12.5 cubes=22 mechs=18 | #677(tick 1354) all 9.1 main 9.1 wall 9.2 cubes=3 mechs=18 | #34(tick 68) all 8.6 main 8.6 wall 8.7 cubes=0 mechs=18 | #344(tick 688) all 7.8 main 7.8 wall 8.1 cubes=1 mechs=18 | #114(tick 228) all 6.8 main 6.8 wall 7.0 cubes=0 mechs=18 | #3500(tick 7000) all 6.6 main 6.6 wall 6.8 cubes=19 mechs=18
+wall latency (polluted by other jobs on this machine):
+decisions 4800: mean 0.635 p50 0.46 p90 1.11 p99 3.28 p999 12.55 max 15.9 ms | >15ms 2 >25ms 0 >50ms(late) 0 missing 0 invalid 0 badLines 0 wrongTick 0
+memory MB (decision: rss/hwm): 0: 66/66  500: 76/76  1000: 73/88  1500: 73/88  2000: 72/88  2500: 72/88  3000: 73/88  3500: 72/88  4000: 73/88  4500: 73/88  4800: 76/88
+exit {"code":0,"sig":null}
+stderr: 4 lines, 1 error/slow lines
+   [bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=15.5ms
+   tail: [bot] init 837 ms world=true nav=true brain=true
+   tail: [bot] end place=1 kills=0 ticks=4800 errors=0 slow=0 worst=15.5ms
+obs line bytes: mean 6690 max 7123

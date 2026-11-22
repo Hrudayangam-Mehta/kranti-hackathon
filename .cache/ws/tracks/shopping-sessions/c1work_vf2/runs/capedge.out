@@ -1,0 +1,21 @@
+[b15] target cap 6552 pinned=False: capedge_b15_6552: MATCH
+  n2_auto [f2 n2]: MATCH 0.05s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  n2_G [f2 n2 LANE=G]: MATCH 0.09s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.09s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  b13 [f2 n3 TEST_BUCKET_BITS=13]: MATCH 0.06s | F on | B on ncap 237568/8192 | multi 7p/21e/552ev | G 2.99% side 1378 gen 9
+  f2off [f2 n2 F2=0]: MATCH 0.11s | F on | buckets off: SESSIONS_F2=0 | G 2.99%
+  f1 [f1 n2]: MATCH 0.06s | F on | G 2.99%
+[b15] target cap 6554 pinned=False: capedge_b15_6554: MATCH
+  n2_auto [f2 n2]: MATCH 0.09s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  n2_G [f2 n2 LANE=G]: MATCH 0.06s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.12s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  b10 [f2 n4 TEST_BUCKET_BITS=10]: MATCH 0.20s | F on | B on ncap 232448/1024 | multi 55p/117e/7683ev | G 2.99% side 1378 gen 9
+  f2off [f2 n2 F2=0]: MATCH 0.14s | F on | buckets off: SESSIONS_F2=0 | G 2.99%
+  f1 [f1 n2]: MATCH 0.15s | F on | G 2.99%
+[b15] target cap 6556 pinned=False: capedge_b15_6556: MATCH
+  n2_auto [f2 n2]: MATCH 0.07s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  n2_G [f2 n2 LANE=G]: MATCH 0.06s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n1_auto [f2 n1]: MATCH 0.12s | F on | B on ncap 262144/32768 | multi 1p/9e/9ev | G 2.99% side 1378 gen 9
+  b13 [f2 n2 TEST_BUCKET_BITS=13]: MATCH 0.07s | F on | B on ncap 237568/8192 | multi 7p/21e/552ev | G 2.99% side 1378 gen 9
+  f2off [f2 n2 F2=0]: MATCH 0.06s | F on | buckets off: SESSIONS_F2=0 | G 2.99%
+  f1 [f1 n2]: MATCH 0.09s | F on | G 2.99%

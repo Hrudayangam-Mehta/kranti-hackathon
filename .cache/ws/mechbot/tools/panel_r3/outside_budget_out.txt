@@ -1,0 +1,21 @@
+dps | flank break-even s (x1/3 safety) | dodge: lines a step outside must break to pay (gun <75 m 93, 75-100 80, 100-126 53) | finish 600 hp target, our dps 150: s outside | outer arc 100 m walk / boost hp
+ 20 |  37.0 / 12.3 | 1 line at any range <126 m |  3.5 s, our cost   71 |   171 /   103
+ 35 |  21.1 /  7.0 | 1 line at any range <126 m |  3.2 s, our cost  114 |   299 /   179
+ 60 |  12.3 /  4.1 | 1 line <100 m |  2.9 s, our cost  171 |   513 /   308
+100 |   7.4 /  2.5 | 2 lines <100 m |  2.4 s, our cost  240 |   855 /   513
+160 |   4.6 /  1.5 | 2 lines <75 m |  1.9 s, our cost  310 |  1368 /   821
+260 |   2.8 /  0.9 | 3 lines <75 m |  1.5 s, our cost  380 |  2222 /  1333
+
+Rule budget used in the spec: s_out <= min(cap[dps], 0.15 x hp / dps); cap = 12 / 7 / 4 / 2 / 0 / 0 s for 20 / 35 / 60 / 100 / 160 / 260
+  dps  20, hp 1400: s_out 10.5 s, cost  210 hp
+  dps  20, hp 700: s_out  5.2 s, cost  105 hp
+  dps  35, hp 1400: s_out  6.0 s, cost  210 hp
+  dps  35, hp 700: s_out  3.0 s, cost  105 hp
+  dps  60, hp 1400: s_out  3.5 s, cost  210 hp
+  dps  60, hp 700: s_out  1.8 s, cost  105 hp
+  dps 100, hp 1400: s_out  2.0 s, cost  200 hp
+  dps 100, hp 700: s_out  1.1 s, cost  105 hp
+  dps 160, hp 1400: s_out  0.0 s, cost    0 hp
+  dps 160, hp 700: s_out  0.0 s, cost    0 hp
+  dps 260, hp 1400: s_out  0.0 s, cost    0 hp
+  dps 260, hp 700: s_out  0.0 s, cost    0 hp

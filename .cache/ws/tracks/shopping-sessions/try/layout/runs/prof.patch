@@ -1,0 +1,137 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index a60daa0..6f1ef21 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -25,6 +25,12 @@ use sink::{Arena, Sink};
+ use ts::Calendar;
+ 
+ const WEEK_MS: i64 = 7 * DAY_MS;
++static XMODE: OnceLock<u32> = OnceLock::new();
++pub static PROF: [std::sync::atomic::AtomicU64; 16] = [const { std::sync::atomic::AtomicU64::new(0) }; 16];
++#[inline(always)]
++fn tsc() -> u64 { unsafe { std::arch::x86_64::_rdtsc() } }
++#[inline(always)]
++fn prof_acc(i: usize, t: &mut u64) { let n = tsc(); PROF[i].fetch_add(n - *t, Ordering::Relaxed); *t = n; }
+ const GAP_MS: u32 = 30 * 60 * 1000;
+ const INVALID: u32 = u32::MAX;
+ const H1: u64 = 0x9e37_79b9_7f4a_7c15;
+@@ -367,6 +373,10 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     let parts = results.into_inner().unwrap();
+     write::campaign_table(&campaign_dir, &parts, &campaign_ids, &campaign_channels, ORGANIC, first_day, ctx.days)?;
+     write::report(&parts, ctx.days, organic as usize);
++    let names = ["d.gather", "d.table", "d.probe", "d.route", "p.local", "p.radix", "p.place", "p.clickmap", "p.clicksort", "p.person"];
++    for (i, n) in names.iter().enumerate() {
++        eprintln!("prof {n:<12} {:>8.1} ms", PROF[i].load(Ordering::Relaxed) as f64 / 2.1e6);
++    }
+     eprintln!(
+         "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
+         stats.event_copies.load(Ordering::Relaxed),
+@@ -672,6 +682,7 @@ fn dedup(
+     arena: &mut Arena,
+     out: &mut Sink<PersonRec>,
+ ) -> usize {
++    let mut t0 = tsc();
+     buf.clear();
+     for sink in sinks {
+         for slice in sink.slices(q) {
+@@ -682,11 +693,13 @@ fn dedup(
+     if n == 0 {
+         return 0;
+     }
++    prof_acc(0, &mut t0);
+     let size = (n * 2).next_power_of_two().max(16);
+     let tbits = size.trailing_zeros();
+     let mask = size - 1;
+     table.clear();
+     table.resize(size, (0, 0));
++    prof_acc(1, &mut t0);
+     let shift = 64 - ctx.p1_bits - tbits;
+     for i in 0..n {
+         let key = buf[i].event;
+@@ -710,18 +723,26 @@ fn dedup(
+             slot = (slot + 1) & mask;
+         }
+     }
++    prof_acc(2, &mut t0);
+     const BATCH: usize = 32;
+     let mut pending: [(u64, u32, u32); BATCH] = [(0, 0, 0); BATCH];
+     let mut count = 0usize;
+     let mut winners = 0usize;
+     let bits = ctx.p2_bits;
++    let mode = *XMODE.get_or_init(|| std::env::var("XMODE").ok().and_then(|v| v.parse().ok()).unwrap_or(0u32));
+     let flush = |pending: &[(u64, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
+-        for &(user, _, _) in pending {
+-            prefetch(people.slot_ptr(user));
++        if mode & 1 == 0 {
++            for &(user, _, _) in pending {
++                prefetch(people.slot_ptr(user));
++            }
+         }
+         for &(user, ts, payload) in pending {
+-            let person = people.name_of(user);
+-            out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
++            let person = if mode & 1 == 0 { people.name_of(user) } else { user };
++            if mode & 2 == 0 {
++                out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
++            } else {
++                std::hint::black_box(person);
++            }
+         }
+     };
+     for rec in buf.iter() {
+@@ -736,6 +757,7 @@ fn dedup(
+         }
+     }
+     flush(&pending[..count], out, arena);
++    prof_acc(3, &mut t0);
+     winners
+ }
+ 
+@@ -878,6 +900,7 @@ impl Worker {
+         self.persons.clear();
+         self.counts.clear();
+         self.recs.clear();
++        let mut t0 = tsc();
+         let mut low = u32::MAX;
+         let mut high = 0u32;
+         for sink in events {
+@@ -911,7 +934,9 @@ impl Worker {
+                 }
+             }
+         }
++        prof_acc(4, &mut t0);
+         radix_by_ts(&mut self.recs, &mut self.spare, low, high, |r| r.ts);
++        prof_acc(5, &mut t0);
+         let persons = self.persons.len();
+         let mut offsets: Vec<u32> = Vec::with_capacity(persons + 1);
+         let mut acc = 0u32;
+@@ -931,6 +956,7 @@ impl Worker {
+             }
+         }
+ 
++        prof_acc(6, &mut t0);
+         self.click_counts.clear();
+         self.click_counts.resize(persons, 0);
+         self.click_recs.clear();
+@@ -962,6 +988,7 @@ impl Worker {
+                 }
+             }
+         }
++        prof_acc(7, &mut t0);
+         radix_by_ts(&mut self.click_recs, &mut self.click_spare, low, high, |r| r.ts);
+         let mut click_offsets: Vec<u32> = Vec::with_capacity(persons + 1);
+         let mut acc = 0u32;
+@@ -1010,11 +1037,13 @@ impl Worker {
+                 }
+             }
+         }
++        prof_acc(8, &mut t0);
+         for id in 0..persons {
+             let er = offsets[id] as usize..offsets[id + 1] as usize;
+             let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
+             self.person(self.persons[id], er, cr);
+         }
++        prof_acc(9, &mut t0);
+     }
+ 
+     fn person(&mut self, person: u64, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {

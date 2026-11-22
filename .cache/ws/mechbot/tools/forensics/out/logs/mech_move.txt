@@ -1,0 +1,21 @@
+walk frames 11060 modes [(9.0, 7585), (0.0, 474), (8.0, 417), (5.5, 347), (8.5, 324), (3.5, 253)] p50 8.97 p90 9.04 p99 9.09 max 15.91
+boost frames 1048 modes [(15.0, 477), (14.5, 47), (8.0, 45), (12.5, 41), (14.0, 41), (3.5, 32)] p50 14.26 p90 15.03 p99 15.07 max 15.92
+charging frames 202 modes [(4.5, 108), (4.0, 11), (2.5, 10), (3.5, 10), (7.5, 9), (5.0, 9)] p90 7.50 max 13.86
+walk fine modes [(9.0, 5448), (8.9, 1155), (9.1, 787), (0.0, 469), (8.8, 191), (7.9, 182)]
+boost fine modes [(15.0, 358), (14.9, 62), (15.1, 46), (7.9, 17), (14.7, 16), (14.3, 14)]
+charge fine modes [(4.5, 76), (4.4, 16), (4.6, 14), (7.5, 7), (4.1, 5), (1.1, 5)]
+first two frame displacements (m): [(0, 0.34, 0.79, 1), (1, 0.342, 0.341, 3), (2, 0.336, 0.789, 3), (3, 0.0, 0.0, 1), (4, 0.342, 0.786, 1), (5, 0.342, 0.784, 1), (6, 0.332, 0.788, 1), (7, 0.34, 0.79, 1), (8, 0.331, 0.792, 3), (9, 0.34, 0.779, 3), (10, 0.327, 0.788, 1), (11, 0.345, 0.784, 1), (12, 0.331, 0.739, 3), (13, 1.359, 0.339, 1), (14, 0.34, 0.79, 1), (15, 0.335, 0.787, 1)]
+implied ground accel (d1 = 3*a*dt^2, dt=0.05): median 45.3 [43.6, 44.1, 44.1, 44.3, 44.7, 44.8, 45.3, 45.3, 45.3, 45.3, 45.6, 45.6, 45.6, 46.0, 181.2]
+grounded |dv|/dt between successive frame-mean velocities: p50 8.9 p90 44.6 p99 46.1 max 69.0
+airborne segments 206
+no-jet airborne segments 14 apex modes [(2.5, 6), (0.0, 3), (0.2, 2), (2.8, 1), (0.3, 1), (1.6, 1)] max 2.8199999999999994
+jet climb rate (m/s per frame) modes [(8.9, 2024), (8.7, 9), (6.6, 5), (1.2, 4), (-3.0, 4), (-1.8, 4)] n 2174 max 8.90
+jet energy drain per s (segments >=0.8 s contiguous): n 104 median 20.00 p10 20.00 p90 20.00
+jet segments 192 apex p50 14.9 p90 14.9 max 31.5; net dz p50 -0.0 p90 0.7 max 14.1
+clean jump z profile (0.1 s): [0.0, 0.94, 1.65, 2.15, 2.59, 2.82, 2.82, 2.61, 2.17, 1.52, 0.64, -0.01]
+gravity from second differences in free flight: modes [(23, 1093), (21, 1087), (22, 16), (4, 7)] n 2211
+ground boost drain per s (runs >= 1 s): n 34 median 26.00 p10 25.38 p90 26.11
+energy regen per s with 0 reactor upgrade(s): n 125 median 17.69 p10 17.33 p90 17.96
+energy regen per s with 1 reactor upgrade(s): n 10 median 22.78 p10 22.34 p90 23.09
+frames from first non-boost frame to first energy increase (s): modes [(0.6, 590), (0.7, 61), (1.0, 1), (1.1, 1)] n 653
+max energy seen 100

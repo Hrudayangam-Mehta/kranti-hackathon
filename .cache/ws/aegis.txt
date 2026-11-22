@@ -1,0 +1,138 @@
+Aegis-16 Tactics & Competition Deliverables
+BUILDERS: MECH ROYALE • PROTOCOL MECHFIGHT/1 • TACTICAL & ENGINEERING DOSSIER
+
+
+Report
+Placement-First Survival Architecture, Bayesian Belief Filtering, Adversary Psychology, Sandbox
+Compliance, and Release Deliverables for the OSU Campus Arena
+
+   Core Competition Thesis: Mech Royale scores matches by 16 − place (15 points for 1st
+   place, 0 for 16th, with equal-tick eliminations sharing placement and remaining clock survivors
+   ranked by HP). Surviving longer and finishing top-4 consistently outscores aggressive kill-
+   chasing that invites third-party ambushes or late-zone elimination.
+1. Tactical Architecture & Mathematical Foundations
+Aegis-16 operates as a deterministic survival planner over the mechfight/1 JSON-lines lockstep
+stream across the Ohio State campus map (from Ohio Stadium to the Oval). Rather than running
+heavy neural or language-model inference inside a tight 50 ms per-decision wall-clock window on a
+single CPU core, Aegis-16 maintains a compact persistent world model, fuses multi-modal
+observations into posterior belief states, and arbitrates seven parallel utility agents every 0.1 s (2
+simulation ticks).
+1.1 Survival Hazard & Expected Placement Objective
+Let h(t; π) denote the instantaneous elimination hazard experienced by a mech under policy π at
+match time t (up to the ~6:55 zone closure and 8:00 match ceiling). The continuous survival
+probability through time t is governed by cumulative hazard integration:
+
+         S(t) = exp(−∫0t [hzone(u) + hcombat(u) + hambush(u)] du) E[Score(π)] =
+  ∑k=1..15 P(alive at elimination rank k | π)
+
+
+
+Because zone damage escalates across shrink phases ( 560 → 380 → 240 → 140 → 70 → 25 → 0 m
+with DPS rising 20 → 35 → 60 → 100 → 160 → 260 HP/s ), rotating early toward
+ zone.next_center and preserving health for 5-second out-of-combat regeneration ( 45 HP/s
+inside the zone) directly suppresses late-match elimination hazard.
+
+
+
+
+Aegis-16 Tactics & Deliverables Report (mechfight/1)                                              Page 1 of 4
+1.2 Bayesian Sound Fusion & Belief-State Entropy
+Vision provides direct sightings within near_range (45 m all-around, blocked by buildings rather
+than canopy) and range (200 m inside a 120° horizontal yaw cone around torso aim), followed by 5
+seconds of position tracking after a mech or NPC leaves line of sight. Outside direct sight, Aegis-16
+fuses heard sound events ( step at 40 m when moving >5 m/s, reload at 60 m, boost / jet at 90
+m, laser_charge at 140 m, lightning at 160 m, npc_gun at 200 m, crate at 220 m, gun at
+320 m, laser at 380 m, mortar / explosion at 420 m, and death / drop at 600 m) with bearing
+noise ( σ ≈ 7° , halved by Sensor Suite upgrades).
+
+        bt(x) ∝ L(ztsound | x, σθ) · ∫ KΔt(x | x′, v̂ ) bt−1(x′) dx′ H(b) = −∑i pi
+  log2(pi)
+
+
+
+Because campus trees block vision through dense crowns but do not stop shots, triangulated sound
+bearings and 5-second memory tracks enable blind suppression fire into tree lines and cover when
+confidence is high and risk is acceptable.
+1.3 Seven-Agent Swarm & Dynamic Meta-Controller Arbitration
+Seven specialized agents score candidate actions each tick, and a dynamic meta-controller selects the
+highest-utility action conditioned on match phase, remaining health, alive count, and zone proximity:
+   Survival Agent: Prioritizes health preservation, 5-second out-of-combat regeneration windows,
+   energy reserves for jetting (up to ~60 m climb on 100 energy, reaching most campus roofs while
+   70 m towers sit beyond reach), and disengaging multi-mech cross-fires.
+   Zone Agent: Uses obs.zone.next_center , next_radius , shrink_start , and shrink_end
+   to claim safe interior cover early rather than boosting late into congested edges.
+   Threat Agent: Maintains a 2D threat heatmap over the map cells from visible enemies, belief
+   tracks, projectiles, beams, and recent sounds, initiating lateral boost-dodges when an enemy has
+    charging: true on a laser.
+   Combat Agent: Enforces an asymmetric fight rule—never taking fair duels when outnumbered
+   or disadvantaged, instead targeting low-HP mechs, exposed rear arcs, or active third-party
+   skirmishes.
+   Weapon Agent: Manages the two weapon slots (slot 0 starts with gun ; slot 1 is open at spawn)
+   and enforces weapon-triangle matchups: Laser > Mortar (cook-off deals +60% damage to a
+   mech holding a mortar), Mortar > Lightning (blast concussion knocks back and drains up to 45
+   energy), and Lightning > Laser (arc hit cancels laser charge and applies a 2-second charge
+   lockout).
+   Loot Agent: Collects power cubes (+4% max HP and +4% damage up to the stat_cap of 10
+   cubes, while hitbox radius scales +5% per cube without a cap) and picks upgrades at thresholds
+   ( 1, 3, 6, 10, 15, 21, … ) before the 5-second offer timeout.
+
+Aegis-16 Tactics & Deliverables Report (mechfight/1)                                         Page 2 of 4
+   Ambush Agent: Evaluates the three supply drops per match (called at 70 s, 140 s, and 210 s,
+   landing 25 s later inside the closing circle; holding solo inside the 8 m ring for 4 s grants 3 cubes,
+   full HP, and full energy, while 2+ mechs freeze the capture clock). Contests only when expected
+   placement gain exceeds mortality risk, favoring third-party ambushes of distracted capturers.
+2. Combat Matchups, Rear Armor & Adversary Psychology
+Hits arriving outside a mech's 180° front torso arc trigger rear-armor damage scaling ( ×1.5 ). Aegis-
+16 rotates its torso independently of movement to face incoming damage bearings and avoids turning
+its back during retreat. Across rival submissions in 16-way free-for-alls and 48-match practice runs
+(15 house bots split into 4 Easy, 4 Medium, 4 Hard, and 3 Expert acting as one shared-vision squad
+that hunts the player weakest-first), Aegis-16 counters six common rival failure modes:
+ Rival Archetype           Typical Failure Mode                          Aegis-16 Counter-Tactic
+ Overfit Practice          Tunes only to static practice seeds; gets     Rotate early to next_center and punish
+ Camper                    pinched by active 16-way FFA rotations.       isolated corner holdouts.
+ Heavy ML / LLM-           Exceeds 50 ms on 1 CPU / 512 MB RAM;          Stay strictly deterministic (<25 ms worst-
+ in-Loop Bot               misses ticks, coasts, or fails check.py .     case margin) and punish slow turns.
+ Kill-Chasing              Takes fair fights and over-collects cubes     Refuse symmetric duels; let brawlers trade
+ Brawler                   past 10, inflating hitbox size (+5%/cube).    damage and third-party the survivor.
+ Late Zone                 Waits until outside the zone before           Forecast next_center ahead of
+ Sprinter                  moving; enters crowded choke points late.      shrink_start and secure cover early.
+
+ Static / Rear-            Ignores rear-armor ×1.5 , mortar              Snap torso to damage bearings; match
+ Exposed Duelist           concussion, or laser/lightning counters.      Laser vs. Mortar and Lightning vs. Laser.
+ Greedy Drop               Rushes supply drop rings into multi-mech      Stage outside the 8 m ring; ambush once
+ Camper                    cross-fire and freezes or dies in the ring.   rival mechs lock in or drop low.
+3. Runtime Constraints, Deliverables & Verification Plan
+Submissions must reside in a public GitHub repository (≤20 MB at the submitted commit, kept
+public with all commits preserved through final scoring) with a top-level Dockerfile building on
+ linux/amd64 within 10 minutes and passing check/check.py (<2% late responses). At runtime,
+the sandbox enforces no network, 1 CPU, 512 MB RAM without swap, ≤128 processes/threads,
+unprivileged user uid 65534 , read-only root filesystem with a 64 MB writable /tmp , read-only map
+files in /arena ( v2/world.json and v2/terrain.i16 at 1070 × 724 bilinear height sampling),
+and a 64 KiB JSON-line limit on stdin / stdout (plus debug drawings capped at 64 lines, 64
+points, 16 texts, 80 chars/text, 8192 bytes/action, and 8 MB/match).
+
+
+
+
+Aegis-16 Tactics & Deliverables Report (mechfight/1)                                                       Page 3 of 4
+ Deliverable               Role & Contents                     Verification & Submission Standard
+ Bot Entrypoint & Single-file mechfight/1 loop reading         Unbuffered stdout ; all logs written to
+ Wrapper           hello , obs , and end ; writing ready        stderr ; zero non-JSON output.
+                  and per- tick actions.
+ World & Belief    v2/world.json & terrain.i16                 Verified under 1 CPU / 512 MB RAM well
+ Modules          loader, threat heatmap, sound bearing fuser, below the 50 ms tick deadline.
+                  and 7-agent arbiter.
+ Pinned            linux/amd64 build with pinned versions Tested with check/check.py using --
+ Dockerfile       and system-wide installs for non-root uid network none --read-only and --
+                  65534 .                                      tmpfs /tmp .
+
+ Experiment &     48-match practice runs (vs. 1.15 baseline, Track placement score delta across seeds
+ Ablation Suite   max 4 submissions/hr) and qualifying/64- before locking final submission by Sun
+                  match FFA ablations.                         11:00 AM ET.
+
+
+
+
+Aegis-16 Tactics & Deliverables Report (mechfight/1)                                          Page 4 of 4
+```
+

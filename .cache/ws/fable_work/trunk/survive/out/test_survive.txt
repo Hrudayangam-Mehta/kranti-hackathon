@@ -1,0 +1,38 @@
+PASS  D1 defaults: every sv preset at its old value (first option, empty)  ::  svDrop:off svRegen:off svFire:off svFarm:off
+PASS  D2 all off: B.sv undefined, B.regen undefined, B.dl null  ::  sv undefined
+PASS  D3 svDrop values: first = 0.9, first100 = 1.0  ::  0.9 1
+PASS  T-F2 DR1 hp 80%, landed drop at 40-55 m, a target hitting us from 100 m: svDrop 'first' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | modes on DROP,DROP,DROP off FIGHT; svDropLatch=1 svDropGo=10 svDropBoost=10
+PASS  DR1b DROP outranks FIGHT, legs walk to the ring, torso stays on the target  ::  modes DROP,DROP,DROP,DROP,DROP,DROP,DROP,DROP,DROP,DROP toward true,true,true,true,true,true,true,true,true,true aim 10/gun
+PASS  DR1c boost beyond 12 m with energy > 8  ::  boosts true,true,true,true,true,true,true,true,true,true
+PASS  DR1d no boost at energy 6  ::  boosts false,false,false,false,false,false
+PASS  DR2 hp 95%: first stays in the fight, first100 takes the drop  ::  first FIGHT first100 DROP
+PASS  DR3 hp 100%: first100 does not fire  ::  mode FIGHT
+PASS  DR4 landing 20 s away: not yet; landing 5 s away: go  ::  early FIGHT 5 s DROP
+PASS  DR4b timely: a late arrival is skipped, an on-time one taken; first (no late limit) takes the landed one  ::  late FIGHT on time DROP first DROP (ring walk 2.7 s)
+PASS  T-F2 DR4c timely (landing when we reach the ring): svDrop 'timely' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | 
+PASS  DR5 drop outside the next zone: ignored  ::  mode FIGHT
+PASS  DR6 a holder finishing first: ignored; a holder that just started: we step in  ::  finishing FIGHT started DROP
+PASS  DR7 within 2 m of the centre: stand (move 0), still DROP, hold counted  ::  moves 0.00:0.00 0.00:0.00 0.00:0.00 0.00:0.00 0.00:0.00 0.00:0.00 svDropLatch=1 svDropGo=6 svDropIn=6 svDropHold=5
+PASS  DR8 capture event ends the latch; FIGHT again  ::  cap 1 mode FIGHT
+PASS  DR9 info: urgent zone first (drop outside the next zone anyway)  ::  mode ZONE
+PASS  T-F2 RG1 hp 60%, a drone to farm, no line on us: svRegen 'hold' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | gun shots on 0 off 10; svHold=1 svHoldDec=14
+PASS  RG1b the hold silences the gun on the drone; the legacy fires  ::  on 0 off 10 target 150
+PASS  RG2 the hold reloads to full (ammo 9)  ::  on true,true,true,true,true,true off false,false,false,false,false,false
+PASS  RG3 hp 80%: no hold  ::  
+PASS  RG4 a line opens: released that decision  ::  svHold=1 svHoldDec=8 svHoldEndLine=1
+PASS  RG5 hp reaches 80%: released  ::  svHold=1 svHoldDec=9 svHoldEndHp=1
+PASS  RG6 12 s cap: one hold, released by time, not re-entered within the cool-down  ::  svHold=1 svHoldDec=120 svHoldEndTime=1
+PASS  RG7 hit at k = 3: no hold before 1.5 s later  ::  hold 1 regen.at 105.3 (hurt 100.3 + 5)
+PASS  RG8 regen clock from obs.self.stats (delay 3.5, 72/s): at = hurt + 3.5, lost = 252  ::  at 103.5 lost 252
+PASS  T-F2 RH1 ammo 8 of 12, no mech, quiet after our last shot: svFire 'rhythm' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | first reload on k=16 off k=22; svRlMid=6
+PASS  RH1b two thirds after 1.5 s quiet (before the legacy 2 s rule)  ::  on k 16 off k 22
+PASS  RH2 info: target behind a wall, ammo 10 (top-up after 6 s quiet)  ::  target 12 on k=66 off k=-1 svRlTop=4
+PASS  RH3 a target with a line: no rhythm reload  ::   target 13
+PASS  RH4 info: a third, nothing in view  ::  reloads true,true,true 
+PASS  T-F2 CB1 laser ready, a crate with a line at 60-90 m, no mech seen: svFarm 'laser' acts in SQUAD; forced FFA and one foreign death identical to 'off'  ::  SQUAD differs true, FFA identical true, firewall identical true | held on 8 off 0; svCbStart=1 svCbBeam=1
+PASS  CB1b one full beam: trigger held, torso on the crate, released once, gun silent while charging  ::  beams 1 start 1 aim cratebeam,cratebeam,cratebeam,cratebeam,cratebeam,cratebeam,cratebeam,cratebeam,cratebeam,hint,hint,hint,hint,hint,hint,hint,hint,hint,hint,hint
+PASS  CB2 a mech seen in the last 4 s: 50 m reach (far crate no, near crate yes)  ::  far  near svCbStart=1 svCbBeam=1 | near first beam decision 25
+PASS  CB3 laser on cooldown: no beam  ::  
+PASS  CB4 a nearly broken crate (60 hp): left to the gun  ::  
+
+36 passed, 0 failed

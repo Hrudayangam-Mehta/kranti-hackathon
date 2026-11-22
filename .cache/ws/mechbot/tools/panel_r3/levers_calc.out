@@ -1,0 +1,47 @@
+best-of-N gain (x sigma_draw):
+  N= 1  E[max]=0.00  gain at sd 0.15: +0.00  at 0.20: +0.00  at 0.27: +0.00
+  N= 2  E[max]=0.56  gain at sd 0.15: +0.08  at 0.20: +0.11  at 0.27: +0.15
+  N= 4  E[max]=1.04  gain at sd 0.15: +0.16  at 0.20: +0.21  at 0.27: +0.28
+  N= 8  E[max]=1.42  gain at sd 0.15: +0.21  at 0.20: +0.28  at 0.27: +0.38
+  N=16  E[max]=1.76  gain at sd 0.15: +0.26  at 0.20: +0.35  at 0.27: +0.48
+  N=24  E[max]=1.94  gain at sd 0.15: +0.29  at 0.20: +0.39  at 0.27: +0.52
+  N=32  E[max]=2.07  gain at sd 0.15: +0.31  at 0.20: +0.41  at 0.27: +0.56
+  N=48  E[max]=2.24  gain at sd 0.15: +0.34  at 0.20: +0.45  at 0.27: +0.61
+board steps: 1/48 = 0.0208 ; 5.33 = 5.3333 ; next 5.35 = 5.3542
+  hunter at <75      m: gun 112.5 dps, gun while not charging  78.8 + laser 78.2 = 156.9 dps
+  hunter at 75-100   m: gun  96.8 dps, gun while not charging  67.7 + laser 78.2 = 145.9 dps
+  hunter at 100-126  m: gun  64.1 dps, gun while not charging  44.9 + laser 78.2 = 123.1 dps
+  hunter at 126-151  m: gun  36.0 dps, gun while not charging  25.2 + laser 78.2 = 103.4 dps
+  hunter at 151-200  m: gun  22.5 dps, gun while not charging  15.7 + laser 78.2 =  93.9 dps
+  phase 1 (0-110 s)  20 dps: 350 HP in  17.5 s, 700 HP in  35.0 s
+  phase 2 (110-195 s)  35 dps: 350 HP in  10.0 s, 700 HP in  20.0 s
+  phase 3 (195-265 s)  60 dps: 350 HP in   5.8 s, 700 HP in  11.7 s
+  phase 4 (265-325 s) 100 dps: 350 HP in   3.5 s, 700 HP in   7.0 s
+  phase 5 (325-375 s) 160 dps: 350 HP in   2.2 s, 700 HP in   4.4 s
+  phase 6 (375-415 s) 260 dps: 350 HP in   1.3 s, 700 HP in   2.7 s
+  B->A  30 m, A->us  50 m, A cubes 0: corridor half-width at us   7.5 m
+  B->A  30 m, A->us  50 m, A cubes 5: corridor half-width at us   9.1 m
+  B->A  30 m, A->us 100 m, A cubes 0: corridor half-width at us  12.1 m
+  B->A  30 m, A->us 100 m, A cubes 5: corridor half-width at us  14.8 m
+  B->A  50 m, A->us  50 m, A cubes 0: corridor half-width at us   5.6 m
+  B->A  50 m, A->us  50 m, A cubes 5: corridor half-width at us   6.8 m
+  B->A  50 m, A->us 100 m, A cubes 0: corridor half-width at us   8.4 m
+  B->A  50 m, A->us 100 m, A cubes 5: corridor half-width at us  10.3 m
+  B->A  80 m, A->us  50 m, A cubes 0: corridor half-width at us   4.5 m
+  B->A  80 m, A->us  50 m, A cubes 5: corridor half-width at us   5.6 m
+  B->A  80 m, A->us 100 m, A cubes 0: corridor half-width at us   6.3 m
+  B->A  80 m, A->us 100 m, A cubes 5: corridor half-width at us   7.7 m
+  hp us 1400, hp Y 1400: X switches to Y when d(X,Y) < d(X,us) + 150 m (we hidden); +0 m (we visible)
+  hp us 700, hp Y 1400: X switches to Y when d(X,Y) < d(X,us) + -25 m (we hidden); -175 m (we visible)
+  hp us 1400, hp Y 700: X switches to Y when d(X,Y) < d(X,us) + 325 m (we hidden); +175 m (we visible)
+  t 310 s circle 105 m dps 100: hunter at 100 m from centre is  -5 m outside, 1400 HP lasts 14.0 s
+  t 310 s circle 105 m dps 100: hunter at 150 m from centre is  45 m outside, 1400 HP lasts 14.0 s
+  t 325 s circle  70 m dps 160: hunter at 100 m from centre is  30 m outside, 1400 HP lasts  8.8 s
+  t 325 s circle  70 m dps 160: hunter at 150 m from centre is  80 m outside, 1400 HP lasts  8.8 s
+  t 362 s circle  47 m dps 160: hunter at 100 m from centre is  53 m outside, 1400 HP lasts  8.8 s
+  t 362 s circle  47 m dps 160: hunter at 150 m from centre is 103 m outside, 1400 HP lasts  8.8 s
+  t 390 s circle  25 m dps 260: hunter at 100 m from centre is  75 m outside, 1400 HP lasts  5.4 s
+  t 390 s circle  25 m dps 260: hunter at 150 m from centre is 125 m outside, 1400 HP lasts  5.4 s
+  near hunter at 60 m subtends +-2.7 deg: accidental alignment in a 120 deg sector 4.5%
+  near hunter at 100 m subtends +-1.6 deg: accidental alignment in a 120 deg sector 2.7%
+  near hunter at 150 m subtends +-1.1 deg: accidental alignment in a 120 deg sector 1.8%

@@ -1,0 +1,32 @@
+PASS  stream replay (map): no exception, valid actions  ::  300 obs x 3 passes, internal stage errors 0/0/0
+PASS  stream replay (map): decision time mean<=4 p99<=15 max<=25 ms  ::  cold pass mean 0.26 p99 8.16 max 8.60 | warm pass mean 0.18 p99 8.32 max 12.23 ms
+PASS  stream replay (no map): no exception, valid actions  ::  300 obs x 3 passes, internal stage errors 0/0/0
+PASS  stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms  ::  cold pass mean 0.05 p99 0.16 max 8.19 | warm pass mean 0.02 p99 0.06 max 0.11 ms
+PASS  gun: target walking across at 60 m, hit rate >= 0.9  ::  0.984 (62/63, mean range 64 m, spread ceiling 1.00) | no spread 0.984 | shot one tick later 1.000
+PASS  gun: target walking across at 100 m, hit rate >= 0.85  ::  0.921 (58/63, mean range 100 m, spread ceiling 0.99) | no spread 1.000 | shot one tick later 0.935
+PASS  gun: target walking across at 150 m, hit rate >= 0.7  ::  0.844 (54/64, mean range 150 m, spread ceiling 0.92) | no spread 0.969 | shot one tick later 0.871
+PASS  gun: target strafing with reversals every 2 s at 100 m, hit rate >= 0.6  ::  0.719 (46/64) | no spread 0.781
+PASS  gun: stationary target at 200 m (>= 0.9 without spread, >= 0.92 x ceiling with spread)  ::  no spread 1.000 (64/64) | spread 0.6 deg 0.797 (51/64), physical ceiling 0.841 at 185 m
+PASS  zone: outside the next circle, shrink in 5 s -> reaches it, never outside the current circle  ::  distance to next centre 462 -> 354 m (next radius 380), ticks outside 0, hp 1400
+PASS  zone: outside the zone -> boosts in  ::  132 m outside, inside after 8.1 s (walking alone: 11.3 s), boost on 56/56 decisions with energy, hp left 1400
+PASS  heal: at 30% hp breaks the line of fire, holds fire, resumes above 90%  ::  line of fire broken at 1.7 s, shots while healing 0, decisions re-exposed 0, 90% hp at 26.4 s, firing again at 26.8 s, damage taken 765, enemy hp -40, modes {"HEAL":466,"HOLD":512,"FIGHT":122}
+PASS  shell dodge: shells aimed at our position land >= 9 m away  ::  24/24 evaded, closest 13.1 m | shells led on our velocity: 24/24 evaded, closest 14.0 m
+PASS  laser: holds to full charge and releases on target  ::  13/13 beams through the target body, smallest charge at release 0.75 s of 0.75 s, gun alongside 53/60
+PASS  offer: picks by the priority list  ::  8 cases
+PASS  pickup: take within reach, drop only when both slots are full and the new weapon ranks higher  ::  empty+laser -> gun,laser (1 take) | lightning+laser -> gun,laser drop 1 | laser+lightning -> 0 takes | empty+mortar -> 0 takes | walked 30 m to a lightning -> gun,lightning | mortar+lightning -> gun,lightning
+PASS  stuck: facing a wall with the goal behind it -> path following reaches the goal (real map)  ::  38 m straight / 57 m path: reached in 4.7 s (stuck events 0) | 27 m straight / 58 m path: reached in 4.7 s (stuck events 0) | 28 m straight / 56 m path: reached in 4.6 s (stuck events 0)
+PASS  stuck ladder (no nav, wall in the way): jump + sidestep, then the goal is abandoned  ::  stuck events 2, jumps 4, goals abandoned 2, cube not reached, final mode HOLD/hold
+PASS  duel: one hunter walking in on the real map is killed and we survive (6 seeds)  ::  kill 14 s hp 1261 acc 32/32 | kill 27 s hp 1263 acc 32/33 | kill 28 s hp 1261 acc 32/32 | kill 27 s hp 1263 acc 32/33 | kill 29 s hp 1261 acc 32/35 | kill 31 s hp 1263 acc 32/34
+INFO  two hunters at once (no pass criterion): 1/2 kills hp 0 | 0/2 kills hp 0 | 1/2 kills hp 0 | 0/2 kills hp 0 | 0/2 kills hp 0 | 0/2 kills hp 0
+PASS  ambush (M2): pre-aimed at the corner, first shot on first sight, pursuer killed  ::  emergence at 97 m; ambush decisions 97; aim error at first sight 0.032 rad; first shot 0.10 s and first hit 0.40 s after first sight; kill true, hp left 1400
+PASS  last stand: doomed with two attackers -> LAST-STAND stance, keeps firing at the weakest until death  ::  alive 3.0 s, LAST-STAND on 29/30 decisions, modes {"HEAL":1,"FIGHT":29}, shots 10, hits 9, weak enemy hp 500 -> 95, strong enemy untouched true
+PASS  stance: SQUAD healthy with one hunter is OPPORTUNIST and fires first; under half hp is DEFENSIVE  ::  healthy: OPPORTUNIST/SQUAD, shots 12 | 43% hp: DEFENSIVE
+PASS  environment: mechs shooting each other latch FFA; quiet mechs stay SQUAD; PARAMS.env overrides  ::  fight evidence: FFA (F=14, Q=0) | none: SQUAD (F=0) | env:'squad' override: SQUAD | env:'ffa' override: FFA; FFA stance with an unaware healthy target: DEFENSIVE
+PASS  torso veto: an attacker of >= 60 dps is never left more than 80 deg off the commanded yaw  ::  worst offset 80.8 deg over 49 decisions, vetoes 63
+PASS  second weapons: lightning rush closes to arc range and fires; mortar does not disturb the gun  ::  lightning: closest 38 m, trigger held in range on 60 decisions | mortar slot: gun 32/32, mortar trigger on 48 decisions
+PASS  kill drop: cubes of our kill are collected while healing, without firing  ::  cubes 2/2, hp 1400/1400, shots after the kill 0
+PASS  loot: shoots a crate open and collects its cube  ::  cubes 1, shots 8, crates left 0
+PASS  fuzz: 2000 perturbed observations x 2 (map / no map) never throw, always a valid action  ::  threw 0, invalid 0, slowest decision 12.38 ms, stage errors caught inside the last brains: 0
+PASS  decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms  ::  16082 decisions, mean 0.03 p99 0.19 max 15.93 ms
+
+29/29 checks passed

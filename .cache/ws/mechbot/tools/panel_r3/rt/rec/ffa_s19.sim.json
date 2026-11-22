@@ -1,0 +1,79 @@
+{
+ "args": {
+  "bot": "proc:python3 -B /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/tee_rec.py /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s19.jsonl -- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/dist/bot.js",
+  "mode": "ffa",
+  "matches": 1,
+  "seed": 19,
+  "jobs": 1,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/rec/ffa_s19.sim.json",
+  "latency": 0,
+  "timeout": 2000,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": false,
+  "worker": false,
+  "seeds": null,
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/panel_r3/rt/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": null,
+  "trace": null,
+  "traceTag": null
+ },
+ "summary": {
+  "matches": 1,
+  "meanScore": 3,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 0,
+  "meanTimeAlive": 31.9,
+  "meanDmgDealt": 180,
+  "meanDmgTaken": 1490,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "laser": 1
+  },
+  "meanWallMs": 2011,
+  "wallS": 2.3
+ },
+ "matches": [
+  {
+   "seed": 19,
+   "slot": 11,
+   "name": "aegis-16",
+   "place": 13,
+   "score": 3,
+   "kills": 0,
+   "timeAlive": 31.85,
+   "alive": false,
+   "dmgDealt": 180,
+   "dmgTaken": 1490,
+   "cause": "laser",
+   "killedBy": 14,
+   "killRange": 179,
+   "killerRole": null,
+   "hunters": 0,
+   "killerName": "house:expert",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 31.85,
+   "wallMs": 2011,
+   "deadOthers": 3,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 6.2,
+   "meanMs": 0
+  }
+ ]
+}

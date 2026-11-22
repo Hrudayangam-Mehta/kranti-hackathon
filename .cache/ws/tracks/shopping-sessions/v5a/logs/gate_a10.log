@@ -1,0 +1,14 @@
+binary a10 7c4d837a067dbd39cb941fc94237dc19c93bffab68ab37b83edfd0adfe5434bc
+fixtures NCPU=1: 36/36 fixtures passed
+fixtures NCPU=4: 36/36 fixtures passed
+v5 dev NCPU=1: exit=0 stdout=0 MATCH / MATCH
+v5 dev NCPU=4: exit=0 stdout=0 MATCH / MATCH
+v5 dev NCPU=8: exit=0 stdout=0 MATCH / MATCH
+v5 dev slow NCPU=4: exit=0 stdout=0 MATCH / MATCH
+v5 dev rerun into non-empty NCPU=4 (files before 9): exit=0 stdout=0 MATCH / MATCH files after 9
+v4 dev NCPU=1: exit=0 stdout=0 MATCH / MATCH
+v4 dev NCPU=4: exit=0 stdout=0 MATCH / MATCH
+p20m5 NCPU=2: exit=0 stdout=0 vs rel17: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 35 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL

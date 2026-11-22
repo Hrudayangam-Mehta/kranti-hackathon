@@ -1,0 +1,93 @@
+All 16 draws: mean 4.938, sd 0.168 (if every build had the same mean, this sd estimates sigma)
+  homogeneity test at sigma 0.15: chi2 = 18.7 on 15 df, p = 0.23
+  homogeneity test at sigma 0.17: chi2 = 14.6 on 15 df, p = 0.48
+  homogeneity test at sigma 0.20: chi2 = 10.5 on 15 df, p = 0.79
+  homogeneity test at sigma 0.24: chi2 = 7.3 on 15 df, p = 0.95
+V4 salts [5.15, 4.69, 5.06]: mean 4.967, sd 0.244 (2 df)
+
+=== BMA over (sigma, tau), external re-roll pairs ON ===
+sigma per draw: posterior mean 0.161, median 0.160, 80% interval [0.13, 0.2]
+tau (true effect sd of one preset item): posterior mean 0.070, median 0.060, 80% interval [0.005, 0.14]
+
+Effects against V4 (BMA posterior; raw single-draw readings are in draws.csv):
+  mu_V4   4.932  sd 0.053
+  P1off   -0.045  sd 0.071
+  Aoff    +0.029  sd 0.073
+  Boff    +0.020  sd 0.069
+  Coff    +0.017  sd 0.069
+  Don     -0.039  sd 0.063
+  Eoff    -0.009  sd 0.060
+  Foff    +0.008  sd 0.067
+  p2boff  -0.010  sd 0.072
+  h50     +0.009  sd 0.069
+  lite    -0.038  sd 0.078
+  seek    +0.038  sd 0.063
+
+Build true means (posterior; P(best) among the listed builds):
+  V4         4.933  sd 0.053  80% [4.87, 5.00]  P(best) 0.01
+  S          4.970  sd 0.071  80% [4.89, 5.06]  P(best) 0.08
+  K0         5.007  sd 0.086  80% [4.91, 5.12]  P(best) 0.13
+  KS         5.045  sd 0.107  80% [4.92, 5.19]  P(best) 0.51
+  H          4.941  sd 0.078  80% [4.85, 5.04]  P(best) 0.08
+  HL         4.895  sd 0.087  80% [4.78, 4.99]  P(best) 0.04
+  V1         4.894  sd 0.069  80% [4.80, 4.98]  P(best) 0.02
+  S01full    4.953  sd 0.081  80% [4.86, 5.05]  P(best) 0.11
+  V2         4.849  sd 0.104  80% [4.71, 4.97]  P(best) 0.03
+
+=== fixed sigma 0.17, tau 0.10 ===
+sigma per draw: posterior mean 0.170, median 0.170, 80% interval [0.17, 0.17]
+tau (true effect sd of one preset item): posterior mean 0.100, median 0.100, 80% interval [0.1, 0.1]
+
+Effects against V4 (BMA posterior; raw single-draw readings are in draws.csv):
+  mu_V4   4.929  sd 0.061
+  P1off   -0.064  sd 0.078
+  Aoff    +0.040  sd 0.086
+  Boff    +0.029  sd 0.083
+  Coff    +0.025  sd 0.084
+  Don     -0.058  sd 0.075
+  Eoff    -0.017  sd 0.077
+  Foff    +0.014  sd 0.082
+  p2boff  -0.015  sd 0.090
+  h50     +0.013  sd 0.088
+  lite    -0.051  sd 0.088
+  seek    +0.059  sd 0.076
+
+Build true means (posterior; P(best) among the listed builds):
+  V4         4.929  sd 0.060  80% [4.85, 5.01]  P(best) 0.01
+  S          4.987  sd 0.081  80% [4.88, 5.09]  P(best) 0.08
+  K0         5.038  sd 0.091  80% [4.92, 5.15]  P(best) 0.14
+  KS         5.096  sd 0.103  80% [4.97, 5.23]  P(best) 0.59
+  H          4.943  sd 0.096  80% [4.82, 5.07]  P(best) 0.08
+  HL         4.880  sd 0.098  80% [4.75, 5.01]  P(best) 0.02
+  V1         4.873  sd 0.077  80% [4.77, 4.97]  P(best) 0.01
+  S01full    4.956  sd 0.099  80% [4.83, 5.08]  P(best) 0.07
+  V2         4.808  sd 0.103  80% [4.68, 4.94]  P(best) 0.01
+
+=== fixed sigma 0.24, tau 0.15 ===
+sigma per draw: posterior mean 0.240, median 0.240, 80% interval [0.24, 0.24]
+tau (true effect sd of one preset item): posterior mean 0.150, median 0.150, 80% interval [0.15, 0.15]
+
+Effects against V4 (BMA posterior; raw single-draw readings are in draws.csv):
+  mu_V4   4.929  sd 0.087
+  P1off   -0.069  sd 0.115
+  Aoff    +0.043  sd 0.127
+  Boff    +0.030  sd 0.124
+  Coff    +0.026  sd 0.124
+  Don     -0.060  sd 0.109
+  Eoff    -0.016  sd 0.113
+  Foff    +0.013  sd 0.122
+  p2boff  -0.016  sd 0.133
+  h50     +0.014  sd 0.130
+  lite    -0.056  sd 0.130
+  seek    +0.061  sd 0.110
+
+Build true means (posterior; P(best) among the listed builds):
+  V4         4.931  sd 0.086  80% [4.82, 5.04]  P(best) 0.02
+  S          4.990  sd 0.117  80% [4.84, 5.14]  P(best) 0.10
+  K0         5.042  sd 0.131  80% [4.87, 5.21]  P(best) 0.15
+  KS         5.102  sd 0.148  80% [4.91, 5.29]  P(best) 0.46
+  H          4.946  sd 0.140  80% [4.77, 5.13]  P(best) 0.11
+  HL         4.876  sd 0.142  80% [4.69, 5.06]  P(best) 0.04
+  V1         4.872  sd 0.110  80% [4.73, 5.01]  P(best) 0.01
+  S01full    4.955  sd 0.142  80% [4.77, 5.13]  P(best) 0.10
+  V2         4.803  sd 0.150  80% [4.61, 4.99]  P(best) 0.02

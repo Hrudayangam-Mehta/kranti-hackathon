@@ -1,0 +1,148 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index a60daa0..42a7ef5 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -311,6 +311,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+ 
+                 let people = people.get().unwrap();
+                 let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
++                arena.retire();
+                 let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, 256);
+                 let mut buf: Vec<EventRec> = Vec::new();
+                 let mut table: Vec<(u64, u32)> = Vec::new();
+@@ -677,6 +678,7 @@ fn dedup(
+         for slice in sink.slices(q) {
+             buf.extend_from_slice(slice);
+         }
++        sink.release(q, arena);
+     }
+     let n = buf.len();
+     if n == 0 {
+diff --git a/src/fast/people.rs b/src/fast/people.rs
+index a30b059..b9b1607 100644
+--- a/src/fast/people.rs
++++ b/src/fast/people.rs
+@@ -30,15 +30,19 @@ impl People {
+         (key.wrapping_mul(0x9e37_79b9_7f4a_7c15) >> self.shift) as usize
+     }
+ 
+-    pub fn build(pairs: &[(u64, u64)]) -> People {
+-        let size = (pairs.len() * 3).next_power_of_two().max(64);
++    fn with_capacity(size: usize) -> People {
+         let memory = super::sink::map_anonymous(size * 16);
+-        let mut people = People {
++        People {
+             shift: 64 - size.trailing_zeros(),
+             mask: size - 1,
+             slots: unsafe { std::slice::from_raw_parts_mut(memory as *mut [u64; 2], size) },
+             linked: 0,
+-        };
++        }
++    }
++
++    pub fn build(pairs: &[(u64, u64)]) -> People {
++        let size = (pairs.len() * 3).next_power_of_two().max(64);
++        let mut people = People::with_capacity(size);
+         let mut node_key: Vec<u64> = Vec::with_capacity(pairs.len() + 16);
+         let mut parent: Vec<u32> = Vec::with_capacity(pairs.len() + 16);
+         const BATCH: usize = 16;
+@@ -66,14 +70,21 @@ impl People {
+                 smallest[root] = node_key[node];
+             }
+         }
+-        for slot in people.slots.iter_mut() {
+-            if slot[0] != 0 {
+-                let root = find(&mut parent, slot[1] as u32) as usize;
+-                slot[1] = smallest[root];
++        let names: Vec<u64> = (0..nodes).map(|node| smallest[find(&mut parent, node as u32) as usize]).collect();
++        let renamed = node_key.iter().zip(&names).filter(|(key, name)| key != name).count();
++        let size = (renamed * 2).next_power_of_two().max(64);
++        let mut named = People::with_capacity(size);
++        for (&key, &name) in node_key.iter().zip(&names) {
++            if key != name {
++                let mut slot = named.home(key);
++                while named.slots[slot][0] != 0 {
++                    slot = (slot + 1) & named.mask;
++                }
++                named.slots[slot] = [key, name];
+             }
+         }
+-        people.linked = nodes;
+-        people
++        named.linked = nodes;
++        named
+     }
+ 
+     #[inline(always)]
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index 31a54f9..b954e3c 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -6,6 +6,7 @@ const REGION: usize = 64 << 20;
+ pub struct Arena {
+     next: *mut u8,
+     end: *mut u8,
++    spare: Vec<(*mut u8, usize)>,
+ }
+ 
+ unsafe impl Send for Arena {}
+@@ -34,6 +35,18 @@ impl Arena {
+         Arena {
+             next: ptr::null_mut(),
+             end: ptr::null_mut(),
++            spare: Vec::new(),
++        }
++    }
++
++    pub fn retire(&mut self) {
++        self.next = ptr::null_mut();
++        self.end = ptr::null_mut();
++    }
++
++    pub fn recycle(&mut self, start: *mut u8, bytes: usize) {
++        if bytes >= 64 {
++            self.spare.push((start, bytes & !63));
+         }
+     }
+ 
+@@ -41,9 +54,20 @@ impl Arena {
+     pub fn alloc(&mut self, bytes: usize) -> *mut u8 {
+         let bytes = (bytes + 63) & !63;
+         if (self.end as usize) - (self.next as usize) < bytes {
+-            let size = REGION.max(bytes);
+-            self.next = map_anonymous(size);
+-            self.end = unsafe { self.next.add(size) };
++            self.next = ptr::null_mut();
++            self.end = ptr::null_mut();
++            while let Some((start, size)) = self.spare.pop() {
++                if size >= bytes {
++                    self.next = start;
++                    self.end = unsafe { start.add(size) };
++                    break;
++                }
++            }
++            if self.next.is_null() {
++                let size = REGION.max(bytes);
++                self.next = map_anonymous(size);
++                self.end = unsafe { self.next.add(size) };
++            }
+         }
+         let p = self.next;
+         self.next = unsafe { self.next.add(bytes) };
+@@ -156,6 +180,16 @@ impl<T: Copy> Sink<T> {
+         self.full[part].len() * self.block + partial
+     }
+ 
++    pub fn release(&self, part: usize, arena: &mut Arena) {
++        let bytes = self.block * std::mem::size_of::<T>();
++        for &p in &self.full[part] {
++            arena.recycle(p as *mut u8, bytes);
++        }
++        if !self.cur[part].is_null() {
++            arena.recycle(unsafe { self.end[part].sub(self.block) } as *mut u8, bytes);
++        }
++    }
++
+     pub fn slices(&self, part: usize) -> impl Iterator<Item = &[T]> + '_ {
+         let block = self.block;
+         let full = self.full[part].iter().map(move |&p| unsafe { std::slice::from_raw_parts(p as *const T, block) });

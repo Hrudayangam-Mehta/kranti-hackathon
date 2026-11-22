@@ -1,0 +1,579 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 42a7ef5..754c3d9 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -8,7 +8,7 @@ pub mod write;
+ 
+ use std::fs;
+ use std::path::{Path, PathBuf};
+-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
++use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
+ use std::sync::{Barrier, Mutex, OnceLock};
+ use std::time::Instant;
+ 
+@@ -17,7 +17,7 @@ use crate::events::parse_price;
+ use crate::input::{self, Result, Window, ORGANIC, UNKNOWN_CATEGORY};
+ use crate::time::DAY_MS;
+ use keys::SmallMap;
+-use people::{prefetch, People};
++use people::People;
+ #[cfg(target_arch = "x86_64")]
+ use scan::Avx2;
+ use scan::{Kernel, Lines, Scalar, Scratch};
+@@ -228,7 +228,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     lap("setup");
+ 
+     let people: OnceLock<People> = OnceLock::new();
+-    let links_done = AtomicBool::new(false);
+     let queue = AtomicUsize::new(0);
+     let dedup_queue = AtomicUsize::new(0);
+     let person_queue = AtomicUsize::new(0);
+@@ -236,6 +235,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     let p1_sinks: Vec<OnceLock<Sink<EventRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
+     let click_sinks: Vec<OnceLock<Sink<ClickRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
+     let p2_sinks: Vec<OnceLock<Sink<PersonRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
++    let p3_sinks: Vec<OnceLock<Sink<PersonRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
++    let p3_click_sinks: Vec<OnceLock<Sink<ClickRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
++    let join_queue = AtomicUsize::new(0);
++    let part_count = 1usize << ctx.p2_bits;
++    let kept_events: Vec<AtomicU32> = (0..threads * part_count).map(|_| AtomicU32::new(0)).collect();
++    let kept_clicks: Vec<AtomicU32> = (0..threads * part_count).map(|_| AtomicU32::new(0)).collect();
+     let order: OnceLock<Vec<usize>> = OnceLock::new();
+     let results: Mutex<Vec<write::Part>> = Mutex::new(Vec::new());
+     let stats = Stats {
+@@ -253,7 +258,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         for id in 0..threads {
+             let ctx = &ctx;
+             let people = &people;
+-            let links_done = &links_done;
+             let queue = &queue;
+             let dedup_queue = &dedup_queue;
+             let person_queue = &person_queue;
+@@ -261,6 +265,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             let p1_sinks = &p1_sinks;
+             let click_sinks = &click_sinks;
+             let p2_sinks = &p2_sinks;
++            let p3_sinks = &p3_sinks;
++            let p3_click_sinks = &p3_click_sinks;
++            let join_queue = &join_queue;
++            let kept_events = &kept_events;
++            let kept_clicks = &kept_clicks;
+             let order = &order;
+             let results = &results;
+             let stats = &stats;
+@@ -283,16 +292,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                             let t0 = Instant::now();
+                             let built = build_people(ctx.link_files);
+                             let _ = people.set(built);
+-                            links_done.store(true, Ordering::Release);
+                             eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
+                         }
+                         Unit::Events(chunk) => copies += parse_events(ctx, chunk, &mut scratch, &mut arena, &mut p1),
+                         Unit::Clicks(chunk) => {
+-                            while !links_done.load(Ordering::Acquire) {
+-                                std::thread::yield_now();
+-                            }
+-                            let people = people.get().unwrap();
+-                            click_count += parse_clicks(ctx, people, chunk, &mut scratch, &mut arena, &mut clicks);
++                            click_count += parse_clicks(ctx, chunk, &mut scratch, &mut arena, &mut clicks);
+                         }
+                     }
+                 }
+@@ -321,35 +325,99 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     if q >= 1 << ctx.p1_bits {
+                         break;
+                     }
+-                    winners += dedup(ctx, people, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
++                    winners += dedup(ctx, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
+                 }
+                 stats.winners.fetch_add(winners, Ordering::Relaxed);
+                 p2.finish(&mut arena);
+                 let _ = p2_sinks[id].set(p2);
+                 if barrier.wait().is_leader() {
+-                    let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                    let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                    let mut sizes: Vec<(usize, usize)> = (0..1usize << ctx.p2_bits)
++                    lap("dedup");
++                }
++
++                let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
++                let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
++                arena.retire();
++                let mut p3: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, 256);
++                let mut p3_clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, 512);
++                let mut moved: Vec<PersonRec> = Vec::new();
++                let mut moved_clicks: Vec<ClickRec> = Vec::new();
++                loop {
++                    let q = join_queue.fetch_add(1, Ordering::Relaxed);
++                    if q >= 1 << ctx.p2_bits {
++                        break;
++                    }
++                    let bits = ctx.p2_bits;
++                    moved.clear();
++                    for (t, sink) in all_p2.iter().enumerate() {
++                        let kept = unsafe {
++                            compact(sink, q, &mut moved, |r| people.name_of(r.person), |r, person| PersonRec { person, ..r }, |r| r.person)
++                        };
++                        kept_events[t * part_count + q].store(kept as u32, Ordering::Relaxed);
++                    }
++                    for rec in &moved {
++                        p3.push(&mut arena, part_of(rec.person, H2, bits), *rec);
++                    }
++                    moved_clicks.clear();
++                    for (t, sink) in all_clicks.iter().enumerate() {
++                        let kept = unsafe {
++                            compact(sink, q, &mut moved_clicks, |r| people.name_of(r.person), |r, person| ClickRec { person, ..r }, |r| r.person)
++                        };
++                        kept_clicks[t * part_count + q].store(kept as u32, Ordering::Relaxed);
++                    }
++                    for rec in &moved_clicks {
++                        p3_clicks.push(&mut arena, part_of(rec.person, H2, bits), *rec);
++                    }
++                }
++                p3.finish(&mut arena);
++                p3_clicks.finish(&mut arena);
++                let _ = p3_sinks[id].set(p3);
++                let _ = p3_click_sinks[id].set(p3_clicks);
++                if barrier.wait().is_leader() {
++                    let all_p3: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
++                    let all_p3_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
++                    let kept = |counts: &[AtomicU32], p: usize| -> usize {
++                        (0..threads).map(|t| counts[t * part_count + p].load(Ordering::Relaxed) as usize).sum()
++                    };
++                    let mut sizes: Vec<(usize, usize)> = (0..part_count)
+                         .map(|p| {
+-                            let n: usize = all_p2.iter().map(|s| s.len(p)).sum::<usize>()
+-                                + all_clicks.iter().map(|s| s.len(p)).sum::<usize>() / 4;
++                            let n: usize = kept(kept_events, p)
++                                + all_p3.iter().map(|s| s.len(p)).sum::<usize>()
++                                + (kept(kept_clicks, p) + all_p3_clicks.iter().map(|s| s.len(p)).sum::<usize>()) / 4;
+                             (n, p)
+                         })
+                         .collect();
+                     sizes.sort_unstable_by(|a, b| b.cmp(a));
+                     let _ = order.set(sizes.into_iter().map(|(_, p)| p).collect());
+-                    lap("dedup");
++                    lap("join");
+                 }
+                 barrier.wait();
+ 
+-                let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
++                let all_p3: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
++                let all_p3_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
+                 let order = order.get().unwrap();
+                 let mut worker = Worker::new(ctx);
++                let mut event_slices: Vec<&[PersonRec]> = Vec::new();
++                let mut click_slices: Vec<&[ClickRec]> = Vec::new();
+                 loop {
+                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
+                     let Some(&p) = order.get(i) else { break };
+-                    worker.partition(ctx, &all_p2, &all_clicks, p);
++                    event_slices.clear();
++                    click_slices.clear();
++                    for (t, sink) in all_p2.iter().enumerate() {
++                        let count = kept_events[t * part_count + p].load(Ordering::Relaxed) as usize;
++                        event_slices.extend(sink.prefix(p, count));
++                    }
++                    for sink in &all_p3 {
++                        event_slices.extend(sink.slices(p));
++                    }
++                    for (t, sink) in all_clicks.iter().enumerate() {
++                        let count = kept_clicks[t * part_count + p].load(Ordering::Relaxed) as usize;
++                        click_slices.extend(sink.prefix(p, count));
++                    }
++                    for sink in &all_p3_clicks {
++                        click_slices.extend(sink.slices(p));
++                    }
++                    worker.partition(ctx, &event_slices, &click_slices);
+                 }
+                 let part = worker.finish();
+                 if let Err(e) = write::user_part(user_dir, id, &part, categories, ctx.first_day) {
+@@ -546,63 +614,34 @@ unsafe fn parse_events_k<K: Kernel>(
+     lines.copies
+ }
+ 
+-fn parse_clicks(
+-    ctx: &Ctx,
+-    people: &People,
+-    chunk: &[u8],
+-    scratch: &mut Scratch,
+-    arena: &mut Arena,
+-    sink: &mut Sink<ClickRec>,
+-) -> usize {
++fn parse_clicks(ctx: &Ctx, chunk: &[u8], scratch: &mut Scratch, arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+     #[cfg(target_arch = "x86_64")]
+     if scan::has_avx2() {
+-        return unsafe { parse_clicks_avx2(ctx, people, chunk, scratch, arena, sink) };
++        return unsafe { parse_clicks_avx2(ctx, chunk, scratch, arena, sink) };
+     }
+-    unsafe { parse_clicks_k::<Scalar>(ctx, people, chunk, scratch, arena, sink) }
++    unsafe { parse_clicks_k::<Scalar>(ctx, chunk, scratch, arena, sink) }
+ }
+ 
+ #[cfg(target_arch = "x86_64")]
+ #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+ unsafe fn parse_clicks_avx2(
+     ctx: &Ctx,
+-    people: &People,
+     chunk: &[u8],
+     scratch: &mut Scratch,
+     arena: &mut Arena,
+     sink: &mut Sink<ClickRec>,
+ ) -> usize {
+-    parse_clicks_k::<Avx2>(ctx, people, chunk, scratch, arena, sink)
++    parse_clicks_k::<Avx2>(ctx, chunk, scratch, arena, sink)
+ }
+ 
+-const CLICK_BATCH: usize = 32;
+-
+ struct ClickLines<'a, K> {
+     ctx: &'a Ctx<'a>,
+-    people: &'a People,
+     arena: &'a mut Arena,
+     sink: &'a mut Sink<ClickRec>,
+-    batch: [ClickRec; CLICK_BATCH],
+-    pending: usize,
+     total: usize,
+     kernel: std::marker::PhantomData<K>,
+ }
+ 
+-impl<K: Kernel> ClickLines<'_, K> {
+-    #[inline(always)]
+-    fn flush(&mut self) {
+-        let bits = self.ctx.p2_bits;
+-        for rec in &self.batch[..self.pending] {
+-            prefetch(self.people.slot_ptr(rec.person));
+-        }
+-        for i in 0..self.pending {
+-            let mut rec = self.batch[i];
+-            rec.person = self.people.name_of(rec.person);
+-            self.sink.push(self.arena, part_of(rec.person, H2, bits), rec);
+-        }
+-        self.pending = 0;
+-    }
+-}
+-
+ impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
+     #[inline(always)]
+     fn line(&mut self, f: &[&[u8]; 4]) {
+@@ -618,25 +657,22 @@ impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
+                 return;
+             }
+             let Some(campaign) = lookup_k::<K>(f[2]).and_then(|k| ctx.campaigns.get(k)) else { return };
+-            self.batch[self.pending] = ClickRec {
+-                person: intern_k::<K>(user),
++            let person = intern_k::<K>(user);
++            let rec = ClickRec {
++                person,
+                 click: intern_k::<K>(click_id),
+                 ts: (t - ctx.cws) as u32,
+                 campaign,
+             };
++            self.sink.push(self.arena, part_of(person, H2, ctx.p2_bits), rec);
+         }
+-        self.pending += 1;
+         self.total += 1;
+-        if self.pending == CLICK_BATCH {
+-            self.flush();
+-        }
+     }
+ }
+ 
+ #[inline(always)]
+ unsafe fn parse_clicks_k<K: Kernel>(
+     ctx: &Ctx,
+-    people: &People,
+     chunk: &[u8],
+     scratch: &mut Scratch,
+     arena: &mut Arena,
+@@ -644,28 +680,18 @@ unsafe fn parse_clicks_k<K: Kernel>(
+ ) -> usize {
+     let mut lines = ClickLines::<K> {
+         ctx,
+-        people,
+         arena,
+         sink,
+-        batch: [ClickRec {
+-            person: 0,
+-            click: 0,
+-            ts: 0,
+-            campaign: 0,
+-        }; CLICK_BATCH],
+-        pending: 0,
+         total: 0,
+         kernel: std::marker::PhantomData,
+     };
+     scan::scan::<4, K, _>(chunk, scratch, &mut lines);
+-    lines.flush();
+     lines.total
+ }
+ 
+ #[allow(clippy::too_many_arguments)]
+ fn dedup(
+     ctx: &Ctx,
+-    people: &People,
+     sinks: &[&Sink<EventRec>],
+     q: usize,
+     buf: &mut Vec<EventRec>,
+@@ -712,35 +738,59 @@ fn dedup(
+             slot = (slot + 1) & mask;
+         }
+     }
+-    const BATCH: usize = 32;
+-    let mut pending: [(u64, u32, u32); BATCH] = [(0, 0, 0); BATCH];
+-    let mut count = 0usize;
+     let mut winners = 0usize;
+     let bits = ctx.p2_bits;
+-    let flush = |pending: &[(u64, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
+-        for &(user, _, _) in pending {
+-            prefetch(people.slot_ptr(user));
+-        }
+-        for &(user, ts, payload) in pending {
+-            let person = people.name_of(user);
+-            out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
+-        }
+-    };
+     for rec in buf.iter() {
+         if rec.event != 0 && rec.ts != INVALID {
+-            pending[count] = (rec.user, rec.ts, rec.payload);
+-            count += 1;
+             winners += 1;
+-            if count == BATCH {
+-                flush(&pending, out, arena);
+-                count = 0;
+-            }
++            let person = rec.user;
++            out.push(arena, part_of(person, H2, bits), PersonRec { person, ts: rec.ts, payload: rec.payload });
+         }
+     }
+-    flush(&pending[..count], out, arena);
+     winners
+ }
+ 
++unsafe fn compact<T: Copy>(
++    sink: &Sink<T>,
++    q: usize,
++    moved: &mut Vec<T>,
++    name: impl Fn(&T) -> u64,
++    rename: impl Fn(T, u64) -> T,
++    key: impl Fn(&T) -> u64,
++) -> usize {
++    let blocks = sink.blocks(q);
++    if blocks == 0 {
++        return 0;
++    }
++    moved.reserve(sink.len(q));
++    let out = moved.as_mut_ptr().add(moved.len());
++    let mut out_len = 0usize;
++    let (mut write, mut write_len) = sink.block(q, 0);
++    let mut write_block = 0usize;
++    let mut at = 0usize;
++    let mut kept = 0usize;
++    for b in 0..blocks {
++        let (read, n) = sink.block(q, b);
++        for i in 0..n {
++            let rec = *read.add(i);
++            let person = name(&rec);
++            let stay = person == key(&rec);
++            while at == write_len {
++                write_block += 1;
++                (write, write_len) = sink.block(q, write_block);
++                at = 0;
++            }
++            *write.add(at) = rec;
++            at += usize::from(stay);
++            kept += usize::from(stay);
++            *out.add(out_len) = rename(rec, person);
++            out_len += usize::from(!stay);
++        }
++    }
++    moved.set_len(moved.len() + out_len);
++    kept
++}
++
+ #[derive(Clone, Copy, Default)]
+ struct Rec {
+     ts: u32,
+@@ -864,8 +914,8 @@ impl Worker {
+         self.rows
+     }
+ 
+-    fn partition(&mut self, ctx: &Ctx, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
+-        let n: usize = events.iter().map(|s| s.len(p)).sum();
++    fn partition(&mut self, ctx: &Ctx, events: &[&[PersonRec]], clicks: &[&[ClickRec]]) {
++        let n: usize = events.iter().map(|s| s.len()).sum();
+         if n == 0 {
+             return;
+         }
+@@ -882,35 +932,33 @@ impl Worker {
+         self.recs.clear();
+         let mut low = u32::MAX;
+         let mut high = 0u32;
+-        for sink in events {
+-            for slice in sink.slices(p) {
+-                for rec in slice {
+-                    let key = rec.person;
+-                    let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+-                    let id = loop {
+-                        let id = unsafe { *self.local_ids.get_unchecked(slot) };
+-                        if id == u32::MAX {
+-                            let id = self.persons.len() as u32;
+-                            self.local_ids[slot] = id;
+-                            self.local_keys[slot] = key;
+-                            self.persons.push(key);
+-                            self.counts.push(0);
+-                            break id;
+-                        }
+-                        if unsafe { *self.local_keys.get_unchecked(slot) } == key {
+-                            break id;
+-                        }
+-                        slot = (slot + 1) & mask;
+-                    };
+-                    unsafe { *self.counts.get_unchecked_mut(id as usize) += 1 };
+-                    low = low.min(rec.ts);
+-                    high = high.max(rec.ts);
+-                    self.recs.push(Rec {
+-                        ts: rec.ts,
+-                        payload: rec.payload,
+-                        id,
+-                    });
+-                }
++        for slice in events {
++            for rec in slice.iter() {
++                let key = rec.person;
++                let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
++                let id = loop {
++                    let id = unsafe { *self.local_ids.get_unchecked(slot) };
++                    if id == u32::MAX {
++                        let id = self.persons.len() as u32;
++                        self.local_ids[slot] = id;
++                        self.local_keys[slot] = key;
++                        self.persons.push(key);
++                        self.counts.push(0);
++                        break id;
++                    }
++                    if unsafe { *self.local_keys.get_unchecked(slot) } == key {
++                        break id;
++                    }
++                    slot = (slot + 1) & mask;
++                };
++                unsafe { *self.counts.get_unchecked_mut(id as usize) += 1 };
++                low = low.min(rec.ts);
++                high = high.max(rec.ts);
++                self.recs.push(Rec {
++                    ts: rec.ts,
++                    payload: rec.payload,
++                    id,
++                });
+             }
+         }
+         radix_by_ts(&mut self.recs, &mut self.spare, low, high, |r| r.ts);
+@@ -938,29 +986,27 @@ impl Worker {
+         self.click_recs.clear();
+         let mut low = u32::MAX;
+         let mut high = 0u32;
+-        for sink in clicks {
+-            for slice in sink.slices(p) {
+-                for rec in slice {
+-                    let key = rec.person;
+-                    let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+-                    let id = loop {
+-                        let id = unsafe { *self.local_ids.get_unchecked(slot) };
+-                        if id == u32::MAX || unsafe { *self.local_keys.get_unchecked(slot) } == key {
+-                            break id;
+-                        }
+-                        slot = (slot + 1) & mask;
+-                    };
+-                    if id != u32::MAX {
+-                        unsafe { *self.click_counts.get_unchecked_mut(id as usize) += 1 };
+-                        low = low.min(rec.ts);
+-                        high = high.max(rec.ts);
+-                        self.click_recs.push(ClickTmp {
+-                            ts: rec.ts,
+-                            id,
+-                            campaign: rec.campaign,
+-                            click: rec.click,
+-                        });
++        for slice in clicks {
++            for rec in slice.iter() {
++                let key = rec.person;
++                let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
++                let id = loop {
++                    let id = unsafe { *self.local_ids.get_unchecked(slot) };
++                    if id == u32::MAX || unsafe { *self.local_keys.get_unchecked(slot) } == key {
++                        break id;
+                     }
++                    slot = (slot + 1) & mask;
++                };
++                if id != u32::MAX {
++                    unsafe { *self.click_counts.get_unchecked_mut(id as usize) += 1 };
++                    low = low.min(rec.ts);
++                    high = high.max(rec.ts);
++                    self.click_recs.push(ClickTmp {
++                        ts: rec.ts,
++                        id,
++                        campaign: rec.campaign,
++                        click: rec.click,
++                    });
+                 }
+             }
+         }
+diff --git a/src/fast/people.rs b/src/fast/people.rs
+index b9b1607..6372b6f 100644
+--- a/src/fast/people.rs
++++ b/src/fast/people.rs
+@@ -27,7 +27,7 @@ fn find(parent: &mut [u32], mut node: u32) -> u32 {
+ impl People {
+     #[inline(always)]
+     fn home(&self, key: u64) -> usize {
+-        (key.wrapping_mul(0x9e37_79b9_7f4a_7c15) >> self.shift) as usize
++        (key.wrapping_mul(super::H2) >> self.shift) as usize
+     }
+ 
+     fn with_capacity(size: usize) -> People {
+@@ -107,11 +107,6 @@ impl People {
+         }
+     }
+ 
+-    #[inline(always)]
+-    pub fn slot_ptr(&self, key: u64) -> *const [u64; 2] {
+-        unsafe { self.slots.as_ptr().add(self.home(key)) }
+-    }
+-
+     #[inline(always)]
+     pub fn name_of(&self, key: u64) -> u64 {
+         let mut slot = self.home(key);
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index b954e3c..94ba6ad 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -190,6 +190,28 @@ impl<T: Copy> Sink<T> {
+         }
+     }
+ 
++    pub fn blocks(&self, part: usize) -> usize {
++        self.full[part].len() + usize::from(!self.cur[part].is_null())
++    }
++
++    pub fn block(&self, part: usize, i: usize) -> (*mut T, usize) {
++        if i < self.full[part].len() {
++            (self.full[part][i], self.block)
++        } else {
++            let start = unsafe { self.end[part].sub(self.block) };
++            (start, unsafe { self.cur[part].offset_from(start) } as usize)
++        }
++    }
++
++    pub fn prefix(&self, part: usize, count: usize) -> impl Iterator<Item = &[T]> + '_ {
++        let mut left = count;
++        self.slices(part).map(move |slice| {
++            let take = slice.len().min(left);
++            left -= take;
++            &slice[..take]
++        })
++    }
++
+     pub fn slices(&self, part: usize) -> impl Iterator<Item = &[T]> + '_ {
+         let block = self.block;
+         let full = self.full[part].iter().map(move |&p| unsafe { std::slice::from_raw_parts(p as *const T, block) });

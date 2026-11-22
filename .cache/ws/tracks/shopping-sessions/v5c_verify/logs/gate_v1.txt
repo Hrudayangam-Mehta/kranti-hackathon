@@ -1,0 +1,82 @@
+=== gate v1 0b94a255295c35fa98f745a3d15efac00b69e7442c887da72b0caf0db34efe25 06:12:32
+fixtures NCPU=1: 36/36 fixtures passed
+fixtures NCPU=4: 36/36 fixtures passed
+dev v5 NCPU=1 : exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH
+dev v5 NCPU=3 : exit=0 stdout_bytes=0 files=8/3 MATCH / MATCH
+dev v5 NCPU=4 : exit=0 stdout_bytes=0 files=9/4 MATCH / MATCH
+dev v5 NCPU=8 : exit=0 stdout_bytes=0 files=10/4 MATCH / MATCH
+dev v5 NCPU=2 SESSIONS_PATH=slow: exit=0 stdout_bytes=0 files=8/1 MATCH / MATCH
+dev v5 NCPU=1 SESSIONS_PATH=slow: exit=0 stdout_bytes=0 files=4/1 MATCH / MATCH
+dev v5 NCPU=1 SESSIONS_SCALAR=1: exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH
+dev v4 NCPU=1 : exit=0 stdout_bytes=0 files=2/1 MATCH / MATCH
+dev v4 NCPU=4 : exit=0 stdout_bytes=0 files=10/4 MATCH / MATCH
+--- p20m5 NCPU=2 (fresh dir)
+cat: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5.time: No such file or directory
+exit=127 stdout_bytes=0 
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/tools/gate.sh: line 35: /usr/bin/time: No such file or directory
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 13, in <module>
+    a, fa = load(sys.argv[1], table); b, fb = load(sys.argv[2], table)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 5, in load
+    df = pl.concat([pl.read_parquet(f) for f in files], how="vertical_relaxed")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/venv/lib/python3.11/site-packages/polars/functions/eager.py", line 219, in concat
+    raise ValueError(msg)
+ValueError: cannot concat empty list
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 13, in <module>
+    a, fa = load(sys.argv[1], table); b, fb = load(sys.argv[2], table)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 5, in load
+    df = pl.concat([pl.read_parquet(f) for f in files], how="vertical_relaxed")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/venv/lib/python3.11/site-packages/polars/functions/eager.py", line 219, in concat
+    raise ValueError(msg)
+ValueError: cannot concat empty list
+p20m5 vs rel17 ref: compare  / ; rowdiff  / 
+--- rerun into the non-empty folder (stale parquet + junk + dotfiles), NCPU=8
+ls: cannot access '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily': No such file or directory
+cp: cannot stat '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily/': No such file or directory
+ls: cannot access '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/campaign_daily': No such file or directory
+cp: cannot stat '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/campaign_daily/': No such file or directory
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/tools/gate.sh: line 43: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily/zz.txt: No such file or directory
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/tools/gate.sh: line 43: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/campaign_daily/_junk.parquet: No such file or directory
+touch: cannot touch '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/user_daily/.hidden': No such file or directory
+ln: failed to create symbolic link '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5c_verify/runs/gate_v1/p20m5/campaign_daily/link.parquet': No such file or directory
+exit=0 stdout_bytes=0
+leftovers user_daily: subdir  | campaign_daily: 
+rerun p20m5 vs rel17 ref: compare MATCH / MATCH; rowdiff ROWDIFF IDENTICAL / ROWDIFF IDENTICAL
+=== gate done 06:12:57

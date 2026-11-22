@@ -1,0 +1,20 @@
+== heavy x4800 (15 mechs, 10 projectiles)
+ready in 3221 ms wall; CPU until ready: main thread 799 ms, all 5 threads 806 ms ({"type":"ready","name":"aegis-16"})
+CPU per decision, main thread : mean 0.413 p50 0.23 p90 0.69 p99 2.48 p999 13.34 max 20.5 ms | >15ms 2 >25ms 0 >50ms 0
+CPU per decision, all threads : mean 0.428 p50 0.24 p90 0.85 p99 2.60 p999 13.44 max 20.6 ms | >15ms 2 >25ms 0 >50ms 0
+top by all-thread CPU: #613(tick 1226) all 20.6 main 20.5 wall 82.2 cubes=3 mechs=18 | #677(tick 1354) all 16.1 main 15.9 wall 55.1 cubes=3 mechs=18 | #812(tick 1624) all 13.8 main 13.7 wall 41.7 cubes=4 mechs=18 | #2163(tick 4326) all 13.6 main 13.6 wall 44.7 cubes=12 mechs=18 | #1866(tick 3732) all 13.4 main 13.3 wall 37.5 cubes=10 mechs=18 | #34(tick 68) all 8.5 main 8.4 wall 20.7 cubes=0 mechs=18 | #114(tick 228) all 7.7 main 7.6 wall 31.0 cubes=0 mechs=18 | #50(tick 100) all 7.2 main 7.2 wall 19.3 cubes=0 mechs=18 | #3500(tick 7000) all 7.0 main 6.8 wall 31.0 cubes=19 mechs=18 | #2442(tick 4884) all 6.8 main 6.7 wall 30.8 cubes=13 mechs=18
+wall latency (polluted by other jobs on this machine):
+decisions 4800: mean 1.910 p50 0.34 p90 6.19 p99 13.14 p999 37.45 max 82.2 ms | >15ms 30 >25ms 10 >50ms(late) 2 missing 0 invalid 0 badLines 0 wrongTick 0
+ticks > 20 ms: #0(tick 0) 33.1ms cubes=0 mechs=18, #34(tick 68) 20.7ms cubes=0 mechs=18, #114(tick 228) 31ms cubes=0 mechs=18, #176(tick 352) 21.4ms cubes=0 mechs=18, #613(tick 1226) 82.2ms cubes=3 mechs=18, #677(tick 1354) 55.1ms cubes=3 mechs=18, #808(tick 1616) 20.6ms cubes=4 mechs=18, #812(tick 1624) 41.7ms cubes=4 mechs=18, #1866(tick 3732) 37.5ms cubes=10 mechs=18, #2163(tick 4326) 44.7ms cubes=12 mechs=18, #2442(tick 4884) 30.8ms cubes=13 mechs=18, #3500(tick 7000) 31ms cubes=19 mechs=18, #4387(tick 8774) 30.4ms cubes=24 mechs=18
+memory MB (decision: rss/hwm): 0: 67/67  500: 64/69  1000: 70/71  1500: 67/82  2000: 70/82  2500: 68/82  3000: 84/84  3500: 70/84  4000: 70/84  4500: 69/84  4800: 70/84
+exit {"code":0,"sig":null}
+stderr: 9 lines, 6 error/slow lines
+   [bot] slow tick 228: 30.5 ms
+   [bot] slow tick 1226: 81.6 ms
+   [bot] slow tick 1354: 51.5 ms
+   [bot] slow tick 1624: 41.4 ms
+   [bot] slow tick 3732: 37.2 ms
+   [bot] end place=1 kills=0 ticks=4800 errors=0 slow=9 worst=81.6ms
+   tail: [bot] slow tick 3732: 37.2 ms
+   tail: [bot] end place=1 kills=0 ticks=4800 errors=0 slow=9 worst=81.6ms
+obs line bytes: mean 6690 max 7123

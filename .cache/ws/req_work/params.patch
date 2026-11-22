@@ -1,0 +1,37 @@
+--- a/lib/params.js	2026-11-21 08:14:26.339402015 +0000
++++ b/lib/params.js	2026-11-21 08:24:15.052742562 +0000
+@@ -81,6 +81,20 @@
+   dropMaxD: 250, dropEarlyS: 3, dropContestR: 60, dropLeaveR: 70, dropHpBase: 200, dropCaptureS: 4,
+   idlePull: false, idlePullS: 20, idlePullHpf: 0.9, roamStep: 0.15,
+ 
++  // ---- owner request R1 (lib/steal.js): smart crate shooting + loot stealing. Switches: stealOn (a-e), crateGateOn.
++  stealOn: true, crateGateOn: true,
++  crateMechR: 120, crateQuietS: 2, regenNeedHpf: 0.97, crateResetsRegen: false,     // smart shooting gates
++  stealHpfFfa: 0.7, stealMaxD: 90, stealShooterMinD: 25, stealRateMin: 20, stealLateS: 1.5, stealLeadS: 0.35,
++  stealSide: 3.0, stealBehind: 0.9, stealTimeout: 15, stealPrefer: 0.8,                  // a) crates / drones others shoot
++  deathDropS: 30, deathRushR: 100, deathRushMargin: 0.6, deathCubeR: 110, deathCubeMemS: 90,   // b) kill drops, c) death cubes
++  raceCos: 0.85, raceMargin: 0.5, raceBonus: 1.6,                                       // d) pickups others walk to
++  dropRaceS: 1.0, dropRingPad: 4,                                                       // e) supply drops
++  // ---- owner request R2 (lib/scan.js): late-game torso sweep. Switch: scanOn.
++  scanOn: true, scanLateT: 240, scanLateAlive: 8, scanLateR: 140, scanBlindMax: 3.0, scanForceLead: 0.9, scanDwell: 0.12, rearFaceS: 1.5,
++  // ---- owner request R3: aim at the highest clear body point (headAimOn, firecontrol.js) + calibration (aimCalOn, lib/aimcal.js)
++  headAimOn: true, aimLadder: [0.8, 0.65, 0.5, 0.35, 0.2], gunLadderTop: 0.65,
++  aimCalOn: true, calGain: 0.5, calLatGain: 0.4, calMaxRad: 0.03, calMaxLat: 0.08, calDecayS: 30, calMissMax: 6, calGun: false,
++
+   // ---- layer 6
+   ambushRun: 50, ambushHpf: 0.5, ambushStallS: 3,
+ 
+@@ -109,8 +123,12 @@
+   gunlessClue: { off: { gunlessClue: false }, on: { gunlessClue: true } },
+   idlePull: { off: { idlePull: false }, on: { idlePull: true } },
+   env: { auto: { env: 'auto' }, squad: { env: 'squad' } },
++  // owner requests: one string turns a whole request off for an A/B
++  R1: { on: { stealOn: true, crateGateOn: true }, off: { stealOn: false, crateGateOn: false } },
++  R2: { on: { scanOn: true }, off: { scanOn: false } },
++  R3: { on: { headAimOn: true, aimCalOn: true }, off: { headAimOn: false, aimCalOn: false } },
+ }
+-export const SELECT = { laserRange: 'far', healExit: '70', farmHp: '90', strafe: 'd4', ffaPair: 'on', beamClue: 'off', gunlessClue: 'off', idlePull: 'off', env: 'auto' }
++export const SELECT = { laserRange: 'far', healExit: '70', farmHp: '90', strafe: 'd4', ffaPair: 'on', beamClue: 'off', gunlessClue: 'off', idlePull: 'off', env: 'auto', R1: 'on', R2: 'on', R3: 'on' }
+ 
+ /** PARAMS <- presets (SELECT, then overrides.select) <- plain overrides. */
+ export function resolveParams(overrides) {

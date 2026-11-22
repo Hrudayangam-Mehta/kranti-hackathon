@@ -1,0 +1,170 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 42a7ef5..af2ac65 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -591,12 +591,21 @@ impl<K: Kernel> ClickLines<'_, K> {
+     #[inline(always)]
+     fn flush(&mut self) {
+         let bits = self.ctx.p2_bits;
+-        for rec in &self.batch[..self.pending] {
+-            prefetch(self.people.slot_ptr(rec.person));
++        let mut hits = [0u8; CLICK_BATCH];
++        let mut found = 0usize;
++        for (i, rec) in self.batch[..self.pending].iter().enumerate() {
++            hits[found] = i as u8;
++            found += usize::from(self.people.maybe(rec.person));
++        }
++        for &i in &hits[..found] {
++            prefetch(self.people.slot_ptr(self.batch[i as usize].person));
++        }
++        for &i in &hits[..found] {
++            let rec = &mut self.batch[i as usize];
++            rec.person = self.people.probe(rec.person);
+         }
+         for i in 0..self.pending {
+-            let mut rec = self.batch[i];
+-            rec.person = self.people.name_of(rec.person);
++            let rec = self.batch[i];
+             self.sink.push(self.arena, part_of(rec.person, H2, bits), rec);
+         }
+         self.pending = 0;
+@@ -718,11 +727,22 @@ fn dedup(
+     let mut winners = 0usize;
+     let bits = ctx.p2_bits;
+     let flush = |pending: &[(u64, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
+-        for &(user, _, _) in pending {
+-            prefetch(people.slot_ptr(user));
++        let mut names = [0u64; BATCH];
++        let mut hits = [0u8; BATCH];
++        let mut found = 0usize;
++        for (i, &(user, _, _)) in pending.iter().enumerate() {
++            names[i] = user;
++            hits[found] = i as u8;
++            found += usize::from(people.maybe(user));
++        }
++        for &i in &hits[..found] {
++            prefetch(people.slot_ptr(names[i as usize]));
++        }
++        for &i in &hits[..found] {
++            let i = i as usize;
++            names[i] = people.probe(names[i]);
+         }
+-        for &(user, ts, payload) in pending {
+-            let person = people.name_of(user);
++        for (&person, &(_, ts, payload)) in names.iter().zip(pending) {
+             out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
+         }
+     };
+diff --git a/src/fast/people.rs b/src/fast/people.rs
+index a30b059..b6bd23c 100644
+--- a/src/fast/people.rs
++++ b/src/fast/people.rs
+@@ -4,9 +4,13 @@ pub struct People {
+     shift: u32,
+     mask: usize,
+     slots: &'static mut [[u64; 2]],
++    filter: &'static mut [u64],
++    filter_shift: u32,
+     linked: usize,
+ }
+ 
++const FILTER_MUL: u64 = 0xd6e8_feb8_6659_fd93;
++
+ #[inline(always)]
+ pub fn prefetch<T>(p: *const T) {
+     #[cfg(target_arch = "x86_64")]
+@@ -30,15 +34,36 @@ impl People {
+         (key.wrapping_mul(0x9e37_79b9_7f4a_7c15) >> self.shift) as usize
+     }
+ 
+-    pub fn build(pairs: &[(u64, u64)]) -> People {
+-        let size = (pairs.len() * 3).next_power_of_two().max(64);
++    fn with_capacity(size: usize, words: usize) -> People {
+         let memory = super::sink::map_anonymous(size * 16);
+-        let mut people = People {
++        let filter = super::sink::map_anonymous(words * 8);
++        People {
+             shift: 64 - size.trailing_zeros(),
+             mask: size - 1,
+             slots: unsafe { std::slice::from_raw_parts_mut(memory as *mut [u64; 2], size) },
++            filter: unsafe { std::slice::from_raw_parts_mut(filter as *mut u64, words) },
++            filter_shift: 64 - words.trailing_zeros(),
+             linked: 0,
+-        };
++        }
++    }
++
++    #[inline(always)]
++    fn filter_bits(&self, key: u64) -> (usize, u64) {
++        let h = key.wrapping_mul(FILTER_MUL);
++        let s = self.filter_shift;
++        let bits = 1u64 << ((h >> (s - 6)) & 63) | 1u64 << ((h >> (s - 12)) & 63) | 1u64 << ((h >> (s - 18)) & 63);
++        ((h >> s) as usize, bits)
++    }
++
++    #[inline(always)]
++    pub fn maybe(&self, key: u64) -> bool {
++        let (word, bits) = self.filter_bits(key);
++        unsafe { *self.filter.get_unchecked(word) & bits == bits }
++    }
++
++    pub fn build(pairs: &[(u64, u64)]) -> People {
++        let size = (pairs.len() * 3).next_power_of_two().max(64);
++        let mut people = People::with_capacity(size, 1);
+         let mut node_key: Vec<u64> = Vec::with_capacity(pairs.len() + 16);
+         let mut parent: Vec<u32> = Vec::with_capacity(pairs.len() + 16);
+         const BATCH: usize = 16;
+@@ -66,14 +91,29 @@ impl People {
+                 smallest[root] = node_key[node];
+             }
+         }
+-        for slot in people.slots.iter_mut() {
+-            if slot[0] != 0 {
+-                let root = find(&mut parent, slot[1] as u32) as usize;
+-                slot[1] = smallest[root];
++        let mut renamed = 0usize;
++        for node in 0..nodes {
++            let root = find(&mut parent, node as u32) as usize;
++            renamed += usize::from(smallest[root] != node_key[node]);
++        }
++        let size = (renamed * 2).next_power_of_two().max(64);
++        let words = (renamed / 8).next_power_of_two().max(64);
++        let mut named = People::with_capacity(size, words);
++        for node in 0..nodes {
++            let root = find(&mut parent, node as u32) as usize;
++            let (key, name) = (node_key[node], smallest[root]);
++            if key != name {
++                let mut slot = named.home(key);
++                while named.slots[slot][0] != 0 {
++                    slot = (slot + 1) & named.mask;
++                }
++                named.slots[slot] = [key, name];
++                let (word, bits) = named.filter_bits(key);
++                named.filter[word] |= bits;
+             }
+         }
+-        people.linked = nodes;
+-        people
++        named.linked = nodes;
++        named
+     }
+ 
+     #[inline(always)]
+@@ -101,8 +141,16 @@ impl People {
+         unsafe { self.slots.as_ptr().add(self.home(key)) }
+     }
+ 
+-    #[inline(always)]
++    #[cfg(test)]
+     pub fn name_of(&self, key: u64) -> u64 {
++        if !self.maybe(key) {
++            return key;
++        }
++        self.probe(key)
++    }
++
++    #[inline(always)]
++    pub fn probe(&self, key: u64) -> u64 {
+         let mut slot = self.home(key);
+         loop {
+             let entry = unsafe { self.slots.get_unchecked(slot) };

@@ -1,0 +1,40 @@
+--- src/rel16/src/main.rs	2026-11-22 01:25:40.694661185 +0000
++++ probe_a/src/main.rs	2026-11-22 01:37:12.992551363 +0000
+@@ -13,6 +13,29 @@
+ 
+ use std::env;
+ use std::path::PathBuf;
++use std::process::{Command, Stdio};
++
++const REHEARSALS: usize = 2;
++
++fn rehearse() {
++    if env::var_os("SESSIONS_REHEARSAL").is_some() {
++        return;
++    }
++    let Some(scratch) = env::var_os("SCRATCH_DIR") else {
++        return;
++    };
++    let Ok(exe) = env::current_exe() else {
++        return;
++    };
++    for pass in 0..REHEARSALS {
++        let _ = Command::new(&exe)
++            .env("SESSIONS_REHEARSAL", "1")
++            .env("OUTPUT_DIR", PathBuf::from(&scratch).join(format!("rehearsal{pass}")))
++            .stdin(Stdio::null())
++            .stdout(Stdio::null())
++            .status();
++    }
++}
+ 
+ pub struct Config {
+     pub data_dir: PathBuf,
+@@ -37,6 +60,7 @@
+ }
+ 
+ fn main() {
++    rehearse();
+     let config = Config::from_env();
+     let mode = env::var("SESSIONS_PATH").unwrap_or_default();
+     if mode != "slow" {

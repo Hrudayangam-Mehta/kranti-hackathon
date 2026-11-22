@@ -1,0 +1,28 @@
+variant V4 snap {"select":{"retreat":"d3"}} new {"select":{"retreat":"d3","hunt":"off","seek":"off"}}
+stream kit squad | snap {"cmd":"stream","a1":"kit","a2":"squad","n":300,"hash":"7459032c1ad9b8202224","latchTick":-1,"env":"SQUAD","fuse":0,"errors":0} | off "n":300,"hash":"7459032c1ad9b8202224" | IDENTICAL
+stream kit auto | snap {"cmd":"stream","a1":"kit","a2":"auto","n":300,"hash":"a9cede0ed41ced9f0609","latchTick":498,"env":"FFA","fuse":0,"errors":0} | off "n":300,"hash":"a9cede0ed41ced9f0609" | IDENTICAL
+stream long4800 squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/long4800.jsonl.gz","a2":"squad","n":4800,"hash":"c004110e | off "n":4800,"hash":"c004110e0cf7c329967b" | IDENTICAL
+stream long4800 auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/release_gate/long4800.jsonl.gz","a2":"auto","n":4800,"hash":"c004110e0 | off "n":4800,"hash":"c004110e0cf7c329967b" | IDENTICAL
+stream long11 squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long11.jsonl.gz","a2":"squad","n":4800,"hash":"4a20f825ca56 | off "n":4800,"hash":"4a20f825ca568f6cca3b" | IDENTICAL
+stream long11 auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long11.jsonl.gz","a2":"auto","n":4800,"hash":"4a20f825ca568 | off "n":4800,"hash":"4a20f825ca568f6cca3b" | IDENTICAL
+stream long23p squad | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long23p.jsonl.gz","a2":"squad","n":4800,"hash":"284fc70534e | off "n":4800,"hash":"284fc70534e635cc6dd4" | IDENTICAL
+stream long23p auto | snap {"cmd":"stream","a1":"/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/pass2a/out/long23p.jsonl.gz","a2":"auto","n":4800,"hash":"284fc70534e6 | off "n":4800,"hash":"284fc70534e635cc6dd4" | IDENTICAL
+match 1 | snap "n":833,"hash":"4e41c6b6e58253cf36cc"
+"score":5 | off "n":833,"hash":"4e41c6b6e58253cf36cc"
+"score":5 | IDENTICAL
+match 2 | snap "n":918,"hash":"995a0fd0d131de83cca3"
+"score":4 | off "n":918,"hash":"995a0fd0d131de83cca3"
+"score":4 | IDENTICAL
+match 3 | snap "n":569,"hash":"0533723a49a3ea20aa70"
+"score":3 | off "n":569,"hash":"0533723a49a3ea20aa70"
+"score":3 | IDENTICAL
+match 4 | snap "n":735,"hash":"e49933d5ce5707757d92"
+"score":5 | off "n":735,"hash":"e49933d5ce5707757d92"
+"score":5 | IDENTICAL
+match 5 | snap "n":989,"hash":"6b7ffd34435c5c22b08c"
+"score":4 | off "n":989,"hash":"6b7ffd34435c5c22b08c"
+"score":4 | IDENTICAL
+match 6 | snap "n":597,"hash":"eb62f2c55bae812af782"
+"score":2 | off "n":597,"hash":"eb62f2c55bae812af782"
+"score":2 | IDENTICAL
+IDENTITY V4 off: 14/14 byte-identical

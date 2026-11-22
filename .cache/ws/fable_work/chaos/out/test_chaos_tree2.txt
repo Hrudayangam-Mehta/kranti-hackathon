@@ -1,0 +1,37 @@
+PASS  defaults: every new preset at its old value  ::  SELECT fuse:wall dropLife:off util:off pauseMove:off isoDwell:off upgFix:off
+PASS  util off: B.util undefined, B.upgOrder null, B.dl null  ::  ok
+PASS  defaults: chaos keys at their old values  ::  SELECT cubes:off boostCharge:off cratePath:std alpha:off healDoc:off last key healDoc
+PASS  FK1 target cost (60 m fresh / 110 m at 30%): focus 'kill' acts in SQUAD; forced FFA identical to 'mult'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | target kill 11 mult 10
+PASS  FK1b kill picks the 30% mech  ::  kill 11 mult 10
+PASS  FK2 finish walk-in (30% target, 1 line): focus 'kill' acts in SQUAD; forced FFA identical to 'mult'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | rPrefNow kill 20 mult 75, fkWalk 10, boosts kill 0
+PASS  FK2b walk-in holds 20 m and never boosts  ::  rPrefNow 20 fkWalk 10
+PASS  FK2c no walk-in at our hp 40%  ::  fkWalk 0
+PASS  FK3 partial charge, hp 0.85 x estimate: focus 'kill' acts in SQUAD; forced FFA identical to 'mult'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | laser held kill true,true mult false,false
+PASS  FK3b hp 0.6 x estimate: both release  ::  kill false,false mult false,false est 192 full 0.75
+PASS  FK4 blink: info only  ::  fkBlink 0, trace differs false
+PASS  LR1 laser band at 140 m: laserRange 'midsq' acts in SQUAD; forced FFA identical to 'far'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | rPrefNow midsq 115 far 150
+PASS  LR1b midsq holds 115 m  ::  115 / 150
+PASS  LR2 info: existing mid changes forced FFA (why midsq)  ::  forced FFA differs false
+PASS  BC1 charging under fire (boostSpend off, to see the trigger): boostCharge 'on' acts in SQUAD; forced FFA identical to 'off'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | boostCharge 8, modes FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT,FIGHT
+PASS  LG1 spawn sweep + laser run: laserGrab 'spawn' acts in SQUAD; forced FFA identical to 'std'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | sweep 23 boost 27 loot pickup:laser / off -
+PASS  LG1b sweep turns the torso, then the laser run boosts  ::  sweep 23 boost 27
+PASS  LG2 no laser run after 25 s  ::  lgsOn 0
+PASS  LG3 first damage from inside 100 m ends the run  ::  stop 1 on 5
+PASS  LG4 mortar at 2 m, t 70: spawn never takes it, std does  ::  spawn false std true
+PASS  LG5 lightning at 2 m, t 30 laser-less: spawn waits, std takes  ::  spawn false std true
+PASS  LG6 lightning at t 45: both take  ::  spawn true std true
+PASS  LG7 forced FFA: mortar rule identical  ::  identical true
+PASS  SN1 cube at 55 m, hp 45%, in a fight: cubes 'snow' acts in SQUAD; forced FFA identical to 'off'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | grab snow cube off -
+PASS  SN1b snow grabs at 45% (floor 25%), off does not (floor 50%)  ::  
+PASS  SN2 corpse at 90 m after our kill: cubes 'snow' acts in SQUAD; forced FFA identical to 'off'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | grab snow pickup rush true off -
+PASS  SN2b snow rushes the corpse (laser we lack)  ::  
+PASS  FH1 crate at 50 m, hp 60%: farmHp '50sq' acts in SQUAD; forced FFA identical to '90'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | loot 50sq crate 90 -
+PASS  FH1b 50sq farms at 60%  ::  
+PASS  CP1 crate at 100-120 m: cratePath '80' acts in SQUAD; forced FFA identical to 'std'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | loot 80 - std crate
+PASS  CP1b 80 skips it, std farms it  ::  
+PASS  UP1 offer nanites / laser_damage / gun_rate (laser held): upg 'laser' acts in SQUAD; forced FFA identical to 'std'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | pick laser 1 std 0
+PASS  UP1b laser order takes laser_damage  ::  
+PASS  UP2 one plating taken: laser order takes armor (plating is its 5th entry), std plating  ::  laser 1 std 0
+PASS  UP3 with upgFix on: same pick  ::  pick 1 order plating,armor,laser_damage,laser_charge,plating,nanites,gun_rate,gun_damage
+
+35 passed, 0 failed

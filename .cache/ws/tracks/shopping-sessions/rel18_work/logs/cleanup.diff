@@ -1,0 +1,33 @@
+--- c1work/src/main.rs
++++ rel18/src/main.rs
+@@ -38,6 +38,7 @@
+ 
+ fn main() {
+     let config = Config::from_env();
++    output::remove_stale_parts(&config.output_dir);
+     let mode = env::var("SESSIONS_PATH").unwrap_or_default();
+     if mode != "slow" {
+         let fast_config = fast::Config {
+--- c1work/src/output.rs
++++ rel18/src/output.rs
+@@ -72,6 +72,20 @@
+     Ok(())
+ }
+ 
++pub fn remove_stale_parts(output_dir: &Path) {
++    for name in ["user_daily", "campaign_daily"] {
++        let Ok(entries) = fs::read_dir(output_dir.join(name)) else {
++            continue;
++        };
++        for entry in entries.flatten() {
++            let path = entry.path();
++            if path.extension().is_some_and(|ext| ext == "parquet") {
++                let _ = fs::remove_file(&path);
++            }
++        }
++    }
++}
++
+ pub fn write_table(path: &Path, table: Table, columns: Vec<Column>) -> Result<()> {
+     let schema = match table {
+         Table::UserDaily => USER_DAILY_SCHEMA,

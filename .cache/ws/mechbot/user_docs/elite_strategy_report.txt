@@ -1,0 +1,47 @@
+           Mech Royale Elite Strategy Panel Report
+Research synthesis combining battle-royale game design, game psychology, CS2 bot architecture,
+Valorant AI research, and Mech Royale rules.
+
+Executive Thesis
+Mech Royale is a placement-maximization problem. Because placement, not kills, determines
+score, the optimal agent should maximize survival probability, information advantage, and endgame
+positioning. Battle-royale research consistently shows placement-heavy scoring incentivizes
+rotation, information gathering, and selective engagements.
+
+Industry Evidence
+CS2 bots use behavior trees and navigation reasoning. Valve documentation describes behavior
+trees evaluated every tick and navigation-centric control. Valorant AI research from Riot/modl.ai
+emphasizes efficient sensors and world-state reasoning rather than raw vision models.
+
+Panel Recommendations
+Strategy Panel: AI Architect, Game Designer, Battle Royale Analyst, Behavioral Psychologist,
+Systems Engineer. Consensus: 1) Roof-first looting. 2) Threat heatmaps. 3) Probabilistic enemy
+memory. 4) Avoid fair fights. 5) Third-party engagements. 6) Aggression only in top-4.
+
+Bot Architecture
+Perception -> World Model -> Belief State -> Utility Engine -> Action Layer. Track enemy
+probabilities, sound events, zone forecast, cover map, supply drops, and rooftop value.
+
+Utility Function
+Score = 0.35 Survival + 0.20 Position + 0.15 Information + 0.15 Resources + 0.10 Zone Safety +
+0.05 Combat Opportunity.
+
+Opening Strategy
+Claim elevated positions and rooftops. Loot safely. Build information. Avoid engagements unless
+extremely favorable.
+
+Midgame
+Rotate early, avoid exposure, exploit sound cues, ambush supply drops, and punish weakened
+opponents.
+
+Endgame
+Convert to position-first play. Cover, elevation, line of sight, and escape routes matter more than
+damage output.
+
+Prediction
+Winning entries will likely be utility-based planners with belief states rather than pure RL aim bots.
+Sources
+CS2 behavior trees: Valve Developer Community and Source2 Wiki. Riot/modl.ai Human-like Bots
+for Tactical Shooters Using Compute-Efficient Sensors. Battle royale scoring and survival research.
+Visual in this file was generated with Microsoft Copilot (none used).
+

@@ -1,0 +1,125 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh proj1_kite200_b624765",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/proj1_kite200_b624765.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 10.5,
+  "stdErr": 0.5,
+  "sd": 0.707,
+  "winFrac": 0,
+  "meanKills": 10.5,
+  "meanTimeAlive": 162,
+  "meanDmgDealt": 17519,
+  "meanDmgTaken": 2576,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1,
+   "gun/hunt": 1
+  },
+  "meanWallMs": 3046,
+  "wallS": 3.9
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "ProjectPaw",
+   "place": 5,
+   "score": 11,
+   "kills": 11,
+   "timeAlive": 149.65,
+   "alive": false,
+   "dmgDealt": 17297,
+   "dmgTaken": 2174,
+   "cause": "laser",
+   "killedBy": 13,
+   "killRange": 182.7,
+   "killerRole": "hunt",
+   "hunters": 4,
+   "killerName": "squad:expert",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 8,
+   "upgrades": [
+    "armor",
+    "nanites",
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 149.65,
+   "wallMs": 2816,
+   "deadOthers": 11,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 18.8,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "ProjectPaw",
+   "place": 6,
+   "score": 10,
+   "kills": 10,
+   "timeAlive": 174.3,
+   "alive": false,
+   "dmgDealt": 17740,
+   "dmgTaken": 2978,
+   "cause": "gun",
+   "killedBy": 14,
+   "killRange": 79,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:expert",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 13,
+   "upgrades": [
+    "armor",
+    "armor",
+    "plating",
+    "laser_damage"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 174.3,
+   "wallMs": 3275,
+   "deadOthers": 10,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 24.7,
+   "meanMs": 0
+  }
+ ]
+}

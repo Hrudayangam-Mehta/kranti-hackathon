@@ -1,0 +1,12 @@
+round 0 c4: exit 0 wall 4.906 user 5.342 sys 4.056 cpu 9.398 maxrss 1.31 GB minflt 62384 psi10 0.04 stdout 0
+round 0 c5: exit 0 wall 3.193 user 4.597 sys 1.610 cpu 6.207 maxrss 1.33 GB minflt 62527 psi10 0.03 stdout 0
+round 1 c5: exit 0 wall 2.706 user 4.703 sys 0.626 cpu 5.329 maxrss 1.33 GB minflt 62271 psi10 0.02 stdout 0
+round 1 c4: exit 0 wall 2.729 user 4.716 sys 0.653 cpu 5.369 maxrss 1.31 GB minflt 62270 psi10 0.01 stdout 0
+round 2 c4: exit 0 wall 2.734 user 4.765 sys 0.631 cpu 5.396 maxrss 1.32 GB minflt 62387 psi10 0.01 stdout 0
+round 2 c5: exit 0 wall 3.010 user 4.757 sys 0.649 cpu 5.406 maxrss 1.34 GB minflt 62339 psi10 0.00 stdout 0
+SUMMARY c4 n=3/3: cpu median 5.396 (min 5.369) user median 4.765 sys median 0.653 wall median 2.734 maxrss median 1.31 GB minflt median 62384
+SUMMARY c5 n=3/3: cpu median 5.406 (min 5.329) user median 4.703 sys median 0.649 wall median 3.010 maxrss median 1.33 GB minflt median 62339
+PAIRED c5 - c4 cpu: median -0.041 s, c5 lower in 2/3
+PAIRED c5 - c4 user: median -0.013 s, c5 lower in 3/3
+PAIRED c5 - c4 sys: median -0.028 s, c5 lower in 2/3
+PAIRED c5 - c4 wall: median -0.023 s, c5 lower in 2/3

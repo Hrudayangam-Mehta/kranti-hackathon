@@ -1,0 +1,39 @@
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/snap/rel19)
+    Finished `release` profile [optimized] target(s) in 30.98s
+     Running unittests src/main.rs (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/target_test/release/deps/sessions-bd327df2680a8873)
+
+running 30 tests
+test csv::tests::chunking_covers_every_data_byte ... ok
+test csv::tests::dialect ... ok
+test events::tests::prices ... ok
+test fast::bucket::tests::record_order_and_fields ... ok
+test fast::ident::tests::alias_union_find ... ok
+test fast::ident::tests::canonical_roundtrip ... ok
+test fast::ident::tests::inverses ... ok
+test fast::ident::tests::non_canonical ... ok
+test fast::bucket::tests::recovers_event_key ... ok
+test fast::ident::tests::recovers_key ... ok
+test fast::keys::tests::order_and_roundtrip ... ok
+test fast::keys::tests::random_order ... ok
+test fast::keys::tests::small_map ... ok
+test fast::people::tests::names ... ok
+test fast::scan::tests::fixed_cases ... ok
+test fast::scan::tests::large_buffers ... ok
+test fast::scan::tests::random_lines ... ok
+test fast::scan::tests::simd_mixed_matches ... ok
+test fast::scan::tests::simd_pack_matches ... ok
+test fast::ts::tests::digit_words ... ok
+test fast::ts::tests::matches_reference ... ok
+test fast::ts::tests::random_matches_reference ... ok
+test links::tests::link_lines ... ok
+test links::tests::star_names_smallest_member ... ok
+test links::tests::transitive_names ... ok
+test manifest::tests::top_level_only ... ok
+test time::tests::bad_forms ... ok
+test time::tests::civil_days ... ok
+test time::tests::forms ... ok
+SCAN_DIFF /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/data/dev identical field streams: events (1071665, 1072116) clicks (255137, 255280) links (44859, 44888)
+test fast::scan::tests::differential_files ... ok
+
+test result: ok. 30 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.79s
+

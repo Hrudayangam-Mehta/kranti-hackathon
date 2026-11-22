@@ -1,0 +1,53 @@
+--- survive/ref_ch1/lib/params.js	2026-11-22 03:35:52.800792614 +0000
++++ survive/tree/lib/params.js	2026-11-22 04:41:09.258006168 +0000
+@@ -225,6 +225,28 @@
+   // R7 strafe 'fast75': the fast strafe beyond strafeFarR of the target
+   strafeFarR: 0, strafeFarLo: 0.45, strafeFarHi: 1.15,
+ 
++  // ---- Fable trunk, engineer S (lib/survive.js, rules in its header). >>> sv block (engineer S owns it) >>>
++  // Every key below is inert at its PARAMS value; every rule runs only in the SQUAD posture behind hunt.firewall(). Drop
++  // numbers (radius, lands_in, capture_s, progress, holder) come from obs.drops and the regen delay / rate from
++  // obs.self.stats (else hello.config.mech): never from here.
++  // svDrop 'first' / 'first100' (FB4): hp below svDropHpf x max: nearest drop within svDropR m inside the next zone that has
++  // landed or lands within svDropEarlyS of our arrival; boost beyond svDropBoostR with energy > svDropBoostE; stand within
++  // svDropStopR; latched until captured / gone / svDropStallS after landing without our progress (then ignored svDropIgnoreS);
++  // svDropLateS (value 'timely' only): latch only when we reach the ring at most that long after the landing
++  svDropOn: false, svDropHpf: 0.9, svDropR: 200, svDropEarlyS: 3, svDropBoostR: 12, svDropBoostE: 8, svDropStopR: 2, svDropStallS: 10, svDropIgnoreS: 40, svDropLateS: Infinity,
++  // svRegen 'hold' (FB5): hold fire (and reload to full) after svHoldQuietS without a line on us, hp < svHoldHpf, no finish
++  // within svFinS of fire (hunt.ttk) and the last hit older than svHoldHurtS; release at svHoldExitHpf, after svHoldMaxS
++  // (then svHoldCoolS before the next hold) or the decision a line opens
++  svRegenOn: false, svHoldQuietS: 0.5, svHoldHpf: 0.75, svHoldHurtS: 1.5, svHoldExitHpf: 0.8, svHoldMaxS: 12, svHoldCoolS: 5, svFinS: 1.6,
++  // svFire 'rhythm': reload with no mech in view at <= svRlLowFrac of the magazine, after svRlMidS quiet at <= svRlMidFrac,
++  // after svRlTopS quiet whenever not full; never while the target has a line or a crate is being shot
++  svFireOn: false, svRlLowFrac: 0.34, svRlMidFrac: 0.67, svRlMidS: 1.5, svRlTopS: 6,
++  // svFarm 'laser' (FB7): one full beam on a crate (hp >= svCbMinHp) with a line within svCbR m (svCbNearR with a mech seen in
++  // the last svCbMechS) when no mech has been shootable for svCbQuietS and our laser is ready; not while regen runs below
++  // svCbRegenHpf; one attempt lasts at most svCbMaxS; a crate counts while seen within svCbMemS (crates do not move)
++  svFarmOn: false, svCbR: 110, svCbNearR: 50, svCbMechS: 4, svCbQuietS: 0.4, svCbMinHp: 120, svCbRegenHpf: 0.97, svCbMaxS: 2.5, svCbMemS: 6,
++  // <<< sv block <<<
++
+   upgradeOrder: ['plating', 'armor', 'nanites', 'laser_damage', 'laser_charge', 'lightning_efficiency', 'gun_damage', 'gun_rate',
+     'lightning_range', 'lightning_chain', 'gyros', 'servos', 'gun_mag', 'capacitor', 'reactor', 'jets', 'gun_velocity', 'sensors',
+     'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'],
+@@ -322,6 +344,12 @@
+   boostCharge: { off: {}, on: { boostCharge: true } },
+   cratePath: { std: {}, '80': { sqCratePath: 80 } },
+   alpha: { off: {}, on: { alpha: true } },
++  // >>> sv presets (Fable trunk, engineer S; lib/survive.js): old value first >>>
++  svDrop: { off: {}, first: { svDropOn: true, svDropHpf: 0.9 }, first100: { svDropOn: true, svDropHpf: 1.0 }, timely: { svDropOn: true, svDropHpf: 0.9, svDropLateS: 3 } },
++  svRegen: { off: {}, hold: { svRegenOn: true } },
++  svFire: { off: {}, rhythm: { svFireOn: true } },
++  svFarm: { off: {}, laser: { svFarmOn: true } },
++  // <<< sv presets <<<
+   // every R3a2 switch at once (applied last): 'off' = the 5.02 build (S01-full)
+   r3a2: { on: {}, off: { fightEarly: false, openFarm: true, openFarmAim: false, laserEcon: false, rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90,
+     focusAdd: false, pulseRetreat: false, boostSpend: false, farmHp: 0.9, upgradeOrder: PARAMS.upgradeOrder,
+@@ -339,7 +367,7 @@
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'on', aggr: 'any70f',
+   r3a2: 'on', pocketCfg: 'on', io: 'v4', ioMerge: 'on', loseExit: 'off', loseCover: 'never', oneHit: 'off', fightOn: 'off', finish: 'off', isolate: 'any', seekCrowd: 'off', laserGrab: 'spawn', anchorCfg: 'on', warmPocket: 'on', fb: 'on',
+-  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', healDoc: 'off' }
++  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', svDrop: 'off', svRegen: 'off', svFire: 'off', svFarm: 'off', healDoc: 'off' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }

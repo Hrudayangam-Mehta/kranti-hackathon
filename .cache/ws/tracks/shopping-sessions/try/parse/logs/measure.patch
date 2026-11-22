@@ -1,0 +1,61 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index b1836e3..49eee11 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -138,6 +138,13 @@ struct Stats {
+     event_copies: AtomicUsize,
+     winners: AtomicUsize,
+     clicks: AtomicUsize,
++    cpu_ns: [AtomicUsize; 3],
++}
++
++fn thread_cpu_ns() -> usize {
++    let mut t = libc::timespec { tv_sec: 0, tv_nsec: 0 };
++    unsafe { libc::clock_gettime(libc::CLOCK_THREAD_CPUTIME_ID, &mut t) };
++    t.tv_sec as usize * 1_000_000_000 + t.tv_nsec as usize
+ }
+ 
+ pub fn run(config: &Config) -> Result<Outcome> {
+@@ -242,6 +249,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         event_copies: AtomicUsize::new(0),
+         winners: AtomicUsize::new(0),
+         clicks: AtomicUsize::new(0),
++        cpu_ns: [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)],
+     };
+     let user_dir = config.output_dir.join("user_daily");
+     let campaign_dir = config.output_dir.join("campaign_daily");
+@@ -303,6 +311,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 stats.clicks.fetch_add(click_count, Ordering::Relaxed);
+                 p1.finish(&mut arena);
+                 clicks.finish(&mut arena);
++                let cpu0 = thread_cpu_ns();
++                stats.cpu_ns[0].fetch_add(cpu0, Ordering::Relaxed);
+                 let _ = p1_sinks[id].set(p1);
+                 let _ = click_sinks[id].set(clicks);
+                 if barrier.wait().is_leader() {
+@@ -324,6 +334,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 }
+                 stats.winners.fetch_add(winners, Ordering::Relaxed);
+                 p2.finish(&mut arena);
++                let cpu1 = thread_cpu_ns();
++                stats.cpu_ns[1].fetch_add(cpu1 - cpu0, Ordering::Relaxed);
+                 let _ = p2_sinks[id].set(p2);
+                 if barrier.wait().is_leader() {
+                     let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+@@ -355,6 +367,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     *failure.lock().unwrap() = Some(e.to_string());
+                 }
+                 results.lock().unwrap().push(part);
++                stats.cpu_ns[2].fetch_add(thread_cpu_ns() - cpu1, Ordering::Relaxed);
+                 if barrier.wait().is_leader() {
+                     lap("people");
+                 }
+@@ -376,6 +389,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         keys::exotic_count()
+     );
+     lap("write");
++    let ms = |i: usize| stats.cpu_ns[i].load(Ordering::Relaxed) as f64 * 1e-6;
++    eprintln!("cpu      parse {:.1} dedup {:.1} people {:.1} ms (sum over threads)", ms(0), ms(1), ms(2));
+     Ok(Outcome::Done)
+ }
+ 

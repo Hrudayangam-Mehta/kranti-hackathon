@@ -1,0 +1,14 @@
+zone total 415 s
+phase 1: hold 0-60 (tau 0.000-0.145) shrink -110 (tau 0.265)  r 560->380  dps 20  edge speed 3.6 m/s
+phase 2: hold 110-155 (tau 0.265-0.373) shrink -195 (tau 0.470)  r 380->240  dps 35  edge speed 3.5 m/s
+phase 3: hold 195-230 (tau 0.470-0.554) shrink -265 (tau 0.639)  r 240->140  dps 60  edge speed 2.9 m/s
+phase 4: hold 265-295 (tau 0.639-0.711) shrink -325 (tau 0.783)  r 140->70  dps 100  edge speed 2.3 m/s
+phase 5: hold 325-350 (tau 0.783-0.843) shrink -375 (tau 0.904)  r 70->25  dps 160  edge speed 1.8 m/s
+phase 6: hold 375-390 (tau 0.904-0.940) shrink -415 (tau 1.000)  r 25->0  dps 260  edge speed 1.0 m/s
+drop called 70 (tau 0.169) lands 95 (tau 0.229)
+drop called 140 (tau 0.337) lands 165 (tau 0.398)
+drop called 210 (tau 0.506) lands 235 (tau 0.566)
+spawn distance to next centre: median 319 m, p90 487 m
+P(spawn beyond 0.8 x next radius = 304 m: D9 rotation fires in phase 1) = 0.54
+P(spawn beyond 0.6 x next radius = 228 m: the D9 goal depth) = 0.74
+walk 0.8 r1 -> 0.6 r1 = 76 m = 6.5 s at walk 11.7 m/s (x1.3 path 8.4 s)

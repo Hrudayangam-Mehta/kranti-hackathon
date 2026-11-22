@@ -1,0 +1,6 @@
+const [a,b]=process.argv.slice(2)
+const ma=await import(a+'/lib/params.js'), mb=await import(b+'/lib/params.js')
+const A=ma.resolveParams({}),B=mb.resolveParams({})
+const d=[];for(const k of new Set([...Object.keys(A),...Object.keys(B)])) if(JSON.stringify(A[k])!==JSON.stringify(B[k])) d.push(k+': '+JSON.stringify(A[k])+' -> '+JSON.stringify(B[k]))
+const s=[];for(const k of new Set([...Object.keys(ma.SELECT),...Object.keys(mb.SELECT)])) if(ma.SELECT[k]!==mb.SELECT[k]) s.push(k+': '+ma.SELECT[k]+' -> '+mb.SELECT[k])
+console.log('  SELECT diff: '+(s.join('; ')||'none')+'\n  resolved diff: '+(d.join('; ')||'none')+'  (keys '+Object.keys(B).length+')')

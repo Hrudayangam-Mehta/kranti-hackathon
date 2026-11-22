@@ -1,0 +1,64 @@
+retreat spans (DISENGAGE/HEAL): {"spans":79,"reached":13,"broke":19,"neither":47,"died":5,"restarts":0}
+episodes 110, arrived 19 (17%)
+  22  DISENGAGE/retreat/hide=run/L
+  19  arrived
+  15  DISENGAGE/dodge/hide=found/L
+  9  FIGHT/standoff/hide=found
+  7  DISENGAGE/escape/hide=found/L
+  7  FIGHT/isolate/hide=found
+  6  FIGHT/regain/hide=found
+  4  HOLD/roam/hide=found
+  3  HEAL/hold/hide=idle
+  3  match end
+  2  DISENGAGE/escape/hide=found
+  2  DISENGAGE/retreat/hide=found/L
+  2  FIGHT/isolate/hide=found/L
+  2  DISENGAGE/grab/hide=found/L
+  1  HEAL/hold/hide=run
+  1  DISENGAGE/grab/hide=found
+  1  FIGHT/standoff/hide=found/L
+  1  DISENGAGE/dodge/hide=run/L
+  1  FIGHT/standoff/hide=run
+  1  ZONE/zone/hide=found/L
+  1  FIGHT/regain/hide=found/L
+not-arrived durations s (quartiles): 0.2 / 1.0 / 1.8  start dist (median): 60
+  seed 1 t 38.7-39.5 DISENGAGE hp 0.98 d0 15 best 13 jumps 0 -> DISENGAGE/escape/hide=found
+  seed 1 t 73.8-75.7 DISENGAGE hp 0.52 d0 47 best 32 jumps 0 -> FIGHT/standoff/hide=found
+  seed 1 t 76.0-78.2 DISENGAGE hp 0.50 d0 23 best 1 jumps 0 -> arrived
+  seed 1 t 79.4-85.7 HEAL hp 0.50 d0 6 best 1 jumps 0 -> arrived
+  seed 1 t 100.6-104.7 DISENGAGE hp 0.50 d0 20 best 18 jumps 2 -> DISENGAGE/escape/hide=found/L
+  seed 1 t 105.8-106.5 DISENGAGE hp 0.28 d0 9 best 2 jumps 0 -> arrived
+  seed 1 t 106.8-108.0 DISENGAGE hp 0.28 d0 70 best 57 jumps 0 -> FIGHT/isolate/hide=found
+  seed 1 t 108.8-109.9 DISENGAGE hp 0.21 d0 70 best 67 jumps 0 -> DISENGAGE/retreat/hide=run/L
+  seed 1 t 110.3-111.7 DISENGAGE hp 0.13 d0 63 best 61 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 2 t 73.5-77.5 DISENGAGE hp 0.38 d0 49 best 4 jumps 0 -> DISENGAGE/escape/hide=found/L
+  seed 2 t 78.7-84.3 HEAL hp 0.29 d0 11 best 1 jumps 1 -> arrived
+  seed 2 t 85.5-86.9 DISENGAGE hp 0.19 d0 13 best 0 jumps 0 -> arrived
+  seed 2 t 88.1-88.4 HEAL hp 0.19 d0 12 best 12 jumps 0 -> HEAL/hold/hide=idle
+  seed 2 t 89.1-92.4 DISENGAGE hp 0.19 d0 29 best 1 jumps 0 -> arrived
+  seed 2 t 93.6-95.2 HEAL hp 0.18 d0 12 best 6 jumps 0 -> HEAL/hold/hide=run
+  seed 2 t 95.4-96.4 HEAL hp 0.18 d0 70 best 60 jumps 0 -> FIGHT/regain/hide=found
+  seed 2 t 96.6-99.0 DISENGAGE hp 0.19 d0 59 best 30 jumps 0 -> DISENGAGE/escape/hide=found/L
+  seed 2 t 99.5-102.9 DISENGAGE hp 0.15 d0 25 best 0 jumps 0 -> arrived
+  seed 2 t 104.1-107.8 HEAL hp 0.07 d0 12 best 1 jumps 0 -> arrived
+  seed 2 t 119.1-119.5 DISENGAGE hp 0.29 d0 54 best 54 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 3 t 33.8-33.8 DISENGAGE hp 0.72 d0 29 best 29 jumps 0 -> DISENGAGE/grab/hide=found
+  seed 3 t 40.5-40.8 DISENGAGE hp 0.60 d0 59 best 56 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 3 t 41.6-43.1 DISENGAGE hp 0.47 d0 57 best 54 jumps 0 -> DISENGAGE/retreat/hide=run/L
+  seed 3 t 43.4-44.1 DISENGAGE hp 0.33 d0 61 best 49 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 3 t 44.8-45.3 DISENGAGE hp 0.30 d0 45 best 44 jumps 0 -> FIGHT/standoff/hide=found/L
+  seed 4 t 69.0-71.3 DISENGAGE hp 0.49 d0 58 best 50 jumps 0 -> FIGHT/isolate/hide=found
+  seed 4 t 72.9-75.5 DISENGAGE hp 0.33 d0 55 best 27 jumps 0 -> DISENGAGE/escape/hide=found/L
+  seed 4 t 76.0-80.2 DISENGAGE hp 0.33 d0 21 best 9 jumps 0 -> DISENGAGE/retreat/hide=found/L
+  seed 4 t 86.5-87.7 DISENGAGE hp 0.21 d0 76 best 61 jumps 0 -> FIGHT/isolate/hide=found
+  seed 4 t 89.5-90.5 DISENGAGE hp 0.13 d0 46 best 40 jumps 0 -> DISENGAGE/escape/hide=found
+  seed 4 t 91.0-91.9 HEAL hp 0.13 d0 35 best 24 jumps 0 -> HEAL/hold/hide=idle
+  seed 4 t 97.1-97.2 DISENGAGE hp 0.22 d0 34 best 34 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 4 t 98.0-100.0 DISENGAGE hp 0.12 d0 39 best 35 jumps 0 -> DISENGAGE/dodge/hide=found/L
+  seed 5 t 70.8-74.0 DISENGAGE hp 0.51 d0 91 best 41 jumps 0 -> match end
+  seed 6 t 46.2-47.1 DISENGAGE hp 0.48 d0 62 best 51 jumps 0 -> FIGHT/regain/hide=found
+  seed 6 t 49.4-50.5 DISENGAGE hp 0.33 d0 89 best 77 jumps 0 -> FIGHT/regain/hide=found
+  seed 6 t 51.0-54.7 DISENGAGE hp 0.24 d0 78 best 18 jumps 0 -> FIGHT/isolate/hide=found
+  seed 6 t 57.3-57.4 DISENGAGE hp 0.03 d0 62 best 62 jumps 0 -> match end
+  seed 7 t 26.4-26.9 DISENGAGE hp 0.86 d0 24 best 18 jumps 0 -> HOLD/roam/hide=found
+  seed 8 t 68.8-70.0 DISENGAGE hp 0.43 d0 43 best 43 jumps 0 -> FIGHT/isolate/hide=found/L

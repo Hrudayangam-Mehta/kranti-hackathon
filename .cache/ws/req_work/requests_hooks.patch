@@ -1,0 +1,378 @@
+--- a/lib/params.js	2026-11-21 08:14:26.339402015 +0000
++++ b/lib/params.js	2026-11-21 08:24:15.052742562 +0000
+@@ -81,6 +81,20 @@
+   dropMaxD: 250, dropEarlyS: 3, dropContestR: 60, dropLeaveR: 70, dropHpBase: 200, dropCaptureS: 4,
+   idlePull: false, idlePullS: 20, idlePullHpf: 0.9, roamStep: 0.15,
+ 
++  // ---- owner request R1 (lib/steal.js): smart crate shooting + loot stealing. Switches: stealOn (a-e), crateGateOn.
++  stealOn: true, crateGateOn: true,
++  crateMechR: 120, crateQuietS: 2, regenNeedHpf: 0.97, crateResetsRegen: false,     // smart shooting gates
++  stealHpfFfa: 0.7, stealMaxD: 90, stealShooterMinD: 25, stealRateMin: 20, stealLateS: 1.5, stealLeadS: 0.35,
++  stealSide: 3.0, stealBehind: 0.9, stealTimeout: 15, stealPrefer: 0.8,                  // a) crates / drones others shoot
++  deathDropS: 30, deathRushR: 100, deathRushMargin: 0.6, deathCubeR: 110, deathCubeMemS: 90,   // b) kill drops, c) death cubes
++  raceCos: 0.85, raceMargin: 0.5, raceBonus: 1.6,                                       // d) pickups others walk to
++  dropRaceS: 1.0, dropRingPad: 4,                                                       // e) supply drops
++  // ---- owner request R2 (lib/scan.js): late-game torso sweep. Switch: scanOn.
++  scanOn: true, scanLateT: 240, scanLateAlive: 8, scanLateR: 140, scanBlindMax: 3.0, scanForceLead: 0.9, scanDwell: 0.12, rearFaceS: 1.5,
++  // ---- owner request R3: aim at the highest clear body point (headAimOn, firecontrol.js) + calibration (aimCalOn, lib/aimcal.js)
++  headAimOn: true, aimLadder: [0.8, 0.65, 0.5, 0.35, 0.2], gunLadderTop: 0.65,
++  aimCalOn: true, calGain: 0.5, calLatGain: 0.4, calMaxRad: 0.03, calMaxLat: 0.08, calDecayS: 30, calMissMax: 6, calGun: false,
++
+   // ---- layer 6
+   ambushRun: 50, ambushHpf: 0.5, ambushStallS: 3,
+ 
+@@ -109,8 +123,12 @@
+   gunlessClue: { off: { gunlessClue: false }, on: { gunlessClue: true } },
+   idlePull: { off: { idlePull: false }, on: { idlePull: true } },
+   env: { auto: { env: 'auto' }, squad: { env: 'squad' } },
++  // owner requests: one string turns a whole request off for an A/B
++  R1: { on: { stealOn: true, crateGateOn: true }, off: { stealOn: false, crateGateOn: false } },
++  R2: { on: { scanOn: true }, off: { scanOn: false } },
++  R3: { on: { headAimOn: true, aimCalOn: true }, off: { headAimOn: false, aimCalOn: false } },
+ }
+-export const SELECT = { laserRange: 'far', healExit: '70', farmHp: '90', strafe: 'd4', ffaPair: 'on', beamClue: 'off', gunlessClue: 'off', idlePull: 'off', env: 'auto' }
++export const SELECT = { laserRange: 'far', healExit: '70', farmHp: '90', strafe: 'd4', ffaPair: 'on', beamClue: 'off', gunlessClue: 'off', idlePull: 'off', env: 'auto', R1: 'on', R2: 'on', R3: 'on' }
+ 
+ /** PARAMS <- presets (SELECT, then overrides.select) <- plain overrides. */
+ export function resolveParams(overrides) {
+--- a/lib/brain.js	2026-11-21 08:14:26.339326253 +0000
++++ b/lib/brain.js	2026-11-21 07:58:17.140106081 +0000
+@@ -16,6 +16,9 @@
+ import { makeFireControl } from './firecontrol.js'
+ import { makeEconomy } from './economy.js'
+ import { makeStance } from './stance.js'
++import { makeSteal } from './steal.js'
++import { makeScanner } from './scan.js'
++import { makeAimCal } from './aimcal.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -101,8 +104,8 @@
+         weapons: [wp('gun', { ammo: 12 - (i % 13), reload: i === 13 ? 1.2 : 0, cooldown: (i % 5) * 0.05 }), ph === 5 || ph === 6 || ph === 11 ? wp('laser', { charge: (i % 9) * 0.1 }) : ph >= 7 && ph <= 8 ? wp(ph === 7 ? 'lightning' : 'mortar', {}) : null], stats: m },
+       mechs: ph === 0 || ph === 4 ? [] : ph === 3 || ph === 9 || ph === 12 ? [mech(5, ex, ey, 900, ['gun', 'laser']), mech(6, x - 60, y + 40, 1300, ['gun', 'mortar'])] : [mech(5, ph === 7 ? x + 30 : ex, ph === 7 ? y + 5 : ey, ph === 8 ? 250 : 1100, ['gun', 'laser'])].concat(ph === 8 ? [{ id: 120, kind: 'npc', pos: [x + 50, y - 20, z], vel: [1, 0, 0], aim: [0, 0], hp: 350, max_hp: 350 }] : []),
+       projectiles: (ph === 5 ? [{ id: 400 + (k >> 3), kind: 'mortar', pos: [x + 40 - i * 2, y, z + 25], vel: [-40, 0, -2 * i] }] : []).concat(bullets),
+-      crates: ph === 0 || ph === 8 ? [{ id: 1001, pos: [x + 20, y + 14, z], hp: 300 }] : [], cubes: ph === 0 || ph === 4 || ph === 6 ? [{ id: 5001, pos: [x - 12, y + 9, z] }] : [],
+-      pickups: [{ id: 8001, kind: ph % 2 ? 'laser' : 'lightning', pos: [x + 2 + (ph === 6 ? 30 : 0), y + 1, z] }], sounds: [{ kind: 'gun', bearing: 1, dist: 'mid', age: 0.05 }, { kind: 'death', bearing: -1, dist: 'far', age: 0.1 }], beams: ph === 12 ? [{ by: 5, kind: 'laser', path: [[ex, ey, z + 7], [x - 60, y + 40, z + 4]], age: 0.05 }] : [],
++      crates: ph === 0 || ph === 8 ? [{ id: 1001, pos: [x + 20, y + 14, z], hp: 300 - (i % 10) * 25 }] : [], cubes: ph === 0 || ph === 4 || ph === 6 ? [{ id: 5001, pos: [x - 12, y + 9, z] }] : [],
++      pickups: [{ id: 8001, kind: ph % 2 ? 'laser' : 'lightning', pos: [x + 2 + (ph === 6 ? 30 : 0), y + 1, z] }], sounds: [{ kind: 'gun', bearing: 1, dist: 'mid', age: 0.05 }, { kind: 'death', bearing: -1, dist: 'far', age: 0.1 }], beams: ph === 12 ? [{ by: 5, kind: 'laser', path: [[ex, ey, z + 7], [x - 60, y + 40, z + 4]], age: 0.05 }] : ph === 5 || ph === 11 ? [{ by: 3, kind: 'laser', path: [[x + 3, y, z + 7], [ex, ey, z + 6]], age: 0.1 }, { by: 6, kind: 'laser', path: [[x - 60, y + 40, z + 7], [x + 20, y + 14, z + 1]], age: 0.05 }] : [],
+       events: ph >= 1 && i % 3 === 0 ? [{ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0.3, by: ph === 6 ? 9 : 5 }, { type: 'hit', target: 5, amount: 45, weapon: 'gun' }].concat(ph === 6 && i === 9 ? [{ type: 'kill', target: 5 }] : []) : [],
+       drops: ph === 9 ? [{ id: 20000, pos: [x + 30, y - 30, z], radius: 8, lands_in: 3 - i * 0.1, capture_s: 4, progress: 0, holder: null }] : [],
+       zone: { center: [x + (ph === 4 ? 700 : 0), y], radius: ph === 13 ? 60 : 500, next_center: [x + (ph === 4 ? 700 : 30), y], next_radius: ph === 13 ? (i % 2 ? 20 : 0) : 300, shrink_start: t + (ph === 13 ? -1 : 5), shrink_end: t + 40, dps: 20 },
+@@ -175,6 +178,10 @@
+   const posEval = makePosEval(B)
+   const fc = makeFireControl(B)
+   const econ = makeEconomy(B, mover)
++  // owner requests R1-R3: reached by the other layers through B (each behind its PARAMS switch)
++  B.steal = makeSteal(B, mover, econ)
++  B.scanner = makeScanner(B)
++  B.aimcal = makeAimCal(B)
+   const stance = makeStance(B, mover, hideSearch, posEval)
+   const now = () => performance.now()
+   let lastEvalT = -9, actT0 = 0
+@@ -439,6 +446,7 @@
+       const cmd = B.cmd, out = B.out
+       const pmx = cmd.mx, pmy = cmd.my, pb = cmd.boost, py = out.aim[0], pp = out.aim[1]
+       if (!stage('sense', () => sense(B, obs))) { /* keep going with the previous model */ }
++      stage('req', () => { B.steal.sense(obs); B.scanner.sense(obs); B.aimcal.sense(obs) })
+       stage('assess', () => {
+         assess(B)
+         let ch = -99
+@@ -474,6 +482,7 @@
+       leg: B.legKind, aim: B.aimKind, A: B.A, n1: B.n1, losing: B.losing, hide: B.hide.state, zoneMargin: B.zoneMargin,
+       errors: { ...B.errorsByStage }, gun: B.gunStat.dump(), F: stance.F ? stance.F() : 0, Q: stance.Q ? stance.Q() : 0,
+       selected: P.selected, rehearsal: warmInfo,
++      steal: B.steal.debug(), scan: { ...B.scanner.stats }, cal: { ...B.aimcal.state },
+     }
+   }
+ 
+--- a/lib/firecontrol.js	2026-11-21 08:14:26.341152950 +0000
++++ b/lib/firecontrol.js	2026-11-21 07:58:51.072268129 +0000
+@@ -8,6 +8,12 @@
+   const ps = { x: 0, y: 0, z: 0 }                 // our predicted feet position when the shot leaves
+   const sol = { ok: false, yaw: 0, pitch: 0, x: 0, y: 0, z: 0, dist: 0, t: 0, hi: false }
+   const st = { scanDir: 1, scanFlipT: 0, dwellUntil: -1, dwellYaw: 0 }
++  // R3: aim-point ladders as fractions of the target height (cubes included): laser from the top down, gun from
++  // gunLadderTop down and then the higher rungs (a target showing only its top over cover)
++  const MID = [0.5]
++  const LASER_RUNGS = Array.isArray(P.aimLadder) && P.aimLadder.length ? P.aimLadder.filter((f) => f > 0 && f < 1) : MID
++  const GUN_RUNGS = LASER_RUNGS.filter((f) => f <= P.gunLadderTop + 1e-9).sort((a, b) => b - a).concat(LASER_RUNGS.filter((f) => f > P.gunLadderTop + 1e-9).sort((a, b) => a - b))
++  const rel = { t: 0, id: -1, tl: 0, frac: 0.5, yaw: 0, pitch: 0, pyaw: 0, ppitch: 0, settled: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, n: 0 }
+ 
+   function predictSelf(tl) {
+     const me = B.me, cmd = B.cmd
+@@ -102,6 +108,13 @@
+     const at = B.topAttacker
+     if (at) { out.aim[0] = Math.atan2(at.y - me.y, at.x - me.x); out.aim[1] = pitchTo(at.x, at.y, at.z + at.height * 0.5); return 'attacker' }
+     if (t - B.unseenHurtT <= P.faceAttackerS) { out.aim[0] = B.unseenHurtBearing; out.aim[1] = 0; return 'bearing' }
++    // R2 late game: sector sweep; the corner pre-aim and the look hint become wishes inside it
++    if (B.scanner && B.scanner.active()) {
++      const pre = B.lostTarget && t - B.lostTargetT <= P.preAimS
++      const wish = pre ? Math.atan2(B.lostY - me.y, B.lostX - me.x) : B.lookHint ? Math.atan2(B.lookY - me.y, B.lookX - me.x) : NaN
++      const y = B.scanner.look(wish)
++      if (y === y) { out.aim[0] = y; out.aim[1] = pre && y === wish ? pitchTo(B.lostX, B.lostY, B.lostZ) : 0; return y === wish ? 'sweepwish' : 'sweep' }
++    }
+     // 2. the corner where the target disappeared
+     if (B.lostTarget && t - B.lostTargetT <= P.preAimS) { out.aim[0] = Math.atan2(B.lostY - me.y, B.lostX - me.x); out.aim[1] = pitchTo(B.lostX, B.lostY, B.lostZ); return 'preaim' }
+     // 3. a look hint from the mode (ambush corner, drop ring, loot)
+@@ -137,7 +150,7 @@
+       out.aim[0] = Math.atan2(tgt.y - me.y, tgt.x - me.x); out.aim[1] = pitchTo(tgt.x, tgt.y, tgt.z + tgt.height * 0.5)
+       B.aimKind = 'memory'
+       tgt = null
+-    } else if (!tgt && B.shootCrate && !hold) shootObj = B.shootCrate
++    } else if (!tgt && B.shootCrate && !hold && (!B.steal || B.steal.crateFireOk())) shootObj = B.shootCrate
+ 
+     let laserRelease = false, laserKeep = false
+     if (tgt && B.ambushAim && !tgt.losOut) {
+@@ -157,11 +170,24 @@
+       let gunOk = false, gunFire = false, gunReady = false, gYaw = 0, gPitch = 0, yawGate = 0, pitGate = 0
+       const tlg = g ? gunLatency(g.cooldown) : tl
+       if (g) predictSelf(tlg)
+-      if (g && gunSolve(o, tlg, 0.5)) {
++      const head = !!tgt && P.headAimOn
++      if (g && gunSolve(o, tlg, head ? GUN_RUNGS[0] : 0.5)) {
+         gunOk = true
+         let clear = muzzleClear(sol.yaw, sol.pitch, sol.x, sol.y, sol.z)
+         let hFrac = 0.5
+-        if (!clear && tgt) {
++        if (head) {
++          // R3 ladder: first rung with a clear line; the pitch gate keeps the room left above / below that rung
++          hFrac = Math.min(GUN_RUNGS[0], 1 - GUN_RUNGS[0])
++          if (!clear) {
++            const y0 = sol.yaw, p0 = sol.pitch, d0 = sol.dist, x0 = sol.x, yy0 = sol.y, z0 = sol.z, t0 = sol.t
++            for (let k = 1; k < GUN_RUNGS.length && !clear; k++) {
++              const f = GUN_RUNGS[k]
++              if (gunSolve(o, tlg, f) && muzzleClear(sol.yaw, sol.pitch, sol.x, sol.y, sol.z)) { clear = true; hFrac = Math.min(f, 1 - f) }
++            }
++            if (!clear) { sol.ok = true; sol.yaw = y0; sol.pitch = p0; sol.dist = d0; sol.x = x0; sol.y = yy0; sol.z = z0; sol.t = t0 }
++          }
++          if (P.calGun && B.aimcal) { sol.yaw = wrapPi(sol.yaw - B.aimcal.yaw()); sol.pitch -= B.aimcal.pitch() }
++        } else if (!clear && tgt) {
+           // D8 aim-point ladder: centre, +2 m, +3.6 m (scaled by size), first with a clear line; small upward gate
+           const y0 = sol.yaw, p0 = sol.pitch, d0 = sol.dist, x0 = sol.x, yy0 = sol.y, z0 = sol.z, t0 = sol.t
+           const sc = o.height / (B.cfg.mech.height || 9)
+@@ -193,24 +219,37 @@
+       // ---------------- laser (hitscan: aim at where the target will be when the beam leaves)
+       if (g) predictSelf(tl)
+       if (lz && tgt) {
+-        const lx = tgt.x + tgt.vx * tl, ly = tgt.y + tgt.vy * tl, lzc = tgt.z + tgt.height * 0.5 + (Math.abs(tgt.vz) >= 0.5 ? tgt.vz * tl : 0)
++        // R3: lead with the calibrated latency, aim at the highest clear rung, command minus the calibrated aim bias
++        const AC = B.aimcal
++        const ltl = tl + (AC ? AC.lat() : 0)
++        if (ltl !== tl) predictSelf(ltl)
++        const lx = tgt.x + tgt.vx * ltl, ly = tgt.y + tgt.vy * ltl, zAir = Math.abs(tgt.vz) >= 0.5 ? tgt.vz * ltl : 0
+         const sx = ps.x, sy = ps.y, sz = ps.z + me.muzzleH
+         const ldx = lx - sx, ldy = ly - sy, lh = Math.hypot(ldx, ldy) || 1
+-        const lyaw = Math.atan2(ldy, ldx), lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
+-        const lR = Math.hypot(lh, lzc - sz)
++        const rungs = P.headAimOn ? LASER_RUNGS : MID
++        let frac = rungs[0], lzc = tgt.z + tgt.height * frac + zAir
++        const lyaw = Math.atan2(ldy, ldx)
++        let lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
++        let lR = Math.hypot(lh, lzc - sz)
+         const inRange = lR <= lz.range * P.laserRangeFrac
+         const charge = lz.charge
+         if (charge > 0 || wasHolding) {
++          let clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          for (let k = 1; k < rungs.length && inRange && !clear; k++) {
++            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, pt = clamp(Math.atan2(z - sz, lh), me.minPitch, me.maxPitch)
++            if (muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = Math.hypot(lh, z - sz) }
++          }
++          const cyaw = AC ? wrapPi(lyaw - AC.yaw()) : lyaw, cpitch = AC ? clamp(lpitch - AC.pitch(), me.minPitch, me.maxPitch) : lpitch
+           const full = charge >= P.laserFullFrac * lz.full
+           if (full) { if (lz.fullSince < 0) lz.fullSince = t } else lz.fullSince = -1
+           const takeAim = charge >= P.laserTakeFrac * lz.full - 1e-6
+-          const cy = takeAim ? lyaw : out.aim[0], cp = takeAim ? lpitch : out.aim[1]
+-          const ey = Math.abs(angDiff(predYaw(cy, tl), lyaw)), ep = Math.abs(predPitch(cp, tl) - lpitch)
+-          const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * 0.5 * P.laserGateK, lR)
+-          const clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          const cy = takeAim ? cyaw : out.aim[0], cp = takeAim ? cpitch : out.aim[1]
++          const ey = Math.abs(angDiff(predYaw(cy, tl), cyaw)), ep = predPitch(cp, tl) - cpitch
++          const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * (1 - frac) * P.laserGateK, lR) && -ep <= Math.atan2(tgt.height * frac * P.laserGateK, lR)
+           const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
+           const killNow = charge >= (lz.st.min_charge || 0.15) && laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp
+-          if (takeAim || killNow) { out.aim[0] = lyaw; out.aim[1] = lpitch; B.aimKind = 'laser' }
++          if (takeAim || killNow) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
++          rel.t = t; rel.id = tgt.id; rel.tl = ltl; rel.frac = frac; rel.yaw = lyaw; rel.pitch = lpitch; rel.x = tgt.x; rel.y = tgt.y; rel.z = tgt.z; rel.vx = tgt.vx; rel.vy = tgt.vy
+           if (gate && clear && (full || killNow)) laserRelease = true
+           else if (full && t - lz.fullSince >= P.laserForceS) laserRelease = true
+           else if (B.noCharge && charge < lz.full - 0.1) laserRelease = true      // the legs need full speed now
+@@ -258,7 +297,15 @@
+     }
+     if (lz) {
+       if (laserKeep && !laserRelease) { out.fire[lz.slot] = true; lz.heldT = t }
+-      else if (laserRelease) { B.counters.laserShots++; lz.fullSince = -1 }
++      else if (laserRelease) {
++        B.counters.laserShots++; lz.fullSince = -1
++        if (B.aimcal && P.aimCalOn && tgt && rel.t === t && rel.id === tgt.id) {
++          // R3 calibration record: the torso aim at release is the command when the torso has settled on it
++          rel.pyaw = out.aim[0]; rel.ppitch = out.aim[1]
++          rel.settled = Math.abs(angDiff(me.yaw, out.aim[0])) < 0.012 && Math.abs(me.pitch - out.aim[1]) < 0.012
++          B.aimcal.onRelease({ ...rel })
++        }
++      }
+     }
+     // ---------------- lightning: nearest mech inside the cone, no lead
+     if (li && !hold && li.cooldown <= P.readyCd + 0.05) {
+--- a/lib/economy.js	2026-11-21 08:14:26.339375154 +0000
++++ b/lib/economy.js	2026-11-21 08:10:23.605353146 +0000
+@@ -70,26 +70,35 @@
+   function chooseLoot() {
+     const me = B.me, t = me.t
+     B.loot = null; B.farmNpc = -1
++    const S = B.steal
+     const quiet = t - B.lastContactT >= 3 && B.A === 0
+-    if (!quiet && B.everSawMech) return
++    if (!quiet && B.everSawMech) {
++      // R1: a steal in progress is kept; in FFA one may start while the only lines of fire on us are busy loot shooters
++      const k = S && (S.keep() || (B.env === 'FFA' ? S.choose(0, true) : null))
++      if (k) B.loot = k
++      return
++    }
+     const ffa = B.env === 'FFA'
+     const farm = me.hpf >= P.farmHp && t < P.farmStopT && !(me.cubes >= P.farmStopCubes && me.laser) && (!ffa || nearestMechD() > P.ffaFarmClear)
+     let best = null, bestV = 0
+     const consider = (type, o, value, extraT, maxPath) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+       const d = pathEst(o.x, o.y)
+-      if (d > maxPath) return
++      const di = S && (type === 'cube' || type === 'pickup') ? S.deathItem(o.x, o.y, d) : 0     // R1b kill drops
++      if (di < 0) return
++      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+       const tt = d / me.walk + extraT
+       if (zoneSlack(B, o.x, o.y, t + tt + P.zoneArriveSlack) < 3) return
+       if (type !== 'drone' && nearDrone(o.x, o.y)) return
+       if (!reachable(o.x, o.y, o.z)) return
+-      const v = value / (tt + 0.5)
+-      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o } }
++      let v = value / (tt + 0.5) * (di > 0 ? 1.5 : 1)
++      if (S && (type === 'cube' || type === 'pickup') && di === 0) { const r = S.race(o.x, o.y, tt); if (r < 0) return; if (r > 0) v *= P.raceBonus }   // R1d
++      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
+     }
+     const cubeV = me.cubes >= (B.cfg.cubes.stat_cap || 10) ? 0.4 : P.cubeValue
+     if (cubesWanted()) for (const c of B.cubes.values()) {
+       const nearKill = isKillCube(c)
+-      consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? P.grabCubeHi : P.lootCubePath)
++      consider('cube', c, nearKill ? cubeV * 1.5 : cubeV, 0, nearKill ? (P.stealOn ? P.deathCubeR : P.grabCubeHi) : P.lootCubePath)
+     }
+     for (const p of B.pickups.values()) {
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+@@ -97,17 +106,20 @@
+     }
+     if (farm) {
+       const wantW = !me.weapons[0] || !me.weapons[1]
+-      if (me.gun && !(ffa && nearestMechD() < 320)) for (const c of B.crates.values()) {
++      if (me.gun && !(ffa && nearestMechD() < 320) && (!S || S.farmOk('crate'))) for (const c of B.crates.values()) {
++        if (S && S.beingShot(c.id)) continue                              // R1a: someone else spends the ammunition (steal instead)
+         const shootT = Math.max(1, c.hp) / Math.max(1, me.gun.damage * me.dmgMult) * me.gun.cd + 1
+         consider('crate', c, 1 + (wantW ? 0.5 * P.weaponValue : 0), shootT, P.lootCratePath)
+       }
+-      if (me.gun) for (let k = 0; k < B.trackList.length; k++) {
++      if (me.gun && (!S || S.farmOk('drone'))) for (let k = 0; k < B.trackList.length; k++) {
+         const tr = B.trackList[k]
+         if (!tr.npc || !tr.listed || tr.hp <= 0) continue
++        if (S && S.beingShot(tr.id)) continue                             // R1a
+         const shootT = tr.hp / Math.max(1, me.gun.damage * me.dmgMult * 0.8) * me.gun.cd + 1
+         consider('drone', tr, 2, shootT, P.lootDronePath)
+       }
+     }
++    if (S) { const s = S.choose(bestV); if (s) best = s }                 // R1a / R1b: steals and kill-drop rushes
+     B.loot = best
+     if (best && best.type === 'drone') B.farmNpc = best.id
+   }
+@@ -133,16 +145,23 @@
+     const lose = B.losing
+     const cubeR = lose ? P.grabCubeLose : me.hpf > P.grabHpf ? P.grabCubeHi : P.grabCubeLo
+     let best = null, bestV = 0
++    const S = B.steal
+     const tryOne = (type, o, value, maxPath) => {
+       if (mover.isAbandoned(o.x, o.y)) return
+       const d = pathEst(o.x, o.y)
+-      if (d > maxPath) return
++      const di = S ? S.deathItem(o.x, o.y, d) : 0                       // R1b kill drops: first by path time, else leave them
++      if (di < 0) return
++      if (d > (di > 0 ? Math.max(maxPath, P.deathRushR) : maxPath)) return
+       if (zoneSlack(B, o.x, o.y, t + d / me.walk + P.zoneArriveSlack) < 3) return
+       if (nearDrone(o.x, o.y) || !reachable(o.x, o.y, o.z)) return
+-      const v = value / (d / me.walk + 0.5)
+-      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o } }
++      let v = value / (d / me.walk + 0.5) * (di > 0 ? 1.5 : 1)
++      if (S && di === 0) { const r = S.race(o.x, o.y, d / me.walk); if (r < 0) return; if (r > 0) v *= P.raceBonus }     // R1d
++      if (v > bestV) { bestV = v; best = { type, id: o.id, x: o.x, y: o.y, z: o.z, obj: o, rush: di > 0 } }
++    }
++    if (cubesWanted()) for (const c of B.cubes.values()) {
++      const kc = isKillCube(c)
++      if (t - c.seen <= (kc && P.stealOn ? P.deathCubeMemS : P.cubeMemS)) tryOne('cube', c, kc ? 1.5 : 1, cubeR)     // R1c
+     }
+-    if (cubesWanted()) for (const c of B.cubes.values()) if (t - c.seen <= P.cubeMemS) tryOne('cube', c, isKillCube(c) ? 1.5 : 1, cubeR)
+     if (!lose) for (const p of B.pickups.values()) {
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+       if (t - p.seen > 60 || !wantPickup(p.kind)) continue
+@@ -164,6 +183,7 @@
+       if (dist > (landed ? P.dropLeaveR : P.dropMaxD)) continue
+       const path = dist * P.pathFactor, tApp = path / me.walk
+       if (!landed && tApp < d.landsIn - P.dropEarlyS) continue                 // too early: no waiting in the ring
++      if (B.steal && !B.steal.dropOk(d, tApp)) continue                        // R1e: occupied ring, capture running, or a mech gets there first
+       if (me.hp <= B.A * (tApp + P.dropCaptureS) + P.dropHpBase) continue
+       if (zoneSlack(B, d.x, d.y, t + Math.max(tApp, d.landsIn) + P.dropCaptureS + 3) < d.radius) continue
+       let contested = false
+@@ -185,6 +205,7 @@
+     if (t - grabT >= 0.25 || (B.grab && !lootStillThere(B.grab))) { grabT = t; chooseGrab() }
+   }
+   function lootStillThere(l) {
++    if (l.type === 'steal' || l.type === 'rush') return !!B.steal && B.steal.stillValid(l)
+     if (l.type === 'drone') { const tr = B.tracks.get(l.id); return !!tr && tr.hp > 0 }
+     const map = l.type === 'cube' ? B.cubes : l.type === 'crate' ? B.crates : B.pickups
+     return map.has(l.id)
+@@ -193,6 +214,7 @@
+   function lootLegs() {
+     const me = B.me, l = B.loot
+     if (!l) { B.cmd.mx = 0; B.cmd.my = 0; return }
++    if ((l.type === 'steal' || l.type === 'rush') && B.steal) { B.steal.legs(l); return }
+     const d = Math.hypot(l.x - me.x, l.y - me.y)
+     B.lookHint = true; B.lookX = l.x; B.lookY = l.y
+     if (l.type === 'drone') {
+@@ -227,6 +249,7 @@
+     if (!g) return false
+     const d = mover.moveTo(g.x, g.y, 1, g.type === 'pickup' ? 1.2 : 0.6)
+     if (d < 1.5) return true
++    if (g.rush && d > 20 && me.energy >= P.boostReserve + 10 && me.grounded) cmd.boost = true      // R1b: rush kill drops
+     const tgt = B.target
+     if (tgt && strafeW > 0 && d > 6) {
+       const bx = tgt.x - me.x, by = tgt.y - me.y, bl = Math.hypot(bx, by) || 1, s = mover.jink.sign
+@@ -283,5 +306,5 @@
+     out.pick = best
+   }
+ 
+-  return { update, lootLegs, dropLegs, grabLegs, hands, pick, wantPickup }
++  return { update, lootLegs, dropLegs, grabLegs, hands, pick, wantPickup, reachable, pathEst }
+ }
+--- a/lib/tactics.js	2026-11-21 08:14:26.339430052 +0000
++++ b/lib/tactics.js	2026-11-21 08:04:31.438867748 +0000
+@@ -58,7 +58,7 @@
+       if (d < 120 && tr.conf > 0.3) n120++
+       if (!nearestMech && tr.conf > 0.3) nearestMech = tr
+       // D0 hostility: damaged us in the last 4 s, or aims within 12 deg of us with a line of fire inside 160 m
+-      if (tr.aimAtMe && tr.losIn && d <= P.hostileAimR) tr.hostileAimT = t
++      if (tr.aimAtMe && tr.losIn && d <= P.hostileAimR && !(B.steal && B.steal.aimExplained(tr))) tr.hostileAimT = t   // R1: shooting a crate by us is not aiming at us
+       if (tr.charging && tr.losIn && Math.abs(angDiff(wrapPi(tr.bearing + Math.PI), tr.yaw)) < P.laserReactRad) tr.chargeAtMeT = t
+       tr.hostile = t - tr.lastDmgInT <= P.hostileDmgS || t - tr.hostileAimT <= P.hostileAimMemS
+       if (tr.hostile) anyHostile = true
+@@ -146,8 +146,9 @@
+       tr.cand = true
+     } else {
+       tr.finishable = burstDamage(B, tr) >= tr.hp
++      if (B.steal && B.steal.busyWith(tr)) continue            // R1: the non-hostile shooter of the crate we are taking
+       const ok = tr.hostile || (!opening && !ffa && tr.dist <= band) || unengaged || (tr === B.target && t - tr.lastDmgOutT < 5) ||
+-        (ffa && B.ffaOpen && (tr.finishable || (tr.hp < 0.5 * tr.maxHp && !tr.aimAtMe)))
++        (ffa && B.ffaOpen && (tr.finishable || (tr.hp < 0.5 * tr.maxHp && !tr.aimAtMe))) || (ffa && !!B.steal && B.steal.thirdParty(tr))   // R1b
+       if (!ok) continue
+     }
+     candBuf.push(tr)
+@@ -195,6 +196,7 @@
+     B.counters.aimVetoes = (B.counters.aimVetoes || 0) + 1
+   } else B.vetoT = -1
+   if (att && pick && pick.npc) pick = att
++  if (B.scanner) pick = B.scanner.rearPick(pick)              // R2: face a mech that hits our rear
+   setTarget(B, pick)
+   B.killSecure = !!(pick && pick.secure)
+ }

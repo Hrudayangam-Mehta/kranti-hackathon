@@ -1,0 +1,8 @@
+PASS  FIN T1 ammo 6, three lines, hp 700: off LOSING (DISENGAGE); los / ttk keep fighting  ::  {"off":"DISENGAGE","los":"FIGHT","ttk":"FIGHT"} {"near":true,"T":1.2,"in3":250,"losing":false}
+PASS  FIN T2 empty gun (reload 2.2 s left, TTK 3.4 s) with 3 lines: DISENGAGE for every value; with 0.5 s left (TTK 1.7 s) los / ttk fight, off retreats  ::  {"off":{"phase1":"DISENGAGE","late1":"DISENGAGE","quiet":"HEAL","reloaded":"DISENGAGE,DISENGAGE,DISENGAGE"},"los":{"phase1":"DISENGAGE","late1":"FIGHT","quiet":"HEAL","reloaded":"FIGHT,FIGHT,FIGHT"},"ttk":{"phase1":"DISENGAGE","late1":"FIGHT","quiet":"FIGHT","reloaded":"FIGHT,FIGHT,FIGHT"}}
+PASS  FIN T2 quiet while reloading: off / los HEAL (afterLose), ttk no HEAL while the kill is armed  ::  off HEAL, los HEAL, ttk FIGHT
+PASS  FIN T2 reloaded, target 200 hp, lines back: ttk FIGHT in the first decision; off stays out  ::  off DISENGAGE,DISENGAGE,DISENGAGE, los FIGHT,FIGHT,FIGHT, ttk FIGHT,FIGHT,FIGHT
+PASS  FIN T3 hp 300: HEAL under every value (V4 rule), no near kill  ::  {"off":{"m":"HEAL","near":false},"los":{"m":"HEAL","near":false},"ttk":{"m":"HEAL","near":false}}
+PASS  FIN T4 firewall: FFA / late zone / 3 alive identical to off (control differs)  ::  ffa true, late true, 3 alive true, control differs true
+
+6/6 FIN checks passed

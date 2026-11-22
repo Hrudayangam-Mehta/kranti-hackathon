@@ -1,0 +1,28 @@
+== binary 97521f6e9fbcd6aca8b069448ccfe65d86a4ba05004e6e79abad9f6c5357e847  /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/model/bin/probe_a
+== fixtures NCPU=1 (SCRATCH_DIR set)
+
+36/36 fixtures passed
+rehearsal dirs: rehearsal0
+rehearsal1
+== fixtures NCPU=4 (SCRATCH_DIR set)
+
+36/36 fixtures passed
+rehearsal dirs: rehearsal0
+rehearsal1
+== dev NCPU=1 exit 0 stdout_bytes 0 setups 3 rehearsal_files 4
+MATCH
+== dev NCPU=4 exit 0 stdout_bytes 0 setups 3 rehearsal_files 8
+MATCH
+== dev NCPU=8 exit 0 stdout_bytes 0 setups 3 rehearsal_files 16
+MATCH
+== 20M exit 0 stdout_bytes 0 setups 3
+rel16 exit 0
+MATCH
+MATCH
+== seeds
+s11 seed=11 E=300000 C=75000 {"window_start":"2026-09-06T00:00:00Z","window_end":"2026-09-20T00:00:00Z"} eng=1.20s ref=24.8s MATCH
+s101 seed=101 E=200000 C=400000 {"window_start":"2027-05-16T00:00:00Z","window_end":"2027-05-30T00:00:00Z"} eng=1.58s ref=43.3s MATCH
+s303 seed=303 E=100000 C=25000 {"window_start":"2027-04-03T00:00:00Z","window_end":"2027-04-17T00:00:00Z"} eng=0.49s ref=7.2s MATCH
+s7 seed=7 E=500000 C=125000 {"window_start":"2027-12-11T00:00:00Z","window_end":"2027-12-25T00:00:00Z"} eng=1.50s ref=59.0s MATCH
+s62 seed=62 E=1000000 C=250000 {"window_start":"2028-02-21T00:00:00Z","window_end":"2028-03-06T00:00:00Z"} eng=2.61s ref=123.5s MATCH
+s15 seed=15 E=600000 C=150000 {"window_start":"2028-02-17T00:00:00Z","window_end":"2028-03-02T00:00:00Z"} eng=2.23s ref=74.2s MATCH

@@ -1,0 +1,20 @@
+{"components":95,"mainCells":127016,"spawnDisc":{"r":448,"mainCells":81990,"pocketCells":9632,"pocketShare":0.1051,"pockets":81}}
+pocket {"comp":16,"area_m2":35028,"box":[-375,-179,-2,256],"hop":{"climb":6.6,"hopLen":36.8,"walk":90}}
+pocket {"comp":44,"area_m2":836,"box":[-199,-171,40,234],"hop":{"climb":6.7,"hopLen":12,"walk":6}}
+pocket {"comp":64,"area_m2":552,"box":[191,215,194,228],"hop":{"climb":20.6,"hopLen":12.6,"walk":14}}
+pocket {"comp":14,"area_m2":232,"box":[-357,-303,-4,14],"hop":{"climb":1.5,"hopLen":4.5,"walk":11}}
+pocket {"comp":12,"area_m2":200,"box":[-273,-227,-12,-4],"hop":{"climb":1.5,"hopLen":8.9,"walk":0}}
+pocket {"comp":80,"area_m2":180,"box":[-257,-227,244,262],"hop":{"climb":1.5,"hopLen":8,"walk":4}}
+pocket {"comp":91,"area_m2":180,"box":[113,123,294,312],"hop":{"climb":6.1,"hopLen":32,"walk":4}}
+pocket {"comp":11,"area_m2":140,"box":[-297,-277,-12,-2],"hop":{"climb":6.3,"hopLen":6.3,"walk":12}}
+pocket {"comp":47,"area_m2":128,"box":[-367,-349,48,62],"hop":{"climb":1.5,"hopLen":5.7,"walk":5}}
+pocket {"comp":35,"area_m2":124,"box":[-215,-201,28,48],"hop":{"climb":1.5,"hopLen":4.5,"walk":3}}
+pocket {"comp":33,"area_m2":84,"box":[-353,-339,26,42],"hop":{"climb":1.5,"hopLen":8,"walk":0}}
+pocket {"comp":54,"area_m2":84,"box":[-35,-29,52,70],"hop":{"climb":6.7,"hopLen":34,"walk":8}}
+phase R | pts | P(line usable at d) = standable & in zone & clear both ways, for d = 55, 75, 95, 115, 125, 150, 185 | P(clear | standable & in zone) | keep line 95->150 | 115->150 | pts with any 150 m line | geom: 150 m from a hunter at 0.41R is within 0.8R
+ 560 |  800 | 0.59 0.50 0.43 0.36 0.34 0.28 0.21 | 0.89 0.81 0.73 0.66 0.63 0.55 0.46 | 0.64 (5453) | 0.75 | 0.89 (mean share of directions 0.28) | 1.00
+ 380 |  800 | 0.54 0.44 0.37 0.30 0.28 0.22 0.16 | 0.87 0.76 0.67 0.58 0.55 0.47 0.37 | 0.60 (4692) | 0.72 | 0.85 (mean share of directions 0.22) | 0.93
+ 240 |  800 | 0.50 0.40 0.32 0.25 0.23 0.17 0.11 | 0.86 0.75 0.65 0.56 0.52 0.44 0.33 | 0.51 (4097) | 0.65 | 0.81 (mean share of directions 0.17) | 0.55
+ 140 |  800 | 0.41 0.30 0.22 0.16 0.13 0.08 0.04 | 0.82 0.69 0.58 0.47 0.44 0.36 0.26 | 0.36 (2763) | 0.50 | 0.62 (mean share of directions 0.08) | 0.22
+  70 |  800 | 0.29 0.16 0.08 0.03 0.01 0.00 0.00 | 0.83 0.72 0.61 0.56 0.55  n/a  n/a | 0.00 (1005) | 0.00 | 0.00 (mean share of directions 0.00) | 0.00
+  25 |  800 | 0.00 0.00 0.00 0.00 0.00 0.00 0.00 |  n/a  n/a  n/a  n/a  n/a  n/a  n/a | n/a (0) | n/a | 0.00 (mean share of directions 0.00) | 0.00

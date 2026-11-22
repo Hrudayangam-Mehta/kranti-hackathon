@@ -1,0 +1,18 @@
+=== p20m5 v1 0b94a255295c35fa98f745a3d15efac00b69e7442c887da72b0caf0db34efe25 06:15:20
+--- p20m5 NCPU=2 (fresh dir)
+exit=0 stdout_bytes=0 wall=13.544508003 files=37/2
+surviving events 19562932, user_daily rows 2250361
+sessions 3417672 / 3417672, revenue 6637297766 / 6637297766, assisted 37032460 >= 2103032
+id prefixes: user Some('u'), event Some('e'), click Some('k')
+event copies 21581187, winners 19562932, clicks 5082862, linked 1199889, exotic 1133
+p20m5 vs rel17 ref: compare MATCH / MATCH; rowdiff ROWDIFF IDENTICAL / ROWDIFF IDENTICAL
+--- rerun into the non-empty folder (stale parquet copies + junk + dotfiles + symlink + subdir), NCPU=8
+before rerun: user_daily 43 entries, campaign_daily 7 entries
+exit=0 stdout_bytes=0 files=45/4
+leftovers user_daily: .hidden subdir zz.txt  | campaign_daily: 
+rerun p20m5 vs rel17 ref: compare MATCH / MATCH; rowdiff ROWDIFF IDENTICAL / ROWDIFF IDENTICAL
+surviving events 19562932, user_daily rows 2250361
+sessions 3417672 / 3417672, revenue 6637297766 / 6637297766, assisted 37032460 >= 2103032
+id prefixes: user Some('u'), event Some('e'), click Some('k')
+event copies 21581187, winners 19562932, clicks 5082862, linked 1199889, exotic 1133
+=== p20m5 done 06:16:15

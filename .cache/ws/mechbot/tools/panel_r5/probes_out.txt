@@ -1,0 +1,42 @@
+# incoming.js (V4, squad seeds 1-10, 11-20)
+V4 squad seeds 1-10: 10 matches, mean life 70.3 s, kills 37
+damage taken 19157 total; by weapon: gun 10907 (56.9%), laser 1507 (7.9%), npc 1121 (5.9%), mortar 832 (4.3%), lightning 4791 (25.0%)
+rear hits: 3691 (19.3% of damage taken)
+gun / laser damage by shooter range band: gun 130-180 224, gun 180+ 957, gun 40-80 4338, gun 80-130 2986, gun <40 2352, laser 80-130 1507
+laser beams fired at us 6, laser hits on us 5; time in D4 beamhide 1.0 s; laser held 24% of life
+laser charges aimed at us (first flag): 9; nearest shadow cell (m): 12:2 2:1 5:1 6:1 8:1 none:3; reachable before release: walking 1 (11%), boosting 3 (33%)
+V4 squad seeds 11-20: 10 matches, mean life 83.4 s, kills 50
+damage taken 18225 total; by weapon: gun 10884 (59.7%), laser 2346 (12.9%), npc 363 (2.0%), lightning 3566 (19.6%), mortar 1066 (5.8%)
+rear hits: 2318 (12.7% of damage taken)
+gun / laser damage by shooter range band: gun 130-180 322, gun 180+ 323, gun 40-80 4328, gun 80-130 3205, gun <40 2705, laser 130-180 328, laser 180+ 435, laser 40-80 353, laser 80-130 891, laser <40 340
+laser beams fired at us 11, laser hits on us 7; time in D4 beamhide 0.3 s; laser held 33% of life
+laser charges aimed at us (first flag): 22; nearest shadow cell (m): 12:1 2:8 5:1 8:1 none:11; reachable before release: walking 8 (36%), boosting 9 (41%)
+
+# gunrate.js (V4 vs revCount 99 = full lead, seeds 1-20)
+V4 seeds 1-20: life 76.9 s, kills 87; gun hits/shots by band: 0-25: 87/76 114%, 25-50: 406/411 99%, 50-75: 472/494 96%, 75-100: 482/578 83%, 100-125: 193/298 65%, 125-150: 63/120 53%, 150-175: 7/22 32%, 175-200: 7/4 175%
+full seeds 1-20: life 75.0 s, kills 80; gun hits/shots by band: 0-25: 85/72 118%, 25-50: 475/473 100%, 50-75: 467/504 93%, 75-100: 418/519 81%, 100-125: 197/292 67%, 125-150: 71/143 50%, 150-175: 7/20 35%, 175-200: 0/0 -%
+
+# abandon.js (V4, seeds 1-10, 11-20; note: counts kills on the exit tick as exits)
+V4 seeds 1-10: kills 36, damage into mechs 59865, into mechs never killed 9353 (16%)
+FIGHT -> DISENGAGE/HEAL with a mech target: 25 (DISENGAGE 4, HEAL 3, DISENGAGE/losing 18)
+... of which near kills (tau <= 3 s, B.A x (tau + 0.3) < hp - 150): 12; our hp then 54%, target hp 13%; killed by us within 20 s anyway: 7; we died within 10 s of the last one: 3 matches
+V4 seeds 11-20: kills 50, damage into mechs 82734, into mechs never killed 12398 (15%)
+FIGHT -> DISENGAGE/HEAL with a mech target: 29 (DISENGAGE/losing 25, DISENGAGE 4)
+... of which near kills (tau <= 3 s, B.A x (tau + 0.3) < hp - 150): 11; our hp then 46%, target hp 14%; killed by us within 20 s anyway: 2; we died within 10 s of the last one: 1 matches
+
+# abandon2.js on proto_ft (prototype of FIN part a; off / on)
+ft-off seeds 1-20: kills 87, damage into mechs 142712, into mechs never killed 20464 (14%)
+FIGHT -> DISENGAGE/HEAL with a mech target: 54 (DISENGAGE 8, HEAL 3, DISENGAGE/losing 43)
+... of which near kills (tau <= 3 s, B.A x (tau + 0.3) < hp - 150): 23; our hp then 50%, target hp 13%; killed by us within 20 s anyway: 9; we died within 10 s of the last one: 4 matches
+ft-on seeds 1-20: kills 87, damage into mechs 144070, into mechs never killed 22196 (15%)
+FIGHT -> DISENGAGE/HEAL with a mech target: 52 (DISENGAGE 10, HEAL 2, DISENGAGE/losing 40)
+... of which near kills (tau <= 3 s, B.A x (tau + 0.3) < hp - 150): 25; our hp then 47%, target hp 13%; killed by us within 20 s anyway: 6; we died within 10 s of the last one: 5 matches
+
+# postkill.js (V4 seeds 1-20)
+seeds 1-20: 87 kills; post-kill DISENGAGE with no target and not LOSING after 8 kills, 12.1 s in all; HEAL within 3 s of a kill 7.2 s
+time in the 3 s after a kill, by mode/leg: FIGHT/grab 49.1, DISENGAGE/hide 37.6, FIGHT/standoff 32.1, FIGHT/isolate 24.5, HOLD/grab (no target) 20.3, ZONE/zone 17.9, HOLD/roam (no target) 15.6, ZONE/zone (no target) 14.6, DISENGAGE/grab (no target) 8.5, FIGHT/- 8.1, HEAL/hold (no target) 4.7, FIGHT/regain 4.1, DISENGAGE/hide (no target) 4.0, DISENGAGE/grab 2.1, DISENGAGE/escape (no target) 1.9, DISENGAGE/retreat 1.7, FIGHT/dodge 1.6, HEAL/healcube (no target) 1.5, DISENGAGE/hold (no target) 1.3, DISENGAGE/escape 1.1, DISENGAGE/dodge 0.8, DISENGAGE/dodge (no target) 0.7, HEAL/hide (no target) 0.6, HOLD/- (no target) 0.6, HEAL/hide 0.4, LOOT/loot (no target) 0.3, FIGHT/beamhide 0.3, DISENGAGE/retreat (no target) 0.1, FIGHT/drone 0.1
+
+# raycost.js
+shotClear 60-160 m: 18.2 us per ray (1366 clear of 4000)
+shotClear 60-160 m: 7.3 us per ray (1366 clear of 4000)
+shotClear 60-160 m: 1.9 us per ray (1366 clear of 4000)

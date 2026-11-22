@@ -1,0 +1,17 @@
+files:
+     496 Dockerfile
+    1074 LICENSE
+     518 README.md
+  206453 bot.js
+  208541 total
+conformance (bundle, real map, 1-CPU quota, Dockerfile engine settings):
+  [bot] init 1888 ms world=true nav=true brain=true
+  [bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.4ms
+  observations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)
+  answer time ms: p50 0.6  p90 0.8  p99 1.2  max 3.2  (this machine, not the 1-CPU match container)
+  PASS
+conformance (bundle, no map available):
+  [bot] init 951 ms world=false nav=false brain=true
+  [bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.2ms
+  answer time ms: p50 0.6  p90 0.7  p99 3.2  max 7.0  (this machine, not the 1-CPU match container)
+  PASS

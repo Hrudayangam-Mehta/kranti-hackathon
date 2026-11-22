@@ -1,0 +1,15 @@
+binary /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel2_work/bin/s3 sha256 1496d0dfaf225588
+fixtures NCPU=1: 36/36 fixtures passed
+fixtures NCPU=4: 36/36 fixtures passed
+fixtures NCPU=8: 36/36 fixtures passed
+dev NCPU=4: MATCH / MATCH (stdout 0 bytes)
+dev NCPU=8: MATCH / MATCH (stdout 0 bytes)
+dev NCPU=1: MATCH / MATCH (stdout 0 bytes)
+seed 3169: MATCH / MATCH
+seed 5097: MATCH / MATCH
+seed 6455: MATCH / MATCH
+seed 23128: MATCH / MATCH
+seed 29331: MATCH / MATCH
+seed 32124: MATCH / MATCH
+p20m vs rel1 output: MATCH / MATCH (36 user files, 1 campaign files)
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518

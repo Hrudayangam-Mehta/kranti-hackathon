@@ -1,0 +1,126 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh nullatom_096c710",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/nullatom_096c710.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 6,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 6,
+  "meanTimeAlive": 119.9,
+  "meanDmgDealt": 10103,
+  "meanDmgTaken": 2956,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "lightning/hunt": 1,
+   "mortar/hunt": 1
+  },
+  "meanWallMs": 2591,
+  "wallS": 3.6
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "mech-royale",
+   "place": 10,
+   "score": 6,
+   "kills": 6,
+   "timeAlive": 94.55,
+   "alive": false,
+   "dmgDealt": 9231,
+   "dmgTaken": 2383,
+   "cause": "lightning",
+   "killedBy": 6,
+   "killRange": 34.5,
+   "killerRole": "hunt",
+   "hunters": 7,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 12,
+   "upgrades": [
+    "armor",
+    "gun_damage",
+    "gun_damage",
+    "armor"
+   ],
+   "loadout": [
+    "laser",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 94.55,
+   "wallMs": 2300,
+   "deadOthers": 6,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 26,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "mech-royale",
+   "place": 10,
+   "score": 6,
+   "kills": 6,
+   "timeAlive": 145.15,
+   "alive": false,
+   "dmgDealt": 10974,
+   "dmgTaken": 3528,
+   "cause": "mortar",
+   "killedBy": 9,
+   "killRange": 51.1,
+   "killerRole": "hunt",
+   "hunters": 7,
+   "killerName": "squad:hard",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 10,
+   "upgrades": [
+    "armor",
+    "gun_damage",
+    "armor",
+    "lightning_range"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 145.15,
+   "wallMs": 2882,
+   "deadOthers": 6,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 52.3,
+   "meanMs": 0
+  }
+ ]
+}

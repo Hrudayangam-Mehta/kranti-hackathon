@@ -1,0 +1,677 @@
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/brain.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/brain.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/brain.js	2026-11-22 03:29:38.073244429 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/brain.js	2026-11-22 04:21:35.130402215 +0000
+@@ -23,6 +23,8 @@
+ import { makeAimCal } from './aimcal.js'
+ import { makeHunt } from './hunt.js'
+ import { makeUtil } from './util.js'
++import { makeEngage } from './engage.js'
++import { makeFire2 } from './fire2.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -254,6 +256,8 @@
+   const hunt = makeHunt(B, mover, econ)
+   B.hunt = hunt
+   if (P.utilTgt === true || P.utilWait === true) B.util = makeUtil(B, hunt, mover)      // Fable util: undefined at 'off'
++  if (P.enOpen === true || P.enBand === true || P.enRetarget === true || P.enContra === true) B.en = makeEngage(B, hunt, mover)   // HB2 w2/A
++  if (P.fiGate === true || P.fiSave === true || P.fiReload === true || P.fiSnap === true || P.fiRung === true) B.f2 = makeFire2(B, hunt)   // HB2 w2/A
+   // Fable upgFix: the upgrade order against config.upgrades, checked at match start in every preset value (counted + logged);
+   // 'on' (SQUAD posture + hunt.firewall): unknown ids are replaced by their real id (mortar_damage -> mortar_reload, mortar_rate ->
+   // mortar_velocity) or dropped, and config ids missing from the order are appended in config order
+@@ -480,6 +484,7 @@
+     if (dlPull && tgt.npc && econ.dlLegs()) { B.counters.dlPull = (B.counters.dlPull || 0) + 1; return }
+     if (tgt.npc && B.loot && B.loot.type === 'drone' && B.loot.id === tgt.id) { econ.lootLegs(); B.legKind = 'drone'; return }
+     if (stance.fightLegs()) return
++    if (B.en && B.en.fightLegs()) return            // HB9 w2/A
+     const ffa = B.env === 'FFA', ffaR = ffa && P.ffaRules
+     const bd = bandFor(B)
+     let hold = bd.hold, lo = bd.lo, hi = bd.hi
+@@ -733,8 +738,10 @@
+         ffaM.update(obs)
+         hunt.pre(obs)
+         if (B.util) B.util.pre()                         // Fable util (inert outside SQUAD + firewall)
++        if (B.en) B.en.pre(); if (B.f2) B.f2.pre()       // HB4 w2/A
+         selectTarget(B)
+         hunt.post()
++        if (B.en) B.en.post()                            // HB5 w2/A
+         finUpdate(B)                                     // R7a FIN (inert unless P.finTtk)
+       })
+       stage('econ', () => econ.update())
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/engage.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/engage.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/engage.js	1970-01-01 00:00:00.000000000 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/engage.js	2026-11-22 04:29:55.518417768 +0000
+@@ -0,0 +1,294 @@
++// Fable wave 2, engineer A: engagement rules of variant 'd' (notes/fable/redesign/q1_engage.md) as presets
++//   en_open     D1  opening gate (replaces the farm-first gate; no line breaking)
++//   en_band     D2  gun-only band 120-150 m (hold 135) with a 0.5 s strafe reversal beyond 75 m
++//               D3  laser band by target hp: over enLzBeams beams 130-170 (hold 150); at or under it with <= 2 shooters stop
++//                   backing (floor 90 m); 55 m floor against a lightning carrier
++//               D4  any shooter inside 70 m, energy >= 35, not finishing: boost straight away in 1 s pulses until >= 95 m
++//               D6  after the opening gate a lined mech inside 280 m (laser) / 205 m (gun) is a candidate at any hp; no walk
++//                   toward a mech under 70% hp; isolate cell off (the takeover skips it)
++//   en_retarget D5  tDie = hp / max(2 s intake, 30); tDie < tKill(pick): the lined mech with the smallest tKill if < tDie;
++//                   the focus 'kill' current-target bonus counted as 60 instead of 200
++//   en_contra   C   hp < 35% with 3+ shooters: in to 25-32 m of the smallest-tKill lined mech without lightning, then its
++//                   corpse spot
++// Every rule acts only in the SQUAD posture behind hunt.firewall() (en_band 'both': D2's band and D4 in both postures).
++// Hooks (all `if (B.en) ...`, B.en exists only with one of the presets on): brain.js HB4 pre, HB5 post, HB9 fightLegs;
++// tactics.js HT1 band, HT2 cand, HT3 pickTarget, HT5 ofGate / openUp. No call to B.rng(): the strafe uses its own generator.
++// Writes on B: B.en, B.ft (null outside the live posture), B.fkWalk / B.rPrefNow / B.legKind in its legs (as fightLegs does).
++
++import { makeRng } from './aim.js'
++import { ringSum } from './senses.js'
++import { bandFor } from './tactics.js'
++
++export function makeEngage(B, hunt, mover) {
++  const P = B.P, C = B.counters
++  const inc = (k) => { C[k] = (C[k] || 0) + 1 }
++  const fwOk = () => B.env !== 'FFA' && hunt.firewall()
++  const st = {
++    openUsed: false, openDown: false, openUp: false, lastCube: -1, lastCubeT: 0,
++    sh3: 0, sh4: 0, inDps: 0, tDie: Infinity,
++    snext: -1, smag: -99, schg: -99, rng: null,
++    awayOn: false, awayId: -1, awayUntil: -1, awayLast: -99,
++    cOn: false, cTgt: null, cKillT: -99, cKillX: 0, cKillY: 0, lastKillT: -99,
++  }
++  const ft = { tKill: 99, tDie: Infinity, ourDps: 0, inDps: 0, shooters: 0, ok: true, finish: false }
++
++  const openLive = () => P.enOpen === true && fwOk()
++  const bandSq = () => P.enBand === true && fwOk()
++  const bandAny = () => P.enBand === true && (P.enBandAll === true || fwOk())
++  const contraLive = () => P.enContra === true && fwOk()
++  const retLive = () => P.enRetarget === true && fwOk()
++  const isMech = (tr) => !!tr && !tr.npc && tr.hp > 0
++  /** Finishing (D4 exception): our target within one laser cycle of damage (enFinHp x dmgMult), or the legacy finish flags. */
++  function finishing(tgt) {
++    return isMech(tgt) && (tgt.hp <= P.enFinHp * B.me.dmgMult || B.finishing === true || B.killSecure === true)
++  }
++
++  // ------------------------------------------------------------------ HB4: assess stage, before selectTarget
++  function pre() {
++    const me = B.me, t = me.t, L = B.trackList
++    let sh3 = 0, sh4 = 0
++    for (let k = 0; k < L.length; k++) {
++      const tr = L[k]
++      if (!isMech(tr)) continue
++      const hit = t - tr.lastDmgInT
++      if (hit <= 3 || (tr.hostile && t - tr.losInT <= 0.5)) sh3++
++      if (hit <= P.enOpenHitS) sh4++
++    }
++    st.sh3 = sh3; st.sh4 = sh4
++    st.inDps = ringSum(me.dmgIn, t - P.enInS) / Math.max(0.1, P.enInS)
++    st.tDie = me.hp / Math.max(st.inDps, P.enDieFloor)
++    if (!st.rng && me.hasPos) st.rng = makeRng(((Math.round(me.x * 16) * 73856093) ^ (Math.round(me.y * 16) * 19349663) ^ 0x2c1b3c6d) >>> 0)
++    // D1 opening gate (one-way: once down it stays down)
++    if (st.lastCube < 0 || me.cubes > st.lastCube) { st.lastCubeT = t; st.lastCube = me.cubes }   // first decision: the clock starts
++    else if (me.cubes < st.lastCube) st.lastCube = me.cubes
++    st.openUp = false
++    if (P.enOpen === true && !st.openDown) {
++      const tEnd = P.enOpenT * (P.openFarmT > 0 ? P.openFarmT / 75 : 1)      // scaled with the match clock as openFarmT is
++      let why = ''
++      if (!openLive()) why = 'fw'
++      else if (C.kills > 0) why = 'kill'
++      else if (B.foreignDeaths > 0) why = 'foreign'
++      else if (t >= tEnd) why = 'time'
++      else if (me.laser && me.cubes >= P.enOpenCubes) why = 'laser'
++      else if (sh4 >= P.enOpenShooters) why = 'shooters'
++      else if (t - st.lastCubeT > P.enOpenDryS) why = 'dry'
++      if (why) { if (st.openUsed) { st.openDown = true; inc('enOpenEnd_' + why) } }
++      else { st.openUsed = true; st.openUp = true; inc('enOpenGate') }
++    }
++    // C: contrarian close-in (held with hysteresis)
++    if (contraLive()) {
++      const trig = me.hpf < P.ecHpf && sh3 >= P.ecShooters
++      const keep = st.cOn && me.hpf < P.ecHpf + P.ecHys && sh3 >= 1
++      if (trig && !st.cOn) inc('ecStart')
++      st.cOn = trig || keep
++      if (B.lastKillT > st.lastKillT && st.cOn) { st.cKillT = B.lastKillT; st.cKillX = B.lastKillX; st.cKillY = B.lastKillY; inc('ecKill') }
++    } else st.cOn = false
++    st.lastKillT = B.lastKillT
++    if (!st.cOn) st.cTgt = null
++  }
++
++  // ------------------------------------------------------------------ HB5: after selectTarget / hunt.post
++  function post() {
++    if (!fwOk()) { B.ft = null; return }
++    const tgt = B.target
++    ft.tDie = st.tDie; ft.inDps = st.inDps; ft.shooters = st.sh3; ft.ok = true      // D5: never leave the fight (ok stays true)
++    ft.tKill = isMech(tgt) ? hunt.ttk(tgt) : 99
++    ft.ourDps = isMech(tgt) && ft.tKill < 99 ? tgt.hp / Math.max(0.05, ft.tKill) : 0
++    ft.finish = isMech(tgt) && (ft.tKill <= 1.6 || tgt.hp <= P.enFinHp * B.me.dmgMult)
++    B.ft = ft
++  }
++
++  // ------------------------------------------------------------------ HT5: the farm-first gate
++  /** D1 replaces the farm-first gate from its first live decision on (its own gate is cand(); no line breaking). */
++  function ofGate(gate) { return st.openUsed ? false : gate }
++  function openUp() { return st.openUp }
++
++  // ------------------------------------------------------------------ HT2: candidate gate (mechs)
++  function opening(t) {
++    return t < (P.fightEarly === true && B.foreignDeaths === 0 ? P.earlyOpenS : P.openingS)
++  }
++  function cand(tr, ok) {
++    const me = B.me, t = me.t
++    if (st.openUp) {
++      // D1: only a mech that hit us from under enOpenR m within enOpenHitS s is answered
++      const exc = t - tr.lastDmgInT <= P.enOpenHitS && (tr.dmgInD < P.enOpenR || P.enOpenFar === true)
++      if (ok && !exc) { inc('enOpenBlock'); return false }
++      return ok
++    }
++    if (!ok && bandSq() && !B.ofGate && !opening(t) && tr.listed && tr.losOut && tr.hp > 0 && tr.dist <= (me.laser ? P.enFireLaserR : P.enFireGunR)) {
++      inc('enD6Cand'); return true                                                    // D6: any lined mech at any hp
++    }
++    return ok
++  }
++
++  // ------------------------------------------------------------------ HT3: target pick (after the 25% keep rule)
++  function pickTarget(pick, cur, cand) {
++    const t = B.me.t
++    if (st.cOn && contraLive()) {
++      // C: the lined mech without lightning with the smallest time to kill
++      let best = null, bt = Infinity
++      for (let k = 0; k < cand.length; k++) {
++        const tr = cand[k]
++        if (!isMech(tr) || !tr.losOut || tr.hasLightning) continue
++        const T = hunt.ttk(tr)
++        if (T < bt) { bt = T; best = tr }
++      }
++      st.cTgt = best
++      if (best) { if (best !== pick) inc('ecPick'); return best }
++      return pick
++    }
++    if (!retLive() || !isMech(pick)) return pick
++    let p = pick
++    if (P.focusKill === true && P.fkCur !== P.enCurBonus) {
++      // focus 'kill' cost with the current-target bonus enCurBonus (tr.index = 1000 - cost with fkCur), mechs only
++      let best = null, bs = -Infinity
++      for (let k = 0; k < cand.length; k++) {
++        const tr = cand[k]
++        if (!isMech(tr)) continue
++        const bonus = tr === cur || t - (tr.fkTgtT === undefined ? -99 : tr.fkTgtT) <= P.fkCurS
++        const s = tr.index - (bonus ? P.fkCur - P.enCurBonus : 0)
++        if (s > bs) { bs = s; best = tr }
++      }
++      // the legacy 25% keep rule stays in front
++      if (cur && cur !== best && isMech(cur) && cand.includes(cur) && cur.hp < P.keepTargetHpf * cur.maxHp && t - cur.losOutT <= P.keepNoLosS && !(best && best.finishable && !cur.finishable)) best = cur
++      if (best && best !== p) { inc('enRescore'); p = best }
++    }
++    // D5: we die before the kill -> the quickest lined kill that comes before our death
++    if (st.tDie < hunt.ttk(p)) {
++      let best = null, bt = Infinity
++      for (let k = 0; k < cand.length; k++) {
++        const tr = cand[k]
++        if (!isMech(tr) || !tr.losOut) continue
++        const T = hunt.ttk(tr)
++        if (T < bt) { bt = T; best = tr }
++      }
++      if (best && best !== p && bt < st.tDie) { inc('enRetarget'); p = best }
++    }
++    return p
++  }
++
++  // ------------------------------------------------------------------ HT1: range band (before bandFor's gun-range clamp)
++  function band(o) {
++    if (!bandAny()) return
++    const me = B.me
++    if (o.kind === 'gun') { o.lo = P.enGunLo; o.hold = P.enGunHold; o.hi = P.enGunHi; o.boostAway = 0; return }
++    if (o.kind !== 'laser') return
++    o.boostAway = 0                                                                   // D4 owns the boost-away
++    if (!bandSq()) return                                                             // D3: SQUAD posture only
++    const tgt = B.target, lz = me.laser
++    o.lo = P.enLzLo; o.hold = P.enLzHold; o.hi = P.enLzHi
++    if (isMech(tgt) && lz && tgt.hp <= P.enLzBeams * lz.damage * me.dmgMult && st.sh3 <= P.enLzNearShooters) {
++      o.lo = P.enLzFloor; o.hold = Math.max(P.enLzFloor, Math.min(P.enLzNearHold, tgt.dist)); o.hi = P.enLzHi        // stop backing
++    }
++    if (isMech(tgt) && tgt.hasLightning && o.lo < P.enLightFloor) { o.lo = P.enLightFloor; o.hold = Math.max(o.hold, o.lo) }
++  }
++
++  // ------------------------------------------------------------------ HB9: fight legs (after stance.fightLegs)
++  /** D2 strafe: our own reversal clock beyond enStrafeMinR (mover.jink.sign), plus one at an enemy magazine start / beam. */
++  function strafe(t) {
++    const j = mover.jink
++    const extra = (B.magStartT > st.smag && t - B.magStartT < 0.3) || (B.chargeAtMeT > st.schg && t - B.chargeAtMeT < 0.3)
++    if (B.magStartT > st.smag) st.smag = B.magStartT
++    if (B.chargeAtMeT > st.schg) st.schg = B.chargeAtMeT
++    if (t >= st.snext || (extra && t - j.lastFlip >= 0.3)) {
++      if (st.snext >= 0) { j.sign = -j.sign; j.lastFlip = t; inc('enFlip') }
++      const r = st.rng ? st.rng() : 0.5
++      st.snext = t + P.enStrafeS * (1 - P.enStrafeJit + 2 * P.enStrafeJit * r)
++    }
++  }
++  function awayLegs(tgt) {
++    const me = B.me, t = me.t
++    if (st.awayOn && t - st.awayLast > 0.25) st.awayOn = false                     // the legs were elsewhere: a fresh trigger
++    st.awayLast = t
++    if (st.awayOn) {
++      const sh = B.tracks.get(st.awayId)
++      if (!isMech(sh) || !(sh.listed || t - sh.lastSeen < 1) || finishing(tgt)) st.awayOn = false
++      else if (t >= st.awayUntil) {
++        if (sh.dist < P.enAwayOut && me.energy >= P.enAwayPulseE) { st.awayUntil = t + P.enAwayPulseS; inc('enAwayPulse') } else st.awayOn = false
++      }
++    }
++    if (!st.awayOn) {
++      if (me.energy < P.enAwayEnergy || !me.grounded || finishing(tgt)) return false
++      let sh = null
++      const L = B.trackList
++      for (let k = 0; k < L.length; k++) {
++        const tr = L[k]
++        if (!isMech(tr) || !tr.listed || tr.dist >= P.enAwayR) continue
++        if (!(t - tr.losInT <= 0.5 && (tr.hostile || t - tr.lastDmgInT <= P.enOpenHitS))) continue
++        if (!sh || tr.dist < sh.dist) sh = tr
++      }
++      if (!sh) return false
++      st.awayOn = true; st.awayId = sh.id; st.awayUntil = t + P.enAwayPulseS
++      inc('enAwayStart')
++    }
++    const sh = B.tracks.get(st.awayId)
++    if (!mover.standoff(sh.x, sh.y, P.enAwayOut, false, false, P.enAwayOut, 1e9, 1)) {
++      const ax = me.x - sh.x, ay = me.y - sh.y, l = Math.hypot(ax, ay) || 1
++      mover.moveTo(me.x + ax / l * 25, me.y + ay / l * 25, 1, 1)
++    }
++    if (me.grounded && me.energy > 2) B.cmd.boost = true
++    B.legKind = 'enaway'; B.rPrefNow = P.enAwayOut
++    inc('enAway')
++    return true
++  }
++  function contraLegs() {
++    const me = B.me, t = me.t
++    if (t - st.cKillT <= P.ecCorpseS) {
++      const d = Math.hypot(st.cKillX - me.x, st.cKillY - me.y)
++      if (d > P.ecCorpseR) {
++        mover.moveTo(st.cKillX, st.cKillY, 1, P.ecCorpseR)
++        if (d > 12 && me.grounded && me.energy > 2) B.cmd.boost = true
++      } else { B.cmd.mx = 0; B.cmd.my = 0 }
++      B.legKind = 'encorpse'; inc('ecCorpse')
++      return true
++    }
++    const T = B.target                                                               // the pick of pickTarget (torso and legs agree)
++    if (!isMech(T) || !T.losOut) return false
++    if (T.dist > P.ecHi) {
++      mover.moveTo(T.x, T.y, 1, P.ecR)
++      if (me.grounded && me.energy > 2) B.cmd.boost = true
++    } else if (!mover.standoff(T.x, T.y, P.ecR, true, true, P.ecLo, P.ecHi, 1)) { B.cmd.mx = 0; B.cmd.my = 0 }
++    B.legKind = 'encontra'; B.rPrefNow = P.ecR
++    inc('ecLegs')
++    return true
++  }
++  function fightLegs() {
++    const me = B.me, t = me.t, tgt = B.target
++    if (!isMech(tgt)) return false
++    if (st.cOn && contraLive() && contraLegs()) return true
++    // the legacy branches keep these cases: beam hide, drop pull, power grab, lightning rush, no line to the target
++    if (t - B.chargeAtMeT < 0.9 && B.hide.state === 'found') {
++      // the legacy D4 beam hide (behind cover within 6 m, 9 m boosting) goes first; in FFA its own budget, so always defer
++      const canBoost = me.energy >= P.boostReserve && me.grounded
++      if (B.env === 'FFA' || B.hide.dist <= (canBoost ? P.laserHideBoost : P.laserHideWalk)) return false
++    }
++    if (bandAny() && !B.rush && awayLegs(tgt)) return true
++    if (!bandSq()) return false
++    if (P.dropLife === true && !!B.dl && B.dl.go === true) return false
++    if (B.grab || B.rush || !tgt.losOut) return false
++    const bd = bandFor(B)
++    let hold = bd.hold, lo = bd.lo, hi = bd.hi
++    // CH1 finish walk-in kept for the gun only (D3 replaces it with a laser), 55 m floor against a lightning carrier
++    const fkW = P.focusKill === true && !me.laser && tgt.hp < P.fkWalkTgtHpf * tgt.maxHp && me.hpf > P.fkWalkHpf && B.nLos <= P.fkWalkLines
++    if (fkW) {
++      hold = P.fkWalkR; lo = Math.max(6, P.fkWalkR - P.fkWalkBand); hi = P.fkWalkR + P.fkWalkBand
++      if (tgt.hasLightning && lo < P.enLightFloor) { lo = P.enLightFloor; hold = lo + P.fkWalkBand; hi = hold + P.fkWalkBand }
++      B.fkWalk = true; inc('fkWalk')
++    }
++    const reloading = tgt.magN >= P.magSize && t - tgt.lastBulletT < P.magReloadS
++    if (reloading && !me.laser && !fkW) hi = Math.min(hi, hold + 5)                  // their reload: close in (legacy)
++    if (me.hpf < P.enWalkHpf && !fkW && hi < tgt.dist + 1) { hi = tgt.dist + 1; inc('enNoWalk') }   // D6: no walk in under 70%
++    B.rPrefNow = hold
++    const far = tgt.dist > P.enStrafeMinR
++    if (far) strafe(t)
++    B.legKind = 'enband'
++    if (!mover.standoff(tgt.x, tgt.y, hold, !far, true, lo, hi, bd.backStick)) {
++      if (tgt.dist > hi) mover.moveTo(tgt.x, tgt.y, 1, 5)
++      else { const ax = me.x - tgt.x, ay = me.y - tgt.y, l = Math.hypot(ax, ay) || 1; mover.moveTo(me.x + ax / l * 20, me.y + ay / l * 20, 1, 1) }
++    }
++    inc(bd.kind === 'laser' ? 'enBandLaser' : 'enBandGun')
++    return true
++  }
++
++  return { pre, post, ofGate, openUp, cand, pickTarget, band, fightLegs, st }
++}
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/fire2.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/fire2.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/fire2.js	1970-01-01 00:00:00.000000000 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/fire2.js	2026-11-22 04:53:47.258419533 +0000
+@@ -0,0 +1,150 @@
++// Fable wave 2, engineer A: fire-control rules of variant 'e' (notes/fable/redesign/q2_fire.md) as presets
++//   fi_gate   e1  gun yaw / pitch gate = max(old gate, fiGateK x (radius | visible half-height + gateBody) / R)
++//   fi_save   e2  no laser release at a mech the gun finishes (hp <= 90 x dmgMult, >= 3 rounds, clear line, <= 150 m, our
++//                 hp >= 25%): the charge is held for the next target; the forced release stays
++//   fi_reload e3  no line in or out for 0.4 s and ammo <= 8 (<= 10 with no listed mech within 150 m): reload
++//   fi_snap   e5  pre-charge on a listed target without a line that closes at >= 8 m/s and whose position at +0.5 / 1.0 /
++//                 1.5 s is in a clear muzzle line; forced release 1.8 s; off for the match when blind / snap > 0.45
++//   fi_rung   e6  laser at 0.5 of the height when clear, else the highest clear rung; full gun lead on jinkers (SQUAD only)
++// 'on' = SQUAD posture + hunt.firewall(); 'both' = both postures (e6's lead part stays SQUAD + firewall); fi_rung 'rung' = the
++// laser rung alone (the half lead on jinkers kept).
++// Hooks (firecontrol.js, all `if (B.f2) ...`; B.f2 exists only with one of the presets on): HF2 reloadNow, HF5 yawGate /
++// pitGate / gunNote, HF6 save, HF7 forceS, HF8 snap, HF9 rungs, HF10 fullLead, HF11 onRelease; brain.js HB4 pre.
++
++import { laserFrac } from './aim.js'
++
++export function makeFire2(B, hunt) {
++  const P = B.P, C = B.counters
++  const inc = (k, n = 1) => { C[k] = (C[k] || 0) + n }
++  const fwOk = () => B.env !== 'FFA' && hunt.firewall()
++  const on = (flag, all) => flag === true && (all === true || fwOk())
++  const st = {
++    lineT: -99, line: false, snap: false, snapOff: false, snapRel: 0, snapBlind: 0, lineOpenT: -99,
++    frac: 0.5, charge: 0, rel: null, oldYaw: 0, oldPit: 0, wasReload: false,
++  }
++  let rungSrc = null, rungs = null
++  function rungList(base) {
++    if (rungSrc !== base) {
++      rungSrc = base
++      rungs = [P.fiRungMid].concat(base.filter((f) => Math.abs(f - P.fiRungMid) > 1e-9).sort((a, b) => b - a))
++    }
++    return rungs
++  }
++
++  // ------------------------------------------------------------------ HB4: per decision bookkeeping (counters only)
++  function pre() {
++    const me = B.me, t = me.t, L = B.trackList, g = me.gun
++    let line = false
++    for (let k = 0; k < L.length && !line; k++) {
++      const tr = L[k]
++      if (tr.npc || !(tr.hp > 0)) continue
++      if (tr.losIn || (tr.listed && tr.losOut)) line = true
++    }
++    if (line) {
++      if (!st.line) {
++        st.lineOpenT = t
++        if (P.fiReload === true && g) { inc('ammoAtLineOpen_' + (g.reload > 0 ? 'R' : g.ammo)); if (g.reload > 0) inc('reloadCaughtByLine') }
++      }
++      st.lineT = t
++    }
++    st.line = line
++    // release outcome: a laser hit event within 0.35 s, else blind
++    const r = st.rel
++    if (r) {
++      const hit = C.laserHits > r.hits0
++      if (hit || t - r.t > 0.35) {
++        if (P.fiRung === true) { inc('fiRungShots_' + r.frac); if (hit) inc('fiRungHits_' + r.frac) }
++        if (r.snap) { st.snapRel++; if (!hit) { st.snapBlind++; inc('blindReleases') } }
++        st.rel = null
++        if (r.snap && st.snapRel >= P.fiSnapMinN && st.snapBlind > P.fiSnapBlind * st.snapRel && !st.snapOff) { st.snapOff = true; inc('fiSnapAbort') }
++      }
++    }
++  }
++
++  // ------------------------------------------------------------------ HF5: gun gates (e1)
++  function yawGate(g0, o, R) {
++    st.oldYaw = g0
++    if (!on(P.fiGate, P.fiGateAll) || !o || o.npc === undefined) return g0
++    return Math.max(g0, P.gateMin, P.fiGateK * (o.radius + P.gateBody) / R)
++  }
++  function pitGate(g0, o, R, hFrac) {
++    st.oldPit = g0
++    if (!on(P.fiGate, P.fiGateAll) || !o || o.npc === undefined) return g0
++    return Math.max(g0, P.gateMin, P.fiGateK * (o.height * hFrac + P.gateBody) / R)
++  }
++  function gunNote(fire, ey, ep) {
++    if (P.fiGate !== true) return
++    if (!fire) inc('gateBlocked')
++    else if (ey > st.oldYaw || ep > st.oldPit) inc('fiGateExtra')
++  }
++
++  // ------------------------------------------------------------------ HF6: hold the beam for a gun kill (e2)
++  /** Called on every charging decision; true = turn this (unforced) release into a held charge. */
++  function save(tgt, lz, frac, release, forced) {
++    st.frac = frac; st.charge = lz.charge
++    if (!release || forced || !on(P.fiSave, P.fiSaveAll)) return false
++    const me = B.me, g = me.gun
++    if (!tgt || tgt.npc || !g || g.reload > 0 || g.ammo < P.fiSaveAmmo || !tgt.losOut || B.gunLos !== true) return false
++    if (tgt.hp > P.fiSaveHp * me.dmgMult || tgt.dist > P.fiSaveR || me.hpf < P.fiSaveHpf) return false
++    inc('beamHeldForGun')
++    return true
++  }
++  // ------------------------------------------------------------------ HF11: a beam leaves
++  function onRelease(tgt, lz) {
++    const me = B.me, t = me.t
++    if (tgt && !tgt.npc && P.fiSave === true) {
++      const dmg = laserFrac(st.charge, lz.full, lz.minFrac) * lz.damage * me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
++      if (dmg > tgt.hp) inc('overkillDmg', Math.round(dmg - tgt.hp))
++    }
++    if (st.snap) { inc('fiSnapRel'); if (t - st.lineOpenT <= 0.3) inc('snapBeams') }
++    st.rel = { t, frac: Math.round(st.frac * 100) / 100, snap: st.snap, hits0: C.laserHits }
++    st.snap = false
++  }
++
++  // ------------------------------------------------------------------ HF7 / HF8: snap pre-charge (e5)
++  const snapLive = () => on(P.fiSnap, P.fiSnapAll) && !st.snapOff
++  function forceS() { return snapLive() ? P.fiForceS : P.laserForceS }
++  function snap(tgt) {
++    if (!snapLive() || !tgt || tgt.npc || !tgt.listed || tgt.losOut || !(tgt.hp > 0)) return false
++    const me = B.me, w = B.world
++    const dx = me.x - tgt.x, dy = me.y - tgt.y, d = Math.hypot(dx, dy)
++    if (d < 1) return false
++    const close = (dx * (tgt.vx - me.vx) + dy * (tgt.vy - me.vy)) / d
++    if (close < P.fiSnapV) return false
++    let ok = !w
++    const Ts = Array.isArray(P.fiSnapT) ? P.fiSnapT : [0.5, 1.0, 1.5]
++    const mz = me.z + me.muzzleH
++    for (let k = 0; k < Ts.length && !ok; k++) {
++      const T = Ts[k], x = tgt.x + tgt.vx * T, y = tgt.y + tgt.vy * T
++      const z = (w.ground(x, y) > tgt.z + 1 ? w.ground(x, y) : tgt.z) + tgt.height * 0.5
++      if (w.shotClear(me.x, me.y, mz, x, y, z)) ok = true
++    }
++    if (!ok) return false
++    if (!st.snap) inc('fiSnapStart')
++    st.snap = true
++    return true
++  }
++
++  // ------------------------------------------------------------------ HF9 / HF10: laser rung, gun lead (e6)
++  function laserRungs(base) { return on(P.fiRung, P.fiRungAll) ? rungList(base) : base }
++  function fullLead() {
++    if (P.fiRung !== true || P.fiRungLead !== true || !fwOk()) return false
++    inc('fiFullLead')
++    return true
++  }
++
++  // ------------------------------------------------------------------ HF2: reload in a lull (e3)
++  function reloadNow(g, lowInSights) {
++    if (!on(P.fiReload, P.fiReloadAll) || lowInSights) return false
++    const me = B.me, t = me.t
++    if (t - st.lineT < P.fiLullS) return false
++    let near = false
++    const L = B.trackList
++    for (let k = 0; k < L.length && !near; k++) { const tr = L[k]; if (!tr.npc && tr.listed && tr.hp > 0 && tr.dist <= P.fiReloadR) near = true }
++    if (g.ammo > (near ? P.fiReloadAmmo : P.fiReloadFar)) return false
++    inc('earlyReloads')
++    return true
++  }
++
++  return { pre, yawGate, pitGate, gunNote, save, onRelease, forceS, snap, laserRungs, fullLead, reloadNow, st }
++}
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/firecontrol.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/firecontrol.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/firecontrol.js	2026-11-22 03:29:17.225342191 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/firecontrol.js	2026-11-22 04:22:07.142484852 +0000
+@@ -59,7 +59,7 @@
+     if (!g) return false
+     let vx = tr.vx || 0, vy = tr.vy || 0
+     const vz = tr.vz || 0
+-    if (tr.revs >= P.revCount) {
++    if (tr.revs >= P.revCount && !(B.f2 && B.f2.fullLead())) {      // HF10 w2/A (fi_rung: full lead in SQUAD)
+       // the target is jinking: halve the lateral part of the lead (aim nearer the midpoint)
+       const bx = tr.x - me.x, by = tr.y - me.y, h = Math.hypot(bx, by) || 1
+       const ux = bx / h, uy = by / h
+@@ -232,6 +232,7 @@
+           gYaw = sol.yaw; gPitch = sol.pitch
+           yawGate = Math.max(P.gateMin, P.gateK * (o.radius + P.gateBody) / R - g.spread)
+           pitGate = Math.max(P.gateMin, P.gateK * (o.height * hFrac + P.gateBody) / R - g.spread)
++          if (B.f2) { yawGate = B.f2.yawGate(yawGate, o, R); pitGate = B.f2.pitGate(pitGate, o, R, hFrac) }   // HF5 w2/A (fi_gate)
+         }
+         B.gunLos = clear
+       } else if (!g || !sol.ok) {
+@@ -250,7 +251,8 @@
+         const lx = tgt.x + tgt.vx * ltl, ly = tgt.y + tgt.vy * ltl, zAir = Math.abs(tgt.vz) >= 0.5 ? tgt.vz * ltl : 0
+         const sx = ps.x, sy = ps.y, sz = ps.z + me.muzzleH
+         const ldx = lx - sx, ldy = ly - sy, lh = Math.hypot(ldx, ldy) || 1
+-        const rungs = P.headAimOn === true ? LASER_RUNGS : MID
++        const rungs0 = P.headAimOn === true ? LASER_RUNGS : MID
++        const rungs = B.f2 && rungs0 === LASER_RUNGS ? B.f2.laserRungs(rungs0) : rungs0   // HF9 w2/A (fi_rung)
+         let frac = rungs[0], lzc = tgt.z + tgt.height * frac + zAir
+         const lyaw = Math.atan2(ldy, ldx)
+         let lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
+@@ -277,14 +279,16 @@
+             : laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp)
+           if (takeAim || killNow) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
+           if (AC) { rel.t = t; rel.id = tgt.id; rel.tl = ltl; rel.frac = frac; rel.yaw = lyaw; rel.pitch = lpitch; rel.x = tgt.x; rel.y = tgt.y; rel.z = tgt.z; rel.vx = tgt.vx; rel.vy = tgt.vy }
++          const lfs = B.f2 ? B.f2.forceS() : P.laserForceS                 // HF7 w2/A (fi_snap)
+           if (gate && clear && (full || killNow)) laserRelease = true
+-          else if (full && t - lz.fullSince >= P.laserForceS) laserRelease = true
++          else if (full && t - lz.fullSince >= lfs) laserRelease = true
+           else if (B.noCharge && charge < lz.full - 0.1) laserRelease = true      // the legs need full speed now
+           else laserKeep = true
+           if (hold && !killNow && !full && !B.noCharge) { laserKeep = true; laserRelease = false }
++          if (B.f2 && B.f2.save(tgt, lz, frac, laserRelease, (full && t - lz.fullSince >= lfs) || (B.noCharge && charge < lz.full - 0.1))) { laserRelease = false; laserKeep = true }   // HF6 w2/A (fi_save)
+           if (!takeAim && !killNow && !tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw
+         } else if (!hold && !B.noCharge && lz.cooldown <= 0.11 && inRange) {
+-          const expected = tgt.losOut || t - tgt.losOutT <= P.laserExpectS || B.peekSoon
++          const expected = tgt.losOut || t - tgt.losOutT <= P.laserExpectS || B.peekSoon || (!!B.f2 && B.f2.snap(tgt))   // HF8 w2/A (fi_snap)
+           if (expected) { laserKeep = true; if (!tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw }
+         }
+       }
+@@ -312,6 +316,7 @@
+       if (g && gunReady) {
+         const ey = Math.abs(angDiff(predYaw(out.aim[0], tlg), gYaw)), ep = Math.abs(predPitch(out.aim[1], tlg) - gPitch)
+         gunFire = ey <= yawGate && ep <= pitGate
++        if (B.f2) B.f2.gunNote(gunFire, ey, ep)                     // HF5 w2/A (counters)
+       }
+       // FFA rule 2: charge 0.4 rad off the target and swing on in the release decision (80% charge)
+       if (ffaR() && laserKeep && !laserRelease && offAxisYaw === offAxisYaw && B.aimKind !== 'mortar') {
+@@ -340,6 +345,7 @@
+       if (laserKeep && !laserRelease) { out.fire[lz.slot] = true; lz.heldT = t }
+       else if (laserRelease) {
+         B.counters.laserShots++; lz.fullSince = -1
++        if (B.f2) B.f2.onRelease(tgt, lz)                         // HF11 w2/A (counters)
+         if (B.aimcal && P.aimCalOn === true && tgt && rel.t === t && rel.id === tgt.id) {
+           // R3 calibration record: the torso aim at release is the command when the torso has settled on it
+           rel.pyaw = out.aim[0]; rel.ppitch = out.aim[1]
+@@ -373,6 +379,7 @@
+         if (g.ammo <= P.reloadAmmo && (quiet || B.hidePhase) && !lowInSights) out.reload = true
+         else if (!B.target && !shootObj && t - me.lastShotT > 2 && t - B.lastLosInT > 2) out.reload = true
+         else if (B.h50Pulse && g.ammo < P.h50MagMin && !lowInSights) out.reload = true      // R4a: the pulse comes back loaded
++        else if (B.f2 && B.f2.reloadNow(g, lowInSights)) out.reload = true                  // HF2 w2/A (fi_reload)
+       }
+     }
+     out.aim[0] = wrapPi(out.aim[0])
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/params.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/params.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/params.js	2026-11-22 03:35:52.800792614 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/params.js	2026-11-22 04:53:47.254421801 +0000
+@@ -225,6 +225,42 @@
+   // R7 strafe 'fast75': the fast strafe beyond strafeFarR of the target
+   strafeFarR: 0, strafeFarLo: 0.45, strafeFarHi: 1.15,
+ 
++  // ---- Fable wave 2, engineer A (lib/engage.js, lib/fire2.js; notes/fable/w2/A_LOG.md). Every key below is inert at its
++  // PARAMS value; each rule acts only in the SQUAD posture behind hunt.firewall(), except where a preset value 'both' sets
++  // its *All key (then it acts in both postures).
++  // en_open (q1 D1): opening gate until the first kill / foreign death, laser + enOpenCubes cubes, or enOpenT s (scaled with
++  // openFarmT); answered: a mech that hit us from under enOpenR m within enOpenHitS s; lifted for good by enOpenShooters
++  // shooters (hit us within enOpenHitS) or no cube gained for enOpenDryS s; the farm-first gate is replaced (no line breaking)
++  // enOpenFar: a mech that hit us from enOpenR m or more is answered too (else decideMode's "shot by a mech we do not target"
++  // DISENGAGE hides from it, which D1 forbids); 'strict' = the spec's list alone
++  enOpen: false, enOpenT: 60, enOpenCubes: 6, enOpenR: 100, enOpenHitS: 4, enOpenShooters: 2, enOpenDryS: 15, enOpenFar: false,
++  // en_band (q1 D2 gun band + 0.5 s strafe reversal, D3 laser band by target hp, D4 boost-away, D6 lined mechs / walk gate)
++  enBand: false, enBandAll: false, enGunLo: 120, enGunHold: 135, enGunHi: 150, enStrafeS: 0.5, enStrafeJit: 0.1, enStrafeMinR: 75,
++  enLzLo: 130, enLzHold: 150, enLzHi: 170, enLzBeams: 2, enLzFloor: 90, enLzNearHold: 110, enLzNearShooters: 2, enLightFloor: 55,
++  enAwayR: 70, enAwayOut: 95, enAwayEnergy: 35, enAwayPulseS: 1.0, enAwayPulseE: 17, enFinHp: 470,
++  enFireLaserR: 280, enFireGunR: 205, enWalkHpf: 0.7,
++  // en_retarget (q1 D5): tDie = hp / max(intake over enInS s, enDieFloor); switch to the lined mech with the smallest tKill
++  // when tDie < tKill(pick) and that tKill < tDie; the focus 'kill' current-target bonus fkCur is counted as enCurBonus
++  enRetarget: false, enCurBonus: 60, enDieFloor: 30, enInS: 2,
++  // en_contra (q1 rule C): hp < ecHpf with ecShooters+ shooters: walk / boost in to ecLo-ecHi m of the smallest-tKill lined
++  // mech without lightning, then onto its corpse spot for ecCorpseS s; held while hp < ecHpf + ecHys and a shooter remains
++  enContra: false, ecHpf: 0.35, ecHys: 0.1, ecShooters: 3, ecLo: 25, ecR: 28, ecHi: 32, ecCorpseS: 4, ecCorpseR: 3,
++  // fi_gate (q2 e1): gun gates widened to fiGateK x (radius + gateBody) / R (no spread term; never below the old gate)
++  fiGate: false, fiGateAll: false, fiGateK: 0.70,
++  // fi_save (q2 e2): no laser release (full or partial) at a mech of hp <= fiSaveHp x dmgMult while the gun holds >= fiSaveAmmo
++  // rounds with a clear line within fiSaveR m and our hp >= fiSaveHpf; the forced release stays
++  fiSave: false, fiSaveAll: false, fiSaveHp: 90, fiSaveAmmo: 3, fiSaveR: 150, fiSaveHpf: 0.25,
++  // fi_reload (q2 e3): no line in or out for fiLullS s and ammo <= fiReloadAmmo (fiReloadFar with no listed mech within
++  // fiReloadR m): reload (never with a target under noReloadHp in sight)
++  fiReload: false, fiReloadAll: false, fiLullS: 0.4, fiReloadAmmo: 8, fiReloadFar: 10, fiReloadR: 150,
++  // fi_snap (q2 e5): pre-charge on a listed target without a line within the laser range that closes at >= fiSnapV m/s and
++  // whose position at +0.5 / +1.0 / +1.5 s is in a clear muzzle line; forced release fiForceS; off for the match when
++  // blind / snap releases > fiSnapBlind after fiSnapMinN snap releases
++  fiSnap: false, fiSnapAll: false, fiSnapV: 8, fiSnapT: [0.5, 1.0, 1.5], fiForceS: 1.8, fiSnapBlind: 0.45, fiSnapMinN: 5,
++  // fi_rung (q2 e6): laser at fiRungMid of the height when clear, else the highest clear rung; full gun lead on jinkers (SQUAD)
++  // fiRungLead: the full gun lead on a jinker (the half lead after revCount reversals is off), SQUAD posture + firewall only
++  fiRung: false, fiRungAll: false, fiRungMid: 0.5, fiRungLead: false,
++
+   upgradeOrder: ['plating', 'armor', 'nanites', 'laser_damage', 'laser_charge', 'lightning_efficiency', 'gun_damage', 'gun_rate',
+     'lightning_range', 'lightning_chain', 'gyros', 'servos', 'gun_mag', 'capacitor', 'reactor', 'jets', 'gun_velocity', 'sensors',
+     'mortar_damage', 'mortar_splash', 'mortar_rate', 'laser_pierce'],
+@@ -322,6 +358,16 @@
+   boostCharge: { off: {}, on: { boostCharge: true } },
+   cratePath: { std: {}, '80': { sqCratePath: 80 } },
+   alpha: { off: {}, on: { alpha: true } },
++  // Fable wave 2 engineer A presets (old value first; see PARAMS). 'on' = SQUAD posture + hunt.firewall; 'both' = both postures
++  en_open: { off: {}, on: { enOpen: true, enOpenFar: true }, strict: { enOpen: true } },
++  en_band: { off: {}, on: { enBand: true }, both: { enBand: true, enBandAll: true } },
++  en_retarget: { off: {}, on: { enRetarget: true } },
++  en_contra: { off: {}, on: { enContra: true } },
++  fi_gate: { off: {}, on: { fiGate: true }, both: { fiGate: true, fiGateAll: true } },
++  fi_save: { off: {}, on: { fiSave: true }, both: { fiSave: true, fiSaveAll: true } },
++  fi_reload: { off: {}, on: { fiReload: true }, both: { fiReload: true, fiReloadAll: true } },
++  fi_snap: { off: {}, on: { fiSnap: true }, both: { fiSnap: true, fiSnapAll: true } },
++  fi_rung: { off: {}, on: { fiRung: true, fiRungLead: true }, both: { fiRung: true, fiRungAll: true, fiRungLead: true }, rung: { fiRung: true } },
+   // every R3a2 switch at once (applied last): 'off' = the 5.02 build (S01-full)
+   r3a2: { on: {}, off: { fightEarly: false, openFarm: true, openFarmAim: false, laserEcon: false, rPrefLaser: 150, laserLo: 125, laserHi: 185, laserBackOff: 125, laserBoostAway: 90,
+     focusAdd: false, pulseRetreat: false, boostSpend: false, farmHp: 0.9, upgradeOrder: PARAMS.upgradeOrder,
+@@ -339,7 +385,8 @@
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'on', aggr: 'any70f',
+   r3a2: 'on', pocketCfg: 'on', io: 'v4', ioMerge: 'on', loseExit: 'off', loseCover: 'never', oneHit: 'off', fightOn: 'off', finish: 'off', isolate: 'any', seekCrowd: 'off', laserGrab: 'spawn', anchorCfg: 'on', warmPocket: 'on', fb: 'on',
+-  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off', healDoc: 'off' }
++  fuse: 'wall', dropLife: 'off', util: 'off', pauseMove: 'off', isoDwell: 'off', upgFix: 'on', cubes: 'snow', boostCharge: 'on', cratePath: '80', alpha: 'off',
++  en_open: 'off', en_band: 'off', en_retarget: 'off', en_contra: 'off', fi_gate: 'off', fi_save: 'off', fi_reload: 'off', fi_snap: 'off', fi_rung: 'off', healDoc: 'off' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }
+diff -ruN /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/tactics.js /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/tactics.js
+--- /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/chaos/builds/CH1_s1/bot/lib/tactics.js	2026-11-22 03:29:01.634635137 +0000
++++ /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/fable_work/w2/A/tree/lib/tactics.js	2026-11-22 04:21:45.463878041 +0000
+@@ -116,6 +116,7 @@
+   } else {
+     o.kind = 'gun'; o.hold = P.rPrefGun; o.lo = Math.min(P.bandLo, P.rPrefGun); o.hi = Math.max(P.bandHi, P.rPrefGun); o.backStick = P.gunBackStick; o.boostAway = 0
+   }
++  if (B.en) B.en.band(o)                                            // HT1 w2/A (engage D2 / D3 / D4)
+   if (me.gun && o.hold > me.gun.range * 0.95 && !me.laser) { o.hold = me.gun.range * 0.9; o.hi = Math.min(o.hi, me.gun.range * 0.95) }
+   return o
+ }
+@@ -204,8 +205,9 @@
+   // only a mech that damaged us from within openFarmAnswerR m in the last hostileDmgS s is answered
+   const ofOn = P.openFarm === true && (!ffa || P.openFarmFfa === true) && B.ofEndT < 0
+   if (ofOn && (me.cubes >= P.openFarmCubes || t >= P.openFarmT)) B.ofEndT = t
+-  const gate = ofOn && B.ofEndT < 0
+-  B.ofGate = gate
++  let gate = ofOn && B.ofEndT < 0
++  if (B.en) gate = B.en.ofGate(gate)                                // HT5 w2/A: engage D1 replaces the farm-first gate
++  B.ofGate = gate || (!!B.en && B.en.openUp())
+   // the line to break: a mech that hit us in the last 1 s, or a hostile one (D0: hit us in 4 s / aims at us) with a line
+   let mechHurtT = -99, hostileLine = false
+   if (gate) for (let k = 0; k < L.length; k++) {
+@@ -258,6 +260,7 @@
+         (!h5 && fe && !opening && !lgHold && engaged(B, tr, t)) ||   // R3a2 P1: engaged mechs within 240 m (R7a LG: not while lgHold)
+         (P.finB === true && B.finArmed && tr === B.finTr)        // R7a FIN (b): an armed near kill stays a candidate
+       if (gate && !ofAnswer(B, tr, t)) ok = false
++      if (B.en) ok = B.en.cand(tr, ok)                            // HT2 w2/A (engage D1 gate, D6 lined mechs)
+       // Fable util 'wait': the first shot on a non-hostile mech is withheld while regeneration pays more (lib/util.js)
+       if (ok && B.util && !tr.hostile && !(tr === B.target && t - tr.lastDmgOutT < 5) && !(h5 && tr === B.h50.commit) &&
+         !(P.finB === true && B.finArmed && tr === B.finTr) && !B.util.gateOpen(tr)) ok = false
+@@ -371,6 +374,7 @@
+   // Fable util 'tgt' (2+ lines on us): the kill-before-death utility picks, with hysteresis; the 25% keep rule above stays in front
+   let uOwn = false
+   if (B.util && !(pick === cur && cur && cur !== best)) { pick = B.util.pickTarget(pick, cur && B.tracks.get(cur.id) === cur && candBuf.includes(cur) ? cur : null, candBuf); uOwn = B.util.owns() }
++  if (B.en) pick = B.en.pickTarget(pick, cur && B.tracks.get(cur.id) === cur ? cur : null, candBuf)   // HT3 w2/A (engage D5, C)
+   // torso veto as a target rule
+   let att = null
+   for (let k = 0; k < L.length; k++) {

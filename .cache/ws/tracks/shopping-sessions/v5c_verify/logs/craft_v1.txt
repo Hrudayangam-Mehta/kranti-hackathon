@@ -1,0 +1,36 @@
+vc_u plain users=869 events=3181 clicks=1736 tiegroups=137 NCPU=1 MATCH NCPU=3 MATCH NCPU=8 MATCH | surviving events 1230, user_daily rows 146 | id prefixes: user Some('u'), event Some('e'), click Some('k') | event copies 6835, winners 1230, clicks 2904, linked 801, exotic 2672
+vc_quotes quotes users=869 events=3168 clicks=1740 tiegroups=135 NCPU=1 MATCH NCPU=3 MATCH NCPU=8 MATCH | surviving events 1239, user_daily rows 169 | id prefixes: user Some('u'), event Some('e'), click Some('k') | event copies 6873, winners 1239, clicks 2851, linked 789, exotic 2632
+vc_noprefix noprefix users=866 events=3169 clicks=1745 tiegroups=136 NCPU=1 MATCH NCPU=3 MATCH NCPU=8 MATCH | surviving events 1188, user_daily rows 130 | id prefixes: user None, event None, click Some('k') | event copies 6949, winners 1188, clicks 2935, linked 790, exotic 2606
+vc_halfprefix halfprefix users=886 events=3192 clicks=1746 tiegroups=147 NCPU=1 MATCH NCPU=3 MATCH NCPU=8 MATCH | surviving events 1176, user_daily rows 158 | id prefixes: user None, event Some('e'), click Some('k') | event copies 6884, winners 1176, clicks 2971, linked 823, exotic 2758
+vc_hexprefix REF CRASH ch/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 354, in write_outputs
+    u["user_id"].append(s(pname))
+                        ^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 346, in s
+    return b.decode("utf-8")
+           ^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc3 in position 2: invalid continuation byte
+
+vc_same REF CRASH ch/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 354, in write_outputs
+    u["user_id"].append(s(pname))
+                        ^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 346, in s
+    return b.decode("utf-8")
+           ^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc3 in position 0: invalid continuation byte
+
+vc_oddprefix REF CRASH ch/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 354, in write_outputs
+    u["user_id"].append(s(pname))
+                        ^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 346, in s
+    return b.decode("utf-8")
+           ^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc3 in position 3: invalid continuation byte
+
+vc_big REF CRASH ch/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 354, in write_outputs
+    u["user_id"].append(s(pname))
+                        ^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/verify/ref.py", line 346, in s
+    return b.decode("utf-8")
+           ^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc3 in position 3: invalid continuation byte
+

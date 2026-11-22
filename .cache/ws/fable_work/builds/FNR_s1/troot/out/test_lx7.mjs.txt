@@ -1,0 +1,9 @@
+FAIL  LX T1 one dip of the threat count: off leaves LOSING (FIGHT) for the dip; on stays DISENGAGE  ::  off FIGHT FIGHT FIGHT FIGHT | on FIGHT FIGHT FIGHT FIGHT (held 0)
+FAIL  LX T2 raw false for 10 decisions: FIGHT on the 11th  ::  FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT FIGHT
+PASS  LX T3 finishing exit (target 15%, 2 lines) is not delayed  ::  mode FIGHT, finishing true
+PASS  LX T4 FFA / pulse retreat / hunt50 commit: on = off  ::  ffa true, pulse true, commit true
+PASS  LC 3 lines at 50%: cover 30 m -> FIGHT (off: DISENGAGE); cover 8 m -> DISENGAGE  ::  {"farOff":"DISENGAGE","farOn":"FIGHT","near8On":"DISENGAGE","lowOn":"DISENGAGE","noneOn":"FIGHT","noneOff":"DISENGAGE"}
+PASS  LC 20% hp with a cell 30 m away -> DISENGAGE (the < 25% clause); no cell -> FIGHT (off: DISENGAGE)  ::  {"farOff":"DISENGAGE","farOn":"FIGHT","near8On":"DISENGAGE","lowOn":"DISENGAGE","noneOn":"FIGHT","noneOff":"DISENGAGE"}
+PASS  LC firewall: after a foreign death and with the pulse retreat it is inert  ::  foreign DISENGAGE, pulse DISENGAGE
+
+5/7 LX / LC checks passed

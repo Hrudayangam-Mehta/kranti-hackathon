@@ -1,0 +1,15 @@
+from 50 m, led on our velocity K=30: closest without dodge 1.51 m, with the bullet visible 1.51 m (hit radius 2.8), dodge decisions 2
+from 50 m, led on our velocity K=37: closest without dodge 0.51 m, with the bullet visible 1.53 m (hit radius 2.8), dodge decisions 1
+from 50 m, led on our velocity K=44: closest without dodge 1.46 m, with the bullet visible 1.51 m (hit radius 2.8), dodge decisions 2
+from 120 m, led on our velocity K=30: closest without dodge 6.46 m, with the bullet visible 6.46 m (hit radius 2.8), dodge decisions 0
+from 120 m, led on our velocity K=37: closest without dodge 0.24 m, with the bullet visible 0.27 m (hit radius 2.8), dodge decisions 5
+from 120 m, led on our velocity K=44: closest without dodge 4.95 m, with the bullet visible 4.95 m (hit radius 2.8), dodge decisions 0
+from 120 m, aimed at where we are K=30: closest without dodge 3.67 m, with the bullet visible 3.67 m (hit radius 2.8), dodge decisions 3
+from 120 m, aimed at where we are K=37: closest without dodge 5.83 m, with the bullet visible 5.83 m (hit radius 2.8), dodge decisions 0
+from 120 m, aimed at where we are K=44: closest without dodge 4.95 m, with the bullet visible 4.95 m (hit radius 2.8), dodge decisions 0
+k0: A[-0.01,-1.00] B[-0.02,-1.00] vA[-0.1,5.8] vB[-0.1,5.8]
+k1: A[-0.01,-1.00] B[-0.02,-1.00] vA[-0.1,-0.0] vB[-0.2,-0.0]
+k2: A[-0.01,-1.00] B[-0.02,-1.00] vA[-0.1,-5.9] vB[-0.2,-5.9]
+k3: A[0.00,-1.00] B[-0.02,-1.00] vA[-0.1,-11.7] vB[-0.3,-11.7]
+k4: A[0.02,-1.00] B[0.02,-1.00] vA[0.0,-11.7] vB[-0.2,-11.7]
+FAIL  D4 bullet dodge turns hits into misses (paired runs, 9 shots: 3 geometries x 3 moments)  ::  bullets that hit: without seeing them 4/9, with the dodge 4/9

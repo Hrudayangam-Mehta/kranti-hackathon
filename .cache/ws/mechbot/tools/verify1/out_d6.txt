@@ -1,0 +1,6 @@
+PASS  D6 farming gates (hp >= farmHp, t < 210, 10 cubes + laser, crates 150 m, drones 170 m, out of contact)  ::  crate 100 m, hp 100%, t 60: crate | crate 100 m, hp 85%: null | crate 100 m, hp 85%, preset farmHp=50: crate | crate 100 m, t 215: null | crate 100 m, 10 cubes + laser: null | crate 100 m, 10 cubes, no laser: crate | crate 160 m (> 150): null | drone 160 m: drone | drone 180 m (> 170): null | crate 100 m, a mech hit us 1 s ago (contact): null
+PASS  D6 no roof loot: crate on a roof not farmed, a ground crate is  ::  roof crate at (-396, -273) 5.6 m above terrain: null | ground crate: crate
+PASS  D6 power grab in contact: laser within 60 m taken, at 75 m not; lightning within 35 m taken, at 45 m not  ::  laser 50 m: laser | laser 75 m: empty | lightning 30 m: lightning | lightning 45 m: empty (fight decisions 100/100/100/100)
+PASS  D6 cube grab in contact: 60 m taken at hp > 50%, not at 45% (40 m limit); 35 m taken at 45%  ::  60 m @100%: 1 | 60 m @45%: 0 | 35 m @45%: 1
+PASS  D6 kill cubes collected at once while still in contact  ::  killed at 61.7 s, both cubes at 67.1 s (5.4 s later), second hunter alive: true
+PASS  D6 supply drop: start <= 3 s + walk before landing; never when held or contested (mech within 60 m)  ::  free: DROP first at lands_in 7.0 s (limit 7.4) | held: -1 | contested: -1

@@ -1,0 +1,265 @@
+// Layer 3: legs. Path following, stand-off range keeping with a seeded jink, zone goal, stuck recovery and
+// the mortar-shell dodge. Everything writes the leg command into B.cmd = { mx, my, boost, jump }.
+
+import { clamp } from './aim.js'
+import { timeUntilOutside, zoneSlack } from './senses.js'
+
+const DIR8 = new Float64Array(16)
+for (let k = 0; k < 8; k++) { DIR8[k * 2] = Math.cos(k * Math.PI / 4); DIR8[k * 2 + 1] = Math.sin(k * Math.PI / 4) }
+
+export function makeMover(B) {
+  const P = B.P
+  const path = { pts: null, gx: 0, gy: 0, t: -9, wp: 1, ok: false, len: Infinity, dirty: false, noPathSince: -1 }
+  const stuck = { slowSince: -1, phase: 0, sideUntil: -1, sideX: 0, sideY: 0, jetUntil: -1, lastX: 0, lastY: 0, lastT: 0 }
+  const abandon = { x: 0, y: 0, until: -1 }
+  const jink = { sign: 1, until: -1 }
+  const zg = { x: 0, y: 0, t: -9, len: Infinity, lenT: -9, ok: false }
+  const dodge = { until: -1, dx: 0, dy: 0 }
+
+  const now = () => performance.now()
+
+  function isAbandoned(x, y) { return B.me.t < abandon.until && Math.hypot(abandon.x - x, abandon.y - y) < 6 }
+
+  function plan(gx, gy) {
+    const me = B.me, nav = B.nav
+    B.planTick = B.tick
+    B.counters.plans++
+    let r = null
+    try { r = nav.findPath(me.x, me.y, gx, gy, { maxExpand: Math.round(P.pathExpand * B.budgetScale) }) } catch (e) { r = null; B.noteError('plan', e) }
+    path.gx = gx; path.gy = gy; path.t = me.t; path.wp = 1; path.dirty = false
+    if (r && r.pts && r.pts.length > 1) {
+      path.pts = r.pts; path.ok = r.ok; path.len = r.len; path.noPathSince = -1
+    } else {
+      path.pts = null; path.ok = false; path.len = Infinity
+      if (path.noPathSince < 0) path.noPathSince = me.t
+    }
+  }
+
+  /** Walk to (gx,gy). stick <= 1 scales the speed. Returns the straight distance left. */
+  function moveTo(gx, gy, stick = 1, arriveR = 0.8) {
+    const me = B.me, nav = B.nav, cmd = B.cmd
+    if (!(gx === gx) || !(gy === gy)) { cmd.mx = 0; cmd.my = 0; return 0 }
+    const dx = gx - me.x, dy = gy - me.y, d = Math.hypot(dx, dy)
+    B.goalX = gx; B.goalY = gy; B.hasGoal = true
+    if (d < arriveR) { cmd.mx = 0; cmd.my = 0; return d }
+    let tx = gx, ty = gy
+    if (nav) {
+      const direct = d < 80 && nav.walkLine(me.x, me.y, gx, gy)
+      if (direct) { path.pts = null; path.len = d; path.ok = true; path.gx = gx; path.gy = gy; path.noPathSince = -1 }
+      else {
+        const moved = Math.hypot(path.gx - gx, path.gy - gy)
+        const need = !path.pts || moved > P.replanMove || me.t - path.t > P.replanS || path.dirty
+        if (need && B.planTick !== B.tick && B.deadline - now() >= P.planMinMs) plan(gx, gy)
+        const pts = path.pts
+        if (pts && Math.hypot(path.gx - gx, path.gy - gy) <= P.replanMove * 2.5) {
+          let k = Math.min(path.wp, pts.length - 1)
+          while (k < pts.length - 1 && Math.hypot(pts[k][0] - me.x, pts[k][1] - me.y) < P.wpReach) k++
+          for (let j = Math.min(pts.length - 1, k + 3); j > k; j--) {
+            if (nav.walkLine(me.x, me.y, pts[j][0], pts[j][1])) { k = j; break }
+          }
+          path.wp = k
+          tx = pts[k][0]; ty = pts[k][1]
+        } else if (path.noPathSince >= 0) {
+          // no path: get onto a standable cell, then slide straight at the goal, then give the goal up
+          if (!nav.passableAt(me.x, me.y)) { const q = nav.nearestPassable(me.x, me.y, 14); if (q) { tx = q.x; ty = q.y } }
+          if (me.t - path.noPathSince > P.slideS) { abandon.x = gx; abandon.y = gy; abandon.until = me.t + P.noPathAbandonS; path.noPathSince = -1; B.counters.abandons++ }
+        }
+      }
+    }
+    const sx = tx - me.x, sy = ty - me.y, sd = Math.hypot(sx, sy) || 1
+    let m = stick
+    if (d < 2.5) m = Math.min(m, Math.max(0.2, d / 2.5))
+    cmd.mx = sx / sd * m; cmd.my = sy / sd * m
+    return d
+  }
+
+  function walkable(vx, vy, probe) {
+    const me = B.me, nav = B.nav
+    const px = me.x + vx * probe, py = me.y + vy * probe
+    if (zoneSlack(B, me.x + vx * probe * 3, me.y + vy * probe * 3, me.t + 3) < 3 && zoneSlack(B, me.x, me.y, me.t + 3) >= 3) return false
+    if (!nav) return true
+    return nav.walkLine(me.x, me.y, px, py)
+  }
+
+  /**
+   * Range keeping around a target: radial clamp(gain*(R - rPref)) plus a perpendicular strafe whose sign
+   * reverses at seeded random intervals (jink). Returns false when no direction is walkable.
+   */
+  function standoff(tx, ty, rPref, doJink, strafeOn) {
+    const me = B.me, cmd = B.cmd, t = me.t
+    const dx = tx - me.x, dy = ty - me.y, R = Math.hypot(dx, dy) || 1
+    const ux = dx / R, uy = dy / R
+    const radial = clamp(P.radialGain * (R - rPref), -1, 1)
+    if (doJink && t >= jink.until) {
+      jink.sign = -jink.sign
+      jink.until = t + P.jinkLo + (P.jinkHi - P.jinkLo) * B.rng()
+      B.counters.jinks++
+    }
+    const s = strafeOn ? jink.sign * P.strafeGain : 0
+    // candidates: full, strafe flipped, strafe only (both signs), radial only
+    for (let c = 0; c < 5; c++) {
+      let rr = radial, ss = s
+      if (c === 1) ss = -s
+      else if (c === 2) rr = 0
+      else if (c === 3) { rr = 0; ss = -s }
+      else if (c === 4) ss = 0
+      let vx = ux * rr - uy * ss, vy = uy * rr + ux * ss
+      const l = Math.hypot(vx, vy)
+      if (l < 0.05) { if (c === 0) { cmd.mx = 0; cmd.my = 0; return true } continue }
+      vx /= l; vy /= l
+      if (walkable(vx, vy, P.jinkProbe)) {
+        if (c === 1 || c === 3) { jink.sign = -jink.sign; jink.until = t + P.jinkLo + (P.jinkHi - P.jinkLo) * B.rng() }
+        const m = Math.min(1, l)
+        cmd.mx = vx * m; cmd.my = vy * m
+        return true
+      }
+    }
+    return false
+  }
+
+  // ------------------------------------------------------------------ zone
+  function zoneGoal() {
+    const me = B.me, z = B.zone, nav = B.nav, t = me.t
+    if (zg.ok && t - zg.t < 1.0) return zg
+    zg.t = t; zg.ok = true
+    const frac = z.nr <= P.zoneLateR ? 0.3 : P.zoneGoalFrac
+    let rg = z.nr * frac
+    const dcx = me.x - z.nx, dcy = me.y - z.ny, dc = Math.hypot(dcx, dcy)
+    if (dc <= rg) { zg.x = me.x; zg.y = me.y; return zg }
+    const ux = dcx / dc, uy = dcy / dc
+    zg.x = z.nx + ux * rg; zg.y = z.ny + uy * rg
+    if (nav) {
+      const comp = nav.component(me.x, me.y)
+      for (let k = 0; k < 6; k++) {
+        const gx = z.nx + ux * rg, gy = z.ny + uy * rg
+        const q = nav.nearestPassable(gx, gy, 24)
+        if (q && (comp < 0 || nav.component(q.x, q.y) === comp) && Math.hypot(q.x - z.nx, q.y - z.ny) <= Math.max(z.nrEff - 2, rg + 1)) { zg.x = q.x; zg.y = q.y; break }
+        rg *= 0.7
+      }
+    }
+    return zg
+  }
+
+  /** Updates B.zoneMargin / B.zoneUrgent (hard constraint of BRAIN_SPEC_V2 section 3). */
+  function zoneCheck() {
+    const me = B.me, z = B.zone, t = me.t
+    if (!z.known) { B.zoneUrgent = false; B.zoneMargin = Infinity; return }
+    const tOut = timeUntilOutside(B, me.x, me.y, 1)
+    B.zoneTOut = tOut
+    if (tOut === Infinity && me.inZone) { B.zoneUrgent = false; B.zoneMargin = Infinity; return }
+    const g = zoneGoal()
+    const straight = Math.hypot(g.x - me.x, g.y - me.y)
+    let len = straight * P.pathFactor
+    // true path length to the safe point, refreshed every 2 s while the clock is running
+    if (B.nav && tOut < 90 && t - zg.lenT > 2 && B.planTick !== B.tick && B.deadline - now() >= P.planMinMs && straight > 6) {
+      zg.lenT = t
+      B.planTick = B.tick
+      B.counters.plans++
+      let r = null
+      try { r = B.nav.findPath(me.x, me.y, g.x, g.y, { maxExpand: Math.round(P.pathExpand * B.budgetScale) }) } catch (e) { r = null }
+      zg.len = r && r.ok ? r.len : Infinity
+      if (r && r.pts && r.pts.length > 1 && B.mode === 'ZONE') { path.pts = r.pts; path.gx = g.x; path.gy = g.y; path.t = t; path.wp = 1; path.ok = r.ok; path.len = r.len; path.dirty = false }
+    }
+    if (zg.len < Infinity && t - zg.lenT < 3) len = Math.max(straight, zg.len)
+    const margin = tOut - len / me.walk
+    B.zoneMargin = margin
+    const inGoal = straight < 3
+    if (!me.inZone) B.zoneUrgent = true
+    else if (B.zoneUrgent) B.zoneUrgent = !inGoal && margin < P.zoneMargin * 2.5
+    else B.zoneUrgent = margin < P.zoneMargin && !inGoal
+  }
+
+  function zoneLegs() {
+    const me = B.me, g = zoneGoal(), cmd = B.cmd
+    moveTo(g.x, g.y, 1, 1.5)
+    if (!me.inZone || B.zoneMargin < P.zoneBoostMargin) cmd.boost = me.energy > 1
+  }
+
+  // ------------------------------------------------------------------ shell dodge
+  /** Returns true when the legs were taken over to escape a predicted mortar impact. */
+  function shellDodge() {
+    const me = B.me, t = me.t, cmd = B.cmd
+    const splash = (B.cfg.weapons.mortar && B.cfg.weapons.mortar.splash_radius) || 7
+    const danger = splash * 1.3 + P.dodgeMargin
+    let worst = null, worstT = Infinity
+    for (const s of B.shells.values()) {
+      const ti = s.t - t
+      if (ti < -0.05 || ti > P.dodgeHorizon) continue
+      const px = me.x + me.vx * Math.min(ti, 1.5), py = me.y + me.vy * Math.min(ti, 1.5)
+      const dNow = Math.hypot(me.x - s.x, me.y - s.y), dPred = Math.hypot(px - s.x, py - s.y)
+      if (Math.min(dNow, dPred) < danger && ti < worstT) { worst = s; worstT = ti }
+    }
+    if (!worst) return false
+    const ti = Math.max(0.05, worstT)
+    const canBoost = me.energy > 3
+    const spd = canBoost ? me.boostSpeed : me.walk
+    const reach = Math.max(2, spd * Math.max(0.1, ti - 0.12))
+    let best = -1, bestD = -1
+    for (let k = 0; k < 8; k++) {
+      const vx = DIR8[k * 2], vy = DIR8[k * 2 + 1]
+      const probe = Math.min(reach, P.dodgeProbe)
+      if (B.nav && !B.nav.walkLine(me.x, me.y, me.x + vx * probe, me.y + vy * probe)) {
+        if (!B.nav.walkLine(me.x, me.y, me.x + vx * probe * 0.5, me.y + vy * probe * 0.5)) continue
+      }
+      // distance from the impact point when it lands, with the current velocity blended in
+      const ex = me.x + vx * reach, ey = me.y + vy * reach
+      let d = Math.hypot(ex - worst.x, ey - worst.y)
+      if (zoneSlack(B, ex, ey, t + ti) < 0) d -= 6
+      d += 0.05 * (vx * me.vx + vy * me.vy)
+      if (d > bestD) { bestD = d; best = k }
+    }
+    if (best < 0) {
+      const ax = me.x - worst.x, ay = me.y - worst.y, l = Math.hypot(ax, ay)
+      if (l > 0.1) { cmd.mx = ax / l; cmd.my = ay / l } else { cmd.mx = 1; cmd.my = 0 }
+    } else { cmd.mx = DIR8[best * 2]; cmd.my = DIR8[best * 2 + 1] }
+    cmd.boost = canBoost
+    B.counters.dodges++
+    B.dodging = true
+    return true
+  }
+
+  // ------------------------------------------------------------------ stuck recovery
+  /** Call once per tick after the legs are decided. May override the command (jump / sidestep / jet). */
+  function stuckCheck() {
+    const me = B.me, cmd = B.cmd, t = me.t
+    const want = Math.hypot(cmd.mx, cmd.my)
+    if (t - stuck.lastT >= 0.6) {
+      stuck.moved = Math.hypot(me.x - stuck.lastX, me.y - stuck.lastY)
+      stuck.lastX = me.x; stuck.lastY = me.y; stuck.lastT = t
+    }
+    const slow = want > 0.45 && me.speed < P.stuckSpeed && (stuck.moved === undefined || stuck.moved < 1.2) && !B.jinkTurn
+    if (!slow) {
+      if (me.speed > P.stuckSpeed * 2 || want <= 0.45) { stuck.slowSince = -1; stuck.phase = 0 }
+      if (t >= stuck.sideUntil) return
+    } else if (stuck.slowSince < 0) stuck.slowSince = t
+    const dur = stuck.slowSince < 0 ? 0 : t - stuck.slowSince
+    if (dur >= P.stuckS && stuck.phase === 0) {
+      stuck.phase = 1
+      const sg = B.rng() < 0.5 ? 1 : -1
+      const l = want || 1
+      stuck.sideX = -cmd.my / l * sg; stuck.sideY = cmd.mx / l * sg
+      stuck.sideUntil = t + 0.4
+      path.dirty = true
+      cmd.jump = me.grounded
+      B.counters.stuck++
+    } else if (dur >= P.stuckJetS && stuck.phase === 1) {
+      stuck.phase = 2; stuck.jetUntil = t + 1.0; cmd.jump = me.grounded; path.dirty = true
+    } else if (dur >= P.stuckAbandonS && stuck.phase === 2) {
+      stuck.phase = 3
+      if (B.hasGoal) { abandon.x = B.goalX; abandon.y = B.goalY; abandon.until = t + P.abandonS; B.counters.abandons++ }
+      stuck.slowSince = -1; stuck.phase = 0; path.dirty = true
+    }
+    if (t < stuck.sideUntil) {
+      // sidestep blended with the wanted direction
+      const mx = cmd.mx * 0.35 + stuck.sideX, my = cmd.my * 0.35 + stuck.sideY, l = Math.hypot(mx, my) || 1
+      cmd.mx = mx / l; cmd.my = my / l
+    }
+    if (stuck.phase === 2 && t < stuck.jetUntil) {
+      if (me.grounded) cmd.jump = true
+      else if (me.energy > 5) cmd.boost = true     // jet over the obstacle
+    }
+  }
+
+  return { moveTo, standoff, zoneCheck, zoneLegs, zoneGoal, shellDodge, stuckCheck, isAbandoned, path, jink, walkable,
+    pathLen: () => path.len, dirty: () => { path.dirty = true } }
+}

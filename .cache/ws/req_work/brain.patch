@@ -1,0 +1,50 @@
+--- a/lib/brain.js	2026-11-21 08:14:26.339326253 +0000
++++ b/lib/brain.js	2026-11-21 07:58:17.140106081 +0000
+@@ -16,6 +16,9 @@
+ import { makeFireControl } from './firecontrol.js'
+ import { makeEconomy } from './economy.js'
+ import { makeStance } from './stance.js'
++import { makeSteal } from './steal.js'
++import { makeScanner } from './scan.js'
++import { makeAimCal } from './aimcal.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -101,8 +104,8 @@
+         weapons: [wp('gun', { ammo: 12 - (i % 13), reload: i === 13 ? 1.2 : 0, cooldown: (i % 5) * 0.05 }), ph === 5 || ph === 6 || ph === 11 ? wp('laser', { charge: (i % 9) * 0.1 }) : ph >= 7 && ph <= 8 ? wp(ph === 7 ? 'lightning' : 'mortar', {}) : null], stats: m },
+       mechs: ph === 0 || ph === 4 ? [] : ph === 3 || ph === 9 || ph === 12 ? [mech(5, ex, ey, 900, ['gun', 'laser']), mech(6, x - 60, y + 40, 1300, ['gun', 'mortar'])] : [mech(5, ph === 7 ? x + 30 : ex, ph === 7 ? y + 5 : ey, ph === 8 ? 250 : 1100, ['gun', 'laser'])].concat(ph === 8 ? [{ id: 120, kind: 'npc', pos: [x + 50, y - 20, z], vel: [1, 0, 0], aim: [0, 0], hp: 350, max_hp: 350 }] : []),
+       projectiles: (ph === 5 ? [{ id: 400 + (k >> 3), kind: 'mortar', pos: [x + 40 - i * 2, y, z + 25], vel: [-40, 0, -2 * i] }] : []).concat(bullets),
+-      crates: ph === 0 || ph === 8 ? [{ id: 1001, pos: [x + 20, y + 14, z], hp: 300 }] : [], cubes: ph === 0 || ph === 4 || ph === 6 ? [{ id: 5001, pos: [x - 12, y + 9, z] }] : [],
+-      pickups: [{ id: 8001, kind: ph % 2 ? 'laser' : 'lightning', pos: [x + 2 + (ph === 6 ? 30 : 0), y + 1, z] }], sounds: [{ kind: 'gun', bearing: 1, dist: 'mid', age: 0.05 }, { kind: 'death', bearing: -1, dist: 'far', age: 0.1 }], beams: ph === 12 ? [{ by: 5, kind: 'laser', path: [[ex, ey, z + 7], [x - 60, y + 40, z + 4]], age: 0.05 }] : [],
++      crates: ph === 0 || ph === 8 ? [{ id: 1001, pos: [x + 20, y + 14, z], hp: 300 - (i % 10) * 25 }] : [], cubes: ph === 0 || ph === 4 || ph === 6 ? [{ id: 5001, pos: [x - 12, y + 9, z] }] : [],
++      pickups: [{ id: 8001, kind: ph % 2 ? 'laser' : 'lightning', pos: [x + 2 + (ph === 6 ? 30 : 0), y + 1, z] }], sounds: [{ kind: 'gun', bearing: 1, dist: 'mid', age: 0.05 }, { kind: 'death', bearing: -1, dist: 'far', age: 0.1 }], beams: ph === 12 ? [{ by: 5, kind: 'laser', path: [[ex, ey, z + 7], [x - 60, y + 40, z + 4]], age: 0.05 }] : ph === 5 || ph === 11 ? [{ by: 3, kind: 'laser', path: [[x + 3, y, z + 7], [ex, ey, z + 6]], age: 0.1 }, { by: 6, kind: 'laser', path: [[x - 60, y + 40, z + 7], [x + 20, y + 14, z + 1]], age: 0.05 }] : [],
+       events: ph >= 1 && i % 3 === 0 ? [{ type: 'damaged', amount: 45, weapon: 'gun', bearing: 0.3, by: ph === 6 ? 9 : 5 }, { type: 'hit', target: 5, amount: 45, weapon: 'gun' }].concat(ph === 6 && i === 9 ? [{ type: 'kill', target: 5 }] : []) : [],
+       drops: ph === 9 ? [{ id: 20000, pos: [x + 30, y - 30, z], radius: 8, lands_in: 3 - i * 0.1, capture_s: 4, progress: 0, holder: null }] : [],
+       zone: { center: [x + (ph === 4 ? 700 : 0), y], radius: ph === 13 ? 60 : 500, next_center: [x + (ph === 4 ? 700 : 30), y], next_radius: ph === 13 ? (i % 2 ? 20 : 0) : 300, shrink_start: t + (ph === 13 ? -1 : 5), shrink_end: t + 40, dps: 20 },
+@@ -175,6 +178,10 @@
+   const posEval = makePosEval(B)
+   const fc = makeFireControl(B)
+   const econ = makeEconomy(B, mover)
++  // owner requests R1-R3: reached by the other layers through B (each behind its PARAMS switch)
++  B.steal = makeSteal(B, mover, econ)
++  B.scanner = makeScanner(B)
++  B.aimcal = makeAimCal(B)
+   const stance = makeStance(B, mover, hideSearch, posEval)
+   const now = () => performance.now()
+   let lastEvalT = -9, actT0 = 0
+@@ -439,6 +446,7 @@
+       const cmd = B.cmd, out = B.out
+       const pmx = cmd.mx, pmy = cmd.my, pb = cmd.boost, py = out.aim[0], pp = out.aim[1]
+       if (!stage('sense', () => sense(B, obs))) { /* keep going with the previous model */ }
++      stage('req', () => { B.steal.sense(obs); B.scanner.sense(obs); B.aimcal.sense(obs) })
+       stage('assess', () => {
+         assess(B)
+         let ch = -99
+@@ -474,6 +482,7 @@
+       leg: B.legKind, aim: B.aimKind, A: B.A, n1: B.n1, losing: B.losing, hide: B.hide.state, zoneMargin: B.zoneMargin,
+       errors: { ...B.errorsByStage }, gun: B.gunStat.dump(), F: stance.F ? stance.F() : 0, Q: stance.Q ? stance.Q() : 0,
+       selected: P.selected, rehearsal: warmInfo,
++      steal: B.steal.debug(), scan: { ...B.scanner.stats }, cal: { ...B.aimcal.state },
+     }
+   }
+ 

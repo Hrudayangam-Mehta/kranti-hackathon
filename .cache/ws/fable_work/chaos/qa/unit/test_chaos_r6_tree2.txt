@@ -1,0 +1,11 @@
+PASS  defaults: every new preset at its old value  ::  SELECT fuse:wall dropLife:off util:off pauseMove:off isoDwell:off upgFix:off
+PASS  util off: B.util undefined, B.upgOrder null, B.dl null  ::  ok
+PASS  defaults: chaos keys at their old values  ::  SELECT cubes:off boostCharge:off cratePath:std alpha:off healDoc:off last key healDoc
+PASS  AL1 ammo 6, target without a line for > 0.4 s: alpha 'on' acts in SQUAD; forced FFA identical to 'off'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | reloads alpha 2 off 0
+PASS  AL2 calm mech at 110 m, ammo 8: no opening: alpha 'on' acts in SQUAD; forced FFA identical to 'off'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | target alpha - off 10 noOpen 6
+PASS  AL2b full magazine at 110 m: opens like off  ::  alpha 10 off 10
+PASS  AL2c full magazine at 150 m: no opening (> 130 m)  ::  alpha - off 10
+PASS  AL2d info: facing-away opener preferred  ::  alpha 11 off 10
+PASS  ST1 fight at 110 m: strafe 'fast75' acts in SQUAD; forced FFA identical to 'd4'; one foreign death identical  ::  SQUAD differs true, FFA identical true, firewall identical true | strafeFar 5 jinks 5 / 4
+
+9 passed, 0 failed

@@ -1,0 +1,73 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 84ba649..da2a03d 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -86,6 +86,9 @@ struct Ctx<'a> {
+     organic: u32,
+     p1_bits: u32,
+     p2_bits: u32,
++    p1_block: usize,
++    click_block: usize,
++    p2_block: usize,
+     first_day: i64,
+     days: usize,
+     day_shift: i64,
+@@ -134,6 +137,14 @@ fn bits_for(records: usize, per_part: usize) -> u32 {
+     parts.trailing_zeros().clamp(4, 14)
+ }
+ 
++/// Records per sink block: about half of what one thread is expected to write to one
++/// partition, so that the partly filled last block of every (thread, partition) wastes
++/// little memory (and page zeroing) when many threads share the input.
++fn block_for(records: usize, threads: usize, bits: u32, max: usize) -> usize {
++    let per = (records / threads) >> bits;
++    (per / 2).next_power_of_two().clamp(64, max)
++}
++
+ struct Stats {
+     event_copies: AtomicUsize,
+     winners: AtomicUsize,
+@@ -220,6 +231,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     units.extend(click_chunks.iter().map(|&c| Unit::Clicks(c)));
+ 
+     let est_events = event_bytes / 60 + 1;
++    let est_clicks = click_bytes / 40 + 1;
++    let p1_bits = bits_for(est_events, 12 << 10);
++    let p2_bits = bits_for(est_events, 12 << 10);
+     let first_day = ws.div_euclid(DAY_MS);
+     let last_day = (we - 1).div_euclid(DAY_MS);
+     let ctx = Ctx {
+@@ -231,8 +245,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         unknown,
+         campaigns: SmallMap::new(&campaign_entries),
+         organic,
+-        p1_bits: bits_for(est_events, 12 << 10),
+-        p2_bits: bits_for(est_events, 12 << 10),
++        p1_bits,
++        p2_bits,
++        p1_block: block_for(est_events, threads, p1_bits, 512),
++        click_block: block_for(est_clicks, threads, p2_bits, 512),
++        p2_block: block_for(est_events, threads, p2_bits, 256),
+         first_day,
+         days: (last_day - first_day + 1) as usize,
+         day_shift: cws - first_day * DAY_MS,
+@@ -286,8 +303,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             scope.spawn(move || {
+                 let mut arena = Arena::new();
+                 let mut scratch = Scratch::new();
+-                let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, 512);
+-                let mut clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, 512);
++                let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, ctx.p1_block);
++                let mut clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, ctx.click_block);
+                 let mut copies = 0usize;
+                 let mut click_count = 0usize;
+                 loop {
+@@ -328,7 +345,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+ 
+                 let people = people.get().unwrap();
+                 let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, 256);
++                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, ctx.p2_block);
+                 let mut buf: Vec<EventRec> = Vec::new();
+                 let mut table: Vec<(u64, u32)> = Vec::new();
+                 let mut winners = 0usize;

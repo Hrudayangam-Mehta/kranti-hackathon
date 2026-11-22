@@ -1,0 +1,1772 @@
+--------------------------------------------------------------------------------
+Profile data file 'cg/b3.callgrind' (creator: callgrind-3.22.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 224532418
+Trigger: Program termination
+Profiled target:  bin/prof_b3 (PID 8057, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   tree/src/fast/mod.rs
+Auto-annotation:  off
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+1,314,780,275 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                    file:function
+--------------------------------------------------------------------------------
+189,780,218 (14.43%)  tree/src/fast/mod.rs:sessions::fast::run::{closure#16}::{closure#0} [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+189,729,778 (14.43%)  tree/src/fast/scan.rs:sessions::fast::parse_events_avx2
+156,710,492 (11.92%)  tree/src/fast/ts.rs:sessions::fast::parse_events_avx2
+114,407,658 ( 8.70%)  tree/src/fast/mod.rs:sessions::fast::parse_events_avx2 [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+ 55,069,322 ( 4.19%)  ???:__memcpy_avx_unaligned_erms [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+ 48,641,632 ( 3.70%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse2.rs:sessions::fast::parse_events_avx2
+ 44,442,464 ( 3.38%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs:sessions::fast::parse_events_avx2
+ 36,342,043 ( 2.76%)  ???:__memset_avx2_unaligned_erms [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+ 31,535,981 ( 2.40%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 26,798,501 ( 2.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 25,108,178 ( 1.91%)  tree/src/fast/scan.rs:sessions::fast::parse_clicks_avx2
+ 23,521,895 ( 1.79%)  tree/src/fast/people.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 22,794,008 ( 1.73%)  tree/src/fast/mod.rs:sessions::fast::parse_clicks_avx2 [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+ 21,678,413 ( 1.65%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 19,531,518 ( 1.49%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::fast::parse_events_avx2
+ 19,394,645 ( 1.48%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 18,397,344 ( 1.40%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse2.rs:sessions::fast::parse_clicks_avx2
+ 16,681,469 ( 1.27%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 15,850,756 ( 1.21%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs:sessions::fast::run::{closure#16}::{closure#0}
+ 15,411,520 ( 1.17%)  tree/src/fast/ts.rs:sessions::fast::parse_clicks_avx2
+ 14,239,305 ( 1.08%)  tree/src/fast/keys.rs:sessions::fast::parse_events_avx2
+  9,444,735 ( 0.72%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/ssse3.rs:sessions::fast::parse_events_avx2
+  8,753,749 ( 0.67%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::run::{closure#16}::{closure#0}
+  8,240,683 ( 0.63%)  tree/src/fast/sink.rs:sessions::fast::parse_events_avx2
+  7,815,876 ( 0.59%)  tree/src/fast/sink.rs:sessions::fast::run::{closure#16}::{closure#0}
+  7,239,244 ( 0.55%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/cmp.rs:sessions::fast::run::{closure#16}::{closure#0}
+  6,761,001 ( 0.51%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs:sessions::fast::parse_clicks_avx2
+  6,571,865 ( 0.50%)  tree/src/fast/keys.rs:sessions::fast::write::user_part::{closure#0}
+  6,482,154 ( 0.49%)  tree/src/fast/keys.rs:sessions::fast::parse_clicks_avx2
+  6,475,499 ( 0.49%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mut_ptr.rs:sessions::fast::run::{closure#16}::{closure#0}
+  5,666,850 ( 0.43%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/macros.rs:sessions::fast::parse_events_avx2
+  5,548,876 ( 0.42%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/range.rs:sessions::fast::run::{closure#16}::{closure#0}
+  4,668,043 ( 0.36%)  tree/src/fast/people.rs:sessions::fast::parse_clicks_avx2
+  4,582,115 ( 0.35%)  tree/src/fast/keys.rs:<sessions::fast::keys::IdMap>::new [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+  4,547,209 ( 0.35%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mut_ptr.rs:sessions::fast::parse_events_avx2
+  4,136,272 ( 0.31%)  ???:__memcmp_avx2_movbe [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+  3,997,245 ( 0.30%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/memchr.rs:sessions::csv::fields::<2>
+  3,777,894 ( 0.29%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/simd.rs:sessions::fast::parse_events_avx2
+  3,477,720 ( 0.26%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/ssse3.rs:sessions::fast::parse_clicks_avx2
+  3,400,801 ( 0.26%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse.rs:sessions::fast::run::{closure#16}::{closure#0}
+  3,167,671 ( 0.24%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs:sessions::fast::parse_clicks_avx2
+  3,144,659 ( 0.24%)  tree/src/fast/scan.rs:sessions::fast::link_pairs_avx2
+  2,844,196 ( 0.22%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::csv::fields::<2>
+  2,707,751 ( 0.21%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::fast::parse_clicks_avx2
+  2,661,699 ( 0.20%)  tree/src/fast/keys.rs:sessions::fast::run::{closure#16}::{closure#0}
+  2,313,603 ( 0.18%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::main
+  2,203,213 ( 0.17%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::csv::fields::<7>
+  2,166,252 ( 0.16%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::parse_events_avx2
+  2,111,726 ( 0.16%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/cmp.rs:sessions::fast::run::{closure#16}::{closure#0}
+  2,086,632 ( 0.16%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/macros.rs:sessions::fast::parse_clicks_avx2
+  2,037,057 ( 0.15%)  tree/src/csv.rs:sessions::csv::fields::<2> [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+  2,032,333 ( 0.15%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/const_ptr.rs:sessions::fast::run::{closure#16}::{closure#0}
+  1,894,266 ( 0.14%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/memchr.rs:sessions::csv::fields::<7>
+  1,878,072 ( 0.14%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse2.rs:sessions::fast::link_pairs_avx2
+  1,862,160 ( 0.14%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse2.rs:sessions::fast::run::{closure#16}::{closure#0}
+  1,774,024 ( 0.13%)  tree/src/fast/sink.rs:sessions::fast::parse_clicks_avx2
+  1,641,980 ( 0.12%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+  1,486,730 ( 0.11%)  tree/src/events.rs:sessions::fast::parse_events_avx2
+  1,391,088 ( 0.11%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/simd.rs:sessions::fast::parse_clicks_avx2
+  1,387,263 ( 0.11%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mut_ptr.rs:sessions::fast::parse_clicks_avx2
+  1,381,601 ( 0.11%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:<sessions::fast::keys::IdMap>::new
+  1,139,304 ( 0.09%)  /rust/deps/hashbrown-0.17.1/src/rustc_entry.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+  1,133,943 ( 0.09%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::fast::write::user_part::{closure#0}
+  1,098,882 ( 0.08%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/convert/num.rs:sessions::fast::run::{closure#16}::{closure#0}
+  1,071,894 ( 0.08%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/const_ptr.rs:sessions::fast::parse_events_avx2
+  1,033,005 ( 0.08%)  tree/src/csv.rs:sessions::csv::fields::<7> [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+  1,020,588 ( 0.08%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/avx2.rs:sessions::fast::parse_clicks_avx2
+    964,609 ( 0.07%)  tree/src/fast/keys.rs:sessions::fast::keys::cmp_slow [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    923,479 ( 0.07%)  tree/src/fast/write.rs:sessions::fast::run::{closure#16}::{closure#0}
+    852,135 ( 0.06%)  tree/src/hash.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    837,144 ( 0.06%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::main
+    827,026 ( 0.06%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#0}
+    759,639 ( 0.06%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/const_ptr.rs:sessions::fast::parse_clicks_avx2
+    759,436 ( 0.06%)  /rust/deps/hashbrown-0.17.1/src/raw.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    757,318 ( 0.06%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::parse_clicks_avx2
+    737,091 ( 0.06%)  tree/src/csv.rs:sessions::main
+    690,084 ( 0.05%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ops/range.rs:sessions::fast::parse_events_avx2
+    685,049 ( 0.05%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::csv::fields::<2>
+    675,504 ( 0.05%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/sse.rs:sessions::fast::parse_clicks_avx2
+    667,291 ( 0.05%)  tree/src/fast/mod.rs:sessions::fast::link_pairs_avx2 [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    619,192 ( 0.05%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#5}
+    617,544 ( 0.05%)  tree/src/fast/ts.rs:sessions::fast::scan::long_line::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+    598,436 ( 0.05%)  tree/src/fast/scan.rs:sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>> [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    592,417 ( 0.05%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/convert/num.rs:sessions::fast::parse_events_avx2
+    590,607 ( 0.04%)  tree/src/fast/write.rs:sessions::fast::write::user_part::{closure#0} [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    566,752 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#0}
+    556,864 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs:sessions::main
+    551,971 ( 0.04%)  tree/src/fast/keys.rs:sessions::fast::link_pairs_avx2
+    548,708 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::scan::spill::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+    544,564 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::csv::fields::<7>
+    521,961 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/cmp.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    516,017 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter.rs:sessions::main
+    507,482 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::parse_clicks_avx2
+    504,492 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/cmp.rs:sessions::fast::parse_clicks_avx2
+    480,126 ( 0.04%)  tree/src/fast/write.rs:sessions::fast::write::user_part::{closure#5} [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    472,428 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#1}
+    472,428 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#2}
+    472,428 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#3}
+    472,428 ( 0.04%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#4}
+    456,731 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs:sessions::fast::write::user_part::{closure#0}
+    444,512 ( 0.03%)  ???:_int_malloc [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    427,271 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/collections/hash/map.rs:sessions::main
+    392,069 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/cmp.rs:sessions::fast::parse_clicks_avx2
+    391,265 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/x86/ssse3.rs:sessions::fast::link_pairs_avx2
+    387,587 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/hash/sip.rs:<std::hash::random::DefaultHasher as core::hash::Hasher>::write
+    384,687 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::fast::parse_clicks_avx2
+    379,765 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::main
+    379,648 ( 0.03%)  /rust/deps/hashbrown-0.17.1/src/control/bitmask.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    374,436 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/mod.rs:sessions::fast::parse_events_avx2
+    366,008 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/traits/iterator.rs:sessions::main
+    361,985 ( 0.03%)  tree/src/fast/mod.rs:sessions::fast::scan::long_line::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+    361,932 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::user_part::{closure#5}
+    360,200 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/mod.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    356,514 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/cmp.rs:sessions::main
+    354,324 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#0}
+    354,324 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#5}
+    349,271 ( 0.03%)  tree/src/fast/mod.rs:sessions::main
+    335,683 ( 0.03%)  tree/src/fast/keys.rs:sessions::fast::scan::long_line::<7, sessions::fast::EventLines<sessions::fast::scan::Avx2>>
+    329,406 ( 0.03%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/raw_vec/mod.rs:sessions::fast::write::campaign_table::{closure#5}::{closure#0}
+    301,889 ( 0.02%)  tree/src/fast/write.rs:sessions::fast::write::campaign_table::{closure#3} [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    291,927 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/num/uint_macros.rs:<hashbrown::map::HashMap<&[u8], u32, core::hash::BuildHasherDefault<sessions::hash::FastHasher>>>::rustc_entry
+    284,177 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::fast::link_pairs_avx2
+    272,567 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:sessions::main
+    269,077 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::link_pairs_avx2
+    260,000 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:<sessions::fast::keys::IdMap>::new
+    257,268 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs:sessions::fast::parse_events_avx2
+    256,470 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/iter/range.rs:sessions::fast::parse_clicks_avx2
+    252,332 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::parse_clicks_avx2
+    236,280 ( 0.02%)  tree/src/fast/write.rs:sessions::fast::write::user_part::{closure#1} [/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/bin/prof_b3]
+    236,244 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::fast::write::user_part::{closure#0}
+    236,228 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/iter/macros.rs:sessions::fast::write::user_part::{closure#5}
+    236,220 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#1}
+    236,220 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#2}
+    236,220 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#3}
+    236,220 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/alloc/src/vec/mod.rs:sessions::fast::write::user_part::{closure#4}
+    236,217 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#1}
+    236,217 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#2}
+    236,217 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#3}
+    236,217 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/non_null.rs:sessions::fast::write::user_part::{closure#4}
+    236,214 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/slice/index.rs:sessions::fast::write::user_part::{closure#0}
+    234,759 ( 0.02%)  /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/../../stdarch/crates/core_arch/src/macros.rs:sessions::fast::link_pairs_avx2
+
+--------------------------------------------------------------------------------
+-- User-annotated source: tree/src/fast/mod.rs
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 143 ----------------------------------------
+         .           }
+         .           
+         .           enum Job {
+         .               User(std::sync::Arc<write::Part>, usize, usize),
+         .               Campaign(usize),
+         .           }
+         .           
+         .           fn person_order(ctx: &Ctx, all_p2: &[&Sink<PersonRec>], all_uref: &[&Sink<UrefRec>], all_clicks: &[&Sink<ClickRec>]) -> Vec<usize> {
+         5 ( 0.00%)      let mut sizes: Vec<(usize, usize)> = (0..1usize << ctx.p2_bits)
+         .                   .map(|p| {
+       256 ( 0.00%)              let n: usize = all_p2.iter().map(|s| s.len(p)).sum::<usize>()
+         .                           + all_uref.iter().map(|s| s.len(p)).sum::<usize>()
+       256 ( 0.00%)                  + all_clicks.iter().map(|s| s.len(p)).sum::<usize>() / 4;
+         .                       (n, p)
+         .                   })
+         .                   .collect();
+         .               sizes.sort_unstable_by(|a, b| b.cmp(a));
+         .               sizes.into_iter().map(|(_, p)| p).collect()
+         .           }
+         .           
+         .           fn map_file(path: &Path) -> Result<&'static [u8]> {
+         .               use std::os::unix::io::AsRawFd;
+         .               let file = fs::File::open(path).map_err(|e| format!("{}: {e}", path.display()))?;
+         .               let len = file.metadata()?.len() as usize;
+       168 ( 0.00%)      if len == 0 {
+         .                   return Ok(&[]);
+         .               }
+         .               unsafe {
+       588 ( 0.00%)          let p = libc::mmap(std::ptr::null_mut(), len, libc::PROT_READ, libc::MAP_PRIVATE, file.as_raw_fd(), 0);
+     2,184 ( 0.00%)  => ???:mmap (84x)
+       168 ( 0.00%)          if p == libc::MAP_FAILED {
+         .                       return Err(format!("{}: mmap failed", path.display()).into());
+         .                   }
+         .                   Ok(std::slice::from_raw_parts(p as *const u8, len))
+         .               }
+         .           }
+         .           
+        27 ( 0.00%)  fn map_folder(dir: &Path) -> Result<Vec<&'static [u8]>> {
+         3 ( 0.00%)      let paths: Vec<PathBuf> = input::csv_files(dir)?;
+   841,125 ( 0.06%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/input.rs:sessions::input::csv_files (3x)
+         .               paths.iter().map(|p| map_file(p)).collect()
+        24 ( 0.00%)  }
+         .           
+        16 ( 0.00%)  fn chunks(files: &[&'static [u8]], base: usize, target: usize, out: &mut Vec<(usize, usize, usize)>) {
+        70 ( 0.00%)      for (k, &file) in files.iter().enumerate() {
+         .                   let mut start = 0;
+       950 ( 0.00%)          while start < file.len() {
+         .                       let end = start.saturating_add(target).min(file.len());
+         .                       out.push((base + k, start, end));
+         .                       start = end;
+         .                   }
+         .               }
+        16 ( 0.00%)  }
+         .           
+         7 ( 0.00%)  fn split_tail(units: &mut Vec<(usize, usize, usize)>, count: usize, pieces: usize) {
+         .               let from = units.len().saturating_sub(count);
+         4 ( 0.00%)      let tail: Vec<_> = units.drain(from..).collect();
+         .               for (file, s, e) in tail {
+         .                   let step = (e - s).div_ceil(pieces).max(1);
+         .                   let mut at = s;
+        41 ( 0.00%)          while at < e {
+         8 ( 0.00%)              let next = (at + step).min(e);
+         .                       units.push((file, at, next));
+         .                       at = next;
+         .                   }
+         .               }
+         .           }
+         .           
+         .           #[inline]
+         .           fn next_line(file: &[u8], at: usize) -> usize {
+     5,104 ( 0.00%)      match file[at..].iter().position(|&b| b == b'\n') {
+         .                   Some(offset) => at + offset + 1,
+         .                   None => file.len(),
+         .               }
+         .           }
+         .           
+         .           fn populate(file: &'static [u8], s: usize, e: usize) {
+         .               let page = 4096usize;
+         .               let base = file.as_ptr() as usize;
+       172 ( 0.00%)      let from = (base + s) & !(page - 1);
+       344 ( 0.00%)      let to = (base + e.min(file.len())).div_ceil(page) * page;
+       258 ( 0.00%)      unsafe { libc::madvise(from as *mut libc::c_void, to - from, 22) };
+       516 ( 0.00%)  => ???:madvise (86x)
+         .           }
+         .           
+         .           fn warm_heap() {
+         .               let warm: Vec<Vec<u8>> = (0..HEAP_WARM).map(|_| Vec::with_capacity(HEAP_PIECE)).collect();
+         .               std::hint::black_box(warm.as_ptr());
+         .               drop(warm);
+         .           }
+         .           
+       774 ( 0.00%)  fn line_range(file: &'static [u8], s: usize, e: usize) -> &'static [u8] {
+         .               populate(file, s, e);
+         .               let begin = next_line(file, s.saturating_sub(1));
+       188 ( 0.00%)      let end = if e >= file.len() { file.len() } else { next_line(file, e - 1) };
+       258 ( 0.00%)      if begin >= end {
+         .                   &file[..0]
+         .               } else {
+         .                   &file[begin..end]
+         .               }
+       602 ( 0.00%)  }
+         .           
+         .           fn block_for(records: usize, parts: usize, threads: usize, low: usize) -> usize {
+        35 ( 0.00%)      (records / (parts * threads * 4)).clamp(low, 512) & !3
+         .           }
+         .           
+         .           fn bits_for(records: usize, per_part: usize) -> u32 {
+         3 ( 0.00%)      let parts = (records / per_part).max(1).next_power_of_two();
+         .               parts.trailing_zeros().clamp(4, 14)
+         .           }
+         .           
+         .           struct Stats {
+         .               event_copies: AtomicUsize,
+         .               winners: AtomicUsize,
+         .               long_events: AtomicUsize,
+         .               clicks: AtomicUsize,
+         .           }
+         .           
+         .           pub fn run(config: &Config) -> Result<Outcome> {
+         2 ( 0.00%)      let started = Instant::now();
+         1 ( 0.00%)      let tracing = trace::enabled();
+         .               let epoch_start = std::time::SystemTime::now();
+        83 ( 0.00%)      let lap = |name: &str| eprintln!("{name:<8} {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
+     6,718 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/stdio.rs:std::io::stdio::_eprint (3x)
+        15 ( 0.00%)      let mark = |name: &str| {
+         8 ( 0.00%)          if tracing {
+         .                       eprintln!("trace m setup:{name} {:.3}", started.elapsed().as_secs_f64() * 1e3);
+         .                   }
+        12 ( 0.00%)      };
+         .               unsafe {
+         4 ( 0.00%)          libc::mallopt(libc::M_MMAP_THRESHOLD, 4 << 20);
+       134 ( 0.00%)  => ???:mallopt (1x)
+         3 ( 0.00%)          libc::mallopt(libc::M_TRIM_THRESHOLD, i32::MAX);
+       134 ( 0.00%)  => ???:mallopt (1x)
+         .               }
+         .               let data = config.data_dir;
+         .               let manifest = fs::read(data.join("manifest.json")).map_err(|e| format!("manifest.json: {e}"))?;
+         .               let window = Window::from_manifest(&manifest)?;
+         .               let (ws, we) = (window.start, window.end);
+         .               let cws = ws.checked_sub(WEEK_MS).ok_or("window start out of range")?;
+         9 ( 0.00%)      if we <= ws || we - cws >= i64::from(u32::MAX) - 1 {
+         .                   return Ok(Outcome::Fallback("window shape".into()));
+         .               }
+         .               let products_file: &'static [u8] = Box::leak(
+         .                   fs::read(data.join("products.csv"))
+         .                       .map_err(|e| format!("products.csv: {e}"))?
+         .                       .into_boxed_slice(),
+         .               );
+         .               let campaigns_file: &'static [u8] = Box::leak(
+         .                   fs::read(data.join("campaigns.csv"))
+         .                       .map_err(|e| format!("campaigns.csv: {e}"))?
+         .                       .into_boxed_slice(),
+         .               );
+         3 ( 0.00%)      let mut seen_categories: Vec<&'static [u8]> = vec![UNKNOWN_CATEGORY];
+         .               let mut category_ids: crate::hash::FastMap<&'static [u8], u32> = crate::hash::new_map(64);
+         .               category_ids.insert(UNKNOWN_CATEGORY, 0);
+         3 ( 0.00%)      let mut product_entries: Vec<(&'static [u8], u32)> = Vec::with_capacity(products_file.len() / 16 + 1);
+         .               let mut last: (&[u8], u32) = (UNKNOWN_CATEGORY, 0);
+         .               for [p, c] in csv::rows(products_file).filter_map(csv::fields::<2>) {
+     8,792 ( 0.00%)          let id = if c == last.0 {
+         .                       last.1
+         .                   } else {
+         .                       let next = seen_categories.len() as u32;
+    47,491 ( 0.00%)              let id = *category_ids.entry(c).or_insert(next);
+   142,433 ( 0.01%)              if id == next {
+         .                           seen_categories.push(c);
+        60 ( 0.00%)                  if seen_categories.len() > 255 {
+         .                               return Ok(Outcome::Fallback("category count".into()));
+         .                           }
+         .                       }
+         .                       last = (c, id);
+         .                       id
+         .                   };
+         .                   product_entries.push((p, id));
+         .               }
+         .               let mut by_name: Vec<u32> = (0..seen_categories.len() as u32).collect();
+       466 ( 0.00%)      by_name.sort_unstable_by(|&a, &b| seen_categories[a as usize].cmp(seen_categories[b as usize]));
+        21 ( 0.00%)      let categories: Vec<&'static [u8]> = by_name.iter().map(|&i| seen_categories[i as usize]).collect();
+         .               let mut rank = vec![0u32; by_name.len()];
+        21 ( 0.00%)      for (sorted, &old) in by_name.iter().enumerate() {
+        21 ( 0.00%)          rank[old as usize] = sorted as u32;
+         .               }
+         7 ( 0.00%)      for entry in product_entries.iter_mut() {
+   150,000 ( 0.01%)          entry.1 = rank[entry.1 as usize];
+         .               }
+         2 ( 0.00%)      let unknown = rank[0];
+         .               let mut campaign_ids: Vec<&'static [u8]> = Vec::new();
+         .               let mut campaign_channels: Vec<&'static [u8]> = Vec::new();
+         .               let mut campaign_entries: Vec<(&'static [u8], u32)> = Vec::new();
+         .               {
+         .                   let mut seen = std::collections::HashSet::new();
+         .                   for [id, channel] in csv::rows(campaigns_file).filter_map(csv::fields::<2>) {
+         .                       if seen.insert(id) {
+         .                           campaign_entries.push((id, campaign_ids.len() as u32));
+         .                           campaign_ids.push(id);
+         .                           campaign_channels.push(channel);
+         .                       }
+         .                   }
+         2 ( 0.00%)      }
+         .               let organic = campaign_ids.len() as u32;
+         .               mark("reference");
+         .           
+         4 ( 0.00%)      let event_files = map_folder(&data.join("events"))?;
+   332,922 ( 0.03%)  => tree/src/fast/mod.rs:sessions::fast::map_folder (1x)
+         4 ( 0.00%)      let click_files = map_folder(&data.join("clicks"))?;
+   443,016 ( 0.03%)  => tree/src/fast/mod.rs:sessions::fast::map_folder (1x)
+         2 ( 0.00%)      let link_files = map_folder(&data.join("links"))?;
+   139,308 ( 0.01%)  => tree/src/fast/mod.rs:sessions::fast::map_folder (1x)
+         6 ( 0.00%)      mark("map");
+        11 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#1} (1x)
+         .               let event_bytes: usize = event_files.iter().map(|f| f.len()).sum();
+         .               let click_bytes: usize = click_files.iter().map(|f| f.len()).sum();
+         1 ( 0.00%)      let threads = config.threads.max(1);
+         6 ( 0.00%)      sink::reserve(event_bytes + click_bytes + threads * (160 << 20) + (512 << 20));
+        67 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/sink.rs:sessions::fast::sink::reserve (1x)
+        13 ( 0.00%)      let target = ((event_bytes + click_bytes) / (threads * 24)).clamp(64 << 10, 4 << 20);
+         .               let mut event_chunks = Vec::new();
+         4 ( 0.00%)      chunks(&event_files, 0, target, &mut event_chunks);
+     4,492 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::chunks (1x)
+         .               let mut click_chunks = Vec::new();
+         5 ( 0.00%)      chunks(&click_files, event_files.len(), target, &mut click_chunks);
+     3,962 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::chunks (1x)
+         2 ( 0.00%)      if click_chunks.is_empty() {
+         .                   split_tail(&mut event_chunks, 2 * threads, 4);
+         .               } else {
+         1 ( 0.00%)          split_tail(&mut click_chunks, 2 * threads, 4);
+       363 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::split_tail (1x)
+         .               }
+         1 ( 0.00%)      let mut units = vec![Unit::Links];
+        80 ( 0.00%)      units.extend(event_chunks.iter().map(|&(f, s, e)| Unit::Events(f, s, e)));
+         .               let first_click = units.len();
+        92 ( 0.00%)      units.extend(click_chunks.iter().map(|&(f, s, e)| Unit::Clicks(f, s, e)));
+         .               let files: Vec<&'static [u8]> = event_files.iter().chain(&click_files).copied().collect();
+         .           
+         7 ( 0.00%)      mark("chunks");
+        11 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#1} (1x)
+         6 ( 0.00%)      let est_events = event_bytes / 60 + 1;
+         .               let first_day = ws.div_euclid(DAY_MS);
+         2 ( 0.00%)      let last_day = (we - 1).div_euclid(DAY_MS);
+        57 ( 0.00%)      let ctx = Ctx {
+       233 ( 0.00%)  => ???:__memcpy_avx_unaligned_erms (1x)
+         1 ( 0.00%)          calendar: Calendar::around(ws),
+    27,002 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/ts.rs:<sessions::fast::ts::Calendar>::around (1x)
+         .                   ws,
+         .                   we,
+         .                   cws,
+         1 ( 0.00%)          products: IdMap::new(&product_entries),
+ 8,048,519 ( 0.61%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/keys.rs:<sessions::fast::keys::IdMap>::new (1x)
+         .                   unknown,
+         2 ( 0.00%)          campaigns: IdMap::new(&campaign_entries),
+   320,258 ( 0.02%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/keys.rs:<sessions::fast::keys::IdMap>::new (1x)
+         .                   organic,
+         .                   p1_bits: bits_for(est_events, 12 << 10),
+         .                   p2_bits: bits_for(est_events, 12 << 10),
+         6 ( 0.00%)          p1_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
+         3 ( 0.00%)          long_block: block_for(event_bytes / 77 / 4, 1 << bits_for(est_events, 12 << 10), threads, 16),
+         6 ( 0.00%)          click_block: block_for(click_bytes / 47, 1 << bits_for(est_events, 12 << 10), threads, 32),
+         .                   p2_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
+         .                   first_day,
+         4 ( 0.00%)          days: (last_day - first_day + 1) as usize,
+         3 ( 0.00%)          day_shift: cws - first_day * DAY_MS,
+         .                   link_files,
+         4 ( 0.00%)          units,
+         .                   files,
+         .                   first_click,
+         .                   marker: std::marker::PhantomData,
+         .               };
+         6 ( 0.00%)      lap("setup");
+     2,099 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#0} (1x)
+         .           
+         .               let people: OnceLock<People> = OnceLock::new();
+         .               let links_done = AtomicBool::new(false);
+         .               let queue = AtomicUsize::new(0);
+         .               let p1_ready = AtomicUsize::new(0);
+         .               let person_queue = AtomicUsize::new(0);
+         .               let file_counter = AtomicUsize::new(0);
+         .               let barrier = Barrier::new(threads);
+-- line 399 ----------------------------------------
+-- line 404 ----------------------------------------
+         .               let uref_sinks: Vec<OnceLock<Sink<UrefRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
+         .               let finals: Mutex<Finals> = Mutex::new(Finals {
+         .                   results: Vec::new(),
+         .                   jobs: Vec::new(),
+         .                   pushed: 0,
+         .               });
+         .               let finals_cv = Condvar::new();
+         .               let cells_all: OnceLock<Vec<(Vec<[u64; 4]>, [u64; 4])>> = OnceLock::new();
+         2 ( 0.00%)      let campaign_sums: Mutex<[u64; 4]> = Mutex::new([0; 4]);
+         2 ( 0.00%)      let stats = Stats {
+         .                   event_copies: AtomicUsize::new(0),
+         .                   winners: AtomicUsize::new(0),
+         .                   long_events: AtomicUsize::new(0),
+         .                   clicks: AtomicUsize::new(0),
+         .               };
+         .               let user_dir = config.output_dir.join("user_daily");
+         .               let campaign_dir = config.output_dir.join("campaign_daily");
+         8 ( 0.00%)      crate::output::create_table_dir(config.output_dir, "user_daily")?;
+     4,267 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/output.rs:sessions::output::create_table_dir (1x)
+         7 ( 0.00%)      crate::output::create_table_dir(config.output_dir, "campaign_daily")?;
+     4,626 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/output.rs:sessions::output::create_table_dir (1x)
+         .               let failure: Mutex<Option<String>> = Mutex::new(None);
+         .               let traces: Mutex<Vec<(usize, trace::Trace)>> = Mutex::new(Vec::new());
+         .               let parse_units = ctx.units.len();
+         4 ( 0.00%)      let dedup_units = 1usize << ctx.p1_bits;
+         2 ( 0.00%)      let pieces = threads.clamp(1, 4);
+         7 ( 0.00%)      mark("dirs");
+        11 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#1} (1x)
+         .           
+        64 ( 0.00%)      std::thread::scope(|scope| {
+     4,949 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/thread/scoped.rs:std::thread::scoped::scope::<sessions::fast::run::{closure#16}, ()> (1x)
+         2 ( 0.00%)          for id in 0..threads {
+         .                       let ctx = &ctx;
+         .                       let people = &people;
+         .                       let links_done = &links_done;
+         .                       let queue = &queue;
+         .                       let p1_ready = &p1_ready;
+         .                       let person_queue = &person_queue;
+         .                       let file_counter = &file_counter;
+         .                       let barrier = &barrier;
+-- line 439 ----------------------------------------
+-- line 450 ----------------------------------------
+         .                       let lap = &lap;
+         .                       let user_dir = &user_dir;
+         .                       let campaign_dir = &campaign_dir;
+         .                       let campaign_ids = &campaign_ids;
+         .                       let campaign_channels = &campaign_channels;
+         .                       let failure = &failure;
+         .                       let categories = &categories;
+         .                       let traces = &traces;
+        20 ( 0.00%)              scope.spawn(move || {
+         .                           warm_heap();
+         3 ( 0.00%)                  let mut tr = trace::Trace::new(tracing, started);
+         .                           let mut arena = Arena::new();
+        27 ( 0.00%)                  let mut p1: Option<Sink<EventRec>> = Some(Sink::new(1 << ctx.p1_bits, ctx.p1_block));
+        17 ( 0.00%)                  let mut p1_long: Option<Sink<LongRec>> = Some(Sink::new(1 << ctx.p1_bits, ctx.long_block));
+        24 ( 0.00%)                  let mut clicks: Option<Sink<ClickRec>> = Some(Sink::new(1 << ctx.p2_bits, ctx.click_block));
+         .                           let mut copies = 0usize;
+         .                           let mut longs = 0usize;
+         .                           let mut click_count = 0usize;
+         1 ( 0.00%)                  let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, ctx.p2_block);
+         1 ( 0.00%)                  let mut p2_uref: Sink<UrefRec> = Sink::new(1 << ctx.p2_bits, (ctx.p2_block / 4).max(16));
+         .                           let mut buf: Vec<EventRec> = Vec::new();
+         .                           let mut long_buf: Vec<LongRec> = Vec::new();
+         .                           let mut table: Vec<(u64, u32)> = Vec::new();
+         .                           let mut winners = 0usize;
+         .                           let mut all_p1: Vec<&Sink<EventRec>> = Vec::new();
+         .                           let mut all_long: Vec<&Sink<LongRec>> = Vec::new();
+         .                           loop {
+         .                               let i = queue.fetch_add(1, Ordering::Relaxed);
+       432 ( 0.00%)                      if i >= ctx.first_click {
+       369 ( 0.00%)                          if let Some(mut sink) = p1.take() {
+         .                                       sink.finish(&mut arena);
+        17 ( 0.00%)                              let _ = p1_sinks[id].set(sink);
+         .                                       let mut long = p1_long.take().unwrap();
+         .                                       long.finish(&mut arena);
+        18 ( 0.00%)                              let _ = long_sinks[id].set(long);
+         .                                       p1_ready.fetch_add(1, Ordering::Release);
+         .                                   }
+         .                               }
+       864 ( 0.00%)                      if i >= parse_units {
+       277 ( 0.00%)                          if let Some(mut sink) = clicks.take() {
+         .                                       sink.finish(&mut arena);
+        17 ( 0.00%)                              let _ = click_sinks[id].set(sink);
+         .                                   }
+         .                               }
+         .                               let t = tr.now();
+        87 ( 0.00%)                      if let Some(&unit) = ctx.units.get(i) {
+       346 ( 0.00%)                          match unit {
+         .                                       Unit::Links => {
+         .                                           let t0 = Instant::now();
+         .                                           let built = build_people(&ctx.link_files);
+         .                                           let _ = people.set(built);
+         .                                           links_done.store(true, Ordering::Release);
+        11 ( 0.00%)                                  eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
+     1,815 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/stdio.rs:std::io::stdio::_eprint (1x)
+         .                                           tr.add(trace::LINKS, t);
+         .                                       }
+         .                                       Unit::Events(f, s, e) => {
+        80 ( 0.00%)                                  let file = ctx.files[f];
+        80 ( 0.00%)                                  let chunk = line_range(file, s, e);
+    18,237 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::line_range (40x)
+        80 ( 0.00%)                                  if !chunk.is_empty() {
+       195 ( 0.00%)                                      let (c, l) = parse_events(ctx, chunk, &mut arena, p1.as_mut().unwrap(), p1_long.as_mut().unwrap());
+637,285,638 (48.47%)  => tree/src/fast/mod.rs:sessions::fast::parse_events (39x)
+        39 ( 0.00%)                                      copies += c;
+        39 ( 0.00%)                                      longs += l;
+         .                                           }
+         .                                           tr.add(trace::EVENTS, t);
+         .                                       }
+         .                                       Unit::Clicks(f, s, e) => {
+        92 ( 0.00%)                                  let file = ctx.files[f];
+       230 ( 0.00%)                                  let chunk = line_range(file, s, e);
+    11,329 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::line_range (46x)
+        92 ( 0.00%)                                  if !links_done.load(Ordering::Acquire) {
+         .                                               let w = tr.now();
+         .                                               while !links_done.load(Ordering::Acquire) {
+         .                                                   std::thread::yield_now();
+         .                                               }
+         .                                               tr.add(trace::WAIT_LINKS, w);
+         .                                           }
+         .                                           let t = tr.now();
+         .                                           let people = people.get().unwrap();
+        92 ( 0.00%)                                  if !chunk.is_empty() {
+       344 ( 0.00%)                                      click_count += parse_clicks(ctx, people, chunk, &mut arena, clicks.as_mut().unwrap());
+121,774,014 ( 9.26%)  => tree/src/fast/mod.rs:sessions::fast::parse_clicks (43x)
+         .                                           }
+         .                                           tr.add(trace::CLICKS, t);
+         .                                       }
+         .                                   }
+         .                                   continue;
+         .                               }
+         .                               let q = i - parse_units;
+       258 ( 0.00%)                      if q >= dedup_units {
+         .                                   break;
+         .                               }
+       256 ( 0.00%)                      if all_p1.is_empty() {
+         .                                   let w = tr.now();
+         3 ( 0.00%)                          while p1_ready.load(Ordering::Acquire) < threads {
+         .                                       for _ in 0..64 {
+         .                                           std::hint::spin_loop();
+         .                                       }
+         .                                       std::thread::yield_now();
+         .                                   }
+         .                                   tr.add(trace::BAR_PARSE, w);
+         1 ( 0.00%)                          all_p1 = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
+         1 ( 0.00%)                          all_long = long_sinks.iter().map(|s| s.get().unwrap()).collect();
+         .                               }
+         .                               let t = tr.now();
+         .                               let people = people.get().unwrap();
+       128 ( 0.00%)                      winners += dedup(ctx, people, &all_p1, &all_long, q, &mut buf, &mut long_buf, &mut table, &mut arena, &mut p2, &mut p2_uref);
+         .                               tr.add(trace::DEDUP, t);
+         .                           }
+         .                           drop(all_p1);
+         .                           drop(all_long);
+         1 ( 0.00%)                  drop(buf);
+         1 ( 0.00%)                  drop(long_buf);
+         1 ( 0.00%)                  drop(table);
+         2 ( 0.00%)                  stats.event_copies.fetch_add(copies, Ordering::Relaxed);
+         .                           stats.long_events.fetch_add(longs, Ordering::Relaxed);
+         .                           stats.clicks.fetch_add(click_count, Ordering::Relaxed);
+         .                           stats.winners.fetch_add(winners, Ordering::Relaxed);
+         .                           p2.finish(&mut arena);
+        20 ( 0.00%)                  let _ = p2_sinks[id].set(p2);
+         .                           p2_uref.finish(&mut arena);
+        19 ( 0.00%)                  let _ = uref_sinks[id].set(p2_uref);
+         .                           let t = tr.now();
+         5 ( 0.00%)                  if barrier.wait().is_leader() {
+        60 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/barrier.rs:<std::sync::barrier::Barrier>::wait (1x)
+         5 ( 0.00%)                      lap("dedup");
+         .                           }
+         .                           tr.add(trace::BAR_DEDUP, t);
+         .                           let t = tr.now();
+         .                           let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+         .                           let all_uref: Vec<&Sink<UrefRec>> = uref_sinks.iter().map(|s| s.get().unwrap()).collect();
+         2 ( 0.00%)                  let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
+         .                           let order = person_order(ctx, &all_p2, &all_uref, &all_clicks);
+         .                           tr.add(trace::ORDER, t);
+         .                           let mut worker = Worker::new(ctx);
+         .                           let mut flushed = [0u64; 4];
+         .                           loop {
+         .                               let i = person_queue.fetch_add(1, Ordering::Relaxed);
+       384 ( 0.00%)                      let Some(&p) = order.get(i) else { break };
+         .                               let t = tr.now();
+       768 ( 0.00%)                      worker.partition(ctx, &all_p2, &all_uref, &all_clicks, p);
+         .                               tr.add(trace::PEOPLE, t);
+       256 ( 0.00%)                      if worker.rows.len() >= FLUSH_ROWS {
+         .                                   let tw = tr.now();
+         .                                   let file = file_counter.fetch_add(1, Ordering::Relaxed);
+         1 ( 0.00%)                          if let Err(e) =
+         9 ( 0.00%)                              write::user_part(user_dir, file, &worker.rows, 0..worker.rows.len(), categories, ctx.first_day)
+14,000,215 ( 1.06%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/write.rs:sessions::fast::write::user_part (1x)
+         .                                   {
+         .                                       *failure.lock().unwrap() = Some(e.to_string());
+         .                                   }
+         .                                   let t = worker.rows.totals();
+         .                                   for k in 0..4 {
+         4 ( 0.00%)                              flushed[k] += t[k];
+         .                                   }
+         .                                   worker.rows.clear();
+         .                                   tr.add(trace::USER_WRITE, tw);
+         .                               }
+         .                           }
+         .                           let t = tr.now();
+       110 ( 0.00%)                  let mut part = worker.finish();
+         .                           let cells = std::mem::take(&mut part.cells);
+         .                           let mut totals = part.totals();
+         .                           for k in 0..4 {
+         .                               totals[k] += flushed[k];
+         .                           }
+         .                           let part = std::sync::Arc::new(part);
+         .                           {
+         2 ( 0.00%)                      let mut state = finals.lock().unwrap();
+         1 ( 0.00%)                      let rows = part.len();
+         6 ( 0.00%)                      if rows > 0 || id == 0 {
+         1 ( 0.00%)                          let step = FINAL_ROWS.max(rows.div_ceil(threads));
+         .                                   let mut at = 0;
+         .                                   loop {
+         1 ( 0.00%)                              let end = (at + step).min(rows);
+         .                                       state.jobs.push(Job::User(part.clone(), at, end));
+         .                                       at = end;
+         2 ( 0.00%)                              if at >= rows {
+         .                                           break;
+         .                                       }
+         .                                   }
+         .                               }
+         .                               state.results.push((cells, totals));
+         4 ( 0.00%)                      state.pushed += 1;
+         4 ( 0.00%)                      if state.pushed == threads {
+         1 ( 0.00%)                          let _ = cells_all.set(std::mem::take(&mut state.results));
+         1 ( 0.00%)                          for k in 0..pieces {
+         .                                       state.jobs.push(Job::Campaign(k));
+         .                                   }
+         .                               }
+         .                           }
+         1 ( 0.00%)                  finals_cv.notify_all();
+         .                           drop(part);
+         .                           tr.add(trace::PEOPLE, t);
+         .                           loop {
+         .                               let job = {
+         .                                   let mut state = finals.lock().unwrap();
+         .                                   loop {
+         .                                       if let Some(job) = state.jobs.pop() {
+         .                                           break Some(job);
+         .                                       }
+         2 ( 0.00%)                              if state.pushed == threads {
+         .                                           break None;
+         .                                       }
+         .                                       let w = tr.now();
+         .                                       state = finals_cv.wait(state).unwrap();
+         .                                       tr.add(trace::BAR_END, w);
+         .                                   }
+         .                               };
+         .                               let Some(job) = job else { break };
+         4 ( 0.00%)                      match job {
+         .                                   Job::User(part, a, b) => {
+         .                                       let t = tr.now();
+         .                                       let file = file_counter.fetch_add(1, Ordering::Relaxed);
+         8 ( 0.00%)                              if let Err(e) = write::user_part(user_dir, file, &part, a..b, categories, ctx.first_day) {
+12,429,951 ( 0.95%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/write.rs:sessions::fast::write::user_part (1x)
+         .                                           *failure.lock().unwrap() = Some(e.to_string());
+         .                                       }
+         .                                       tr.add(trace::LAST_WRITE, t);
+         .                                   }
+         .                                   Job::Campaign(k) => {
+         .                                       let t = tr.now();
+         .                                       let all = cells_all.get().unwrap();
+         2 ( 0.00%)                              let cells: Vec<&[[u64; 4]]> = all.iter().map(|(c, _)| c.as_slice()).collect();
+         3 ( 0.00%)                              let campaigns = campaign_ids.len() + 1;
+         .                                       let per = campaigns.div_ceil(pieces);
+         5 ( 0.00%)                              let range = (k * per).min(campaigns)..((k + 1) * per).min(campaigns);
+         .                                       match write::campaign_table(
+         .                                           campaign_dir,
+         .                                           k,
+         .                                           &cells,
+         .                                           range,
+         .                                           campaign_ids,
+         .                                           campaign_channels,
+         .                                           ORGANIC,
+         1 ( 0.00%)                                  ctx.first_day,
+         6 ( 0.00%)                                  ctx.days,
+         .                                       ) {
+         .                                           Ok(sums) => {
+         .                                               let mut total = campaign_sums.lock().unwrap();
+         .                                               for j in 0..4 {
+         6 ( 0.00%)                                          total[j] += sums[j];
+         .                                               }
+         .                                           }
+         .                                           Err(e) => *failure.lock().unwrap() = Some(e.to_string()),
+         .                                       }
+         .                                       tr.add(trace::CAMPAIGN, t);
+         .                                   }
+         .                               }
+         .                           }
+         .                           let t = tr.now();
+         .                           arena.release();
+         .                           tr.add(trace::RELEASE, t);
+         .                           let t = tr.now();
+         1 ( 0.00%)                  barrier.wait();
+        60 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/barrier.rs:<std::sync::barrier::Barrier>::wait (1x)
+         .                           tr.add(trace::BAR_END, t);
+         .                           let t = tr.now();
+         5 ( 0.00%)                  let mapped = ctx.files.len() + ctx.link_files.len();
+         .                           for k in (id..mapped).step_by(threads) {
+       361 ( 0.00%)                      let file = if k < ctx.files.len() { ctx.files[k] } else { ctx.link_files[k - ctx.files.len()] };
+       168 ( 0.00%)                      if !file.is_empty() {
+       168 ( 0.00%)                          unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
+       504 ( 0.00%)  => ???:munmap (84x)
+         .                               }
+         .                           }
+         .                           tr.add(trace::UNMAP, t);
+        10 ( 0.00%)                  trace::collect(traces, id, tr);
+       101 ( 0.00%)  => ???:__memcpy_avx_unaligned_erms (1x)
+         8 ( 0.00%)              });
+         .                   }
+         .               });
+         6 ( 0.00%)      lap("people");
+     2,428 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#0} (1x)
+         3 ( 0.00%)      if let Some(e) = failure.into_inner().unwrap() {
+         .                   return Err(e.into());
+         .               }
+         .               if let Some(all) = cells_all.get() {
+         .                   let mut users = [0u64; 4];
+         .                   for (_, t) in all.iter() {
+         .                       for k in 0..4 {
+         8 ( 0.00%)                  users[k] += t[k];
+         .                       }
+         .                   }
+        12 ( 0.00%)          write::report(users, *campaign_sums.lock().unwrap());
+     4,126 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/fast/write.rs:sessions::fast::write::report (1x)
+        23 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/sync/poison/mutex.rs:<std::sync::poison::mutex::Mutex<[u64; 4]>>::lock (1x)
+        13 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/core/src/ptr/mod.rs:core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<[u64; 4]>> (1x)
+         .               }
+        18 ( 0.00%)      eprintln!(
+     2,453 ( 0.00%)  => /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library/std/src/io/stdio.rs:std::io::stdio::_eprint (1x)
+         .                   "event copies {}, long event ids {}, winners {}, clicks {}, linked {}",
+         .                   stats.event_copies.load(Ordering::Relaxed),
+         .                   stats.long_events.load(Ordering::Relaxed),
+         .                   stats.winners.load(Ordering::Relaxed),
+         .                   stats.clicks.load(Ordering::Relaxed),
+         2 ( 0.00%)          people.get().map_or(0, |p| p.linked())
+         .               );
+         6 ( 0.00%)      lap("write");
+     2,521 ( 0.00%)  => tree/src/fast/mod.rs:sessions::fast::run::{closure#0} (1x)
+         2 ( 0.00%)      if tracing {
+         .                   for (id, t) in traces.into_inner().unwrap().iter() {
+         .                       t.print(&format!("t{id}"));
+         .                   }
+         .                   let at = started.elapsed().as_secs_f64() * 1e3;
+         .                   let since = |t: std::time::SystemTime| t.duration_since(std::time::UNIX_EPOCH).map_or(0.0, |d| d.as_secs_f64());
+         .                   eprintln!(
+         .                       "trace m clock start {:.6} exit {:.6} at {at:.3}",
+         .                       since(epoch_start),
+         .                       since(std::time::SystemTime::now())
+         .                   );
+         .               }
+         2 ( 0.00%)      unsafe { libc::_exit(0) }
+         4 ( 0.00%)  => ???:_Exit (1x)
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn id_k<K: Kernel>(field: &[u8]) -> u64 {
+         .               match K::pack(field.as_ptr(), field.len()) {
+         .                   Some(key) => key,
+    31,497 ( 0.00%)          None => EX | keys::make_ref(field),
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn key_id_k<K: Kernel>(field: &[u8]) -> (u64, u64) {
+     8,118 ( 0.00%)      match K::pack(field.as_ptr(), field.len()) {
+ 1,182,015 ( 0.09%)          Some(key) => (key, key),
+ 1,437,597 ( 0.11%)          None => (keys::ex_key(field), EX | keys::make_ref(field)),
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn lookup_k<K: Kernel>(map: &IdMap, field: &[u8]) -> Option<u32> {
+       652 ( 0.00%)      match K::pack(field.as_ptr(), field.len()) {
+         .                   Some(key) => map.get_packed(key),
+         .                   None => map.get_bytes(field),
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           fn is_uref(person: u64) -> bool {
+   756,702 ( 0.06%)      person & (EX | LNK) == EX
+         .           }
+         .           
+         .           #[inline(always)]
+         .           fn prefetch_ref(r: u64) {
+         .               let p = keys::ref_ptr(r);
+         .               prefetch(p);
+         .               prefetch(p.wrapping_add(32));
+         .           }
+         .           
+         .           fn build_people(files: &[&'static [u8]]) -> People {
+         .               let mut pairs: Vec<[u64; 4]> = Vec::new();
+        28 ( 0.00%)      for &file in files {
+         .                   for (start, end) in csv::data_chunks(file, usize::MAX) {
+         .                       let body = &file[start..end];
+         .                       #[cfg(target_arch = "x86_64")]
+        23 ( 0.00%)              if scan::has_avx2() {
+        66 ( 0.00%)                  unsafe { link_pairs_avx2(body, &mut pairs) };
+ 8,146,805 ( 0.62%)  => tree/src/fast/mod.rs:sessions::fast::link_pairs_avx2 (11x)
+         .                           continue;
+         .                       }
+         .                       unsafe { link_pairs::<Scalar>(body, &mut pairs) };
+         .                   }
+         .               }
+         .               People::build(&pairs)
+         1 ( 0.00%)  }
+         .           
+         .           #[cfg(target_arch = "x86_64")]
+         .           #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+       110 ( 0.00%)  unsafe fn link_pairs_avx2(body: &[u8], pairs: &mut Vec<[u64; 4]>) {
+         .               link_pairs::<Avx2>(body, pairs)
+        99 ( 0.00%)  }
+         .           
+         .           struct LinkLines<'a, K> {
+         .               pairs: &'a mut Vec<[u64; 4]>,
+         .               kernel: std::marker::PhantomData<K>,
+         .           }
+         .           
+         .           impl<K: Kernel> Lines<2> for LinkLines<'_, K> {
+         .               #[inline(always)]
+         .               fn line(&mut self, f: &[&[u8]; 2]) {
+   223,485 ( 0.02%)          if f[0].is_empty() || f[1].is_empty() {
+         .                       return;
+         .                   }
+         .                   unsafe {
+         .                       let (ka, ia) = key_id_k::<K>(f[0]);
+         .                       let (kb, ib) = key_id_k::<K>(f[1]);
+         .                       self.pairs.push([ka, ia, kb, ib]);
+         .                   }
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn link_pairs<K: Kernel>(body: &[u8], pairs: &mut Vec<[u64; 4]>) {
+        22 ( 0.00%)      let mut lines = LinkLines::<K> {
+         .                   pairs,
+         .                   kernel: std::marker::PhantomData,
+         .               };
+         .               scan::fused::<2, 2, K, _>(body, &mut lines);
+         .           }
+         .           
+         .           #[inline(always)]
+         .           fn part_of(key: u64, mult: u64, bits: u32) -> usize {
+ 6,811,416 ( 0.52%)      (key.wrapping_mul(mult) >> (64 - bits)) as usize
+         .           }
+         .           
+       312 ( 0.00%)  fn parse_events(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>, long: &mut Sink<LongRec>) -> (usize, usize) {
+         .               #[cfg(target_arch = "x86_64")]
+        78 ( 0.00%)      if scan::has_avx2() {
+       351 ( 0.00%)          return unsafe { parse_events_avx2(ctx, chunk, arena, sink, long) };
+637,284,780 (48.47%)  => tree/src/fast/mod.rs:sessions::fast::parse_events_avx2 (39x)
+         .               }
+         .               unsafe { parse_events_k::<Scalar>(ctx, chunk, arena, sink, long) }
+         .           }
+         .           
+         .           #[cfg(target_arch = "x86_64")]
+         .           #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+       351 ( 0.00%)  unsafe fn parse_events_avx2(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>, long: &mut Sink<LongRec>) -> (usize, usize) {
+         .               parse_events_k::<Avx2>(ctx, chunk, arena, sink, long)
+       351 ( 0.00%)  }
+         .           
+         .           struct EventLines<'a, K> {
+         .               ctx: &'a Ctx<'a>,
+         .               arena: &'a mut Arena,
+         .               sink: &'a mut Sink<EventRec>,
+         .               long: &'a mut Sink<LongRec>,
+         .               copies: usize,
+         .               longs: usize,
+-- line 861 ----------------------------------------
+-- line 862 ----------------------------------------
+         .               kernel: std::marker::PhantomData<K>,
+         .           }
+         .           
+         .           impl<K: Kernel> Lines<7> for EventLines<'_, K> {
+         .               #[inline(always)]
+         .               fn line(&mut self, f: &[&[u8]; 7]) {
+         .                   let ctx = self.ctx;
+         .                   let event_id = f[0];
+ 3,950,508 ( 0.30%)          if event_id.is_empty() {
+         .                       return;
+         .                   }
+ 1,071,379 ( 0.08%)          self.copies += 1;
+         .                   unsafe {
+         .                       let event = K::pack(event_id.as_ptr(), event_id.len());
+         .                       let ingest = ctx.calendar.parse(f[3]);
+         .                       let mut user = 0u64;
+         .                       let mut ukey = 0u64;
+         .                       let mut ts = INVALID;
+         .                       let mut payload = 0u32;
+         .                       if let Some(ingest) = ingest {
+         .                           let user_id = f[1];
+         .                           let product = f[5];
+ 5,185,141 ( 0.39%)                  if !user_id.is_empty() && !product.is_empty() {
+         .                               if let Some(t) = ctx.calendar.parse(f[2]) {
+ 7,103,857 ( 0.54%)                          if ctx.ws <= t && t < ctx.we && ingest.saturating_sub(t) <= DAY_MS {
+         .                                       let kind = f[4];
+         .                                       let k4 = (kind.as_ptr() as *const u32).read_unaligned();
+         .                                       let k8 = (kind.as_ptr() as *const u64).read_unaligned();
+ 6,268,202 ( 0.48%)                              let plain = (kind.len() == 4) & ((k4 == VIEW) | (k4 == CART));
+ 2,212,823 ( 0.17%)                              let price = if (kind.len() == 8) & (k8 == PURCHASE) {
+       341 ( 0.00%)                                  parse_price(f[6])
+    21,646 ( 0.00%)  => /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5b/tree/src/events.rs:sessions::events::parse_price (341x)
+ 2,046,541 ( 0.16%)                              } else if plain {
+         .                                           Some(0)
+         .                                       } else {
+         .                                           None
+         .                                       };
+ 1,074,923 ( 0.08%)                              if let Some(price) = price {
+    26,017 ( 0.00%)                                  let category = if price > 0 {
+         .                                               lookup_k::<K>(&ctx.products, product).unwrap_or(ctx.unknown)
+         .                                           } else {
+         .                                               0
+         .                                           };
+         .                                           (ukey, user) = key_id_k::<K>(user_id);
+ 2,984,437 ( 0.23%)                                  ts = (t - ctx.cws) as u32;
+    60,358 ( 0.00%)                                  payload = price | category << 24;
+         .                                       }
+         .                                   }
+         .                               }
+         .                           }
+         .                       }
+         .                       let ingest = ingest.unwrap_or(i64::MAX);
+ 2,142,758 ( 0.16%)              match event {
+ 2,813,016 ( 0.21%)                  Some(event) if user & EX == 0 => {
+         .                               let rec = EventRec {
+         .                                   event,
+         .                                   user,
+         .                                   ingest,
+         .                                   ts,
+         .                                   payload,
+         .                               };
+ 2,480,273 ( 0.19%)                      self.sink.push(self.arena, part_of(event, H1, ctx.p1_bits), rec);
+         .                           }
+         .                           _ => {
+         .                               let (key, eref) = match event {
+         .                                   Some(event) => (event, 0),
+         .                                   None => {
+   137,850 ( 0.01%)                              self.longs += 1;
+         .                                       (keys::ex_key(event_id), keys::make_ref(event_id))
+         .                                   }
+         .                               };
+         .                               let rec = LongRec {
+         .                                   key,
+         .                                   eref,
+         .                                   user,
+         .                                   ukey,
+         .                                   ingest,
+         .                                   ts,
+         .                                   payload,
+         .                               };
+   245,112 ( 0.02%)                      self.long.push(self.arena, part_of(key, H1, ctx.p1_bits), rec);
+         .                           }
+         .                       }
+         .                   }
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn parse_events_k<K: Kernel>(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>, long: &mut Sink<LongRec>) -> (usize, usize) {
+       273 ( 0.00%)      let mut lines = EventLines::<K> {
+         .                   ctx,
+         .                   arena,
+         .                   sink,
+         .                   long,
+         .                   copies: 0,
+         .                   longs: 0,
+         .                   kernel: std::marker::PhantomData,
+         .               };
+         .               scan::fused::<7, 3, K, _>(chunk, &mut lines);
+        78 ( 0.00%)      (lines.copies, lines.longs)
+         .           }
+         .           
+       344 ( 0.00%)  fn parse_clicks(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+         .               #[cfg(target_arch = "x86_64")]
+        86 ( 0.00%)      if scan::has_avx2() {
+       387 ( 0.00%)          return unsafe { parse_clicks_avx2(ctx, people, chunk, arena, sink) };
+121,773,068 ( 9.26%)  => tree/src/fast/mod.rs:sessions::fast::parse_clicks_avx2 (43x)
+         .               }
+         .               unsafe { parse_clicks_k::<Scalar>(ctx, people, chunk, arena, sink) }
+         .           }
+         .           
+         .           #[cfg(target_arch = "x86_64")]
+         .           #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+       559 ( 0.00%)  unsafe fn parse_clicks_avx2(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+         .               parse_clicks_k::<Avx2>(ctx, people, chunk, arena, sink)
+       387 ( 0.00%)  }
+         .           
+         .           const CLICK_BATCH: usize = 32;
+         .           
+         .           #[derive(Clone, Copy)]
+         .           struct PendingClick {
+         .               key: u64,
+         .               user: u64,
+         .               click: u64,
+-- line 983 ----------------------------------------
+-- line 994 ----------------------------------------
+         .               pending: usize,
+         .               total: usize,
+         .               kernel: std::marker::PhantomData<K>,
+         .           }
+         .           
+         .           impl<K: Kernel> ClickLines<'_, K> {
+         .               #[inline(always)]
+         .               fn flush(&mut self) {
+     7,947 ( 0.00%)          let bits = self.ctx.p2_bits;
+        43 ( 0.00%)          let n = self.pending;
+   118,345 ( 0.01%)          let mut slots = [0usize; CLICK_BATCH];
+         .                   for rec in &self.batch[..n] {
+   252,246 ( 0.02%)              self.people.prefetch_key(rec.key);
+         .                   }
+         .                   for (k, rec) in self.batch[..n].iter().enumerate() {
+   252,246 ( 0.02%)              let slot = self.people.slot_of(rec.key);
+   566,354 ( 0.04%)              if rec.key & EX != 0 && self.people.at(slot)[0] == rec.key {
+         .                           prefetch_ref(self.people.id_at(slot));
+         .                       }
+   252,246 ( 0.02%)              slots[k] = slot;
+         .                   }
+         .                   for k in 0..n {
+ 1,009,678 ( 0.08%)              let rec = self.batch[k];
+   504,492 ( 0.04%)              let (person, group) = match self.people.resolve(slots[k], rec.key, rec.user) {
+         .                           Some(name) => (name, name),
+         .                           None => (rec.user, rec.key),
+         .                       };
+         .                       let out = ClickRec {
+         .                           person,
+         .                           group,
+         .                           click: rec.click,
+         .                           ts: rec.ts,
+         .                           campaign: rec.campaign,
+         .                       };
+   504,492 ( 0.04%)              self.sink.push(self.arena, part_of(group, H2, bits), out);
+         .                   }
+     7,861 ( 0.00%)          self.pending = 0;
+         .               }
+         .           }
+         .           
+         .           impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
+         .               #[inline(always)]
+         .               fn line(&mut self, f: &[&[u8]; 4]) {
+         .                   let ctx = self.ctx;
+         .                   let click_id = f[0];
+         .                   let user = f[1];
+ 1,219,519 ( 0.09%)          if click_id.is_empty() || user.is_empty() {
+         .                       return;
+         .                   }
+         .                   unsafe {
+         .                       let Some(t) = ctx.calendar.parse(f[3]) else { return };
+ 1,465,818 ( 0.11%)              if t < ctx.cws || t >= ctx.we {
+         .                           return;
+         .                       }
+   704,021 ( 0.05%)              let Some(campaign) = lookup_k::<K>(&ctx.campaigns, f[2]) else { return };
+         .                       let (key, user) = key_id_k::<K>(user);
+ 2,522,460 ( 0.19%)              self.batch[self.pending] = PendingClick {
+         .                           key,
+         .                           user,
+         .                           click: id_k::<K>(click_id),
+   252,246 ( 0.02%)                  ts: (t - ctx.cws) as u32,
+         .                           campaign,
+         .                       };
+         .                   }
+   756,738 ( 0.06%)          self.pending += 1;
+         .                   self.total += 1;
+   756,738 ( 0.06%)          if self.pending == CLICK_BATCH {
+         .                       self.flush();
+         .                   }
+         .               }
+         .           }
+         .           
+         .           #[inline(always)]
+         .           unsafe fn parse_clicks_k<K: Kernel>(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+       516 ( 0.00%)      let mut lines = ClickLines::<K> {
+     3,354 ( 0.00%)  => ???:__memset_avx2_unaligned_erms (43x)
+         .                   ctx,
+         .                   people,
+         .                   arena,
+         .                   sink,
+         .                   batch: [PendingClick {
+         .                       key: 0,
+         .                       user: 0,
+         .                       click: 0,
+-- line 1076 ----------------------------------------
+-- line 1078 ----------------------------------------
+         .                       campaign: 0,
+         .                   }; CLICK_BATCH],
+         .                   pending: 0,
+         .                   total: 0,
+         .                   kernel: std::marker::PhantomData,
+         .               };
+         .               scan::fused::<4, 4, K, _>(chunk, &mut lines);
+         .               lines.flush();
+        43 ( 0.00%)      lines.total
+         .           }
+         .           
+         .           const WIN_BATCH: usize = 32;
+         .           const LONG_AT: u32 = 1 << 31;
+         .           
+         .           struct Winners<'a> {
+         .               people: &'a People,
+         .               bits: u32,
+-- line 1094 ----------------------------------------
+-- line 1095 ----------------------------------------
+         .               pending: [(u64, u64, u32, u32); WIN_BATCH],
+         .               count: usize,
+         .               total: usize,
+         .           }
+         .           
+         .           impl Winners<'_> {
+         .               #[inline(always)]
+         .               fn add(&mut self, user: u64, ukey: u64, ts: u32, payload: u32, out: &mut Sink<PersonRec>, uref: &mut Sink<UrefRec>, arena: &mut Arena) {
+ 8,351,650 ( 0.64%)          self.pending[self.count] = (user, ukey, ts, payload);
+ 3,912,360 ( 0.30%)          self.count += 1;
+         .                   self.total += 1;
+ 3,686,780 ( 0.28%)          if self.count == WIN_BATCH {
+         .                       self.flush(out, uref, arena);
+         .                   }
+         .               }
+         .           
+         .               #[inline(always)]
+         .               fn flush(&mut self, out: &mut Sink<PersonRec>, uref: &mut Sink<UrefRec>, arena: &mut Arena) {
+       128 ( 0.00%)          let n = self.count;
+    30,628 ( 0.00%)          let people = self.people;
+   642,676 ( 0.05%)          let mut slots = [0usize; WIN_BATCH];
+   978,090 ( 0.07%)          for &(_, ukey, _, _) in &self.pending[..n] {
+         .                       people.prefetch_key(ukey);
+         .                   }
+   978,090 ( 0.07%)          for (k, &(user, ukey, _, _)) in self.pending[..n].iter().enumerate() {
+         .                       let slot = people.slot_of(ukey);
+ 2,420,344 ( 0.18%)              if ukey & EX != 0 && people.at(slot)[0] == ukey {
+         .                           prefetch_ref(people.id_at(slot));
+         .                           prefetch_ref(user);
+         .                       }
+   978,090 ( 0.07%)              slots[k] = slot;
+         .                   }
+ 4,140,082 ( 0.31%)          for (k, &(user, ukey, ts, payload)) in self.pending[..n].iter().enumerate() {
+   978,090 ( 0.07%)              match people.resolve(slots[k], ukey, user) {
+         .                           Some(person) => out.push(arena, part_of(person, H2, self.bits), PersonRec { person, ts, payload }),
+   737,052 ( 0.06%)                  None if user & EX == 0 => out.push(arena, part_of(user, H2, self.bits), PersonRec { person: user, ts, payload }),
+         .                           None => uref.push(
+         .                               arena,
+         .                               part_of(ukey, H2, self.bits),
+         .                               UrefRec {
+         .                                   person: user,
+         .                                   group: ukey,
+         .                                   ts,
+         .                                   payload,
+         .                               },
+         .                           ),
+         .                       }
+         .                   }
+   145,449 ( 0.01%)          self.count = 0;
+         .               }
+         .           }
+         .           
+         .           #[allow(clippy::too_many_arguments)]
+         .           fn dedup(
+         .               ctx: &Ctx,
+         .               people: &People,
+         .               sinks: &[&Sink<EventRec>],
+-- line 1151 ----------------------------------------
+-- line 1155 ----------------------------------------
+         .               long_buf: &mut Vec<LongRec>,
+         .               table: &mut Vec<(u64, u32)>,
+         .               arena: &mut Arena,
+         .               out: &mut Sink<PersonRec>,
+         .               uref: &mut Sink<UrefRec>,
+         .           ) -> usize {
+         .               buf.clear();
+         .               for sink in sinks {
+     2,178 ( 0.00%)          for slice in sink.slices(q) {
+         .                       buf.extend_from_slice(slice);
+         .                   }
+         .               }
+         .               long_buf.clear();
+         .               for sink in longs {
+     1,025 ( 0.00%)          for slice in sink.slices(q) {
+         .                       long_buf.extend_from_slice(slice);
+         .                   }
+         .               }
+         .               let piece = ctx.p2_block * std::mem::size_of::<PersonRec>();
+         .               for sink in sinks {
+       128 ( 0.00%)          let bytes = sink.block_bytes();
+     1,538 ( 0.00%)          for block in sink.blocks(q) {
+         .                       arena.recycle(block, bytes, piece);
+         .                   }
+         .               }
+       512 ( 0.00%)      let mut winners = Winners {
+         .                   people,
+       896 ( 0.00%)          bits: ctx.p2_bits,
+     8,192 ( 0.00%)  => ???:__memset_avx2_unaligned_erms (128x)
+         .                   pending: [(0, 0, 0, 0); WIN_BATCH],
+         .                   count: 0,
+         .                   total: 0,
+         .               };
+         .               let n = buf.len();
+         .               let nl = long_buf.len();
+       384 ( 0.00%)      if n + nl == 0 {
+         .                   return 0;
+         .               }
+         .               let size = ((n + nl) * 2).next_power_of_two().max(16);
+         .               let tbits = size.trailing_zeros();
+         .               let mask = size - 1;
+         .               table.clear();
+         .               table.resize(size, (0, 0));
+       512 ( 0.00%)      let shift = 64 - ctx.p1_bits - tbits;
+         .               for i in 0..n {
+   826,780 ( 0.06%)          let key = buf[i].event;
+   826,780 ( 0.06%)          let mut slot = ((key.wrapping_mul(H1) >> shift) as usize) & mask;
+         .                   loop {
+         .                       let entry = unsafe { table.get_unchecked_mut(slot) };
+ 2,836,748 ( 0.22%)              if entry.0 == 0 {
+   771,382 ( 0.06%)                  *entry = (key, i as u32);
+         .                           break;
+         .                       }
+   299,586 ( 0.02%)              if entry.0 == key {
+    55,398 ( 0.00%)                  let j = entry.1 as usize;
+   110,796 ( 0.01%)                  if j & LONG_AT as usize == 0 {
+   166,194 ( 0.01%)                      if buf[i].ingest < buf[j].ingest {
+         .                                   buf[j].event = 0;
+         .                                   entry.1 = i as u32;
+         .                               } else {
+         .                                   buf[i].event = 0;
+         .                               }
+         .                           } else {
+         .                               let j = j & !(LONG_AT as usize);
+         .                               if buf[i].ingest < long_buf[j].ingest {
+-- line 1218 ----------------------------------------
+-- line 1219 ----------------------------------------
+         .                                   long_buf[j].key = 0;
+         .                                   entry.1 = i as u32;
+         .                               } else {
+         .                                   buf[i].event = 0;
+         .                               }
+         .                           }
+         .                           break;
+         .                       }
+    94,395 ( 0.01%)              slot = (slot + 1) & mask;
+         .                   }
+         .               }
+         .               for i in 0..nl {
+   244,599 ( 0.02%)          let key = long_buf[i].key;
+   244,599 ( 0.02%)          let mut slot = ((key.wrapping_mul(H1) >> shift) as usize) & mask;
+         .                   loop {
+         .                       let entry = unsafe { table.get_unchecked_mut(slot) };
+   973,989 ( 0.07%)              if entry.0 == 0 {
+ 1,597,631 ( 0.12%)                  *entry = (key, i as u32 | LONG_AT);
+         .                           break;
+         .                       }
+   223,024 ( 0.02%)              if entry.0 == key {
+    16,366 ( 0.00%)                  let j = entry.1 as usize;
+    40,190 ( 0.00%)                  if j & LONG_AT as usize == 0 {
+       855 ( 0.00%)                      if long_buf[i].ingest < buf[j].ingest {
+       112 ( 0.00%)                          buf[j].event = 0;
+         .                                   entry.1 = i as u32 | LONG_AT;
+         .                               } else {
+         .                                   long_buf[i].key = 0;
+         .                               }
+         .                               break;
+         .                           }
+    23,254 ( 0.00%)                  let j = j & !(LONG_AT as usize);
+    35,632 ( 0.00%)                  if key & EX == 0 || keys::same_ref(long_buf[i].eref, long_buf[j].eref) {
+    64,324 ( 0.00%)                      if long_buf[i].ingest < long_buf[j].ingest {
+     6,447 ( 0.00%)                          long_buf[j].key = 0;
+         .                                   entry.1 = i as u32 | LONG_AT;
+         .                               } else {
+         .                                   long_buf[i].key = 0;
+         .                               }
+         .                               break;
+         .                           }
+         .                       }
+    80,064 ( 0.01%)              slot = (slot + 1) & mask;
+         .                   }
+         .               }
+         .               for rec in buf.iter() {
+ 3,967,538 ( 0.30%)          if rec.event != 0 && rec.ts != INVALID {
+ 1,505,020 ( 0.11%)              winners.add(rec.user, rec.user, rec.ts, rec.payload, out, uref, arena);
+         .                   }
+         .               }
+         .               for rec in long_buf.iter() {
+ 1,174,065 ( 0.09%)          if rec.key != 0 && rec.ts != INVALID {
+   676,740 ( 0.05%)              winners.add(rec.user, rec.ukey, rec.ts, rec.payload, out, uref, arena);
+         .                   }
+         .               }
+         .               winners.flush(out, uref, arena);
+       256 ( 0.00%)      winners.total
+         .           }
+         .           
+         .           #[derive(Clone, Copy, Default)]
+         .           struct Rec {
+         .               ts: u32,
+         .               payload: u32,
+         .               id: u32,
+         .           }
+-- line 1283 ----------------------------------------
+-- line 1287 ----------------------------------------
+         .               ts: u32,
+         .               id: u32,
+         .               campaign: u32,
+         .               click: u64,
+         .           }
+         .           
+         .           fn radix_by_ts<T: Copy + Default>(data: &mut Vec<T>, spare: &mut Vec<T>, low: u32, high: u32, ts: impl Fn(&T) -> u32) {
+         .               let n = data.len();
+     1,152 ( 0.00%)      if n < 2 || low >= high {
+         .                   return;
+         .               }
+         .               const BITS: u32 = 11;
+         .               const BUCKETS: usize = 1 << BITS;
+         .               let span = high - low;
+         .               let passes = (32 - span.leading_zeros()).div_ceil(BITS) as usize;
+         .               let mut hist = vec![[0u32; BUCKETS]; passes];
+         .               for item in data.iter() {
+ 3,690,972 ( 0.28%)          let v = ts(item) - low;
+         .                   for (k, h) in hist.iter_mut().enumerate() {
+19,685,184 ( 1.50%)              unsafe { *h.get_unchecked_mut(((v >> (BITS * k as u32)) as usize) & (BUCKETS - 1)) += 1 };
+         .                   }
+         .               }
+         .               spare.clear();
+         .               spare.resize(n, T::default());
+         .               for (k, h) in hist.iter_mut().enumerate() {
+     3,456 ( 0.00%)          let shift = BITS * k as u32;
+ 1,572,864 ( 0.12%)          if h.iter().any(|&c| c as usize == n) {
+         .                       continue;
+         .                   }
+         .                   let mut acc = 0u32;
+         .                   for c in h.iter_mut() {
+         .                       let v = *c;
+ 2,752,512 ( 0.21%)              *c = acc;
+ 1,572,864 ( 0.12%)              acc += v;
+         .                   }
+         .                   for item in data.iter() {
+14,763,888 ( 1.12%)              let d = (((ts(item) - low) >> shift) as usize) & (BUCKETS - 1);
+         .                       unsafe {
+         .                           let at = h.get_unchecked_mut(d);
+18,454,860 ( 1.40%)                  *spare.get_unchecked_mut(*at as usize) = *item;
+ 3,690,972 ( 0.28%)                  *at += 1;
+         .                       }
+         .                   }
+         .                   std::mem::swap(data, spare);
+         .               }
+         .           }
+         .           
+         .           struct Worker {
+         .               organic: u32,
+-- line 1335 ----------------------------------------
+-- line 1354 ----------------------------------------
+         .               in_window: Vec<u32>,
+         .               active_at: Vec<u32>,
+         .               active: Vec<u32>,
+         .               category_sums: Vec<(u32, u64)>,
+         .           }
+         .           
+         .           impl Worker {
+         .               fn new(ctx: &Ctx) -> Worker {
+         3 ( 0.00%)          let campaigns = ctx.organic as usize + 1;
+    31,524 ( 0.00%)          Worker {
+         .                       organic: ctx.organic,
+         .                       days: ctx.days,
+         .                       day_shift: ctx.day_shift,
+         .                       campaigns,
+         2 ( 0.00%)              credit: vec![[0; 3]; campaigns * ctx.days],
+         .                       assist: vec![0; campaigns * ctx.days],
+         .                       rows: write::Part::default(),
+         .                       local_keys: Vec::new(),
+         .                       local_ids: Vec::new(),
+         .                       persons: Vec::new(),
+         .                       groups: Vec::new(),
+         .                       counts: Vec::new(),
+         .                       click_counts: Vec::new(),
+-- line 1376 ----------------------------------------
+-- line 1383 ----------------------------------------
+         .                       in_window: vec![0; campaigns],
+         .                       active_at: vec![0; campaigns],
+         .                       active: Vec::new(),
+         .                       category_sums: Vec::new(),
+         .                   }
+         .               }
+         .           
+         .               fn finish(mut self) -> write::Part {
+         5 ( 0.00%)          let mut cells = vec![[0u64; 4]; self.campaigns * self.days];
+         .                   for day in 0..self.days {
+         .                       for c in 0..self.campaigns {
+         .                           let at = day * self.campaigns + c;
+         .                           let credit = self.credit[at];
+   112,056 ( 0.01%)                  cells[c * self.days + day] = [credit[0], credit[1], credit[2], u64::from(self.assist[at])];
+         .                       }
+         .                   }
+         6 ( 0.00%)          self.rows.cells = cells;
+        10 ( 0.00%)          self.rows
+         .               }
+         .           
+         .               #[inline(always)]
+         .               fn insert(&mut self, key: u64, person: u64, uref: bool, slot: &mut usize, size: &mut usize, shift: &mut u32) -> u32 {
+         .                   let mask = *size - 1;
+         .                   loop {
+ 1,061,928 ( 0.08%)              let id = unsafe { *self.local_ids.get_unchecked(*slot) };
+ 2,311,064 ( 0.18%)              if id == u32::MAX {
+         .                           let id = self.persons.len() as u32;
+    35,192 ( 0.00%)                  self.local_ids[*slot] = id;
+    33,392 ( 0.00%)                  self.local_keys[*slot] = key;
+         .                           self.persons.push(person);
+         .                           self.groups.push(key);
+         .                           self.counts.push(0);
+   101,976 ( 0.01%)                  if self.persons.len() * 2 > *size {
+         .                               *size *= 2;
+         .                               *shift -= 1;
+         .                               self.grow_local(*size, *shift);
+         .                           }
+         .                           return id;
+         .                       }
+ 2,057,072 ( 0.16%)              if unsafe { *self.local_keys.get_unchecked(*slot) } == key
+   180,008 ( 0.01%)                  && (!uref || keys::same_ref(unsafe { *self.persons.get_unchecked(id as usize) }, person))
+         .                       {
+         .                           return id;
+         .                       }
+    83,838 ( 0.01%)              *slot = (*slot + 1) & mask;
+         .                   }
+         .               }
+         .           
+         .               fn partition(&mut self, ctx: &Ctx, events: &[&Sink<PersonRec>], urefs: &[&Sink<UrefRec>], clicks: &[&Sink<ClickRec>], p: usize) {
+         .                   let n: usize = events.iter().map(|s| s.len(p)).sum::<usize>() + urefs.iter().map(|s| s.len(p)).sum::<usize>();
+       384 ( 0.00%)          if n == 0 {
+         .                       return;
+         .                   }
+       256 ( 0.00%)          let mut size = (n / 8).next_power_of_two().clamp(64, (n * 2).next_power_of_two().max(64));
+         .                   let mut shift = 64 - ctx.p2_bits - size.trailing_zeros();
+         .                   self.local_keys.clear();
+         .                   self.local_keys.resize(size, 0);
+         .                   self.local_ids.clear();
+         .                   self.local_ids.resize(size, u32::MAX);
+         .                   self.persons.clear();
+         .                   self.groups.clear();
+         .                   self.counts.clear();
+         .                   self.recs.clear();
+         .                   let mut low = u32::MAX;
+         .                   let mut high = 0u32;
+         .                   for sink in events {
+       640 ( 0.00%)              for slice in sink.slices(p) {
+         .                           for rec in slice {
+   931,288 ( 0.07%)                      let key = rec.person;
+ 1,862,576 ( 0.14%)                      let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & (size - 1);
+         .                               let id = self.insert(key, key, false, &mut slot, &mut size, &mut shift);
+ 1,862,576 ( 0.14%)                      unsafe { *self.counts.get_unchecked_mut(id as usize) += 1 };
+ 1,862,576 ( 0.14%)                      low = low.min(rec.ts);
+         .                               high = high.max(rec.ts);
+         .                               self.recs.push(Rec {
+         .                                   ts: rec.ts,
+         .                                   payload: rec.payload,
+         .                                   id,
+         .                               });
+         .                           }
+         .                       }
+         .                   }
+         .                   for sink in urefs {
+       640 ( 0.00%)              for slice in sink.slices(p) {
+         .                           let len = slice.len();
+         .                           for k in 0..len {
+   140,406 ( 0.01%)                      if k + 8 < len {
+         .                                   prefetch_ref(unsafe { slice.get_unchecked(k + 8) }.person);
+         .                               }
+         .                               let rec = unsafe { slice.get_unchecked(k) };
+    46,802 ( 0.00%)                      let key = rec.group;
+   140,406 ( 0.01%)                      let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & (size - 1);
+    46,802 ( 0.00%)                      let id = self.insert(key, rec.person, true, &mut slot, &mut size, &mut shift);
+    93,604 ( 0.01%)                      unsafe { *self.counts.get_unchecked_mut(id as usize) += 1 };
+    93,604 ( 0.01%)                      low = low.min(rec.ts);
+         .                               high = high.max(rec.ts);
+         .                               self.recs.push(Rec {
+         .                                   ts: rec.ts,
+         .                                   payload: rec.payload,
+         .                                   id,
+         .                               });
+         .                           }
+         .                       }
+         .                   }
+         .                   let mask = size - 1;
+         .                   radix_by_ts(&mut self.recs, &mut self.spare, low, high, |r| r.ts);
+         .                   let persons = self.persons.len();
+       256 ( 0.00%)          let mut offsets: Vec<u32> = Vec::with_capacity(persons + 1);
+         .                   let mut acc = 0u32;
+    33,392 ( 0.00%)          for &c in &self.counts {
+         .                       offsets.push(acc);
+    33,392 ( 0.00%)              acc += c;
+         .                   }
+         .                   offsets.push(acc);
+         .                   self.sorted.clear();
+         .                   self.sorted.resize(n, 0);
+         .                   {
+         .                       let mut next: Vec<u32> = offsets[..persons].to_vec();
+       512 ( 0.00%)              for r in &self.recs {
+   978,090 ( 0.07%)                  let at = unsafe { next.get_unchecked_mut(r.id as usize) };
+ 4,890,450 ( 0.37%)                  unsafe { *self.sorted.get_unchecked_mut(*at as usize) = u64::from(r.ts) << 32 | u64::from(r.payload) };
+   978,090 ( 0.07%)                  *at += 1;
+         .                       }
+         .                   }
+         .           
+         .                   self.click_counts.clear();
+         .                   self.click_counts.resize(persons, 0);
+         .                   self.click_recs.clear();
+         .                   let mut low = u32::MAX;
+         .                   let mut high = 0u32;
+         .                   for sink in clicks {
+       640 ( 0.00%)              for slice in sink.slices(p) {
+         .                           let len = slice.len();
+         .                           for k in 0..len {
+   756,738 ( 0.06%)                      if k + 8 < len {
+   247,814 ( 0.02%)                          let ahead = unsafe { slice.get_unchecked(k + 8) }.person;
+   743,442 ( 0.06%)                          if is_uref(ahead) {
+         .                                       prefetch_ref(ahead);
+         .                                   }
+         .                               }
+         .                               let rec = unsafe { slice.get_unchecked(k) };
+         .                               let person = rec.person;
+         .                               let uref = is_uref(person);
+   252,246 ( 0.02%)                      let key = rec.group;
+   504,492 ( 0.04%)                      let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+         .                               let id = loop {
+   275,096 ( 0.02%)                          let id = unsafe { *self.local_ids.get_unchecked(slot) };
+   550,192 ( 0.04%)                          if id == u32::MAX {
+         .                                       break id;
+         .                                   }
+   550,168 ( 0.04%)                          if unsafe { *self.local_keys.get_unchecked(slot) } == key
+    61,170 ( 0.00%)                              && (!uref || keys::same_ref(unsafe { *self.persons.get_unchecked(id as usize) }, person))
+         .                                   {
+         .                                       break id;
+         .                                   }
+    22,850 ( 0.00%)                          slot = (slot + 1) & mask;
+         .                               };
+         .                               if id != u32::MAX {
+   504,468 ( 0.04%)                          unsafe { *self.click_counts.get_unchecked_mut(id as usize) += 1 };
+   504,468 ( 0.04%)                          low = low.min(rec.ts);
+         .                                   high = high.max(rec.ts);
+         .                                   self.click_recs.push(ClickTmp {
+         .                                       ts: rec.ts,
+         .                                       id,
+   252,234 ( 0.02%)                              campaign: rec.campaign,
+   252,234 ( 0.02%)                              click: rec.click,
+         .                                   });
+         .                               }
+         .                           }
+         .                       }
+         .                   }
+         .                   radix_by_ts(&mut self.click_recs, &mut self.click_spare, low, high, |r| r.ts);
+         .                   let mut click_offsets: Vec<u32> = Vec::with_capacity(persons + 1);
+         .                   let mut acc = 0u32;
+    33,392 ( 0.00%)          for &c in &self.click_counts {
+         .                       click_offsets.push(acc);
+    33,392 ( 0.00%)              acc += c;
+         .                   }
+         .                   click_offsets.push(acc);
+         .                   self.local_clicks.clear();
+         .                   self.local_clicks.resize(
+         .                       acc as usize,
+         .                       LocalClick {
+         .                           ts: 0,
+         .                           campaign: 0,
+         .                           click: 0,
+         .                       },
+         .                   );
+         .                   {
+         .                       let mut next: Vec<u32> = click_offsets[..persons].to_vec();
+         .                       for r in &self.click_recs {
+   252,234 ( 0.02%)                  let at = unsafe { next.get_unchecked_mut(r.id as usize) };
+         .                           unsafe {
+ 1,008,936 ( 0.08%)                      *self.local_clicks.get_unchecked_mut(*at as usize) = LocalClick {
+   252,234 ( 0.02%)                          ts: r.ts,
+   252,234 ( 0.02%)                          campaign: r.campaign,
+   252,234 ( 0.02%)                          click: r.click,
+         .                               }
+         .                           };
+   252,234 ( 0.02%)                  *at += 1;
+         .                       }
+         .                   }
+         .                   for id in 0..persons {
+   100,176 ( 0.01%)              let (first, last) = (click_offsets[id] as usize, click_offsets[id + 1] as usize);
+    33,392 ( 0.00%)              let mut i = first + 1;
+   557,402 ( 0.04%)              while i < last {
+ 1,143,065 ( 0.09%)                  if self.local_clicks[i].ts == self.local_clicks[i - 1].ts {
+         .                               let start = i - 1;
+         .                               let mut end = i + 1;
+    99,726 ( 0.01%)                      while end < last && self.local_clicks[end].ts == self.local_clicks[start].ts {
+         .                                   end += 1;
+         .                               }
+         .                               self.local_clicks[start..end].sort_unstable_by(|a, b| keys::cmp_ids(b.click, a.click));
+         .                               i = end;
+         .                           } else {
+         .                               i += 1;
+         .                           }
+         .                       }
+         .                   }
+         .                   for id in 0..persons {
+         .                       let er = offsets[id] as usize..offsets[id + 1] as usize;
+         .                       let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
+         .                       let name = self.persons[id];
+         .                       self.person(name, er, cr);
+         .                   }
+       128 ( 0.00%)      }
+         .           
+         .               #[cold]
+         .               #[inline(never)]
+         .               fn grow_local(&mut self, size: usize, shift: u32) {
+         .                   let mask = size - 1;
+         .                   self.local_keys.clear();
+         .                   self.local_keys.resize(size, 0);
+         .                   self.local_ids.clear();
+-- line 1616 ----------------------------------------
+-- line 1628 ----------------------------------------
+         .               fn person(&mut self, person: u64, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {
+         .                   let mut low = clicks.start;
+         .                   let mut high = clicks.start;
+         .                   let click_end = clicks.end;
+         .                   let mut i = events.start;
+         .                   let end = events.end;
+         .                   let mut row_day = usize::MAX;
+         .                   let mut row = [0u64; 3];
+   428,848 ( 0.03%)          while i < end {
+   543,096 ( 0.04%)              let start = (self.sorted[i] >> 32) as u32;
+ 1,448,256 ( 0.11%)              let day = ((i64::from(start) + self.day_shift) / DAY_MS) as usize;
+   606,021 ( 0.05%)              if day != row_day {
+   236,214 ( 0.02%)                  if row_day != usize::MAX {
+         .                               self.finish_row(person, row_day, row);
+         .                           }
+         .                           row_day = day;
+         .                           row = [0; 3];
+         .                       }
+         .                       let mut last = start;
+         .                       let mut events_in = 0u64;
+         .                       let mut revenue = 0u64;
+ 2,499,276 ( 0.19%)              while i < end {
+ 1,125,730 ( 0.09%)                  let value = self.sorted[i];
+ 2,251,460 ( 0.17%)                  let t = (value >> 32) as u32;
+ 4,502,920 ( 0.34%)                  if t - last > GAP_MS {
+         .                               break;
+         .                           }
+         .                           last = t;
+         .                           events_in += 1;
+         .                           let price = (value & 0x00ff_ffff) as u32;
+ 2,934,270 ( 0.22%)                  if price > 0 {
+    28,033 ( 0.00%)                      revenue += u64::from(price);
+    28,033 ( 0.00%)                      let category = ((value >> 24) & 0xff) as u32;
+    70,128 ( 0.01%)                      match self.category_sums.iter_mut().find(|(c, _)| *c == category) {
+     3,296 ( 0.00%)                          Some((_, sum)) => *sum += u64::from(price),
+         .                                   None => self.category_sums.push((category, u64::from(price))),
+         .                               }
+         .                           }
+   978,090 ( 0.07%)                  i += 1;
+         .                       }
+ 1,783,423 ( 0.14%)              while high < click_end && self.local_clicks[high].ts <= start {
+   252,037 ( 0.02%)                  let c = self.local_clicks[high].campaign as usize;
+   252,037 ( 0.02%)                  self.in_window[c] += 1;
+   504,074 ( 0.04%)                  if self.in_window[c] == 1 {
+   367,870 ( 0.03%)                      self.active_at[c] = self.active.len() as u32;
+         .                               self.active.push(c as u32);
+         .                           }
+   252,037 ( 0.02%)                  high += 1;
+         .                       }
+ 1,903,740 ( 0.14%)              while low < high && start - self.local_clicks[low].ts > WEEK_MS as u32 {
+   137,153 ( 0.01%)                  let c = self.local_clicks[low].campaign as usize;
+   137,153 ( 0.01%)                  self.in_window[c] -= 1;
+   274,306 ( 0.02%)                  if self.in_window[c] == 0 {
+    90,541 ( 0.01%)                      let at = self.active_at[c] as usize;
+         .                               self.active.swap_remove(at);
+    79,164 ( 0.01%)                      if let Some(&moved) = self.active.get(at) {
+   158,328 ( 0.01%)                          self.active_at[moved as usize] = at as u32;
+         .                               }
+         .                           }
+   137,153 ( 0.01%)                  low += 1;
+         .                       }
+         .                       let credited = if low < high {
+   444,452 ( 0.03%)                  self.local_clicks[high - 1].campaign
+         .                       } else {
+         .                           self.organic
+         .                       };
+   181,032 ( 0.01%)              let row_base = day * self.campaigns;
+   181,032 ( 0.01%)              let cell = &mut self.credit[row_base + credited as usize];
+   181,032 ( 0.01%)              cell[0] += 1;
+   362,064 ( 0.03%)              if revenue > 0 {
+   147,486 ( 0.01%)                  cell[1] += 1;
+         .                           cell[2] += revenue;
+         .                       }
+   181,032 ( 0.01%)              let assist = &mut self.assist[row_base..row_base + self.campaigns];
+ 2,180,464 ( 0.17%)              for &c in &self.active {
+ 1,958,238 ( 0.15%)                  unsafe { *assist.get_unchecked_mut(c as usize) += 1 };
+         .                       }
+   181,032 ( 0.01%)              row[0] += 1;
+   181,032 ( 0.01%)              row[1] += events_in;
+   181,032 ( 0.01%)              row[2] += revenue;
+         .                   }
+    66,784 ( 0.01%)          if row_day != usize::MAX {
+         .                       self.finish_row(person, row_day, row);
+         .                   }
+    93,394 ( 0.01%)          for &c in &self.active {
+    93,394 ( 0.01%)              self.in_window[c as usize] = 0;
+         .                   }
+         .                   self.active.clear();
+         .               }
+         .           
+         .               fn finish_row(&mut self, person: u64, day: usize, row: [u64; 3]) {
+         .                   let top = self
+         .                       .category_sums
+         .                       .iter()
+     1,426 ( 0.00%)              .max_by(|(ca, sa), (cb, sb)| sa.cmp(sb).then(cb.cmp(ca)))
+         .                       .map_or(u8::MAX, |&(c, _)| c as u8);
+         .                   self.category_sums.clear();
+         .                   self.rows.push(person, day as u32, row, top);
+         .               }
+         .           }
+
+95,172,873 ( 7.24%)  <counts for unidentified lines in tree/src/fast/mod.rs>
+
+--------------------------------------------------------------------------------
+Ir                   
+--------------------------------------------------------------------------------
+233,199,806 (17.74%)  events annotated
+

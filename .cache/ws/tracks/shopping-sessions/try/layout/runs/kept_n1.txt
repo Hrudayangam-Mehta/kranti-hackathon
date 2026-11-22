@@ -1,0 +1,8 @@
+base                     NCPU=1 cores=3 wall med 6.237 min 5.877 | cpu med 6.096 (user 4.14 sys 1.90) | rss 3.38 GB minflt 107606
+    phases ms (median): setup=13 parse=3602 dedup=1309 join=0 people=1148 write=9 exit=52 links1=163
+    phases ms (min):    setup=12 parse=3092 dedup=862 join=0 people=895 write=9 exit=45 links1=136  cpu min 5.802
+    walls: 6.237 5.877 6.504 6.163 6.319  cpus: 6.04 5.80 6.45 6.10 6.23  psi: 43.4 24.9 18.7 13.7 24.2
+b2                       NCPU=1 cores=3 wall med 5.479 min 4.657 | cpu med 5.453 (user 4.17 sys 1.53) | rss 3.16 GB minflt 101721
+    phases ms (median): setup=17 parse=3535 dedup=1015 join=0 people=1122 write=9 exit=48 links1=172
+    phases ms (min):    setup=12 parse=2569 dedup=867 join=0 people=964 write=9 exit=43 links1=148  cpu min 4.627
+    walls: 6.526 5.385 6.103 5.479 4.657  cpus: 6.49 5.32 6.03 5.45 4.63  psi: 64.2 23.9 24.7 12.0 15.1

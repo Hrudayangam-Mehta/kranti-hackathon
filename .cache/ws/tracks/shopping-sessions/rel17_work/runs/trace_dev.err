@@ -1,0 +1,60 @@
+trace m setup:reference 8.209
+trace m setup:map 8.784
+trace m setup:chunks 8.798
+lane F on: user key 0xf94d067aa5, person cap 92706, 0.9 ms
+trace m setup:decoder 9.705
+setup        10.9 ms
+trace m setup:dirs 10.953
+links    split and merged in 19.9 ms; lane F 43635 lines, general 1320 lines, odd persons 172
+links        20.5 ms on one thread
+dedup       288.2 ms
+people      344.4 ms
+surviving events 977930, user_daily rows 117038
+sessions 179366 / 179366, revenue 376461330 / 376461330, assisted 1932099 >= 109923
+lane F winners 962091, lane G share 1.62%
+event copies 1071554, winners 977930, clicks 252348, linked 1302, exotic 0
+write       344.4 ms
+trace t3 events 26.361 194.518 134.471 29
+trace t3 clicks 203.009 246.701 34.103 30
+trace t3 wait_events 246.703 246.703 0.000 1
+trace t3 unmap 32.086 236.516 46.539 17
+trace t3 dedup 246.703 273.491 26.775 59
+trace t3 bar_dedup 273.499 292.140 18.641 1
+trace t3 order 292.140 292.152 0.012 1
+trace t3 people 292.501 337.238 44.732 31
+trace t3 campaign 340.350 342.152 1.801 4
+trace t3 last_write 337.238 343.495 2.625 5
+trace t3 wait_jobs 338.523 340.350 1.826 2
+trace t3 release 343.496 343.572 0.076 1
+trace t2 events 20.284 194.435 134.258 23
+trace t2 clicks 195.939 240.259 25.295 12
+trace t2 wait_events 252.210 252.210 0.000 1
+trace t2 unmap 37.437 252.208 70.635 16
+trace t2 dedup 252.211 273.307 21.087 31
+trace t2 bar_dedup 273.314 300.155 26.841 1
+trace t2 order 300.155 300.165 0.010 1
+trace t2 people 300.567 343.674 43.101 39
+trace t2 release 343.675 343.712 0.037 1
+trace t0 events 28.276 194.197 127.349 21
+trace t0 clicks 194.228 246.506 20.300 4
+trace t0 wait_events 252.271 252.271 0.000 1
+trace t0 unmap 30.095 252.268 65.112 10
+trace t0 dedup 252.272 288.183 35.903 26
+trace t0 bar_dedup 288.190 288.248 0.057 1
+trace t0 order 288.248 288.265 0.018 1
+trace t0 people 288.724 332.378 43.645 27
+trace t0 last_write 332.379 333.605 1.226 2
+trace t0 wait_jobs 333.608 344.148 10.540 1
+trace t0 release 344.149 344.229 0.081 1
+trace t1 links 16.283 48.313 32.030 1
+trace t1 events 48.314 194.240 103.719 26
+trace t1 clicks 196.260 256.283 29.110 21
+trace t1 wait_events 256.325 256.325 0.000 1
+trace t1 unmap 50.525 256.324 63.117 27
+trace t1 dedup 256.326 273.352 17.023 12
+trace t1 bar_dedup 273.355 288.219 14.864 1
+trace t1 order 288.219 288.232 0.013 1
+trace t1 people 288.380 339.361 50.975 35
+trace t1 last_write 339.361 344.300 4.938 2
+trace t1 release 344.302 344.356 0.054 1
+trace m clock start 1795315011.010192 exit 1795315011.354660 at 344.468

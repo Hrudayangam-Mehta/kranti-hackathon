@@ -1,0 +1,96 @@
+gun bullets without impact event: n 91 ; last frame age (s) modes [(1.55, 88), (1.45, 1), (1.05, 1), (1.15, 1)]
+   distance from muzzle axis at last frame: max 227.1 p50 227.0 (range limit lies within +14 m of max)
+   impacts on world geometry: n 366 max distance 233.4
+
+MORTAR shells: 57
+  launch speed: median 71.96 p10 71.64 p90 72.32 ; gravity median 22.00 ; flight time p10 0.55 p50 0.95 p90 2.83 max 6.35
+  back-traced origin at fire tick (horizontal offset from mech centre, height above feet, dt): [(6.6, 9.02, 0.05), (6.37, 8.49, 0.05), (2.79, 12.75, 0.05), (6.57, 9.13, 0.05), (6.48, 10.16, 0.05), (3.14, 12.63, 0.05), (6.58, 9.76, 0.05), (6.29, 8.42, 0.05), (6.31, 8.4, 0.05), (6.56, 8.9, 0.05), (6.26, 10.61, 0.05), (6.43, 10.26, 0.05)]
+
+mortar hits (boom at, victim, amt, rear, fx, d_feet, d_centre, d_axis_surface, shooter cubes):
+  t=262 src=7 dst=0 amt=67.82 rear=None fx=concuss direct=False cubes=1 | d_feet 7.96 d_centre 8.34 d_axis 7.80 d_surf 5.30 | base(after removing cube/rear/self/armor) 65.2 | r=7
+  t=327 src=7 dst=0 amt=154.79 rear=1 fx=concuss direct=False cubes=2 | d_feet 5.78 d_centre 7.49 d_axis 5.78 d_surf 3.28 | base(after removing cube/rear/self/armor) 95.5 | r=7
+  t=718 src=11 dst=10 amt=109.09 rear=None fx=concuss direct=False cubes=1 | d_feet 5.33 d_centre 7.03 d_axis 5.33 d_surf 2.83 | base(after removing cube/rear/self/armor) 104.9 | r=7
+  t=1015 src=11 dst=8 amt=191.36 rear=None fx=concuss direct=False cubes=1 | d_feet 2.90 d_centre 4.49 d_axis 2.75 d_surf 0.25 | base(after removing cube/rear/self/armor) 200.0 | r=7
+  t=1082 src=11 dst=10 amt=139.36 rear=None fx=concuss direct=False cubes=1 | d_feet 3.61 d_centre 5.73 d_axis 3.61 d_surf 1.11 | base(after removing cube/rear/self/armor) 134.0 | r=7
+  t=1506 src=4 dst=7 amt=118.55 rear=None fx=concuss direct=False cubes=1 | d_feet 5.50 d_centre 7.08 d_axis 5.50 d_surf 3.00 | base(after removing cube/rear/self/armor) 114.0 | r=9.1
+  t=2321 src=4 dst=7 amt=144.23 rear=None fx=concuss direct=False cubes=1 | d_feet 3.58 d_centre 5.80 d_axis 3.58 d_surf 1.09 | base(after removing cube/rear/self/armor) 138.7 | r=9.1
+  t=2399 src=7 dst=4 amt=224.00 rear=None fx=concuss direct=False cubes=3 | d_feet 5.62 d_centre 2.55 d_axis 2.49 d_surf 0.00 | base(after removing cube/rear/self/armor) 200.0 | r=7
+  t=2472 src=8 dst=3 amt=304.70 rear=1 fx=concuss direct=False cubes=8 | d_feet 3.34 d_centre 7.29 d_axis 3.34 d_surf 2.42 | base(after removing cube/rear/self/armor) 153.9 | r=7
+  t=2513 src=4 dst=7 amt=208.00 rear=None fx=concuss direct=False cubes=1 | d_feet 3.34 d_centre 6.04 d_axis 3.34 d_surf 0.97 | base(after removing cube/rear/self/armor) 200.0 | r=9.1
+  t=2577 src=4 dst=7 amt=55.31 rear=None fx=concuss direct=False cubes=1 | d_feet 11.05 d_centre 12.32 d_axis 11.05 d_surf 8.57 | base(after removing cube/rear/self/armor) 53.2 | r=9.1
+  t=2636 src=7 dst=4 amt=224.00 rear=None fx=concuss direct=False cubes=3 | d_feet 2.83 d_centre 4.24 d_axis 2.59 d_surf 0.09 | base(after removing cube/rear/self/armor) 200.0 | r=7
+  t=2696 src=7 dst=4 amt=107.53 rear=1 fx=concuss direct=False cubes=3 | d_feet 8.00 d_centre 9.76 d_axis 8.00 d_surf 5.54 | base(after removing cube/rear/self/armor) 64.0 | r=7
+  t=2972 src=5 dst=9 amt=65.99 rear=None fx=concuss direct=False cubes=0 | d_feet 8.43 d_centre 9.61 d_axis 8.43 d_surf 5.93 | base(after removing cube/rear/self/armor) 66.0 | r=7
+  t=3079 src=12 dst=5 amt=83.89 rear=None fx=concuss direct=False cubes=2 | d_feet 7.20 d_centre 8.54 d_axis 7.20 d_surf 4.70 | base(after removing cube/rear/self/armor) 77.7 | r=7
+  t=3087 src=5 dst=9 amt=59.55 rear=None fx=concuss direct=False cubes=0 | d_feet 8.44 d_centre 9.65 d_axis 8.44 d_surf 5.94 | base(after removing cube/rear/self/armor) 59.5 | r=7
+  t=3194 src=5 dst=12 amt=162.96 rear=1 fx=concuss direct=False cubes=0 | d_feet 5.84 d_centre 9.16 d_axis 5.84 d_surf 4.03 | base(after removing cube/rear/self/armor) 108.6 | r=7
+  t=3214 src=12 dst=5 amt=3.88 rear=None fx=concuss direct=False cubes=2 | d_feet 7.01 d_centre 8.23 d_axis 7.01 d_surf 4.51 | base(after removing cube/rear/self/armor) 3.6 | r=7
+  model check: splash = 160*(1 - 0.7*d/R); try each distance definition (non-direct hits):
+    feet     rms err 52.6  mean err 36.7  (n=18)
+    centre   rms err 65.2  mean err 49.8  (n=18)
+    axis     rms err 46.1  mean err 33.5  (n=18)
+    surface  rms err 30.7  mean err 3.4  (n=18)
+
+concussion events (victim, by, |v_h|, v_z, drain, d_centre from boom, ratios):
+  t=262 id=0 by=7 vh=6.52 vz=3.67 drain=18.34 f=drain/45=0.408 vh/16=0.408 vz/9=0.408 d_feet=7.96 d_centre=8.34 -> pred f(feet)=0.300 f(centre)=0.300
+  t=327 id=0 by=7 vh=9.55 vz=5.37 drain=26.87 f=drain/45=0.597 vh/16=0.597 vz/9=0.597 d_feet=5.78 d_centre=7.49 -> pred f(feet)=0.422 f(centre)=0.300
+  t=718 id=10 by=11 vh=10.49 vz=5.90 drain=29.50 f=drain/45=0.656 vh/16=0.655 vz/9=0.656 d_feet=5.33 d_centre=7.03 -> pred f(feet)=0.467 f(centre)=0.300
+  t=1015 id=8 by=11 vh=16.01 vz=9.00 drain=45.00 f=drain/45=1.000 vh/16=1.000 vz/9=1.000 d_feet=2.90 d_centre=4.49 -> pred f(feet)=0.710 f(centre)=0.551
+  t=1082 id=10 by=11 vh=13.40 vz=7.54 drain=19.10 f=drain/45=0.424 vh/16=0.837 vz/9=0.838 d_feet=3.61 d_centre=5.73 -> pred f(feet)=0.639 f(centre)=0.427
+  t=1506 id=7 by=4 vh=11.40 vz=6.41 drain=32.06 f=drain/45=0.712 vh/16=0.712 vz/9=0.712 d_feet=5.50 d_centre=7.08 -> pred f(feet)=0.450 f(centre)=0.300
+  t=2321 id=7 by=4 vh=13.86 vz=7.80 drain=39.00 f=drain/45=0.867 vh/16=0.866 vz/9=0.867 d_feet=3.58 d_centre=5.80 -> pred f(feet)=0.642 f(centre)=0.420
+  t=2399 id=4 by=7 vh=16.00 vz=9.00 drain=45.00 f=drain/45=1.000 vh/16=1.000 vz/9=1.000 d_feet=5.62 d_centre=2.55 -> pred f(feet)=0.438 f(centre)=0.745
+  t=2472 id=3 by=8 vh=15.39 vz=8.66 drain=0.00 f=drain/45=0.000 vh/16=0.962 vz/9=0.962 d_feet=3.34 d_centre=7.29 -> pred f(feet)=0.666 f(centre)=0.300
+  t=2513 id=7 by=4 vh=16.00 vz=9.00 drain=3.60 f=drain/45=0.080 vh/16=1.000 vz/9=1.000 d_feet=3.34 d_centre=6.04 -> pred f(feet)=0.666 f(centre)=0.396
+  t=2577 id=7 by=4 vh=5.32 vz=2.99 drain=14.96 f=drain/45=0.332 vh/16=0.332 vz/9=0.332 d_feet=11.05 d_centre=12.32 -> pred f(feet)=0.300 f(centre)=0.300
+  t=2636 id=4 by=7 vh=16.00 vz=9.00 drain=18.80 f=drain/45=0.418 vh/16=1.000 vz/9=1.000 d_feet=2.83 d_centre=4.24 -> pred f(feet)=0.717 f(centre)=0.576
+  t=2696 id=4 by=7 vh=6.40 vz=3.60 drain=18.00 f=drain/45=0.400 vh/16=0.400 vz/9=0.400 d_feet=8.00 d_centre=9.76 -> pred f(feet)=0.300 f(centre)=0.300
+  t=2972 id=9 by=5 vh=6.60 vz=3.71 drain=18.56 f=drain/45=0.412 vh/16=0.412 vz/9=0.412 d_feet=8.43 d_centre=9.61 -> pred f(feet)=0.300 f(centre)=0.300
+  t=3079 id=5 by=12 vh=7.77 vz=4.37 drain=17.70 f=drain/45=0.393 vh/16=0.485 vz/9=0.486 d_feet=7.20 d_centre=8.54 -> pred f(feet)=0.300 f(centre)=0.300
+  t=3087 id=9 by=5 vh=5.96 vz=3.35 drain=16.75 f=drain/45=0.372 vh/16=0.372 vz/9=0.372 d_feet=8.44 d_centre=9.65 -> pred f(feet)=0.300 f(centre)=0.300
+  t=3194 id=12 by=5 vh=10.86 vz=6.11 drain=12.20 f=drain/45=0.271 vh/16=0.679 vz/9=0.679 d_feet=5.84 d_centre=9.16 -> pred f(feet)=0.416 f(centre)=0.300
+
+LIGHTNING zaps:
+  mech 9 zaps 46 interval ticks [(6, 31), (20, 6), (18, 2), (588, 1), (32, 1)]
+  mech 12 zaps 1 interval ticks []
+  hits per zap {1: 47}  path points per zap {2: 47}
+  first-segment length when hitting: max 42.1 p50 31.6
+  zaps with no hit: n 0, arc lengths []
+  energy change across the zap frame (drop, efficiency ups): [((4, 1), 10), ((3, 1), 7), ((3, 2), 7), ((5, 0), 6), ((2, 2), 6), ((6, 0), 5), ((1, 2), 1)]
+  arc origin (horizontal offset, height above feet) modes [((0.0, 7.0), 39), ((0.1, 7.0), 7), ((0.2, 7.0), 1)]
+
+LASER:
+  beam origin (horizontal offset, height above feet) modes [((3.0, 7.0), 28), ((2.9, 7.0), 8), ((2.8, 7.0), 3)]
+  beam length: max 280.0 ; n at >= 276 m: 13 of 39
+  ticks from beam to next charge start, per mech: {0: [53, 53, 69, 71, 73, 73, 87, 109, 137, 187, 251, 439], 2: [53, 107, 651], 3: [1285], 8: [55, 55, 55, 63, 89, 101, 303], 14: [53, 53, 55, 55, 59, 65, 73, 75, 93, 103, 147, 351]}
+  -> minimum 53 ticks = 2.65 s (upper bound on the laser cooldown + reaction)
+
+NPC drones:
+  npc bullet speed: n 26 median 90.00 sd 0.011
+  max distance from home per drone: {100: 25.8, 101: 21.9, 102: 23.4, 103: 18.7, 104: 29.9, 105: 9.0, 106: 12.6, 107: 16.0, 108: 26.9, 109: 1.4, 110: 27.9, 111: 26.5}
+  drone speed modes [(3.0, 6059), (2.9, 877), (3.1, 748), (0.0, 219), (5.0, 172)] max 13.59
+  drone 100 shots 10 frame-tick gaps [(20, 8), (19, 1)]
+  drone 101 shots 7 frame-tick gaps [(20, 6)]
+  drone 103 shots 4 frame-tick gaps [(20, 3)]
+  drone 104 shots 16 frame-tick gaps [(20, 15)]
+  drone 105 shots 3 frame-tick gaps [(20, 2)]
+  drone 106 shots 3 frame-tick gaps [(20, 2)]
+  drone 107 shots 6 frame-tick gaps [(20, 5)]
+  drone 109 shots 4 frame-tick gaps [(20, 3)]
+  at drone shots: distance to nearest mech p50 26.8 p90 56.1 max 84.7 ; drone distance from home p50 13.2 max 29.9
+  drone shots 53, hit a mech 35 (66%)
+  drone 100 first shot frame t=92 ; first damaged at t=229 ; nearest mech then 39.8 m (id 9)
+  drone 101 first shot frame t=770 ; first damaged at t=784 ; nearest mech then 41.8 m (id 5)
+  drone 103 first shot frame t=38 ; first damaged at t=57 ; nearest mech then 40.6 m (id 0)
+  drone 104 first shot frame t=638 ; first damaged at t=630 ; nearest mech then 56.7 m (id 7)
+  drone 105 first shot frame t=16 ; first damaged at t=15 ; nearest mech then 84.7 m (id 10)
+  drone 106 first shot frame t=16 ; first damaged at t=10 ; nearest mech then 47.7 m (id 6)
+  drone 107 first shot frame t=484 ; first damaged at t=483 ; nearest mech then 46.7 m (id 8)
+  drone 109 first shot frame t=2 ; first damaged at t=7 ; nearest mech then 4.3 m (id 13)
+
+TURN RATES (rad/s between frames):
+  gyros=0 yaw rate: max 4.10 p99.9 4.03 p99 4.00 ; frames at >= 3.85: 1309 ; pitch rate max 3.00 p99.9 3.00
+     yaw-rate modes of top values [(4.0, 1257), (3.9, 50), (2.6, 36), (2.7, 31), (3.0, 31)]
+  gyros=1 yaw rate: max 5.23 p99.9 5.23 p99 5.23 ; frames at >= 3.85: 330 ; pitch rate max 2.40 p99.9 1.65
+     yaw-rate modes of top values [(5.2, 250), (5.0, 41), (5.1, 9), (3.0, 6), (3.5, 6)]
+  pitch range observed: min -0.70 max 1.30

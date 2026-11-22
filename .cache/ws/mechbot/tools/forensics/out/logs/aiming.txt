@@ -1,0 +1,114 @@
+## shots by target kind
+| type | gun shots | at mech | at drone | at crate | mech hits | hit % | blocked by geometry |
+|---|---|---|---|---|---|---|---|
+| expert | 163 | 125 | 32 | 6 | 76 | 60.80 | 7 |
+| hard | 218 | 182 | 10 | 26 | 76 | 41.76 | 11 |
+| medium | 100 | 77 | 8 | 15 | 60 | 77.92 | 4 |
+| brawler | 180 | 168 | 0 | 12 | 67 | 39.88 | 17 |
+| sniper | 136 | 114 | 8 | 14 | 74 | 64.91 | 8 |
+| thirdparty | 71 | 57 | 0 | 14 | 40 | 70.18 | 4 |
+| farmer | 193 | 128 | 10 | 55 | 40 | 31.25 | 7 |
+| ALL | 1061 | 851 | 68 | 142 | 433 | 50.88 | 58 |
+npc shots 68 hits 63 (93%)
+crate shots 142 hits 108 (76%)
+
+## hit rate vs range (all shots at mechs; blocked shots counted as misses)
+| type | 0-40 m | 40-80 m | 80-130 m | 130-230 m |
+|---|---|---|---|---|
+| ALL | 59/60 = 98% | 259/330 = 78% | 83/287 = 29% | 32/173 = 18% |
+| expert | 20/20 = 100% | 45/62 = 73% | 8/34 = 24% | 3/9 = 33% |
+| hard | 1/1 = 100% | 50/71 = 70% | 20/62 = 32% | 5/48 = 10% |
+| medium | 12/13 = 92% | 47/55 = 85% | 1/4 = 25% | 0/4 = 0% |
+| brawler | 11/11 = 100% | 22/33 = 67% | 24/84 = 29% | 10/40 = 25% |
+| sniper | 14/14 = 100% | 49/51 = 96% | 6/14 = 43% | 5/35 = 14% |
+| thirdparty | 1/1 = 100% | 32/39 = 82% | 7/11 = 64% | 0/6 = 0% |
+| farmer | 0/0 = n/a | 14/19 = 74% | 17/78 = 22% | 9/31 = 29% |
+   0-40 m: 95% CI 91-100%
+   40-80 m: 95% CI 74-83%
+   80-130 m: 95% CI 24-34%
+   130-230 m: 95% CI 13-25%
+range of shots at mechs: p5 37 p25 56 p50 85 p75 124 p95 170 max 236
+shots fired at targets beyond 230 m: 1
+
+## hit rate vs target lateral speed (m/s, perpendicular to line of sight; replay walk=9, boost=15)
+| |v_lat| | shots (unblocked) | hits | hit % | 95% CI | median range |
+|---|---|---|---|---|---|
+| 0-1 | 90 | 39 | 43.33 | 34-54 | 103.57 |
+| 1-4 | 220 | 128 | 58.18 | 52-65 | 75.31 |
+| 4-7.5 | 217 | 119 | 54.84 | 48-61 | 82.44 |
+| 7.5-10 | 204 | 114 | 55.88 | 49-63 | 85.96 |
+| 10-99 | 62 | 33 | 53.23 | 41-65 | 71.74 |
+
+## hit rate: range x lateral speed (unblocked)
+| range | |v_lat| 0-4 | 4-7.5 | >= 7.5 |
+|---|---|---|---|
+| 0-40 m | 27/27 = 100% | 14/14 = 100% | 18/18 = 100% |
+| 40-80 m | 100/120 = 83% | 74/90 = 82% | 85/112 = 76% |
+| 80-130 m | 32/104 = 31% | 18/72 = 25% | 33/85 = 39% |
+| 130-230 m | 8/59 = 14% | 13/41 = 32% | 11/51 = 22% |
+
+## hit rate vs target acceleration during bullet flight (|dv| between fire and arrival), unblocked, range >= 40
+| |dv| m/s | shots | hits | hit % | median |v_lat| |
+|---|---|---|---|---|
+| 0-1 | 39 | 31 | 79.49 | 7.86 |
+| 1-4 | 174 | 140 | 80.46 | 5.30 |
+| 4-9 | 294 | 153 | 52.04 | 4.85 |
+| 9-99 | 227 | 50 | 22.03 | 5.95 |
+
+## lead model: yaw_used = k * yaw_needed(first-order intercept from the last observation) + b ; angles in deg
+   (yaw_used = bullet yaw - direct bearing at obs tick; needed = intercept bearing - direct bearing)
+| type | n | slope k | offset b | resid sd | n(|need|>=1.5) | median used/need | sd(used) i.e. no-lead hyp | sd(used-need) i.e. full-lead hyp |
+|---|---|---|---|---|---|---|---|---|
+| ALL | 805 | 0.97 | 0.04 | 0.73 | 533 | 0.98 | 2.76 | 0.73 |
+| expert | 109 | 1.01 | 0.15 | 0.65 | 85 | 1.01 | 3.10 | 0.65 |
+| hard | 181 | 0.96 | 0.02 | 0.66 | 115 | 0.95 | 2.87 | 0.67 |
+| medium | 70 | 0.90 | 0.04 | 1.05 | 49 | 0.93 | 2.77 | 1.09 |
+| brawler | 152 | 0.95 | 0.09 | 0.65 | 106 | 0.99 | 2.61 | 0.66 |
+| sniper | 109 | 0.99 | 0.11 | 0.71 | 61 | 1.05 | 2.52 | 0.72 |
+| thirdparty | 56 | 0.99 | -0.11 | 0.89 | 30 | 1.02 | 2.47 | 0.89 |
+| farmer | 128 | 0.95 | -0.05 | 0.62 | 87 | 0.93 | 2.82 | 0.63 |
+
+   slope by range bucket (ALL):
+| range | n | slope | offset | resid sd |
+|---|---|---|---|---|
+| 0-40 | 27 | 1.06 | 0.03 | 0.75 |
+| 40-80 | 324 | 0.99 | 0.03 | 0.65 |
+| 80-130 | 284 | 0.96 | 0.02 | 0.69 |
+| 130-230 | 169 | 0.92 | 0.06 | 0.80 |
+
+## pitch: bullet pitch - pitch to target centre (z+4.5), converted to metres at the target (rng * dpitch)
+| type | n | mean dz (m) | median dz | sd dz | mean (deg) | sd (deg) |
+|---|---|---|---|---|---|---|
+| ALL | 450 | 0.05 | 0.08 | 1.15 | 0.05 | 0.64 |
+| expert | 67 | 0.19 | 0.15 | 0.86 | 0.21 | 0.72 |
+| hard | 97 | -0.03 | 0.07 | 1.19 | 0.02 | 0.62 |
+| medium | 36 | 0.33 | 0.26 | 0.67 | 0.32 | 0.53 |
+| brawler | 94 | 0.08 | 0.17 | 1.43 | 0.00 | 0.66 |
+| sniper | 59 | -0.22 | -0.12 | 1.08 | -0.11 | 0.60 |
+| thirdparty | 17 | 0.02 | 0.03 | 1.12 | 0.09 | 0.80 |
+| farmer | 80 | 0.08 | 0.02 | 1.18 | 0.01 | 0.59 |
+
+## angular error relative to the TRUE intercept direction (actual future target position), deg
+| type | n | yaw err sd | pitch err sd | total p50 | total p90 | n(|v_lat|>=4) | mean signed err (deg, - = behind target) | same in m at target |
+|---|---|---|---|---|---|---|---|---|
+| ALL | 805 | 2.06 | 1.27 | 2.01 | 3.72 | 499 | 1.22 | 1.98 |
+| expert | 109 | 2.14 | 1.38 | 2.24 | 3.91 | 81 | 1.36 | 1.73 |
+| hard | 181 | 2.12 | 1.31 | 2.06 | 3.79 | 107 | 1.39 | 2.47 |
+| medium | 70 | 2.20 | 1.07 | 2.14 | 3.69 | 46 | 0.84 | 0.23 |
+| brawler | 152 | 2.08 | 1.26 | 2.03 | 3.86 | 96 | 1.25 | 2.49 |
+| sniper | 109 | 1.61 | 1.10 | 1.52 | 2.97 | 59 | 1.00 | 1.66 |
+| thirdparty | 56 | 2.14 | 1.35 | 2.31 | 4.26 | 28 | 1.06 | 1.29 |
+| farmer | 128 | 2.13 | 1.23 | 1.96 | 3.68 | 82 | 1.23 | 2.45 |
+total angular error percentiles (deg): p10 0.91 p25 1.36 p50 2.01 p75 2.78 p90 3.72 p95 4.36 p99 5.75
+histogram (deg bins 0-1,1-2,...,8+): [100, 300, 250, 94, 39, 16, 6, 0, 0]
+miss distance at closest approach to body axis (m), unblocked: p10 0.58 p25 1.15 p50 2.43 p75 3.90 p90 5.27 p95 7.14  (hit if < 2.8)
+
+## lateral displacement the target makes during bullet flight (|v_lat| * range/140) vs hit rate (unblocked)
+| needed lead (m) | shots | hits | hit % |
+|---|---|---|---|
+| 0-0.5 m | 89 | 50 | 56.18 |
+| 0.5-2 m | 216 | 152 | 70.37 |
+| 2-4 m | 212 | 136 | 64.15 |
+| 4-7 m | 171 | 67 | 39.18 |
+| 7-12 m | 97 | 27 | 27.84 |
+| 12-99 m | 8 | 1 | 12.50 |

@@ -1,0 +1,102 @@
+Burst in a 2.4 s window (one laser cycle) as a fraction of a FULL-hp hunter's current hp
+cubes_us cubes_t p_gun mag laser dual -> burst  frac
+  0   0 0.5  12 True  True  ->    562  0.40
+  0   0 0.5  12 True  False ->    472  0.34
+  0   0 0.5  12 False True  ->    248  0.18
+  0   0 0.5  12 False False ->    248  0.18
+  0   0 0.5   6 True  True  ->    450  0.32
+  0   0 0.5   6 True  False ->    450  0.32
+  0   0 0.5   6 False True  ->    135  0.10
+  0   0 0.5   6 False False ->    135  0.10
+  0   0 0.7  12 True  True  ->    662  0.47
+  0   0 0.7  12 True  False ->    536  0.38
+  0   0 0.7  12 False True  ->    346  0.25
+  0   0 0.7  12 False False ->    346  0.25
+  0   0 0.7   6 True  True  ->    504  0.36
+  0   0 0.7   6 True  False ->    504  0.36
+  0   0 0.7   6 False True  ->    189  0.14
+  0   0 0.7   6 False False ->    189  0.14
+  0   0 0.9  12 True  True  ->    760  0.54
+  0   0 0.9  12 True  False ->    598  0.43
+  0   0 0.9  12 False True  ->    446  0.32
+  0   0 0.9  12 False False ->    446  0.32
+  0   0 0.9   6 True  True  ->    558  0.40
+  0   0 0.9   6 True  False ->    558  0.40
+  0   0 0.9   6 False True  ->    243  0.17
+  0   0 0.9   6 False False ->    243  0.17
+  0   3 0.7  12 True  True  ->    662  0.42
+  0   3 0.7  12 True  False ->    536  0.34
+  0   3 0.7  12 False True  ->    346  0.22
+  0   3 0.7  12 False False ->    346  0.22
+  0   3 0.7   6 True  True  ->    504  0.32
+  0   3 0.7   6 True  False ->    504  0.32
+  0   3 0.7   6 False True  ->    189  0.12
+  0   3 0.7   6 False False ->    189  0.12
+  3   0 0.7  12 True  True  ->    741  0.53
+  3   0 0.7  12 True  False ->    600  0.43
+  3   0 0.7  12 False True  ->    388  0.28
+  3   0 0.7  12 False False ->    388  0.28
+  3   0 0.7   6 True  True  ->    564  0.40
+  3   0 0.7   6 True  False ->    564  0.40
+  3   0 0.7   6 False True  ->    212  0.15
+  3   0 0.7   6 False False ->    212  0.15
+  3   3 0.7  12 True  True  ->    741  0.47
+  3   3 0.7  12 True  False ->    600  0.38
+  3   3 0.7  12 False True  ->    388  0.25
+  3   3 0.7  12 False False ->    388  0.25
+  3   3 0.7   6 True  True  ->    564  0.36
+  3   3 0.7   6 True  False ->    564  0.36
+  3   3 0.7   6 False True  ->    212  0.13
+  3   3 0.7   6 False False ->    212  0.13
+  6   0 0.7  12 True  True  ->    820  0.59
+  6   0 0.7  12 True  False ->    664  0.47
+  6   0 0.7  12 False True  ->    430  0.31
+  6   0 0.7  12 False False ->    430  0.31
+  6   0 0.7   6 True  True  ->    625  0.45
+  6   0 0.7   6 True  False ->    625  0.45
+  6   0 0.7   6 False True  ->    234  0.17
+  6   0 0.7   6 False False ->    234  0.17
+  6   3 0.7  12 True  True  ->    820  0.52
+  6   3 0.7  12 True  False ->    664  0.42
+  6   3 0.7  12 False True  ->    430  0.27
+  6   3 0.7  12 False False ->    430  0.27
+  6   3 0.7   6 True  True  ->    625  0.40
+  6   3 0.7   6 True  False ->    625  0.40
+  6   3 0.7   6 False True  ->    234  0.15
+  6   3 0.7   6 False False ->    234  0.15
+ 10   0 0.7  12 True  True  ->    926  0.66
+ 10   0 0.7  12 True  False ->    750  0.54
+ 10   0 0.7  12 False True  ->    485  0.35
+ 10   0 0.7  12 False False ->    485  0.35
+ 10   0 0.7   6 True  True  ->    706  0.50
+ 10   0 0.7   6 True  False ->    706  0.50
+ 10   0 0.7   6 False True  ->    265  0.19
+ 10   0 0.7   6 False False ->    265  0.19
+ 10   3 0.7  12 True  True  ->    926  0.59
+ 10   3 0.7  12 True  False ->    750  0.48
+ 10   3 0.7  12 False True  ->    485  0.31
+ 10   3 0.7  12 False False ->    485  0.31
+ 10   3 0.7   6 True  True  ->    706  0.45
+ 10   3 0.7   6 True  False ->    706  0.45
+ 10   3 0.7   6 False True  ->    265  0.17
+ 10   3 0.7   6 False False ->    265  0.17
+
+Expected max of k independent draws, in units of the per-draw sd (Monte Carlo, 200k)
+k=  1: +-0.00 sd   (sd 0.10 -> +-0.00, 0.15 -> +-0.00, 0.20 -> +-0.00)
+k=  2: +0.57 sd   (sd 0.10 -> +0.06, 0.15 -> +0.09, 0.20 -> +0.11)
+k=  4: +1.03 sd   (sd 0.10 -> +0.10, 0.15 -> +0.15, 0.20 -> +0.21)
+k=  8: +1.42 sd   (sd 0.10 -> +0.14, 0.15 -> +0.21, 0.20 -> +0.28)
+k= 12: +1.63 sd   (sd 0.10 -> +0.16, 0.15 -> +0.24, 0.20 -> +0.33)
+k= 16: +1.77 sd   (sd 0.10 -> +0.18, 0.15 -> +0.27, 0.20 -> +0.35)
+k= 24: +1.95 sd   (sd 0.10 -> +0.20, 0.15 -> +0.29, 0.20 -> +0.39)
+k= 32: +2.07 sd   (sd 0.10 -> +0.21, 0.15 -> +0.31, 0.20 -> +0.41)
+k= 48: +2.23 sd   (sd 0.10 -> +0.22, 0.15 -> +0.33, 0.20 -> +0.45)
+k= 64: +2.34 sd   (sd 0.10 -> +0.23, 0.15 -> +0.35, 0.20 -> +0.47)
+
+Regen gifted to damaged hunters by a retreat of length T (45 HP/s after 5 s without dealing/taking damage)
+T= 1.5 s: each hunter that lost its line regains     0 HP; we regain     0
+T= 3.0 s: each hunter that lost its line regains     0 HP; we regain     0
+T= 4.5 s: each hunter that lost its line regains     0 HP; we regain     0
+T= 6.0 s: each hunter that lost its line regains    45 HP; we regain    45
+T= 8.0 s: each hunter that lost its line regains   135 HP; we regain   135
+T=13.0 s: each hunter that lost its line regains   360 HP; we regain   360

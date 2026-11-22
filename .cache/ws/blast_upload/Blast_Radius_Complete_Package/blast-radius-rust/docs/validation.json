@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-22T05:33:49.072715+00:00",
+  "mode": "native_local_sample_benchmark",
+  "official_score": null,
+  "interpretation": "Local hardware measurement using the organizer's scorer; not an organizer submission or leaderboard score.",
+  "hardware": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "logical_cpus": 9
+  },
+  "measurement": {
+    "cpu": "delta RUSAGE_CHILDREN user + system; includes descendants waited for by the executed command",
+    "wall": "parent monotonic clock including process launch and final fresh-temp cleanup",
+    "container_limits_enforced": false,
+    "fresh_tmp_per_run": true,
+    "wall_limit_seconds": 180.0,
+    "conservative_stdout_limit_bytes": 2000000,
+    "caveat": "Native resource accounting is not the organizer's container cgroup measurement; detached descendants and hardware differences preclude official-score equivalence."
+  },
+  "scorer": {
+    "path": "/workspace/scratch/5bd7defd9bfb/research/starter/score.py",
+    "sha256": "e38e583c82831021e07baa9713096586c835397a1cfdcd739073c394e866cd3f",
+    "worker_cost_milliseconds": 2000,
+    "miss_penalty_milliseconds": 300000,
+    "maximum_workers": 8
+  },
+  "dataset": {
+    "source_data": "/workspace/scratch/5bd7defd9bfb/research/starter/sample",
+    "source_patch_count": 30,
+    "test_count": 1620,
+    "tests_sha256": "21257a93c58f4b0646c5122586d2141b4b340ad85b2f0bb251af3746de3f0dc2",
+    "original_patches_sha256": "3f6a33571341e1c0984a0f66f688139071f5d52303e2cd2e2f1ba209fdd658ab",
+    "labels_sha256": "f0e9ff818596dbce527d4f2c008ae934089059f255a86f102d7a2fe91b172676",
+    "expanded": false,
+    "correctness_novelty": "official public sample only",
+    "patch_count": 30,
+    "effective_patches_sha256": "3f6a33571341e1c0984a0f66f688139071f5d52303e2cd2e2f1ba209fdd658ab"
+  },
+  "input_command": [
+    "/workspace/scratch/5bd7defd9bfb/research/venv/bin/python",
+    "blast-radius-rust/tools/entrypoint.py",
+    "--data",
+    "{data}",
+    "--map",
+    "blast-radius-rust/maps/impact-map.json",
+    "--selector",
+    "blast-radius-rust/target/release/blast-radius-rust185"
+  ],
+  "requested_runs": 3,
+  "executed_runs": 3,
+  "all_runs_valid": true,
+  "stdout_identical_across_runs": true,
+  "median_local_total_microseconds": 255718330,
+  "median_local_total_seconds": 255.71833,
+  "median_local_rounded_score_seconds": 255.7,
+  "expanded_dataset_removed": false,
+  "runs": [
+    {
+      "run": 1,
+      "argv": [
+        "/workspace/scratch/5bd7defd9bfb/research/venv/bin/python",
+        "blast-radius-rust/tools/entrypoint.py",
+        "--data",
+        "/workspace/scratch/5bd7defd9bfb/research/starter/sample",
+        "--map",
+        "blast-radius-rust/maps/impact-map.json",
+        "--selector",
+        "blast-radius-rust/target/release/blast-radius-rust185"
+      ],
+      "exit_code": 0,
+      "stop_reason": null,
+      "valid": true,
+      "wall_seconds": 0.962513,
+      "cpu_user_microseconds": 647212,
+      "cpu_system_microseconds": 306330,
+      "cpu_total_microseconds": 953542,
+      "cpu_total_seconds": 0.953542,
+      "organizer_evaluation": {
+        "ok": true,
+        "simulated_milliseconds": 254904,
+        "missed_commits": []
+      },
+      "simulated_milliseconds": 254904,
+      "simulated_seconds": 254.904,
+      "misses": 0,
+      "local_total_microseconds": 255857542,
+      "local_total_seconds": 255.857542,
+      "stdout": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-01.stdout.jsonl",
+        "bytes": 34062,
+        "sha256": "0f3099aa74d33c39c3c4d915fafb253ee4ef7d7d7954f91077e939bc7c602fba"
+      },
+      "stderr": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-01.stderr.log",
+        "bytes": 105,
+        "sha256": "03c8b96796423bb7c36a98829cca7b398fc2384b8b69beee559226e198a19707",
+        "selector": {
+          "commits": 30,
+          "scheduled_tests": 7372,
+          "fallbacks": 0,
+          "selection_cost_milliseconds_before_misses_and_cpu": 254904
+        },
+        "tail": "30 commits; 7372 scheduled tests; 0 fallbacks; simulated selection cost 254.904s (before misses and CPU)\n",
+        "tail_truncated": false
+      }
+    },
+    {
+      "run": 2,
+      "argv": [
+        "/workspace/scratch/5bd7defd9bfb/research/venv/bin/python",
+        "blast-radius-rust/tools/entrypoint.py",
+        "--data",
+        "/workspace/scratch/5bd7defd9bfb/research/starter/sample",
+        "--map",
+        "blast-radius-rust/maps/impact-map.json",
+        "--selector",
+        "blast-radius-rust/target/release/blast-radius-rust185"
+      ],
+      "exit_code": 0,
+      "stop_reason": null,
+      "valid": true,
+      "wall_seconds": 0.635446,
+      "cpu_user_microseconds": 538230,
+      "cpu_system_microseconds": 84482,
+      "cpu_total_microseconds": 622712,
+      "cpu_total_seconds": 0.622712,
+      "organizer_evaluation": {
+        "ok": true,
+        "simulated_milliseconds": 254904,
+        "missed_commits": []
+      },
+      "simulated_milliseconds": 254904,
+      "simulated_seconds": 254.904,
+      "misses": 0,
+      "local_total_microseconds": 255526712,
+      "local_total_seconds": 255.526712,
+      "stdout": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-02.stdout.jsonl",
+        "bytes": 34062,
+        "sha256": "0f3099aa74d33c39c3c4d915fafb253ee4ef7d7d7954f91077e939bc7c602fba"
+      },
+      "stderr": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-02.stderr.log",
+        "bytes": 105,
+        "sha256": "03c8b96796423bb7c36a98829cca7b398fc2384b8b69beee559226e198a19707",
+        "selector": {
+          "commits": 30,
+          "scheduled_tests": 7372,
+          "fallbacks": 0,
+          "selection_cost_milliseconds_before_misses_and_cpu": 254904
+        },
+        "tail": "30 commits; 7372 scheduled tests; 0 fallbacks; simulated selection cost 254.904s (before misses and CPU)\n",
+        "tail_truncated": false
+      }
+    },
+    {
+      "run": 3,
+      "argv": [
+        "/workspace/scratch/5bd7defd9bfb/research/venv/bin/python",
+        "blast-radius-rust/tools/entrypoint.py",
+        "--data",
+        "/workspace/scratch/5bd7defd9bfb/research/starter/sample",
+        "--map",
+        "blast-radius-rust/maps/impact-map.json",
+        "--selector",
+        "blast-radius-rust/target/release/blast-radius-rust185"
+      ],
+      "exit_code": 0,
+      "stop_reason": null,
+      "valid": true,
+      "wall_seconds": 0.837612,
+      "cpu_user_microseconds": 619675,
+      "cpu_system_microseconds": 194655,
+      "cpu_total_microseconds": 814330,
+      "cpu_total_seconds": 0.81433,
+      "organizer_evaluation": {
+        "ok": true,
+        "simulated_milliseconds": 254904,
+        "missed_commits": []
+      },
+      "simulated_milliseconds": 254904,
+      "simulated_seconds": 254.904,
+      "misses": 0,
+      "local_total_microseconds": 255718330,
+      "local_total_seconds": 255.71833,
+      "stdout": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-03.stdout.jsonl",
+        "bytes": 34062,
+        "sha256": "0f3099aa74d33c39c3c4d915fafb253ee4ef7d7d7954f91077e939bc7c602fba"
+      },
+      "stderr": {
+        "path": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark/run-03.stderr.log",
+        "bytes": 105,
+        "sha256": "03c8b96796423bb7c36a98829cca7b398fc2384b8b69beee559226e198a19707",
+        "selector": {
+          "commits": 30,
+          "scheduled_tests": 7372,
+          "fallbacks": 0,
+          "selection_cost_milliseconds_before_misses_and_cpu": 254904
+        },
+        "tail": "30 commits; 7372 scheduled tests; 0 fallbacks; simulated selection cost 254.904s (before misses and CPU)\n",
+        "tail_truncated": false
+      }
+    }
+  ],
+  "output_directory": "/workspace/scratch/5bd7defd9bfb/research/final-benchmark"
+}

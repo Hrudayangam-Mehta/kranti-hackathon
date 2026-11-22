@@ -1,0 +1,19 @@
+==8057== Callgrind, a call-graph generating cache profiler
+==8057== Copyright (C) 2002-2017, and GNU GPL'd, by Josef Weidendorfer et al.
+==8057== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==8057== Command: bin/prof_b3
+==8057== 
+==8057== For interactive control, run 'callgrind_control -h'.
+setup       246.1 ms
+links       118.6 ms on one thread
+dedup      3523.6 ms
+people     5082.8 ms
+surviving events 978090, user_daily rows 118107
+sessions 181032 / 181032, revenue 352767593 / 352767593, assisted 1958238 >= 111113
+event copies 1071379, long event ids 133707, winners 978090, clicks 252246, linked 60396
+write      5084.1 ms
+==8057== 
+==8057== Events    : Ir
+==8057== Collected : 1314780275
+==8057== 
+==8057== I   refs:      1,314,780,275

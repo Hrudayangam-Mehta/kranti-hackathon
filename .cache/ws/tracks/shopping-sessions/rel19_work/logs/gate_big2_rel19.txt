@@ -1,0 +1,18 @@
+== 20M
+run rel16 p20m NCPU=2 : exit=0 stdout_bytes=0 files=36/1 wall 10.661 user 4.724 sys 2.470 maxrss 2.78GB | 
+compare p20_n2 -> p20_rel16: MATCH / MATCH
+user_daily: rows 2242393 vs 2242393, files 34 vs 36, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+ROWDIFF IDENTICAL
+run rel19 p20m NCPU=8 : exit=0 stdout_bytes=0 files=42/4 wall 9.898 user 3.154 sys 1.383 maxrss 0.93GB | buckets on: event key 0x11edb6
+compare p20_n8 -> p20_rel16: MATCH / MATCH
+user_daily: rows 2242393 vs 2242393, files 42 vs 36, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+ROWDIFF IDENTICAL
+== 60M
+run rel16 p60m NCPU=2 : exit=0 stdout_bytes=0 files=101/1 wall 65.272 user 18.411 sys 6.490 maxrss 6.56GB | 
+compare p60_n2 -> p60_rel16: MATCH / MATCH
+user_daily: rows 6643842 vs 6643842, files 98 vs 101, sorted-row sha256 e9459e5025f32616 vs e9459e5025f32616: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 1, sorted-row sha256 bb2e628ea648bd4b vs bb2e628ea648bd4b: IDENTICAL
+ROWDIFF IDENTICAL
+== done

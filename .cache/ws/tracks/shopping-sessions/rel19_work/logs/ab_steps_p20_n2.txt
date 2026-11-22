@@ -1,0 +1,36 @@
+round 0 f2: exit 0 wall 25.580 user 3.699 sys 1.436 cpu 5.135 maxrss 2.34 GB minflt 118484 psi10 98.05 stdout 0
+round 0 step2: exit 0 wall 15.199 user 3.485 sys 1.211 cpu 4.696 maxrss 2.14 GB minflt 125615 psi10 98.60 stdout 0
+round 0 step3: exit 0 wall 15.921 user 3.124 sys 1.425 cpu 4.549 maxrss 2.29 GB minflt 107931 psi10 98.16 stdout 0
+round 0 rel19: exit 0 wall 20.051 user 3.500 sys 1.522 cpu 5.021 maxrss 0.85 GB minflt 102957 psi10 95.98 stdout 0
+round 1 f2: exit 0 wall 19.262 user 3.785 sys 1.491 cpu 5.276 maxrss 1.50 GB minflt 117768 psi10 97.84 stdout 0
+round 1 rel19: exit 0 wall 14.736 user 3.230 sys 1.278 cpu 4.508 maxrss 0.85 GB minflt 113343 psi10 97.89 stdout 0
+round 1 step3: exit 0 wall 10.685 user 3.104 sys 1.118 cpu 4.222 maxrss 2.37 GB minflt 114888 psi10 97.72 stdout 0
+round 1 step2: exit 0 wall 10.280 user 3.408 sys 0.868 cpu 4.275 maxrss 2.37 GB minflt 115247 psi10 95.95 stdout 0
+round 2 step3: exit 0 wall 15.657 user 3.328 sys 1.630 cpu 4.958 maxrss 1.75 GB minflt 111204 psi10 92.92 stdout 0
+round 2 rel19: exit 0 wall 17.631 user 3.307 sys 1.506 cpu 4.813 maxrss 0.85 GB minflt 103746 psi10 93.39 stdout 0
+round 2 f2: exit 0 wall 19.745 user 3.719 sys 1.507 cpu 5.227 maxrss 2.09 GB minflt 103908 psi10 94.83 stdout 0
+round 2 step2: exit 0 wall 13.376 user 3.549 sys 1.418 cpu 4.967 maxrss 2.22 GB minflt 105724 psi10 95.49 stdout 0
+round 3 step3: exit 0 wall 6.543 user 2.712 sys 1.346 cpu 4.058 maxrss 2.37 GB minflt 127361 psi10 96.29 stdout 0
+round 3 step2: exit 0 wall 7.992 user 3.461 sys 1.195 cpu 4.656 maxrss 1.99 GB minflt 122919 psi10 94.97 stdout 0
+round 3 f2: exit 0 wall 11.924 user 3.528 sys 1.260 cpu 4.788 maxrss 2.01 GB minflt 111834 psi10 95.19 stdout 0
+round 3 rel19: exit 0 wall 11.340 user 3.081 sys 1.376 cpu 4.457 maxrss 0.85 GB minflt 121080 psi10 95.98 stdout 0
+round 4 f2: exit 0 wall 17.680 user 4.012 sys 1.655 cpu 5.666 maxrss 1.79 GB minflt 117950 psi10 95.15 stdout 0
+round 4 step2: exit 0 wall 17.486 user 4.275 sys 1.919 cpu 6.194 maxrss 1.88 GB minflt 108475 psi10 94.27 stdout 0
+round 4 step3: exit 0 wall 8.810 user 3.377 sys 1.008 cpu 4.386 maxrss 2.13 GB minflt 113512 psi10 93.65 stdout 0
+round 4 rel19: exit 0 wall 7.494 user 2.786 sys 1.199 cpu 3.985 maxrss 0.85 GB minflt 121690 psi10 88.57 stdout 0
+SUMMARY f2 n=5/5: cpu median 5.227 (min 4.788) user median 3.719 sys median 1.491 wall median 19.262 (min 11.924) maxrss median 2.01 GB minflt median 117768
+SUMMARY step2 n=5/5: cpu median 4.696 (min 4.275) user median 3.485 sys median 1.211 wall median 13.376 (min 7.992) maxrss median 2.14 GB minflt median 115247
+SUMMARY step3 n=5/5: cpu median 4.386 (min 4.058) user median 3.124 sys median 1.346 wall median 10.685 (min 6.543) maxrss median 2.29 GB minflt median 113512
+SUMMARY rel19 n=5/5: cpu median 4.508 (min 3.985) user median 3.230 sys median 1.376 wall median 14.736 (min 7.494) maxrss median 0.85 GB minflt median 113343
+PAIRED step2 - f2 cpu: median -0.260 s (-5.0%), step2 lower in 4/5
+PAIRED step2 - f2 user: median -0.170 s (-4.6%), step2 lower in 4/5
+PAIRED step2 - f2 sys: median -0.090 s (-6.0%), step2 lower in 4/5
+PAIRED step2 - f2 wall: median -6.369 s (-33.1%), step2 lower in 5/5
+PAIRED step3 - f2 cpu: median -0.730 s (-14.0%), step3 lower in 5/5
+PAIRED step3 - f2 user: median -0.634 s (-17.1%), step3 lower in 5/5
+PAIRED step3 - f2 sys: median -0.011 s (-0.7%), step3 lower in 3/5
+PAIRED step3 - f2 wall: median -8.577 s (-44.5%), step3 lower in 5/5
+PAIRED rel19 - f2 cpu: median -0.414 s (-7.9%), rel19 lower in 5/5
+PAIRED rel19 - f2 user: median -0.448 s (-12.0%), rel19 lower in 5/5
+PAIRED rel19 - f2 sys: median -0.001 s (-0.1%), rel19 lower in 3/5
+PAIRED rel19 - f2 wall: median -4.526 s (-23.5%), rel19 lower in 5/5

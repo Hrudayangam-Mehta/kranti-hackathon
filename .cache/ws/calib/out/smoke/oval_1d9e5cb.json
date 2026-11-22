@@ -1,0 +1,124 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh oval_1d9e5cb",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/oval_1d9e5cb.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 3.5,
+  "stdErr": 1.5,
+  "sd": 2.121,
+  "winFrac": 0,
+  "meanKills": 3.5,
+  "meanTimeAlive": 73.5,
+  "meanDmgDealt": 6640,
+  "meanDmgTaken": 2260,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 2
+  },
+  "meanWallMs": 1901,
+  "wallS": 2.7
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "Oval Runner",
+   "place": 11,
+   "score": 5,
+   "kills": 5,
+   "timeAlive": 69.4,
+   "alive": false,
+   "dmgDealt": 7149,
+   "dmgTaken": 2315,
+   "cause": "gun",
+   "killedBy": 4,
+   "killRange": 98.4,
+   "killerRole": "hunt",
+   "hunters": 6,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 10,
+   "upgrades": [
+    "armor",
+    "nanites",
+    "lightning_range",
+    "plating"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 69.4,
+   "wallMs": 1839,
+   "deadOthers": 5,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 21.5,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "Oval Runner",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 77.55,
+   "alive": false,
+   "dmgDealt": 6131,
+   "dmgTaken": 2204,
+   "cause": "gun",
+   "killedBy": 1,
+   "killRange": 60.4,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 8,
+   "upgrades": [
+    "gun_mag",
+    "nanites",
+    "gun_damage"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 77.55,
+   "wallMs": 1962,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 49.3,
+   "meanMs": 0
+  }
+ ]
+}

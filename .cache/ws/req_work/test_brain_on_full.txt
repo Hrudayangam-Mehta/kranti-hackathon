@@ -1,0 +1,60 @@
+PASS  stream replay (map): no exception, valid actions  ::  300 obs x 3 passes, internal stage errors 0/0/0
+PASS  stream replay (map): decision time mean<=4 p99<=15 max<=25 ms  ::  cold pass mean 0.38 p99 8.89 max 16.40 | warm pass mean 0.24 p99 8.57 max 9.56 ms
+PASS  stream replay (no map): no exception, valid actions  ::  300 obs x 3 passes, internal stage errors 0/0/0
+PASS  stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms  ::  cold pass mean 0.07 p99 0.20 max 8.08 | warm pass mean 0.05 p99 0.13 max 4.23 ms
+PASS  gun: target walking across at 60 m, hit rate >= 0.9  ::  1.000 (72/72, mean range 60 m, spread ceiling 1.00) | no spread 1.000 | shot one tick later 1.000
+PASS  gun: target walking across at 100 m, hit rate >= 0.85  ::  0.931 (67/72, mean range 100 m, spread ceiling 0.99) | no spread 0.958 | shot one tick later 0.952
+PASS  gun: target walking across at 150 m, hit rate >= 0.7  ::  0.875 (63/72, mean range 151 m, spread ceiling 0.92) | no spread 1.000 | shot one tick later 0.817
+PASS  gun: target strafing with reversals every 2 s at 100 m, hit rate >= 0.6  ::  0.792 (57/72) | no spread 0.806
+PASS  gun: stationary target at 200 m (>= 0.9 without spread, >= 0.92 x ceiling with spread)  ::  no spread 1.000 (62/62) | spread 0.6 deg 0.790 (49/62), physical ceiling 0.835 at 187 m
+PASS  zone: outside the next circle, shrink in 5 s -> reaches it, never outside the current circle  ::  distance to next centre 462 -> 183 m (next radius 380), ticks outside 0, hp 1400
+PASS  zone: outside the zone -> boosts in  ::  132 m outside, inside after 8.1 s (walking alone: 11.3 s), boost on 24/24 decisions with energy >= 60, boost bursts 1, hp left 1400
+PASS  heal: at 30% hp breaks the line of fire, holds fire, resumes at healExit (70%)  ::  line of fire broken at 2.1 s, shots while healing 0, decisions re-exposed 0, 70% hp at 21.3 s, firing again at 23.3 s, damage taken 675, enemy hp -40, modes {"HOLD":629,"DISENGAGE":66,"HEAL":321,"FIGHT":84}
+PASS  shell dodge: shells aimed at our position land >= 9 m away  ::  24/24 evaded, closest 14.2 m | shells led on our velocity: 24/24 evaded, closest 11.0 m
+PASS  laser: holds to full charge and releases on target  ::  13/13 beams through the target body, smallest charge at release 0.75 s of 0.75 s, gun alongside 69/72
+PASS  offer: picks by the priority list  ::  10 cases
+PASS  pickup: take within reach, drop only when both slots are full and the new weapon ranks higher  ::  empty+laser -> gun,laser (1 take) | lightning+laser -> gun,laser drop 1 | laser+lightning -> 0 takes | empty+mortar -> 0 takes | walked 30 m to a lightning -> gun,lightning | mortar+lightning -> gun,lightning
+PASS  stuck: facing a wall with the goal behind it -> path following reaches the goal (real map)  ::  38 m straight / 57 m path: reached in 4.7 s (stuck events 0) | 27 m straight / 58 m path: reached in 4.7 s (stuck events 0) | 28 m straight / 56 m path: reached in 4.6 s (stuck events 0)
+PASS  stuck ladder (no nav, wall in the way): jump + sidestep, then the goal is abandoned  ::  stuck events 6, jumps 11, goals abandoned 10, cube not reached, final mode LOOT/loot
+PASS  duel: one hunter walking in on the real map is killed and we survive (6 seeds)  ::  kill 47 s hp 1261 acc 32/36 | kill 47 s hp 1261 acc 32/36 | kill 17 s hp 1261 acc 32/32 | kill 27 s hp 1261 acc 32/33 | kill 22 s hp 1263 acc 32/32 | kill 78 s hp 1162 acc 32/35
+INFO  two hunters at once (no pass criterion): 2/2 kills hp 1263 | 1/2 kills hp 0 | 2/2 kills hp 1261 | 2/2 kills hp 1263 | 0/2 kills hp 0 | 0/2 kills hp 0
+PASS  ambush (M2): pre-aimed at the corner, first shot on first sight, pursuer killed  ::  emergence at 97 m; ambush decisions 106; aim error at first sight 0.003 rad; first shot 0.10 s and first hit 0.40 s after first sight; kill true, hp left 1400
+PASS  last stand (D3): low hp with cover near -> LOSING retreat, still shooting; no cover -> LAST-STAND at the quickest kill, never standing still  ::  cover: 8.0 s, LAST-STAND 0/80, modes {"HOLD":1,"DISENGAGE":41,"HEAL":38}, shots 8 | no cover: LAST-STAND 30/40, shots 12, hits 12, weak enemy 500 -> 140, strong 1400 -> 1220 (shots while still retreating), still 0/40
+PASS  stance: SQUAD healthy with one hunter is OPPORTUNIST and fires first; under half hp is DEFENSIVE  ::  healthy: OPPORTUNIST/SQUAD, shots 12 | 43% hp: DEFENSIVE
+PASS  environment (D12): 3 foreign deaths before 200 s latch FFA; beams alone, 2 deaths, our own kills, late deaths do not; overrides  ::  beams: SQUAD | beams + beamClue: FFA (clues 5) | 2 deaths: SQUAD | 3 deaths: FFA (latch 12.4 s) | 4 deaths, 2 ours: SQUAD | after 200 s: SQUAD | env squad: SQUAD | env ffa: FFA (DEFENSIVE)
+PASS  torso veto: an attacker of >= 60 dps is never left more than 80 deg off the commanded yaw  ::  worst offset 1.8 deg over 49 decisions, vetoes 4
+PASS  second weapons: lightning rush closes to arc range and fires; mortar does not disturb the gun  ::  lightning: closest 33 m, trigger held in range on 57 decisions | mortar slot: gun 36/36, mortar trigger on 57 decisions
+PASS  kill drop: cubes of our kill are collected while healing, without firing  ::  cubes 2/2, hp 1400/1400, shots after the kill 0
+PASS  loot: shoots a crate open and collects its cube  ::  cubes 1, shots 8, crates left 0
+PASS  fix 0.0 pocket exit: a start in the stadium bowl hops out via nav.hopPlan, no zone damage  ::  seed 2: out of the bowl at 21.4 s, zone damage 0 | seed 11: out of the bowl at 17.1 s, zone damage 0
+PASS  fix 0.1 selectTarget: wounded hidden attacker plus an unseen drone never throws  ::  stage errors 0, target 5
+PASS  fix 0.2 airborne: no boost while not grounded (outside the zone)  ::  airborne decisions with boost 0/10
+PASS  fix 0.3/1.11 (D10) no wall-clock behaviour: identical actions with a normal or an expired deadline, fuse never trips  ::  identical true, fuse trips 0/0
+PASS  fix 0.5 nav.setBody warmed at start-up for 12 cube sizes, base body restored  ::  24 warm-up resizes, last call 2.5,9, shared nav body 2.5
+PASS  fix 0.6 own body size from the cube formula when stats are not scaled  ::  radius 3.75 height 13.50 at 10 cubes
+PASS  fix 0.7 ten mechs 90 km outside the map: decisions stay fast (were 6-22 ms each)  ::  median 0.13 ms, slowest 0.44 ms
+PASS  fix 0.8 bot.js: an obs in the same chunk as end is answered; ready first  ::  lines 2, answers 1
+PASS  fix 1.0 (D8) gun cadence: mean gap inside a magazine <= 0.26 s  ::  shots 48 in 20 s, mean in-magazine gap 0.236 s
+PASS  fix 1.1/1.2 (D3) LOSING table: 1 hunter at 60% hp fights on; 2 hunters at 45% -> LOSING retreat; no LAST-STAND  ::  1 v 1 at 60%: losing 0/40, retreat/heal 0, last stand 0 | 2 v 1 at 45%: losing 39/40, last stand 0
+PASS  fix 1.3 strafe reversals continue during our reload against a laser holder  ::  reload decisions 67, reversals during them 6
+PASS  fix 1.4 (D6) power grab: laser pickup 35 m away taken while fighting  ::  slot 1: laser, shots 36
+PASS  fix 1.5 drone touching us during a duel: the mech stays the target  ::  target on the mech 89/89
+PASS  fix 1.6 partial path: the 439 m detour from the seed-156 spot is planned completely  ::  path ok true, length 305 m
+PASS  fix 1.7 (D6) kill cubes collected in contact  ::  killed true, cubes 2/2
+PASS  fix 1.8 (D3) HEAL only below 55% out of contact, leaves at healExit  ::  65%: heal decisions 0 | 50%: heal 63, left at 0.703
+PASS  fix 1.9 torso veto: a kill-secure target is finished (not parked between two enemies)  ::  kill after 0.8 s
+PASS  fix 1.12 (D9) late zone with an enemy on the centre: converge, <= 3 ticks outside  ::  ticks outside 0, end distance to centre 8.6 m
+PASS  fix 1.13 idle: no standing still when nothing is in sight  ::  still 2/300 {"HOLD/roam go":2}, stuck events 0, at (-213, -160)
+PASS  fix 1.14 hide cell never toward the attacker (within 60 deg)  ::  decisions with a cell 54, max cos to the attacker -0.98
+PASS  fix 1.15 (D0/D5/D2) no fight with a quiet mech in the opening; no long shots at an unsteady target  ::  opening: shots 0, decisions with it as target 0, closest 116 m | strafer at 170 m: gated 100 decisions, shots 0
+PASS  fix 1.16 (D2) stand-off by loadout: gun 55-95 m, laser 125-185 m  ::  gun only mean 94 m | gun + laser mean 151 m
+PASS  fix 1.17 (D4) bullet-aware dodge sidesteps a bullet aimed at us  ::  largest sideways stick 0.99, dodges 5
+PASS  fix 1.18 laser charge released when the shell dodge needs full speed  ::  fire false,false, leg dodge
+PASS  fix 1.19 (D6) drop: start for it no earlier than 3 s plus the walk before landing  ::  DROP mode first with lands_in 6.0 s
+PASS  fix 1.22 lightning energy: no boost below lightReserve + 10 with a mech inside 60 m  ::  boost decisions 0/10
+PASS  D10 start-up rehearsal: >= 300 synthetic decisions, under 5 s, base body restored  ::  rehearsal 364 ms, 24 body warm-ups
+PASS  presets: selecting laserRange "mid" changes only the laser band numbers  ::  changed: rPrefLaser, laserLo, laserHi, laserBackOff, laserBoostAway
+PASS  fuzz: 2000 perturbed observations x 2 (map / no map) never throw, always a valid action  ::  threw 0, invalid 0, slowest decision 9.77 ms, stage errors caught inside the last brains: 0
+PASS  decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms  ::  21253 decisions, mean 0.03 p99 0.22 max 8.10 ms
+
+57/57 checks passed

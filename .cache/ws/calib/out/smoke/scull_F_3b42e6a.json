@@ -1,0 +1,121 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh scull_F_3b42e6a",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/scull_F_3b42e6a.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 2.5,
+  "stdErr": 1.5,
+  "sd": 2.121,
+  "winFrac": 0,
+  "meanKills": 2.5,
+  "meanTimeAlive": 56.8,
+  "meanDmgDealt": 5430,
+  "meanDmgTaken": 1611,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "lightning/hunt": 1
+  },
+  "meanWallMs": 1631,
+  "wallS": 2.4
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "2.3%-F",
+   "place": 12,
+   "score": 4,
+   "kills": 4,
+   "timeAlive": 72.95,
+   "alive": false,
+   "dmgDealt": 7551,
+   "dmgTaken": 1709,
+   "cause": "gun",
+   "killedBy": 6,
+   "killRange": 31.6,
+   "killerRole": "hunt",
+   "hunters": 5,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 4,
+   "upgrades": [
+    "armor",
+    "gun_rate"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 72.95,
+   "wallMs": 1717,
+   "deadOthers": 4,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 27.3,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "2.3%-F",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 40.6,
+   "alive": false,
+   "dmgDealt": 3309,
+   "dmgTaken": 1512,
+   "cause": "lightning",
+   "killedBy": 1,
+   "killRange": 24.8,
+   "killerRole": "hunt",
+   "hunters": 2,
+   "killerName": "squad:easy",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 2,
+   "upgrades": [
+    "gun_mag"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 40.6,
+   "wallMs": 1545,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 70.3,
+   "meanMs": 0
+  }
+ ]
+}

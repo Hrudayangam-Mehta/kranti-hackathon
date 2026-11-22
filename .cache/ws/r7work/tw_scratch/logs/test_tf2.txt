@@ -1,0 +1,16 @@
+PASS  T-F2 loseExit 'on': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD DISENGAGE,FIGHT,DISENGAGE -> DISENGAGE,DISENGAGE,DISENGAGE | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 loseCover 'near': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD DISENGAGE,DISENGAGE,DISENGAGE -> FIGHT,FIGHT,FIGHT | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 finish 'ttk': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD DISENGAGE,DISENGAGE,DISENGAGE -> FIGHT,FIGHT,FIGHT | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 finish 'ttkb': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD DISENGAGE,DISENGAGE,DISENGAGE -> FIGHT,FIGHT,FIGHT | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 healDoc 'on': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD FIGHT,FIGHT,FIGHT -> HEAL,HEAL,HEAL | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 healDoc 'full': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD FIGHT,FIGHT,FIGHT -> HEAL,HEAL,HEAL | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+PASS  T-F2 healDoc 'on': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD HOLD,HOLD,HOLD -> HEAL,HEAL,HEAL | FFA HEAL,HEAL,HEAL / HEAL,HEAL,HEAL
+PASS  T-F2 healDoc 'full': acts in SQUAD, identical to its old value in forced FFA  ::  SQUAD HOLD,HOLD,HOLD -> HEAL,HEAL,HEAL | FFA HEAL,HEAL,HEAL / HEAL,HEAL,HEAL
+PASS  T-F2 aggr 'h70': acts in SQUAD (unengaged mech at 75%), identical to off in forced FFA  ::  SQUAD differs true, FFA identical true
+PASS  T-F2 aggr 'any70': acts in SQUAD (unengaged mech at 75%), identical to off in forced FFA  ::  SQUAD differs true, FFA identical true
+PASS  T-F2 aggr 'any70f': acts in SQUAD (unengaged mech at 75%), identical to off in forced FFA  ::  SQUAD differs true, FFA identical true
+PASS  T-F2 isolate 'near': acts in SQUAD (cell 25 m), identical to 'any' in forced FFA  ::  SQUAD lse]}isolate -> se]}standoff
+PASS  T-F2 seekCrowd 'wide': acts in SQUAD (prey choice), identical to 'off' in forced FFA  ::  SQUAD prey/leg ]}40hunt -> ]}42hunt
+PASS  T-F2 tw (generic sqOverrides lose3Hpf 0.5): acts in SQUAD, identical to 'off' in forced FFA  ::  SQUAD DISENGAGE,DISENGAGE,DISENGAGE -> FIGHT,FIGHT,FIGHT | FFA DISENGAGE,DISENGAGE,DISENGAGE / DISENGAGE,DISENGAGE,DISENGAGE
+
+14/14 T-F2 checks passed

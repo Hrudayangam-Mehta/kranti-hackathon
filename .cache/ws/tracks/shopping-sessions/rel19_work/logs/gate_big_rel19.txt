@@ -1,0 +1,141 @@
+== 20M
+run rel19 p20m NCPU=2 : exit=0 stdout_bytes=0 files=34/2 wall 7.029 user 2.851 sys 1.447 maxrss 0.85GB | buckets on: event key 0x11edb6
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p20_rel16/user_daily
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p20_rel16/user_daily
+compare p20_n2 -> p20_rel16:  / 
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 13, in <module>
+    a, fa = load(sys.argv[1], table); b, fb = load(sys.argv[2], table)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 5, in load
+    df = pl.concat([pl.read_parquet(f) for f in files], how="vertical_relaxed")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/venv/lib/python3.11/site-packages/polars/functions/eager.py", line 219, in concat
+    raise ValueError(msg)
+ValueError: cannot concat empty list
+multi    636 persons, 1316 entries, 1976332 events; general partitions 255
+sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518
+buckets  winners 19563061, lane F 19371006, lane G share 0.98%, side records 87001, general-ID lane F winners 93
+run rel19 p20m NCPU=8 : exit=0 stdout_bytes=0 files=36/4 wall 9.518 user 2.721 sys 2.228 maxrss 0.94GB | buckets on: event key 0x11edb6
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p20_rel16/user_daily
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p20_rel16/user_daily
+compare p20_n8 -> p20_rel16:  / 
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 13, in <module>
+    a, fa = load(sys.argv[1], table); b, fb = load(sys.argv[2], table)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 5, in load
+    df = pl.concat([pl.read_parquet(f) for f in files], how="vertical_relaxed")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/venv/lib/python3.11/site-packages/polars/functions/eager.py", line 219, in concat
+    raise ValueError(msg)
+ValueError: cannot concat empty list
+== 60M
+run rel19 p60m NCPU=2 : exit=0 stdout_bytes=0 files=98/2 wall 69.171 user 11.941 sys 5.089 maxrss 2.48GB | buckets on: event key 0x4ba005
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p60_rel16/user_daily
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in main
+    a, b = (load(folder, table) for folder in (left, right))
+    ^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 20, in <genexpr>
+    a, b = (load(folder, table) for folder in (left, right))
+            ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/compare.py", line 13, in load
+    return load_actual(folder / table, SCHEMAS[table])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/unz/starter-duckdb/scripts/run_fixtures.py", line 36, in load_actual
+    raise ValueError(f"expected an output directory: {folder}")
+ValueError: expected an output directory: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel19_work/runs/full/p60_rel16/user_daily
+compare p60_n2 -> p60_rel16:  / 
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 13, in <module>
+    a, fa = load(sys.argv[1], table); b, fb = load(sys.argv[2], table)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/panel_s/threads/tools/rowdiff.py", line 5, in load
+    df = pl.concat([pl.read_parquet(f) for f in files], how="vertical_relaxed")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/kit/venv/lib/python3.11/site-packages/polars/functions/eager.py", line 219, in concat
+    raise ValueError(msg)
+ValueError: cannot concat empty list
+multi    1884 persons, 3931 entries, 6786445 events; general partitions 512
+sessions 10048041 / 10048041, revenue 27294794736 / 27294794736, assisted 103904934 >= 6198406
+buckets  winners 58878508, lane F 58406247, lane G share 0.80%, side records 160449, general-ID lane F winners 295
+== done

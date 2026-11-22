@@ -1,0 +1,4 @@
+#!/bin/bash
+IFS='|' read -r name lib f e sl ov <<< "$1"
+[ -f /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/qa_meta/out/$name.meta.json ] && exit 0
+OVR="$ov" nice -n 5 /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/bun /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/qa_meta/qarec.mjs $lib $f $e $sl /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/qa_meta/out/$name > /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/qa_meta/out/$name.txt 2>&1 || echo "FAILED $name" >> /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/qa_meta/failures.txt

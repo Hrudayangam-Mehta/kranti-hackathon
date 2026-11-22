@@ -1,0 +1,5 @@
+PASS  D9 zone triggers (outside, > 0.9 r, > 0.8 nr while shrinking or shrink soon)  ::  beyond 0.9 r (280/300): ZONE | inside 0.9 r and 0.8 nr (150 m): HOLD | 170 m (> 0.8 nr) while shrinking: ZONE | 170 m, shrink in 100 s: HOLD | 170 m, shrink in 10 s: ZONE | outside (320/300): ZONE
+PASS  D9 zone goal at 0.5 of the next radius on our side  ::  goal 100.0,0.0 (want ~(100, 0))
+PASS  D9 late zone (nr 60): converges on the next centre, fights from there, never outside  ::  end distance to next centre 12.4 m, ticks outside 0, trigger decisions 48, legs {"zone":28,"zonestrafe":167,"zonefight":5}
+PASS  D9 final shrink: stands on the moving centre  ::  goal 9.0,0.0, moving centre 1 s ahead ~(9.8, 0); mode ZONE
+PASS  D12 latch: 3 foreign deaths before 200 s latch; 2 do not; our kills subtract; deaths after 200 s ignored; env=squad preset  ::  {"three":"FFA@70.0","two":"SQUAD","oursOne":"SQUAD","oursThenMore":"FFA@90.0","late":"SQUAD","squadForced":"SQUAD"}

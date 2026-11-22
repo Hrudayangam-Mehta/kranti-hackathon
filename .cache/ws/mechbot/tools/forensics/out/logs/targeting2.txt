@@ -1,0 +1,16 @@
+{'single candidate': 71, 'multi': 45, 'nearest': 30, 'has_attacker': 18, 'last_attacker': 9, 'baseline_sum': 19.950000000000003, 'lowest_hp': 19, 'conflict': 3, 'conflict_nearest': 3}
+new-target decisions with >= 2 plausible candidates: 45 ; chose nearest 67% ; chose lowest HP 42% ; random baseline 44%
+with a recent attacker among candidates: 18 ; chose the last attacker 50% ; nearest != last attacker in 3 cases -> nearest 3, attacker 0
+not-nearest examples (shooter, type, tick, chosen, [(dist, id, hp, last_hit_tick)]):
+   (10, 'sniper', 221, 7, [(122, 3, 1456, -1), (167, 7, 1456, -1), (188, 13, 1512, -1), (198, 0, 1455, -1)])
+   (10, 'sniper', 1229, 0, [(53, 8, 1113, 1192), (112, 11, 413, -1), (184, 0, 1413, -1), (214, 3, 1130, -1)])
+   (0, 'expert', 455, 11, [(48, 7, 1216, -1), (193, 11, 1456, -1)])
+   (3, 'sniper', 287, 13, [(99, 10, 1395, -1), (146, 13, 1512, -1)])
+   (3, 'sniper', 951, 15, [(125, 8, 1568, 894), (157, 11, 1456, -1), (176, 10, 1512, -1), (179, 15, 817, -1)])
+   (3, 'sniper', 1577, 9, [(132, 14, 580, -1), (191, 9, 1428, -1)])
+   (3, 'sniper', 1775, 8, [(54, 0, 702, -1), (177, 8, 1253, -1)])
+   (8, 'medium', 897, 3, [(89, 11, 1456, -1), (116, 3, 986, -1)])
+   (8, 'medium', 2469, 6, [(58, 3, 2429, 2424), (146, 6, 309, -1)])
+   (11, 'thirdparty', 729, 8, [(64, 10, 1403, -1), (150, 8, 1568, -1)])
+   (15, 'medium', 811, 14, [(123, 13, 326, -1), (236, 14, 1140, -1)])
+   (15, 'medium', 1047, 3, [(51, 6, 1131, 1028), (178, 3, 1105, -1)])

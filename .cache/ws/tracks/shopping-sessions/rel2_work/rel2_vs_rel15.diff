@@ -1,0 +1,676 @@
+diff --git a/src/clock.rs b/src/clock.rs
+new file mode 100644
+index 0000000..7931bb2
+--- /dev/null
++++ b/src/clock.rs
+@@ -0,0 +1,46 @@
++use std::io::Write;
++use std::sync::atomic::{AtomicU64, Ordering};
++
++static START: AtomicU64 = AtomicU64::new(0);
++static START_CPU: AtomicU64 = AtomicU64::new(0);
++
++pub fn now_ns() -> u64 {
++    let mut ts = libc::timespec { tv_sec: 0, tv_nsec: 0 };
++    unsafe { libc::clock_gettime(libc::CLOCK_MONOTONIC, &mut ts) };
++    ts.tv_sec as u64 * 1_000_000_000 + ts.tv_nsec as u64
++}
++
++pub fn start() {
++    START.store(now_ns(), Ordering::Relaxed);
++    START_CPU.store(cpu_ms().to_bits(), Ordering::Relaxed);
++}
++
++pub fn ms() -> f64 {
++    now_ns().saturating_sub(START.load(Ordering::Relaxed)) as f64 / 1e6
++}
++
++pub fn cpu_ms() -> f64 {
++    let mut usage: libc::rusage = unsafe { std::mem::zeroed() };
++    unsafe { libc::getrusage(libc::RUSAGE_SELF, &mut usage) };
++    let us = |t: libc::timeval| t.tv_sec as f64 * 1e3 + t.tv_usec as f64 / 1e3;
++    us(usage.ru_utime) + us(usage.ru_stime)
++}
++
++pub fn say(text: &str) {
++    let _ = std::io::stderr().write_all(text.as_bytes());
++}
++
++pub fn lap(name: &str) {
++    say(&format!("{name:<8} {:>8.1} ms cpu {:.1} ms\n", ms(), cpu_ms()));
++}
++
++pub fn exit_now(code: i32) -> ! {
++    say(&format!(
++        "start_ns {} cpu {:.1} ms\nexit     {:>8.1} ms cpu {:.1} ms\n",
++        START.load(Ordering::Relaxed),
++        f64::from_bits(START_CPU.load(Ordering::Relaxed)),
++        ms(),
++        cpu_ms()
++    ));
++    unsafe { libc::_exit(code) }
++}
+diff --git a/src/fast/keys.rs b/src/fast/keys.rs
+index 644b6d4..2882fe8 100644
+--- a/src/fast/keys.rs
++++ b/src/fast/keys.rs
+@@ -54,6 +54,22 @@ pub fn pack(bytes: &[u8]) -> Option<u64> {
+     (ok != 0).then_some(key)
+ }
+ 
++#[inline(always)]
++pub fn packed_len(key: u64) -> usize {
++    if key == 0 {
++        0
++    } else {
++        10 - (key.trailing_zeros() / 6) as usize
++    }
++}
++
++#[inline(always)]
++pub unsafe fn unpack_raw(key: u64, dst: *mut u8) {
++    for i in 0..MAX_PACKED {
++        *dst.add(i) = CHAR[((key >> (54 - 6 * i)) & 63) as usize];
++    }
++}
++
+ pub fn unpack(key: u64, out: &mut Vec<u8>) {
+     let mut shift = 54i32;
+     while shift >= 0 {
+@@ -270,6 +286,27 @@ mod tests {
+         }
+     }
+ 
++    #[test]
++    fn raw_unpack_matches() {
++        let mut state = 777u64;
++        let mut next = || {
++            state ^= state << 13;
++            state ^= state >> 7;
++            state ^= state << 17;
++            state
++        };
++        let alphabet = b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
++        for _ in 0..20000 {
++            let len = (next() % 11) as usize;
++            let s: Vec<u8> = (0..len).map(|_| alphabet[(next() % alphabet.len() as u64) as usize]).collect();
++            let key = pack(&s).unwrap();
++            assert_eq!(packed_len(key), s.len());
++            let mut buf = [0xaau8; 16];
++            unsafe { unpack_raw(key, buf.as_mut_ptr()) };
++            assert_eq!(&buf[..len], &s[..]);
++        }
++    }
++
+     #[test]
+     fn small_map() {
+         let map = SmallMap::new(&[(intern(b"c_1"), 0), (intern(b"c_2"), 1), (intern(b"c_1"), 7)]);
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 08bf8c2..d552858 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -186,6 +186,113 @@ fn bits_for(records: usize, per_part: usize) -> u32 {
+     parts.trailing_zeros().clamp(4, 14)
+ }
+ 
++fn category_slot(name: &[u8]) -> usize {
++    let mut h: u64 = 0xcbf2_9ce4_8422_2325;
++    for &b in name {
++        h = (h ^ u64::from(b)).wrapping_mul(0x100_0000_01b3);
++    }
++    (h >> 54) as usize
++}
++
++type ProductTable = (Vec<&'static [u8]>, Vec<(u64, u32)>, u32);
++
++struct CategoryNames {
++    names: Vec<&'static [u8]>,
++    slots: [u16; 1024],
++}
++
++impl CategoryNames {
++    #[inline(always)]
++    fn raw(&mut self, name: &[u8]) -> Option<u32> {
++        let mut slot = category_slot(name);
++        loop {
++            let at = self.slots[slot];
++            if at == u16::MAX {
++                if self.names.len() == 255 {
++                    return None;
++                }
++                self.slots[slot] = self.names.len() as u16;
++                self.names.push(Box::leak(name.to_vec().into_boxed_slice()));
++                return Some(self.names.len() as u32 - 1);
++            }
++            if self.names[at as usize] == name {
++                return Some(u32::from(at));
++            }
++            slot = (slot + 1) & 1023;
++        }
++    }
++}
++
++struct ProductLines<'a, K> {
++    names: &'a mut CategoryNames,
++    entries: &'a mut Vec<(u64, u32)>,
++    full: bool,
++    kernel: std::marker::PhantomData<K>,
++}
++
++impl<K: Kernel> Lines<2> for ProductLines<'_, K> {
++    #[inline(always)]
++    fn line(&mut self, f: &[&[u8]; 2]) {
++        match self.names.raw(f[1]) {
++            Some(raw) => self.entries.push((unsafe { intern_k::<K>(f[0]) }, raw)),
++            None => self.full = true,
++        }
++    }
++}
++
++#[inline(always)]
++unsafe fn product_lines<K: Kernel>(body: &[u8], names: &mut CategoryNames, entries: &mut Vec<(u64, u32)>) -> bool {
++    let mut scratch = Scratch::new();
++    let mut lines = ProductLines::<K> {
++        names,
++        entries,
++        full: false,
++        kernel: std::marker::PhantomData,
++    };
++    scan::scan::<2, K, _>(body, &mut scratch, &mut lines);
++    !lines.full
++}
++
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
++unsafe fn product_lines_avx2(body: &[u8], names: &mut CategoryNames, entries: &mut Vec<(u64, u32)>) -> bool {
++    product_lines::<Avx2>(body, names, entries)
++}
++
++fn product_table(file: &[u8]) -> Option<ProductTable> {
++    let mut names = CategoryNames {
++        names: Vec::new(),
++        slots: [u16::MAX; 1024],
++    };
++    names.raw(UNKNOWN_CATEGORY)?;
++    let mut entries: Vec<(u64, u32)> = Vec::with_capacity(file.len() / 12 + 16);
++    for (start, end) in csv::data_chunks(file, usize::MAX) {
++        let body = &file[start..end];
++        #[cfg(target_arch = "x86_64")]
++        if scan::has_avx2() {
++            if !unsafe { product_lines_avx2(body, &mut names, &mut entries) } {
++                return None;
++            }
++            continue;
++        }
++        if !unsafe { product_lines::<Scalar>(body, &mut names, &mut entries) } {
++            return None;
++        }
++    }
++    let names = names.names;
++    let mut order: Vec<u32> = (0..names.len() as u32).collect();
++    order.sort_unstable_by(|&a, &b| names[a as usize].cmp(names[b as usize]));
++    let mut rank = vec![0u32; names.len()];
++    for (position, &raw) in order.iter().enumerate() {
++        rank[raw as usize] = position as u32;
++    }
++    for entry in entries.iter_mut() {
++        entry.1 = rank[entry.1 as usize];
++    }
++    let categories: Vec<&'static [u8]> = order.iter().map(|&raw| names[raw as usize]).collect();
++    Some((categories, entries, rank[0]))
++}
++
+ struct Stats {
+     event_copies: AtomicUsize,
+     winners: AtomicUsize,
+@@ -193,9 +300,12 @@ struct Stats {
+ }
+ 
+ pub fn run(config: &Config) -> Result<Outcome> {
+-    let started = Instant::now();
+-    let lap = |name: &str| eprintln!("{name:<8} {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
++    let lap = crate::clock::lap;
+     let data = config.data_dir;
++    let folders = [data.join("events"), data.join("clicks"), data.join("links")];
++    let mapper = std::thread::spawn(move || -> Result<[Vec<&'static [u8]>; 3]> {
++        Ok([map_folder(&folders[0])?, map_folder(&folders[1])?, map_folder(&folders[2])?])
++    });
+     let manifest = fs::read(data.join("manifest.json")).map_err(|e| format!("manifest.json: {e}"))?;
+     let window = Window::from_manifest(&manifest)?;
+     let (ws, we) = (window.start, window.end);
+@@ -203,49 +313,15 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     if we <= ws || we - cws >= i64::from(u32::MAX) - 1 {
+         return Ok(Outcome::Fallback("window shape".into()));
+     }
+-    let products_file: &'static [u8] = Box::leak(
+-        fs::read(data.join("products.csv"))
+-            .map_err(|e| format!("products.csv: {e}"))?
+-            .into_boxed_slice(),
+-    );
++    let products_file = map_file(&data.join("products.csv"))?;
+     let campaigns_file: &'static [u8] = Box::leak(
+         fs::read(data.join("campaigns.csv"))
+             .map_err(|e| format!("campaigns.csv: {e}"))?
+             .into_boxed_slice(),
+     );
+-    let mut seen_categories: Vec<&'static [u8]> = vec![UNKNOWN_CATEGORY];
+-    let mut category_ids: crate::hash::FastMap<&'static [u8], u32> = crate::hash::new_map(64);
+-    category_ids.insert(UNKNOWN_CATEGORY, 0);
+-    let mut product_entries: Vec<(u64, u32)> = Vec::with_capacity(products_file.len() / 16 + 1);
+-    let mut last: (&[u8], u32) = (UNKNOWN_CATEGORY, 0);
+-    for [p, c] in csv::rows(products_file).filter_map(csv::fields::<2>) {
+-        let id = if c == last.0 {
+-            last.1
+-        } else {
+-            let next = seen_categories.len() as u32;
+-            let id = *category_ids.entry(c).or_insert(next);
+-            if id == next {
+-                seen_categories.push(c);
+-                if seen_categories.len() > 255 {
+-                    return Ok(Outcome::Fallback("category count".into()));
+-                }
+-            }
+-            last = (c, id);
+-            id
+-        };
+-        product_entries.push((keys::intern(p), id));
+-    }
+-    let mut by_name: Vec<u32> = (0..seen_categories.len() as u32).collect();
+-    by_name.sort_unstable_by(|&a, &b| seen_categories[a as usize].cmp(seen_categories[b as usize]));
+-    let categories: Vec<&'static [u8]> = by_name.iter().map(|&i| seen_categories[i as usize]).collect();
+-    let mut rank = vec![0u32; by_name.len()];
+-    for (sorted, &old) in by_name.iter().enumerate() {
+-        rank[old as usize] = sorted as u32;
+-    }
+-    for entry in product_entries.iter_mut() {
+-        entry.1 = rank[entry.1 as usize];
+-    }
+-    let unknown = rank[0];
++    let Some((categories, product_entries, unknown)) = product_table(products_file) else {
++        return Ok(Outcome::Fallback("category count".into()));
++    };
+     let mut campaign_ids: Vec<&'static [u8]> = Vec::new();
+     let mut campaign_channels: Vec<&'static [u8]> = Vec::new();
+     let mut campaign_entries: Vec<(u64, u32)> = Vec::new();
+@@ -261,9 +337,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     }
+     let organic = campaign_ids.len() as u32;
+ 
+-    let event_files = map_folder(&data.join("events"))?;
+-    let click_files = map_folder(&data.join("clicks"))?;
+-    let link_files = map_folder(&data.join("links"))?;
++    let [event_files, click_files, link_files] = mapper.join().map_err(|_| "input mapping failed")??;
+     let event_bytes: usize = event_files.iter().map(|f| f.len()).sum();
+     let click_bytes: usize = click_files.iter().map(|f| f.len()).sum();
+     let threads = config.threads.max(1);
+@@ -368,14 +442,19 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 let mut click_count = 0usize;
+                 loop {
+                     let i = queue.fetch_add(1, Ordering::Relaxed);
+-                    let Some(&unit) = ctx.units.get(i) else { break };
++                    let Some(&unit) = ctx.units.get(i) else {
++                        if i == ctx.units.len() {
++                            lap("pdrain");
++                        }
++                        break;
++                    };
+                     match unit {
+                         Unit::Links => {
+                             let t0 = Instant::now();
+                             let built = build_people(ctx.link_files);
+                             let _ = people.set(built);
+                             links_done.store(true, Ordering::Release);
+-                            eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
++                            crate::clock::say(&format!("links    {:>8.1} ms on one thread\n", t0.elapsed().as_secs_f64() * 1e3));
+                         }
+                         Unit::Events(file, s, e) => {
+                             let chunk = line_range(file, s, e);
+@@ -396,7 +475,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     }
+                 }
+                 if id == 0 {
+-                    eprintln!("thread 0 parse busy {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
++                    crate::clock::say(&format!("thread 0 parse busy {:>8.1} ms\n", crate::clock::ms()));
+                 }
+                 stats.event_copies.fetch_add(copies, Ordering::Relaxed);
+                 stats.clicks.fetch_add(click_count, Ordering::Relaxed);
+@@ -454,7 +533,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 let mut flushed = [0u64; 4];
+                 loop {
+                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
+-                    let Some(&p) = order.get(i) else { break };
++                    let Some(&p) = order.get(i) else {
++                        if i == order.len() {
++                            lap("drain");
++                        }
++                        break;
++                    };
+                     worker.partition(ctx, &all_p2, &all_clicks, p);
+                     if worker.rows.len() >= FLUSH_ROWS {
+                         let file = file_counter.fetch_add(1, Ordering::Relaxed);
+@@ -519,16 +603,16 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     if let Some(e) = failure.into_inner().unwrap() {
+         return Err(e.into());
+     }
+-    eprintln!(
+-        "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
++    crate::clock::say(&format!(
++        "event copies {}, winners {}, clicks {}, linked {}, exotic {}\n",
+         stats.event_copies.load(Ordering::Relaxed),
+         stats.winners.load(Ordering::Relaxed),
+         stats.clicks.load(Ordering::Relaxed),
+         people.get().map_or(0, |p| p.linked()),
+         keys::exotic_count()
+-    );
++    ));
+     lap("write");
+-    unsafe { libc::_exit(0) }
++    crate::clock::exit_now(0)
+ }
+ 
+ #[inline(always)]
+diff --git a/src/fast/parquet.rs b/src/fast/parquet.rs
+index 9c9a0ee..25d8327 100644
+--- a/src/fast/parquet.rs
++++ b/src/fast/parquet.rs
+@@ -1,5 +1,5 @@
+ use std::fs::{self, File, Permissions};
+-use std::io::Write;
++use std::io::{IoSlice, Write};
+ use std::os::unix::fs::PermissionsExt;
+ use std::path::Path;
+ 
+@@ -136,53 +136,20 @@ fn bit_pack(defs: &[u8], out: &mut Vec<u8>) {
+     }
+ }
+ 
+-pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
+-    let mut file: Vec<u8> = Vec::with_capacity(rows * 48 + 4096);
+-    file.extend_from_slice(b"PAR1");
+-    let mut chunks: Vec<Chunk> = Vec::with_capacity(columns.len());
+-    let mut values: Vec<u8> = Vec::new();
+-    let mut defs: Vec<u8> = Vec::new();
+-    let mut levels: Vec<u8> = Vec::new();
+-    if rows > 0 {
+-        for column in columns {
+-            let offset = file.len();
+-            let mut start = 0;
+-            while start < rows {
+-                let end = (start + PAGE_ROWS).min(rows);
+-                values.clear();
+-                defs.clear();
+-                (column.fill)(start, end, &mut values, &mut defs);
+-                levels.clear();
+-                if column.kind == Kind::OptStr {
+-                    let mut packed = Vec::with_capacity(defs.len() / 8 + 16);
+-                    bit_pack(&defs, &mut packed);
+-                    levels.extend_from_slice(&(packed.len() as u32).to_le_bytes());
+-                    levels.extend_from_slice(&packed);
+-                }
+-                let size = levels.len() + values.len();
+-                let mut header = Thrift::new();
+-                header.i32(1, 0);
+-                header.i32(2, size as i32);
+-                header.i32(3, size as i32);
+-                header.begin(5);
+-                header.i32(1, (end - start) as i32);
+-                header.i32(2, 0);
+-                header.i32(3, 3);
+-                header.i32(4, 3);
+-                header.end();
+-                header.out.push(0);
+-                file.extend_from_slice(&header.out);
+-                file.extend_from_slice(&levels);
+-                file.extend_from_slice(&values);
+-                start = end;
+-            }
+-            chunks.push(Chunk {
+-                offset,
+-                size: file.len() - offset,
+-                values: rows,
+-            });
++fn write_all_vectored(file: &mut File, parts: &[&[u8]]) -> std::io::Result<()> {
++    let mut slices: Vec<IoSlice> = parts.iter().filter(|p| !p.is_empty()).map(|p| IoSlice::new(p)).collect();
++    let mut bufs = &mut slices[..];
++    while !bufs.is_empty() {
++        let n = file.write_vectored(bufs)?;
++        if n == 0 {
++            return Err(std::io::ErrorKind::WriteZero.into());
+         }
++        IoSlice::advance_slices(&mut bufs, n);
+     }
++    Ok(())
++}
++
++fn footer(columns: &[Column], rows: usize, chunks: &[Chunk]) -> Vec<u8> {
+     let mut meta = Thrift::new();
+     meta.i32(1, 1);
+     meta.list(2, 12, columns.len() + 1);
+@@ -220,7 +187,7 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
+         meta.list(4, 12, 1);
+         meta.open();
+         meta.list(1, 12, columns.len());
+-        for (column, chunk) in columns.iter().zip(&chunks) {
++        for (column, chunk) in columns.iter().zip(chunks) {
+             meta.open();
+             meta.i64(2, chunk.offset as i64);
+             meta.begin(3);
+@@ -246,16 +213,64 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
+     }
+     meta.binary(6, b"sessions");
+     meta.out.push(0);
+-    file.extend_from_slice(&meta.out);
+-    file.extend_from_slice(&(meta.out.len() as u32).to_le_bytes());
+-    file.extend_from_slice(b"PAR1");
+-    file
++    let len = meta.out.len() as u32;
++    meta.out.extend_from_slice(&len.to_le_bytes());
++    meta.out.extend_from_slice(b"PAR1");
++    meta.out
+ }
+ 
+ pub fn write(path: &Path, columns: &[Column], rows: usize) -> Result<()> {
+-    let bytes = encode(columns, rows);
+     let mut file = File::create(path).map_err(|e| format!("{}: {e}", path.display()))?;
+-    file.write_all(&bytes)?;
++    let mut offset = 4usize;
++    let mut pending_magic = true;
++    let mut chunks: Vec<Chunk> = Vec::with_capacity(columns.len());
++    let mut values: Vec<u8> = Vec::new();
++    let mut defs: Vec<u8> = Vec::new();
++    let mut levels: Vec<u8> = Vec::new();
++    if rows > 0 {
++        for column in columns {
++            let start_offset = offset;
++            let mut start = 0;
++            while start < rows {
++                let end = (start + PAGE_ROWS).min(rows);
++                values.clear();
++                defs.clear();
++                (column.fill)(start, end, &mut values, &mut defs);
++                levels.clear();
++                if column.kind == Kind::OptStr {
++                    let mut packed = Vec::with_capacity(defs.len() / 8 + 16);
++                    bit_pack(&defs, &mut packed);
++                    levels.extend_from_slice(&(packed.len() as u32).to_le_bytes());
++                    levels.extend_from_slice(&packed);
++                }
++                let size = levels.len() + values.len();
++                let mut header = Thrift::new();
++                header.i32(1, 0);
++                header.i32(2, size as i32);
++                header.i32(3, size as i32);
++                header.begin(5);
++                header.i32(1, (end - start) as i32);
++                header.i32(2, 0);
++                header.i32(3, 3);
++                header.i32(4, 3);
++                header.end();
++                header.out.push(0);
++                let magic: &[u8] = if pending_magic { b"PAR1" } else { b"" };
++                pending_magic = false;
++                write_all_vectored(&mut file, &[magic, &header.out, &levels, &values])?;
++                offset += header.out.len() + size;
++                start = end;
++            }
++            chunks.push(Chunk {
++                offset: start_offset,
++                size: offset - start_offset,
++                values: rows,
++            });
++        }
++    }
++    let tail = footer(columns, rows, &chunks);
++    let magic: &[u8] = if pending_magic { b"PAR1" } else { b"" };
++    write_all_vectored(&mut file, &[magic, &tail])?;
+     let _ = fs::set_permissions(path, Permissions::from_mode(0o666));
+     Ok(())
+ }
+diff --git a/src/fast/write.rs b/src/fast/write.rs
+index 2a0bb4b..8b02f0b 100644
+--- a/src/fast/write.rs
++++ b/src/fast/write.rs
+@@ -49,43 +49,65 @@ impl Part {
+     }
+ }
+ 
++fn put_all<T: Copy, const W: usize>(out: &mut Vec<u8>, src: &[T], f: impl Fn(T) -> [u8; W]) {
++    let at = out.len();
++    out.resize(at + src.len() * W, 0);
++    for (dst, &v) in out[at..].chunks_exact_mut(W).zip(src) {
++        dst.copy_from_slice(&f(v));
++    }
++}
++
+ pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first_day: i64) -> Result<()> {
+     let names = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
++        out.reserve((b - a) * 16 + 16);
+         for &person in &part.persons[a..b] {
+-            let at = out.len();
+-            out.extend_from_slice(&[0; 4]);
+-            keys::bytes_of(person, out);
+-            let len = (out.len() - at - 4) as u32;
+-            out[at..at + 4].copy_from_slice(&len.to_le_bytes());
++            if person & keys::EXOTIC == 0 {
++                let len = keys::packed_len(person);
++                unsafe {
++                    let at = out.len();
++                    let dst = out.as_mut_ptr().add(at);
++                    (dst as *mut [u8; 4]).write_unaligned((len as u32).to_le_bytes());
++                    keys::unpack_raw(person, dst.add(4));
++                    out.set_len(at + 4 + len);
++                }
++            } else {
++                let at = out.len();
++                out.extend_from_slice(&[0; 4]);
++                keys::bytes_of(person, out);
++                let len = (out.len() - at - 4) as u32;
++                out[at..at + 4].copy_from_slice(&len.to_le_bytes());
++                out.reserve((b - a) * 16 + 16);
++            }
+         }
+     };
+     let days = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
+-        for &d in &part.days[a..b] {
+-            put_i32(out, (first_day + i64::from(d)) as i32);
+-        }
++        put_all(out, &part.days[a..b], |d| ((first_day + i64::from(d)) as i32).to_le_bytes());
+     };
+     let sessions = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
+-        for &v in &part.sessions[a..b] {
+-            put_i32(out, v as i32);
+-        }
++        put_all(out, &part.sessions[a..b], |v| (v as i32).to_le_bytes());
+     };
+     let events = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
+-        for &v in &part.events[a..b] {
+-            put_i32(out, v as i32);
+-        }
++        put_all(out, &part.events[a..b], |v| (v as i32).to_le_bytes());
+     };
+     let revenue = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
+-        for &v in &part.revenue[a..b] {
+-            put_i64(out, v as i64);
+-        }
++        put_all(out, &part.revenue[a..b], |v| (v as i64).to_le_bytes());
+     };
++    let encoded: Vec<Vec<u8>> = categories
++        .iter()
++        .map(|c| {
++            let mut e = Vec::with_capacity(c.len() + 4);
++            put_str(&mut e, c);
++            e
++        })
++        .collect();
+     let top = |a: usize, b: usize, out: &mut Vec<u8>, defs: &mut Vec<u8>| {
++        defs.reserve(b - a);
+         for &t in &part.top[a..b] {
+             if t == u8::MAX {
+                 defs.push(0);
+             } else {
+                 defs.push(1);
+-                put_str(out, categories[t as usize]);
++                out.extend_from_slice(&encoded[t as usize]);
+             }
+         }
+     };
+@@ -185,9 +207,12 @@ pub fn campaign_table(
+ pub fn report(users: [u64; 4], campaigns: [u64; 4]) {
+     let [rows, user_sessions, user_events, user_revenue] = users;
+     let [sessions, revenue, assisted, credited] = campaigns;
+-    eprintln!("surviving events {user_events}, user_daily rows {rows}");
+-    eprintln!("sessions {user_sessions} / {sessions}, revenue {user_revenue} / {revenue}, assisted {assisted} >= {credited}");
++    let mut text = format!("surviving events {user_events}, user_daily rows {rows}\n");
++    text += &format!(
++        "sessions {user_sessions} / {sessions}, revenue {user_revenue} / {revenue}, assisted {assisted} >= {credited}\n"
++    );
+     if user_sessions != sessions || user_revenue != revenue || assisted < credited {
+-        eprintln!("warning: self-check failed");
++        text += "warning: self-check failed\n";
+     }
++    crate::clock::say(&text);
+ }
+diff --git a/src/main.rs b/src/main.rs
+index 3761a7c..a5d2ed7 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -1,4 +1,5 @@
+ mod clicks;
++mod clock;
+ mod csv;
+ mod events;
+ mod fast;
+@@ -37,6 +38,7 @@ impl Config {
+ }
+ 
+ fn main() {
++    clock::start();
+     let config = Config::from_env();
+     let mode = env::var("SESSIONS_PATH").unwrap_or_default();
+     if mode != "slow" {
+@@ -61,7 +63,7 @@ fn main() {
+         std::process::exit(1);
+     }
+     match slow::run(&config) {
+-        Ok(()) => std::process::exit(0),
++        Ok(()) => clock::exit_now(0),
+         Err(error) => {
+             eprintln!("error: {error}");
+             std::process::exit(1);
+diff --git a/src/output.rs b/src/output.rs
+index db49493..c12a41f 100644
+--- a/src/output.rs
++++ b/src/output.rs
+@@ -69,6 +69,12 @@ pub fn create_table_dir(output_dir: &Path, name: &str) -> Result<()> {
+     let dir = output_dir.join(name);
+     fs::create_dir_all(&dir)?;
+     let _ = fs::set_permissions(&dir, Permissions::from_mode(0o777));
++    for entry in fs::read_dir(&dir)?.flatten() {
++        let path = entry.path();
++        if path.extension().is_some_and(|ext| ext == "parquet") {
++            fs::remove_file(&path).map_err(|e| format!("{}: {e}", path.display()))?;
++        }
++    }
+     Ok(())
+ }
+ 

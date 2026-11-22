@@ -1,0 +1,122 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh proj1_95cfa9c",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/proj1_95cfa9c.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 3.5,
+  "stdErr": 1.5,
+  "sd": 2.121,
+  "winFrac": 0,
+  "meanKills": 3.5,
+  "meanTimeAlive": 95.1,
+  "meanDmgDealt": 6561,
+  "meanDmgTaken": 1933,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "laser/hunt": 1,
+   "gun/hunt": 1
+  },
+  "meanWallMs": 2352,
+  "wallS": 3.2
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "ProjectPaw",
+   "place": 11,
+   "score": 5,
+   "kills": 5,
+   "timeAlive": 78.25,
+   "alive": false,
+   "dmgDealt": 8142,
+   "dmgTaken": 2020,
+   "cause": "laser",
+   "killedBy": 2,
+   "killRange": 48.2,
+   "killerRole": "hunt",
+   "hunters": 6,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "armor",
+    "nanites"
+   ],
+   "loadout": [
+    "gun",
+    "laser"
+   ],
+   "won": false,
+   "matchT": 78.25,
+   "wallMs": 2140,
+   "deadOthers": 5,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 15.6,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "ProjectPaw",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 111.95,
+   "alive": false,
+   "dmgDealt": 4980,
+   "dmgTaken": 1846,
+   "cause": "gun",
+   "killedBy": 1,
+   "killRange": 33.6,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:easy",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "servos",
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 111.95,
+   "wallMs": 2564,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 76.4,
+   "meanMs": 0
+  }
+ ]
+}

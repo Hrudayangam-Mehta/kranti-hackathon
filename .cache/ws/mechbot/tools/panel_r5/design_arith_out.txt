@@ -1,0 +1,91 @@
+1. Exchange by range and loadout (fresh 0-cube house hunter; toy, sustained rates)
+   d m | our gun | our gun+laser | hunter gun | hunter gun+laser | TTK gun | TTK g+l | ratio g+l vs g+l hunter
+     40 |      92 |           204 |         51 |              129 |   15.2s |    6.9s |  1.58
+     75 |      78 |           190 |         51 |              129 |   17.9s |    7.4s |  1.47
+    100 |      71 |           183 |         27 |              105 |   19.7s |    7.7s |  1.74
+    115 |      71 |           183 |         27 |              105 |   19.7s |    7.7s |  1.74
+    130 |      36 |           148 |         11 |               88 |   38.9s |    9.5s |  1.67
+    150 |       0 |           112 |         11 |               88 |   99.0s |   12.5s |  1.26
+
+2. Threat of one hunter at 110 m (expected dps on us with a line): gun-only 27, gun+laser 105 -> ratio 3.8
+   regen is 45 hp/s: a lone gun-only hunter beyond 80 m deals less than our regen would return
+
+3. HP ledger: kills = (output per exposed s / intake per exposed s) x HP budget / HP per kill
+   kyoto v43 (sim)  out/in 4.30  hp taken  2216  hp of output per kill  1445  waste   852 = 0.59 kills
+   5.58 bot (sim)   out/in 4.02  hp taken  2071  hp of output per kill  1517  waste  1493 = 0.98 kills
+   ours 5.02 (sim)  out/in 2.58  hp taken  2184  hp of output per kill  1425  waste  1349 = 0.95 kills
+   -> intake per minute alive is ~1300-1400 for all three styles: the squad sets it; the score lever is output
+      per exposed second and its conversion (waste), plus HP refunds taken while NOT exposed (regen, cubes, drops)
+
+4. Sensitivity on a V4-like profile (5.15 kills, 99 s alive, waste 1100; output 5130/min assumed)
+   +10% output per exposed s                                  kills +0.59
+   waste -500 (kyoto-like)                                    kills +0.35
+   +225 hp refund out of exposure (one 10 s lull)             kills +0.58
+   +350 hp refund (a 45%->70% heal), before its output cost   kills +0.90
+   -8% intake (armor 1 stack)                                 kills +0.51
+   (the 13 s heal also costs 0.78 kills of output if a target was available: net +0.13; zero cost when the lull had no target)
+
+5. Heal in the lull between token holders: hp back = 45 x (L - 5) (nanites: 72 x (L - 3.5))
+   lull  4 s:    0 hp  (nanites   36)
+   lull  6 s:   45 hp  (nanites  180)
+   lull  8 s:  135 hp  (nanites  324)
+   lull 10 s:  225 hp  (nanites  468)
+   lull 13 s:  360 hp  (nanites  684)
+   lull 16 s:  495 hp  (nanites  900)
+   lull 20 s:  675 hp  (nanites 1188)
+
+6. hunt50 pulse in practice: hide during our own dead time D (gun reload 2.4 s with the laser cooling)
+   lines 110 dps, cover 0.3 s away ( 3.5 m): intake saved  198 hp per cycle
+   lines 110 dps, cover 0.6 s away ( 7.0 m): intake saved  132 hp per cycle
+   lines 110 dps, cover 1.0 s away (11.7 m): intake saved   44 hp per cycle
+   lines 110 dps, cover 1.5 s away (17.5 m): intake saved    0 hp per cycle
+   lines 160 dps, cover 0.3 s away ( 3.5 m): intake saved  288 hp per cycle
+   lines 160 dps, cover 0.6 s away ( 7.0 m): intake saved  192 hp per cycle
+   lines 160 dps, cover 1.0 s away (11.7 m): intake saved   64 hp per cycle
+   lines 160 dps, cover 1.5 s away (17.5 m): intake saved    0 hp per cycle
+   lines 220 dps, cover 0.3 s away ( 3.5 m): intake saved  396 hp per cycle
+   lines 220 dps, cover 0.6 s away ( 7.0 m): intake saved  264 hp per cycle
+   lines 220 dps, cover 1.0 s away (11.7 m): intake saved   88 hp per cycle
+   lines 220 dps, cover 1.5 s away (17.5 m): intake saved    0 hp per cycle
+   -> worth it only with cover <= ~0.6 s (7 m); at 1.5 s (the R4 spec) the walk out and back eats the saving
+
+7. Burst needed for the owner's 50% gate, by target state (3 s burst; burst_table.py values)
+   gun 0c at 100-130 m        burst  405: passes on targets up to   810 hp front,  1215 hp from the rear
+   gun 0c at 60 m             burst  486: passes on targets up to   972 hp front,  1458 hp from the rear
+   gun+laser 0c at 100-130 m  burst  720: passes on targets up to  1440 hp front,  2160 hp from the rear
+   gun+laser 5c at 100-130 m  burst  864: passes on targets up to  1728 hp front,  2592 hp from the rear
+   -> gun-only it refuses a fresh 1400 hp bot from the front: in practice it only filters non-hostile fresh bots
+
+8. Zone against regen (phase dps; regen 45 only inside)
+   phase 1: radius -> 380 m,  20 hp/s outside: cheaper than one regen second
+   phase 2: radius -> 240 m,  35 hp/s outside: cheaper than one regen second
+   phase 3: radius -> 140 m,  60 hp/s outside: exceeds regen
+   phase 4: radius ->  70 m, 100 hp/s outside: exceeds regen
+   phase 5: radius ->  25 m, 160 hp/s outside: exceeds regen
+   phase 6: radius ->   0 m, 260 hp/s outside: exceeds regen
+
+9. Supply drop as an HP refund (full hp + 3 cubes): at 45% of 1400 that is 770 hp + 168 max hp = 40 s of squad intake
+   capture needs 4 s alone in an 8 m ring; damage does not interrupt it: with one line (~60 dps) it costs ~240 hp,
+   with three lines (~300 dps) ~1200 hp: a drop is a refund only at <= 1 line
+
+10. FFA crowding (Achintya recordings, measured_deltas S03/S04): deaths per minute 0.36 alone, 2.02 with one mech
+    within 60 m, 4.58 with two. Survival over a 60 s stretch: alone 70%, one near 13%, two near 1%
+
+11. Upgrade value for score = (output/intake) x budget (percent change of the product; toy)
+   gun only:
+     gun_mag (+8 rounds, reload x0.8)               +30.1%
+     gun_damage (x1.15)                             +15.0%
+     plating (max hp x1.15, heals)                   +9.0%
+     armor (-8% taken, weapons)                      +8.7%
+     laser_damage (x1.18; 5 -> 4 beams on 1400 hp)   +0.0%
+     laser_charge (cycle 2.40 -> 2.21 s)             +0.0%
+     nanites (regen 72/s after 3.5 s)                +0.0%
+   gun+laser (gun 40% of damage):
+     gun_mag (+8 rounds, reload x0.8)               +12.0%
+     laser_damage (x1.18; 5 -> 4 beams on 1400 hp)  +10.8%
+     plating (max hp x1.15, heals)                   +9.0%
+     armor (-8% taken, weapons)                      +8.7%
+     gun_damage (x1.15)                              +6.0%
+     laser_charge (cycle 2.40 -> 2.21 s)             +5.1%
+     nanites (regen 72/s after 3.5 s)                +0.0%
+   nanites: +100-200 hp per 10 s lull (section 5), i.e. worth about one plating stack per two lulls

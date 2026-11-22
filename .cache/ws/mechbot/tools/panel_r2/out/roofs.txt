@@ -1,0 +1,73 @@
+one tank climbs 61.3 m (jet 15/s at 10 m/s = 1.50 energy/m); prisms 259
+standable roof cells 37300 (14.92 ha) vs ground passable 138255 cells
+roof patches: 368 total; >= 100 m2: 126; of those reachable with one tank from adjacent ground: 118; unreachable (too high or no launch cell): 8
+climb height (m) of reachable patches: 0-6: 19 | 6-10: 12 | 10-15: 33 | 15-20: 30 | 20-30: 20 | 30-45: 3 | 45-64: 1
+  p10/p50/p90: 4.9 14.6 22.9
+area (m2) of reachable patches: 100-300: 30 | 300-1000: 37 | 1000-3000: 40 | 3000-10000: 11 | 10000-1000000000: 0
+max setback (m) of reachable patches: 0-8: 37 | 8-12: 39 | 12-20: 27 | 20-30: 11 | 30-45: 4 | 45-70: 0 | 70-1000000000: 0
+climb time s / energy at p50 and p90 height: 1.8 / 30 ; 2.6 / 42
+
+setback (m) that hides head-top | centre from a ground muzzle at D from the edge; and the deepest setback from which OUR muzzle still sees its centre
+  roof 8 m above the shooter's ground:  D=60: 540 | 270 | 120   D=100: 900 | 450 | 200   D=150: 1350 | 675 | 300
+  roof 12 m above the shooter's ground:  D=60: 108 | 54 | 56   D=100: 180 | 90 | 93   D=150: 270 | 135 | 140
+  roof 15 m above the shooter's ground:  D=60: 68 | 34 | 40   D=100: 113 | 56 | 67   D=150: 169 | 84 | 100
+  roof 20 m above the shooter's ground:  D=60: 42 | 21 | 27   D=100: 69 | 35 | 45   D=150: 104 | 52 | 68
+  roof 25 m above the shooter's ground:  D=60: 30 | 15 | 20   D=100: 50 | 25 | 34   D=150: 75 | 38 | 51
+  roof 30 m above the shooter's ground:  D=60: 23 | 12 | 16   D=100: 39 | 20 | 27   D=150: 59 | 29 | 41
+  roof 40 m above the shooter's ground:  D=60: 16 | 8 | 12   D=100: 27 | 14 | 20   D=150: 41 | 20 | 30
+D=60 m: reachable roofs deep enough to hide the whole body 0, to hide the centre (hull-down shooting possible) 8 of 118
+D=100 m: reachable roofs deep enough to hide the whole body 0, to hide the centre (hull-down shooting possible) 0 of 118
+D=150 m: reachable roofs deep enough to hide the whole body 0, to hide the centre (hull-down shooting possible) 0 of 118
+
+exposure of the DEEPEST cell of each reachable roof >= 300 m2 (n=88): share of ground muzzles on a ring at D with a clear shot to our centre | to centre or head | that our muzzle can hit
+  D=30: centre 26%  any part 43%  we can shoot 27%
+  D=60: centre 37%  any part 55%  we can shoot 43%
+  D=100: centre 35%  any part 50%  we can shoot 39%
+  D=150: centre 29%  any part 38%  we can shoot 32%
+  D=200: centre 25%  any part 32%  we can shoot 27%
+  height 6-12 m (n=16, median area 986 m2, median max setback 12.8 m): D=60: centre 45% any 53% ours 44%  D=100: centre 32% any 37% ours 31%  D=150: centre 21% any 24% ours 21%
+  height 12-20 m (n=41, median area 1448 m2, median max setback 12.7 m): D=60: centre 36% any 57% ours 42%  D=100: centre 36% any 53% ours 41%  D=150: centre 30% any 43% ours 35%
+  height 20-35 m (n=20, median area 1074 m2, median max setback 10.1 m): D=60: centre 19% any 47% ours 31%  D=100: centre 29% any 54% ours 40%  D=150: centre 32% any 39% ours 35%
+ground, random passable cell (n=400): D=30: centre 96% any 97% ours 96%  D=60: centre 81% any 83% ours 81%  D=100: centre 64% any 65% ours 64%  D=150: centre 47% any 49% ours 47%  D=200: centre 37% any 38% ours 38%
+ground, wall-hugging cell (n=400):    D=30: centre 83% any 85% ours 83%  D=60: centre 57% any 60% ours 58%  D=100: centre 42% any 44% ours 42%  D=150: centre 31% any 33% ours 31%  D=200: centre 24% any 26% ours 25%
+roof cells 3-5 m from an edge, roofs >= 12 m (n=363): D=30: centre 45% any 64% ours 51%  D=60: centre 47% any 63% ours 52%  D=100: centre 42% any 53% ours 44%  D=150: centre 35% any 43% ours 36%  D=200: centre 30% any 38% ours 31%
+
+reachable roofs >= 300 m2: 88; with a higher structure on them (on-roof wall >= 4 rim cells): 52
+"good" roofs (>= 300 m2, 12-45 m): 61; straight distance from a random ground cell to the nearest launch cell: p50 80 m p90 334 m
+  good roofs with launch within 380 m of the start centre: 38
+  good roofs with launch within 240 m of the start centre: 17
+  good roofs with launch within 140 m of the start centre: 6
+  good roofs with launch within 70 m of the start centre: 3
+
+largest reachable roofs: id, area m2, climb m, max setback m, on-roof wall cells, launch xy
+  #60 area 7348 climb 14.8 setback 43.0 wallCells 87 launch (-149, -166)
+  #1 area 6296 climb 15.0 setback 39.2 wallCells 53 launch (-139, -234)
+  #285 area 5136 climb 13.3 setback 33.0 wallCells 31 launch (-5, 248)
+  #61 area 4484 climb 6.6 setback 21.0 wallCells 37 launch (-109, -168)
+  #289 area 4412 climb 11.0 setback 29.0 wallCells 0 launch (59, 228)
+  #58 area 4388 climb 19.7 setback 29.3 wallCells 76 launch (185, -138)
+  #10 area 4368 climb 13.1 setback 17.1 wallCells 0 launch (83, -166)
+  #353 area 3996 climb 16.3 setback 19.4 wallCells 49 launch (-19, 334)
+  #2 area 3664 climb 12.9 setback 21.1 wallCells 20 launch (95, -292)
+  #335 area 3472 climb 21.5 setback 20.7 wallCells 0 launch (209, 268)
+  #322 area 3104 climb 13.6 setback 11.0 wallCells 0 launch (155, 262)
+  #9 area 2724 climb 20.2 setback 21.6 wallCells 0 launch (493, -206)
+  #340 area 2552 climb 26.2 setback 15.0 wallCells 0 launch (283, 356)
+  #109 area 2420 climb 17.9 setback 9.5 wallCells 0 launch (329, 52)
+  #205 area 2312 climb 11.9 setback 23.0 wallCells 144 launch (151, 150)
+  #236 area 2280 climb 20.3 setback 9.2 wallCells 38 launch (451, 254)
+  #70 area 2120 climb 14.0 setback 12.7 wallCells 0 launch (87, -70)
+  #23 area 2036 climb 4.8 setback 44.9 wallCells 79 launch (-123, -190)
+  #104 area 1996 climb 16.6 setback 9.2 wallCells 0 launch (387, 64)
+  #84 area 1980 climb 14.4 setback 14.4 wallCells 0 launch (-21, -56)
+  #256 area 1944 climb 19.3 setback 19.0 wallCells 0 launch (295, 244)
+  #229 area 1940 climb 18.5 setback 11.0 wallCells 0 launch (371, 242)
+  #268 area 1904 climb 19.8 setback 19.0 wallCells 6 launch (413, 270)
+  #265 area 1856 climb 14.3 setback 28.9 wallCells 35 launch (551, 216)
+  #126 area 1836 climb 16.9 setback 23.1 wallCells 77 launch (15, 40)
+
+hull-down posts (we can hit its centre, it cannot hit ours): best cell of each good roof vs best ground cell near a random point
+  target ring 40 m: roof best cell covers 34% of directions with a one-sided line (p90 50%), plus 19% two-sided; roofs with >= 25% one-sided: 52/61. Ground best cell within 30 m: 0% one-sided (p90 8%), 9% two-sided
+  target ring 60 m: roof best cell covers 29% of directions with a one-sided line (p90 46%), plus 25% two-sided; roofs with >= 25% one-sided: 42/61. Ground best cell within 30 m: 0% one-sided (p90 0%), 5% two-sided
+  target ring 100 m: roof best cell covers 24% of directions with a one-sided line (p90 41%), plus 25% two-sided; roofs with >= 25% one-sided: 29/61. Ground best cell within 30 m: 0% one-sided (p90 9%), 7% two-sided
+  target ring 150 m: roof best cell covers 15% of directions with a one-sided line (p90 31%), plus 21% two-sided; roofs with >= 25% one-sided: 11/61. Ground best cell within 30 m: 0% one-sided (p90 14%), 11% two-sided

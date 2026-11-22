@@ -1,0 +1,152 @@
+determinism check (base twice on 8 seeds): identical
+fuse-off equals a trip-free run with the real fuse (8 seeds): identical
+stage 1: seeds 101-108, entered 145, kept 44, 1093 s
+stage 2: seeds 109-124, entered 44, kept 14, 980 s
+stage 3: seeds 125-148, entered 14, kept 14, 760 s
+id     status   st    n  dScore     se      t  dif  up  dn  dKills  change
+c0144  final     3   48  +0.604  0.330  +1.83   35  15  11  +0.604  R:chase#2+gateK#3+loseThr#1+dodgeHorizon#2+grabLaserWide#1
+c0099  final     3   48  +0.500  0.282  +1.77   13   6   5  +0.500  grabLaserWide#1
+c0132  final     3   48  +0.479  0.378  +1.27   48  21  14  +0.458  R:laserGateK#1+farmHp#2+loseThr#1+boostSpend#3+wFinish#2+healEnterHp#2+dodgeWeight#2+wAtta
+c0003  final     3   48  +0.438  0.176  +2.49   16  10   2  +0.438  laserBand#3
+c0046  final     3   48  +0.333  0.298  +1.12   47  15  11  +0.312  boostSpend#3
+c0136  final     3   48  +0.333  0.288  +1.16   48  19   9  +0.333  R:focusAdd#1+killSecureHits#1+seek#4+boostSpend#3+lastStand#3+wFinish#2+keepTargetHpf#1
+c0128  final     3   48  +0.271  0.306  +0.88   48  20  12  +0.250  R:laserBand#1+wFinish#2+grabLaserWide#1+grab#2+boostSpend#1+finish#1+eng#2
+c0020  final     3   48  +0.250  0.286  +0.87   24   9   6  +0.250  gateK#2
+c0134  final     3   48  +0.229  0.331  +0.69   48  18  16  +0.229  R:grab#2+farmHp#1+focusAdd#1+wFinish#3+gunBand#1+laserHide#1+earlyOpenS#3
+c0021  final     3   48  +0.208  0.253  +0.82   28  11   7  +0.208  gateK#3
+c0141  final     3   48  +0.167  0.222  +0.75   30  10   8  +0.167  R:finTtk#1+laserForceS#3+aggr#1+eng#3+gunFlightMax#3+loseThr#2+killSecureHits#1
+c0026  final     3   48  +0.146  0.146  +1.00    6   2   1  +0.146  laserForceS#2
+c0018  final     3   48  +0.042  0.197  +0.21   25  10   6  +0.042  gunFlightMax#3
+c0032  final     3   48  -0.146  0.284  -0.51   47  16  16  -0.188  strafe#1
+c0034  cut       2   24  +0.292  0.423  +0.69   23   9   6  +0.250  strafe#3
+c0004  cut       2   24  +0.250  0.227  +1.10    9   4   2  +0.250  laserBand#4
+c0019  cut       2   24  +0.250  0.367  +0.68   10   4   3  +0.250  gateK#1
+c0098  cut       2   24  +0.250  0.490  +0.51   18   5   4  +0.208  grab#2
+c0008  cut       2   24  +0.208  0.295  +0.71   17   5   6  +0.208  gunBand#4
+c0097  cut       2   24  +0.208  0.269  +0.77   12   6   2  +0.208  grab#1
+c0103  cut       2   24  +0.208  0.134  +1.55    8   4   1  +0.208  upgradeOrder#4
+c0017  cut       2   24  +0.167  0.328  +0.51   13   7   4  +0.167  gunFlightMax#2
+c0100  cut       2   24  +0.167  0.393  +0.42   13   6   5  +0.167  upgradeOrder#1
+c0133  cut       2   24  +0.167  0.502  +0.33   24   8   8  +0.167  R:killSecureHits#1+loseThr#2+isoNear#1+dodgeWeight#2+wAttacker#1+laserBand#2
+c0037  cut       2   24  +0.125  0.427  +0.29   24  10   6  +0.125  dodgeWeight#1
+c0060  cut       2   24  +0.125  0.139  +0.90    3   2   1  +0.125  chase#1
+c0115  cut       2   24  +0.125  0.303  +0.41   20   9   4  +0.125  B:snap = laserGateK#3+laserForceS#1+gateK#3+gunFlightMax#3
+c0016  cut       2   24  +0.083  0.300  +0.28   16   4   3  +0.083  gunFlightMax#1
+c0127  cut       2   24  +0.083  0.442  +0.19   24  10   4  +0.042  R:laserForceS#2+laserBand#4+killSecureHits#1+dodgeHorizon#2+boostSpend#3
+c0031  cut       2   24  +0.042  0.316  +0.13   12   4   3  +0.042  headAimGun#1
+c0067  cut       2   24  +0.042  0.221  +0.19   13   5   5  +0.042  earlyOpenS#2
+c0033  cut       2   24  +0.000  0.481  +0.00   23   9   6  -0.042  strafe#2
+c0050  cut       2   24  -0.042  0.195  -0.21    3   2   1  -0.042  wFinish#3
+c0056  cut       2   24  -0.042  0.153  -0.27    5   1   1  -0.042  keepTargetHpf#2
+c0101  cut       2   24  -0.042  0.237  -0.18    9   3   1  -0.042  upgradeOrder#2
+c0111  cut       2   24  -0.042  0.310  -0.13   12   6   2  -0.042  B:glass = upgradeOrder#2+aggr#1+wFinish#3+killSecureHits#2+finTtk#1+chase#2
+c0120  cut       2   24  -0.042  0.419  -0.10   24   8   9  -0.042  B:evader = strafe#1+dodgeHorizon#2+dodgeWeight#2+laserReactRad#2+laserHide#3+boostSpend#2
+c0129  cut       2   24  -0.042  0.436  -0.10   22   9   7  +0.000  R:gateK#2+rush#2+laserGateK#1+lastStand#2+earlyOpenS#1+finTtk#1+keepTargetHpf#1+laserReact
+c0131  cut       2   24  -0.042  0.519  -0.08   23  10   8  -0.042  R:laserForceS#3+gateK#3+upgradeOrder#2+isoNear#2+gunBand#4+wAttacker#1+lcGate#3
+c0126  cut       2   24  -0.083  0.458  -0.18   24   8   7  -0.083  R:dodgeHorizon#2+laserGateK#2+dodgeWeight#2+laserForceS#1+gunBackStick#1+wAttacker#1
+c0049  cut       2   24  -0.125  0.193  -0.65    3   1   2  -0.125  wFinish#2
+c0116  cut       2   24  -0.125  0.271  -0.46    9   4   2  -0.125  B:finisher = wFinish#3+keepTargetHpf#2+killSecureHits#2+chase#2+finTtk#1+finish#3
+c0114  cut       2   24  -0.250  0.459  -0.54   14   5   3  -0.250  B:sniper = laserBand#4+laserGateK#1+laserForceS#3+laserHide#3+upgradeOrder#2
+c0118  cut       2   24  -0.333  0.389  -0.86   22   9   7  -0.333  B:passive = aggr#3+seek#1+earlyOpenS#3+eng#1+farmHp#2+healEnterHp#3
+c0028  cut       1    8  +0.125  0.398  +0.31    7   2   1  +0.125  reload#1
+c0042  cut       1    8  +0.125  0.125  +1.00    1   1   0  +0.125  laserHide#2
+c0044  cut       1    8  +0.125  0.350  +0.36    8   2   2  +0.125  boostSpend#1
+c0048  cut       1    8  +0.125  0.125  +1.00    1   1   0  +0.125  wFinish#1
+c0073  cut       1    8  +0.125  0.515  +0.24    6   3   1  +0.125  seek#1
+c0124  cut       1    8  +0.125  0.515  +0.24    8   2   2  +0.125  R:aggr#2+dodgeWeight#2+laserHide#3+laserBand#4+wAttacker#1
+c0138  cut       1    8  +0.125  0.295  +0.42    5   1   1  +0.125  R:laserBand#2+wFinish#1+headAimGun#1+eng#3
+c0139  cut       1    8  +0.125  0.227  +0.55    6   2   1  +0.125  R:focusAdd#1+reload#3+grabLaserWide#1+keepTargetHpf#1
+c0001  cut       1    8  +0.000  0.189  +0.00    2   1   1  +0.000  laserBand#1
+c0002  cut       1    8  +0.000  0.000  +0.00    2   0   0  +0.000  laserBand#2
+c0012  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  rush#2
+c0014  cut       1    8  +0.000  0.500  +0.00    6   2   1  +0.000  isoNear#1
+c0015  cut       1    8  +0.000  0.378  +0.00    6   3   2  +0.000  isoNear#2
+c0022  cut       1    8  +0.000  0.000  +0.00    2   0   0  +0.000  laserGateK#1
+c0023  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  laserGateK#2
+c0024  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  laserGateK#3
+c0027  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  laserForceS#3
+c0030  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  reload#3
+c0035  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  dodgeHorizon#1
+c0036  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  dodgeHorizon#2
+c0039  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  laserReactRad#1
+c0040  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  laserReactRad#2
+c0043  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  laserHide#3
+c0045  cut       1    8  +0.000  0.567  +0.00    7   1   1  -0.125  boostSpend#2
+c0047  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  boostSpend#4
+c0053  cut       1    8  +0.000  0.000  +0.00    3   0   0  +0.000  wNoLos#1
+c0055  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  keepTargetHpf#1
+c0057  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  killSecureHits#1
+c0058  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  killSecureHits#2
+c0061  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  chase#2
+c0062  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  finTtk#1
+c0063  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  aggr#1
+c0064  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  aggr#2
+c0065  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  aggr#3
+c0068  cut       1    8  +0.000  0.189  +0.00    5   1   1  +0.000  earlyOpenS#3
+c0069  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  eng#1
+c0070  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  eng#2
+c0071  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  eng#3
+c0072  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  eng#4
+c0074  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  seek#2
+c0076  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  seek#4
+c0077  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  farmHp#1
+c0078  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  farmHp#2
+c0079  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  lcGate#1
+c0080  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  lcGate#2
+c0082  cut       1    8  +0.000  0.189  +0.00    3   1   1  +0.000  lcGate#4
+c0083  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  loseThr#1
+c0085  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  finish#1
+c0086  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  finish#2
+c0087  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  finish#3
+c0088  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  lastStand#1
+c0090  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  lastStand#3
+c0091  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healEnterHp#1
+c0092  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healEnterHp#2
+c0093  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healEnterHp#3
+c0094  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healExit#1
+c0095  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healExit#2
+c0096  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  healExit#3
+c0102  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  upgradeOrder#3
+c0105  cut       1    8  +0.000  0.845  +0.00    8   3   2  +0.000  B:kiter-mid = laserBand#3+gunBand#3+gunBackStick#2+laserHide#2+strafe#2
+c0109  cut       1    8  +0.000  0.000  +0.00    1   0   0  +0.000  B:survivor-lite = lcGate#3+loseThr#2+healExit#2+laserHide#2
+c0110  cut       1    8  +0.000  0.189  +0.00    7   1   1  +0.000  B:econ = farmHp#1+grab#2+grabLaserWide#1+upgradeOrder#1+aggr#3+earlyOpenS#3
+c0112  inert     1    8  +0.000  0.000  +0.00    0   0   0  +0.000  B:regen = upgradeOrder#3+healEnterHp#3+healExit#3+farmHp#2
+c0113  cut       1    8  +0.000  0.378  +0.00    8   3   2  +0.000  B:gunner = upgradeOrder#4+gunBand#1+gunFlightMax#2+gateK#2+headAimGun#1+reload#1
+c0130  cut       1    8  +0.000  0.423  +0.00    7   2   2  +0.000  R:wFinish#1+isoNear#2+lcGate#4+grabLaserWide#1+focusAdd#1
+c0137  cut       1    8  +0.000  0.000  +0.00    5   0   0  +0.000  R:eng#2+headAimGun#1+laserHide#3+grabLaserWide#1+finTtk#1
+c0140  cut       1    8  +0.000  0.627  +0.00    7   3   1  -0.125  R:grabLaserWide#1+killSecureHits#1+lcGate#1+focusAdd#1+reload#2+gateK#1+finish#2
+c0142  cut       1    8  +0.000  0.378  +0.00    8   3   2  +0.000  R:lcGate#1+dodgeWeight#1+laserForceS#1+earlyOpenS#1+laserHide#1+farmHp#1+laserGateK#1+fini
+c0025  cut       1    8  -0.125  0.125  -1.00    1   0   1  -0.125  laserForceS#1
+c0029  cut       1    8  -0.125  0.611  -0.20    5   2   1  -0.125  reload#2
+c0051  cut       1    8  -0.125  0.125  -1.00    3   0   1  -0.125  wAttacker#1
+c0052  cut       1    8  -0.125  0.295  -0.42    3   1   1  -0.125  wAttacker#2
+c0054  cut       1    8  -0.125  0.125  -1.00    3   0   1  -0.125  wNoLos#2
+c0059  cut       1    8  -0.125  0.227  -0.55    6   1   2  -0.125  focusAdd#1
+c0081  cut       1    8  -0.125  0.125  -1.00    1   0   1  -0.125  lcGate#3
+c0084  cut       1    8  -0.125  0.125  -1.00    1   0   1  -0.125  loseThr#2
+c0089  cut       1    8  -0.125  0.125  -1.00    1   0   1  -0.125  lastStand#2
+c0104  cut       1    8  -0.125  0.549  -0.23    8   4   2  -0.125  B:kiter = laserBand#4+gunBand#4+gunBackStick#2+laserHide#3+boostSpend#2+strafe#1+dodgeHori
+c0108  cut       1    8  -0.125  0.125  -1.00    5   0   1  -0.125  B:survivor = lcGate#4+loseThr#2+healEnterHp#3+healExit#3+lastStand#2+farmHp#2
+c0117  cut       1    8  -0.125  0.227  -0.55    6   1   2  -0.125  B:antiattacker = wAttacker#2+wNoLos#1+focusAdd#1+lastStand#3
+c0121  cut       1    8  -0.125  0.227  -0.55    8   1   2  -0.250  B:noevade = laserHide#1+boostSpend#1+dodgeWeight#1+strafe#3
+c0125  cut       1    8  -0.125  0.515  -0.24    7   2   2  -0.125  R:eng#1+healExit#1+isoNear#1+finTtk#1+laserReactRad#1+laserForceS#1+reload#3
+c0143  cut       1    8  -0.125  0.398  -0.31    7   3   3  -0.250  R:wNoLos#1+isoNear#2+laserForceS#1+laserReactRad#1+seek#2+finish#2
+c0013  cut       1    8  -0.250  0.250  -1.00    1   0   1  -0.250  rush#3
+c0075  cut       1    8  -0.250  0.412  -0.61    4   1   1  -0.250  seek#3
+c0119  cut       1    8  -0.250  0.250  -1.00    4   0   1  -0.250  B:hunter = aggr#1+seek#2+earlyOpenS#1+eng#2+chase#2
+c0005  cut       1    8  -0.375  0.999  -0.38    7   2   2  -0.375  gunBand#1
+c0009  cut       1    8  -0.375  0.532  -0.70    5   1   1  -0.375  gunBackStick#1
+c0010  cut       1    8  -0.375  0.375  -1.00    6   1   2  -0.375  gunBackStick#2
+c0011  cut       1    8  -0.375  0.375  -1.00    1   0   1  -0.375  rush#1
+c0066  cut       1    8  -0.375  0.375  -1.00    4   0   1  -0.375  earlyOpenS#1
+c0007  cut       1    8  -0.500  0.534  -0.94    6   1   2  -0.625  gunBand#3
+c0041  cut       1    8  -0.500  0.500  -1.00    1   0   1  -0.500  laserHide#1
+c0122  cut       1    8  -0.500  0.327  -1.53    8   1   4  -0.500  B:kiter+regen = laserBand#4+gunBand#4+gunBackStick#2+laserHide#3+upgradeOrder#3+healEnterH
+c0135  cut       1    8  -0.500  0.598  -0.84    8   3   3  -0.500  R:reload#1+dodgeWeight#2+healEnterHp#3+seek#4+gunBackStick#2+finish#1+laserGateK#1
+c0145  cut       1    8  -0.500  0.500  -1.00    1   0   1  -0.500  R:laserHide#1+aggr#1+healEnterHp#2+eng#3+healExit#2
+c0038  cut       1    8  -0.625  0.532  -1.17    7   1   3  -0.625  dodgeWeight#2
+c0123  cut       1    8  -0.750  0.453  -1.65    8   1   4  -0.750  B:kiter+survivor = laserBand#4+gunBand#4+gunBackStick#2+lcGate#4+loseThr#2+healExit#2
+c0107  cut       1    8  -0.875  0.611  -1.43    7   1   3  -0.875  B:brawler-mid = laserBand#2+gunBand#2+rush#2+aggr#2+earlyOpenS#2
+c0006  cut       1    8  -1.000  0.567  -1.76    6   0   3  -1.125  gunBand#2
+c0106  cut       1    8  -1.250  0.773  -1.62    8   2   5  -1.250  B:brawler = laserBand#1+gunBand#1+gunBackStick#1+rush#2+aggr#1+earlyOpenS#1+wFinish#3
+throughput: {"wall_s": 2833.9, "matches": 2216, "batches": 277, "discarded_batches": 0, "matches_per_s": 0.782, "batch_wall_sum_s": 8432.2, "jobs": 3, "load": [21.94580078125, 21.4140625, 18.10400390625]}

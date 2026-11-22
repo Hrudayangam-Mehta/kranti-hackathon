@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 f68b9f2b17ca08bf21ecd2e1bb847a56e9402ad9 integrator <integrator@localhost> 1795313886 +0000	commit (initial): base: rel16 (3a79f86e)
+f68b9f2b17ca08bf21ecd2e1bb847a56e9402ad9 ced74375b20313c64c7d8544a56efee4d2fcfe94 integrator <integrator@localhost> 1795313975 +0000	commit: step 1: parse C2 fused scanner (binary aac28125)
+ced74375b20313c64c7d8544a56efee4d2fcfe94 d3668afa7934a9051143831591c14bb0c5cce90e integrator <integrator@localhost> 1795314219 +0000	commit: step 2: threads t2 on C2 (conflicts: Scratch args removed), trace kept (binary 01264d19)
+d3668afa7934a9051143831591c14bb0c5cce90e f09a75d4f16a5c9ef2051f648615a676cab4cf63 integrator <integrator@localhost> 1795314500 +0000	commit: step 3: io1 ported onto t2 (reservation+POPULATE_WRITE+mallopt+warm heap kept; per-chunk DONTNEED dropped in favour of t2 per-file munmap) (binary a42434e9)
+f09a75d4f16a5c9ef2051f648615a676cab4cf63 5e620561c06b6ea9632a72b87a5e9d3a44a26a81 integrator <integrator@localhost> 1795314575 +0000	commit: step 4: delete stale *.parquet in user_daily/ and campaign_daily/ at start (binary 8400980a)

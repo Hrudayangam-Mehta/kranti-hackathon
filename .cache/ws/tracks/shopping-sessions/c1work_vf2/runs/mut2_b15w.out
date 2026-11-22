@@ -1,0 +1,120 @@
+[b15w seed=15] window@w1d: auto buckets off: event sample too small (6000 IDs, 8 of person 0)
+  notes: window w1d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-02-18T00:00:00Z'} ; 0 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16602683; expected ncap 622592
+m2_b15w_window_w1d: MATCH
+  f2n2 [f2 n2]: MATCH 0.19s | F on | buckets off: event sample too small (6000 IDs, 8 of person 0) | G 2.40%
+  f2n1 [f2 n1]: MATCH 0.27s | F on | buckets off: event sample too small (6000 IDs, 8 of person 0) | G 2.40%
+  f2n8 [f2 n8]: MATCH 0.22s | F on | buckets off: event sample too small (6000 IDs, 8 of person 0) | G 2.40%
+  f2b11 [f2 n2 TEST_BUCKET_BITS=11]: MATCH 0.27s | F on | buckets off: event sample too small (6000 IDs, 8 of person 0) | G 2.40%
+  f2key_b11 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=11]: MATCH 0.20s | F on | B on ncap 620544/2048 | multi 3p/6e/245ev | G 2.40% side 241 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.17s | F on | buckets off: SESSIONS_F2=0 | G 2.40%
+  f1n2 [f1 n2]: MATCH 0.19s | F on | G 2.40%
+[b15w seed=15] window@w7d_noon: auto buckets ON key=expected
+  notes: window w7d_noon: {'window_start': '2028-02-17T13:37:11Z', 'window_end': '2028-02-24T13:37:11Z'} ; 0 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16602616; expected ncap 622592
+m2_b15w_window_w7d_noon: MATCH
+  f2n2 [f2 n2]: MATCH 0.39s | F on | B on ncap 622592/32768 | multi 4p/8e/90ev | G 2.05% side 1614 gen 1
+  f2n1 [f2 n1]: MATCH 0.32s | F on | B on ncap 622592/32768 | multi 4p/8e/90ev | G 2.05% side 1614 gen 1
+  f2n8 [f2 n8]: MATCH 0.16s | F on | B on ncap 622592/32768 | multi 4p/8e/90ev | G 2.05% side 1614 gen 1
+  f2b14 [f2 n2 TEST_BUCKET_BITS=14]: MATCH 0.16s | F on | B on ncap 622592/16384 | multi 6p/12e/169ev | G 2.05% side 1614 gen 1
+  f2key_b10 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=10]: MATCH 0.30s | F on | B on ncap 619520/1024 | multi 84p/171e/13140ev | G 2.05% side 1614 gen 1
+  f2off [f2 n2 F2=0]: MATCH 0.35s | F on | buckets off: SESSIONS_F2=0 | G 2.05%
+  f1n2 [f1 n2]: MATCH 0.39s | F on | G 2.05%
+[b15w seed=15] window@w16d: auto buckets ON key=expected
+  notes: window w16d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-04T00:00:00Z'} ; 53533 event lines shifted; window edge events: 240; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16472183; expected ncap 622592
+m2_b15w_window_w16d: MATCH
+  f2n2 [f2 n2]: MATCH 0.57s | F on | B on ncap 622592/32768 | multi 47p/172e/1912ev | G 2.03% side 3124 gen 1
+  f2n1 [f2 n1]: MATCH 0.43s | F on | B on ncap 622592/32768 | multi 47p/172e/1912ev | G 2.03% side 3124 gen 1
+  f2n8 [f2 n8]: MATCH 0.70s | F on | B on ncap 622592/32768 | multi 47p/172e/1912ev | G 2.03% side 3124 gen 1
+  f2b10 [f2 n2 TEST_BUCKET_BITS=10]: MATCH 0.41s | F on | B on ncap 615424/1024 | multi 214p/519e/36194ev | G 2.03% side 3124 gen 5
+  f2key_b6 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=6]: MATCH 0.69s | F on | B on ncap 614656/64 | multi 2112p/5183e/123969ev | G 2.03% side 3124 gen 5
+  f2off [f2 n2 F2=0]: MATCH 0.24s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.40s | F on | G 2.03%
+[b15w seed=15] window@w_guard: auto buckets ON key=expected
+  notes: window w_guard: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-04T06:32:31Z'} ; 53699 event lines shifted; window edge events: 240; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16471823; expected ncap 622592
+m2_b15w_window_w_guard: MATCH
+  f2n2 [f2 n2]: MATCH 0.51s | F on | B on ncap 622592/32768 | multi 47p/172e/1879ev | G 2.03% side 3124 gen 1
+  f2n1 [f2 n1]: MATCH 0.28s | F on | B on ncap 622592/32768 | multi 47p/172e/1879ev | G 2.03% side 3124 gen 1
+  f2n8 [f2 n8]: MATCH 0.41s | F on | B on ncap 622592/32768 | multi 47p/172e/1879ev | G 2.03% side 3124 gen 1
+  f2b12 [f2 n3 TEST_BUCKET_BITS=12]: MATCH 0.40s | F on | B on ncap 618496/4096 | multi 87p/253e/15594ev | G 2.03% side 3124 gen 2
+  f2key_b13 [f2 n7 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=13]: MATCH 0.39s | F on | B on ncap 622592/8192 | multi 64p/206e/6546ev | G 2.03% side 3124 gen 1
+  f2off [f2 n2 F2=0]: MATCH 0.33s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.46s | F on | G 2.03%
+[b15w seed=15] window@w_guard1: auto buckets off: layout guard
+  notes: window w_guard1: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-04T06:32:32Z'} ; 53534 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16453631; expected ncap 622592
+m2_b15w_window_w_guard1: MATCH
+  f2n2 [f2 n2]: MATCH 0.40s | F on | buckets off: layout guard | G 2.03%
+  f2n1 [f2 n1]: MATCH 0.72s | F on | buckets off: layout guard | G 2.03%
+  f2n8 [f2 n8]: MATCH 0.32s | F on | buckets off: layout guard | G 2.03%
+  f2b9 [f2 n3 TEST_BUCKET_BITS=9]: MATCH 0.34s | F on | buckets off: layout guard | G 2.03%
+  f2key_b11 [f2 n2 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=11]: MATCH 0.32s | F on | buckets off: layout guard | G 2.03%
+  f2off [f2 n2 F2=0]: MATCH 0.40s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.97s | F on | G 2.03%
+[b15w seed=15] window@w17d: auto buckets off: layout guard
+  notes: window w17d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-05T00:00:00Z'} ; 53619 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16453425; expected ncap 622592
+m2_b15w_window_w17d: MATCH
+  f2n2 [f2 n2]: MATCH 0.34s | F on | buckets off: layout guard | G 2.03%
+  f2n1 [f2 n1]: MATCH 0.31s | F on | buckets off: layout guard | G 2.03%
+  f2n8 [f2 n8]: MATCH 0.50s | F on | buckets off: layout guard | G 2.03%
+  f2b11 [f2 n2 TEST_BUCKET_BITS=11]: MATCH 0.41s | F on | buckets off: layout guard | G 2.03%
+  f2key_b13 [f2 n7 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=13]: MATCH 0.90s | F on | buckets off: layout guard | G 2.03%
+  f2off [f2 n2 F2=0]: MATCH 0.50s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.34s | F on | G 2.03%
+[b15w seed=15] window@w18d: auto buckets off: layout guard
+  notes: window w18d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-06T00:00:00Z'} ; 53592 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16453795; expected ncap 622592
+m2_b15w_window_w18d: MATCH
+  f2n2 [f2 n2]: MATCH 0.42s | F on | buckets off: layout guard | G 2.03%
+  f2n1 [f2 n1]: MATCH 0.27s | F on | buckets off: layout guard | G 2.03%
+  f2n8 [f2 n8]: MATCH 0.41s | F on | buckets off: layout guard | G 2.03%
+  f2b14 [f2 n2 TEST_BUCKET_BITS=14]: MATCH 0.36s | F on | buckets off: layout guard | G 2.03%
+  f2key_b13 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=13]: MATCH 0.60s | F on | buckets off: layout guard | G 2.03%
+  f2off [f2 n2 F2=0]: MATCH 0.48s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.35s | F on | G 2.03%
+[b15w seed=15] window@w25d: auto buckets off: layout guard
+  notes: window w25d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-13T00:00:00Z'} ; 53620 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16453540; expected ncap 622592
+m2_b15w_window_w25d: MATCH
+  f2n2 [f2 n2]: MATCH 0.25s | F on | buckets off: layout guard | G 2.03%
+  f2n1 [f2 n1]: MATCH 0.35s | F on | buckets off: layout guard | G 2.03%
+  f2n8 [f2 n8]: MATCH 0.22s | F on | buckets off: layout guard | G 2.03%
+  f2b10 [f2 n5 TEST_BUCKET_BITS=10]: MATCH 0.28s | F on | buckets off: layout guard | G 2.03%
+  f2key_b7 [f2 n7 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=7]: MATCH 0.13s | F on | buckets off: layout guard | G 2.03%
+  f2off [f2 n2 F2=0]: MATCH 0.45s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.67s | F on | G 2.03%
+[b15w seed=15] window@w40d: auto buckets off: layout guard
+  notes: window w40d: {'window_start': '2028-02-17T00:00:00Z', 'window_end': '2028-03-28T00:00:00Z'} ; 53444 event lines shifted; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16454372; expected ncap 622592
+m2_b15w_window_w40d: MATCH
+  f2n2 [f2 n2]: MATCH 0.38s | F on | buckets off: layout guard | G 2.03%
+  f2n1 [f2 n1]: MATCH 0.27s | F on | buckets off: layout guard | G 2.03%
+  f2n8 [f2 n8]: MATCH 0.38s | F on | buckets off: layout guard | G 2.03%
+  f2b10 [f2 n5 TEST_BUCKET_BITS=10]: MATCH 0.39s | F on | buckets off: layout guard | G 2.03%
+  f2key_b12 [f2 n2 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=12]: MATCH 0.46s | F on | buckets off: layout guard | G 2.03%
+  f2off [f2 n2 F2=0]: MATCH 0.44s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.50s | F on | G 2.03%
+[b15w seed=15] window@w13d_late: auto buckets ON key=expected
+  notes: window w13d_late: {'window_start': '2028-02-17T05:00:00Z', 'window_end': '2028-03-01T05:00:03Z'} ; 0 event lines shifted; window edge events: 240; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16621161; expected ncap 622592
+m2_b15w_window_w13d_late: MATCH
+  f2n2 [f2 n2]: MATCH 0.29s | F on | B on ncap 622592/32768 | multi 46p/170e/1546ev | G 2.02% side 2883 gen 1
+  f2n1 [f2 n1]: MATCH 0.11s | F on | B on ncap 622592/32768 | multi 46p/170e/1546ev | G 2.02% side 2883 gen 1
+  f2n8 [f2 n8]: MATCH 0.16s | F on | B on ncap 622592/32768 | multi 46p/170e/1546ev | G 2.02% side 2883 gen 1
+  f2b8 [f2 n3 TEST_BUCKET_BITS=8]: MATCH 0.25s | F on | B on ncap 619776/256 | multi 643p/1454e/65431ev | G 2.02% side 2883 gen 1
+  f2key_b8 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=8]: MATCH 0.36s | F on | B on ncap 619776/256 | multi 643p/1454e/65431ev | G 2.02% side 2883 gen 1
+  f2off [f2 n2 F2=0]: MATCH 0.33s | F on | buckets off: SESSIONS_F2=0 | G 2.02%
+  f1n2 [f1 n2]: MATCH 0.27s | F on | G 2.02%
+[b15w seed=15] cats@255: auto buckets ?
+  notes: cats: 255 categories (names incl. [b'apparel', b'unknowm', b'unknown_', b'unknowo', b'uo', b'UNKNOWN', b'Unknown', b'unk']), 300 tie sessions; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16660322; expected ncap 622592
+m2_b15w_cats_255: MATCH
+  f2n2 [f2 n2]: MATCH 0.47s | 
+  f2n1 [f2 n1]: MATCH 0.57s | 
+  f2n8 [f2 n8]: MATCH 0.42s | 
+  f2b12 [f2 n5 TEST_BUCKET_BITS=12]: MATCH 0.52s | 
+  f2key_b9 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=9]: MATCH 0.68s | 
+  f2off [f2 n2 F2=0]: MATCH 0.70s | 
+  f1n2 [f1 n2]: MATCH 0.43s | 
+[b15w seed=15] cats@200: auto buckets ON key=expected
+  notes: cats: 200 categories (names incl. [b'apparel', b'unknowm', b'unknown_', b'unknowo', b'uo', b'UNKNOWN', b'Unknown', b'unk']), 300 tie sessions; keys: user 0xf55596d079 event 0xb43309a24e; E=200000; event bytes 16659549; expected ncap 622592
+m2_b15w_cats_200: MATCH
+  f2n2 [f2 n2]: MATCH 0.22s | F on | B on ncap 622592/32768 | multi 304p/983e/9460ev | G 2.03% side 8740 gen 236
+  f2n1 [f2 n1]: MATCH 0.27s | F on | B on ncap 622592/32768 | multi 304p/983e/9460ev | G 2.03% side 8740 gen 236
+  f2n8 [f2 n8]: MATCH 0.18s | F on | B on ncap 622592/32768 | multi 304p/983e/9460ev | G 2.03% side 8740 gen 236
+  f2b10 [f2 n3 TEST_BUCKET_BITS=10]: MATCH 0.17s | F on | B on ncap 621568/1024 | multi 463p/1321e/42631ev | G 2.03% side 8740 gen 236
+  f2key_b12 [f2 n4 TEST_EVENT_KEY=0xb43309a24e,TEST_BUCKET_BITS=12]: MATCH 0.20s | F on | B on ncap 622592/4096 | multi 341p/1061e/23033ev | G 2.03% side 8740 gen 236
+  f2off [f2 n2 F2=0]: MATCH 0.19s | F on | buckets off: SESSIONS_F2=0 | G 2.03%
+  f1n2 [f1 n2]: MATCH 0.22s | F on | G 2.03%

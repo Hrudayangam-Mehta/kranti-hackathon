@@ -1,0 +1,71 @@
+same-target runs: 165 of which mech targets: 116
+runs on mech targets: 116 ; target visible by geometry at run start: 113 ; with >= 2 visible candidates: 65
+candidate count distribution at run start: [(1, 49), (2, 39), (3, 19), (4, 7), (5, 2)]
+| type | runs (>=2 visible) | % nearest | % lowest HP | % lowest HP frac | % expected if random | runs with a recent attacker visible | % target is one of them | % target = last attacker |
+|---|---|---|---|---|---|---|---|---|
+| ALL | 65 | 70.77 | 47.69 | 47.69 | 41.77 | 29 | 72.41 | 62.07 |
+| expert | 9 | 88.89 | 55.56 | 55.56 | 46.30 | 2 | 100.00 | 100.00 |
+| hard | 11 | 54.55 | 45.45 | 45.45 | 42.42 | 6 | 83.33 | 33.33 |
+| medium | 7 | 85.71 | 42.86 | 28.57 | 39.29 | 2 | 0.00 | 0.00 |
+| brawler | 9 | 55.56 | 66.67 | 66.67 | 48.15 | 5 | 60.00 | 60.00 |
+| sniper | 16 | 56.25 | 31.25 | 31.25 | 34.79 | 6 | 66.67 | 66.67 |
+| thirdparty | 6 | 100.00 | 16.67 | 33.33 | 36.11 | 2 | 50.00 | 50.00 |
+| farmer | 7 | 85.71 | 85.71 | 85.71 | 50.00 | 6 | 100.00 | 100.00 |
+not-nearest choices: 19 ; of those chosen target is a recent attacker: 3 ; lowest HP: 8 ; distance ratio chosen/nearest median 1.48
+conflict cases (nearest is not the last attacker): 13 -> chose nearest 5, chose last attacker 2, other 6
+conflict cases (nearest is not the lowest HP): chose nearest 23, chose lowest HP 8
+runs on drones/crates and whether an enemy mech was visible (geometry) at run start:
+    ('crate', 'brawler', 'mech visible >130m') 1
+    ('crate', 'brawler', 'no mech visible') 3
+    ('crate', 'expert', 'mech visible <=130m') 1
+    ('crate', 'expert', 'mech visible >130m') 1
+    ('crate', 'expert', 'no mech visible') 2
+    ('crate', 'farmer', 'mech visible <=130m') 6
+    ('crate', 'farmer', 'mech visible >130m') 2
+    ('crate', 'farmer', 'no mech visible') 3
+    ('crate', 'hard', 'mech visible <=130m') 4
+    ('crate', 'hard', 'mech visible >130m') 2
+    ('crate', 'medium', 'mech visible >130m') 1
+    ('crate', 'medium', 'no mech visible') 3
+    ('crate', 'sniper', 'mech visible <=130m') 1
+    ('crate', 'sniper', 'mech visible >130m') 3
+    ('crate', 'thirdparty', 'mech visible >130m') 1
+    ('crate', 'thirdparty', 'no mech visible') 1
+    ('npc', 'expert', 'mech visible <=130m') 6
+    ('npc', 'expert', 'no mech visible') 2
+    ('npc', 'farmer', 'no mech visible') 1
+    ('npc', 'hard', 'mech visible <=130m') 1
+    ('npc', 'hard', 'no mech visible') 2
+    ('npc', 'medium', 'no mech visible') 1
+    ('npc', 'sniper', 'mech visible >130m') 1
+
+## stickiness: consecutive shots at the same mech target
+| type | runs | median shots | mean shots | median duration s | p90 duration | max |
+|---|---|---|---|---|---|---|
+| ALL | 116 | 4.00 | 7.34 | 1.90 | 11.45 | 31.50 |
+| expert | 19 | 7.00 | 6.58 | 3.30 | 8.24 | 11.60 |
+| hard | 16 | 6.00 | 11.38 | 3.25 | 17.05 | 31.50 |
+| medium | 15 | 2.00 | 5.13 | 0.40 | 9.74 | 13.80 |
+| brawler | 19 | 4.00 | 8.84 | 1.40 | 13.08 | 25.20 |
+| sniper | 24 | 3.00 | 4.75 | 0.85 | 7.99 | 11.30 |
+| thirdparty | 8 | 3.00 | 7.12 | 1.00 | 11.79 | 20.40 |
+| farmer | 15 | 6.00 | 8.53 | 4.50 | 9.88 | 22.90 |
+
+## why did the shooter switch away from a mech target?
+   old target out of sight (geometry) or >200 m            22
+   old visible: switched to drone/crate                    18
+   old visible: new is closer                              15
+   old target died                                         14
+   old visible: new is farther                             13
+   old visible: new is farther but hit me <3 s ago         1
+
+shots at mechs beyond 200 m: 1 ; beyond 230 m: 1 ; max range 236
+| type | runs | range at first shot p10 | p50 | p90 | max |
+|---|---|---|---|---|---|
+| expert | 19 | 47.08 | 69.87 | 133.44 | 192.63 |
+| hard | 16 | 47.15 | 85.04 | 166.49 | 188.56 |
+| medium | 15 | 44.33 | 74.20 | 169.81 | 236.16 |
+| brawler | 19 | 56.72 | 140.45 | 188.91 | 197.37 |
+| sniper | 24 | 48.41 | 125.84 | 182.90 | 191.15 |
+| thirdparty | 8 | 40.72 | 52.66 | 146.32 | 150.19 |
+| farmer | 15 | 85.54 | 124.39 | 148.28 | 172.73 |

@@ -1,0 +1,43 @@
+{
+ "matches": 60,
+ "meanScore": "2.97",
+ "FIGHT -> DISENGAGE/HEAL transitions (mech target)": 353,
+ "mean own hp fraction at the transition": "0.82",
+ "transitions that D3 would call LOSING": 12,
+ "by mechs with a line of fire [n, mean hp fraction, D3-LOSING]": {
+  "0": [
+   27,
+   "0.70",
+   0
+  ],
+  "1": [
+   144,
+   "0.78",
+   2
+  ],
+  "2": [
+   143,
+   "0.86",
+   3
+  ],
+  "3+": [
+   39,
+   "0.87",
+   7
+  ]
+ },
+ "with at most one mech having a line": 171,
+ "of those at hp >= 35%": 167,
+ "of those at hp >= 70%": 110,
+ "decisions in contact (listed mech target with a line on us)": 28720,
+ "of those where D3 says NOT losing": 23679,
+ "of those spent in DISENGAGE or HEAL": 3711,
+ "gun-only FIGHT decisions with a line, by range [<55, 55-95, 95-125, 125-160, 160-200, >200]": [
+  "0.11",
+  "0.26",
+  "0.39",
+  "0.13",
+  "0.09",
+  "0.01"
+ ]
+}

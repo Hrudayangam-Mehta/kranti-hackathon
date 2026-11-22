@@ -1,0 +1,19 @@
+[p20] reference rel15:rel15:2: rc=0 stdout=0B wall=12.2s user=4.6s sys=0.9s maxrss=2743MB
+[p20] f2n2:f2:2: MATCH rc=0 stdout=0B wall=12.4s user=3.2s sys=1.5s maxrss=2310MB user_daily_rows=2242393 | F on | B on ncap 55476224/32768 | multi 636p/1316e/1976332ev | G 0.98% side 87001 gen 93
+[p20] f2n8:f2:8: MATCH rc=0 stdout=0B wall=13.0s user=3.7s sys=2.0s maxrss=2334MB user_daily_rows=2242393 | F on | B on ncap 55476224/32768 | multi 636p/1316e/1976332ev | G 0.98% side 87001 gen 93
+[p20] f2G:f2:2:SESSIONS_LANE=G: MATCH rc=0 stdout=0B wall=14.7s user=4.4s sys=1.7s maxrss=2697MB user_daily_rows=2242393 | lane F off: SESSIONS_LANE=G | G 100.00%
+[p20] f2off:f2:2:SESSIONS_F2=0: MATCH rc=0 stdout=0B wall=16.1s user=4.6s sys=1.8s maxrss=2687MB user_daily_rows=2242393 | F on | buckets off: SESSIONS_F2=0 | G 0.98%
+[p20] f2b6:f2:2:SESSIONS_TEST_BUCKET_BITS=6: MATCH rc=0 stdout=0B wall=29.2s user=7.6s sys=3.2s maxrss=2782MB user_daily_rows=2242393 | F on | B on ncap 55447744/64 | multi 184762p/483483e/12927585ev | G 0.98% side 87001 gen 93
+[p20] f2b9:f2:3:SESSIONS_TEST_BUCKET_BITS=9: MATCH rc=0 stdout=0B wall=10.8s user=4.6s sys=2.2s maxrss=2407MB user_daily_rows=2242393 | F on | B on ncap 55448064/512 | multi 30075p/67461e/6997553ev | G 0.98% side 87001 gen 93
+[p20] f2scalar:f2:2:SESSIONS_SCALAR=1: MATCH rc=0 stdout=0B wall=18.3s user=7.3s sys=1.3s maxrss=2304MB user_daily_rows=2242393 | F on | B on ncap 55476224/32768 | multi 636p/1316e/1976332ev | G 0.98% side 87001 gen 93
+[p20] f1n2:f1:2: MATCH rc=0 stdout=0B wall=19.8s user=4.8s sys=1.6s maxrss=2696MB user_daily_rows=2242393 | F on | G 0.98%
+[p60] reference rel15:rel15:2: rc=0 stdout=0B wall=85.6s user=20.8s sys=5.3s maxrss=4740MB
+[p60] f2n2:f2:2: MATCH rc=0 stdout=0B wall=115.9s user=12.5s sys=4.2s maxrss=2557MB user_daily_rows=6643842 | F on | B on ncap 164364288/32768 | multi 1884p/3931e/6786445ev | G 0.80% side 160449 gen 295
+[p60] f2n8:f2:8: MATCH rc=0 stdout=0B wall=35.9s user=12.1s sys=4.8s maxrss=4006MB user_daily_rows=6643842 | F on | B on ncap 164364288/32768 | multi 1884p/3931e/6786445ev | G 0.80% side 160449 gen 295
+[p60] f1n2:f1:2: MATCH rc=0 stdout=0B wall=67.2s user=18.9s sys=6.9s maxrss=4305MB user_daily_rows=6643842 | F on | G 0.80%
+[whales15] reference rel15:rel15:2: rc=0 stdout=0B wall=2.9s user=2.2s sys=1.9s maxrss=1563MB
+[whales15] f2n2:f2:2: MATCH rc=0 stdout=0B wall=2.0s user=1.7s sys=0.2s maxrss=1294MB user_daily_rows=678830 | F on | B on ncap 32571392/32768 | multi 140p/558e/7741870ev | G 0.40% side 20440 gen 67
+[whales15] f2n8:f2:8: MATCH rc=0 stdout=0B wall=2.6s user=1.9s sys=0.8s maxrss=1313MB user_daily_rows=678830 | F on | B on ncap 32571392/32768 | multi 140p/558e/7741870ev | G 0.40% side 20440 gen 67
+[whales15] f2G:f2:2:SESSIONS_LANE=G: MATCH rc=0 stdout=0B wall=4.2s user=2.3s sys=1.8s maxrss=1560MB user_daily_rows=678830 | lane F off: SESSIONS_LANE=G | G 100.00%
+[whales15] f2off:f2:2:SESSIONS_F2=0: MATCH rc=0 stdout=0B wall=7.3s user=2.5s sys=1.2s maxrss=1512MB user_daily_rows=678830 | F on | buckets off: SESSIONS_F2=0 | G 0.40%
+[whales15] f1n2:f1:2: MATCH rc=0 stdout=0B wall=3.9s user=2.5s sys=0.8s maxrss=1514MB user_daily_rows=678830 | F on | G 0.40%

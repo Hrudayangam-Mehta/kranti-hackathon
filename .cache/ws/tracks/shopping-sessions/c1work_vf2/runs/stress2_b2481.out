@@ -1,0 +1,100 @@
+[s2b2481 seed=2481] plain: auto buckets ON key = expected
+s2_s2b2481_plain: MATCH
+  default [f2 n2]: MATCH 0.09s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  key_b6 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.21s | F on | B on ncap 880960/64 | multi 3072p/7512e/186723ev | G 2.12% side 4033 gen 0
+  key_b7 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.19s | F on | B on ncap 881024/128 | multi 1727p/3942e/146957ev | G 2.12% side 4033 gen 0
+  key_b8 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.11s | F on | B on ncap 881152/256 | multi 944p/2057e/112230ev | G 2.12% side 4033 gen 0
+  key_b10 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.09s | F on | B on ncap 881664/1024 | multi 257p/533e/59027ev | G 2.12% side 4033 gen 0
+  key_b12 [f2 n5 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.09s | F on | B on ncap 884736/4096 | multi 68p/136e/33200ev | G 2.12% side 4033 gen 0
+  key_b14 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.09s | F on | B on ncap 884736/16384 | multi 14p/28e/6753ev | G 2.12% side 4033 gen 0
+  key_b15 [f2 n5 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=15]: MATCH 0.09s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  ekey_xor1 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637e]: MATCH 0.11s | F on | B on ncap 884736/32768 | multi 9937p/288579e/288579ev | G 2.12% side 0 gen 288579
+  ekey_rand [f2 n3 TEST_EVENT_KEY=0xb9f8448e38]: MATCH 0.12s | F on | B on ncap 884736/32768 | multi 9937p/288579e/288579ev | G 2.12% side 0 gen 288579
+  ekey_ncap_small [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=100000]: MATCH 0.11s | F on | B on ncap 131072/32768 | multi 9352p/165106e/166318ev | G 2.12% side 4026 gen 165101
+  ekey_ncap1_b6 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=1,TEST_BUCKET_BITS=6]: MATCH 0.13s | F on | B on ncap 64/64 | multi 9937p/288517e/288579ev | G 2.12% side 0 gen 288516
+  twist_ekey_b8 [f2 n2 TEST_TWIST=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.11s | F on | B on ncap 881152/256 | multi 199p/505e/30035ev | G 81.35% side 4033 gen 0
+  ukey_gcap300_ekey [f2 n2 TEST_USER_KEY=0x49c7cba072,TEST_GCAP=300,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.11s | F on | B on ncap 884736/32768 | multi 2p/4e/1157ev | G 66.69% side 206868 gen 0
+  ukey_wrong_ekey [f2 n3 TEST_USER_KEY=0x49c7cba073,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.10s | F on | B on ncap 884736/32768 | multi 0p/0e/0ev | G 100.00% side 312353 gen 0
+  scalar [f2 n2 SCALAR=1]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 7p/14e/1318ev | G 2.12% side 4033 gen 0
+  scalar_ekey_b6 [f2 n1 SCALAR=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.20s | F on | B on ncap 880960/64 | multi 3072p/7512e/186723ev | G 2.12% side 4033 gen 0
+  slow [f2 n2 PATH=slow]: MATCH 0.46s | 
+[s2b2481 seed=2481] m2:interleave: auto buckets ON key = expected
+s2_s2b2481_m2_interleave: MATCH
+  default [f2 n2]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 159p/22157e/26645ev | G 2.12% side 4033 gen 0
+  key_b6 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.20s | F on | B on ncap 880832/64 | multi 3167p/29240e/188068ev | G 2.12% side 4033 gen 0
+  key_b7 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.11s | F on | B on ncap 880896/128 | multi 1848p/25877e/149010ev | G 2.12% side 4033 gen 0
+  key_b8 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.14s | F on | B on ncap 880896/256 | multi 1078p/24098e/114771ev | G 2.12% side 4033 gen 0
+  key_b10 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.09s | F on | B on ncap 881664/1024 | multi 400p/22646e/63362ev | G 2.12% side 4033 gen 0
+  key_b12 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.10s | F on | B on ncap 884736/4096 | multi 215p/22269e/38792ev | G 2.12% side 4033 gen 0
+  key_b14 [f2 n5 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.09s | F on | B on ncap 884736/16384 | multi 165p/22169e/27544ev | G 2.12% side 4033 gen 0
+  key_b15 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=15]: MATCH 0.21s | F on | B on ncap 884736/32768 | multi 159p/22157e/26645ev | G 2.12% side 4033 gen 0
+  ekey_xor1 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637e]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 9937p/288579e/288579ev | G 2.12% side 0 gen 288579
+  ekey_rand [f2 n3 TEST_EVENT_KEY=0x979081a7db]: MATCH 0.27s | F on | B on ncap 884736/32768 | multi 9937p/288579e/288579ev | G 2.12% side 0 gen 288579
+  ekey_ncap_small [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=100000]: MATCH 0.18s | F on | B on ncap 131072/32768 | multi 9365p/185033e/189079ev | G 2.12% side 4026 gen 165101
+  ekey_ncap1_b6 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=1,TEST_BUCKET_BITS=6]: MATCH 0.15s | F on | B on ncap 64/64 | multi 9937p/288573e/288579ev | G 2.12% side 0 gen 288515
+  twist_ekey_b8 [f2 n2 TEST_TWIST=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.11s | F on | B on ncap 880896/256 | multi 202p/557e/30138ev | G 81.35% side 4033 gen 0
+  ukey_gcap300_ekey [f2 n2 TEST_USER_KEY=0x49c7cba072,TEST_GCAP=300,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.11s | F on | B on ncap 884736/32768 | multi 15p/19931e/23918ev | G 66.69% side 206868 gen 0
+  ukey_wrong_ekey [f2 n3 TEST_USER_KEY=0x49c7cba073,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 0p/0e/0ev | G 100.00% side 312353 gen 0
+  scalar [f2 n2 SCALAR=1]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 159p/22157e/26645ev | G 2.12% side 4033 gen 0
+  scalar_ekey_b6 [f2 n1 SCALAR=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.14s | F on | B on ncap 880832/64 | multi 3167p/29240e/188068ev | G 2.12% side 4033 gen 0
+  slow [f2 n2 PATH=slow]: MATCH 0.38s | 
+[s2b2481 seed=2481] m2:oddmix: auto buckets ON key = expected
+s2_s2b2481_m2_oddmix: MATCH
+  default [f2 n2]: MATCH 0.11s | F on | B on ncap 884736/32768 | multi 1211p/2834e/107987ev | G 5.03% side 4033 gen 0
+  key_b6 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.35s | F on | B on ncap 881216/64 | multi 3613p/9537e/190653ev | G 5.03% side 4033 gen 0
+  key_b7 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.14s | F on | B on ncap 881280/128 | multi 2469p/6240e/158888ev | G 5.03% side 4033 gen 0
+  key_b8 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.14s | F on | B on ncap 881408/256 | multi 1858p/4559e/136351ev | G 5.03% side 4033 gen 0
+  key_b10 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.11s | F on | B on ncap 881664/1024 | multi 1372p/3258e/115821ev | G 5.03% side 4033 gen 0
+  key_b12 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.10s | F on | B on ncap 884736/4096 | multi 1243p/2926e/109313ev | G 5.03% side 4033 gen 0
+  key_b14 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.11s | F on | B on ncap 884736/16384 | multi 1216p/2846e/108358ev | G 5.03% side 4033 gen 0
+  key_b15 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=15]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 1211p/2834e/107987ev | G 5.03% side 4033 gen 0
+  ekey_xor1 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637e]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 9792p/280058e/280058ev | G 5.03% side 0 gen 280058
+  ekey_rand [f2 n3 TEST_EVENT_KEY=0x48224548e3]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 9792p/280058e/280058ev | G 5.03% side 0 gen 280058
+  ekey_ncap_small [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=100000]: MATCH 0.12s | F on | B on ncap 131072/32768 | multi 9514p/163635e/249276ev | G 5.03% side 3991 gen 163233
+  ekey_ncap1_b6 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=1,TEST_BUCKET_BITS=6]: MATCH 0.12s | F on | B on ncap 64/64 | multi 9792p/279996e/280058ev | G 5.03% side 0 gen 279995
+  twist_ekey_b8 [f2 n2 TEST_TWIST=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.11s | F on | B on ncap 881408/256 | multi 315p/908e/34953ev | G 81.84% side 4033 gen 0
+  ukey_gcap300_ekey [f2 n2 TEST_USER_KEY=0x49c7cba072,TEST_GCAP=300,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.13s | F on | B on ncap 884736/32768 | multi 196p/708e/77327ev | G 68.74% side 206988 gen 0
+  ukey_wrong_ekey [f2 n3 TEST_USER_KEY=0x49c7cba073,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.15s | F on | B on ncap 884736/32768 | multi 0p/0e/0ev | G 100.00% side 312475 gen 0
+  scalar [f2 n2 SCALAR=1]: MATCH 0.15s | F on | B on ncap 884736/32768 | multi 1211p/2834e/107987ev | G 5.03% side 4033 gen 0
+  scalar_ekey_b6 [f2 n1 SCALAR=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.20s | F on | B on ncap 881216/64 | multi 3613p/9537e/190653ev | G 5.03% side 4033 gen 0
+  slow [f2 n2 PATH=slow]: MATCH 0.39s | 
+[s2b2481 seed=2481] m2:cats: auto buckets ON key = expected
+s2_s2b2481_m2_cats: MATCH
+  default [f2 n2]: MATCH 0.27s | F on | B on ncap 884736/32768 | multi 304p/999e/10349ev | G 2.11% side 5957 gen 226
+  key_b6 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.31s | F on | B on ncap 882752/64 | multi 3269p/8398e/190499ev | G 2.11% side 5957 gen 228
+  key_b7 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.23s | F on | B on ncap 882816/128 | multi 1964p/4868e/152018ev | G 2.11% side 5957 gen 228
+  key_b8 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.30s | F on | B on ncap 882944/256 | multi 1208p/3010e/118413ev | G 2.11% side 5957 gen 228
+  key_b10 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.30s | F on | B on ncap 883712/1024 | multi 545p/1510e/67568ev | G 2.11% side 5957 gen 227
+  key_b12 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.27s | F on | B on ncap 884736/4096 | multi 362p/1118e/41932ev | G 2.11% side 5957 gen 226
+  key_b14 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.23s | F on | B on ncap 884736/16384 | multi 310p/1012e/15764ev | G 2.11% side 5957 gen 226
+  key_b15 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=15]: MATCH 0.28s | F on | B on ncap 884736/32768 | multi 304p/999e/10349ev | G 2.11% side 5957 gen 226
+  ekey_xor1 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637e]: MATCH 0.43s | F on | B on ncap 884736/32768 | multi 9937p/289268e/289268ev | G 2.11% side 0 gen 289268
+  ekey_rand [f2 n3 TEST_EVENT_KEY=0x807166d305]: MATCH 0.31s | F on | B on ncap 884736/32768 | multi 9937p/289268e/289268ev | G 2.11% side 0 gen 289268
+  ekey_ncap_small [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=100000]: MATCH 0.21s | F on | B on ncap 131072/32768 | multi 9373p/165816e/169986ev | G 2.11% side 4778 gen 165790
+  ekey_ncap1_b6 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=1,TEST_BUCKET_BITS=6]: MATCH 0.23s | F on | B on ncap 64/64 | multi 9937p/289206e/289268ev | G 2.11% side 1 gen 289205
+  twist_ekey_b8 [f2 n2 TEST_TWIST=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.15s | F on | B on ncap 882944/256 | multi 245p/687e/31965ev | G 81.35% side 5957 gen 52
+  ukey_gcap300_ekey [f2 n2 TEST_USER_KEY=0x49c7cba072,TEST_GCAP=300,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.14s | F on | B on ncap 884736/32768 | multi 11p/35e/3144ev | G 66.76% side 207937 gen 6
+  ukey_wrong_ekey [f2 n3 TEST_USER_KEY=0x49c7cba073,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.23s | F on | B on ncap 884736/32768 | multi 0p/0e/0ev | G 100.00% side 312820 gen 0
+  scalar [f2 n2 SCALAR=1]: MATCH 0.29s | F on | B on ncap 884736/32768 | multi 304p/999e/10349ev | G 2.11% side 5957 gen 226
+  scalar_ekey_b6 [f2 n1 SCALAR=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.40s | F on | B on ncap 882752/64 | multi 3269p/8398e/190499ev | G 2.11% side 5957 gen 228
+  slow [f2 n2 PATH=slow]: MATCH 0.55s | 
+[s2b2481 seed=2481] m2:boundary: auto buckets ON key = expected
+s2_s2b2481_m2_boundary: MATCH
+  default [f2 n2]: MATCH 0.35s | F on | B on ncap 884736/32768 | multi 61p/123e/3346ev | G 2.12% side 4033 gen 4
+  key_b6 [f2 n8 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.31s | F on | B on ncap 881216/64 | multi 3106p/7601e/187325ev | G 2.12% side 4033 gen 6
+  key_b7 [f2 n1 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=7]: MATCH 0.11s | F on | B on ncap 881280/128 | multi 1771p/4041e/147857ev | G 2.12% side 4033 gen 6
+  key_b8 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.10s | F on | B on ncap 881408/256 | multi 991p/2159e/113226ev | G 2.12% side 4033 gen 6
+  key_b10 [f2 n5 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=10]: MATCH 0.11s | F on | B on ncap 881664/1024 | multi 309p/640e/60432ev | G 2.12% side 4033 gen 6
+  key_b12 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=12]: MATCH 0.17s | F on | B on ncap 884736/4096 | multi 122p/245e/35228ev | G 2.12% side 4033 gen 4
+  key_b14 [f2 n5 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=14]: MATCH 0.21s | F on | B on ncap 884736/16384 | multi 68p/137e/8781ev | G 2.12% side 4033 gen 4
+  key_b15 [f2 n3 TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=15]: MATCH 0.14s | F on | B on ncap 884736/32768 | multi 61p/123e/3346ev | G 2.12% side 4033 gen 4
+  ekey_xor1 [f2 n2 TEST_EVENT_KEY=0xe3d4a8637e]: MATCH 0.24s | F on | B on ncap 884736/32768 | multi 9937p/288634e/288634ev | G 2.12% side 0 gen 288634
+  ekey_rand [f2 n3 TEST_EVENT_KEY=0xee466d4302]: MATCH 0.22s | F on | B on ncap 884736/32768 | multi 9937p/288634e/288634ev | G 2.12% side 0 gen 288634
+  ekey_ncap_small [f2 n2 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=100000]: MATCH 0.24s | F on | B on ncap 131072/32768 | multi 9355p/165164e/167212ev | G 2.12% side 4026 gen 165156
+  ekey_ncap1_b6 [f2 n4 TEST_EVENT_KEY=0xe3d4a8637f,TEST_NCAP=1,TEST_BUCKET_BITS=6]: MATCH 0.31s | F on | B on ncap 64/64 | multi 9937p/288572e/288634ev | G 2.12% side 0 gen 288571
+  twist_ekey_b8 [f2 n2 TEST_TWIST=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=8]: MATCH 0.23s | F on | B on ncap 881408/256 | multi 212p/535e/30607ev | G 81.35% side 4033 gen 3
+  ukey_gcap300_ekey [f2 n2 TEST_USER_KEY=0x49c7cba072,TEST_GCAP=300,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.24s | F on | B on ncap 884736/32768 | multi 4p/8e/1896ev | G 66.69% side 206967 gen 0
+  ukey_wrong_ekey [f2 n3 TEST_USER_KEY=0x49c7cba073,TEST_EVENT_KEY=0xe3d4a8637f]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 0p/0e/0ev | G 100.00% side 312459 gen 0
+  scalar [f2 n2 SCALAR=1]: MATCH 0.17s | F on | B on ncap 884736/32768 | multi 61p/123e/3346ev | G 2.12% side 4033 gen 4
+  scalar_ekey_b6 [f2 n1 SCALAR=1,TEST_EVENT_KEY=0xe3d4a8637f,TEST_BUCKET_BITS=6]: MATCH 0.37s | F on | B on ncap 881216/64 | multi 3106p/7601e/187325ev | G 2.12% side 4033 gen 6
+  slow [f2 n2 PATH=slow]: MATCH 0.55s | 

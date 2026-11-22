@@ -1,0 +1,11 @@
+PASS  S1 base: FFA latched at decision 6 (three foreign deaths at once)  ::  env SSSSSSFFFFFFFFFF
+PASS  S1 ckpt_08 with override: layer on 0-5, off from 6, latch at 6  ::  on 1111110000000000 env SSSSSSFFFFFFFFFF
+FAIL  S1 (a) no override value is read in the FFA posture (decision 6 onward)  ::  6 reads in FFA posture: rPrefGun via bandFor (tactics.js:113:30); bandLo via bandFor (tactics.js:113:58); rPrefGun via bandFor (tactics.js:113:68); bandHi via bandFor (tactics.js:113:97); rPrefGun via bandFor (tactics.js:113:107); ffaThree via applyStance (stance.js:160:11); decisions 6
+FAIL  S1 (b) ckpt_08 equals the ideal-revert instrument (an override cannot change a decision after the latch)  ::  first difference at decision 6: ckpt_08 {"move":[0,-1],"boost":false,"aim":[0.0018281229634480312,0.010012149438916025],"fire":[true,false]}|FIGHT|standoff|DEFENSIVE|90,130,110  vs ideal {"move":[0,-1],"boost":false,"aim":[0.0018281229634480312,0.010012149438916025],"fire":[true,false]}|FIGHT|standoff|DEFENSIVE|55,95,75; differing decisions 1 of 16
+FAIL  S1b candidate bandHi 115: not read in the FFA posture, ckpt_08 equals ideal-revert  ::  reads in FFA posture 1 (bandHi@6 via bandFor (tactics.js:113:97)); first output difference 6: {"move":[0,-1],"boost":false,"aim":[0.0018281229634480312,0.010012149438916025],"fire":[true,false]}|FIGHT|standoff|DEFENSIVE|55,115,75 vs {"move":[0,-1],"boost":false,"aim":[0.0018281229634480312,0.010012149438916025],"fire":[true,false]}|FIGHT|standoff|DEFENSIVE|55,95,75
+PASS  S2 base: one foreign death closes the gate and does NOT latch FFA  ::  env SSSSSSSSSSSSSSSS
+FAIL  S2 sqOverrides { ffaLatchDeaths: 1 } (accepted by checkSqOverrides) must not change the posture  ::  env with override SSSSSSFFFFFFFFFF (FFA from decision 6); layer on 1111110000000000; differing decisions 1 of 16
+PASS  S3 base: gate closes at the first foreign death (6), FFA latch at the third (12)  ::  env SSSSSSSSSSSSFFFFFFFF, foreign deaths 3
+FAIL  S3 sqOverrides { ffaLatchT: 0 } (accepted) must still close the gate at the first foreign death and keep the latch  ::  layer on 11111111111111111111; env SSSSSSSSSSSSSSSSSSSS; B.foreignDeaths 0; twFlips 1; differing decisions 13 of 20
+
+4/9 verifier scene checks passed

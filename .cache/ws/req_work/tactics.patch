@@ -1,0 +1,30 @@
+--- a/lib/tactics.js	2026-11-21 08:14:26.339430052 +0000
++++ b/lib/tactics.js	2026-11-21 08:04:31.438867748 +0000
+@@ -58,7 +58,7 @@
+       if (d < 120 && tr.conf > 0.3) n120++
+       if (!nearestMech && tr.conf > 0.3) nearestMech = tr
+       // D0 hostility: damaged us in the last 4 s, or aims within 12 deg of us with a line of fire inside 160 m
+-      if (tr.aimAtMe && tr.losIn && d <= P.hostileAimR) tr.hostileAimT = t
++      if (tr.aimAtMe && tr.losIn && d <= P.hostileAimR && !(B.steal && B.steal.aimExplained(tr))) tr.hostileAimT = t   // R1: shooting a crate by us is not aiming at us
+       if (tr.charging && tr.losIn && Math.abs(angDiff(wrapPi(tr.bearing + Math.PI), tr.yaw)) < P.laserReactRad) tr.chargeAtMeT = t
+       tr.hostile = t - tr.lastDmgInT <= P.hostileDmgS || t - tr.hostileAimT <= P.hostileAimMemS
+       if (tr.hostile) anyHostile = true
+@@ -146,8 +146,9 @@
+       tr.cand = true
+     } else {
+       tr.finishable = burstDamage(B, tr) >= tr.hp
++      if (B.steal && B.steal.busyWith(tr)) continue            // R1: the non-hostile shooter of the crate we are taking
+       const ok = tr.hostile || (!opening && !ffa && tr.dist <= band) || unengaged || (tr === B.target && t - tr.lastDmgOutT < 5) ||
+-        (ffa && B.ffaOpen && (tr.finishable || (tr.hp < 0.5 * tr.maxHp && !tr.aimAtMe)))
++        (ffa && B.ffaOpen && (tr.finishable || (tr.hp < 0.5 * tr.maxHp && !tr.aimAtMe))) || (ffa && !!B.steal && B.steal.thirdParty(tr))   // R1b
+       if (!ok) continue
+     }
+     candBuf.push(tr)
+@@ -195,6 +196,7 @@
+     B.counters.aimVetoes = (B.counters.aimVetoes || 0) + 1
+   } else B.vetoT = -1
+   if (att && pick && pick.npc) pick = att
++  if (B.scanner) pick = B.scanner.rearPick(pick)              // R2: face a mech that hits our rear
+   setTarget(B, pick)
+   B.killSecure = !!(pick && pick.secure)
+ }

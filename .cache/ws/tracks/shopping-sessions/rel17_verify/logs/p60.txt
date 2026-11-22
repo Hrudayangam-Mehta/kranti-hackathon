@@ -1,0 +1,18 @@
+p60 rel17 NCPU=8: exit=0 stdout_bytes=0 files=112/4 user=16.85 sys=6.70 maxrss=3.20GB wall=59.8s
+   stderr: surviving events 58878508, user_daily rows 6643842 | sessions 10048041 / 10048041, revenue 27294794736 / 27294794736, assisted 103904934 >= 6198406 | event copies 64214725, winners 58878508, clicks 15348324, linked 55180, exotic 0
+MemAvailable before rel16: 13.2 GB
+p60 rel16 NCPU=8: exit=0 stdout_bytes=0 files=104/1 user=16.97 sys=7.10 maxrss=8.31GB wall=40.4s
+   stderr: surviving events 58878508, user_daily rows 6643842 | sessions 10048041 / 10048041, revenue 27294794736 / 27294794736, assisted 103904934 >= 6198406 | event copies 64214725, winners 58878508, clicks 15348324, linked 55180, exotic 0
+compare rel17 vs rel16 both ways: MATCH/MATCH
+user_daily: rows 6643842 vs 6643842; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+user_daily: rows 6643842 vs 6643842; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+
+user_daily: rows 6643842 vs 6643842, files 112 vs 104, sorted-row sha256 e9459e5025f32616 vs e9459e5025f32616: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 1, sorted-row sha256 bb2e628ea648bd4b vs bb2e628ea648bd4b: IDENTICAL
+ROWDIFF IDENTICAL
+
+done

@@ -1,0 +1,91 @@
+gun hit amounts: (shooter cubes at hit time, gun_damage ups, dst kind, rear, dst armor ups, amt) -> n
+   (0, 0, 'crate', False, 0, 30) 9 pred 45.00 <-- MISMATCH
+   (0, 0, 'crate', False, 0, 45) 59 pred 45.00 
+   (0, 0, 'mech', False, 0, 13.2) 1 pred 45.00 <-- MISMATCH
+   (0, 0, 'mech', False, 0, 45) 69 pred 45.00 
+   (0, 0, 'mech', True, 0, 67.5) 6 pred 67.50 
+   (0, 0, 'npc', False, 0, 35) 5 pred 45.00 <-- MISMATCH
+   (0, 0, 'npc', False, 0, 45) 35 pred 45.00 
+   (1, 0, 'crate', False, 0, 19.2) 1 pred 46.80 <-- MISMATCH
+   (1, 0, 'crate', False, 0, 24.6) 1 pred 46.80 <-- MISMATCH
+   (1, 0, 'crate', False, 0, 46.8) 13 pred 46.80 
+   (1, 0, 'mech', False, 0, 32.13) 1 pred 46.80 <-- MISMATCH
+   (1, 0, 'mech', False, 0, 46.8) 69 pred 46.80 
+   (1, 0, 'mech', False, 1, 43.06) 1 pred 43.06 
+   (1, 0, 'mech', True, 0, 50.45) 1 pred 70.20 <-- MISMATCH
+   (1, 0, 'mech', True, 0, 70.2) 9 pred 70.20 
+   (1, 0, 'mech', True, 1, 64.58) 2 pred 64.58 
+   (1, 0, 'npc', False, 0, 22.4) 2 pred 46.80 <-- MISMATCH
+   (1, 0, 'npc', False, 0, 46.8) 14 pred 46.80 
+   (1, 1, 'mech', True, 0, 80.73) 1 pred 80.73 
+   (12, 2, 'mech', False, 0, 83.32) 9 pred 83.32 
+   (12, 2, 'mech', True, 0, 124.98) 1 pred 124.98 
+   (15, 2, 'mech', False, 0, 83.32) 8 pred 83.32 
+   (2, 0, 'crate', False, 0, 8.4) 1 pred 48.60 <-- MISMATCH
+   (2, 0, 'crate', False, 0, 48.6) 15 pred 48.60 
+   (2, 0, 'mech', False, 0, 48.6) 70 pred 48.60 
+   (2, 0, 'mech', False, 1, 44.71) 13 pred 44.71 
+   (2, 0, 'mech', True, 0, 72.9) 7 pred 72.90 
+   (2, 0, 'mech', True, 1, 67.07) 1 pred 67.07 
+   (2, 1, 'crate', False, 0, 55.89) 1 pred 55.89 
+   (2, 1, 'mech', False, 0, 8.51) 1 pred 55.89 <-- MISMATCH
+   (2, 1, 'mech', False, 0, 55.89) 18 pred 55.89 
+   (2, 1, 'mech', True, 0, 83.84) 6 pred 83.84 
+   (2, 1, 'npc', False, 0, 55.89) 6 pred 55.89 
+   (3, 0, 'mech', False, 0, 43.67) 1 pred 50.40 <-- MISMATCH
+   (3, 0, 'mech', False, 0, 50.4) 40 pred 50.40 
+   (3, 0, 'mech', True, 0, 75.6) 8 pred 75.60 
+   (3, 0, 'npc', False, 0, 14.66) 1 pred 50.40 <-- MISMATCH
+   (3, 1, 'crate', False, 0, 57.96) 3 pred 57.96 
+   (4, 0, 'mech', False, 0, 46.8) 1 pred 52.20 <-- MISMATCH
+   (4, 0, 'mech', False, 0, 52.2) 1 pred 52.20 
+   (4, 1, 'mech', False, 0, 60.03) 5 pred 60.03 
+   (5, 1, 'mech', False, 0, 26.1) 1 pred 62.10 <-- MISMATCH
+   (5, 1, 'mech', False, 0, 62.1) 18 pred 62.10 
+   (5, 1, 'mech', True, 0, 88.63) 1 pred 93.15 <-- MISMATCH
+   (5, 1, 'mech', True, 0, 93.15) 12 pred 93.15 
+   (8, 0, 'crate', False, 0, 59.4) 5 pred 59.40 
+   (8, 0, 'mech', False, 0, 59.4) 15 pred 59.40 
+   (8, 0, 'mech', True, 0, 89.1) 5 pred 89.10 
+   (9, 0, 'mech', False, 0, 61.2) 10 pred 61.20 
+   (9, 0, 'mech', False, 1, 50.03) 1 pred 56.30 <-- MISMATCH
+   (9, 0, 'mech', False, 1, 56.3) 17 pred 56.30 
+   (None, 0, 'mech', False, 0, 37.26) 1 pred 45.00 <-- MISMATCH
+   (None, 0, 'mech', False, 0, 45) 1 pred 45.00 
+   (None, 0, 'mech', False, 0, 61.2) 1 pred 45.00 <-- MISMATCH
+max_hp table (cubes, plating ups, max_hp):
+   (0, 0, 1400) 1432 pred 1400.0
+   (1, 0, 1456) 1689 pred 1456.0
+   (1, 1, 1674) 174 pred 1674.4
+   (2, 0, 1512) 1188 pred 1512.0
+   (2, 1, 1739) 313 pred 1738.8
+   (3, 0, 1568) 521 pred 1568.0
+   (3, 1, 1803) 1 pred 1803.2
+   (3, 2, 2074) 80 pred 2073.7
+   (4, 0, 1624) 154 pred 1624.0
+   (4, 1, 1868) 12 pred 1867.6
+   (5, 0, 1680) 259 pred 1680.0
+   (6, 0, 1736) 48 pred 1736.0
+   (7, 0, 1792) 3 pred 1792.0
+   (8, 0, 1848) 162 pred 1848.0
+   (9, 0, 1904) 9 pred 1904.0
+   (9, 2, 2518) 290 pred 2518.0
+   (11, 0, 1960) 1 pred 1960.0
+   (12, 0, 1960) 130 pred 1960.0
+   (15, 0, 1960) 117 pred 1960.0
+   (16, 0, 1960) 6 pred 1960.0
+npc hit amts Counter({(25, False): 26, (37.5, True): 5, (23, False): 4})
+zone hit amts by time(s) bucket: [((1.75, 175), 29), ((1.75, 180), 100), ((1.75, 185), 100), ((1.75, 190), 100), ((1.75, 195), 1), ((3, 195), 99), ((3, 200), 100), ((3, 205), 93), ((2.5, 205), 1)]
+zone hit tick spacing [(1, 622)]
+lightning hit amts Counter({(9, 101.64, False, 'm'): 18, (9, 79.2, False, 'm'): 13, (9, 60, False, 'n'): 5, (9, 64.8, False, 'c'): 3, (9, 50, False, 'n'): 1, (9, 49.71, False, 'c'): 1, (9, 73.92, False, 'c'): 1, (9, 7.2, False, 'c'): 1, (12, 8.4, False, 'c'): 1, (9, 118.8, True, 'm'): 1, (9, 64.2, False, 'c'): 1, (9, 21.98, False, 'm'): 1})
+crate total damage at destruction: [300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0, 300.0]
+crates destroyed 16 of 36; crates damaged but not destroyed: {1004: 45.0, 1032: 48.6, 1007: 48.6, 1001: 297.0}
+npc damage totals (dead ones): {109: 350.0, 106: 350.0, 105: 350.0, 103: 350.0, 100: 350.0, 107: 350.0, 104: 350.0, 101: 350.0, 111: 350.0} npc deaths [(106, 6, 62), (109, 13, 65), (105, 10, 66), (103, 0, 113), (100, 9, 287), (107, 8, 587), (101, 14, 894), (104, 7, 954), (111, 5, 1937)]
+HP regen rate with 0 nanites: modes [(50, 1135), (40, 1132), (20, 22), (30, 6)] n 2295
+   regen onset: frame time since last damage dealt-or-taken: min 0.15 p10 0.23 p50 5.00 ; n 66
+   onset list (since any / since taken / since dealt): [(0.15, 6.5, 0.15), (0.15, 7.4, 0.15), (0.15, 7.7, 0.15), (0.15, 28.6, 0.15), (0.2, 5.8, 0.2), (0.2, 6.2, 0.2), (0.2, 6.9, 0.2), (0.25, 5.9, 0.25), (0.7, 5.0, 0.7), (0.85, 5.1, 0.85), (0.95, 5.6, 0.95), (1.15, 5.0, 1.15), (1.95, 9.5, 1.95), (3.15, 13.1, 3.15), (3.85, 11.4, 3.85), (5.0, 5.0, 5.0), (5.0, 5.0, 5.05), (5.0, 5.0, 5.1), (5.0, 5.0, 5.15), (5.0, 5.0, 5.25), (5.0, 5.0, 5.5), (5.0, 5.0, 8.2), (5.0, 5.0, 9.7), (5.0, 5.0, 12.95), (5.0, 5.0, 13.9)]
+HP regen rate with 1 nanites: modes [(70, 284), (80, 73), (30, 4), (40, 2)] n 363
+   regen onset: frame time since last damage dealt-or-taken: min 3.50 p10 3.50 p50 3.50 ; n 8
+   onset list (since any / since taken / since dealt): [(3.5, 3.5, 4.0), (3.5, 3.5, 13.2), (3.5, 3.6, 3.5), (3.5, 4.65, 3.5), (3.5, 9.9, 3.5), (3.5, 20.25, 3.5), (3.55, 3.55, 14.55), (4.8, 10.8, 4.8)]
+drop take {'t': 2145, 'e': 'drop', 'op': 'take', 'id': 20000, 'by': 3} before 1322 95 1 1456 after 1624 99 4 1624
+drop take {'t': 3461, 'e': 'drop', 'op': 'take', 'id': 20001, 'by': 9} before 1021 100 12 1960 after 1960 100 15 1960

@@ -1,0 +1,8 @@
+PASS  D2 gun only: from 150 m settles inside 55-95; from 40 m backs off to >= 55 at stick ~0.7  ::  from 150: last 5 s 95-95 m | from 40: last 5 s 56-57 m, radial stick while inside 55 m -0.57 (n 22)
+   info: gun only from 150 m ends at 95 m (hold 75 is a dead band 55-95: no radial motion inside it); from 75 m stays 76-77 m
+PASS  D2 laser (far): 150 m holds 125-185; from 100 m backs off past 125; boost away inside 90 m with energy > 30  ::  from 150: 151-151 | from 100: 126-126 | from 60: boost on 28/28 decisions inside 90 m
+PASS  D2 laser preset mid: band 100-130  ::  from 150: 130-130 | from 80: 101-101
+PASS  D2 lightning without laser: lone target -> closes into the 20-34 m band around 28 m, boosting from < 90 m; second threat in sight (114 m, hitting us) -> no rush  ::  lone: closest 33 m, boost decisions between 40 and 90 m 21 | with a second mech: closest to target 95 m
+PASS  D2 gun gate: no shots at an unsteady target with flight > 0.55 s, shots at a steady one  ::  unsteady 170 m: 0 shots / 10 s | steady 170 m: 24 shots
+PASS  D4 strafe reversals: default ~1 per 1.2 s; preset fast more often  ::  40 s at 75 m: default 33 reversals (expected 25-50), fast 49
+FAIL  D4 bullet dodge: a bullet on course changes our velocity during its flight (paired run); one passing 9 m off does not  ::  on course: dodge decisions 1, velocity change up to 0.3 m/s (perpendicular 0.0) within 0.6 s | 9 m off: dodges 0, velocity change 0.00 m/s

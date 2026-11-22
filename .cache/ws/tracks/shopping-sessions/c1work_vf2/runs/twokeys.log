@@ -1,0 +1,28 @@
+[B20k Alast] twokeys_B20k_Alast: MATCH
+  n2_auto [f2 n2]: MATCH 0.07s | F on | B on ncap 294912/32768 | multi 0p/0e/0ev | G 27.20% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.07s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n5_auto [f2 n5]: MATCH 0.08s | F on | B on ncap 294912/32768 | multi 0p/0e/0ev | G 27.20% side 1378 gen 0
+  b7 [f2 n8 TEST_BUCKET_BITS=7]: MATCH 0.10s | F on | B on ncap 286848/128 | multi 379p/820e/26993ev | G 27.20% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.17s | F on | buckets off: SESSIONS_F2=0 | G 27.20%
+  f1 [f1 n2]: MATCH 0.06s | F on | G 27.20%
+[B20k Bfirst] twokeys_B20k_Bfirst: MATCH
+  n2_auto [f2 n2]: MATCH 0.08s | lane F off: no key candidate passed | G 100.00%
+  n2_G [f2 n2 LANE=G]: MATCH 0.05s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n5_auto [f2 n5]: MATCH 0.10s | lane F off: no key candidate passed | G 100.00%
+  b10 [f2 n1 TEST_BUCKET_BITS=10]: MATCH 0.15s | lane F off: no key candidate passed | G 100.00%
+  f2off [f2 n2 F2=0]: MATCH 0.15s | lane F off: no key candidate passed | G 100.00%
+  f1 [f1 n2]: MATCH 0.11s | lane F off: no key candidate passed | G 100.00%
+[B300k Alast] twokeys_B300k_Alast: MATCH
+  n2_auto [f2 n2]: MATCH 0.13s | F on | B on ncap 1081344/32768 | multi 0p/0e/0ev | G 83.84% side 1378 gen 0
+  n2_G [f2 n2 LANE=G]: MATCH 0.11s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n5_auto [f2 n5]: MATCH 0.12s | F on | B on ncap 1081344/32768 | multi 0p/0e/0ev | G 83.84% side 1378 gen 0
+  b7 [f2 n6 TEST_BUCKET_BITS=7]: MATCH 0.13s | F on | B on ncap 1061760/128 | multi 379p/820e/26993ev | G 83.84% side 1378 gen 0
+  f2off [f2 n2 F2=0]: MATCH 0.22s | F on | buckets off: SESSIONS_F2=0 | G 83.84%
+  f1 [f1 n2]: MATCH 0.12s | F on | G 83.84%
+[B300k Bfirst] twokeys_B300k_Bfirst: MATCH
+  n2_auto [f2 n2]: MATCH 0.11s | F on | buckets off: event sample too small (172 IDs, 3 of person 0) | G 18.11%
+  n2_G [f2 n2 LANE=G]: MATCH 0.19s | lane F off: SESSIONS_LANE=G | G 100.00%
+  n5_auto [f2 n5]: MATCH 0.18s | F on | buckets off: event sample too small (172 IDs, 3 of person 0) | G 18.11%
+  b7 [f2 n2 TEST_BUCKET_BITS=7]: MATCH 0.15s | F on | buckets off: event sample too small (172 IDs, 3 of person 0) | G 18.11%
+  f2off [f2 n2 F2=0]: MATCH 0.17s | F on | buckets off: SESSIONS_F2=0 | G 18.11%
+  f1 [f1 n2]: MATCH 0.13s | F on | G 18.11%

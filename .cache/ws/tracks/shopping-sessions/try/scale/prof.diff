@@ -1,0 +1,336 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 08bf8c2..f24662d 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -1,6 +1,7 @@
+ pub mod keys;
+ pub mod parquet;
+ pub mod people;
++pub mod prof;
+ pub mod scan;
+ pub mod sink;
+ pub mod ts;
+@@ -72,6 +73,7 @@ pub struct Config<'a> {
+ }
+ 
+ pub enum Outcome {
++    Done,
+     Fallback(String),
+ }
+ 
+@@ -195,6 +197,8 @@ struct Stats {
+ pub fn run(config: &Config) -> Result<Outcome> {
+     let started = Instant::now();
+     let lap = |name: &str| eprintln!("{name:<8} {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
++    let mut main_marks = prof::Marks::new();
++    main_marks.mark(started, "start");
+     let data = config.data_dir;
+     let manifest = fs::read(data.join("manifest.json")).map_err(|e| format!("manifest.json: {e}"))?;
+     let window = Window::from_manifest(&manifest)?;
+@@ -261,9 +265,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     }
+     let organic = campaign_ids.len() as u32;
+ 
++    main_marks.mark(started, "small_files");
+     let event_files = map_folder(&data.join("events"))?;
+     let click_files = map_folder(&data.join("clicks"))?;
+     let link_files = map_folder(&data.join("links"))?;
++    main_marks.mark(started, "map_folders");
+     let event_bytes: usize = event_files.iter().map(|f| f.len()).sum();
+     let click_bytes: usize = click_files.iter().map(|f| f.len()).sum();
+     let threads = config.threads.max(1);
+@@ -281,6 +287,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     units.extend(event_chunks.iter().map(|&(f, s, e)| Unit::Events(f, s, e)));
+     units.extend(click_chunks.iter().map(|&(f, s, e)| Unit::Clicks(f, s, e)));
+ 
++    main_marks.mark(started, "chunks");
+     let est_events = event_bytes / 60 + 1;
+     let first_day = ws.div_euclid(DAY_MS);
+     let last_day = (we - 1).div_euclid(DAY_MS);
+@@ -311,6 +318,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             .filter(|f| !f.is_empty())
+             .collect(),
+     };
++    main_marks.mark(started, "ctx");
+     lap("setup");
+ 
+     let people: OnceLock<People> = OnceLock::new();
+@@ -335,6 +343,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     crate::output::create_table_dir(config.output_dir, "user_daily")?;
+     crate::output::create_table_dir(config.output_dir, "campaign_daily")?;
+     let failure: Mutex<Option<String>> = Mutex::new(None);
++    let profs: Mutex<Vec<(usize, prof::Marks)>> = Mutex::new(Vec::new());
+ 
+     std::thread::scope(|scope| {
+         for id in 0..threads {
+@@ -359,7 +368,10 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             let campaign_channels = &campaign_channels;
+             let failure = &failure;
+             let categories = &categories;
++            let profs = &profs;
+             scope.spawn(move || {
++                let mut pm = prof::Marks::new();
++                pm.mark(started, "spawn");
+                 let mut arena = Arena::new();
+                 let mut scratch = Scratch::new();
+                 let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, ctx.p1_block);
+@@ -395,6 +407,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                         }
+                     }
+                 }
++                pm.mark(started, "parse_loop");
+                 if id == 0 {
+                     eprintln!("thread 0 parse busy {:>8.1} ms", started.elapsed().as_secs_f64() * 1e3);
+                 }
+@@ -404,9 +417,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 clicks.finish(&mut arena);
+                 let _ = p1_sinks[id].set(p1);
+                 let _ = click_sinks[id].set(clicks);
++                pm.mark(started, "sink_finish");
+                 if barrier.wait().is_leader() {
+                     lap("parse");
+                 }
++                pm.mark(started, "barrier1");
+ 
+                 let people = people.get().unwrap();
+                 let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
+@@ -428,9 +443,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     }
+                     winners += dedup(ctx, people, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
+                 }
++                pm.mark(started, "dedup_loop");
+                 stats.winners.fetch_add(winners, Ordering::Relaxed);
+                 p2.finish(&mut arena);
+                 let _ = p2_sinks[id].set(p2);
++                pm.mark(started, "p2_finish");
+                 if barrier.wait().is_leader() {
+                     let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+                     let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
+@@ -446,6 +463,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     lap("dedup");
+                 }
+                 barrier.wait();
++                pm.mark(started, "barrier2+order");
+ 
+                 let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+                 let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
+@@ -468,6 +486,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                         worker.rows.clear();
+                     }
+                 }
++                pm.mark(started, "people_loop");
+                 let mut part = worker.finish();
+                 let cells = std::mem::take(&mut part.cells);
+                 let mut totals = part.totals();
+@@ -482,15 +501,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 if last {
+                     let all = results.lock().unwrap();
+                     let cells: Vec<&[[u64; 4]]> = all.iter().map(|(c, _)| c.as_slice()).collect();
+-                    match write::campaign_table(
+-                        campaign_dir,
+-                        &cells,
+-                        campaign_ids,
+-                        campaign_channels,
+-                        ORGANIC,
+-                        ctx.first_day,
+-                        ctx.days,
+-                    ) {
++                    match write::campaign_table(campaign_dir, &cells, campaign_ids, campaign_channels, ORGANIC, ctx.first_day, ctx.days) {
+                         Ok(campaign_totals) => {
+                             let mut users = [0u64; 4];
+                             for (_, t) in all.iter() {
+@@ -503,6 +514,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                         Err(e) => *failure.lock().unwrap() = Some(e.to_string()),
+                     }
+                 }
++                pm.mark(started, "worker_finish");
+                 if id == 0 || part.len() > 0 {
+                     let file = file_counter.fetch_add(1, Ordering::Relaxed);
+                     if let Err(e) = write::user_part(user_dir, file, &part, categories, ctx.first_day) {
+@@ -510,12 +522,16 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                     }
+                 }
+                 drop(part);
++                pm.mark(started, "user_write");
+                 if barrier.wait().is_leader() {
+                     lap("people");
+                 }
++                pm.mark(started, "barrier3");
++                profs.lock().unwrap().push((id, pm));
+             });
+         }
+     });
++    main_marks.mark(started, "scope_join");
+     if let Some(e) = failure.into_inner().unwrap() {
+         return Err(e.into());
+     }
+@@ -528,6 +544,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         keys::exotic_count()
+     );
+     lap("write");
++    main_marks.mark(started, "campaign+report");
++    main_marks.print();
++    prof::report(&profs);
++    if prof::enabled() {
++        eprintln!("prof: fresh arena bytes {} MB", sink::FRESH.load(Ordering::Relaxed) >> 20);
++    }
+     unsafe { libc::_exit(0) }
+ }
+ 
+@@ -1055,7 +1077,7 @@ impl Worker {
+                                 size *= 2;
+                                 mask = size - 1;
+                                 shift -= 1;
+-                                self.grow_local(size, shift);
++                                self.grow_local(size, shift, ctx.p2_bits);
+                             }
+                             break id;
+                         }
+@@ -1183,7 +1205,7 @@ impl Worker {
+ 
+     #[cold]
+     #[inline(never)]
+-    fn grow_local(&mut self, size: usize, shift: u32) {
++    fn grow_local(&mut self, size: usize, shift: u32, _bits: u32) {
+         let mask = size - 1;
+         self.local_keys.clear();
+         self.local_keys.resize(size, 0);
+diff --git a/src/fast/prof.rs b/src/fast/prof.rs
+new file mode 100644
+index 0000000..739fd80
+--- /dev/null
++++ b/src/fast/prof.rs
+@@ -0,0 +1,98 @@
++use std::sync::Mutex;
++use std::sync::OnceLock;
++use std::time::Instant;
++
++pub fn enabled() -> bool {
++    static ON: OnceLock<bool> = OnceLock::new();
++    *ON.get_or_init(|| std::env::var_os("SESSIONS_PROF").is_some())
++}
++
++pub fn thread_cpu() -> f64 {
++    let mut ts = libc::timespec { tv_sec: 0, tv_nsec: 0 };
++    unsafe { libc::clock_gettime(libc::CLOCK_THREAD_CPUTIME_ID, &mut ts) };
++    ts.tv_sec as f64 * 1e3 + ts.tv_nsec as f64 * 1e-6
++}
++
++pub fn thread_sys() -> (f64, i64) {
++    unsafe {
++        let mut ru: libc::rusage = std::mem::zeroed();
++        libc::getrusage(libc::RUSAGE_THREAD, &mut ru);
++        (ru.ru_stime.tv_sec as f64 * 1e3 + ru.ru_stime.tv_usec as f64 * 1e-3, ru.ru_minflt)
++    }
++}
++
++pub struct Marks {
++    pub names: Vec<&'static str>,
++    pub wall: Vec<f64>,
++    pub cpu: Vec<f64>,
++    pub sys: Vec<f64>,
++    pub flt: Vec<i64>,
++}
++
++impl Marks {
++    pub fn new() -> Marks {
++        Marks { names: Vec::new(), wall: Vec::new(), cpu: Vec::new(), sys: Vec::new(), flt: Vec::new() }
++    }
++
++    #[inline]
++    pub fn mark(&mut self, started: Instant, name: &'static str) {
++        if enabled() {
++            self.names.push(name);
++            self.wall.push(started.elapsed().as_secs_f64() * 1e3);
++            self.cpu.push(thread_cpu());
++            let (sys, flt) = thread_sys();
++            self.sys.push(sys);
++            self.flt.push(flt);
++        }
++    }
++}
++
++impl Marks {
++    pub fn print(&self) {
++        if !enabled() {
++            return;
++        }
++        for k in 1..self.names.len() {
++            eprintln!(
++                "prof: main {:<16} end {:>8.1}  cpu {:>7.1}  sys {:>7.1}  faults {:>7}",
++                self.names[k],
++                self.wall[k],
++                self.cpu[k] - self.cpu[k - 1],
++                self.sys[k] - self.sys[k - 1],
++                self.flt[k] - self.flt[k - 1]
++            );
++        }
++    }
++}
++
++pub fn report(all: &Mutex<Vec<(usize, Marks)>>) {
++    if !enabled() {
++        return;
++    }
++    let mut all = all.lock().unwrap();
++    all.sort_by_key(|(id, _)| *id);
++    let Some((_, first)) = all.first() else { return };
++    let names = first.names.clone();
++    eprintln!("prof: segment            wall_end(min/max)   cpu(sum/max) ms   sys(sum) ms  faults");
++    for k in 1..names.len() {
++        let mut wmin = f64::MAX;
++        let mut wmax = 0f64;
++        let mut csum = 0f64;
++        let mut cmax = 0f64;
++        let mut ssum = 0f64;
++        let mut fsum = 0i64;
++        for (_, m) in all.iter() {
++            if m.wall.len() <= k {
++                continue;
++            }
++            wmin = wmin.min(m.wall[k]);
++            wmax = wmax.max(m.wall[k]);
++            let c = m.cpu[k] - m.cpu[k - 1];
++            csum += c;
++            cmax = cmax.max(c);
++            ssum += m.sys[k] - m.sys[k - 1];
++            fsum += m.flt[k] - m.flt[k - 1];
++        }
++        eprintln!("prof: {:<18} {:>8.1} {:>8.1}   {:>8.1} {:>8.1}   {:>8.1} {:>8}", names[k], wmin, wmax, csum, cmax, ssum, fsum);
++    }
++}
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index 7a2afe1..fa26d62 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -3,6 +3,8 @@ use std::ptr;
+ 
+ const REGION: usize = 64 << 20;
+ 
++pub static FRESH: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
++
+ pub struct Arena {
+     next: *mut u8,
+     end: *mut u8,
+@@ -71,6 +73,9 @@ impl Arena {
+         }
+         let p = self.next;
+         self.next = unsafe { self.next.add(bytes) };
++        if super::prof::enabled() {
++            FRESH.fetch_add(bytes, std::sync::atomic::Ordering::Relaxed);
++        }
+         p
+     }
+ }
+diff --git a/src/main.rs b/src/main.rs
+index 3761a7c..f07ac68 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -46,6 +46,7 @@ fn main() {
+             threads: config.threads,
+         };
+         match fast::run(&fast_config) {
++            Ok(fast::Outcome::Done) => std::process::exit(0),
+             Ok(fast::Outcome::Fallback(reason)) => eprintln!("general path: {reason}"),
+             Err(error) => {
+                 eprintln!("error: {error}");

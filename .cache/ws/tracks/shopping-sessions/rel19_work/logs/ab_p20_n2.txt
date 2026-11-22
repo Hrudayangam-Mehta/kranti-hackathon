@@ -1,0 +1,29 @@
+round 0 f2: exit 0 wall 7.615 user 3.197 sys 1.314 cpu 4.511 maxrss 2.36 GB minflt 135338 psi10 84.54 stdout 0
+round 0 rel19: exit 0 wall 8.016 user 2.954 sys 1.717 cpu 4.671 maxrss 0.85 GB minflt 126185 psi10 89.68 stdout 0
+round 0 rel17: exit 0 wall 9.725 user 3.968 sys 1.239 cpu 5.207 maxrss 0.99 GB minflt 45435 psi10 93.52 stdout 0
+round 1 f2: exit 0 wall 7.256 user 3.444 sys 1.036 cpu 4.480 maxrss 2.36 GB minflt 127374 psi10 93.97 stdout 0
+round 1 rel17: exit 0 wall 11.504 user 4.563 sys 1.428 cpu 5.991 maxrss 1.04 GB minflt 45914 psi10 93.27 stdout 0
+round 1 rel19: exit 0 wall 9.571 user 3.022 sys 1.392 cpu 4.414 maxrss 0.85 GB minflt 126291 psi10 93.42 stdout 0
+round 2 rel17: exit 0 wall 10.610 user 4.010 sys 1.282 cpu 5.292 maxrss 0.98 GB minflt 45651 psi10 94.55 stdout 0
+round 2 f2: exit 0 wall 7.781 user 3.402 sys 0.601 cpu 4.003 maxrss 2.36 GB minflt 127635 psi10 95.64 stdout 0
+round 2 rel19: exit 0 wall 7.468 user 2.991 sys 1.103 cpu 4.094 maxrss 0.85 GB minflt 126463 psi10 94.27 stdout 0
+round 3 rel17: exit 0 wall 6.882 user 3.755 sys 1.645 cpu 5.400 maxrss 1.00 GB minflt 45547 psi10 93.68 stdout 0
+round 3 rel19: exit 0 wall 6.501 user 2.961 sys 1.490 cpu 4.451 maxrss 0.85 GB minflt 126349 psi10 91.36 stdout 0
+round 3 f2: exit 0 wall 4.560 user 3.221 sys 0.886 cpu 4.108 maxrss 2.37 GB minflt 127484 psi10 93.24 stdout 0
+round 4 rel19: exit 0 wall 4.663 user 2.599 sys 1.432 cpu 4.030 maxrss 0.85 GB minflt 126445 psi10 88.23 stdout 0
+round 4 rel17: exit 0 wall 10.353 user 4.165 sys 1.475 cpu 5.640 maxrss 1.00 GB minflt 44451 psi10 89.50 stdout 0
+round 4 f2: exit 0 wall 26.499 user 3.828 sys 1.706 cpu 5.534 maxrss 1.95 GB minflt 112190 psi10 91.14 stdout 0
+round 5 rel19: exit 0 wall 10.449 user 3.029 sys 1.256 cpu 4.285 maxrss 0.85 GB minflt 122914 psi10 94.91 stdout 0
+round 5 f2: exit 0 wall 12.378 user 3.422 sys 0.775 cpu 4.196 maxrss 2.36 GB minflt 124997 psi10 95.55 stdout 0
+round 5 rel17: exit 0 wall 16.467 user 4.356 sys 1.416 cpu 5.772 maxrss 1.04 GB minflt 43486 psi10 95.78 stdout 0
+SUMMARY f2 n=6/6: cpu median 4.338 (min 4.003) user median 3.412 sys median 0.961 wall median 7.698 (min 4.560) maxrss median 2.36 GB minflt median 127429
+SUMMARY rel19 n=6/6: cpu median 4.350 (min 4.030) user median 2.976 sys median 1.412 wall median 7.742 (min 4.663) maxrss median 0.85 GB minflt median 126320
+SUMMARY rel17 n=6/6: cpu median 5.520 (min 5.207) user median 4.087 sys median 1.422 wall median 10.481 (min 6.882) maxrss median 1.00 GB minflt median 45491
+PAIRED rel19 - f2 cpu: median +0.090 s (+2.1%), rel19 lower in 2/6
+PAIRED rel19 - f2 user: median -0.402 s (-11.8%), rel19 lower in 6/6
+PAIRED rel19 - f2 sys: median +0.442 s (+46.0%), rel19 lower in 1/6
+PAIRED rel19 - f2 wall: median +0.044 s (+0.6%), rel19 lower in 3/6
+PAIRED rel17 - f2 cpu: median +1.291 s (+29.8%), rel17 lower in 0/6
+PAIRED rel17 - f2 user: median +0.690 s (+20.2%), rel17 lower in 0/6
+PAIRED rel17 - f2 sys: median +0.517 s (+53.8%), rel17 lower in 2/6
+PAIRED rel17 - f2 wall: median +2.575 s (+33.5%), rel17 lower in 1/6

@@ -1,0 +1,20 @@
+ok   ready after junk + CRLF hello {"type":"ready","name":"aegis-16"}
+ok   answers a CRLF obs {"tick":0,"move":[-0.637,0.7709],"boost":false,"aim":[2.67,0],"fire":[false,false]}
+ok   obs split over 3 writes answered once 
+ok   backlog of 5 -> one answer, newest tick answers 1, tick 12 want 12
+ok   obs without self is skipped, next obs still answered answers to self-less obs: 0
+ok   obs with self but no pos/weapons/zone/mechs answered validly {"tick":18,"move":[-0.7011,0.7131],"boost":false,"aim":[-2.72,0],"fire":[false,false]}
+ok   200 KB obs line does not break the stream lines after big: 8
+ok   second hello -> second ready, still alive {"type":"ready","name":"aegis-16"}
+ok   obs after re-hello answered 
+ok   exits 0 after end {"code":0,"sig":null}
+ok   stdout carried only protocol messages 
+ok   no exception logged on stderr 
+ok   stdin EOF without end -> exits 0 {"code":0,"sig":null}
+ok   last obs without newline before EOF still answered lines 2
+ok   obs before hello answered by the fallback policy {"tick":0,"move":[-0.7835,0.6214],"boost":false,"aim":[2.471,0]}
+ok   hello.config = null: ready + 40 valid answers + exit 0 
+ok   hello.config.weapons = []: ready + 40 valid answers + exit 0 
+ok   hello.seed missing, map null: ready + 40 valid answers + exit 0 [bot] map load failed for /arena ENOENT: no such file or directory, open '/arena/v2/world.json'
+
+18/18 passed

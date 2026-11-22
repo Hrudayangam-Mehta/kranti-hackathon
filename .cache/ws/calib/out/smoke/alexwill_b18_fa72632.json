@@ -1,0 +1,119 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh alexwill_b18_fa72632",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/alexwill_b18_fa72632.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 2.5,
+  "stdErr": 0.5,
+  "sd": 0.707,
+  "winFrac": 0,
+  "meanKills": 2.5,
+  "meanTimeAlive": 87.9,
+  "meanDmgDealt": 5630,
+  "meanDmgTaken": 1812,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "gun/hold": 1
+  },
+  "meanWallMs": 2114,
+  "wallS": 2.9
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "mr-turtle",
+   "place": 13,
+   "score": 3,
+   "kills": 3,
+   "timeAlive": 97.6,
+   "alive": false,
+   "dmgDealt": 6517,
+   "dmgTaken": 1951,
+   "cause": "gun",
+   "killedBy": 8,
+   "killRange": 151.2,
+   "killerRole": "hunt",
+   "hunters": 4,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 5,
+   "upgrades": [
+    "armor",
+    "gun_mag"
+   ],
+   "loadout": [
+    "gun",
+    "mortar"
+   ],
+   "won": false,
+   "matchT": 97.6,
+   "wallMs": 2178,
+   "deadOthers": 3,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 30.5,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "mr-turtle",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 78.15,
+   "alive": false,
+   "dmgDealt": 4743,
+   "dmgTaken": 1672,
+   "cause": "gun",
+   "killedBy": 10,
+   "killRange": 57.9,
+   "killerRole": "hold",
+   "hunters": 3,
+   "killerName": "squad:hard",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun",
+    "mortar"
+   ],
+   "won": false,
+   "matchT": 78.15,
+   "wallMs": 2050,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 87,
+   "meanMs": 0
+  }
+ ]
+}

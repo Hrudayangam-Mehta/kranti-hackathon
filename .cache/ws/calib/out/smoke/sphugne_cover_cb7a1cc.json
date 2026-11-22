@@ -1,0 +1,115 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh sphugne_cover_cb7a1cc",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/sphugne_cover_cb7a1cc.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 1,
+  "stdErr": 0,
+  "sd": 0,
+  "winFrac": 0,
+  "meanKills": 1,
+  "meanTimeAlive": 72,
+  "meanDmgDealt": 2307,
+  "meanDmgTaken": 1429,
+  "lates": 0,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 2
+  },
+  "meanWallMs": 1749,
+  "wallS": 3
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "cover-py",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 69.95,
+   "alive": false,
+   "dmgDealt": 1313,
+   "dmgTaken": 1400,
+   "cause": "gun",
+   "killedBy": 0,
+   "killRange": 59.6,
+   "killerRole": "hunt",
+   "hunters": 1,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 0,
+   "upgrades": [],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 69.95,
+   "wallMs": 1345,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 31.5,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "cover-py",
+   "place": 15,
+   "score": 1,
+   "kills": 1,
+   "timeAlive": 74.1,
+   "alive": false,
+   "dmgDealt": 3300,
+   "dmgTaken": 1458,
+   "cause": "gun",
+   "killedBy": 4,
+   "killRange": 43.8,
+   "killerRole": "hunt",
+   "hunters": 2,
+   "killerName": "squad:easy",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 1,
+   "upgrades": [
+    "armor"
+   ],
+   "loadout": [
+    "gun"
+   ],
+   "won": false,
+   "matchT": 74.1,
+   "wallMs": 2153,
+   "deadOthers": 1,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 33.7,
+   "meanMs": 0
+  }
+ ]
+}

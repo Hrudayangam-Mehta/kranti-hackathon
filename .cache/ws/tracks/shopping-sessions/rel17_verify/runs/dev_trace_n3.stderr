@@ -1,0 +1,51 @@
+trace m setup:reference 7.414
+trace m setup:map 7.936
+trace m setup:chunks 7.948
+lane F on: user key 0xf94d067aa5, person cap 92706, 0.8 ms
+trace m setup:decoder 8.777
+setup         9.8 ms
+trace m setup:dirs 10.011
+links    split and merged in 11.3 ms; lane F 43635 lines, general 1320 lines, odd persons 172
+links        11.6 ms on one thread
+dedup       242.6 ms
+people      322.4 ms
+surviving events 977930, user_daily rows 117038
+sessions 179366 / 179366, revenue 376461330 / 376461330, assisted 1932099 >= 109923
+lane F winners 962091, lane G share 1.62%
+event copies 1071554, winners 977930, clicks 252348, linked 1302, exotic 0
+write       322.5 ms
+trace t0 links 10.210 31.030 20.820 1
+trace t0 events 31.030 152.356 121.100 23
+trace t0 clicks 154.727 180.759 25.641 32
+trace t0 wait_events 180.769 180.770 0.000 1
+trace t0 unmap 32.020 180.768 2.738 23
+trace t0 dedup 180.771 227.445 46.658 51
+trace t0 bar_dedup 227.449 242.593 15.144 1
+trace t0 order 242.593 242.607 0.014 1
+trace t0 people 242.746 304.726 61.974 42
+trace t0 campaign 318.583 320.017 1.434 2
+trace t0 last_write 304.726 321.876 3.591 6
+trace t0 wait_jobs 306.464 318.582 12.119 1
+trace t0 release 321.877 321.957 0.079 1
+trace t2 events 22.699 151.209 128.101 23
+trace t2 clicks 151.226 194.645 42.468 13
+trace t2 wait_events 194.670 194.670 0.000 1
+trace t2 unmap 25.142 194.668 1.130 20
+trace t2 dedup 194.670 227.248 32.568 43
+trace t2 bar_dedup 227.252 227.462 0.210 1
+trace t2 order 227.462 227.476 0.014 1
+trace t2 people 227.785 311.415 83.623 39
+trace t2 last_write 311.415 313.012 1.597 3
+trace t2 wait_jobs 313.014 322.075 9.061 1
+trace t2 release 322.076 322.209 0.133 1
+trace t1 events 10.626 146.233 130.759 29
+trace t1 clicks 146.278 183.889 37.281 16
+trace t1 wait_events 183.957 183.957 0.000 1
+trace t1 unmap 12.362 183.954 5.028 27
+trace t1 dedup 183.958 227.151 43.184 34
+trace t1 bar_dedup 227.181 234.586 7.405 1
+trace t1 order 234.586 234.599 0.013 1
+trace t1 people 234.930 314.028 79.092 50
+trace t1 campaign 314.028 322.375 8.347 1
+trace t1 release 322.375 322.431 0.056 1
+trace m clock start 1795315906.147754 exit 1795315906.470263 at 322.509

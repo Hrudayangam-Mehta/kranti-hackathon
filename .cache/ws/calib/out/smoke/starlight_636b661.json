@@ -1,0 +1,122 @@
+{
+ "args": {
+  "bot": "proc:/srv/mech-sparring/run.sh starlight_636b661",
+  "mode": "squad",
+  "matches": 1,
+  "seed": 1,
+  "jobs": 2,
+  "opponents": "",
+  "params": null,
+  "json": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/out/smoke/starlight_636b661.json",
+  "latency": 0,
+  "timeout": 200,
+  "full": false,
+  "config": null,
+  "oldBalance": false,
+  "quiet": true,
+  "worker": false,
+  "seeds": [
+   1,
+   2
+  ],
+  "logDir": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/calib/tree/runs/simlogs",
+  "overrides": null,
+  "verbose": false,
+  "mapDir": "/srv/mech-sparring/_arena"
+ },
+ "summary": {
+  "matches": 2,
+  "meanScore": 3.5,
+  "stdErr": 1.5,
+  "sd": 2.121,
+  "winFrac": 0,
+  "meanKills": 3.5,
+  "meanTimeAlive": 110.8,
+  "meanDmgDealt": 7678,
+  "meanDmgTaken": 2088,
+  "lates": 1,
+  "errors": 0,
+  "causes": {
+   "gun/hunt": 1,
+   "laser/hunt": 1
+  },
+  "meanWallMs": 4759,
+  "wallS": 5.9
+ },
+ "matches": [
+  {
+   "seed": 1,
+   "slot": 5,
+   "name": "Oval Sentinel",
+   "place": 14,
+   "score": 2,
+   "kills": 2,
+   "timeAlive": 109.3,
+   "alive": false,
+   "dmgDealt": 6910,
+   "dmgTaken": 1761,
+   "cause": "gun",
+   "killedBy": 6,
+   "killRange": 55,
+   "killerRole": "hunt",
+   "hunters": 3,
+   "killerName": "squad:medium",
+   "lates": 0,
+   "missed": 0,
+   "cubes": 1,
+   "upgrades": [
+    "armor"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 109.3,
+   "wallMs": 4242,
+   "deadOthers": 2,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 13.1,
+   "meanMs": 0
+  },
+  {
+   "seed": 2,
+   "slot": 3,
+   "name": "Oval Sentinel",
+   "place": 11,
+   "score": 5,
+   "kills": 5,
+   "timeAlive": 112.35,
+   "alive": false,
+   "dmgDealt": 8446,
+   "dmgTaken": 2415,
+   "cause": "laser",
+   "killedBy": 9,
+   "killRange": 207.7,
+   "killerRole": "hunt",
+   "hunters": 6,
+   "killerName": "squad:hard",
+   "lates": 1,
+   "missed": 0,
+   "cubes": 8,
+   "upgrades": [
+    "reactor",
+    "armor",
+    "nanites"
+   ],
+   "loadout": [
+    "gun",
+    "lightning"
+   ],
+   "won": false,
+   "matchT": 112.35,
+   "wallMs": 5276,
+   "deadOthers": 5,
+   "errors": 0,
+   "fallback": false,
+   "maxMs": 67.7,
+   "meanMs": 0
+  }
+ ]
+}

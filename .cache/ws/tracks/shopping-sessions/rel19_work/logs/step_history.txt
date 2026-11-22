@@ -1,0 +1,80 @@
+commit 94e77ab6b57dcbf29a2b2a0150c5a555dc598dc4
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 03:10:03 2026 +0000
+
+    step 4: t2 scheduling. F1 path: rel17's t2 (3-way merge, base = rel16+C2+io1). F2 path: one queue parse->pass 1 (bucket/general units wait for all event sinks, click parts for all click sinks), per-file unmap during parse (pass-1 unmap units removed), end-of-run job list (split user parts + campaign table pieces), parallel Arena release, trace; pass 1.5 plan by the leader kept (binary 1fd09a1f)
+
+ src/fast/bucket.rs | 415 ++++++++++++++++++++++++++++++++++++-----------------
+ src/fast/mod.rs    | 410 ++++++++++++++++++++++++++++++++++++----------------
+ src/fast/sink.rs   |  13 ++
+ src/fast/trace.rs  | 104 ++++++++++++++
+ src/fast/write.rs  |  46 ++++--
+ 5 files changed, 716 insertions(+), 272 deletions(-)
+
+commit ac9d40653a170f66646b833ee23ab2d45c8b0896
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 03:09:06 2026 +0000
+
+    step 3: C2 fused scanner (scan.rs 3-way merge: C2 + F2 mixed_e; F1 path as rel17 step 1; F2 EventLinesF/ClickLinesF through fused::<7,3>/<4,4>, word compare of event type) (binary bf1e019c)
+
+ src/fast/bucket.rs |  38 ++++-----
+ src/fast/mod.rs    |  97 ++++++++--------------
+ src/fast/scan.rs   | 232 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 284 insertions(+), 83 deletions(-)
+
+commit a4d390a3f01fc0eefec3e8813f1334e0b88dd5a7
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 03:01:58 2026 +0000
+
+    step 2: io1 allocation as merged in rel17 (reservation + MADV_POPULATE_WRITE + mallopt + heap warm, people table from the reservation; F2 bucket/general/click/p2 sinks allocate through the same Arena so they come from the reservation, side records stay on the heap) (binary ed17af14)
+
+ src/fast/bucket.rs |  1 +
+ src/fast/mod.rs    | 14 +++++++++++++
+ src/fast/people.rs |  2 +-
+ src/fast/sink.rs   | 60 ++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 4 files changed, 74 insertions(+), 3 deletions(-)
+
+commit bbef53a78812aa63266d396d097f8a08648594b3
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 02:59:41 2026 +0000
+
+    step 1: delete stale *.parquet in user_daily/ and campaign_daily/ at start, exactly as rel17 (binary 167dba62)
+
+ src/output.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 197d4632474a26c852177c1e5dd2a54068267fea
+Author: integrator <integrator@localhost>
+Date:   Sun Nov 22 02:54:11 2026 +0000
+
+    base: F2 tree (rel17f2, commit 64a5aec, binary ac45af4c)
+
+ .gitignore          |    1 +
+ Cargo.lock          |  587 ++++++++++++++++++++
+ Cargo.toml          |   20 +
+ Dockerfile          |   15 +
+ LICENSE             |   21 +
+ README.md           |   35 ++
+ src/clicks.rs       |   38 ++
+ src/csv.rs          |  103 ++++
+ src/events.rs       |  160 ++++++
+ src/fast/bucket.rs  | 1404 +++++++++++++++++++++++++++++++++++++++++++++++
+ src/fast/ident.rs   |  580 ++++++++++++++++++++
+ src/fast/keys.rs    |  280 ++++++++++
+ src/fast/mod.rs     | 1497 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/fast/parquet.rs |  277 ++++++++++
+ src/fast/people.rs  |  164 ++++++
+ src/fast/scan.rs    |  651 ++++++++++++++++++++++
+ src/fast/sink.rs    |  223 ++++++++
+ src/fast/ts.rs      |  353 ++++++++++++
+ src/fast/write.rs   |  193 +++++++
+ src/hash.rs         |   68 +++
+ src/input.rs        |  165 ++++++
+ src/links.rs        |  126 +++++
+ src/main.rs         |   70 +++
+ src/manifest.rs     |  197 +++++++
+ src/output.rs       |  130 +++++
+ src/sessions.rs     |  232 ++++++++
+ src/slow.rs         |  273 ++++++++++
+ src/time.rs         |  178 ++++++
+ 28 files changed, 8041 insertions(+)

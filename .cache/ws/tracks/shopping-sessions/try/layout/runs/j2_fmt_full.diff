@@ -1,0 +1,747 @@
+diff --git a/src/fast/keys.rs b/src/fast/keys.rs
+index 644b6d4..9449f1a 100644
+--- a/src/fast/keys.rs
++++ b/src/fast/keys.rs
+@@ -229,9 +229,37 @@ mod tests {
+     #[test]
+     fn order_and_roundtrip() {
+         let samples: Vec<&[u8]> = vec![
+-            b"", b"0", b"9", b"A", b"Z", b"_", b"a", b"z", b"u1", b"U1", b"u10", b"u1 ", b" u1", b"u1\r",
+-            b"abcdefghij", b"abcdefghijk", b"zzzzzzzzzz", b"zzzzzzzzzzz", b"c_123", b"C_123", b"a-b", b"\xc3\xa9",
+-            b"u", b"u0", b"uz", b"t", b"\x00", b"\xff", b"user_id_a", b"\"", b"e3\r",
++            b"",
++            b"0",
++            b"9",
++            b"A",
++            b"Z",
++            b"_",
++            b"a",
++            b"z",
++            b"u1",
++            b"U1",
++            b"u10",
++            b"u1 ",
++            b" u1",
++            b"u1\r",
++            b"abcdefghij",
++            b"abcdefghijk",
++            b"zzzzzzzzzz",
++            b"zzzzzzzzzzz",
++            b"c_123",
++            b"C_123",
++            b"a-b",
++            b"\xc3\xa9",
++            b"u",
++            b"u0",
++            b"uz",
++            b"t",
++            b"\x00",
++            b"\xff",
++            b"user_id_a",
++            b"\"",
++            b"e3\r",
+         ];
+         for a in &samples {
+             assert_eq!(&roundtrip(a), a);
+@@ -260,7 +288,9 @@ mod tests {
+         let mut strings = Vec::new();
+         for _ in 0..3000 {
+             let len = (next() % 13) as usize;
+-            let s: Vec<u8> = (0..len).map(|_| alphabet[(next() % alphabet.len() as u64) as usize]).collect();
++            let s: Vec<u8> = (0..len)
++                .map(|_| alphabet[(next() % alphabet.len() as u64) as usize])
++                .collect();
+             strings.push(s);
+         }
+         for pair in strings.windows(2) {
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index 76fa58a..9edb9c7 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -8,7 +8,7 @@ pub mod write;
+ 
+ use std::fs;
+ use std::path::{Path, PathBuf};
+-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
++use std::sync::atomic::{AtomicU32, AtomicUsize, Ordering};
+ use std::sync::{Barrier, Mutex, OnceLock};
+ use std::time::Instant;
+ 
+@@ -108,7 +108,14 @@ fn map_file(path: &Path) -> Result<&'static [u8]> {
+         return Ok(&[]);
+     }
+     unsafe {
+-        let p = libc::mmap(std::ptr::null_mut(), len, libc::PROT_READ, libc::MAP_PRIVATE, file.as_raw_fd(), 0);
++        let p = libc::mmap(
++            std::ptr::null_mut(),
++            len,
++            libc::PROT_READ,
++            libc::MAP_PRIVATE,
++            file.as_raw_fd(),
++            0,
++        );
+         if p == libc::MAP_FAILED {
+             return Err(format!("{}: mmap failed", path.display()).into());
+         }
+@@ -228,7 +235,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     lap("setup");
+ 
+     let people: OnceLock<People> = OnceLock::new();
+-    let links_done = AtomicBool::new(false);
+     let queue = AtomicUsize::new(0);
+     let dedup_queue = AtomicUsize::new(0);
+     let person_queue = AtomicUsize::new(0);
+@@ -239,6 +245,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
+     let p3_sinks: Vec<OnceLock<Sink<PersonRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
+     let p3_click_sinks: Vec<OnceLock<Sink<ClickRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
+     let join_queue = AtomicUsize::new(0);
++    let part_count = 1usize << ctx.p2_bits;
++    let kept_events: Vec<AtomicU32> = (0..threads * part_count).map(|_| AtomicU32::new(0)).collect();
++    let kept_clicks: Vec<AtomicU32> = (0..threads * part_count).map(|_| AtomicU32::new(0)).collect();
+     let order: OnceLock<Vec<usize>> = OnceLock::new();
+     let results: Mutex<Vec<write::Part>> = Mutex::new(Vec::new());
+     let stats = Stats {
+@@ -256,7 +265,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         for id in 0..threads {
+             let ctx = &ctx;
+             let people = &people;
+-            let links_done = &links_done;
+             let queue = &queue;
+             let dedup_queue = &dedup_queue;
+             let person_queue = &person_queue;
+@@ -267,6 +275,8 @@ pub fn run(config: &Config) -> Result<Outcome> {
+             let p3_sinks = &p3_sinks;
+             let p3_click_sinks = &p3_click_sinks;
+             let join_queue = &join_queue;
++            let kept_events = &kept_events;
++            let kept_clicks = &kept_clicks;
+             let order = &order;
+             let results = &results;
+             let stats = &stats;
+@@ -289,7 +299,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                             let t0 = Instant::now();
+                             let built = build_people(ctx.link_files);
+                             let _ = people.set(built);
+-                            links_done.store(true, Ordering::Release);
+                             eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
+                         }
+                         Unit::Events(chunk) => copies += parse_events(ctx, chunk, &mut scratch, &mut arena, &mut p1),
+@@ -335,27 +344,69 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
+                 let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
+                 arena.retire();
+-                let mut click_arena = Arena::new();
+                 let mut p3: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, 256);
+                 let mut p3_clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, 512);
++                let mut moved: Vec<PersonRec> = Vec::new();
++                let mut moved_clicks: Vec<ClickRec> = Vec::new();
+                 loop {
+                     let q = join_queue.fetch_add(1, Ordering::Relaxed);
+                     if q >= 1 << ctx.p2_bits {
+                         break;
+                     }
+-                    join(ctx, people, &all_p2, &all_clicks, q, &mut arena, &mut click_arena, &mut p3, &mut p3_clicks);
++                    let bits = ctx.p2_bits;
++                    moved.clear();
++                    for (t, sink) in all_p2.iter().enumerate() {
++                        let kept = unsafe {
++                            compact(
++                                sink,
++                                q,
++                                &mut moved,
++                                |r| people.name_of(r.person),
++                                |r, person| PersonRec { person, ..r },
++                                |r| r.person,
++                            )
++                        };
++                        kept_events[t * part_count + q].store(kept as u32, Ordering::Relaxed);
++                    }
++                    for rec in &moved {
++                        p3.push(&mut arena, part_of(rec.person, H2, bits), *rec);
++                    }
++                    moved_clicks.clear();
++                    for (t, sink) in all_clicks.iter().enumerate() {
++                        let kept = unsafe {
++                            compact(
++                                sink,
++                                q,
++                                &mut moved_clicks,
++                                |r| people.name_of(r.person),
++                                |r, person| ClickRec { person, ..r },
++                                |r| r.person,
++                            )
++                        };
++                        kept_clicks[t * part_count + q].store(kept as u32, Ordering::Relaxed);
++                    }
++                    for rec in &moved_clicks {
++                        p3_clicks.push(&mut arena, part_of(rec.person, H2, bits), *rec);
++                    }
+                 }
+                 p3.finish(&mut arena);
+-                p3_clicks.finish(&mut click_arena);
++                p3_clicks.finish(&mut arena);
+                 let _ = p3_sinks[id].set(p3);
+                 let _ = p3_click_sinks[id].set(p3_clicks);
+                 if barrier.wait().is_leader() {
+-                    let all_p2: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                    let all_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                    let mut sizes: Vec<(usize, usize)> = (0..1usize << ctx.p2_bits)
++                    let all_p3: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
++                    let all_p3_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
++                    let mut sizes: Vec<(usize, usize)> = (0..part_count)
+                         .map(|p| {
+-                            let n: usize = all_p2.iter().map(|s| s.len(p)).sum::<usize>()
+-                                + all_clicks.iter().map(|s| s.len(p)).sum::<usize>() / 4;
++                            let kept: usize = (0..threads)
++                                .map(|t| kept_events[t * part_count + p].load(Ordering::Relaxed) as usize)
++                                .sum();
++                            let kept_c: usize = (0..threads)
++                                .map(|t| kept_clicks[t * part_count + p].load(Ordering::Relaxed) as usize)
++                                .sum();
++                            let n: usize = kept
++                                + all_p3.iter().map(|s| s.len(p)).sum::<usize>()
++                                + (kept_c + all_p3_clicks.iter().map(|s| s.len(p)).sum::<usize>()) / 4;
+                             (n, p)
+                         })
+                         .collect();
+@@ -365,14 +416,32 @@ pub fn run(config: &Config) -> Result<Outcome> {
+                 }
+                 barrier.wait();
+ 
+-                let all_p2: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
+-                let all_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
++                let all_p3: Vec<&Sink<PersonRec>> = p3_sinks.iter().map(|s| s.get().unwrap()).collect();
++                let all_p3_clicks: Vec<&Sink<ClickRec>> = p3_click_sinks.iter().map(|s| s.get().unwrap()).collect();
+                 let order = order.get().unwrap();
+                 let mut worker = Worker::new(ctx);
++                let mut event_slices: Vec<&[PersonRec]> = Vec::new();
++                let mut click_slices: Vec<&[ClickRec]> = Vec::new();
+                 loop {
+                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
+                     let Some(&p) = order.get(i) else { break };
+-                    worker.partition(ctx, &all_p2, &all_clicks, p);
++                    event_slices.clear();
++                    click_slices.clear();
++                    for (t, sink) in all_p2.iter().enumerate() {
++                        event_slices
++                            .extend(sink.prefix(p, kept_events[t * part_count + p].load(Ordering::Relaxed) as usize));
++                    }
++                    for sink in &all_p3 {
++                        event_slices.extend(sink.slices(p));
++                    }
++                    for (t, sink) in all_clicks.iter().enumerate() {
++                        click_slices
++                            .extend(sink.prefix(p, kept_clicks[t * part_count + p].load(Ordering::Relaxed) as usize));
++                    }
++                    for sink in &all_p3_clicks {
++                        click_slices.extend(sink.slices(p));
++                    }
++                    worker.partition(ctx, &event_slices, &click_slices);
+                 }
+                 let part = worker.finish();
+                 if let Err(e) = write::user_part(user_dir, id, &part, categories, ctx.first_day) {
+@@ -389,7 +458,15 @@ pub fn run(config: &Config) -> Result<Outcome> {
+         return Err(e.into());
+     }
+     let parts = results.into_inner().unwrap();
+-    write::campaign_table(&campaign_dir, &parts, &campaign_ids, &campaign_channels, ORGANIC, first_day, ctx.days)?;
++    write::campaign_table(
++        &campaign_dir,
++        &parts,
++        &campaign_ids,
++        &campaign_channels,
++        ORGANIC,
++        first_day,
++        ctx.days,
++    )?;
+     write::report(&parts, ctx.days, organic as usize);
+     eprintln!(
+         "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
+@@ -611,7 +688,9 @@ impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
+             if t < ctx.cws || t >= ctx.we {
+                 return;
+             }
+-            let Some(campaign) = lookup_k::<K>(f[2]).and_then(|k| ctx.campaigns.get(k)) else { return };
++            let Some(campaign) = lookup_k::<K>(f[2]).and_then(|k| ctx.campaigns.get(k)) else {
++                return;
++            };
+             let person = intern_k::<K>(user);
+             let rec = ClickRec {
+                 person,
+@@ -699,47 +778,59 @@ fn dedup(
+         if rec.event != 0 && rec.ts != INVALID {
+             winners += 1;
+             let person = rec.user;
+-            out.push(arena, part_of(person, H2, bits), PersonRec { person, ts: rec.ts, payload: rec.payload });
++            out.push(
++                arena,
++                part_of(person, H2, bits),
++                PersonRec {
++                    person,
++                    ts: rec.ts,
++                    payload: rec.payload,
++                },
++            );
+         }
+     }
+     winners
+ }
+ 
+-#[allow(clippy::too_many_arguments)]
+-fn join(
+-    ctx: &Ctx,
+-    people: &People,
+-    events: &[&Sink<PersonRec>],
+-    clicks: &[&Sink<ClickRec>],
++unsafe fn compact<T: Copy>(
++    sink: &Sink<T>,
+     q: usize,
+-    arena: &mut Arena,
+-    click_arena: &mut Arena,
+-    out: &mut Sink<PersonRec>,
+-    click_out: &mut Sink<ClickRec>,
+-) {
+-    let bits = ctx.p2_bits;
+-    for sink in events {
+-        for slice in sink.slices(q) {
+-            for rec in slice {
+-                let person = people.name_of(rec.person);
+-                out.push(arena, part_of(person, H2, bits), PersonRec { person, ..*rec });
+-            }
+-        }
+-    }
+-    for sink in events {
+-        sink.release(q, arena);
++    moved: &mut Vec<T>,
++    name: impl Fn(&T) -> u64,
++    rename: impl Fn(T, u64) -> T,
++    key: impl Fn(&T) -> u64,
++) -> usize {
++    let blocks = sink.blocks(q);
++    if blocks == 0 {
++        return 0;
+     }
+-    for sink in clicks {
+-        for slice in sink.slices(q) {
+-            for rec in slice {
+-                let person = people.name_of(rec.person);
+-                click_out.push(click_arena, part_of(person, H2, bits), ClickRec { person, ..*rec });
++    moved.reserve(sink.len(q));
++    let out = moved.as_mut_ptr().add(moved.len());
++    let mut out_len = 0usize;
++    let (mut write, mut write_len) = sink.block(q, 0);
++    let mut write_block = 0usize;
++    let mut at = 0usize;
++    let mut kept = 0usize;
++    for b in 0..blocks {
++        let (read, n) = sink.block(q, b);
++        for i in 0..n {
++            let rec = *read.add(i);
++            let person = name(&rec);
++            let stay = person == key(&rec);
++            while at == write_len {
++                write_block += 1;
++                (write, write_len) = sink.block(q, write_block);
++                at = 0;
+             }
++            *write.add(at) = rec;
++            at += usize::from(stay);
++            kept += usize::from(stay);
++            *out.add(out_len) = rename(rec, person);
++            out_len += usize::from(!stay);
+         }
+     }
+-    for sink in clicks {
+-        sink.release(q, click_arena);
+-    }
++    moved.set_len(moved.len() + out_len);
++    kept
+ }
+ 
+ #[derive(Clone, Copy, Default)]
+@@ -865,8 +956,8 @@ impl Worker {
+         self.rows
+     }
+ 
+-    fn partition(&mut self, ctx: &Ctx, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
+-        let n: usize = events.iter().map(|s| s.len(p)).sum();
++    fn partition(&mut self, ctx: &Ctx, events: &[&[PersonRec]], clicks: &[&[ClickRec]]) {
++        let n: usize = events.iter().map(|s| s.len()).sum();
+         if n == 0 {
+             return;
+         }
+@@ -883,9 +974,9 @@ impl Worker {
+         self.recs.clear();
+         let mut low = u32::MAX;
+         let mut high = 0u32;
+-        for sink in events {
+-            for slice in sink.slices(p) {
+-                for rec in slice {
++        for slice in events {
++            {
++                for rec in slice.iter() {
+                     let key = rec.person;
+                     let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+                     let id = loop {
+@@ -939,9 +1030,9 @@ impl Worker {
+         self.click_recs.clear();
+         let mut low = u32::MAX;
+         let mut high = 0u32;
+-        for sink in clicks {
+-            for slice in sink.slices(p) {
+-                for rec in slice {
++        for slice in clicks {
++            {
++                for rec in slice.iter() {
+                     let key = rec.person;
+                     let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
+                     let id = loop {
+diff --git a/src/fast/scan.rs b/src/fast/scan.rs
+index 07c0595..eb1bc19 100644
+--- a/src/fast/scan.rs
++++ b/src/fast/scan.rs
+@@ -70,7 +70,8 @@ unsafe fn masks_avx2(p: *const u8) -> (u64, u64, u64) {
+     {
+         let lo = _mm256_loadu_si256(p as *const __m256i);
+         let hi = _mm256_loadu_si256(p.add(32) as *const __m256i);
+-        let bits = |v: __m256i, c: u8| _mm256_movemask_epi8(_mm256_cmpeq_epi8(v, _mm256_set1_epi8(c as i8))) as u32 as u64;
++        let bits =
++            |v: __m256i, c: u8| _mm256_movemask_epi8(_mm256_cmpeq_epi8(v, _mm256_set1_epi8(c as i8))) as u32 as u64;
+         (
+             bits(lo, b',') | bits(hi, b',') << 32,
+             bits(lo, b'\n') | bits(hi, b'\n') << 32,
+@@ -459,7 +460,11 @@ mod tests {
+                     if quoted {
+                         data.push(b'"');
+                     }
+-                    let len = if next() % 997 == 0 { 40_000 } else { (next() % 12) as usize };
++                    let len = if next() % 997 == 0 {
++                        40_000
++                    } else {
++                        (next() % 12) as usize
++                    };
+                     for _ in 0..len {
+                         data.push(b"xyz\r \""[(next() % 6) as usize] as u8);
+                     }
+diff --git a/src/fast/sink.rs b/src/fast/sink.rs
+index b954e3c..a116d15 100644
+--- a/src/fast/sink.rs
++++ b/src/fast/sink.rs
+@@ -103,7 +103,11 @@ impl<T: Copy> Sink<T> {
+             end: vec![ptr::null_mut(); parts],
+             full: (0..parts).map(|_| Vec::new()).collect(),
+             block,
+-            stage: if Self::STREAM { vec![Line([0; 64]); parts] } else { Vec::new() },
++            stage: if Self::STREAM {
++                vec![Line([0; 64]); parts]
++            } else {
++                Vec::new()
++            },
+             staged: if Self::STREAM { vec![0; parts] } else { Vec::new() },
+             _marker: PhantomData,
+         }
+@@ -190,9 +194,33 @@ impl<T: Copy> Sink<T> {
+         }
+     }
+ 
++    pub fn blocks(&self, part: usize) -> usize {
++        self.full[part].len() + usize::from(!self.cur[part].is_null())
++    }
++
++    pub fn block(&self, part: usize, i: usize) -> (*mut T, usize) {
++        if i < self.full[part].len() {
++            (self.full[part][i], self.block)
++        } else {
++            let start = unsafe { self.end[part].sub(self.block) };
++            (start, unsafe { self.cur[part].offset_from(start) } as usize)
++        }
++    }
++
++    pub fn prefix(&self, part: usize, count: usize) -> impl Iterator<Item = &[T]> + '_ {
++        let mut left = count;
++        self.slices(part).map(move |slice| {
++            let take = slice.len().min(left);
++            left -= take;
++            &slice[..take]
++        })
++    }
++
+     pub fn slices(&self, part: usize) -> impl Iterator<Item = &[T]> + '_ {
+         let block = self.block;
+-        let full = self.full[part].iter().map(move |&p| unsafe { std::slice::from_raw_parts(p as *const T, block) });
++        let full = self.full[part]
++            .iter()
++            .map(move |&p| unsafe { std::slice::from_raw_parts(p as *const T, block) });
+         let partial = (!self.cur[part].is_null()).then(|| unsafe {
+             let start = self.end[part].sub(block);
+             std::slice::from_raw_parts(start as *const T, self.cur[part].offset_from(start) as usize)
+diff --git a/src/fast/ts.rs b/src/fast/ts.rs
+index 6dc3273..16f3614 100644
+--- a/src/fast/ts.rs
++++ b/src/fast/ts.rs
+@@ -68,7 +68,10 @@ impl Calendar {
+             .collect();
+         let mut seed = 0x9e37_79b9_7f4a_7c15u64;
+         for _ in 0..10_000 {
+-            seed = seed.wrapping_mul(6_364_136_223_846_793_005).wrapping_add(1_442_695_040_888_963_407) | 1;
++            seed = seed
++                .wrapping_mul(6_364_136_223_846_793_005)
++                .wrapping_add(1_442_695_040_888_963_407)
++                | 1;
+             let mut used = [false; CACHE];
+             let ok = months.iter().all(|&(w, _, _)| {
+                 let h = (w.wrapping_mul(seed) >> 60) as usize;
+@@ -134,7 +137,8 @@ impl Calendar {
+         let x = w ^ ZEROS;
+         const SEP: u64 = 0x0000_ff00_00ff_0000;
+         const COLONS: u64 = 0x0000_3a00_003a_0000;
+-        let bad = (digit_fault(dd) & 0x8080) | (digit_fault(x) & !SEP) | u64::from(*t.add(10) != b'T') | ((w & SEP) ^ COLONS);
++        let bad =
++            (digit_fault(dd) & 0x8080) | (digit_fault(x) & !SEP) | u64::from(*t.add(10) != b'T') | ((w & SEP) ^ COLONS);
+         if bad != 0 {
+             return None;
+         }
+@@ -171,7 +175,11 @@ impl Calendar {
+                 return None;
+             }
+             let offset = hours * HOUR_MS + minutes * MINUTE_MS;
+-            return Some(if *p.add(19) == b'+' { local - offset } else { local + offset });
++            return Some(if *p.add(19) == b'+' {
++                local - offset
++            } else {
++                local + offset
++            });
+         }
+         if (1..=16).contains(&n) {
+             return digits_padded(p, n);
+@@ -197,7 +205,12 @@ fn eight(word: u64) -> Option<u64> {
+     const MASK: u64 = 0x0000_00ff_0000_00ff;
+     const MUL1: u64 = 100 + (1_000_000 << 32);
+     const MUL2: u64 = 1 + (10_000 << 32);
+-    Some(((x & MASK).wrapping_mul(MUL1).wrapping_add(((x >> 16) & MASK).wrapping_mul(MUL2))) >> 32)
++    Some(
++        ((x & MASK)
++            .wrapping_mul(MUL1)
++            .wrapping_add(((x >> 16) & MASK).wrapping_mul(MUL2)))
++            >> 32,
++    )
+ }
+ 
+ #[inline(always)]
+@@ -317,7 +330,12 @@ mod tests {
+             b"2026-1O-03T23:58:10Z",
+         ];
+         for t in fixed {
+-            assert_eq!(padded(&calendar, t), parse_timestamp(t), "{}", String::from_utf8_lossy(t));
++            assert_eq!(
++                padded(&calendar, t),
++                parse_timestamp(t),
++                "{}",
++                String::from_utf8_lossy(t)
++            );
+         }
+     }
+ 
+@@ -331,7 +349,12 @@ mod tests {
+             state ^= state << 17;
+             state
+         };
+-        let base: &[&[u8]] = &[b"2027-12-31T23:59:59Z", b"2028-02-29T12:30:00+05:30", b"1830000000000", b"2024-02-29T00:00:00-11:59"];
++        let base: &[&[u8]] = &[
++            b"2027-12-31T23:59:59Z",
++            b"2028-02-29T12:30:00+05:30",
++            b"1830000000000",
++            b"2024-02-29T00:00:00-11:59",
++        ];
+         let alphabet = b"0123456789-+:TZ x";
+         for _ in 0..200_000 {
+             let mut t = base[(next() % base.len() as u64) as usize].to_vec();
+@@ -339,9 +362,16 @@ mod tests {
+                 let i = (next() % t.len() as u64) as usize;
+                 t[i] = alphabet[(next() % alphabet.len() as u64) as usize];
+             }
+-            assert_eq!(padded(&calendar, &t), parse_timestamp(&t), "{}", String::from_utf8_lossy(&t));
++            assert_eq!(
++                padded(&calendar, &t),
++                parse_timestamp(&t),
++                "{}",
++                String::from_utf8_lossy(&t)
++            );
+         }
+-        for year in [1969i64, 1970, 1999, 2000, 2024, 2025, 2026, 2027, 2028, 2029, 2040, 2100, 2400] {
++        for year in [
++            1969i64, 1970, 1999, 2000, 2024, 2025, 2026, 2027, 2028, 2029, 2040, 2100, 2400,
++        ] {
+             for month in 1..=12 {
+                 for day in [1, 28, 29, 30, 31] {
+                     let t = format!("{year:04}-{month:02}-{day:02}T01:02:03Z");
+diff --git a/src/fast/write.rs b/src/fast/write.rs
+index 8916d42..a47cdca 100644
+--- a/src/fast/write.rs
++++ b/src/fast/write.rs
+@@ -71,12 +71,36 @@ pub fn user_part(dir: &Path, id: usize, part: &Part, categories: &[&[u8]], first
+         }
+     };
+     let columns = [
+-        Column { name: "user_id", kind: Kind::Str, fill: &names },
+-        Column { name: "day", kind: Kind::Date, fill: &days },
+-        Column { name: "sessions", kind: Kind::I32, fill: &sessions },
+-        Column { name: "events", kind: Kind::I32, fill: &events },
+-        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
+-        Column { name: "top_category", kind: Kind::OptStr, fill: &top },
++        Column {
++            name: "user_id",
++            kind: Kind::Str,
++            fill: &names,
++        },
++        Column {
++            name: "day",
++            kind: Kind::Date,
++            fill: &days,
++        },
++        Column {
++            name: "sessions",
++            kind: Kind::I32,
++            fill: &sessions,
++        },
++        Column {
++            name: "events",
++            kind: Kind::I32,
++            fill: &events,
++        },
++        Column {
++            name: "revenue_cents",
++            kind: Kind::I64,
++            fill: &revenue,
++        },
++        Column {
++            name: "top_category",
++            kind: Kind::OptStr,
++            fill: &top,
++        },
+     ];
+     parquet::write(&dir.join(format!("part-{id:05}.parquet")), &columns, part.persons.len())
+ }
+@@ -142,13 +166,41 @@ pub fn campaign_table(
+         }
+     };
+     let columns = [
+-        Column { name: "campaign_id", kind: Kind::Str, fill: &ids_col },
+-        Column { name: "channel", kind: Kind::Str, fill: &channel_col },
+-        Column { name: "day", kind: Kind::Date, fill: &day_col },
+-        Column { name: "sessions", kind: Kind::I32, fill: &sessions },
+-        Column { name: "purchasing_sessions", kind: Kind::I32, fill: &purchasing },
+-        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
+-        Column { name: "assisted_sessions", kind: Kind::I32, fill: &assisted },
++        Column {
++            name: "campaign_id",
++            kind: Kind::Str,
++            fill: &ids_col,
++        },
++        Column {
++            name: "channel",
++            kind: Kind::Str,
++            fill: &channel_col,
++        },
++        Column {
++            name: "day",
++            kind: Kind::Date,
++            fill: &day_col,
++        },
++        Column {
++            name: "sessions",
++            kind: Kind::I32,
++            fill: &sessions,
++        },
++        Column {
++            name: "purchasing_sessions",
++            kind: Kind::I32,
++            fill: &purchasing,
++        },
++        Column {
++            name: "revenue_cents",
++            kind: Kind::I64,
++            fill: &revenue,
++        },
++        Column {
++            name: "assisted_sessions",
++            kind: Kind::I32,
++            fill: &assisted,
++        },
+     ];
+     parquet::write(&dir.join("part-00000.parquet"), &columns, rows.len())
+ }
+@@ -173,7 +225,9 @@ pub fn report(parts: &[Part], days: usize, organic: usize) {
+         }
+     }
+     eprintln!("surviving events {user_events}, user_daily rows {rows}");
+-    eprintln!("sessions {user_sessions} / {sessions}, revenue {user_revenue} / {revenue}, assisted {assisted} >= {credited}");
++    eprintln!(
++        "sessions {user_sessions} / {sessions}, revenue {user_revenue} / {revenue}, assisted {assisted} >= {credited}"
++    );
+     if user_sessions != sessions || user_revenue != revenue || assisted < credited {
+         eprintln!("warning: self-check failed");
+     }
+diff --git a/src/manifest.rs b/src/manifest.rs
+index c931c1e..b925b71 100644
+--- a/src/manifest.rs
++++ b/src/manifest.rs
+@@ -161,7 +161,10 @@ impl Parser<'_> {
+             }
+             _ => {
+                 let start = self.at;
+-                while matches!(self.peek(), Some(b'-' | b'+' | b'.' | b'0'..=b'9' | b'a'..=b'z' | b'A'..=b'Z')) {
++                while matches!(
++                    self.peek(),
++                    Some(b'-' | b'+' | b'.' | b'0'..=b'9' | b'a'..=b'z' | b'A'..=b'Z')
++                ) {
+                     self.at += 1;
+                 }
+                 if self.at == start {
+@@ -180,16 +183,38 @@ mod tests {
+     #[test]
+     fn top_level_only() {
+         let nested = br#"{"note":{"window_start":"1999-01-01T00:00:00Z","window_end":"1999-01-02T00:00:00Z"},"window_start":"2026-10-01T00:00:00Z","window_end":"2026-10-15T00:00:00Z"}"#;
+-        assert_eq!(top_level_string(nested, b"window_start").unwrap(), b"2026-10-01T00:00:00Z");
+-        assert_eq!(top_level_string(nested, b"window_end").unwrap(), b"2026-10-15T00:00:00Z");
++        assert_eq!(
++            top_level_string(nested, b"window_start").unwrap(),
++            b"2026-10-01T00:00:00Z"
++        );
++        assert_eq!(
++            top_level_string(nested, b"window_end").unwrap(),
++            b"2026-10-15T00:00:00Z"
++        );
+         let variants = b"{\"window_end\":\"2026-10-14T06:00:00Z\",\"extra\":[1,2,{\"seed\":5}],\n\t\"window_start\" :  \"2026-10-01T12:30:00Z\"}";
+-        assert_eq!(top_level_string(variants, b"window_start").unwrap(), b"2026-10-01T12:30:00Z");
+-        assert_eq!(top_level_string(variants, b"window_end").unwrap(), b"2026-10-14T06:00:00Z");
+-        let listed = br#"{"a":["window_start","x"],"window_start":"2026-10-01T00:00:00Z","b":-1.5e3,"c":true,"d":null}"#;
+-        assert_eq!(top_level_string(listed, b"window_start").unwrap(), b"2026-10-01T00:00:00Z");
++        assert_eq!(
++            top_level_string(variants, b"window_start").unwrap(),
++            b"2026-10-01T12:30:00Z"
++        );
++        assert_eq!(
++            top_level_string(variants, b"window_end").unwrap(),
++            b"2026-10-14T06:00:00Z"
++        );
++        let listed =
++            br#"{"a":["window_start","x"],"window_start":"2026-10-01T00:00:00Z","b":-1.5e3,"c":true,"d":null}"#;
++        assert_eq!(
++            top_level_string(listed, b"window_start").unwrap(),
++            b"2026-10-01T00:00:00Z"
++        );
+         let twice = br#"{"window_start":"2026-01-01T00:00:00Z","window_start":"2026-02-01T00:00:00Z"}"#;
+-        assert_eq!(top_level_string(twice, b"window_start").unwrap(), b"2026-02-01T00:00:00Z");
+-        assert_eq!(top_level_string(br#"{"w":{"window_start":"x"}}"#, b"window_start"), None);
++        assert_eq!(
++            top_level_string(twice, b"window_start").unwrap(),
++            b"2026-02-01T00:00:00Z"
++        );
++        assert_eq!(
++            top_level_string(br#"{"w":{"window_start":"x"}}"#, b"window_start"),
++            None
++        );
+         assert_eq!(top_level_string(b"{}", b"window_start"), None);
+         assert_eq!(top_level_string(br#"{"window_start":5}"#, b"window_start"), None);
+         assert_eq!(top_level_string(br#"{"window_start":"x""#, b"window_start"), None);

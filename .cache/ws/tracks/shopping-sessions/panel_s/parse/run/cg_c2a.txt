@@ -1,0 +1,10 @@
+==29381== I refs:        1,411,333,664
+==29381== Mispredicts:       4,340,335  (  4,339,582 cond +     753 ind)
+> 708,375,663 (50.2%, 50.2%) 1,203,867 (27.7%, 27.7%)  sessions::fast::parse_events_avx2:
+> 316,851,375 (22.5%, 72.6%) 1,893,882 (43.6%, 71.4%)  sessions::fast::run::{closure#14}::{closure#0}:
+> 138,955,936  (9.8%, 82.5%)   366,667  (8.4%, 79.8%)  sessions::fast::parse_clicks_avx2:
+>  66,664,110  (4.7%, 87.2%)   384,876  (8.9%, 88.7%)  sessions::fast::dedup::{closure#0}:
+>  48,677,947  (3.4%, 90.7%)    18,037  (0.4%, 89.1%)  __memcpy_avx_unaligned_erms:./string/../sysdeps/x86_64/multiarch/
+>  34,735,723  (2.5%, 93.1%)     2,005  (0.0%, 89.2%)  __memset_avx2_unaligned_erms:./string/../sysdeps/x86_64/multiarch
+>  13,318,698  (0.9%, 94.1%)     1,591  (0.0%, 89.2%)  sessions::fast::link_pairs_avx2:
+>  13,294,338  (0.9%, 95.0%)     5,017  (0.1%, 89.3%)  sessions::fast::keys::bytes_of:

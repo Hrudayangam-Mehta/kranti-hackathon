@@ -1,0 +1,12 @@
+p20 NCPU=4 rc=0 stdout=0B -> MATCH
+  compare(rel18, rel16):
+    user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+    campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+    MATCH
+  compare(rel16, rel18):
+    user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+    campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+    MATCH
+  lane F on: user key 0x2e3f48c523, person cap 1847094, 1.1 ms | buckets on: event key 0x11edb6f664, number cap 55476224, 32768 slots, 1.1 ms
+  surviving events 19563061, user_daily rows 2242393
+  sessions 3402836 / 3402836, revenue 6791186462 / 6791186462, assisted 36877579 >= 2092518

@@ -1,0 +1,8 @@
+PASS  gun: target walking across at 60 m, hit rate >= 0.9  ::  0.984 (62/63, mean range 64 m, spread ceiling 1.00) | no spread 0.984 | shot one tick later 1.000
+PASS  gun: target walking across at 100 m, hit rate >= 0.85  ::  0.921 (58/63, mean range 100 m, spread ceiling 0.99) | no spread 1.000 | shot one tick later 0.935
+PASS  gun: target walking across at 150 m, hit rate >= 0.7  ::  0.844 (54/64, mean range 150 m, spread ceiling 0.92) | no spread 0.969 | shot one tick later 0.871
+PASS  gun: target strafing with reversals every 2 s at 100 m, hit rate >= 0.6  ::  0.719 (46/64) | no spread 0.781
+PASS  gun: stationary target at 200 m (>= 0.9 without spread, >= 0.92 x ceiling with spread)  ::  no spread 1.000 (64/64) | spread 0.6 deg 0.797 (51/64), physical ceiling 0.841 at 185 m
+PASS  decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms  ::  4095 decisions, mean 0.03 p99 0.22 max 6.91 ms
+
+6/6 checks passed

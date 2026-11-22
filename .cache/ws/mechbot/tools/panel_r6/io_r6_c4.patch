@@ -1,0 +1,110 @@
+diff -ru a/lib/firecontrol.js b/lib/firecontrol.js
+--- a/lib/firecontrol.js	2026-11-21 21:03:21.265274894 +0000
++++ b/lib/firecontrol.js	2026-11-21 21:03:21.268896055 +0000
+@@ -68,7 +68,8 @@
+       vx = ux * rad - uy * p2; vy = uy * rad + ux * p2
+     }
+     const sx = ps.x, sy = ps.y, sz = ps.z + me.muzzleH
+-    const cx = tr.x + vx * tl, cy = tr.y + vy * tl
++    const tL = P.ioLead === true ? Math.max(0, tl - 0.5 * P.tickS) : tl      // R6 IO1: half a tick (bullet sweeps a full tick on spawn; target taken at tick end)
++    const cx = tr.x + vx * tL, cy = tr.y + vy * tL
+     const zc = tr.height * zFrac + zOff
+     let cz = tr.z + zc
+     const off = me.radius + 0.5
+@@ -77,7 +78,7 @@
+     if (tr.airborne || Math.abs(vz) >= 0.5) {
+       // airborne: jet or ballistic arc at the arrival time (two refinements), never below the ground
+       for (let it = 0; it < 2; it++) {
+-        cz = airZ(tr, tl + r.t) + zc
++        cz = airZ(tr, tL + r.t) + zc
+         const r2 = intercept(sx, sy, sz, cx, cy, cz, vx, vy, 0, g.speed, off)
+         if (!r2) return false
+         r = r2
+@@ -179,7 +180,8 @@
+       const R0 = Math.hypot(o.x - me.x, o.y - me.y, o.z - me.z)
+       // ---------------- gun (lead for the tick the shot really leaves on)
+       let gunOk = false, gunFire = false, gunReady = false, gYaw = 0, gPitch = 0, yawGate = 0, pitGate = 0
+-      const tlg = g ? gunLatency(g.cooldown) : tl
++      const ioR = P.ioReload === true && !!g && g.reload > 0 && g.reload <= P.readyCd + 1e-6      // R6 IO4: the reload ends inside this window
++      const tlg = g ? gunLatency(ioR ? Math.max(g.cooldown, g.reload) : g.cooldown) : tl
+       if (g) predictSelf(tlg)
+       const headG = !!tgt && P.headAimGun === true
+       if (g && gunSolve(o, tlg, headG ? GUN_RUNGS[0] : 0.5)) {
+@@ -217,7 +219,7 @@
+         // FFA rule 6: the steady waiver reaches 0.8 s of flight; a sub-second reverser only under 0.3 s (laser otherwise)
+         if (tgt && ffaR()) flightOk = B.ffa.reverser(tgt) ? sol.t <= P.ffaRevFlight : sol.t <= P.gunFlightMax || (steady && sol.t <= P.ffaSteadyFlight)
+         if (!flightOk) B.counters.flightGated = (B.counters.flightGated || 0) + 1
+-        gunReady = g.cooldown <= P.readyCd && g.ammo > 0 && g.reload <= 0 && clear && !hold && sol.dist <= g.range * P.gunRangeFrac && flightOk
++        gunReady = g.cooldown <= P.readyCd && ((g.ammo > 0 && g.reload <= 0) || ioR) && clear && !hold && sol.dist <= g.range * P.gunRangeFrac && flightOk
+         if (gunReady) {
+           const R = Math.max(1, sol.dist)
+           gYaw = sol.yaw; gPitch = sol.pitch
+@@ -235,7 +237,8 @@
+         // R3: aim at the highest clear rung (headAimOn); with aimCalOn lead with the calibrated latency and command
+         // minus the calibrated aim bias. Both off: the pass 2a centre aim, computed exactly as before.
+         const AC = P.aimCalOn === true && B.aimcal ? B.aimcal : null
+-        const ltl = AC ? tl + AC.lat() : tl
++        const tlz = P.ioLaserLat === true ? P.tickS : tl                  // R6 IO2
++        const ltl = AC ? tlz + AC.lat() : tlz
+         if (ltl !== tl) predictSelf(ltl)
+         const lx = tgt.x + tgt.vx * ltl, ly = tgt.y + tgt.vy * ltl, zAir = Math.abs(tgt.vz) >= 0.5 ? tgt.vz * ltl : 0
+         const sx = ps.x, sy = ps.y, sz = ps.z + me.muzzleH
+@@ -258,7 +261,7 @@
+           if (full) { if (lz.fullSince < 0) lz.fullSince = t } else lz.fullSince = -1
+           const takeAim = charge >= P.laserTakeFrac * lz.full - 1e-6
+           const cy = takeAim ? cyaw : out.aim[0], cp = takeAim ? cpitch : out.aim[1]
+-          const ey = Math.abs(angDiff(predYaw(cy, tl), cyaw)), ep = predPitch(cp, tl) - cpitch
++          const ey = Math.abs(angDiff(predYaw(cy, tlz), cyaw)), ep = predPitch(cp, tlz) - cpitch
+           // pitch gate: the room above / below the chosen rung (at the 0.5 rung the pass 2a symmetric gate)
+           const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * (1 - frac) * P.laserGateK, lR) && -ep <= Math.atan2(tgt.height * frac * P.laserGateK, lR)
+           const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
+@@ -290,7 +293,8 @@
+             if (arcClear && !laserRelease && !(lz && lz.charge > 0)) {
+               out.aim[0] = m.yaw; out.aim[1] = m.pitch; B.aimKind = 'mortar'
+               gunReady = false
+-              if (Math.abs(angDiff(predYaw(m.yaw, tl), m.yaw)) < 0.02 && Math.abs(predPitch(m.pitch, tl) - m.pitch) < 0.02) out.fire[mo.slot] = true
++              const tlm = P.ioSlewGate === true ? gunLatency(mo.cooldown) : tl          // R6 IO3
++              if (Math.abs(angDiff(predYaw(m.yaw, tlm), m.yaw)) < 0.02 && Math.abs(predPitch(m.pitch, tlm) - m.pitch) < 0.02) out.fire[mo.slot] = true
+             }
+           }
+         }
+@@ -335,7 +339,7 @@
+       const need = B.killSecure ? P.lightMinEnergy : P.lightReserve
+       if (me.energy >= need) {
+         const half = li.cone / 2 - P.lightConeMarginDeg * Math.PI / 180
+-        const yawP = predYaw(out.aim[0], tl)
++        const yawP = predYaw(out.aim[0], P.ioSlewGate === true ? gunLatency(li.cooldown) : tl)      // R6 IO3
+         const L = B.trackList
+         for (let k = 0; k < L.length; k++) {
+           const tr = L[k]
+diff -ru a/lib/params.js b/lib/params.js
+--- a/lib/params.js	2026-11-21 21:03:21.265325291 +0000
++++ b/lib/params.js	2026-11-21 21:03:47.508538477 +0000
+@@ -19,6 +19,10 @@
+   // ---- fire control (layer 2)
+   latency: 0.10,            // s between the observation and the moment a laser beam / mortar shell leaves
+   tickS: 0.05,              // one server tick; the gun shot leaves on the first tick its cooldown allows
++  ioLead: false,            // R6 IO1: gun lead counted half a tick earlier (a bullet sweeps 12.6 m on its spawn tick)
++  ioLaserLat: false,        // R6 IO2: the beam leaves on the first tick after the release decision (0.05 s, one tick of slew)
++  ioReload: false,          // R6 IO4: hold the gun trigger when the reload read-out ends inside this decision
++  ioSlewGate: false,        // R6 IO3: mortar / lightning gates use the tick the shot really leaves on
+   gunRangeFrac: 0.97,
+   gateMin: 0.004,           // rad, floor of the actual-aim gate
+   gateBody: 0.3,            // m added to the target half-width (bullet radius)
+@@ -229,6 +233,7 @@
+     focusAdd: false, pulseRetreat: false, boostSpend: false, farmHp: 0.9, upgradeOrder: PARAMS.upgradeOrder,
+     ffaDropGate: false, finalPoint: false, ffaTwo: false, ffaThree: false, ffaGate: false } },
+   // every pass 2b switch at once (applied last): 'off' = the pass 2a behaviour
++  io: { v4: { ioLead: false, ioLaserLat: false, ioSlewGate: false, ioReload: false }, lead: { ioLead: true }, laser: { ioLaserLat: true }, reload: { ioReload: true }, all: { ioLead: true, ioLaserLat: true, ioSlewGate: true, ioReload: true } },
+   pass2b: { on: {}, off: { stealOn: false, crateGateOn: false, scanOn: false, headAimOn: false, headAimGun: false, aimCalOn: false, openFarm: false,
+     cxFinish: false, cxKiterRamp: false, cxBrawler: false, ffaThirdFix: false, ffaBreakFix: false, hidePlanCap: false } },
+ }
+@@ -239,7 +244,7 @@
+   fightEarly: 'on', laserEcon: 'on', focus: 'add', retreat: 'pulse', boost: 'spend', upg: 'speed',
+   ffaDropGate: 'on', finalPoint: 'on', ffaTwo: 'on', ffaThree: 'on', ffaGate: 'on',
+   hunt: 'off', seek: 'off',
+-  r3a2: 'on' }
++  r3a2: 'on', io: 'v4' }
+ /** The 5.02 build (S01-full, a2fb4793): SELECT entries of every preset that R3a2 changed, at their 5.02 values. */
+ export const SELECT_502 = { laserRange: 'far', farmHp: '90', fightEarly: 'off', laserEcon: 'off', focus: 'mult', retreat: 'd3', boost: 'off', upg: 'std',
+   ffaDropGate: 'off', finalPoint: 'off', ffaTwo: 'off', ffaThree: 'off', ffaGate: 'off' }

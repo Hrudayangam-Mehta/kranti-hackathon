@@ -1,0 +1,14 @@
+20M rel16 exit=0 stdout_bytes=0 files=36/1
+20M step4 exit=0 stdout_bytes=0 files=41/4
+user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+user_daily: rows 2242393 vs 2242393; only in A 0; only in B 0; duplicate keys 0 vs 0
+campaign_daily: rows 28014 vs 28014; only in A 0; only in B 0; duplicate keys 0 vs 0
+MATCH
+user_daily: rows 2242393 vs 2242393, files 41 vs 36, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 1, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+ROWDIFF IDENTICAL
+user_daily: rows 2242393 vs 2242393, files 36 vs 41, sorted-row sha256 f4534eb01a8cfddb vs f4534eb01a8cfddb: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 1 vs 4, sorted-row sha256 69efcbb90991a817 vs 69efcbb90991a817: IDENTICAL
+ROWDIFF IDENTICAL

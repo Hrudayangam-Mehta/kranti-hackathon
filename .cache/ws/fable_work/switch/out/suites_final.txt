@@ -1,0 +1,14 @@
+test_switch: 36/36 switch checks passed
+test_tf2: 13/13 T-F2 checks passed
+test_iso7: 5/5 ISO checks passed
+test_lx7: 7/7 LX / LC checks passed
+test_fin7: 6/6 FIN checks passed
+test_lg7: 10/10 LG checks passed
+test_aggr7: 14/14 aggr / healDoc checks passed
+test_io7: 9/9 IO checks passed
+test_rb7: 6/6 RB checks passed
+anchors7: 21/21 anchor checks passed
+test_brain: 107/109 checks passed  FAILED: stream replay (no map): decision time mean<=4 p99<=15 max<=25 ms | decision time over all closed-loop scenarios: mean<=4 p99<=15 max<=25 ms
+test_counters: 15/15 passed
+test_requests: 10/12 checks passed  FAILED: fuzz: 3000 x 2 rich perturbed observations (crates hit by others, own beams, rear hits, deaths, late zones, FFA) never throw, valid actions | decision time: stream replay with the map (warm pass) and all request scenarios: mean <= 4, p99 <= 15, max <= 25 ms
+test_world: 39 passed, failed: 

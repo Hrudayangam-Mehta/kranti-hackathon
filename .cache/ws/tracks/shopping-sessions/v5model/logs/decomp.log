@@ -1,0 +1,32 @@
+r0 rel15   p20m     warm n2 wall  15.380 cpu   5.624 (u 4.59 s 1.03) rss 2735M majflt 4 in 0MB laps setup=5 parse=11021 dedup=13340 people=15363 write=15363 psi 95 st 0 [warm: resident 469253/469253 pages = 100.00%]
+r0 rel15   p20m5s   warm n2 wall  13.619 cpu   6.318 (u 4.70 s 1.61) rss 2710M majflt 3 in 0MB laps setup=23 parse=10173 dedup=12130 people=13595 psi 96 st 256 [warm: resident 469284/469284 pages = 100.00%]
+FAIL rel15 256 0 setup        23.4 ms
+links      1662.8 ms on one thread
+thread 0 parse busy  10158.6 ms
+parse     10172.7 ms
+dedup     12130.3 ms
+people    13594.9 ms
+error: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5model/run/ab_decomp/out/user_daily/part-00034.parquet: No such file or directory (os error 2)
+
+r0 rel15   p20m5    warm n2 wall  39.873 cpu  14.125 (u 11.58 s 2.54) rss 2760M majflt 586 in 62MB laps setup=22 parse=32528 dedup=35984 people=39754 write=39756 psi 94 st 0 [warm: resident 510529/510529 pages = 100.00%]
+r0 rel17   p20m     warm n2 wall  15.184 cpu   5.744 (u 4.15 s 1.59) rss 999M majflt 2 in 0MB laps setup=26 dedup=11499 people=15166 psi 98 st 256 [warm: resident 469253/469253 pages = 100.00%]
+FAIL rel17 256 0 lane F on: user key 0x2e3f48c523, person cap 1847094, 0.8 ms
+setup        26.5 ms
+links    split and merged in 664.9 ms; lane F 873116 lines, general 21656 lines, odd persons 3630
+links       681.0 ms on one thread
+dedup     11499.2 ms
+people    15165.5 ms
+error: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5model/run/ab_decomp/out/user_daily/part-00035.parquet: No such file or directory (os error 2)
+
+r0 rel17   p20m5s   warm n2 wall  17.456 cpu   6.327 (u 4.70 s 1.62) rss 1024M majflt 8 in 0MB laps setup=25 dedup=14528 people=17430 psi 98 st 256 [warm: resident 469284/469284 pages = 100.00%]
+FAIL rel17 256 0 lane F off: no key candidate passed
+setup        24.6 ms
+links      2110.3 ms on one thread
+dedup     14528.3 ms
+people    17429.9 ms
+error: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5model/run/ab_decomp/out/user_daily/part-00034.parquet: No such file or directory (os error 2)
+
+r0 rel17   p20m5    warm n2 wall  45.910 cpu  14.519 (u 12.02 s 2.50) rss 1479M majflt 5378 in 607MB laps setup=24 dedup=41341 people=45741 write=45741 psi 96 st 0 [warm: resident 510529/510529 pages = 100.00%]
+r0 f2      p20m     warm n2 wall  14.902 cpu   4.612 (u 3.40 s 1.21) rss 2308M majflt 34 in 2MB laps setup=16 parse=10637 people=14701 write=14702 psi 98 st 0 [warm: resident 469253/469253 pages = 100.00%]
+r0 f2      p20m5s   warm n2 wall  28.144 cpu   7.622 (u 5.22 s 2.40) rss 2574M majflt 17499 in 1907MB laps setup=28 parse=24550 dedup=26588 people=28111 write=28116 psi 95 st 0 [warm: resident 418404/469284 pages = 89.16%]
+r0 f2      p20m5    warm n2 wall  35.724 cpu  13.827 (u 11.87 s 1.96) rss 2171M majflt 9368 in 1001MB laps setup=20 parse=30680 dedup=33207 people=35572 write=35576 psi 93 st 0 [warm: resident 406020/510529 pages = 79.53%]

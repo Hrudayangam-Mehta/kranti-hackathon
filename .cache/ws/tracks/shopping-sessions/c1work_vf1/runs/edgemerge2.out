@@ -1,0 +1,116 @@
+[canon] x01_no_trailing_newline: em_canon_x01_no_trailing_newline: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 7.4 ms | lane F winners 57367, lane G share 2.90%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.09s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.2 ms | lane F winners 57367, lane G share 2.90%
+[canon] x02_empty_files: em_canon_x02_empty_files: MATCH
+  n2_auto: MATCH 0.13s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.3 ms | lane F winners 57366, lane G share 2.90%
+  n2_G: MATCH 0.14s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.15s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.0 ms | lane F winners 57366, lane G share 2.90%
+[canon] x03_crlf: em_canon_x03_crlf: MATCH
+  n2_auto: MATCH 0.17s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57368, lane G share 2.90%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.20s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 17.0 ms | lane F winners 57368, lane G share 2.90%
+[canon] x04_quotes: em_canon_x04_quotes: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.4 ms | lane F winners 57371, lane G share 2.90%
+  n2_G: MATCH 0.10s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.05s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57371, lane G share 2.90%
+[canon] x05_ts_forms: em_canon_x05_ts_forms: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6496, 5.4 ms | lane F winners 57374, lane G share 2.90%
+  n2_G: MATCH 0.06s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.05s | lane F on: user key 0xa3bf8d1ee6, person cap 6496, 0.8 ms | lane F winners 57374, lane G share 2.90%
+[canon] x06_f3_extremes: em_canon_x06_f3_extremes: MATCH
+  n2_auto: MATCH 0.14s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.3 ms | lane F winners 57369, lane G share 2.90%
+  n2_G: MATCH 0.11s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.11s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.2 ms | lane F winners 57369, lane G share 2.90%
+[canon] x07_prices: em_canon_x07_prices: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 0.9 ms | lane F winners 57373, lane G share 2.90%
+  n2_G: MATCH 0.08s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.07s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 0.9 ms | lane F winners 57373, lane G share 2.90%
+[canon] x08_late: em_canon_x08_late: MATCH
+  n2_auto: MATCH 0.04s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57369, lane G share 2.90%
+  n2_G: MATCH 0.04s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57369, lane G share 2.90%
+[canon] x09_dedup: em_canon_x09_dedup: MATCH
+  n2_auto: MATCH 0.10s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 13.0 ms | lane F winners 57371, lane G share 2.90%
+  n2_G: MATCH 0.06s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.15s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 1.7 ms | lane F winners 57371, lane G share 2.90%
+[canon] x10_gaps: em_canon_x10_gaps: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 0.9 ms | lane F winners 57393, lane G share 2.90%
+  n2_G: MATCH 0.06s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.17s | lane F on: user key 0xa3bf8d1ee6, person cap 6494, 0.9 ms | lane F winners 57393, lane G share 2.90%
+[canon] x11_top_category: em_canon_x11_top_category: MATCH
+  n2_auto: MATCH 0.12s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 5.3 ms | lane F winners 57382, lane G share 2.90%
+  n2_G: MATCH 0.13s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.06s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.1 ms | lane F winners 57382, lane G share 2.90%
+[canon] x12_big_revenue: em_canon_x12_big_revenue: MATCH
+  n2_auto: MATCH 0.05s | lane F on: user key 0xa3bf8d1ee6, person cap 6554, 0.9 ms | lane F winners 58165, lane G share 2.87%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.13s | lane F on: user key 0xa3bf8d1ee6, person cap 6554, 0.8 ms | lane F winners 58165, lane G share 2.87%
+[canon] x13_click_bounds: em_canon_x13_click_bounds: MATCH
+  n2_auto: MATCH 0.04s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57374, lane G share 2.90%
+  n2_G: MATCH 0.05s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.03s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57374, lane G share 2.90%
+[canon] x14_click_tiebreak: em_canon_x14_click_tiebreak: MATCH
+  n2_auto: MATCH 0.35s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57383, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57383, lane G share 2.90%
+[canon] x15_person_names: em_canon_x15_person_names: MATCH
+  n2_auto: MATCH 0.04s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57382, lane G share 2.90%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.03s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57382, lane G share 2.90%
+[canon] x16_long_chains: em_canon_x16_long_chains: MATCH
+  n2_auto: MATCH 0.06s | lane F on: user key 0xa3bf8d1ee6, person cap 6532, 1.0 ms | lane F winners 57365, lane G share 3.88%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.09s | lane F on: user key 0xa3bf8d1ee6, person cap 6532, 0.9 ms | lane F winners 57365, lane G share 3.88%
+[canon] x17_link_dirt: em_canon_x17_link_dirt: MATCH
+  n2_auto: MATCH 0.17s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.1 ms | lane F winners 57382, lane G share 2.90%
+  n2_G: MATCH 0.13s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.16s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.1 ms | lane F winners 57382, lane G share 2.90%
+[canon] x18_file_selection: em_canon_x18_file_selection: MATCH
+  n2_auto: MATCH 0.06s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57366, lane G share 2.90%
+  n2_G: MATCH 0.07s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.0 ms | lane F winners 57366, lane G share 2.90%
+[canon] x22_assists: em_canon_x22_assists: MATCH
+  n2_auto: MATCH 0.15s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.0 ms | lane F winners 57369, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.11s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57369, lane G share 2.90%
+[canon] x23_all_invalid: em_canon_x23_all_invalid: MATCH
+  n2_auto: MATCH 0.17s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.0 ms | lane F winners 57365, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.12s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57365, lane G share 2.90%
+[canon] x23b_no_files: em_canon_x23b_no_files: MATCH
+  n2_auto: MATCH 0.14s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57365, lane G share 2.90%
+  n2_G: MATCH 0.10s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.1 ms | lane F winners 57365, lane G share 2.90%
+[canon] x24_unicode: em_canon_x24_unicode: MATCH
+  n2_auto: MATCH 0.16s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57374, lane G share 2.90%
+  n2_G: MATCH 0.15s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.24s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57374, lane G share 2.90%
+[canon] x24b_nul_and_controls: em_canon_x24b_nul_and_controls: MATCH
+  n2_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57372, lane G share 2.90%
+  n2_G: MATCH 0.14s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.06s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57372, lane G share 2.90%
+[canon] x25_huge_fields: em_canon_x25_huge_fields: MATCH
+  n2_auto: MATCH 0.09s | lane F on: user key 0xa3bf8d1ee6, person cap 6618, 0.9 ms | lane F winners 57368, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.11s | lane F on: user key 0xa3bf8d1ee6, person cap 6618, 1.1 ms | lane F winners 57368, lane G share 2.90%
+[canon] x26_equal_ts_order: em_canon_x26_equal_ts_order: MATCH
+  n2_auto: MATCH 0.10s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 6.2 ms | lane F winners 57371, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.05s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57371, lane G share 2.90%
+[canon] x28_dup_clicks: em_canon_x28_dup_clicks: MATCH
+  n2_auto: MATCH 0.14s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57367, lane G share 2.90%
+  n2_G: MATCH 0.10s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.08s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.8 ms | lane F winners 57367, lane G share 2.90%
+[canon] x29_header_skip: em_canon_x29_header_skip: MATCH
+  n2_auto: MATCH 0.11s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57368, lane G share 2.90%
+  n2_G: MATCH 0.09s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.09s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 5.0 ms | lane F winners 57368, lane G share 2.90%
+[canon] x31_event_types: em_canon_x31_event_types: MATCH
+  n2_auto: MATCH 0.10s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 0.9 ms | lane F winners 57368, lane G share 2.90%
+  n2_G: MATCH 0.10s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.11s | lane F on: user key 0xa3bf8d1ee6, person cap 6492, 1.6 ms | lane F winners 57368, lane G share 2.90%
+[canon] x32_whale_ties: em_canon_x32_whale_ties: MATCH
+  n2_auto: MATCH 0.13s | lane F on: user key 0xa3bf8d1ee6, person cap 7898, 17.1 ms | lane F winners 77365, lane G share 2.17%
+  n2_G: MATCH 0.08s | lane F off: SESSIONS_LANE=G | lane F winners 0, lane G share 100.00%
+  n1_auto: MATCH 0.16s | lane F on: user key 0xa3bf8d1ee6, person cap 7898, 34.9 ms | lane F winners 77365, lane G share 2.17%

@@ -1,0 +1,137 @@
+--- ../../bot/lib/brain.js	2026-11-21 05:51:33.718743085 +0000
++++ lib_fix/brain.js	2026-11-21 06:33:58.135074657 +0000
+@@ -303,6 +303,8 @@
+     cmd.mx = 0; cmd.my = 0; cmd.boost = false; cmd.jump = false
+     B.hasGoal = false; B.dodging = false; B.hidePhase = false; B.noCharge = false; B.shootCrate = null; B.lookHint = false; B.peekSoon = false; B.ambushAim = false
+     B.legKind = ''
++    B.wantJet = false
++    if (mover.hop.air && mover.pocketExit(B.zone.nx, B.zone.ny)) { B.legKind = 'hop'; B.noCharge = true; mover.stuckCheck(); return }   // FIX prototype: finish a hop whatever the mode
+     if (!(B.mode === MODE.ZONE && B.zoneMargin < 1) && mover.shellDodge()) { B.noCharge = true; B.legKind = 'dodge'; return }
+     switch (B.mode) {
+       case MODE.ZONE: mover.zoneLegs(); B.noCharge = B.zoneMargin < 3 || !B.me.inZone; B.legKind = 'zone'; break
+@@ -315,6 +317,7 @@
+     // energy discipline: lightning needs the tank when an enemy is close
+     if (cmd.boost && B.me.lightning && B.nearestMech && B.nearestMech.dist < 60 && !B.me.gun) cmd.boost = false
+     if (cmd.boost && B.me.energy < 2) cmd.boost = false
++    if (cmd.boost && !B.me.grounded && !B.wantJet) cmd.boost = false   // FIX: in the air boost is the jet (protocol section 6)
+     mover.stuckCheck()
+   }
+ 
+--- ../../bot/lib/tactics.js	2026-11-21 05:52:27.725624434 +0000
++++ lib_fix/tactics.js	2026-11-21 06:33:09.791093926 +0000
+@@ -101,12 +101,12 @@
+     tauMed = Math.max(0.5, taus[n >> 1])
+   }
+   const A = B.A
+-  let best = null, bestI = -1
++  let best = null, bestI = -Infinity   // FIX: an index is never NaN here, so the first candidate always wins
+   const gunHit = me.gun ? me.gun.damage * me.dmgMult : 0
+   const laserHit = me.laser && (me.laser.cooldown <= 0.3 || me.laser.charge > 0) ? me.laser.damage * me.dmgMult : 0
+   for (let k = 0; k < candBuf.length; k++) {
+     const tr = candBuf[k]
+-    const V = A > 0 && !B.lastStand ? 1 + Math.min(2, (me.hp / A) * tr.a / ((A - tr.a + 1) * tauMed)) : 1
++    const V = A > 0 && !B.lastStand ? 1 + Math.min(2, (me.hp / A) * tr.a / (Math.max(1, A - tr.a + 1) * tauMed)) : 1   // FIX: tr.a may not be part of A
+     let I = V / tr.tau
+     if (!tr.losOut) I *= 0.3
+     if (tr.npc) I *= 0.5
+@@ -122,7 +122,7 @@
+   const cur = B.target
+   let pick = best
+   if (cur && cur !== best && B.tracks.get(cur.id) === cur && candBuf.includes(cur)) {
+-    const lostLos = t - cur.losOutT > P.switchNoLosS && best.losOut
++    const lostLos = t - cur.losOutT > P.switchNoLosS && !!best && best.losOut   // FIX: null guard
+     if (!(bestI >= P.switchRatio * cur.index) && !lostLos) pick = cur
+   }
+   setTarget(B, pick)
+--- ../../bot/lib/mover.js	2026-11-21 05:50:52.855059406 +0000
++++ lib_fix/mover.js	2026-11-21 06:33:58.134539267 +0000
+@@ -15,6 +15,7 @@
+   const jink = { sign: 1, until: -1 }
+   const zg = { x: 0, y: 0, t: -9, len: Infinity, lenT: -9, ok: false }
+   const dodge = { until: -1, dx: 0, dy: 0 }
++  const hop = { plan: null, planT: -9, air: false, t0: -9, comp: -1 }     // FIX prototype: pocket exit through nav.hopPlan
+ 
+   const now = () => performance.now()
+ 
+@@ -161,6 +162,11 @@
+       if (r && r.pts && r.pts.length > 1 && B.mode === 'ZONE') { path.pts = r.pts; path.gx = g.x; path.gy = g.y; path.t = t; path.wp = 1; path.ok = r.ok; path.len = r.len; path.dirty = false }
+     }
+     if (zg.len < Infinity && t - zg.lenT < 3) len = Math.max(straight, zg.len)
++    if (B.nav && B.nav.component(me.x, me.y) !== B.nav.mainComponent && B.nav.component(me.x, me.y) >= 0 && B.nav.component(z.nx, z.ny) !== B.nav.component(me.x, me.y)) {
++      // FIX prototype: a pocket exit costs the walk to the launch cell, the energy wait and the hop
++      const hp = hop.plan || (() => { try { return B.nav.hopPlan(me.x, me.y, { toward: [z.nx, z.ny] }) } catch (e) { return null } })()
++      if (hp) len = straight * P.pathFactor + hp.walkLen + hp.hopLen + 8 * me.walk
++    }
+     const margin = tOut - len / me.walk
+     B.zoneMargin = margin
+     const inGoal = straight < 3
+@@ -169,8 +175,53 @@
+     else B.zoneUrgent = margin < P.zoneMargin && !inGoal
+   }
+ 
++  /**
++   * FIX prototype. We stand in a walking component that is not the main one (stadium bowl, courtyard, deck) and
++   * the goal is outside: walk to the launch cell of nav.hopPlan, wait for the energy, jump, jet until the feet
++   * are above apexZ, fly to the landing cell. Returns true while it owns the legs.
++   */
++  function pocketExit(tx, ty) {
++    const me = B.me, nav = B.nav, cmd = B.cmd, t = me.t
++    if (!nav || typeof nav.hopPlan !== 'function') return false
++    const m = B.cfg.mech
++    if (hop.air) {
++      const p = hop.plan
++      const done = me.grounded && t - hop.t0 > 0.3
++      if (!p || done || t - hop.t0 > 9) { hop.air = false; hop.plan = null; hop.planT = -9; return false }
++      B.wantJet = true
++      const lx = p.land[0] - me.x, ly = p.land[1] - me.y, ld = Math.hypot(lx, ly) || 1
++      const high = me.z >= p.apexZ
++      // rise beside the wall first; move over it only with the feet above the edge
++      if (high || ld < 1.5) { cmd.mx = lx / ld; cmd.my = ly / ld } else { const bx = p.launch[0] - me.x, by = p.launch[1] - me.y, bd = Math.hypot(bx, by); cmd.mx = bd > 0.5 ? bx / bd * 0.4 : 0; cmd.my = bd > 0.5 ? by / bd * 0.4 : 0 }
++      cmd.boost = ld > 2.5 && me.z < p.apexZ + 1.2 && me.energy > 0.5
++      cmd.jump = false
++      B.goalX = p.land[0]; B.goalY = p.land[1]; B.hasGoal = true
++      return true
++    }
++    const c = nav.component(me.x, me.y)
++    if (c < 0 || c === nav.mainComponent || !me.grounded) { hop.plan = null; return false }
++    const gc = nav.component(tx, ty)
++    if (gc === c) { hop.plan = null; return false }                       // the goal is inside our pocket: just walk
++    if (!hop.plan || hop.comp !== c || t - hop.planT > 3) {
++      hop.planT = t; hop.comp = c
++      try { hop.plan = nav.hopPlan(me.x, me.y, { toward: [tx, ty] }) } catch (e) { hop.plan = null }
++    }
++    const p = hop.plan
++    if (!p) return false
++    const jetDrain = m.jet_drain || 15, rise = m.max_rise_speed || 10, air = m.walk_speed || 11.7
++    const need = Math.min(95, 8 + jetDrain * (p.climb / rise + 0.4) + jetDrain * (p.hopLen / air) * 0.8)
++    const d = moveTo(p.launch[0], p.launch[1], 1, 0.9)
++    cmd.boost = false                                                      // the tank is for the hop
++    if (d < 1.6) {
++      cmd.mx = 0; cmd.my = 0
++      if (me.energy >= need && me.speed < 3) { cmd.jump = true; hop.air = true; hop.t0 = t; B.wantJet = true }
++    }
++    return true
++  }
++
+   function zoneLegs() {
+     const me = B.me, g = zoneGoal(), cmd = B.cmd
++    if (pocketExit(B.zone.nx, B.zone.ny)) return
+     moveTo(g.x, g.y, 1, 1.5)
+     if (!me.inZone || B.zoneMargin < P.zoneBoostMargin) cmd.boost = me.energy > 1
+   }
+@@ -222,6 +273,7 @@
+   /** Call once per tick after the legs are decided. May override the command (jump / sidestep / jet). */
+   function stuckCheck() {
+     const me = B.me, cmd = B.cmd, t = me.t
++    if (hop.air || B.wantJet) { stuck.slowSince = -1; stuck.phase = 0; return }   // FIX prototype
+     const want = Math.hypot(cmd.mx, cmd.my)
+     if (t - stuck.lastT >= 0.6) {
+       stuck.moved = Math.hypot(me.x - stuck.lastX, me.y - stuck.lastY)
+@@ -260,6 +312,6 @@
+     }
+   }
+ 
+-  return { moveTo, standoff, zoneCheck, zoneLegs, zoneGoal, shellDodge, stuckCheck, isAbandoned, path, jink, walkable,
++  return { moveTo, standoff, zoneCheck, zoneLegs, zoneGoal, shellDodge, stuckCheck, isAbandoned, path, jink, walkable, pocketExit, hop,
+     pathLen: () => path.len, dirty: () => { path.dirty = true } }
+ }

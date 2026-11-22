@@ -1,0 +1,280 @@
+diff --git a/src/fast/mod.rs b/src/fast/mod.rs
+index a60daa0..b1836e3 100644
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -19,7 +19,7 @@ use crate::time::DAY_MS;
+ use keys::SmallMap;
+ use people::{prefetch, People};
+ #[cfg(target_arch = "x86_64")]
+-use scan::Avx2;
++use scan::{Avx2, Avx512};
+ use scan::{Kernel, Lines, Scalar, Scratch};
+ use sink::{Arena, Sink};
+ use ts::Calendar;
+@@ -402,6 +402,11 @@ fn build_people(files: &[&'static [u8]]) -> People {
+         for (start, end) in csv::data_chunks(file, usize::MAX) {
+             let body = &file[start..end];
+             #[cfg(target_arch = "x86_64")]
++            if scan::has_avx512() {
++                unsafe { link_pairs_avx512(body, &mut scratch, &mut pairs) };
++                continue;
++            }
++            #[cfg(target_arch = "x86_64")]
+             if scan::has_avx2() {
+                 unsafe { link_pairs_avx2(body, &mut scratch, &mut pairs) };
+                 continue;
+@@ -412,6 +417,12 @@ fn build_people(files: &[&'static [u8]]) -> People {
+     People::build(&pairs)
+ }
+ 
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++unsafe fn link_pairs_avx512(body: &[u8], scratch: &mut Scratch, pairs: &mut Vec<(u64, u64)>) {
++    link_pairs::<Avx512>(body, scratch, pairs)
++}
++
+ #[cfg(target_arch = "x86_64")]
+ #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+ unsafe fn link_pairs_avx2(body: &[u8], scratch: &mut Scratch, pairs: &mut Vec<(u64, u64)>) {
+@@ -447,6 +458,10 @@ fn part_of(key: u64, mult: u64, bits: u32) -> usize {
+ }
+ 
+ fn parse_events(ctx: &Ctx, chunk: &[u8], scratch: &mut Scratch, arena: &mut Arena, sink: &mut Sink<EventRec>) -> usize {
++    #[cfg(target_arch = "x86_64")]
++    if scan::has_avx512() {
++        return unsafe { parse_events_avx512(ctx, chunk, scratch, arena, sink) };
++    }
+     #[cfg(target_arch = "x86_64")]
+     if scan::has_avx2() {
+         return unsafe { parse_events_avx2(ctx, chunk, scratch, arena, sink) };
+@@ -454,6 +469,18 @@ fn parse_events(ctx: &Ctx, chunk: &[u8], scratch: &mut Scratch, arena: &mut Aren
+     unsafe { parse_events_k::<Scalar>(ctx, chunk, scratch, arena, sink) }
+ }
+ 
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++unsafe fn parse_events_avx512(
++    ctx: &Ctx,
++    chunk: &[u8],
++    scratch: &mut Scratch,
++    arena: &mut Arena,
++    sink: &mut Sink<EventRec>,
++) -> usize {
++    parse_events_k::<Avx512>(ctx, chunk, scratch, arena, sink)
++}
++
+ #[cfg(target_arch = "x86_64")]
+ #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+ unsafe fn parse_events_avx2(
+@@ -553,6 +580,10 @@ fn parse_clicks(
+     arena: &mut Arena,
+     sink: &mut Sink<ClickRec>,
+ ) -> usize {
++    #[cfg(target_arch = "x86_64")]
++    if scan::has_avx512() {
++        return unsafe { parse_clicks_avx512(ctx, people, chunk, scratch, arena, sink) };
++    }
+     #[cfg(target_arch = "x86_64")]
+     if scan::has_avx2() {
+         return unsafe { parse_clicks_avx2(ctx, people, chunk, scratch, arena, sink) };
+@@ -560,6 +591,19 @@ fn parse_clicks(
+     unsafe { parse_clicks_k::<Scalar>(ctx, people, chunk, scratch, arena, sink) }
+ }
+ 
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++unsafe fn parse_clicks_avx512(
++    ctx: &Ctx,
++    people: &People,
++    chunk: &[u8],
++    scratch: &mut Scratch,
++    arena: &mut Arena,
++    sink: &mut Sink<ClickRec>,
++) -> usize {
++    parse_clicks_k::<Avx512>(ctx, people, chunk, scratch, arena, sink)
++}
++
+ #[cfg(target_arch = "x86_64")]
+ #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+ unsafe fn parse_clicks_avx2(
+diff --git a/src/fast/scan.rs b/src/fast/scan.rs
+index 07c0595..671323a 100644
+--- a/src/fast/scan.rs
++++ b/src/fast/scan.rs
+@@ -22,6 +22,12 @@ impl<const N: usize, F: FnMut(&[&[u8]; N])> Lines<N> for F {
+ pub trait Kernel {
+     unsafe fn masks(p: *const u8) -> (u64, u64, u64);
+     unsafe fn pack(p: *const u8, len: usize) -> Option<u64>;
++    /// Writes `base + i` for every set bit `i` of `bits`, in order, and returns how many.
++    /// May write up to 15 entries past the returned count.
++    #[inline(always)]
++    unsafe fn flatten(out: *mut u32, bits: u64, base: u32) -> usize {
++        flatten(out, bits, base)
++    }
+ }
+ 
+ pub struct Scalar;
+@@ -63,6 +69,84 @@ impl Kernel for Avx2 {
+     }
+ }
+ 
++/// AVX-512 (F, BW, VBMI2) kernel: one 64-byte compare per delimiter into a mask register,
++/// and `vpcompressb` to turn a comma mask into positions without a bit loop.
++#[cfg(target_arch = "x86_64")]
++pub struct Avx512;
++
++#[cfg(target_arch = "x86_64")]
++impl Kernel for Avx512 {
++    #[inline(always)]
++    unsafe fn masks(p: *const u8) -> (u64, u64, u64) {
++        masks_avx512(p)
++    }
++
++    #[inline(always)]
++    unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
++        pack_avx2(p, len)
++    }
++
++    #[inline(always)]
++    unsafe fn flatten(out: *mut u32, bits: u64, base: u32) -> usize {
++        flatten_avx512(out, bits, base)
++    }
++}
++
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++#[inline]
++unsafe fn masks_avx512(p: *const u8) -> (u64, u64, u64) {
++    let v = _mm512_loadu_si512(p as *const _);
++    (
++        _mm512_cmpeq_epi8_mask(v, _mm512_set1_epi8(b',' as i8)),
++        _mm512_cmpeq_epi8_mask(v, _mm512_set1_epi8(b'\n' as i8)),
++        _mm512_cmpeq_epi8_mask(v, _mm512_set1_epi8(b'"' as i8)),
++    )
++}
++
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++#[inline]
++unsafe fn flatten_avx512(out: *mut u32, bits: u64, base: u32) -> usize {
++    let count = bits.count_ones() as usize;
++    let iota = _mm512_set_epi64(
++        0x3f3e_3d3c_3b3a_3938,
++        0x3736_3534_3332_3130,
++        0x2f2e_2d2c_2b2a_2928,
++        0x2726_2524_2322_2120,
++        0x1f1e_1d1c_1b1a_1918,
++        0x1716_1514_1312_1110,
++        0x0f0e_0d0c_0b0a_0908,
++        0x0706_0504_0302_0100,
++    );
++    let index = _mm512_maskz_compress_epi8(bits, iota);
++    let b = _mm512_set1_epi32(base as i32);
++    let low = _mm512_cvtepu8_epi32(_mm512_castsi512_si128(index));
++    _mm512_storeu_si512(out as *mut _, _mm512_add_epi32(low, b));
++    if count > 16 {
++        flatten_avx512_rest(out, index, b, count);
++    }
++    count
++}
++
++#[cfg(target_arch = "x86_64")]
++#[target_feature(enable = "avx2,bmi1,bmi2,popcnt,avx512f,avx512bw,avx512vbmi2")]
++#[cold]
++unsafe fn flatten_avx512_rest(out: *mut u32, index: __m512i, b: __m512i, count: usize) {
++    let groups = [
++        _mm512_extracti32x4_epi32::<1>(index),
++        _mm512_extracti32x4_epi32::<2>(index),
++        _mm512_extracti32x4_epi32::<3>(index),
++    ];
++    for (k, group) in groups.iter().enumerate() {
++        if count <= 16 * (k + 1) {
++            break;
++        }
++        let positions = _mm512_add_epi32(_mm512_cvtepu8_epi32(*group), b);
++        _mm512_storeu_si512(out.add(16 * (k + 1)) as *mut _, positions);
++    }
++}
++
+ #[cfg(target_arch = "x86_64")]
+ #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+ #[inline]
+@@ -208,7 +292,7 @@ unsafe fn region<const N: usize, K: Kernel, F: Lines<N>>(
+                 nl += 1;
+                 lb &= lb - 1;
+             }
+-            nc += flatten(commas.add(nc), c, base as u32);
++            nc += K::flatten(commas.add(nc), c, base as u32);
+             nq += qt.count_ones();
+             base += 64;
+         }
+@@ -320,11 +404,31 @@ pub fn has_avx2() -> bool {
+     })
+ }
+ 
++/// AVX-512 F/BW/VBMI2 (Ice Lake and later Intel, Zen 4 and later AMD). `SESSIONS_NO512`
++/// (or `SESSIONS_SCALAR`) turns it off.
++#[cfg(target_arch = "x86_64")]
++pub fn has_avx512() -> bool {
++    use std::sync::OnceLock;
++    static FLAG: OnceLock<bool> = OnceLock::new();
++    *FLAG.get_or_init(|| {
++        has_avx2()
++            && std::env::var_os("SESSIONS_NO512").is_none()
++            && std::is_x86_feature_detected!("avx512f")
++            && std::is_x86_feature_detected!("avx512bw")
++            && std::is_x86_feature_detected!("avx512vbmi2")
++    })
++}
++
+ #[cfg(not(target_arch = "x86_64"))]
+ pub fn has_avx2() -> bool {
+     false
+ }
+ 
++#[cfg(not(target_arch = "x86_64"))]
++pub fn has_avx512() -> bool {
++    false
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -357,6 +461,37 @@ mod tests {
+         if std::is_x86_feature_detected!("avx2") {
+             assert_eq!(run::<N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+         }
++        #[cfg(target_arch = "x86_64")]
++        if has_avx512() {
++            assert_eq!(run::<N, Avx512>(data), expected, "{:?}", String::from_utf8_lossy(data));
++        }
++    }
++
++    #[test]
++    fn flatten_matches() {
++        let mut state = 0x9e37_79b9_7f4a_7c15u64;
++        for round in 0..200_000u32 {
++            state ^= state << 13;
++            state ^= state >> 7;
++            state ^= state << 17;
++            let bits = match round % 4 {
++                0 => state,
++                1 => state & (state >> 7),
++                2 => state & (state >> 3) & (state >> 11),
++                _ => !(state & (state >> 5)),
++            };
++            let mut a = [0u32; 64 + 16];
++            let n = unsafe { flatten(a.as_mut_ptr(), bits, round) };
++            assert_eq!(n, bits.count_ones() as usize);
++            let expected: Vec<u32> = (0..64).filter(|i| bits >> i & 1 == 1).map(|i| round + i).collect();
++            assert_eq!(&a[..n], &expected[..]);
++            #[cfg(target_arch = "x86_64")]
++            if has_avx512() {
++                let mut b = [0u32; 64 + 16];
++                let m = unsafe { Avx512::flatten(b.as_mut_ptr(), bits, round) };
++                assert_eq!(&b[..m], &expected[..]);
++            }
++        }
+     }
+ 
+     #[test]

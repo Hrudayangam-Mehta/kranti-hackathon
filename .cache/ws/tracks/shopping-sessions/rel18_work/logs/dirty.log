@@ -1,0 +1,65 @@
+dirty rel18 NCPU=4: rc=0 stdout=0B compare=MATCH/MATCH non-parquet and out-of-scope entries intact=True stale *.parquet still present=0
+  before user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'link.parquet', 'part-00000.parquet', 'part-00090.parquet', 'stale.parquet', 'sub']
+  before campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'old.parquet', 'part-00009.parquet']
+  after  user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'part-00000.parquet', 'part-00001.parquet', 'part-00002.parquet', 'part-00003.parquet', 'sub']
+  after  campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'part-00000.parquet']
+dirty rel18 NCPU=8: rc=0 stdout=0B compare=MATCH/MATCH non-parquet and out-of-scope entries intact=True stale *.parquet still present=0
+  before user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'link.parquet', 'part-00000.parquet', 'part-00090.parquet', 'stale.parquet', 'sub']
+  before campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'old.parquet', 'part-00009.parquet']
+  after  user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'part-00000.parquet', 'part-00001.parquet', 'part-00002.parquet', 'part-00003.parquet', 'part-00004.parquet', 'sub']
+  after  campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'part-00000.parquet']
+dirty rel18 NCPU=1: rc=0 stdout=0B compare=MATCH/MATCH non-parquet and out-of-scope entries intact=True stale *.parquet still present=0
+  before user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'link.parquet', 'part-00000.parquet', 'part-00090.parquet', 'stale.parquet', 'sub']
+  before campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'old.parquet', 'part-00009.parquet']
+  after  user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'part-00000.parquet', 'part-00001.parquet', 'sub']
+  after  campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'part-00000.parquet']
+--- negative control: same pre-seeded folder, binary without the cleanup (c2)
+dirty base_c2 NCPU=4: rc=0 stdout=0B compare=DIFFER/DIFFER non-parquet and out-of-scope entries intact=True stale *.parquet still present=5
+  before user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'link.parquet', 'part-00000.parquet', 'part-00090.parquet', 'stale.parquet', 'sub']
+  before campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'old.parquet', 'part-00009.parquet']
+  after  user_daily=['_SUCCESS', 'd.parquet', 'keep.parquet.bak', 'keep.txt', 'link.parquet', 'part-00000.parquet', 'part-00001.parquet', 'part-00002.parquet', 'part-00003.parquet', 'part-00090.parquet', 'stale.parquet', 'sub']
+  after  campaign_daily=['.part-0.parquet.crc', 'notes.csv', 'old.parquet', 'part-00000.parquet', 'part-00009.parquet']
+  stale still present: ['/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel18_work/run/dirty_base_c2_n4/user_daily/part-00090.parquet', '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel18_work/run/dirty_base_c2_n4/user_daily/stale.parquet', '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel18_work/run/dirty_base_c2_n4/user_daily/link.parquet', '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel18_work/run/dirty_base_c2_n4/campaign_daily/part-00009.parquet', '/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/rel18_work/run/dirty_base_c2_n4/campaign_daily/old.parquet']
+  user_daily: rows 249104 vs 117038; only in A 132066; only in B 0; duplicate keys 66033 vs 0
+  shape: (5, 6)
+  ┌──────────┬────────────┬──────────┬────────┬───────────────┬──────────────┐
+  │ user_id  ┆ day        ┆ sessions ┆ events ┆ revenue_cents ┆ top_category │
+  │ ---      ┆ ---        ┆ ---      ┆ ---    ┆ ---           ┆ ---          │
+  │ str      ┆ date       ┆ i128     ┆ i128   ┆ i128          ┆ str          │
+  ╞══════════╪════════════╪══════════╪════════╪═══════════════╪══════════════╡
+  │ U10DAXOC ┆ 2027-12-11 ┆ 2        ┆ 4      ┆ 169           ┆ kitchen      │
+  │ U10DAXOC ┆ 2027-12-11 ┆ 2        ┆ 4      ┆ 169           ┆ kitchen      │
+  │ U10DAXOC ┆ 2027-12-12 ┆ 1        ┆ 2      ┆ 0             ┆ null         │
+  │ U10DAXOC ┆ 2027-12-12 ┆ 1        ┆ 2      ┆ 0             ┆ null         │
+  │ U10DAXOC ┆ 2027-12-13 ┆ 1        ┆ 2      ┆ 0             ┆ null         │
+  └──────────┴────────────┴──────────┴────────┴───────────────┴──────────────┘
+  shape: (0, 6)
+  ┌─────────┬──────┬──────────┬────────┬───────────────┬──────────────┐
+  │ user_id ┆ day  ┆ sessions ┆ events ┆ revenue_cents ┆ top_category │
+  │ ---     ┆ ---  ┆ ---      ┆ ---    ┆ ---           ┆ ---          │
+  │ str     ┆ date ┆ i128     ┆ i128   ┆ i128          ┆ str          │
+  ╞═════════╪══════╪══════════╪════════╪═══════════════╪══════════════╡
+  └─────────┴──────┴──────────┴────────┴───────────────┴──────────────┘
+  campaign_daily: rows 83428 vs 27400; only in A 56028; only in B 0; duplicate keys 51635 vs 0
+  shape: (5, 7)
+  ┌─────────────┬─────────┬────────────┬──────────┬─────────────────┬───────────────┬────────────────┐
+  │ campaign_id ┆ channel ┆ day        ┆ sessions ┆ purchasing_sess ┆ revenue_cents ┆ assisted_sessi │
+  │ ---         ┆ ---     ┆ ---        ┆ ---      ┆ ions            ┆ ---           ┆ ons            │
+  │ str         ┆ str     ┆ date       ┆ i128     ┆ ---             ┆ i128          ┆ ---            │
+  │             ┆         ┆            ┆          ┆ i128            ┆               ┆ i128           │
+  ╞═════════════╪═════════╪════════════╪══════════╪═════════════════╪═══════════════╪════════════════╡
+  │ c_1         ┆ display ┆ 2027-12-11 ┆ 44       ┆ 5               ┆ 26752         ┆ 748            │
+  │ c_1         ┆ display ┆ 2027-12-11 ┆ 44       ┆ 5               ┆ 26752         ┆ 748            │
+  │ c_1         ┆ display ┆ 2027-12-12 ┆ 49       ┆ 10              ┆ 134717        ┆ 940            │
+  │ c_1         ┆ display ┆ 2027-12-12 ┆ 49       ┆ 10              ┆ 134717        ┆ 940            │
+  │ c_1         ┆ display ┆ 2027-12-13 ┆ 56       ┆ 7               ┆ 18488         ┆ 1055           │
+  └─────────────┴─────────┴────────────┴──────────┴─────────────────┴───────────────┴────────────────┘
+  shape: (0, 7)
+  ┌─────────────┬─────────┬──────┬──────────┬────────────────────┬───────────────┬───────────────────┐
+  │ campaign_id ┆ channel ┆ day  ┆ sessions ┆ purchasing_session ┆ revenue_cents ┆ assisted_sessions │
+  │ ---         ┆ ---     ┆ ---  ┆ ---      ┆ s                  ┆ ---           ┆ ---               │
+  │ str         ┆ str     ┆ date ┆ i128     ┆ ---                ┆ i128          ┆ i128              │
+  │             ┆         ┆      ┆          ┆ i128               ┆               ┆                   │
+  ╞═════════════╪═════════╪══════╪══════════╪════════════════════╪═══════════════╪═══════════════════╡
+  └─────────────┴─────────┴──────┴──────────┴────────────────────┴───────────────┴───────────────────┘
+  DIFFER

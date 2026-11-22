@@ -1,0 +1,20 @@
+PASS  RB2 default config: clock constants unchanged  ::  210/240/200/75/90/375/390/405
+PASS  RB2 zt070 (hold / shrink x 0.7): clock re-anchored  ::  147/168/140/52.5/63/262.5/273/283.5
+PASS  RB3 default 70/140  ::  70/140
+PASS  RB3 zs070 49/98  ::  49/98
+PASS  RB3 zs130 91/182  ::  91/182
+PASS  RB5 default weapon numbers reproduced  ::  magSize 12 (was 12), magReloadS 2.5 (was 2.5), laserDpsIn 92 (was 92), lightDpsIn 240 (was 240), mortarDpsIn 60 (was 60), mortarMaxR 235 (was 235)
+PASS  default-balance map base: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map v3dir: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map rot90: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map mirx: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map tr300: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map lift40: no anchored key changes  ::  all 16 keys equal
+PASS  default-balance map wide: no anchored key changes  ::  all 16 keys equal
+PASS  A1 synthetic preset zoneLateR 90 keeps 90 (zs130 would give 91)  ::  zoneLateR 90, scanLateR 182
+PASS  A1 synthetic preset farmStopT 333 keeps 333 under zt070 (else 147)  ::  farmStopT 333, scanLateT 168
+PASS  A1 plain override kept  ::  fpStartT 111, ffaFinalT 273
+PASS  A1 through createBrain: preset 90 kept, plain 91  ::  90 / 91
+PASS  A2 scaled list keys exist in PARAMS  ::  farmStopT, scanLateT, ffaLatchT, openFarmT, ffaQuietS
+
+18/18 anchor checks passed

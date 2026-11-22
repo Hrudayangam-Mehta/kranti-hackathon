@@ -1,0 +1,934 @@
+### AbhinavDasari-pennstate__fog-of-war-mech ebb8294 11-21 00:06
+bot.py: aim at a mech we can hit; a better-scored mech behind a wall no longer takes the target
+When any of the nearest 4 candidates has a clear line of fire, aim.decide only gets those
+(a line clear in the last 0.3 s still counts, so a wall edge does not flip the target).
+None clear: the old choice. Red team PASS (C0 H0 M1, M1 hysteresis fixed here with a test).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### AbhinavDasari-pennstate__fog-of-war-mech 5162586 11-20 23:53
+economy.py: loot and rest after a confirmed kill
+After a kill, walk to the victim's pile (visible cubes within 10 m of where it
+fell, else the spot) for at most 6 s, without boosting; skip it when the pile
+is over 70 m away, near the zone edge, on another height, by a drone or a
+tracked mech. Then rest up to 8 s inside the zone: no new fire (a charging
+laser keeps its trigger), ending at 85% HP. Contact ends both: a hit taken
+after the kill, or one of the nearest 4 mechs in view with a clear line.
+Economy errors turn it off for the match. Dockerfile copies economy.py.
+
+Red team: PASS C0 H0 M0 L2 (delta pass on the fixed files).
+Unit tests 319 OK; run_all --sandbox 106/112, 0 HARD fails; the 2 behaviour
+fails are identical on c96a053.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### AbhinavDasari-pennstate__fog-of-war-mech bbfafd2 11-20 20:48
+v3: return fire at tracked attackers to gun range, gated laser dodge, safer supply drops, laser grace hold, state restore on degraded pass, capped and cached line of fire, map load log
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### AbhinavDasari-pennstate__fog-of-war-mech 79487cd 11-20 20:32
+aim: motion tracker, damped lead, orientation solution, silhouette hit probability, target ranking, decide entry; ray: exact segment test vs map prisms and terrain; tests
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Arnav-M10__BuildersMechRoyale 3f309a9 11-20 22:24
+Untrack .DS_Store
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 43c0fa1 11-20 23:39
+Compare import state for modules imported on demand too; keep source readers through it
+Expected practice score: ~153 s, anywhere from ~123 to ~188 (main at 765f19f:
+~155 s; this branch adds the DuckDB stand-in and on-demand imports, about 2 s
+of CPU on the board). Board anchor: e1fd283 scored 189.5 s = 170.3 s simulated
++ 19.2 s CPU over 40 commits. Not yet measured as a whole when committed.
+
+Two places where the previous three commits meet 765f19f:
+
+- wants_probe required a clean job. A class or module body change in a module
+  the coordinator never imported is now checked in a child that imports the
+  patched module on demand (a hot job), and it must go through the comparison
+  of import state all the same: that is what narrows its candidates, and what
+  notices that the module no longer imports when tests were left out by the
+  class narrowing. The mode is no longer part of the test; a plan with only
+  function bodies to swap has no import-time candidates and is not compared.
+- finish_probe replaces the candidates by rest_candidates plus what the
+  comparison leaves. Tests that read a changed source as a file are now in
+  rest_candidates as well, so the comparison cannot drop them.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 765f19f 11-20 23:38
+Compare what an import-time change leaves behind; close five ways to miss a failing test
+Expected practice score: ~155 s, anywhere from ~125 to ~190 (board-measured
+so far: 189.5 s for e1fd283 = 170.3 s simulated + 19.2 s CPU).
+Basis: on 240 commits generated like the organisers' sample (one token changed,
+files chosen uniformly), 7 changed code that runs at import and were selected
+wholesale at 25-37 s each; they now cost 0-2 s. That is about 0.9 s per commit,
+so ~37 s over the 40 practice commits if they resemble that set, and nothing if
+the practice set happens to hold no such commit.
+Checked: 0 misses on the 30 sample commits, 205 mutants labeled with pytest
+(two further labels, m01144 and m01158, are timeouts of the labeling run on an
+overloaded machine: one is a comment-only patch, the other passes under pytest
+on a calm machine), 21 of 160 new import-time mutants labeled so far, 13
+labeled benchmark commits and 116 adversarial patches from an audit.
+
+New: selector/state.py. A module or class body runs once, at import, and can
+only leave the package in another state. A child imports the whole package
+pinned and patched and compares the two results object by object. No
+difference: nothing to select. A function with another default or closure:
+the tests that run it. A constan
+
+### DivyamBanga__buildathon e1fd283 11-20 21:22
+Run one thing at a time: in-process pools, sequential children; complete case maps
+Expected practice score: ~167 s (was ~173 s).
+Basis: 30 sample commits on a quiet machine: 94.6 s simulated + 35.5 s CPU,
+0 misses; practice = 1.175 x simulated + 1.586 x local CPU.
+0 misses on 145 patches labeled with real pytest runs.
+
+- The process pools the tests start are replaced by a stand-in that does the
+  work in the test's own process, when its result is asked for (arguments and
+  results are pickled as a pool would). No worker processes, and a failing
+  test stops before the work it never looks at.
+- Children run one at a time until the batch is 75 s in: two busy processes
+  cost 10-15% more CPU for the same work.
+- Per-case maps rebuilt from traces made with the fixed tracer (function
+  first lines included); test costs measured again with the new runner.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 66cede2 11-20 20:53
+README: describe the selector as it now works
+Expected practice score: ~173 s (documentation only; same image as 4a0265c).
+Basis: 30 sample commits on a quiet machine: 100.8 s simulated + 33.9 s CPU,
+0 misses; practice = 1.175 x simulated + 1.586 x local CPU.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 4a0265c 11-20 20:52
+Recognise more changes that cannot alter behaviour; compare code by resolved instructions
+Expected practice score: ~173 s (same as 37c302e on the kinds seen so far;
+this commit is about kinds the final may add).
+Basis: 30 sample commits on a quiet machine: 100.8 s simulated + 33.9 s CPU,
+0 misses; practice = 1.175 x simulated + 1.586 x local CPU.
+0 misses on 117 patches labeled with real pytest runs.
+
+- Code objects are compared as instructions with constants, names and jump
+  targets resolved, so a constant table renumbered by the compiler (an edited
+  annotation, a class moved onto a line number it also uses as a constant) is
+  not mistaken for a change. Masking of unobservable constants is per use.
+- A renamed local variable is not a change (parameters still are).
+- A test file that only gains new tests, test classes or helper functions
+  needs no test run.
+- Module constants of the test helpers are narrowed to their readers.
+- New mutant kinds for validation: docstrings, annotations, renames, new
+  tests, import order.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon 37c302e 11-20 20:40
+Harden against hostile patches: memory watchdog, CPU stall detection, unknown diffs
+Expected practice score: ~173 s (unchanged in substance from c65dc5d).
+Basis: 30 sample commits on a quiet machine: 100.8 s simulated + 34.1 s CPU,
+0 misses; practice = 1.175 x simulated + 1.586 x local CPU (from the one
+board result). 0 misses on 106 patches labeled with real pytest runs.
+
+- A child that grows 1.2 GB past the coordinator is stopped (the run has 4 GB).
+- A child burning CPU between tests (an import that loops) counts as stuck
+  after 8 CPU seconds instead of 40 s of wall clock.
+- A non-empty patch the parser does not recognise selects every test.
+- Checked on synthetic worst cases: infinite loops in tests, in imports and
+  in class bodies, unbounded allocation, os._exit, stack overflow, sleep,
+  binary, renamed, deleted, new and non-applying files, pytest config edits.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### DivyamBanga__buildathon c65dc5d 11-20 20:34
+Reuse recorded executor results for unchanged TPC queries
+Expected practice score: ~175 s (was 194.7 s for 15ed632).
+Basis: 30 sample commits on a quiet machine give 100.8 s simulated + 35.6 s
+CPU, 0 misses; scaled by the one board result so far (practice simulated =
+1.175 x sample simulated, practice CPU = 1.586 x local CPU).
+Checked: 0 misses on the sample and on 96 patches labeled with real pytest runs.
+
+- maps/execmemo.bin, execphase.json: what sqlglot's executor returns for each
+  TPC query at the pinned commit, keyed by the optimized query, and every line
+  that runs from planning to the result. For a patch that changes none of
+  those lines, a query whose optimized form is unchanged is not executed again.
+- The CPU cap per test uses the cost with nothing reused, so a test is not
+  cut short because recorded results did not apply.
+- Probes run whenever a check could become expensive.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### Koodsu__BuildersHackathonMechRoyale 11398bd 11-21 00:26
+Build 2: fight from cover, heal first, rooftop weapons
+Build 1 scored 4.2 in practice. Changes aimed at the fights it most
+likely loses:
+
+- Stance by matchup: when the enemy out-damages us at the current range
+  (typically their laser against our gun), break line of sight and let
+  the hunter walk into a short-range fight instead of crossing open
+  ground under fire. Hold the spot for roughly their walking time if
+  they drop out of memory.
+- Heal first: below 65% health with the enemy still over 75 m away, get
+  out of sight so repair can start.
+- Duck a charging enemy laser when cover is within a step, and prefer
+  fight positions a step from cover.
+- Pick up lasers and lightning guns from roofs up to 40 m.
+- Kill drones that keep shooting us (their fire blocks repair), take the
+  repair upgrade first, top up the magazine while waiting.
+- Supply-drop logic added but switched off (TUNING.drops) so it can be
+  scored as its own build.
+- Path search budget lowered to 18000 expansions.
+- tools/tactics.ts: static scenario check for the new stances.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### Koodsu__BuildersHackathonMechRoyale a8d4a31 11-20 23:56
+Add first Mech Royale bot build
+TypeScript bot for the mechfight/1 protocol, run directly by Node 24 with
+no dependencies.
+
+- src/world.ts: map model from the arena files (terrain, building
+  footprints, clearance, line of sight)
+- src/nav.ts: 2 m walkable grid per mech size and A* path search
+- src/bot.ts: the pilot (enemy tracking, loot memory, fight/hide/travel
+  legs, gun lead, laser hold and release, zone handling, upgrade picks)
+- Dockerfile: submission image, base pinned by digest
+- tools/: checks that run without a match (map model, path following,
+  aiming, crash and timing)
+- kit/: the organisers' kit (rulebook, schema, conformance check, map)
+
+Passes kit/check/check.py under the match sandbox flags. Not yet scored.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### LanceHuang245__mech-royale 42d652b 11-21 03:55
+Probe: hide-and-wait defaults (patient + sneak) to measure how the house bots react
+Not meant to be the final bot. The practice simulator predicts about 3.2-3.5 for this
+configuration; a real score near that confirms the simulator, a clearly higher one means
+the real house bots hunt less aggressively than modelled.
+
+### LanceHuang245__mech-royale 758275c 11-21 03:55
+Probe: hide-and-wait defaults (patient + sneak) to measure how the house bots react
+Not meant to be the final bot. The practice simulator predicts about 3.2-3.5 for this
+configuration; a real score near that confirms the simulator, a clearly higher one means
+the real house bots hunt less aggressively than modelled.
+
+### MauroMiranda28__mech-royale-bot 13c092f 11-21 01:53
+v18: anti-focus experiment (v14 behaviour + ANTI_FOCUS, mortar off)
+- 2+ distinct mechs that are aiming at us or hit us in the last 5 s:
+  find the nearest spot none of them can see and go there with boost;
+  stay ~6 s (their tracking memory is 5 s), keep shooting anything in view
+- No regen camping (FIGHT_HIDE stays off): only breaks sight when focused
+- MORTAR_MODE off so this measures anti-focus alone
+- Two-shooter test: 4064 vs 5102 damage taken in 20 s (-20%)
+- Arena: v18 7.81 vs v14 8.06 (within noise)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 2ec6d2f 11-21 01:30
+v16: v14 base, more aggressive
+Track: v15 3.54 < v14 4.00 (v15 reverted; v14 tagged v14-best). The only
+direction with track signal so far is more fighting / more cubes.
+- AGGRO_RANGE 95 -> 160: engage any visible mech in weapon range
+- GUN_FIGHT_RANGE 75 -> 55: fight closer with gun / laser (better gun hits)
+- VULTURE_STANDOFF 70 -> 45: close in on fights sooner
+- Sim: v16 7.53 vs v14 7.75 (sim has been anti-correlated with the track)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot 63b88d6 11-21 01:08
+v15: v14 + small safe tweaks (group A from the DeepSeek/Gemini review)
+Track: v14 4.00, v12 3.98.
+- NEAR_MECH_NO_FARM 100: no farming / vulture walks with a mech in sight
+  under 100 m
+- Upgrade order armor > sensors > gyros > plating
+- Laser dodge only when their aim is within 12 deg of us; jump at 0.6 s
+- Wider torso sweep while travelling (+-100 deg)
+- No boost outside combat unless the zone is about to close on us
+- Sim: v15 8.19 vs v14 7.58, survives longer (99 s vs 74 s)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot b75320f 11-21 00:52
+v14: v12 base + drop ambush, early weapon rush, endgame caution
+Track: v12 3.98 > v13 3.77 (roofs) -> ROOFS off.
+- DROP_AMBUSH: head to a supply drop up to 20 s before it lands, wait
+  ~18 m out of the ring; attack a lone capturer (it stands still for 4 s),
+  then take the drop
+- EARLY_WEAPON: first 45 s, go up to 170 m for a lightning / laser
+- ENDGAME_ALIVE=3: with <=3 alive, no farming / vulture, start fights only
+  under 45 m (the last circle kills everyone; HP decides)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot e603196 11-21 00:30
+v12: lightning brawler (idea #3)
+Track: v11 3.81 (plateau ~3.8 since v7).
+- LIGHTNING_BRAWL: prefer lightning over laser when looting; with gun +
+  laser, swap the gun for a lightning (laser + lightning)
+- With lightning, always fight at ~28 m (boost in from >45 m); rush a
+  target whose laser is charging - the arc shorts it out
+- Sim: v12 7.75 vs v11 7.85 (within noise)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### MauroMiranda28__mech-royale-bot d12e24a 11-21 00:05
+v9: vision-first upgrade picks (idea #6)
+VISION_FIRST: pick sensors > armor > gyros > plating before the rest.
+Track base: v7 3.83, v8 3.71. Sim: v9 7.77 vs v8 7.92 (within noise).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### akshayagg18__mech-royale e3fbf79 11-21 09:18
+ghost-v1: survival-first Mech Royale bot (first submission)
+Standard-library Python bot on the official mechfight wrapper:
+zone-aware Dijkstra navigation on the real arena, low-exposure hiding in the
+largest connected region of the next circle, stealth walking below the
+footstep threshold, selective self-defence combat, mortar/laser dodging and
+opportunistic loot. Passes the official check.py (plain, 1 CPU, uid 65534).
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0182a6Uc6tnhDzrw8zEhLt2P
+
+### arnabxero__xero-mech-royale 192dfea 11-20 18:43
+v1: Rust mechfight bot with world model, flow-field navigation, combat basics, simulators
+- world: terrain + prisms rasterized to 1 m grid, floor layer, mech clearance, jump/drop edges, LOS
+- nav: time-sliced multi-source Dijkstra to the next zone circle, bounded A*, stuck recovery,
+  precise tracking of the final moving circle center
+- bot: rotate/hold/loot/fight/retreat, gun lead, laser/lightning/mortar handling, upgrades
+- sim: smoke navigation simulator and 16-mech FFA simulator with scripted opponents
+- Dockerfile (rust:1.91 builder, debian:bookworm-slim runtime); passes sandboxed check.py
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### arnabxero__xero-mech-royale 232756c 11-20 18:43
+v1: Rust mechfight bot with world model, flow-field navigation, combat basics, simulators
+- world: terrain + prisms rasterized to 1 m grid, floor layer, mech clearance, jump/drop edges, LOS
+- nav: time-sliced multi-source Dijkstra to the next zone circle, bounded A*, stuck recovery,
+  precise tracking of the final moving circle center
+- bot: rotate/hold/loot/fight/retreat, gun lead, laser/lightning/mortar handling, upgrades
+- sim: smoke navigation simulator and 16-mech FFA simulator with scripted opponents
+- Dockerfile (rust:1.91 builder, debian:bookworm-slim runtime); passes sandboxed check.py
+
+### bsrikumar855-dot__Mech-Royale bcf9f9a 11-21 10:06
+chore: verified scaffold, MapQuery, pinned Dockerfile
+Phase 0 scaffold for the mechfight/1 bot (TypeScript, esbuild bundle, plain node at runtime):
+- Session/Bot/Arbiter pipeline with per-module fault isolation, stdout-purity single writer,
+  queue skipping, EPIPE/EOF exit, ready sent even if the map fails to load
+- Crash fallback keeps the last validated move/aim (boost off, no one-shots); bare {tick} only
+  before any valid action exists
+- WorldModel (bounded tracks/sounds/damage, zone interpolation) and MapQuery (terrain, prisms with
+  holes, bridges, shot/vision LOS, wall-slide) tested against the real arena
+- Types generated from schema/mechfight.schema.json; config split by owner
+- Dockerfile pinned to node:22.23.5-bookworm-slim@sha256:e9f565... (manifest list checked against the
+  registry, linux/amd64 present); scripts/sandbox-check.sh and scripts/bench.py
+- 60 unit tests; docs: CLAUDE.md, EXPERIMENTS.md, TEAMMATE.md
+
+NOT YET VERIFIED: the Docker build and the sandboxed check.py have not been run (no Docker on the
+dev machine). Stages were replicated by hand and produce a byte-identical bundle that passes
+check.py on Node 22.23.5.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- b4496ff 11-20 18:50
+Mech Royale variant D: fight like the starter, plus zone and pickups
+A and B (hiding) scored below the starter baseline, so D fights: lead aim,
+strafing, weapon pickups and per-weapon firing, with the zone as a bias.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- ea03d0e 11-20 18:45
+Mech Royale variant C: test against practice board
+One-line variant switch so each submission isolates one change.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- c58618d 11-20 18:45
+Mech Royale variant A: test against practice board
+One-line variant switch so each submission isolates one change.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### bzells11__Mech-Bot-Repo- 2ffbf96 11-20 18:40
+Add Mech Royale survival bot, MIT license and README
+First bot for the track: zone discipline plus evade-and-face. Uses only the
+kit wrapper; passes the kit conformance check locally.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+### caioplcerda__oval-pilot cc934e9 11-20 20:49
+feat: experiment flags (endgame, econ, shy opening, FFA auto-detect) + batch/diag tools
+Flags are off by default; behaviour of the submitted bot is unchanged.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### colton-boi__Mech-Bot 3efc098 11-20 19:38
+build: switch Dockerfile entrypoint to bot.py
+bot.py replaces the kit's example bot as the submission entrypoint. The
+example's deletion already landed in cee323e by mistake, so cee323e
+through e39c2c3 have an entrypoint that does not exist; this commit is
+the first buildable one.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot 0d5bd55 11-20 22:56
+Back to our own code: withdraw B0-B2 under the no-code-sharing rule
+The buildathon rules say "No sharing code between teams: top entries are
+compared". B0-B2 were built on another team's (MIT, credited) bot, so
+they are withdrawn and must not be the final entry; their commits stay
+in history because submitted commits must remain public. HEAD is our
+own A2 again: our GPT bot 89ec1cd plus our finish-off, cube grab and
+bullet dodging. Docker check: PASS.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot 3d6dd80 11-20 20:54
+tools/live.py: play a real private match on the public play server
+Relays mechfight/1 between the play server (private room, empty seats
+are the server's house bots) and the bot, and records our side plus the
+spectator feed. Waits for the bot's ready before reporting loaded.
+Finding: private rooms are free-for-alls with the competition rules at
+2x speed (240 s matches).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### davidvarvas__mech-royale-bot 59f3cd5 11-20 20:40
+Changelog: calibration against real scores, merge experiment
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### dmclaughlin-bit__mech-bot 69cdae0 11-21 05:25
+Build 16: kill-value target selection
+Replace nearest-clear targeting with a kill-value pick and a lock (target.ts).
+Each enemy mech in view is scored on: a shot from here (clear line and a
+weapon in range), time-to-kill from our weapon stats, low hp/max_hp, weak
+weapons, and being alone (no other enemy within 40 m). The best one is locked
+until it dies or has had no shot for 3 s. While the lock is briefly lost, any
+other shootable enemy is shot without moving the lock. An enemy outside the
+circle is picked only while we can shoot it from where we stand. Movement is
+unchanged.
+
+TARGET_PICK_ON in params.ts rolls back to Build 13 exactly (same actions as
+origin/main on the kit recording, with and without a synthetic second enemy).
+tools/target_check.ts counts targets, switches and picks offline.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### dmclaughlin-bit__mech-bot 49b754d 11-21 03:27
+Build 6: hold behind cover
+Hold mode now walks silently to the nearby spot (F3/Q2 ring: 12 bearings x
+1/2/3 s of walking) that the fewest likely enemy eyes can see: remembered
+enemies first, then 8 compass eyes at vision.near_range. Stays inside the
+zone keep-in circle, never farther from the next circle, re-scored every
+3 s, stands still if stuck on the way. brain.ts only, no new knobs.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### dmclaughlin-bit__mech-bot 793064f 11-21 02:24
+coord: Grok brief as a test-to-test improvement loop
+Rewrite GROK_BRIEF.md around keep/revert by noise threshold, repeat
+checks, one rule-tied hypothesis per submission and reading top teams'
+public bots. Add coord/learnings.md as Grok's memory, a Parent column in
+EXPERIMENTS.md, and a docs-map row in the plan.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01FCJozR26bmc9FjYxwVh7Wn
+
+### dmclaughlin-bit__mech-bot 2338837 11-21 00:59
+Make AI-Structure-Development.md the single plan for both Claudes
+Merges the team plan (#1) and the research folder (#3), cross-checks
+Build 1 against the research and protocol, and settles the conflicts
+in one decision table: flat file layout, survival before more combat,
+no mortar, gated fire, terrain in the cover check, and a plain
+resubmission as the determinism test.
+
+Removes five research bookkeeping docs whose content is in
+FINAL_RECOMMENDATION.md or the plan. Adds coord/ (append-only log and
+next prompts for Doug and Diego) and keeps docs out of the image.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01FCJozN7tGgTQ2WAisFjwoR
+
+### dmclaughlin-bit__mech-bot ecd9883 11-21 00:51
+Align team plan with research: practice-submission loop, no simulator, add EXPERIMENTS.md
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01FCJozLHKFQ2wXoyhYCebT2
+
+### dmclaughlin-bit__mech-bot 1ff8e4e 11-20 19:45
+Build 1: track every bot and aim each weapon to hit
+- Remember every enemy mech seen: position, health, cubes and weapons.
+- Lead moving targets with the gun, charge the laser fully and let go
+  when lined up, fire lightning only in range, and lob the mortar over
+  cover.
+- Hold fire when a building, the stadium or a bridge is in the way,
+  using the map's solid volumes.
+- Turn toward whoever hit us last when nothing is in sight.
+
+Movement, whom to fight and upgrade picks still follow the starter bot.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### dmclaughlin-bit__mech-bot 7a22fee 11-20 19:21
+Start from the official mechfight kit's TypeScript starter bot
+The kit's example bot, unchanged except for its file name, so the first
+submission proves the build-and-submit pipeline works.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### georgegcal1-arch__mech-royale-bot 50d31cf 11-20 22:29
+v3: gun duels
+- Face the attacker: recent damage is tracked per attacker; the visible one
+  that did the most damage is the target, an unseen one is faced by bearing.
+- Lead moving targets (bullet speed from weapon stats, latency, gravity on
+  airborne targets).
+- Fire only with a clear shot: actual torso aim on the solution and a line
+  (or mortar arc) that misses buildings and terrain (new world.py).
+- Reload when the magazine is empty and no enemy mech is in view.
+- Take a laser (preferred) or mortar within 4 m; charge/release the laser,
+  lob the mortar.
+- Pick "armor" when offered.
+- v2 safety net and zone movement unchanged. Unit tests in tests/.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### jackbalseca__mech-royale-bot dda71f2 11-20 22:43
+Add in-browser live test harness (tools/live_browser.js); log v4 submission and live results
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XQZ9BWr9Wuv6SvCqXbKmez
+
+### jackbalseca__mech-royale-bot e19c829 11-20 22:16
+CLAUDE.md: merge strategy notes; log submission 4
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XQZ9BWr9Wuv6SvCqXbKmez
+
+### jackbalseca__mech-royale-bot c8835cb 11-20 22:09
+Add CLAUDE.md team rules, submissions log, credits; sim: stand-in house squad model, frozen reference bots
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XQZ9BWr9Wuv6SvCqXbKmez
+
+### koillea__goonies-buildathon a42be73 11-21 03:06
+Shopping Sessions submission: AVX-512 scanner, dense person ids, huge-page allocator
+Same tree as Anthony-Voo/Shopping-Sessions 039a9a2. Verified in Docker: 36/36 fixtures,
+exact dev-answer match.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 6f8f9b8 11-21 03:06
+shopping-sessions: dev snapshot of the submitted build; board watcher; anti-hallucination research
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 74fb168 11-21 00:39
+Convert Databricks track, generate RESULTS.md, remove superseded practice/
+- databricks_shopping_model/ (package databricks_shopping): the
+  fit-then-recommend track behind the TrackSpec contract, 7-rung ladder
+  (incl. the two time-split-tuned rungs), 11-section README, examples,
+  tests. Hidden Recall@20 climbs popularity -> bigram -> hybrid.
+- Generate each track's RESULTS.md via examples/buildathon_harness.py.
+- Remove practice/: the four folders are fully replaced by the
+  <track>_model packages (git preserves the history).
+- gitignore the editable-install egg-info / build artifacts.
+
+All four tracks now share common/buildathon_core and pass the full gate
+(pytest, 4 CLIs, 8 examples + the harness, static stdlib-only checks).
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGnWfWEFSz9MFvoTut
+
+### koillea__goonies-buildathon fcd7b14 11-21 00:37
+Convert Builders Mech Royale practice track to the shared workflow
+mech_royale_model/ (package mech_royale): arena engine + bots + ladder
+behind the TrackSpec contract, 11-section README, examples and tests.
+Headline is top-2 placement rate vs a strong field; mean points and win
+rate ride along. Reproduces the original RESULTS.md at n=300 (random 12%
+-> one-step lookahead 47%).
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGnWfWEFSz9MFvoTut
+
+### koillea__goonies-buildathon 83c6c0f 11-21 00:37
+Convert Machina CAD De-ID practice track to the shared workflow
+machina_deid_model/ (package machina_deid): data/evaluation/solvers/
+config/model/cli following the TrackSpec contract, 11-section README,
+examples and tests. Pass rate climbs 0% -> 100% (allowlist / seed-and-
+propagate de-identifier), matching the original run.py; leak, broken,
+lost and retained ride along in the ScoreCard.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGnWfWEFSz9MFvoTut
+
+### koillea__goonies-buildathon 5f6ac81 11-21 00:35
+Adopt the prebuilt-ai-technique-models workflow: shared core + RWX track
+Mirror the reference repo's structure: one shared contract that
+heterogeneous units implement, each a package with README + examples +
+tests, gated by tools/quality_gate.py and documented in docs/.
+
+- common/buildathon_core: ScoreCard/Solution/TrackReport/Status contract,
+  TrackSpec protocol, registry, dev-vs-hidden Harness (stdlib only).
+- rwx_blast_radius_model: first track converted to the convention
+  (data/evaluation/solvers/config/model/cli), 11-section README,
+  examples, tests.
+- pyproject.toml, tools/quality_gate.py (static stdlib-only +
+  packages-return-values invariants), docs/ARCHITECTURE.md,
+  docs/METHODOLOGY.md, examples/buildathon_harness.py + wiring test.
+- README rewritten to describe the mirrored workflow; RWX live submission
+  (selector.py/Dockerfile/maps/) kept in place as the shipped product.
+
+The other three tracks (databricks/machina/mech) land in a follow-up
+commit; practice/ is removed once they do.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGnWfWEFSz9MFvoTut
+
+### koillea__goonies-buildathon 491f96a 11-20 23:49
+tools: leaderboard scraper for watching standings
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 32de17c 11-20 23:36
+RWX Blast Radius submission v3: function-level test selection
+Dockerfile + selector.py + maps/maps.json at the repo top, built from sqlglot at
+the pinned commit (coverage per test, classes used per test, fixtures read per test).
+Sample: 248.1 simulated seconds, 0 misses (starter 1210.5).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__goonies-buildathon 67d8d81 11-20 23:35
+Shopping Sessions submission: fast exact Rust pipeline
+Builds offline from vendored crates. Verified with the scorer's container
+flags: 36/36 fixtures, exact match with the published dev answer.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 3072479 11-20 23:33
+feat(shopping-sessions): submission image with hand-written Parquet writer
+- fast/src/pq.rs: minimal Parquet writer (PLAIN, uncompressed, one row
+  group), replacing the parquet crate; read back by polars and pyarrow
+  with the required string/date32/int64 types.
+- submission/: self-contained repo root. Dockerfile builds offline from
+  3.4 MB of vendored crates (rayon, memchr, rustc-hash), targets the
+  scorer's Cascade Lake CPUs, runs as uid 1000.
+- Verified in Docker with the scorer's flags: 36/36 fixtures, exact dev
+  match, 20M events in 7.1 s on 4 CPUs (baseline 171.9 s on 8).
+  Peak RSS 5.6 GB at 20M.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 4b841ad 11-20 23:14
+docs(briefs): save official rules for Blast Radius, Shopping Sessions, Mech Royale
+Downloaded verbatim from the track pages after kickoff so every later
+step reads the same text.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 3809ad9 11-20 23:11
+feat(agent): Claude Code setup for kickoff — commands, subagents, skill, track skeleton
+- CLAUDE.md: short operating guide (commands, hard rules, evidence-before-done)
+- /kickoff, /adapt-track, /check-assumption, /iterate, /submit-check
+- subagents: track-scout (parallel triage), metric-auditor (fresh-eyes
+  scorer/split audit), solution-researcher (proven approaches)
+- track-adaptation skill: brief->harness procedure + per-track playbook
+- track skeleton whose run.py reports a 1/sqrt(n) noise band, marks ties,
+  warns on dev/holdout overfit, isolates crashes, prints a SCORE= line
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPHbkHviVQSJu9bJaFB
+
+### koillea__goonies-buildathon 42e3d0a 11-20 21:25
+docs(builders): add track README
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__goonies-buildathon 5d4b9ec 11-20 21:25
+docs(machina): add track README
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__goonies-buildathon 81a4a0b 11-20 21:25
+docs(databricks): add track README
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__goonies-buildathon 80e0e6b 11-20 21:24
+docs(rwx): add track README
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__goonies-buildathon 2fcde62 11-20 21:13
+Buildathon prep: scoreboard playbook + 4 practice tracks + blastradius CLI
+Anticipates the four Builders Buildathon tracks (released at kickoff) from the
+site's slugs and scoring rules, and rehearses the build/benchmark/iterate loop a
+pure-scoreboard event rewards.
+
+- practice/: a bench + weak->strong solutions + dev/hidden scorer per track
+  (RWX blast-radius, Databricks shopping-sessions, Machina CAD de-id, Builders
+  mech-royale), each with a NOTES.md on what moved the score and the mistakes.
+- app/blastradius/: a real, dependency-free CI tool a company could use today
+  (which tests to run for a change; which commit broke a test), with unit tests.
+- README.md + PLAYBOOK.md: how the event scores and the kickoff checklist.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPLS9vnHAYR1nykHey8
+
+### koillea__mech-royale-goonies 5c0dc18 11-21 03:40
+sim: house bots hunt known entrants within SIM_HUNT_RADIUS, fight each other only inside SIM_INFIGHT
+Calibration against the real board is not yet reliable (24 matches per version give +-0.5 to 1.1).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies e2a7432 11-21 03:31
+sim: local match simulator to compare bot versions (work in progress)
+sim/engine.py  simplified mechfight/1 match from protocol.md + the recorded hello rules (movement, jets,
+               roofs, gun/laser/lightning/mortar, rear armour, zone, loot, cubes, upgrades, vision, sounds,
+               drones). Not the real server: no supply drops, knock-back, cook-off, trees.
+sim/house.py   stand-in house bots (shared vision, hunt the weakest entrant, 4 skill levels)
+sim/loader.py  loads any committed version side by side (and the kit example bot)
+sim/run.py     calibrate (each version alone vs 15 house bots, same seeds) and lobby (versions vs each other)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies cf8d2a4 11-21 02:57
+C: intel tracking, cover when shot, fire back from the best angle
+- intel.py: per-enemy estimates from sight, beams (exact shooter position), damage bearings (distance from a
+  matching gunfire sound), incoming bullets, and sounds (footsteps, boost, jets, reloads, weapons);
+  confidence decays (half-life 3 s); anonymous estimates merge by bearing and fold into seen mechs.
+- Cover when shot (not before every fight, unlike v4): nearest spot hidden from the shooter and, per intel,
+  from other mechs, preferring a firing spot toward the shooter on its back side and higher; hide (reload,
+  regen, pre-aim), peek, duck back.
+- Fixes for v4's likely failure modes: fight back against pushers (< 25 m) and flankers who see us in cover
+  (< 70 m), stand and fight after 3 relocations in 6 s, zone always first.
+- Pre-aim at heard threats; spot choice avoids places intel says are occupied.
+- tests/test_intel.py, tests/test_combat.py.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### koillea__mech-royale-goonies e8feab6 11-21 02:52
+B: refined aim - motion prediction, pre-aim, rear-arc preference
+- aim.py TargetTracker: 2 s history per target; steady movers use current velocity, strafers (2+ reversals
+  across our line of sight) the window's drift velocity; airborne targets fall with gravity, never below
+  ground; predictions never pass through walls. intercept() solves flight time against that prediction.
+- Gun, laser and mortar aim through the tracker (decision latency included).
+- Pre-aim: with no target, the torso tracks the nearest visible mech half a second ahead, or where a mech
+  that hit us was heading after it hid (up to 2 s), instead of sweeping.
+- Rear armour (x1.5, the game's only positional damage bonus): prefer targets facing away; 70 % of strafe
+  legs walk around toward the target's back.
+- tests/test_aim.py (10 cases).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UyGDPGJgrZrQXhVBLhz6AQ
+
+### kyoto-max__Mech_Royale 7723212 11-21 06:12
+Phantom: hide in offline-computed low-exposure spots
+Every survivor-family run scored 3.4-3.6 regardless of aim, firing or
+weapons, so the score isn't decided by how we fight: we get found.
+The map is identical every match, so visibility is precomputed:
+- tools/exposure.py: for every standable 4 m cell, count viewers (8 m
+  grid, eye +8 m, 200 m range) that can see a mech there, per protocol
+  section 8 (buildings block; >3.5 m of tree crown blocks beyond 45 m).
+  Writes exposure.u8 (2 m grid) and hideouts.json (440 spots).
+- phantom profile: go straight to the lowest-exposure hideout inside
+  the next circle, routing with an exposure cost; stand still; only
+  shoot attackers or mechs within 45 m; burn the hideout and move when
+  hit; loot only within 35 m; endgame (next radius <= 40) falls back
+  to the survivor hold.
+- climbs up to 40 m; per-turn compute slice 16 -> 12 ms.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 82ee9f6 11-20 22:47
+v18 (not submitted): B18=1 bundle on v17. Gun-only standoff 85 m (145 m with a laser); finish targets under 30% max HP even in regen; fire at the best visible mech in every mode except while regen-hiding; step onto cubes within 25 m mid-fight when no other mech is closer. Ideas from Th3r0n (not even close), Wolverines exp, AbhirajTiwari12
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 0661163 11-20 22:23
+v17 (not submitted): GRAB=1. Unarmed with a laser/lightning within 60 m: walk to it at full speed even under fire, still shooting (spar trace: v15 saw a lightning 38 m away under fire for 80 s and never took it)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 52cde9e 11-20 22:08
+v15 (not yet submitted): FACE=1. Face an unseen attacker's bearing for 2 s, switch target to the mech doing the most damage to us in the last 2 s, keep facing the last seen mech for 4 s while retreating/looting/hiding. Adds the orchestrator's card.py/rear.py scorecards
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 6f98ca1 11-20 20:51
+v7: switch the image to a Rust bot based on BingBU's MIT bot (niranjankumarnk/mech-royale@2d6f4e5, rust/LICENSE). Live play-server FFA: places 1 and 2 (v6: 11). Python bot kept (Dockerfile.python) for the sim tools
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### micah-andelman__mech-royale 1b39846 11-20 18:25
+README: submission rules (conserve the 4/hr limit)
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WEeSf5bFAafEb6JJpipoLg
+
+### mike200004__mech-royale-bot 4321a00 11-20 22:12
+Mech Royale bot v2 "hunter": kill-focused duelist
+Rewrite of the decision logic around winning duels instead of hiding:
+- loot plan: full-turn scan, best weapon pair (laser + lightning, else gun + one),
+  drones and crates farmed for power cubes, kill drops collected, idle exploration
+- only fights mechs that hunt us (approach, aim or damage), anything very close, or wounded
+- per-loadout preferred distance, kites lightning carriers, rushes laser carriers with lightning
+- exact lead for the gun (tick timing checked against recorded bullets), hitscan laser charge
+  and release, lightning inside its cone, mortar ballistics with the barrel offset
+- sidesteps visible bullets and shells, peeks from cover while weapons are down
+- breaks off on a lost damage trade, regenerates behind cover, re-engages when healed
+- zone handled by the time the closing wall needs to reach us
+- tunable constants at the top of bot.py; time-capped planning (well under 50 ms per decision)
+- stop tracking __pycache__
+
+Local checks: kit check.py PASS (300/300 in time, p50 0.2 ms, max ~2.6 ms), extended smoke test
+3600 synthetic observations with 0 invalid actions and no exceptions.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### niranjankumarnk__mech-royale 9658429 11-20 21:34
+WIP free-for-all package: runtime policies, fast detection, opening caution, cover by walking distance, ghost-replay evaluation (not for submission yet)
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### niranjankumarnk__mech-royale ba0c356 11-20 20:47
+Experiment D: forget a killed mech at once
+On top of experiment C, one change: when a kill is reported, drop the
+dead mech's track. Its stale track made the bot treat the place it died
+as dangerous for 10 s: it skipped the cubes the kill dropped and walked
+away from them, so it met the next hunters with fewer cubes (each cube
+is +4% max HP and +4% damage) and fewer upgrades.
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### niranjankumarnk__mech-royale 6bf8f4c 11-20 20:43
+Experiment C: version 1 behaviour with only the zone and bridge fixes
+Fight, loot, aim and target choice are exactly version 1 (9d269a9).
+Experiments A and B changed the fight range and several other things at
+once and scored lower, so this goes back to the scored baseline and
+keeps only two fixes:
+
+- zone: once the zone forces a move, keep going until properly inside
+  the next circle (version 1 dithered on its edge and could take zone
+  damage); the zone outranks enemy avoidance when choosing a spot; paths
+  are priced against the circle as it will be 20 s ahead
+- map: the one bridge with enough headroom can be walked under (blocking
+  it cut off a region real mechs use); headroom follows the mech's size
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### niranjankumarnk__mech-royale f588c57 11-20 20:23
+Experiment A: fight at long range; zone-edge and loot fixes
+Behaviour change under test:
+- fight at about 145 m (was 85-125 m, and 28 m when holding lightning),
+  boost away when run down; lightning rush only to finish a weak target
+
+Fixes that ride along:
+- zone: rotation no longer dithers on the edge of the next circle
+  (latch until properly inside, earlier start, zone outranks enemy
+  avoidance when choosing a spot, paths priced against the circle 20 s
+  ahead)
+- forget a killed mech at once so its cubes are collected immediately
+- gun lead includes vertical speed (checked against public replay tracks)
+- walk under the one bridge with enough headroom (it cut off a region)
+- target choice: weakest and nearest first, sticky
+- deterministic iteration order (BTreeMap)
+- COVER_STEPS switch (off here): cover-step fight positions for experiment B
+- dev tool src/bin/mapcheck.rs (not in the image)
+
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+### nshuai808__mech-royale 79fee9f 11-20 21:12
+v2-integrated: merge loot, upgrades, perception, nav/stealth, engage/regen and aim into one bot.py arbiter
+Rebuilds bot.py with one arbiter (engage retreat/regen > aim strafe > loot > zone walk), unions params.json,
+ports tools/sim.py and tools/fuzz.py from main (tools/simnav.py avoids the nav.py name clash), updates docs.
+Zone/supply-drop handling (H-ZON/H-DRP) is not built. Not submitted.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UqfrDSv5JeWXwnUvErXbMq
+
+### nshuai808__mech-royale 6a5a0c6 11-20 20:49
+v2-per: perception / world model (H-PER)
+Tracked enemies (hidden-track particle filters + unseen-mass cloud), sound/event/beam/shell
+fusion, incoming-shot and laser telegraphs. Hook: Bot._perceive per tick in try/except, feeds
+LootPlanner threats=; sets no action fields. Params section "perception". Stdlib only.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UqfrDSZ7yRbCaAwcVCVqyr
+
+### nshuai808__mech-royale 2855116 11-20 20:42
+Log submissions: starter 1.15, survival bot v2 2.92
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UqfrDU5LBwYTiTqWjvRtz4
+
+### nshuai808__mech-royale c995b28 11-20 20:01
+Add local logging harness: record, replay, analyze, botlog.trace
+Matches show nothing but the score, so these stdlib-only tools give local
+visibility into the bot:
+
+- tools/record.py: transparent proxy around any bot command; logs every
+  message, answer times, and botlog traces to replays/*.jsonl.gz
+- tools/replay.py: feeds a recorded stream (default: the kit's 300 obs)
+  to the bot lockstep, like the server; works inside the docker sandbox
+- tools/analyze.py: report (timing, HP, zone, damage by weapon/attacker,
+  rear hits, loot, modes, last seconds, timeline), CSV export, and --diff
+  between two bot versions
+- botlog.py: per-decision trace, off unless MECH_TRACE=1
+- CLAUDE.md: game digest, tool usage, workflow, and status for new sessions
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01UqfrDU5LBwYTiTqWjvRtz4
+
+### nullat0m7__mech-royale 4daea12 11-20 18:58
+docs(agent): main-only git, optimize track score
+Owner: no branch system here; goal is placement points, not money.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### pcetner__mech-royale-bot 7a1ef19 11-20 19:16
+v0 skeleton bot: pipeline test submission
+Infrastructure only (map/LOS, lead aim, fire gating, deadline guard).
+Passes kit check.py with the exact scorer docker command.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### prakash-218__Buildathon-sessions 673f8f9 11-20 18:27
+Add reference pipeline, fixtures and test tooling
+A slow, literal Python implementation of rules.md to serve as a test
+oracle for the fast pipeline. It passes all 36 edge-case fixtures and
+matches dev-answer exactly on the 1M-event dev set (seed 1).
+
+Also adds the track's rules, the starter's fixtures and diff scripts,
+the dataset generator source and the published dev answer. Fixtures
+are marked -text so the deliberate \r\n lines in E20 survive Git.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### prakash-218__buildathon-mech 14b39db 11-20 21:29
+v5: weapon rush - grab a laser/lightning even mid-fight
+The bot used to loot only when no enemy was in sight, so in half the
+simulated matches it never got a second weapon. It now remembers seen
+pickups and goes for a laser/lightning within 140 m whenever its second
+slot is empty, still shooting on the way. Simulator, 64 paired seeds:
++1.73 +/- 0.45 over v4 (kills 4.0 -> 5.6).
+
+Also: fix a nil-map crash from the threat-tracking code (never shipped),
+and add env switches for experiments (roofs, flee, jump-dodge, 360 scan),
+all off by default.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### skandra08__robo-fight 5e115fe 11-21 03:36
+try/standoff-plus: standoff + drones + zone-escape stacked
+Stack of try/standoff, try/drones and try/zone-escape for after standoff is scored.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01PfKQ9BnLtX19rNpTJJkuy3
+
+### skandra08__robo-fight 79d9eeb 11-21 03:38
+try/standoff: fight from 135-200 m instead of closing to 75 m
+Live tests on the real server (~1,500 gun shots): house bots hit 94% inside 40 m,
+58% at 40-80 m, 31% at 80-130 m, 12% at 130-230 m; our lead aim hits ~65% at all
+ranges. Back off (boost under 95 m) when they close, creep in only past 200 m,
+slide sideways when there is no lane. Base: try/roof-ctr 55f5015.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01PfKQ9BnLtX19rNpTJJkuy3
+
