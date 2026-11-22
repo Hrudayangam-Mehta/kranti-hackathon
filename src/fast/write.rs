@@ -5,6 +5,7 @@ use super::parquet::{self, put_i32, put_i64, put_str, Column, Kind};
 use crate::input::Result;
 
 #[derive(Default)]
+#[cfg_attr(test, derive(Debug, PartialEq, Eq))]
 pub struct Part {
     persons: Vec<Key>,
     days: Vec<u32>,

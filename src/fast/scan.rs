@@ -28,11 +28,34 @@ pub trait Kernel {
     unsafe fn long(p: *const u8) -> Option<(u64, u64)>;
 }
 
+// Per-thread test receipts verify the backend actually used by entry dispatch.
+// This state and every recording call are absent from production builds.
+#[cfg(test)]
+std::thread_local! {
+    static KERNEL_MASK_CALLS: std::cell::Cell<[usize; 3]> = const { std::cell::Cell::new([0; 3]) };
+}
+
+#[cfg(test)]
+fn note_kernel(index: usize) {
+    KERNEL_MASK_CALLS.with(|calls| {
+        let mut value = calls.get();
+        value[index] += 1;
+        calls.set(value);
+    });
+}
+
+#[cfg(test)]
+pub(super) fn take_kernel_calls() -> [usize; 3] {
+    KERNEL_MASK_CALLS.with(|calls| calls.replace([0; 3]))
+}
+
 pub struct Scalar;
 
 impl Kernel for Scalar {
     #[inline(always)]
     unsafe fn masks(p: *const u8) -> (u64, u64, u64) {
+        #[cfg(test)]
+        note_kernel(0);
         let mut comma = 0u64;
         let mut nl = 0u64;
         let mut quote = 0u64;
@@ -68,6 +91,8 @@ pub struct Avx2;
 impl Kernel for Avx2 {
     #[inline(always)]
     unsafe fn masks(p: *const u8) -> (u64, u64, u64) {
+        #[cfg(test)]
+        note_kernel(1);
         masks_avx2(p)
     }
 
@@ -88,11 +113,71 @@ impl Kernel for Avx2 {
 }
 
 #[cfg(target_arch = "x86_64")]
+pub struct Avx512;
+
+#[cfg(target_arch = "x86_64")]
+impl Kernel for Avx512 {
+    #[inline(always)]
+    unsafe fn masks(p: *const u8) -> (u64, u64, u64) {
+        #[cfg(test)]
+        note_kernel(2);
+        masks_avx512(p)
+    }
+
+    // Only structural classification changes. Exact field conversions retain
+    // the existing AVX2/BMI implementation and its initialized-tail contract.
+    #[inline(always)]
+    unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
+        pack_avx2(p, len)
+    }
+
+    #[inline(always)]
+    unsafe fn short(p: *const u8, len: usize) -> Option<u64> {
+        short_avx2(p, len)
+    }
+
+    #[inline(always)]
+    unsafe fn long(p: *const u8) -> Option<(u64, u64)> {
+        long_avx2(p)
+    }
+}
+
+#[cfg(target_arch = "x86_64")]
+#[target_feature(enable = "avx512f,avx512bw,avx2,bmi1,bmi2,popcnt")]
+#[inline]
+unsafe fn masks_avx512(p: *const u8) -> (u64, u64, u64) {
+    // The same 64 initialized, readable bytes required by Scalar/Avx2::masks.
+    // Unaligned loading changes neither the read extent nor output bit order.
+    let bytes = _mm512_loadu_si512(p as *const __m512i);
+    (
+        _mm512_cmpeq_epi8_mask(bytes, _mm512_set1_epi8(b',' as i8)),
+        _mm512_cmpeq_epi8_mask(bytes, _mm512_set1_epi8(b'\n' as i8)),
+        _mm512_cmpeq_epi8_mask(bytes, _mm512_set1_epi8(b'"' as i8)),
+    )
+}
+
+#[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
 #[inline]
 unsafe fn short_avx2(p: *const u8, len: usize) -> Option<u64> {
     if len.wrapping_sub(1) >= id::SHORT_MAX {
         return None;
+    }
+    if len <= id::RAW_MAX {
+        // The scanner guarantees at least eight initialized readable bytes.
+        // Mask before addition so arbitrary padding cannot affect field bytes,
+        // and mask again afterwards so the nonzero digit offset leaves no tail.
+        let mask = u64::MAX >> ((id::RAW_MAX - len) * 8);
+        let bytes = (p as *const u64).read_unaligned() & mask;
+        let incremented = bytes.wrapping_add(0x0101_0101_0101_0101);
+        let wrong_range = (bytes & 0xa0a0_a0a0_a0a0_a0a0) ^ (0x2020_2020_2020_2020 & mask);
+        // Once bit7=0 and bit5=1, DEL is the only byte whose increment sets bit7.
+        // Accepted bytes are at most0x7e, so the packed addition has no carries.
+        if wrong_range | (incremented & 0x8080_8080_8080_8080) != 0 {
+            return None;
+        }
+        let digits = (incremented & mask).swap_bytes();
+        return Some(_pext_u64(digits, 0x5f5f_5f5f_5f5f_5f5f));
     }
     let v = _mm_loadu_si128(p as *const __m128i);
     let iota = _mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
@@ -567,6 +652,26 @@ pub fn has_avx2() -> bool {
     false
 }
 
+#[cfg(target_arch = "x86_64")]
+pub fn has_avx512() -> bool {
+    use std::sync::OnceLock;
+    static FLAG: OnceLock<bool> = OnceLock::new();
+    *FLAG.get_or_init(|| {
+        // SESSIONS_AVX2 is an optional diagnostic fallback, matching the
+        // existing presence-based SESSIONS_SCALAR override. Neither enables
+        // unsupported instructions. AVX2 remains required for conversions.
+        has_avx2()
+            && std::env::var_os("SESSIONS_AVX2").is_none()
+            && std::is_x86_feature_detected!("avx512f")
+            && std::is_x86_feature_detected!("avx512bw")
+    })
+}
+
+#[cfg(not(target_arch = "x86_64"))]
+pub fn has_avx512() -> bool {
+    false
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -609,11 +714,18 @@ mod tests {
         assert_eq!(run_fused::<N, N, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         assert_eq!(run_fused::<N, 3, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         #[cfg(target_arch = "x86_64")]
-        if std::is_x86_feature_detected!("avx2") {
+        if has_avx2() {
             assert_eq!(run::<N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, 1, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, 3, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+        }
+        #[cfg(target_arch = "x86_64")]
+        if has_avx512() {
+            assert_eq!(run::<N, Avx512>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, 1, Avx512>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, N, Avx512>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, 3, Avx512>(data), expected, "{:?}", String::from_utf8_lossy(data));
         }
     }
 
@@ -623,13 +735,172 @@ mod tests {
         assert_eq!(run_fused::<N, N, Scalar>(chunk), old);
         assert_eq!(run_fused::<N, 3, Scalar>(chunk), old);
         #[cfg(target_arch = "x86_64")]
-        if std::is_x86_feature_detected!("avx2") {
+        if has_avx2() {
             assert_eq!(run::<N, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, 1, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, N, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, 3, Avx2>(chunk), old);
         }
+        #[cfg(target_arch = "x86_64")]
+        if has_avx512() {
+            assert_eq!(run::<N, Avx512>(chunk), old);
+            assert_eq!(run_fused::<N, 1, Avx512>(chunk), old);
+            assert_eq!(run_fused::<N, N, Avx512>(chunk), old);
+            assert_eq!(run_fused::<N, 3, Avx512>(chunk), old);
+        }
         old.len()
+    }
+
+    #[cfg(target_arch = "x86_64")]
+    #[test]
+    fn avx512_structural_masks_match_all_bytes_positions_and_alignments() {
+        if !has_avx512() { return; }
+        for offset in 0..64 {
+            for byte in 0..=u8::MAX {
+                let bytes = [byte; 128];
+                let pointer = unsafe { bytes.as_ptr().add(offset) };
+                let expected = (
+                    if byte == b',' { u64::MAX } else { 0 },
+                    if byte == b'\n' { u64::MAX } else { 0 },
+                    if byte == b'"' { u64::MAX } else { 0 },
+                );
+                unsafe {
+                    assert_eq!(Scalar::masks(pointer), expected);
+                    assert_eq!(Avx2::masks(pointer), expected);
+                    assert_eq!(Avx512::masks(pointer), expected);
+                }
+            }
+            for position in 0..64 {
+                for (kind, byte) in [b',', b'\n', b'"'].into_iter().enumerate() {
+                    let mut bytes = [b'x'; 128];
+                    bytes[offset + position] = byte;
+                    let mut masks = [0; 3];
+                    masks[kind] = 1u64 << position;
+                    let expected = (masks[0], masks[1], masks[2]);
+                    unsafe {
+                        let pointer = bytes.as_ptr().add(offset);
+                        assert_eq!(Scalar::masks(pointer), expected);
+                        assert_eq!(Avx2::masks(pointer), expected);
+                        assert_eq!(Avx512::masks(pointer), expected);
+                    }
+                }
+            }
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    struct Guarded {
+        mapping: *mut libc::c_void,
+        mapping_len: usize,
+        data: *const u8,
+        len: usize,
+    }
+
+    #[cfg(target_os = "linux")]
+    impl Guarded {
+        fn new(data: &[u8]) -> Self {
+            unsafe {
+                let page = usize::try_from(libc::sysconf(libc::_SC_PAGESIZE)).unwrap();
+                assert!(page > 0);
+                let readable = data.len().max(1).div_ceil(page) * page;
+                let mapping_len = readable + 2 * page;
+                let mapping = libc::mmap(std::ptr::null_mut(), mapping_len, libc::PROT_NONE,
+                    libc::MAP_PRIVATE | libc::MAP_ANONYMOUS, -1, 0);
+                assert_ne!(mapping, libc::MAP_FAILED);
+                let first = (mapping as *mut u8).add(page);
+                let pointer = first.add(readable - data.len());
+                let guarded = Self { mapping, mapping_len, data: pointer, len: data.len() };
+                assert_eq!(libc::mprotect(first.cast(), readable, libc::PROT_READ | libc::PROT_WRITE), 0);
+                std::ptr::copy_nonoverlapping(data.as_ptr(), pointer, data.len());
+                guarded
+            }
+        }
+
+        fn bytes(&self) -> &[u8] {
+            unsafe { std::slice::from_raw_parts(self.data, self.len) }
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    impl Drop for Guarded {
+        fn drop(&mut self) {
+            unsafe { libc::munmap(self.mapping, self.mapping_len); }
+        }
+    }
+
+    #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+    #[test]
+    fn avx512_masks_read_exactly_the_readable_sixty_four_bytes() {
+        if !has_avx512() { return; }
+        let mut bytes = [0u8; 64];
+        for (index, byte) in bytes.iter_mut().enumerate() {
+            *byte = [b',', b'\n', b'"', 0xff][index % 4];
+        }
+        let guarded = Guarded::new(&bytes);
+        unsafe {
+            let pointer = guarded.bytes().as_ptr();
+            let expected = Scalar::masks(pointer);
+            assert_eq!(Avx2::masks(pointer), expected);
+            assert_eq!(Avx512::masks(pointer), expected);
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn fused_kernels_preserve_protected_input_tails_and_row_local_recovery() {
+        // Every logical input ends exactly at PROT_NONE. This exercises the
+        // unchanged copied tail, unaligned row starts, and long-line fallback.
+        for length in [0, 1, 2, 7, 15, 16, 31, 32, 33, 63, 64, 65, 79, 80,
+            127, 128, 129, 159, 160, 161, 255, 256, 257, 1023, 4095, 4096,
+            4097, SEGMENT - 1, SEGMENT, SEGMENT + 1] {
+            let mut pair = vec![b'x'; length];
+            pair.extend_from_slice(b",tail\n\"\",\"\"\nbad\"quote,skip\nwrong,field,count\nvalid,after\na\r,b\r\nlast,tail");
+            let guarded = Guarded::new(&pair);
+            check::<2>(guarded.bytes());
+            let mut event = b"a,".to_vec();
+            event.extend(std::iter::repeat_n(b'x', length));
+            event.extend_from_slice(b",c,d,e,f,g\n\"\",\"\",c,d,e,f,g\n\",b,c,d,e,f,g\na,b,c,d,e,f\na,b,c,d,e,f,g\nlast,b,c,d,e,f,g\r");
+            let guarded = Guarded::new(&event);
+            check::<7>(guarded.bytes());
+        }
+        check::<1>(Guarded::new(b"").bytes());
+        check::<2>(Guarded::new(b",\n").bytes());
+    }
+
+    #[cfg(target_arch = "x86_64")]
+    #[test]
+    fn avx512_field_converters_retain_exact_avx2_contracts() {
+        if !has_avx512() { return; }
+        let samples: &[&[u8]] = &[
+            b"", b"0", b"00", b"?`~", b"~~~~~~~~", b"000000001", b"zzzzzzzzzzz",
+            b"123456789012", b"A_B", b"a\0b", b"\xff", b"abc\x7f",
+            b"0123456789abcdef0123456789abcdef", b"fffffffffffffffe0000000000000000",
+        ];
+        for offset in 0..32 {
+            for sample in samples {
+                for poison in [0, 0x7f, 0xff] {
+                    let mut bytes = [poison; 128];
+                    bytes[offset..offset + sample.len()].copy_from_slice(sample);
+                    unsafe {
+                        let pointer = bytes.as_ptr().add(offset);
+                        let short = id::short_scalar(sample);
+                        assert_eq!(Scalar::short(pointer, sample.len()), short);
+                        assert_eq!(Avx2::short(pointer, sample.len()), short);
+                        assert_eq!(Avx512::short(pointer, sample.len()), short);
+                        let packed = keys::pack(sample);
+                        assert_eq!(Scalar::pack(pointer, sample.len()), packed);
+                        assert_eq!(Avx2::pack(pointer, sample.len()), packed);
+                        assert_eq!(Avx512::pack(pointer, sample.len()), packed);
+                        if sample.len() == id::LONG_LEN {
+                            let long = id::long_scalar(sample);
+                            assert_eq!(Scalar::long(pointer), long);
+                            assert_eq!(Avx2::long(pointer), long);
+                            assert_eq!(Avx512::long(pointer), long);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     #[test]
@@ -810,8 +1081,59 @@ mod tests {
             unsafe {
                 assert_eq!(Scalar::pack(buf.as_ptr(), len), expected);
                 #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
+                if has_avx2() {
                     assert_eq!(Avx2::pack(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw48_vector_acceptance_alignment_and_poisoned_tail_match_exact_slice() {
+        eprintln!("Raw48 vector feature gate: {}", has_avx2());
+        for len in 1..=id::RAW_MAX {
+            for position in 0..len {
+                for byte in 0..=u8::MAX {
+                    for poison in [0, 0x7f, 0xff] {
+                        for offset in 0..8 {
+                            let mut padded = [poison; 48];
+                            padded[offset..offset + len].fill(b'0');
+                            padded[offset + position] = byte;
+                            let field = &padded[offset..offset + len];
+                            let scalar = id::short_scalar(field);
+                            let eligible = (0x20..=0x3f).contains(&byte) || (0x60..=0x7e).contains(&byte);
+                            assert_eq!(scalar.is_some(), eligible);
+                            unsafe {
+                                assert_eq!(Scalar::short(field.as_ptr(), len), scalar);
+                                #[cfg(target_arch = "x86_64")]
+                                if has_avx2() {
+                                    assert_eq!(Avx2::short(field.as_ptr(), len), scalar, "{field:?}, offset={offset}, poison={poison}");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn raw48_vector_carry_boundaries_and_digit_order_match_scalar() {
+        for len in 1..=id::RAW_MAX {
+            for &a in &[0x20, 0x3e, 0x3f, 0x60, 0x7d, 0x7e, 0x7f, 0xff] {
+                for &b in &[0x20, 0x3f, 0x60, 0x7e, 0x7f, 0xff] {
+                    let mut padded = [0xff; 32];
+                    for (index, byte) in padded[..len].iter_mut().enumerate() {
+                        *byte = if index % 2 == 0 { a } else { b };
+                    }
+                    let expected = id::short_scalar(&padded[..len]);
+                    unsafe {
+                        assert_eq!(Scalar::short(padded.as_ptr(), len), expected);
+                        #[cfg(target_arch = "x86_64")]
+                        if has_avx2() {
+                            assert_eq!(Avx2::short(padded.as_ptr(), len), expected, "{:?}", &padded[..len]);
+                        }
+                    }
                 }
             }
         }
@@ -846,7 +1168,7 @@ mod tests {
                 assert_eq!(Scalar::short(buf.as_ptr(), len), expected);
                 assert_eq!(Scalar::long(buf.as_ptr()), wide);
                 #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
+                if has_avx2() {
                     assert_eq!(Avx2::short(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
                     assert_eq!(Avx2::long(buf.as_ptr()), wide, "{:?}", &buf[..32]);
                 }
@@ -856,7 +1178,7 @@ mod tests {
         unsafe {
             assert_eq!(Scalar::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
             #[cfg(target_arch = "x86_64")]
-            if std::is_x86_feature_detected!("avx2") {
+            if has_avx2() {
                 assert_eq!(Avx2::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
                 assert_eq!(Avx2::short(max.as_ptr(), 12), None);
                 assert_eq!(Avx2::short(max.as_ptr(), 0), None);
