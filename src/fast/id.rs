@@ -241,7 +241,7 @@ pub fn detect<const N: usize>(files: &[&[u8]], columns: &[usize]) -> Domain {
     let mut total = 0u32;
     let mut lines = 0usize;
     for file in files.iter().filter(|f| !f.is_empty()).take(64) {
-        for line in csv::rows(file).take(256) {
+        for line in csv::rows(file).take(32) {
             lines += 1;
             if let Some(fields) = csv::fields::<N>(line) {
                 for &c in columns {
@@ -251,11 +251,11 @@ pub fn detect<const N: usize>(files: &[&[u8]], columns: &[usize]) -> Domain {
                     }
                 }
             }
-            if lines >= 4096 {
+            if lines >= 128 {
                 break;
             }
         }
-        if lines >= 4096 {
+        if lines >= 128 {
             break;
         }
     }

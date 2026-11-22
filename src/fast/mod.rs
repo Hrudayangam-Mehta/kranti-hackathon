@@ -926,7 +926,7 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
         self.copies += 1;
         unsafe {
             let event = encode_k::<K>(&ctx.event_ids, event_id);
-            let ingest = ctx.calendar.parse(f[3]);
+            let ingest = ctx.calendar.parse_ingest(f[3]);
             let mut rec = EventRec {
                 event,
                 user: Key::default(),
@@ -938,7 +938,7 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
                 let user = f[1];
                 let product = f[5];
                 if !user.is_empty() && !product.is_empty() {
-                    if let Some(t) = ctx.calendar.parse(f[2]) {
+                    if let Some(t) = ctx.calendar.parse_after_ingest(f[2], f[3], ingest) {
                         if ctx.ws <= t && t < ctx.we && ingest.saturating_sub(t) <= DAY_MS {
                             let kind = f[4];
                             let k4 = (kind.as_ptr() as *const u32).read_unaligned();

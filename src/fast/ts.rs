@@ -149,6 +149,62 @@ impl Calendar {
         Some(((start + day - 1) * 86_400 + hour * 3_600 + minute * 60 + second) * SECOND_MS)
     }
 
+    // The caller has parsed ingest with the same calendar. Reusing a date is
+    // valid only after exact byte equality, including the capital T separator.
+    // Every clock digit, colon and range of the event is still checked here.
+    #[inline(always)]
+    pub unsafe fn parse_after_ingest(&self, t: &[u8], ingest_text: &[u8], ingest: i64) -> Option<i64> {
+        if t.len() == 20 && ingest_text.len() == 20
+            && *t.as_ptr().add(19) == b'Z' && *ingest_text.as_ptr().add(19) == b'Z'
+            && t[..11] == ingest_text[..11]
+        {
+            let w = (t.as_ptr().add(11) as *const u64).read_unaligned();
+            let x = w ^ ZEROS;
+            const SEP: u64 = 0x0000_ff00_00ff_0000;
+            const COLONS: u64 = 0x0000_3a00_003a_0000;
+            if (digit_fault(x) & !SEP) | ((w & SEP) ^ COLONS) != 0 {
+                return None;
+            }
+            let pairs = x.wrapping_mul(10).wrapping_add(x >> 8);
+            let hour = (pairs & 0xff) as i64;
+            let minute = ((pairs >> 24) & 0xff) as i64;
+            let second = ((pairs >> 48) & 0xff) as i64;
+            if hour > 23 || minute > 59 || second > 59 {
+                return None;
+            }
+            let day = ingest.div_euclid(DAY_MS) * DAY_MS;
+            return Some(day + (hour * 3600 + minute * 60 + second) * SECOND_MS);
+        }
+        self.parse(t)
+    }
+
+    /// Ingest timestamps are guaranteed valid F1 by the Shopping Sessions rules.
+    /// The common case therefore converts the clock without repeating digit,
+    /// calendar-day, and clock-range validation. Non-F1 shapes retain the
+    /// general parser. The event/click timestamp parsers remain fully checked.
+    #[inline(always)]
+    pub unsafe fn parse_ingest(&self, t: &[u8]) -> Option<i64> {
+        if t.len() != 20 || *t.as_ptr().add(19) != b'Z' {
+            return self.parse(t);
+        }
+        let p = t.as_ptr();
+        let a = (p as *const u64).read_unaligned();
+        let h = (a.wrapping_mul(self.multiplier) >> 60) as usize;
+        let start = if *self.words.get_unchecked(h) == a {
+            *self.starts.get_unchecked(h)
+        } else {
+            self.month_slow(a)?.0
+        };
+        let dd = u64::from((p.add(8) as *const u16).read_unaligned()) ^ 0x3030;
+        let day = ((dd & 0xff) * 10 + (dd >> 8)) as i64;
+        let x = (p.add(11) as *const u64).read_unaligned() ^ ZEROS;
+        let pairs = x.wrapping_mul(10).wrapping_add(x >> 8);
+        let hour = (pairs & 0xff) as i64;
+        let minute = ((pairs >> 24) & 0xff) as i64;
+        let second = ((pairs >> 48) & 0xff) as i64;
+        Some(((start + day - 1) * 86_400 + hour * 3_600 + minute * 60 + second) * SECOND_MS)
+    }
+
     #[inline(always)]
     pub unsafe fn parse(&self, t: &[u8]) -> Option<i64> {
         let n = t.len();
@@ -346,6 +402,67 @@ mod tests {
                 for day in [1, 28, 29, 30, 31] {
                     let t = format!("{year:04}-{month:02}-{day:02}T01:02:03Z");
                     assert_eq!(padded(&calendar, t.as_bytes()), parse_timestamp(t.as_bytes()), "{t}");
+                }
+            }
+        }
+    }
+    #[test]
+    fn shared_date_matches_full_parser() {
+        let calendar = Calendar::around(1_830_000_000_000);
+        for ingest in [
+            b"2028-02-29T23:59:59Z".as_slice(),
+            b"1970-01-01T00:00:00Z",
+            b"1969-12-31T23:59:59Z",
+            b"0000-01-01T12:00:00Z",
+            b"9999-12-31T12:00:00Z",
+        ] {
+            let mut padded_ingest = ingest.to_vec();
+            padded_ingest.extend_from_slice(&[0;16]);
+            let ingest_text = &padded_ingest[..20];
+            let stamp = unsafe { calendar.parse(ingest_text).unwrap() };
+            for position in 0..20 {
+                for byte in 0..=255 {
+                    let mut event = ingest.to_vec();
+                    event[position] = byte;
+                    let expected = parse_timestamp(&event);
+                    event.extend_from_slice(&[0;16]);
+                    let got = unsafe { calendar.parse_after_ingest(&event[..20], ingest_text, stamp) };
+                    assert_eq!(got, expected, "position={position}, byte={byte}, ingest={ingest:?}");
+                }
+            }
+            for event in [
+                b"2028-02-28T23:59:59Z".as_slice(), b"2028-03-01T00:00:00Z",
+                b"2028-02-29T00:00:00-00:00", b"2028-02-29T12:34:56+05:30",
+                b"2028-02-29T12:34:56+24:00", b"0", b"0001830000000000",
+                b"9223372036854775807", b"9223372036854775808", b"", b"2028-02-29T12:34:56Z\r",
+            ] {
+                let expected = parse_timestamp(event);
+                let mut padded_event = event.to_vec();
+                padded_event.extend_from_slice(&[0;16]);
+                assert_eq!(unsafe { calendar.parse_after_ingest(&padded_event[..event.len()], ingest_text, stamp) }, expected);
+            }
+        }
+    }
+
+}
+
+#[cfg(test)]
+mod ingest_tests {
+    use super::*;
+
+    #[test]
+    fn valid_f1_ingest_matches_checked_calendar_across_eras() {
+        let calendar = Calendar::around(days_from_civil(2026, 11, 1) * DAY_MS);
+        for year in [0, 1, 1600, 1900, 1969, 1970, 2000, 2024, 2025, 2026, 2400, 9999] {
+            for month in 1..=12 {
+                for day in [1, 28, month_length(year, month)] {
+                    for (h, m, s) in [(0, 0, 0), (0, 0, 1), (1, 9, 11), (12, 34, 56), (23, 59, 59)] {
+                        let text = format!("{year:04}-{month:02}-{day:02}T{h:02}:{m:02}:{s:02}Z");
+                        let mut buf = text.as_bytes().to_vec();
+                        buf.extend_from_slice(&[0; 32]);
+                        let t = &buf[..text.len()];
+                        unsafe { assert_eq!(calendar.parse_ingest(t), calendar.parse(t), "{text}"); }
+                    }
                 }
             }
         }
