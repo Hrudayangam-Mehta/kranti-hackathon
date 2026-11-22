@@ -34,10 +34,15 @@ pub fn reserve(bytes: usize) {
             return;
         }
         let start = (p as usize).div_ceil(HUGE) * HUGE;
-        libc::madvise(start as *mut libc::c_void, bytes, libc::MADV_HUGEPAGE);
         RESERVED_NEXT.store(start, Ordering::Relaxed);
         RESERVED_END.store(start + bytes, Ordering::Release);
     }
+}
+
+pub fn huge_region(bytes: usize) -> *mut u8 {
+    let p = region(bytes);
+    unsafe { libc::madvise(p as *mut libc::c_void, bytes.div_ceil(HUGE) * HUGE, libc::MADV_HUGEPAGE) };
+    p
 }
 
 pub fn region(bytes: usize) -> *mut u8 {

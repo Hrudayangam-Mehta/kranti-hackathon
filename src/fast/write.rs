@@ -1,6 +1,5 @@
 use std::path::Path;
 
-use super::keys;
 use super::parquet::{self, put_i32, put_i64, put_str, Column, Kind};
 use crate::input::Result;
 
@@ -56,6 +55,7 @@ pub fn user_part(
     range: std::ops::Range<usize>,
     categories: &[&[u8]],
     first_day: i64,
+    name_of: &(dyn Fn(u64, &mut Vec<u8>) + Sync),
 ) -> Result<()> {
     let base = range.start;
     let rows = range.len();
@@ -63,7 +63,7 @@ pub fn user_part(
         for &person in &part.persons[base + a..base + b] {
             let at = out.len();
             out.extend_from_slice(&[0; 4]);
-            keys::bytes_of(person, out);
+            name_of(person, out);
             let len = (out.len() - at - 4) as u32;
             out[at..at + 4].copy_from_slice(&len.to_le_bytes());
         }

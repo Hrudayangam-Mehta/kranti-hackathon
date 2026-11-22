@@ -1,5 +1,4 @@
-pub mod ident;
-pub mod keys;
+pub mod ids;
 pub mod parquet;
 pub mod people;
 pub mod scan;
@@ -10,16 +9,16 @@ pub mod write;
 
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
 use std::sync::{Barrier, Condvar, Mutex, OnceLock};
 use std::time::Instant;
 
 use crate::csv;
 use crate::events::parse_price;
-use crate::input::{self, Result, Window, ORGANIC, UNKNOWN_CATEGORY};
+use crate::input::{self, Result, ORGANIC, UNKNOWN_CATEGORY};
 use crate::time::DAY_MS;
-use keys::SmallMap;
-use people::{prefetch, People};
+use ids::{prefetch, Bytes, Interner, Key, KeyMap};
+use people::LinkSpace;
 #[cfg(target_arch = "x86_64")]
 use scan::Avx2;
 use scan::{Kernel, Lines, Scalar};
@@ -33,44 +32,46 @@ const HEAP_PIECE: usize = 7 << 19;
 const HEAP_WARM: usize = 6;
 const GAP_MS: u32 = 30 * 60 * 1000;
 const INVALID: u32 = u32::MAX;
-const H1: u64 = 0x9e37_79b9_7f4a_7c15;
 const H2: u64 = 0xc2b2_ae3d_27d4_eb4f;
 const VIEW: u32 = u32::from_le_bytes(*b"view");
 const CART: u32 = u32::from_le_bytes(*b"cart");
 const PURCHASE: u64 = u64::from_le_bytes(*b"purchase");
+const RING: usize = 16;
 
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct EventRec {
-    event: u64,
-    user: u64,
-    ingest: i64,
+    key: Key,
+    user: u32,
     ts: u32,
     payload: u32,
+    ingest: u32,
 }
 
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct PersonRec {
-    person: u64,
+    person: u32,
     ts: u32,
     payload: u32,
+    spare: u32,
 }
 
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct ClickRec {
-    person: u64,
-    click: u64,
+    click: Key,
+    person: u32,
     ts: u32,
     campaign: u32,
+    spare: u32,
 }
 
 #[derive(Clone, Copy)]
 struct LocalClick {
     ts: u32,
     campaign: u32,
-    click: u64,
+    click: Key,
 }
 
 pub struct Config<'a> {
@@ -88,12 +89,17 @@ struct Ctx<'a> {
     ws: i64,
     we: i64,
     cws: i64,
-    products: SmallMap,
+    ingest_base: i64,
+    products: KeyMap,
     unknown: u32,
-    campaigns: SmallMap,
+    campaigns: KeyMap,
     organic: u32,
     p1_bits: u32,
     p2_bits: u32,
+    qbits: u32,
+    ib: u32,
+    user_slots: usize,
+    export_block: usize,
     p1_block: usize,
     click_block: usize,
     p2_block: usize,
@@ -101,11 +107,9 @@ struct Ctx<'a> {
     days: usize,
     day_shift: i64,
     link_files: Vec<&'static [u8]>,
-    decoder: Option<ident::Decoder>,
     units: Vec<Unit>,
     files: Vec<&'static [u8]>,
-    remaining: Vec<AtomicUsize>,
-    first_click: usize,
+    event_files: usize,
     marker: std::marker::PhantomData<&'a ()>,
 }
 
@@ -127,12 +131,108 @@ enum Job {
     Campaign(usize),
 }
 
-fn release_chunk(ctx: &Ctx, f: usize, tr: &mut trace::Trace) {
-    if ctx.remaining[f].fetch_sub(1, Ordering::AcqRel) == 1 {
-        let t = tr.now();
+struct Space {
+    export: Sink<Key>,
+    l2g: Vec<AtomicU32>,
+}
+
+struct Merged {
+    keys: Vec<Key>,
+    names: Vec<u32>,
+}
+
+trait HasUser: Copy {
+    fn set_user(&mut self, user: u32);
+}
+
+impl HasUser for EventRec {
+    #[inline(always)]
+    fn set_user(&mut self, user: u32) {
+        self.user = user;
+    }
+}
+
+impl HasUser for ClickRec {
+    #[inline(always)]
+    fn set_user(&mut self, user: u32) {
+        self.person = user;
+    }
+}
+
+struct Ring<T: HasUser> {
+    recs: [T; RING],
+    keys: [Key; RING],
+    hashes: [u64; RING],
+    parts: [u32; RING],
+    lens: [u32; RING],
+    n: usize,
+}
+
+impl<T: HasUser> Ring<T> {
+    fn new(fill: T) -> Ring<T> {
+        Ring {
+            recs: [fill; RING],
+            keys: [[0, 0]; RING],
+            hashes: [0; RING],
+            parts: [0; RING],
+            lens: [0; RING],
+            n: 0,
+        }
+    }
+
+    #[inline(always)]
+    unsafe fn add(&mut self, rec: T, user: &[u8], part: usize, users: &mut Interner, arena: &mut Arena, bytes: &mut Bytes, sink: &mut Sink<T>) {
+        let (key, h, len) = if user.len() <= ids::SHORT_MAX {
+            let k = ids::short_key(user.as_ptr(), user.len());
+            let h = ids::short_hash(&k);
+            users.prefetch(h);
+            (k, h, 0)
+        } else {
+            let h = ids::field_hash(user.as_ptr(), user.len());
+            users.prefetch_long(h);
+            ([user.as_ptr() as u64, 0], h, user.len() as u32)
+        };
+        let i = self.n & (RING - 1);
+        if self.n >= RING {
+            self.resolve(i, users, arena, bytes, sink);
+        }
+        *self.recs.get_unchecked_mut(i) = rec;
+        *self.keys.get_unchecked_mut(i) = key;
+        *self.hashes.get_unchecked_mut(i) = h;
+        *self.parts.get_unchecked_mut(i) = part as u32;
+        *self.lens.get_unchecked_mut(i) = len;
+        self.n += 1;
+    }
+
+    #[inline(always)]
+    unsafe fn resolve(&mut self, i: usize, users: &mut Interner, arena: &mut Arena, bytes: &mut Bytes, sink: &mut Sink<T>) {
+        let key = *self.keys.get_unchecked(i);
+        let h = *self.hashes.get_unchecked(i);
+        let len = *self.lens.get_unchecked(i) as usize;
+        let user = if len == 0 {
+            users.short(key, h, arena)
+        } else {
+            users.long(key[0] as *const u8, len, h, arena, bytes)
+        };
+        let rec = self.recs.get_unchecked_mut(i);
+        rec.set_user(user);
+        sink.push(arena, *self.parts.get_unchecked(i) as usize, *rec);
+    }
+
+    fn drain(&mut self, users: &mut Interner, arena: &mut Arena, bytes: &mut Bytes, sink: &mut Sink<T>) {
+        for j in self.n.saturating_sub(RING)..self.n {
+            unsafe { self.resolve(j & (RING - 1), users, arena, bytes, sink) };
+        }
+        self.n = 0;
+    }
+}
+
+fn unmap_files(ctx: &Ctx, range: std::ops::Range<usize>, id: usize, threads: usize) {
+    for f in range.filter(|f| f % threads == id) {
         let file = ctx.files[f];
-        unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
-        tr.add(trace::UNMAP, t);
+        if !file.is_empty() {
+            unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
+        }
     }
 }
 
@@ -239,46 +339,17 @@ fn bits_for(records: usize, per_part: usize) -> u32 {
 struct Stats {
     event_copies: AtomicUsize,
     winners: AtomicUsize,
-    lane_f: AtomicUsize,
     clicks: AtomicUsize,
+    distinct: AtomicUsize,
+    locals: AtomicUsize,
 }
 
-fn env_u64(name: &str) -> Option<u64> {
-    let text = std::env::var(name).ok()?;
-    let text = text.trim();
-    match text.strip_prefix("0x") {
-        Some(hex) => u64::from_str_radix(hex, 16).ok(),
-        None => text.parse().ok(),
-    }
-}
-
-fn choose_decoder(event_files: &[&'static [u8]], link_files: &[&'static [u8]], event_bytes: usize) -> Option<ident::Decoder> {
-    if std::env::var("SESSIONS_LANE").is_ok_and(|v| v == "G") {
-        eprintln!("lane F off: SESSIONS_LANE=G");
-        return None;
-    }
-    let gcap = env_u64("SESSIONS_TEST_GCAP").unwrap_or((event_bytes / 60 / 30 * 2 + 1024) as u64).clamp(1, 1 << 31);
-    let started = Instant::now();
-    let key = match env_u64("SESSIONS_TEST_USER_KEY") {
-        Some(key) => Ok(key & ident::MASK),
-        None => ident::recover(event_files, link_files, gcap),
-    };
-    match key {
-        Ok(key) => {
-            eprintln!(
-                "lane F on: user key {key:#012x}, person cap {gcap}, {:.1} ms",
-                started.elapsed().as_secs_f64() * 1e3
-            );
-            Some(ident::Decoder {
-                key,
-                gcap,
-                twist: std::env::var("SESSIONS_TEST_TWIST").is_ok_and(|v| v == "1"),
-            })
+fn spin_until(flag: &AtomicUsize, target: usize) {
+    while flag.load(Ordering::Acquire) < target {
+        for _ in 0..64 {
+            std::hint::spin_loop();
         }
-        Err(reason) => {
-            eprintln!("lane F off: {reason}");
-            None
-        }
+        std::thread::yield_now();
     }
 }
 
@@ -298,7 +369,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
     }
     let data = config.data_dir;
     let manifest = fs::read(data.join("manifest.json")).map_err(|e| format!("manifest.json: {e}"))?;
-    let window = Window::from_manifest(&manifest)?;
+    let window = input::Window::from_manifest(&manifest)?;
     let (ws, we) = (window.start, window.end);
     let cws = ws.checked_sub(WEEK_MS).ok_or("window start out of range")?;
     if we <= ws || we - cws >= i64::from(u32::MAX) - 1 {
@@ -317,7 +388,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
     let mut seen_categories: Vec<&'static [u8]> = vec![UNKNOWN_CATEGORY];
     let mut category_ids: crate::hash::FastMap<&'static [u8], u32> = crate::hash::new_map(64);
     category_ids.insert(UNKNOWN_CATEGORY, 0);
-    let mut product_entries: Vec<(u64, u32)> = Vec::with_capacity(products_file.len() / 16 + 1);
+    let mut product_entries: Vec<(&'static [u8], u32)> = Vec::with_capacity(products_file.len() / 16 + 1);
     let mut last: (&[u8], u32) = (UNKNOWN_CATEGORY, 0);
     for [p, c] in csv::rows(products_file).filter_map(csv::fields::<2>) {
         let id = if c == last.0 {
@@ -334,7 +405,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
             last = (c, id);
             id
         };
-        product_entries.push((keys::intern(p), id));
+        product_entries.push((p, id));
     }
     let mut by_name: Vec<u32> = (0..seen_categories.len() as u32).collect();
     by_name.sort_unstable_by(|&a, &b| seen_categories[a as usize].cmp(seen_categories[b as usize]));
@@ -349,12 +420,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
     let unknown = rank[0];
     let mut campaign_ids: Vec<&'static [u8]> = Vec::new();
     let mut campaign_channels: Vec<&'static [u8]> = Vec::new();
-    let mut campaign_entries: Vec<(u64, u32)> = Vec::new();
+    let mut campaign_entries: Vec<(&'static [u8], u32)> = Vec::new();
     {
         let mut seen = std::collections::HashSet::new();
         for [id, channel] in csv::rows(campaigns_file).filter_map(csv::fields::<2>) {
             if seen.insert(id) {
-                campaign_entries.push((keys::intern(id), campaign_ids.len() as u32));
+                campaign_entries.push((id, campaign_ids.len() as u32));
                 campaign_ids.push(id);
                 campaign_channels.push(channel);
             }
@@ -369,8 +440,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
     mark("map");
     let event_bytes: usize = event_files.iter().map(|f| f.len()).sum();
     let click_bytes: usize = click_files.iter().map(|f| f.len()).sum();
+    let link_bytes: usize = link_files.iter().map(|f| f.len()).sum();
     let threads = config.threads.max(1);
-    sink::reserve(event_bytes + click_bytes + threads * (160 << 20) + (512 << 20));
+    sink::reserve(event_bytes * 2 + click_bytes * 2 + link_bytes * 2 + threads * (320 << 20) + (512 << 20));
     let target = ((event_bytes + click_bytes) / (threads * 24)).clamp(64 << 10, 4 << 20);
     let mut event_chunks = Vec::new();
     chunks(&event_files, 0, target, &mut event_chunks);
@@ -383,18 +455,13 @@ pub fn run(config: &Config) -> Result<Outcome> {
     }
     let mut units = vec![Unit::Links];
     units.extend(event_chunks.iter().map(|&(f, s, e)| Unit::Events(f, s, e)));
-    let first_click = units.len();
     units.extend(click_chunks.iter().map(|&(f, s, e)| Unit::Clicks(f, s, e)));
     let files: Vec<&'static [u8]> = event_files.iter().chain(&click_files).copied().collect();
-    let remaining: Vec<AtomicUsize> = (0..files.len()).map(|_| AtomicUsize::new(0)).collect();
-    for &(f, _, _) in event_chunks.iter().chain(&click_chunks) {
-        remaining[f].fetch_add(1, Ordering::Relaxed);
-    }
 
     mark("chunks");
     let est_events = event_bytes / 60 + 1;
-    let decoder = choose_decoder(&event_files, &link_files, event_bytes);
-    mark("decoder");
+    let est_users = event_bytes / 80 / 12 + 4096;
+    let qbits = (est_users / 4096).next_power_of_two().trailing_zeros().clamp(4, 12);
     let first_day = ws.div_euclid(DAY_MS);
     let last_day = (we - 1).div_euclid(DAY_MS);
     let ctx = Ctx {
@@ -402,12 +469,17 @@ pub fn run(config: &Config) -> Result<Outcome> {
         ws,
         we,
         cws,
-        products: SmallMap::new(&product_entries),
+        ingest_base: (cws.div_euclid(1000) - (1i64 << 31)) * 1000,
+        products: KeyMap::new(&product_entries),
         unknown,
-        campaigns: SmallMap::new(&campaign_entries),
+        campaigns: KeyMap::new(&campaign_entries),
         organic,
         p1_bits: bits_for(est_events, 12 << 10),
         p2_bits: bits_for(est_events, 12 << 10),
+        qbits,
+        ib: 32 - qbits,
+        user_slots: (est_users * 2 / threads.max(2)).next_power_of_two().clamp(1 << 12, 1 << 26),
+        export_block: block_for(est_users, 1 << qbits, 1, 32),
         p1_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
         click_block: block_for(click_bytes / 47, 1 << bits_for(est_events, 12 << 10), threads, 32),
         p2_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
@@ -415,22 +487,24 @@ pub fn run(config: &Config) -> Result<Outcome> {
         days: (last_day - first_day + 1) as usize,
         day_shift: cws - first_day * DAY_MS,
         link_files,
-        decoder,
         units,
         files,
-        remaining,
-        first_click,
+        event_files: event_files.len(),
         marker: std::marker::PhantomData,
     };
     lap("setup");
 
-    let people: OnceLock<People> = OnceLock::new();
-    let links_done = AtomicBool::new(false);
+    let link_space: OnceLock<LinkSpace> = OnceLock::new();
     let queue = AtomicUsize::new(0);
-    let p1_ready = AtomicUsize::new(0);
+    let merge_queue = AtomicUsize::new(0);
+    let dedup_queue = AtomicUsize::new(0);
+    let ready = AtomicUsize::new(0);
     let person_queue = AtomicUsize::new(0);
     let file_counter = AtomicUsize::new(0);
+    let bail = AtomicBool::new(false);
     let barrier = Barrier::new(threads);
+    let spaces: Vec<OnceLock<Space>> = (0..threads).map(|_| OnceLock::new()).collect();
+    let merged: Vec<OnceLock<Merged>> = (0..1usize << qbits).map(|_| OnceLock::new()).collect();
     let p1_sinks: Vec<OnceLock<Sink<EventRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
     let click_sinks: Vec<OnceLock<Sink<ClickRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
     let p2_sinks: Vec<OnceLock<Sink<PersonRec>>> = (0..threads).map(|_| OnceLock::new()).collect();
@@ -445,8 +519,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
     let stats = Stats {
         event_copies: AtomicUsize::new(0),
         winners: AtomicUsize::new(0),
-        lane_f: AtomicUsize::new(0),
         clicks: AtomicUsize::new(0),
+        distinct: AtomicUsize::new(0),
+        locals: AtomicUsize::new(0),
     };
     let user_dir = config.output_dir.join("user_daily");
     let campaign_dir = config.output_dir.join("campaign_daily");
@@ -454,21 +529,25 @@ pub fn run(config: &Config) -> Result<Outcome> {
     crate::output::create_table_dir(config.output_dir, "campaign_daily")?;
     let failure: Mutex<Option<String>> = Mutex::new(None);
     let traces: Mutex<Vec<(usize, trace::Trace)>> = Mutex::new(Vec::new());
-    let parse_units = ctx.units.len();
     let dedup_units = 1usize << ctx.p1_bits;
+    let merge_units = 1usize << ctx.qbits;
     let pieces = threads.clamp(1, 4);
     mark("dirs");
 
     std::thread::scope(|scope| {
         for id in 0..threads {
             let ctx = &ctx;
-            let people = &people;
-            let links_done = &links_done;
+            let link_space = &link_space;
             let queue = &queue;
-            let p1_ready = &p1_ready;
+            let merge_queue = &merge_queue;
+            let dedup_queue = &dedup_queue;
+            let ready = &ready;
             let person_queue = &person_queue;
             let file_counter = &file_counter;
+            let bail = &bail;
             let barrier = &barrier;
+            let spaces = &spaces;
+            let merged = &merged;
             let p1_sinks = &p1_sinks;
             let click_sinks = &click_sinks;
             let p2_sinks = &p2_sinks;
@@ -489,95 +568,136 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 warm_heap();
                 let mut tr = trace::Trace::new(tracing, started);
                 let mut arena = Arena::new();
-                let mut p1: Option<Sink<EventRec>> = Some(Sink::new(1 << ctx.p1_bits, ctx.p1_block));
-                let mut clicks: Option<Sink<ClickRec>> = Some(Sink::new(1 << ctx.p2_bits, ctx.click_block));
+                let mut bytes = Bytes::new();
+                let mut users = Interner::new(ctx.user_slots, ctx.qbits, ctx.export_block, false);
+                let mut p1: Sink<EventRec> = Sink::new(1 << ctx.p1_bits, ctx.p1_block);
+                let mut raw_clicks: Sink<ClickRec> = Sink::new(1, ctx.click_block);
                 let mut copies = 0usize;
                 let mut click_count = 0usize;
-                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, ctx.p2_block);
-                let mut buf: Vec<EventRec> = Vec::new();
-                let mut table: Vec<(u64, u32)> = Vec::new();
-                let mut winners = 0usize;
-                let mut lane_f = 0usize;
-                let mut all_p1: Vec<&Sink<EventRec>> = Vec::new();
+                let mut odd = false;
                 loop {
                     let i = queue.fetch_add(1, Ordering::Relaxed);
-                    if i >= ctx.first_click {
-                        if let Some(mut sink) = p1.take() {
-                            sink.finish(&mut arena);
-                            let _ = p1_sinks[id].set(sink);
-                            p1_ready.fetch_add(1, Ordering::Release);
-                        }
-                    }
-                    if i >= parse_units {
-                        if let Some(mut sink) = clicks.take() {
-                            sink.finish(&mut arena);
-                            let _ = click_sinks[id].set(sink);
-                        }
-                    }
                     let t = tr.now();
-                    if let Some(&unit) = ctx.units.get(i) {
-                        match unit {
-                            Unit::Links => {
-                                let t0 = Instant::now();
-                                let built = build_people(&ctx.link_files, ctx.decoder);
-                                let _ = people.set(built);
-                                links_done.store(true, Ordering::Release);
-                                eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
-                                for file in ctx.link_files.iter().filter(|f| !f.is_empty()) {
-                                    unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
-                                }
-                                tr.add(trace::LINKS, t);
+                    let Some(&unit) = ctx.units.get(i) else { break };
+                    match unit {
+                        Unit::Links => {
+                            let t0 = Instant::now();
+                            let space = build_links(ctx, &mut arena, &mut bytes);
+                            eprintln!(
+                                "links    {:>8.1} ms on one thread, {} lines, {} ids",
+                                t0.elapsed().as_secs_f64() * 1e3,
+                                space.lines,
+                                space.names.len()
+                            );
+                            let _ = link_space.set(space);
+                            for file in ctx.link_files.iter().filter(|f| !f.is_empty()) {
+                                unsafe { libc::munmap(file.as_ptr() as *mut libc::c_void, file.len()) };
                             }
-                            Unit::Events(f, s, e) => {
-                                let file = ctx.files[f];
-                                let chunk = line_range(file, s, e);
-                                if !chunk.is_empty() {
-                                    copies += parse_events(ctx, chunk, &mut arena, p1.as_mut().unwrap());
-                                }
-                                tr.add(trace::EVENTS, t);
-                                release_chunk(ctx, f, &mut tr);
-                            }
-                            Unit::Clicks(f, s, e) => {
-                                let file = ctx.files[f];
-                                let chunk = line_range(file, s, e);
-                                if !links_done.load(Ordering::Acquire) {
-                                    let w = tr.now();
-                                    while !links_done.load(Ordering::Acquire) {
-                                        std::thread::yield_now();
-                                    }
-                                    tr.add(trace::WAIT_LINKS, w);
-                                }
-                                let t = tr.now();
-                                let people = people.get().unwrap();
-                                if !chunk.is_empty() {
-                                    click_count += parse_clicks(ctx, people, chunk, &mut arena, clicks.as_mut().unwrap());
-                                }
-                                tr.add(trace::CLICKS, t);
-                                release_chunk(ctx, f, &mut tr);
-                            }
+                            tr.add(trace::LINKS, t);
                         }
-                        continue;
+                        Unit::Events(f, s, e) => {
+                            let file = ctx.files[f];
+                            let chunk = line_range(file, s, e);
+                            if !chunk.is_empty() {
+                                let (n, bad) = parse_events(ctx, chunk, &mut arena, &mut bytes, &mut users, &mut p1);
+                                copies += n;
+                                odd |= bad;
+                            }
+                            tr.add(trace::EVENTS, t);
+                        }
+                        Unit::Clicks(f, s, e) => {
+                            let file = ctx.files[f];
+                            let chunk = line_range(file, s, e);
+                            if !chunk.is_empty() {
+                                click_count += parse_clicks(ctx, chunk, &mut arena, &mut bytes, &mut users, &mut raw_clicks);
+                            }
+                            tr.add(trace::CLICKS, t);
+                        }
                     }
-                    let q = i - parse_units;
+                }
+                let t = tr.now();
+                p1.finish(&mut arena);
+                raw_clicks.finish(&mut arena);
+                users.export.finish(&mut arena);
+                users.release();
+                let count = users.count() as usize;
+                stats.locals.fetch_add(count, Ordering::Relaxed);
+                let _ = spaces[id].set(Space {
+                    export: users.export,
+                    l2g: (0..count).map(|_| AtomicU32::new(0)).collect(),
+                });
+                let _ = p1_sinks[id].set(p1);
+                if odd {
+                    bail.store(true, Ordering::Relaxed);
+                }
+                tr.add(trace::EVENTS, t);
+                let t = tr.now();
+                if barrier.wait().is_leader() {
+                    lap("parse");
+                }
+                tr.add(trace::BAR_ALL, t);
+                if bail.load(Ordering::Relaxed) {
+                    arena.release();
+                    return;
+                }
+                let t = tr.now();
+                let all_spaces: Vec<&Space> = spaces.iter().map(|s| s.get().unwrap()).collect();
+                let links = link_space.get().unwrap();
+                let mut table = ids::Table::new();
+                let mut distinct = 0usize;
+                loop {
+                    let q = merge_queue.fetch_add(1, Ordering::Relaxed);
+                    if q >= merge_units {
+                        break;
+                    }
+                    let part = merge(ctx, q, links, &all_spaces, &mut table);
+                    if part.keys.len() >= 1 << ctx.ib {
+                        bail.store(true, Ordering::Relaxed);
+                    }
+                    distinct += part.keys.len();
+                    let _ = merged[q].set(part);
+                }
+                drop(table);
+                stats.distinct.fetch_add(distinct, Ordering::Relaxed);
+                tr.add(trace::MERGE, t);
+                let t = tr.now();
+                if barrier.wait().is_leader() {
+                    lap("merge");
+                }
+                tr.add(trace::BAR_MERGE, t);
+                if bail.load(Ordering::Relaxed) {
+                    arena.release();
+                    return;
+                }
+                let t = tr.now();
+                let names: Vec<&[u32]> = merged.iter().map(|m| m.get().unwrap().names.as_slice()).collect();
+                persons(ctx, &all_spaces[id].l2g, &names, &links.l2g);
+                ready.fetch_add(1, Ordering::Release);
+                tr.add(trace::PERSONS, t);
+                let t = tr.now();
+                let mut clicks: Sink<ClickRec> = Sink::new(1 << ctx.p2_bits, ctx.click_block);
+                route_clicks(ctx, &raw_clicks, &all_spaces[id].l2g, &mut arena, &mut clicks);
+                clicks.finish(&mut arena);
+                let _ = click_sinks[id].set(clicks);
+                drop(raw_clicks);
+                tr.add(trace::RECLICK, t);
+                let w = tr.now();
+                spin_until(ready, threads);
+                tr.add(trace::BAR_PARSE, w);
+                let all_p1: Vec<&Sink<EventRec>> = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
+                let l2p: Vec<&[AtomicU32]> = all_spaces.iter().map(|s| s.l2g.as_slice()).collect();
+                let mut p2: Sink<PersonRec> = Sink::new(1 << ctx.p2_bits, ctx.p2_block);
+                let mut buf: Vec<EventRec> = Vec::new();
+                let mut starts: Vec<usize> = Vec::new();
+                let mut table: Vec<(u64, u32)> = Vec::new();
+                let mut winners = 0usize;
+                loop {
+                    let q = dedup_queue.fetch_add(1, Ordering::Relaxed);
                     if q >= dedup_units {
                         break;
                     }
-                    if all_p1.is_empty() {
-                        let w = tr.now();
-                        while p1_ready.load(Ordering::Acquire) < threads {
-                            for _ in 0..64 {
-                                std::hint::spin_loop();
-                            }
-                            std::thread::yield_now();
-                        }
-                        tr.add(trace::BAR_PARSE, w);
-                        all_p1 = p1_sinks.iter().map(|s| s.get().unwrap()).collect();
-                    }
                     let t = tr.now();
-                    let people = people.get().unwrap();
-                    let (w, f) = dedup(ctx, people, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
-                    winners += w;
-                    lane_f += f;
+                    winners += dedup(ctx, &l2p, &all_p1, q, &mut buf, &mut starts, &mut table, &mut arena, &mut p2);
                     tr.add(trace::DEDUP, t);
                 }
                 drop(all_p1);
@@ -586,7 +706,6 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 stats.event_copies.fetch_add(copies, Ordering::Relaxed);
                 stats.clicks.fetch_add(click_count, Ordering::Relaxed);
                 stats.winners.fetch_add(winners, Ordering::Relaxed);
-                stats.lane_f.fetch_add(lane_f, Ordering::Relaxed);
                 p2.finish(&mut arena);
                 let _ = p2_sinks[id].set(p2);
                 let t = tr.now();
@@ -595,7 +714,15 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 }
                 tr.add(trace::BAR_DEDUP, t);
                 let t = tr.now();
-                let people = people.get().unwrap();
+                unmap_files(ctx, 0..ctx.event_files, id, threads);
+                tr.add(trace::UNMAP, t);
+                let t = tr.now();
+                let keys_by_q: Vec<&[Key]> = merged.iter().map(|m| m.get().unwrap().keys.as_slice()).collect();
+                let low_mask = (1u64 << ctx.ib) - 1;
+                let ib = ctx.ib;
+                let name_of = move |person: u64, out: &mut Vec<u8>| {
+                    ids::write_bytes(&keys_by_q[(person >> ib) as usize][(person & low_mask) as usize], out);
+                };
                 let all_p2: Vec<&Sink<PersonRec>> = p2_sinks.iter().map(|s| s.get().unwrap()).collect();
                 let all_clicks: Vec<&Sink<ClickRec>> = click_sinks.iter().map(|s| s.get().unwrap()).collect();
                 let order = person_order(ctx, &all_p2, &all_clicks);
@@ -606,14 +733,20 @@ pub fn run(config: &Config) -> Result<Outcome> {
                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
                     let Some(&p) = order.get(i) else { break };
                     let t = tr.now();
-                    worker.partition(ctx, people, &all_p2, &all_clicks, p);
+                    worker.partition(ctx, &all_p2, &all_clicks, p);
                     tr.add(trace::PEOPLE, t);
                     if worker.rows.len() >= FLUSH_ROWS {
                         let tw = tr.now();
                         let file = file_counter.fetch_add(1, Ordering::Relaxed);
-                        if let Err(e) =
-                            write::user_part(user_dir, file, &worker.rows, 0..worker.rows.len(), categories, ctx.first_day)
-                        {
+                        if let Err(e) = write::user_part(
+                            user_dir,
+                            file,
+                            &worker.rows,
+                            0..worker.rows.len(),
+                            categories,
+                            ctx.first_day,
+                            &name_of,
+                        ) {
                             *failure.lock().unwrap() = Some(e.to_string());
                         }
                         let t = worker.rows.totals();
@@ -679,7 +812,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
                         Job::User(part, a, b) => {
                             let t = tr.now();
                             let file = file_counter.fetch_add(1, Ordering::Relaxed);
-                            if let Err(e) = write::user_part(user_dir, file, &part, a..b, categories, ctx.first_day) {
+                            if let Err(e) =
+                                write::user_part(user_dir, file, &part, a..b, categories, ctx.first_day, &name_of)
+                            {
                                 *failure.lock().unwrap() = Some(e.to_string());
                             }
                             tr.add(trace::LAST_WRITE, t);
@@ -716,11 +851,15 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 }
                 let t = tr.now();
                 arena.release();
+                unmap_files(ctx, ctx.event_files..ctx.files.len(), id, threads);
                 tr.add(trace::RELEASE, t);
                 trace::collect(traces, id, tr);
             });
         }
     });
+    if bail.load(Ordering::Relaxed) {
+        return Ok(Outcome::Fallback("record outside the compact range".into()));
+    }
     lap("people");
     if let Some(e) = failure.into_inner().unwrap() {
         return Err(e.into());
@@ -734,20 +873,14 @@ pub fn run(config: &Config) -> Result<Outcome> {
         }
         write::report(users, *campaign_sums.lock().unwrap());
     }
-    let winners = stats.winners.load(Ordering::Relaxed);
-    let lane_f = stats.lane_f.load(Ordering::Relaxed);
-    let lane_g_share = if winners == 0 { 0.0 } else { 100.0 * (winners - lane_f) as f64 / winners as f64 };
     eprintln!(
-        "lane F winners {lane_f}, lane G share {lane_g_share:.2}%{}",
-        if ctx.decoder.is_some() && lane_g_share > 10.0 { " (above 10%)" } else { "" }
-    );
-    eprintln!(
-        "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
+        "event copies {}, winners {}, clicks {}, linked {}, local ids {}, distinct ids {}",
         stats.event_copies.load(Ordering::Relaxed),
-        winners,
+        stats.winners.load(Ordering::Relaxed),
         stats.clicks.load(Ordering::Relaxed),
-        people.get().map_or(0, |p| p.linked()),
-        keys::exotic_count()
+        link_space.get().map_or(0, |p| p.names.len()),
+        stats.locals.load(Ordering::Relaxed),
+        stats.distinct.load(Ordering::Relaxed)
     );
     lap("write");
     if tracing {
@@ -765,199 +898,169 @@ pub fn run(config: &Config) -> Result<Outcome> {
     unsafe { libc::_exit(0) }
 }
 
-#[inline(always)]
-unsafe fn intern_k<K: Kernel>(field: &[u8]) -> u64 {
-    match K::pack(field.as_ptr(), field.len()) {
-        Some(key) => key,
-        None => keys::intern_exotic(field),
-    }
-}
-
-#[inline(always)]
-unsafe fn lookup_k<K: Kernel>(field: &[u8]) -> Option<u64> {
-    match K::pack(field.as_ptr(), field.len()) {
-        Some(key) => Some(key),
-        None => keys::lookup_exotic(field),
-    }
-}
-
-#[inline(always)]
-unsafe fn user_k<K: Kernel>(decoder: Option<&ident::Decoder>, field: &[u8]) -> u64 {
-    if let Some(d) = decoder {
-        if let Some(tagged) = K::mixed(field.as_ptr(), field.len()).and_then(|x| d.lane_of_mixed(x)) {
-            return tagged;
-        }
-    }
-    intern_k::<K>(field)
-}
-
-#[inline(always)]
-fn prefetch_user(people: &People, user: u64) {
-    if user & ident::TAG != 0 {
-        prefetch(people.info_ptr((user & ident::MASK) >> 9));
-    } else {
-        prefetch(people.slot_ptr(user));
-    }
-}
-
-#[inline(always)]
-fn resolve(people: &People, user: u64) -> u64 {
-    if user & ident::TAG != 0 {
-        let v = user & ident::MASK;
-        let g = v >> 9;
-        let word = people.info[g as usize];
-        if word & 15 == ident::ODD {
-            match people.decoder {
-                Some(d) => people.name_of(d.packed_of(v)),
-                None => unreachable!(),
-            }
-        } else {
-            ident::FKEY | g << 4 | ident::rep(word, v & 511)
-        }
-    } else {
-        people.name_of(user)
-    }
-}
-
-struct LinkSets {
-    pairs: Vec<(u64, u64)>,
-    regular: Vec<u64>,
-    odd: Vec<u64>,
-}
-
-fn build_people(files: &[&'static [u8]], decoder: Option<ident::Decoder>) -> People {
-    let mut sets = LinkSets {
-        pairs: Vec::new(),
-        regular: Vec::new(),
-        odd: decoder.map_or(Vec::new(), |d| vec![0u64; (d.gcap as usize).div_ceil(64)]),
-    };
-    let started = Instant::now();
-    for &file in files {
+fn build_links(ctx: &Ctx, arena: &mut Arena, bytes: &mut Bytes) -> LinkSpace {
+    let link_bytes: usize = ctx.link_files.iter().map(|f| f.len()).sum();
+    let mut interner = Interner::new((link_bytes / 20).max(1024), ctx.qbits, ctx.export_block, true);
+    let mut pairs: Vec<(u32, u32)> = Vec::with_capacity(link_bytes / 20 + 16);
+    for &file in &ctx.link_files {
         for (start, end) in csv::data_chunks(file, usize::MAX) {
             let body = &file[start..end];
             #[cfg(target_arch = "x86_64")]
             if scan::has_avx2() {
-                unsafe { link_pairs_avx2(body, &mut sets, decoder.as_ref()) };
+                unsafe { link_pairs_avx2(body, &mut interner, arena, bytes, &mut pairs) };
                 continue;
             }
-            unsafe { link_pairs::<Scalar>(body, &mut sets, decoder.as_ref()) };
+            unsafe { link_pairs::<Scalar>(body, &mut interner, arena, bytes, &mut pairs) };
         }
     }
-    let LinkSets { mut pairs, regular, odd } = sets;
-    let mut info: Vec<u64> = Vec::new();
-    if let Some(d) = decoder {
-        info = vec![0u64; d.gcap as usize];
-        for &r in &regular {
-            let g = (r >> 8) as usize;
-            info[g] = ident::union(info[g], (r >> 4) & 15, r & 15);
-        }
-        for &r in &regular {
-            let g = r >> 8;
-            if odd[(g >> 6) as usize] >> (g & 63) & 1 == 1 {
-                let base = g * 512;
-                pairs.push((d.packed_of(base + ((r >> 4) & 15)), d.packed_of(base + (r & 15))));
-            } else {
-                info[g as usize] = ident::compress(info[g as usize]);
-            }
-        }
-        for (w, &bits) in odd.iter().enumerate() {
-            let mut bits = bits;
-            while bits != 0 {
-                let g = w * 64 + bits.trailing_zeros() as usize;
-                info[g] = ident::ODD;
-                bits &= bits - 1;
-            }
-        }
-        eprintln!(
-            "links    split and merged in {:.1} ms; lane F {} lines, general {} lines, odd persons {}",
-            started.elapsed().as_secs_f64() * 1e3,
-            regular.len(),
-            pairs.len(),
-            odd.iter().map(|b| b.count_ones() as usize).sum::<usize>()
-        );
-    }
-    let mut people = People::build(&pairs);
-    people.info = info;
-    people.decoder = decoder;
-    people
+    people::finish(interner, &pairs, arena)
 }
 
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-unsafe fn link_pairs_avx2(body: &[u8], sets: &mut LinkSets, decoder: Option<&ident::Decoder>) {
-    link_pairs::<Avx2>(body, sets, decoder)
+unsafe fn link_pairs_avx2(body: &[u8], interner: &mut Interner, arena: &mut Arena, bytes: &mut Bytes, pairs: &mut Vec<(u32, u32)>) {
+    link_pairs::<Avx2>(body, interner, arena, bytes, pairs)
 }
 
-struct LinkLines<'a, K> {
-    sets: &'a mut LinkSets,
-    decoder: Option<&'a ident::Decoder>,
-    kernel: std::marker::PhantomData<K>,
-}
-
-impl<K: Kernel> Lines<2> for LinkLines<'_, K> {
-    #[inline(always)]
-    fn line(&mut self, f: &[&[u8]; 2]) {
-        if f[0].is_empty() || f[1].is_empty() {
-            return;
+#[inline(always)]
+unsafe fn link_pairs<K: Kernel>(body: &[u8], interner: &mut Interner, arena: &mut Arena, bytes: &mut Bytes, pairs: &mut Vec<(u32, u32)>) {
+    scan::fused::<2, 2, K, _>(body, &mut |f: &[&[u8]; 2]| {
+        if !f[0].is_empty() && !f[1].is_empty() {
+            pairs.push(people::intern_pair(interner, f[0], f[1], arena, bytes));
         }
-        unsafe {
-            let Some(d) = self.decoder else {
-                self.sets.pairs.push((intern_k::<K>(f[0]), intern_k::<K>(f[1])));
-                return;
-            };
-            let va = K::mixed(f[0].as_ptr(), f[0].len()).map(|x| d.of_mixed(x));
-            let vb = K::mixed(f[1].as_ptr(), f[1].len()).map(|x| d.of_mixed(x));
-            if let (Some(a), Some(b)) = (va, vb) {
-                if a >> 9 == b >> 9 && d.in_lane(a) && d.in_lane(b) {
-                    self.sets.regular.push((a >> 9) << 8 | (a & 15) << 4 | (b & 15));
-                    return;
-                }
+    });
+}
+
+fn merge(ctx: &Ctx, q: usize, links: &LinkSpace, spaces: &[&Space], table: &mut ids::Table) -> Merged {
+    let n = links.export.len(q) + spaces.iter().map(|s| s.export.len(q)).sum::<usize>();
+    table.reset(n);
+    let mut keys: Vec<Key> = Vec::with_capacity(n / spaces.len().max(1) + 16);
+    let mut names: Vec<u32> = Vec::with_capacity(links.export.len(q));
+    let base = (q as u32) << ctx.ib;
+    for slice in links.export.slices(q) {
+        for e in slice {
+            let x = ids::exported(e);
+            let (idx, new) = table.find_or_insert(&x.key, x.hash, keys.len() as u32);
+            if new {
+                keys.push(x.key);
+                names.push(links.names[x.local as usize]);
             }
-            for v in [va, vb].into_iter().flatten() {
-                let g = v >> 9;
-                if g < d.gcap {
-                    self.sets.odd[(g >> 6) as usize] |= 1 << (g & 63);
+            links.l2g[x.local as usize].store(base | idx, Ordering::Relaxed);
+        }
+    }
+    for space in spaces {
+        for slice in space.export.slices(q) {
+            for e in slice {
+                let x = ids::exported(e);
+                let (idx, new) = table.find_or_insert(&x.key, x.hash, keys.len() as u32);
+                if new {
+                    keys.push(x.key);
                 }
+                space.l2g[x.local as usize].store(base | idx, Ordering::Relaxed);
             }
-            self.sets.pairs.push((intern_k::<K>(f[0]), intern_k::<K>(f[1])));
+        }
+    }
+    Merged { keys, names }
+}
+
+fn persons(ctx: &Ctx, l2g: &[AtomicU32], names: &[&[u32]], link_l2g: &[AtomicU32]) {
+    let mask = (1u32 << ctx.ib) - 1;
+    let ib = ctx.ib;
+    for slot in l2g {
+        let g = slot.load(Ordering::Relaxed);
+        let linked = unsafe { names.get_unchecked((g >> ib) as usize) };
+        if let Some(&name) = linked.get((g & mask) as usize) {
+            slot.store(link_l2g[name as usize].load(Ordering::Relaxed), Ordering::Relaxed);
         }
     }
 }
 
-#[inline(always)]
-unsafe fn link_pairs<K: Kernel>(body: &[u8], sets: &mut LinkSets, decoder: Option<&ident::Decoder>) {
-    let mut lines = LinkLines::<K> {
-        sets,
-        decoder,
-        kernel: std::marker::PhantomData,
+fn route_clicks(ctx: &Ctx, raw: &Sink<ClickRec>, l2p: &[AtomicU32], arena: &mut Arena, out: &mut Sink<ClickRec>) {
+    const BATCH: usize = 32;
+    let bits = ctx.p2_bits;
+    let mut pending: [ClickRec; BATCH] = [ClickRec {
+        click: [0, 0],
+        person: 0,
+        ts: 0,
+        campaign: 0,
+        spare: 0,
+    }; BATCH];
+    let mut count = 0usize;
+    let flush = |pending: &mut [ClickRec], out: &mut Sink<ClickRec>, arena: &mut Arena| {
+        for rec in pending.iter() {
+            prefetch(&l2p[rec.person as usize]);
+        }
+        for rec in pending.iter_mut() {
+            rec.person = l2p[rec.person as usize].load(Ordering::Relaxed);
+            out.push(arena, part_of(rec.person, bits), *rec);
+        }
     };
-    scan::fused::<2, 2, K, _>(body, &mut lines);
+    let piece = raw.block_bytes();
+    for (slice, block) in raw.slices(0).zip(raw.blocks(0)) {
+        for rec in slice {
+            pending[count] = *rec;
+            count += 1;
+            if count == BATCH {
+                flush(&mut pending, out, arena);
+                count = 0;
+            }
+        }
+        arena.recycle(block, piece, piece);
+    }
+    flush(&mut pending[..count], out, arena);
 }
 
 #[inline(always)]
-fn part_of(key: u64, mult: u64, bits: u32) -> usize {
-    (key.wrapping_mul(mult) >> (64 - bits)) as usize
+fn part_of(person: u32, bits: u32) -> usize {
+    (u64::from(person).wrapping_mul(H2) >> (64 - bits)) as usize
 }
 
-fn parse_events(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>) -> usize {
+#[inline(always)]
+fn ingest_code(ctx: &Ctx, ingest: i64) -> Option<u32> {
+    let d = ingest.wrapping_sub(ctx.ingest_base) as u64;
+    let code = d / 1000;
+    (d == code * 1000 && code < u64::from(u32::MAX)).then_some(code as u32)
+}
+
+fn parse_events(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<EventRec>,
+) -> (usize, bool) {
     #[cfg(target_arch = "x86_64")]
     if scan::has_avx2() {
-        return unsafe { parse_events_avx2(ctx, chunk, arena, sink) };
+        return unsafe { parse_events_avx2(ctx, chunk, arena, bytes, users, sink) };
     }
-    unsafe { parse_events_k::<Scalar>(ctx, chunk, arena, sink) }
+    unsafe { parse_events_k::<Scalar>(ctx, chunk, arena, bytes, users, sink) }
 }
 
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-unsafe fn parse_events_avx2(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>) -> usize {
-    parse_events_k::<Avx2>(ctx, chunk, arena, sink)
+unsafe fn parse_events_avx2(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<EventRec>,
+) -> (usize, bool) {
+    parse_events_k::<Avx2>(ctx, chunk, arena, bytes, users, sink)
 }
 
 struct EventLines<'a, K> {
     ctx: &'a Ctx<'a>,
     arena: &'a mut Arena,
+    bytes: &'a mut Bytes,
+    users: &'a mut Interner,
     sink: &'a mut Sink<EventRec>,
+    ring: Ring<EventRec>,
+    lo: usize,
+    hi: usize,
     copies: usize,
+    odd: bool,
     kernel: std::marker::PhantomData<K>,
 }
 
@@ -971,16 +1074,21 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
         }
         self.copies += 1;
         unsafe {
-            let event = intern_k::<K>(event_id);
+            let key = ids::mapped_key(event_id.as_ptr(), event_id.len(), self.lo, self.hi, self.bytes);
+            let part = (ids::hash_of(&key) >> (64 - ctx.p1_bits)) as usize;
             let ingest = ctx.calendar.parse(f[3]);
             let mut rec = EventRec {
-                event,
+                key,
                 user: 0,
-                ingest: ingest.unwrap_or(i64::MAX),
                 ts: INVALID,
                 payload: 0,
+                ingest: u32::MAX,
             };
             if let Some(ingest) = ingest {
+                match ingest_code(ctx, ingest) {
+                    Some(code) => rec.ingest = code,
+                    None => self.odd = true,
+                }
                 let user = f[1];
                 let product = f[5];
                 if !user.is_empty() && !product.is_empty() {
@@ -999,79 +1107,100 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
                             };
                             if let Some(price) = price {
                                 let category = if price > 0 {
-                                    lookup_k::<K>(product)
-                                        .and_then(|k| ctx.products.get(k))
-                                        .unwrap_or(ctx.unknown)
+                                    ctx.products.get_field(product.as_ptr(), product.len()).unwrap_or(ctx.unknown)
                                 } else {
                                     0
                                 };
-                                rec.user = user_k::<K>(ctx.decoder.as_ref(), user);
                                 rec.ts = (t - ctx.cws) as u32;
                                 rec.payload = price | category << 24;
+                                self.ring.add(rec, user, part, self.users, self.arena, self.bytes, self.sink);
+                                return;
                             }
                         }
                     }
                 }
             }
-            self.sink.push(self.arena, part_of(event, H1, ctx.p1_bits), rec);
+            self.sink.push(self.arena, part, rec);
         }
+    }
+
+    fn flush(&mut self) {
+        self.ring.drain(self.users, self.arena, self.bytes, self.sink);
     }
 }
 
 #[inline(always)]
-unsafe fn parse_events_k<K: Kernel>(ctx: &Ctx, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<EventRec>) -> usize {
+unsafe fn parse_events_k<K: Kernel>(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<EventRec>,
+) -> (usize, bool) {
     let mut lines = EventLines::<K> {
         ctx,
         arena,
+        bytes,
+        users,
         sink,
+        ring: Ring::new(EventRec {
+            key: [0, 0],
+            user: 0,
+            ts: 0,
+            payload: 0,
+            ingest: 0,
+        }),
+        lo: chunk.as_ptr() as usize,
+        hi: chunk.as_ptr() as usize + chunk.len(),
         copies: 0,
+        odd: false,
         kernel: std::marker::PhantomData,
     };
-    scan::fused::<7, 3, K, _>(chunk, &mut lines);
-    lines.copies
+    scan::fused::<7, 2, K, _>(chunk, &mut lines);
+    lines.flush();
+    (lines.copies, lines.odd)
 }
 
-fn parse_clicks(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+fn parse_clicks(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<ClickRec>,
+) -> usize {
     #[cfg(target_arch = "x86_64")]
     if scan::has_avx2() {
-        return unsafe { parse_clicks_avx2(ctx, people, chunk, arena, sink) };
+        return unsafe { parse_clicks_avx2(ctx, chunk, arena, bytes, users, sink) };
     }
-    unsafe { parse_clicks_k::<Scalar>(ctx, people, chunk, arena, sink) }
+    unsafe { parse_clicks_k::<Scalar>(ctx, chunk, arena, bytes, users, sink) }
 }
 
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-unsafe fn parse_clicks_avx2(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
-    parse_clicks_k::<Avx2>(ctx, people, chunk, arena, sink)
+unsafe fn parse_clicks_avx2(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<ClickRec>,
+) -> usize {
+    parse_clicks_k::<Avx2>(ctx, chunk, arena, bytes, users, sink)
 }
-
-const CLICK_BATCH: usize = 32;
 
 struct ClickLines<'a, K> {
     ctx: &'a Ctx<'a>,
-    people: &'a People,
     arena: &'a mut Arena,
+    bytes: &'a mut Bytes,
+    users: &'a mut Interner,
     sink: &'a mut Sink<ClickRec>,
-    batch: [ClickRec; CLICK_BATCH],
-    pending: usize,
+    ring: Ring<ClickRec>,
+    lo: usize,
+    hi: usize,
     total: usize,
     kernel: std::marker::PhantomData<K>,
-}
-
-impl<K: Kernel> ClickLines<'_, K> {
-    #[inline(always)]
-    fn flush(&mut self) {
-        let bits = self.ctx.p2_bits;
-        for rec in &self.batch[..self.pending] {
-            prefetch_user(self.people, rec.person);
-        }
-        for i in 0..self.pending {
-            let mut rec = self.batch[i];
-            rec.person = resolve(self.people, rec.person);
-            self.sink.push(self.arena, part_of(rec.person, H2, bits), rec);
-        }
-        self.pending = 0;
-    }
 }
 
 impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
@@ -1088,36 +1217,48 @@ impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
             if t < ctx.cws || t >= ctx.we {
                 return;
             }
-            let Some(campaign) = lookup_k::<K>(f[2]).and_then(|k| ctx.campaigns.get(k)) else { return };
-            self.batch[self.pending] = ClickRec {
-                person: user_k::<K>(ctx.decoder.as_ref(), user),
-                click: intern_k::<K>(click_id),
+            let Some(campaign) = ctx.campaigns.get_field(f[2].as_ptr(), f[2].len()) else { return };
+            let rec = ClickRec {
+                click: ids::mapped_key(click_id.as_ptr(), click_id.len(), self.lo, self.hi, self.bytes),
+                person: 0,
                 ts: (t - ctx.cws) as u32,
                 campaign,
+                spare: 0,
             };
+            self.total += 1;
+            self.ring.add(rec, user, 0, self.users, self.arena, self.bytes, self.sink);
         }
-        self.pending += 1;
-        self.total += 1;
-        if self.pending == CLICK_BATCH {
-            self.flush();
-        }
+    }
+
+    fn flush(&mut self) {
+        self.ring.drain(self.users, self.arena, self.bytes, self.sink);
     }
 }
 
 #[inline(always)]
-unsafe fn parse_clicks_k<K: Kernel>(ctx: &Ctx, people: &People, chunk: &[u8], arena: &mut Arena, sink: &mut Sink<ClickRec>) -> usize {
+unsafe fn parse_clicks_k<K: Kernel>(
+    ctx: &Ctx,
+    chunk: &[u8],
+    arena: &mut Arena,
+    bytes: &mut Bytes,
+    users: &mut Interner,
+    sink: &mut Sink<ClickRec>,
+) -> usize {
     let mut lines = ClickLines::<K> {
         ctx,
-        people,
         arena,
+        bytes,
+        users,
         sink,
-        batch: [ClickRec {
+        ring: Ring::new(ClickRec {
+            click: [0, 0],
             person: 0,
-            click: 0,
             ts: 0,
             campaign: 0,
-        }; CLICK_BATCH],
-        pending: 0,
+            spare: 0,
+        }),
+        lo: chunk.as_ptr() as usize,
+        hi: chunk.as_ptr() as usize + chunk.len(),
         total: 0,
         kernel: std::marker::PhantomData,
     };
@@ -1129,20 +1270,24 @@ unsafe fn parse_clicks_k<K: Kernel>(ctx: &Ctx, people: &People, chunk: &[u8], ar
 #[allow(clippy::too_many_arguments)]
 fn dedup(
     ctx: &Ctx,
-    people: &People,
+    l2p: &[&[AtomicU32]],
     sinks: &[&Sink<EventRec>],
     q: usize,
     buf: &mut Vec<EventRec>,
+    starts: &mut Vec<usize>,
     table: &mut Vec<(u64, u32)>,
     arena: &mut Arena,
     out: &mut Sink<PersonRec>,
-) -> (usize, usize) {
+) -> usize {
     buf.clear();
+    starts.clear();
     for sink in sinks {
+        starts.push(buf.len());
         for slice in sink.slices(q) {
             buf.extend_from_slice(slice);
         }
     }
+    starts.push(buf.len());
     let piece = ctx.p2_block * std::mem::size_of::<PersonRec>();
     for sink in sinks {
         let bytes = sink.block_bytes();
@@ -1152,30 +1297,31 @@ fn dedup(
     }
     let n = buf.len();
     if n == 0 {
-        return (0, 0);
+        return 0;
     }
     let size = (n * 2).next_power_of_two().max(16);
     let tbits = size.trailing_zeros();
     let mask = size - 1;
     table.clear();
-    table.resize(size, (0, 0));
+    table.resize(size, (0, u32::MAX));
     let shift = 64 - ctx.p1_bits - tbits;
     for i in 0..n {
-        let key = buf[i].event;
-        let mut slot = ((key.wrapping_mul(H1) >> shift) as usize) & mask;
+        let key = buf[i].key;
+        let h = ids::hash_of(&key);
+        let mut slot = ((h >> shift) as usize) & mask;
         loop {
             let entry = unsafe { table.get_unchecked_mut(slot) };
-            if entry.0 == 0 {
-                *entry = (key, i as u32);
+            if entry.1 == u32::MAX {
+                *entry = (h, i as u32);
                 break;
             }
-            if entry.0 == key {
+            if entry.0 == h && ids::same(&buf[entry.1 as usize].key, &key) {
                 let j = entry.1 as usize;
                 if buf[i].ingest < buf[j].ingest {
-                    buf[j].event = 0;
+                    buf[j].ts = INVALID;
                     entry.1 = i as u32;
                 } else {
-                    buf[i].event = 0;
+                    buf[i].ts = INVALID;
                 }
                 break;
             }
@@ -1183,36 +1329,39 @@ fn dedup(
         }
     }
     const BATCH: usize = 32;
-    let mut pending: [(u64, u32, u32); BATCH] = [(0, 0, 0); BATCH];
-    let mut count = 0usize;
+    let mut pending: [(u32, u32, u32); BATCH] = [(0, 0, 0); BATCH];
     let mut winners = 0usize;
-    let mut lane_f = 0usize;
     let bits = ctx.p2_bits;
-    let flush = |pending: &[(u64, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
-        for &(user, _, _) in pending {
-            prefetch_user(people, user);
-        }
-        let mut fkeys = 0usize;
-        for &(user, ts, payload) in pending {
-            let person = resolve(people, user);
-            fkeys += (person & ident::FKEY != 0) as usize;
-            out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
-        }
-        fkeys
-    };
-    for rec in buf.iter() {
-        if rec.event != 0 && rec.ts != INVALID {
-            pending[count] = (rec.user, rec.ts, rec.payload);
-            count += 1;
-            winners += 1;
-            if count == BATCH {
-                lane_f += flush(&pending, out, arena);
-                count = 0;
+    for (t, map) in l2p.iter().enumerate() {
+        let mut count = 0usize;
+        let flush = |pending: &[(u32, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
+            for &(user, _, _) in pending {
+                prefetch(unsafe { map.as_ptr().add(user as usize) });
+            }
+            for &(user, ts, payload) in pending {
+                let person = unsafe { map.get_unchecked(user as usize) }.load(Ordering::Relaxed);
+                out.push(arena, part_of(person, bits), PersonRec {
+                    person,
+                    ts,
+                    payload,
+                    spare: 0,
+                });
+            }
+        };
+        for rec in &buf[starts[t]..starts[t + 1]] {
+            if rec.ts != INVALID {
+                pending[count] = (rec.user, rec.ts, rec.payload);
+                count += 1;
+                winners += 1;
+                if count == BATCH {
+                    flush(&pending, out, arena);
+                    count = 0;
+                }
             }
         }
+        flush(&pending[..count], out, arena);
     }
-    lane_f += flush(&pending[..count], out, arena);
-    (winners, lane_f)
+    winners
 }
 
 #[derive(Clone, Copy, Default)]
@@ -1227,7 +1376,7 @@ struct ClickTmp {
     ts: u32,
     id: u32,
     campaign: u32,
-    click: u64,
+    click: Key,
 }
 
 fn radix_by_ts<T: Copy + Default>(data: &mut Vec<T>, spare: &mut Vec<T>, low: u32, high: u32, ts: impl Fn(&T) -> u32) {
@@ -1338,7 +1487,7 @@ impl Worker {
         self.rows
     }
 
-    fn partition(&mut self, ctx: &Ctx, people: &People, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
+    fn partition(&mut self, ctx: &Ctx, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
         let n: usize = events.iter().map(|s| s.len(p)).sum();
         if n == 0 {
             return;
@@ -1358,7 +1507,7 @@ impl Worker {
         for sink in events {
             for slice in sink.slices(p) {
                 for rec in slice {
-                    let key = rec.person;
+                    let key = u64::from(rec.person);
                     let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
                     let id = loop {
                         let id = unsafe { *self.local_ids.get_unchecked(slot) };
@@ -1420,7 +1569,7 @@ impl Worker {
         for sink in clicks {
             for slice in sink.slices(p) {
                 for rec in slice {
-                    let key = rec.person;
+                    let key = u64::from(rec.person);
                     let mut slot = ((key.wrapping_mul(H2) >> shift) as usize) & mask;
                     let id = loop {
                         let id = unsafe { *self.local_ids.get_unchecked(slot) };
@@ -1457,7 +1606,7 @@ impl Worker {
             LocalClick {
                 ts: 0,
                 campaign: 0,
-                click: 0,
+                click: [0, 0],
             },
         );
         {
@@ -1484,7 +1633,7 @@ impl Worker {
                     while end < last && self.local_clicks[end].ts == self.local_clicks[start].ts {
                         end += 1;
                     }
-                    self.local_clicks[start..end].sort_unstable_by(|a, b| keys::cmp(b.click, a.click));
+                    self.local_clicks[start..end].sort_unstable_by(|a, b| ids::cmp(&b.click, &a.click));
                     i = end;
                 } else {
                     i += 1;
@@ -1495,11 +1644,7 @@ impl Worker {
             let er = offsets[id] as usize..offsets[id + 1] as usize;
             let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
             let key = self.persons[id];
-            let name = match people.decoder {
-                Some(d) if key & ident::FKEY != 0 => ident::person_name(&d, &people.info, key),
-                _ => key,
-            };
-            self.person(name, er, cr);
+            self.person(key, er, cr);
         }
     }
 

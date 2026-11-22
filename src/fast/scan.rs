@@ -1,8 +1,6 @@
 #[cfg(target_arch = "x86_64")]
 use std::arch::x86_64::*;
 
-use super::ident;
-use super::keys;
 use crate::csv;
 
 pub const SLACK: usize = 16;
@@ -12,6 +10,8 @@ const SEGMENT: usize = 32 << 10;
 
 pub trait Lines<const N: usize> {
     fn line(&mut self, fields: &[&[u8]; N]);
+
+    fn flush(&mut self) {}
 }
 
 impl<const N: usize, F: FnMut(&[&[u8]; N])> Lines<N> for F {
@@ -23,8 +23,6 @@ impl<const N: usize, F: FnMut(&[&[u8]; N])> Lines<N> for F {
 
 pub trait Kernel {
     unsafe fn masks(p: *const u8) -> (u64, u64, u64);
-    unsafe fn pack(p: *const u8, len: usize) -> Option<u64>;
-    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64>;
 }
 
 pub struct Scalar;
@@ -43,16 +41,6 @@ impl Kernel for Scalar {
         }
         (comma, nl, quote)
     }
-
-    #[inline(always)]
-    unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
-        keys::pack(std::slice::from_raw_parts(p, len))
-    }
-
-    #[inline(always)]
-    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
-        keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value(k, len))
-    }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -64,62 +52,6 @@ impl Kernel for Avx2 {
     unsafe fn masks(p: *const u8) -> (u64, u64, u64) {
         masks_avx2(p)
     }
-
-    #[inline(always)]
-    unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
-        pack_avx2(p, len)
-    }
-
-    #[inline(always)]
-    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
-        mixed_avx2(p, len)
-    }
-}
-
-const fn align_table() -> [[u8; 16]; 10] {
-    let mut table = [[0x80u8; 16]; 10];
-    let mut len = 2;
-    while len < 10 {
-        let mut j = 9 - len;
-        while j < 8 {
-            table[len][j] = (j + len - 8) as u8;
-            j += 1;
-        }
-        len += 1;
-    }
-    table
-}
-
-static ALIGN: [[u8; 16]; 10] = align_table();
-
-#[cfg(target_arch = "x86_64")]
-#[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-#[inline]
-unsafe fn mixed_avx2(p: *const u8, len: usize) -> Option<u64> {
-    if len.wrapping_sub(2) > 7 || *p != b'u' || (len > 2 && *p.add(1) == b'0') {
-        return None;
-    }
-    let v = _mm_loadu_si128(p as *const __m128i);
-    let iota = _mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-    let inside = _mm_cmpgt_epi8(_mm_set1_epi8(len as i8), iota);
-    let d = _mm_sub_epi8(v, _mm_set1_epi8(b'0' as i8));
-    let is_d = _mm_cmpeq_epi8(_mm_min_epu8(d, _mm_set1_epi8(9)), d);
-    let l = _mm_sub_epi8(v, _mm_set1_epi8(b'a' as i8));
-    let is_l = _mm_cmpeq_epi8(_mm_min_epu8(l, _mm_set1_epi8(25)), l);
-    let valid = _mm_or_si128(is_d, is_l);
-    if _mm_movemask_epi8(_mm_andnot_si128(valid, inside)) != 0 {
-        return None;
-    }
-    let value = _mm_or_si128(
-        _mm_and_si128(is_d, d),
-        _mm_and_si128(is_l, _mm_add_epi8(l, _mm_set1_epi8(10))),
-    );
-    let aligned = _mm_shuffle_epi8(value, _mm_loadu_si128(ALIGN[len].as_ptr() as *const __m128i));
-    let pairs = _mm_maddubs_epi16(aligned, _mm_set1_epi16(0x0124));
-    let quads = _mm_madd_epi16(pairs, _mm_set1_epi32(0x0001_0510));
-    let q = _mm_cvtsi128_si64(quads) as u64;
-    let x = (q & 0xffff_ffff) * 1_679_616 + (q >> 32);
-    (x <= ident::MASK).then_some(x)
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -135,50 +67,6 @@ unsafe fn masks_avx2(p: *const u8) -> (u64, u64, u64) {
             bits(lo, b'\n') | bits(hi, b'\n') << 32,
             bits(lo, b'"') | bits(hi, b'"') << 32,
         )
-    }
-}
-
-#[cfg(target_arch = "x86_64")]
-#[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-#[inline]
-unsafe fn pack_avx2(p: *const u8, len: usize) -> Option<u64> {
-    {
-        if len > keys::MAX_PACKED {
-            return None;
-        }
-        let v = _mm_loadu_si128(p as *const __m128i);
-        let iota = _mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-        let inside = _mm_cmpgt_epi8(_mm_set1_epi8(len as i8), iota);
-        let range = |base: u8, span: u8| {
-            let d = _mm_sub_epi8(v, _mm_set1_epi8(base as i8));
-            let ok = _mm_cmpeq_epi8(_mm_min_epu8(d, _mm_set1_epi8(span as i8)), d);
-            (d, ok)
-        };
-        let (d, is_d) = range(b'0', 9);
-        let (u, is_u) = range(b'A', 25);
-        let (l, is_l) = range(b'a', 25);
-        let is_s = _mm_cmpeq_epi8(v, _mm_set1_epi8(b'_' as i8));
-        let code = _mm_or_si128(
-            _mm_or_si128(
-                _mm_and_si128(is_d, _mm_add_epi8(d, _mm_set1_epi8(1))),
-                _mm_and_si128(is_u, _mm_add_epi8(u, _mm_set1_epi8(11))),
-            ),
-            _mm_or_si128(
-                _mm_and_si128(is_s, _mm_set1_epi8(37)),
-                _mm_and_si128(is_l, _mm_add_epi8(l, _mm_set1_epi8(38))),
-            ),
-        );
-        let valid = _mm_or_si128(_mm_or_si128(is_d, is_u), _mm_or_si128(is_l, is_s));
-        if _mm_movemask_epi8(_mm_andnot_si128(valid, inside)) != 0 {
-            return None;
-        }
-        let code = _mm_and_si128(code, inside);
-        let pairs = _mm_maddubs_epi16(code, _mm_set1_epi16(0x0140));
-        let quads = _mm_madd_epi16(pairs, _mm_set1_epi32(0x0001_1000));
-        let d0 = _mm_cvtsi128_si32(quads) as u32 as u64;
-        let d1 = _mm_extract_epi32::<1>(quads) as u32 as u64;
-        let d2 = _mm_extract_epi32::<2>(quads) as u32 as u64;
-        Some(d0 << 36 | d1 << 12 | d2 >> 12)
     }
 }
 
@@ -335,6 +223,7 @@ unsafe fn region<const N: usize, K: Kernel, F: Lines<N>>(
     }
 }
 
+#[cfg(test)]
 #[cold]
 #[inline(never)]
 fn long_line<const N: usize, F: Lines<N>>(text: &[u8], on_line: &mut F) {
@@ -351,27 +240,14 @@ fn long_line<const N: usize, F: Lines<N>>(text: &[u8], on_line: &mut F) {
     }
 }
 
-#[inline(always)]
-unsafe fn window<K: Kernel, const WIDE: bool>(q: *const u8) -> (u128, u128, u128) {
-    let (c0, n0, q0) = K::masks(q);
-    if WIDE {
-        let (c1, n1, q1) = K::masks(q.add(64));
-        (
-            u128::from(c0) | u128::from(c1) << 64,
-            u128::from(n0) | u128::from(n1) << 64,
-            u128::from(q0) | u128::from(q1) << 64,
-        )
-    } else {
-        (u128::from(c0), u128::from(n0), u128::from(q0))
-    }
-}
-
 #[cold]
 #[inline(never)]
 unsafe fn spill<const N: usize, F: Lines<N>>(p: *const u8, pos: usize, len: usize, on_line: &mut F) -> usize {
     let rest = std::slice::from_raw_parts(p.add(pos), len - pos);
     let n = rest.iter().position(|&b| b == b'\n').unwrap_or(rest.len());
-    long_line::<N, F>(&rest[..n], on_line);
+    if let Some(fields) = csv::fields::<N>(&rest[..n]) {
+        on_line.line(&fields);
+    }
     pos + n + 1
 }
 
@@ -397,14 +273,12 @@ unsafe fn take(base: *const u8, inner: u64, end: u32, qs: u64, out: &mut [&[u8]]
     }
 }
 
-#[cold]
-#[inline(never)]
-unsafe fn general<const N: usize, K: Kernel, F: Lines<N>>(p: *const u8, pos: usize, len: usize, on_line: &mut F) -> usize {
-    let q = p.add(pos);
-    let (c, nl, qt) = window::<K, true>(q);
+#[inline(always)]
+unsafe fn wide<const N: usize, F: Lines<N>>(p: *const u8, pos: usize, len: usize, c: u128, nl: u128, qt: u128, on_line: &mut F) -> usize {
     if nl == 0 {
         return spill::<N, F>(p, pos, len, on_line);
     }
+    let q = p.add(pos);
     let l = nl.trailing_zeros();
     let m = (1u128 << l) - 1;
     let c = c & m;
@@ -421,7 +295,7 @@ unsafe fn general<const N: usize, K: Kernel, F: Lines<N>>(p: *const u8, pos: usi
         for (i, f) in fields.iter_mut().enumerate() {
             let end = if i + 1 < N { rest.trailing_zeros() } else { l };
             rest &= rest.wrapping_sub(1);
-            let w = u32::from(*q.add(start as usize) == b'"');
+            let w = ((qs >> start) & 1) as u32;
             *f = std::slice::from_raw_parts(q.add((start + w) as usize), (end - start - 2 * w) as usize);
             start = end + 1;
         }
@@ -438,7 +312,16 @@ unsafe fn fused_region<const N: usize, const SPLIT: usize, K: Kernel, F: Lines<N
         let (c0, n0, q0) = K::masks(q);
         if SPLIT >= N {
             if n0 == 0 {
-                pos = general::<N, K, F>(p, pos, len, on_line);
+                let (c1, n1, q1) = K::masks(q.add(64));
+                pos = wide::<N, F>(
+                    p,
+                    pos,
+                    len,
+                    u128::from(c0) | u128::from(c1) << 64,
+                    u128::from(n1) << 64,
+                    u128::from(q0) | u128::from(q1) << 64,
+                    on_line,
+                );
                 continue;
             }
             let l = n0.trailing_zeros();
@@ -475,7 +358,15 @@ unsafe fn fused_region<const N: usize, const SPLIT: usize, K: Kernel, F: Lines<N
         let lb = l.wrapping_sub(s3);
         let shape = ((cl.count_ones() + ch.count_ones()) == (N - 1) as u32) & (cut < 64) & (s3 <= l) & (lb < 64);
         if !shape {
-            pos = general::<N, K, F>(p, pos, len, on_line);
+            pos = wide::<N, F>(
+                p,
+                pos,
+                len,
+                u128::from(c0) | u128::from(c1) << 64,
+                u128::from(n0) | u128::from(n1) << 64,
+                u128::from(q0) | u128::from(q1) << 64,
+                on_line,
+            );
             continue;
         }
         let (bad_a, qsa) = quotes(inner_a, inner_a | (1u64 << cut), ql & below);
@@ -508,6 +399,7 @@ pub unsafe fn fused<const N: usize, const SPLIT: usize, K: Kernel, F: Lines<N>>(
         tail.extend_from_slice(rest);
         tail.resize(rest.len() + 2 * PAD, 0);
         fused_region::<N, SPLIT, K, F>(tail.as_ptr(), rest.len(), on_line);
+        on_line.flush();
     }
 }
 
@@ -591,12 +483,14 @@ mod tests {
         assert_eq!(run_fused::<N, 1, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         assert_eq!(run_fused::<N, N, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         assert_eq!(run_fused::<N, 3, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
+        assert_eq!(run_fused::<N, 2, Scalar>(data), expected, "{:?}", String::from_utf8_lossy(data));
         #[cfg(target_arch = "x86_64")]
         if std::is_x86_feature_detected!("avx2") {
             assert_eq!(run::<N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, 1, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, N, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
             assert_eq!(run_fused::<N, 3, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
+            assert_eq!(run_fused::<N, 2, Avx2>(data), expected, "{:?}", String::from_utf8_lossy(data));
         }
     }
 
@@ -605,12 +499,14 @@ mod tests {
         assert_eq!(run_fused::<N, 1, Scalar>(chunk), old);
         assert_eq!(run_fused::<N, N, Scalar>(chunk), old);
         assert_eq!(run_fused::<N, 3, Scalar>(chunk), old);
+        assert_eq!(run_fused::<N, 2, Scalar>(chunk), old);
         #[cfg(target_arch = "x86_64")]
         if std::is_x86_feature_detected!("avx2") {
             assert_eq!(run::<N, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, 1, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, N, Avx2>(chunk), old);
             assert_eq!(run_fused::<N, 3, Avx2>(chunk), old);
+            assert_eq!(run_fused::<N, 2, Avx2>(chunk), old);
         }
         old.len()
     }
@@ -767,95 +663,6 @@ mod tests {
             }
             check::<2>(&data);
             check::<3>(&data);
-        }
-    }
-
-    #[test]
-    fn simd_pack_matches() {
-        let mut state = 77u64;
-        let mut next = move || {
-            state ^= state << 13;
-            state ^= state >> 7;
-            state ^= state << 17;
-            state
-        };
-        for _ in 0..200_000 {
-            let len = (next() % 13) as usize;
-            let mut buf = [0u8; 32];
-            for b in buf.iter_mut() {
-                *b = if next() % 4 == 0 {
-                    (next() % 256) as u8
-                } else {
-                    b"09AZ_az"[(next() % 7) as usize]
-                };
-            }
-            let expected = keys::pack(&buf[..len]);
-            unsafe {
-                assert_eq!(Scalar::pack(buf.as_ptr(), len), expected);
-                #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
-                    assert_eq!(Avx2::pack(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
-                }
-            }
-        }
-    }
-
-    #[test]
-    fn simd_mixed_matches() {
-        let mut state = 91u64;
-        let mut next = move || {
-            state ^= state << 13;
-            state ^= state >> 7;
-            state ^= state << 17;
-            state
-        };
-        let alphabet = b"0123456789abcdefghijklmnopqrstuvwxyzAZ_u ";
-        for round in 0..400_000 {
-            let len = (next() % 12) as usize;
-            let mut buf = [0u8; 32];
-            for b in buf.iter_mut() {
-                *b = alphabet[(next() % 36) as usize];
-            }
-            if round % 3 != 0 {
-                buf[0] = b'u';
-            }
-            if round % 7 == 0 {
-                buf[(next() % 12) as usize] = alphabet[36 + (next() % 5) as usize];
-            }
-            if round % 11 == 0 {
-                buf[1] = b'0';
-            }
-            if round % 13 == 0 {
-                buf[len.min(31)] = (next() % 256) as u8;
-            }
-            let expected = keys::pack(&buf[..len]).and_then(|k| ident::mixed_value(k, len));
-            unsafe {
-                assert_eq!(Scalar::mixed(buf.as_ptr(), len), expected);
-                #[cfg(target_arch = "x86_64")]
-                if std::is_x86_feature_detected!("avx2") {
-                    assert_eq!(Avx2::mixed(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
-                }
-            }
-        }
-        let mut max = b"u".to_vec();
-        let mut x = ident::MASK;
-        let mut digits = Vec::new();
-        while x > 0 {
-            digits.push(b"0123456789abcdefghijklmnopqrstuvwxyz"[(x % 36) as usize]);
-            x /= 36;
-        }
-        digits.reverse();
-        max.extend_from_slice(&digits);
-        max.resize(32, 0);
-        unsafe {
-            assert_eq!(Scalar::mixed(max.as_ptr(), 9), Some(ident::MASK));
-            #[cfg(target_arch = "x86_64")]
-            if std::is_x86_feature_detected!("avx2") {
-                assert_eq!(Avx2::mixed(max.as_ptr(), 9), Some(ident::MASK));
-                assert_eq!(Avx2::mixed(b"uzzzzzzzz\0\0\0\0\0\0\0".as_ptr(), 9), None);
-                assert_eq!(Avx2::mixed(b"u0\0\0\0\0\0\0\0\0\0\0\0\0\0\0".as_ptr(), 2), Some(0));
-                assert_eq!(Avx2::mixed(b"u00\0\0\0\0\0\0\0\0\0\0\0\0\0".as_ptr(), 3), None);
-            }
         }
     }
 }
