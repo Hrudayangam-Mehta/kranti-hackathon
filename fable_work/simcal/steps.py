@@ -1,0 +1,45 @@
+# calibration set: official paired steps (same salt, one change or one named bundle). kills = round(score*48)
+OFF = {  # folder -> official score
+ 'variants/V1':4.98,'variants/V2':4.60,'variants/V3':4.83,'variants/V4':5.15,'variants/H':4.98,'variants/HL':4.73,
+ 'variants/K0':5.04,'variants/S':5.13,'variants/V4salt1':4.69,'variants/V4salt2':5.06,'variants/F02':4.85,'variants/F03':4.94,
+ 'variants6/KS':5.19,'variants6/S_s1':4.92,'variants6/KS_s1':5.13,'variants6/KB_s0':5.19,'variants6/KB_s1':5.23,'variants6/KB_s2':4.98,
+ 'variants6/KBH_s1':5.02,'variants6/KF_s1':5.13,'variants6/K7LG_s1':5.04,'variants6/K6LC_s1':5.29,'variants6/K6LX_s1':5.19,
+ 'variants6/FSLC_s1':5.29,'variants6/FSLC20_s1':5.27,'variants6/FSLCL15_s1':5.31,'variants6/FSOH_s1':5.29,'variants6/FSL10_s1':5.35,
+ 'variants6/FSL15C10_s1':5.33,'variants6/FSF30_s1':5.31,'variants6/FSFT3_s1':5.33,'variants6/FSLS35_s1':5.25,'variants6/FNV_s1':5.38,
+ 'variants6/G10C10FT3_s1':5.35,'variants6/FHE40_s1':5.29 }
+# FSLC_s1 itself was not submitted: it is the final-safe port of K6LC_s1 (identical in 24/24 sim matches and on the kit stream), score taken as 5.29
+K = {k: round(v*48) for k,v in OFF.items()}
+# (id, before, after, family, kind)  kind: B = behaviour/code or bundle, P = parameter value
+STEPS = [
+ ('fightEarly_off','variants/V1','variants/V2','opening','B'),
+ ('boost_off','variants/V1','variants/V3','boost','B'),
+ ('retreat_d3','variants/V1','variants/V4','retreat','B'),
+ ('F02_bundle','variants/V1','variants/F02','bundle','B'),
+ ('F03_bundle','variants/V1','variants/F03','bundle','B'),
+ ('K0items_s0a','variants/V4','variants/K0','K0items','B'),
+ ('hunt_h50','variants/V4','variants/H','hunt','B'),
+ ('hunt_lite','variants/V4','variants/HL','hunt','B'),
+ ('seek_s0a','variants/V4','variants/S','seek','B'),
+ ('seek_s0b','variants/K0','variants6/KS','seek','B'),
+ ('K0items_s0b','variants/S','variants6/KS','K0items','B'),
+ ('seek_s1','variants/V4salt1','variants6/S_s1','seek','B'),
+ ('K0items_s1','variants6/S_s1','variants6/KS_s1','K0items','B'),
+ ('any70_s0','variants6/KS','variants6/KB_s0','any70','B'),
+ ('any70_s1','variants6/KS_s1','variants6/KB_s1','any70','B'),
+ ('healDoc_on','variants6/KB_s1','variants6/KBH_s1','heal','B'),
+ ('FIN_ttk','variants6/KB_s1','variants6/KF_s1','finish','B'),
+ ('LG_wide','variants6/KB_s1','variants6/K7LG_s1','lasergrab','B'),
+ ('LC_near','variants6/KB_s1','variants6/K6LC_s1','LC','B'),
+ ('LX_on','variants6/KB_s1','variants6/K6LX_s1','LX','B'),
+ ('cover20','variants6/FSLC_s1','variants6/FSLC20_s1','LC','P'),
+ ('low15','variants6/FSLC_s1','variants6/FSLCL15_s1','LC','P'),
+ ('oneHit','variants6/FSLCL15_s1','variants6/FSOH_s1','fighton','P'),
+ ('low10','variants6/FSLCL15_s1','variants6/FSL10_s1','LC','P'),
+ ('cover10','variants6/FSLCL15_s1','variants6/FSL15C10_s1','LC','P'),
+ ('finHpf30','variants6/FSLCL15_s1','variants6/FSF30_s1','fighton','P'),
+ ('finThreats3','variants6/FSLCL15_s1','variants6/FSFT3_s1','fighton','P'),
+ ('lastStand35','variants6/FSLCL15_s1','variants6/FSLS35_s1','fighton','P'),
+ ('LC_never','variants6/FSL10_s1','variants6/FNV_s1','LC','P'),
+ ('G10C10FT3','variants6/FSL10_s1','variants6/G10C10FT3_s1','bundle','P'),
+ ('healEnter40','variants6/FSL10_s1','variants6/FHE40_s1','heal','P'),
+]

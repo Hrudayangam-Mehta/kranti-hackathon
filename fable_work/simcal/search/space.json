@@ -1,0 +1,885 @@
+[
+ {
+  "name": "laserBand",
+  "group": "range",
+  "base": {
+   "rPrefLaser": 150,
+   "laserLo": 125,
+   "laserHi": 185,
+   "laserBoostAway": 90
+  },
+  "values": [
+   {
+    "rPrefLaser": 115,
+    "laserLo": 100,
+    "laserHi": 130,
+    "laserBoostAway": 70
+   },
+   {
+    "rPrefLaser": 130,
+    "laserLo": 110,
+    "laserHi": 160,
+    "laserBoostAway": 80
+   },
+   {
+    "rPrefLaser": 170,
+    "laserLo": 145,
+    "laserHi": 195
+   },
+   {
+    "rPrefLaser": 190,
+    "laserLo": 160,
+    "laserHi": 215,
+    "laserBoostAway": 100
+   }
+  ],
+  "note": "stand-off band with a laser (m); mid = official preset"
+ },
+ {
+  "name": "gunBand",
+  "group": "range",
+  "base": {
+   "rPrefGun": 75,
+   "bandLo": 55,
+   "bandHi": 95
+  },
+  "values": [
+   {
+    "rPrefGun": 55,
+    "bandLo": 40,
+    "bandHi": 75
+   },
+   {
+    "rPrefGun": 65,
+    "bandLo": 48,
+    "bandHi": 85
+   },
+   {
+    "rPrefGun": 90,
+    "bandLo": 65,
+    "bandHi": 110
+   },
+   {
+    "rPrefGun": 105,
+    "bandLo": 80,
+    "bandHi": 125
+   }
+  ],
+  "note": "stand-off band gun / lightning only (m)"
+ },
+ {
+  "name": "gunBackStick",
+  "group": "range",
+  "base": {
+   "gunBackStick": 0.7
+  },
+  "values": [
+   {
+    "gunBackStick": 0.4
+   },
+   {
+    "gunBackStick": 1.0
+   }
+  ],
+  "note": "back-pedal strength inside the band"
+ },
+ {
+  "name": "rush",
+  "group": "range",
+  "base": {
+   "rushR": 28,
+   "rushHpf": 0.5
+  },
+  "values": [
+   {
+    "rushHpf": 2
+   },
+   {
+    "rushR": 40
+   },
+   {
+    "rushHpf": 0.3
+   }
+  ],
+  "note": "lightning rush without a laser; rushHpf 2 = never"
+ },
+ {
+  "name": "isoNear",
+  "group": "range",
+  "base": {
+   "isoNear": 0
+  },
+  "values": [
+   {
+    "isoNear": 12
+   },
+   {
+    "isoNear": 25
+   }
+  ],
+  "note": "isolate branch only near the goal cell (ISO)"
+ },
+ {
+  "name": "gunFlightMax",
+  "group": "fire",
+  "base": {
+   "gunFlightMax": 0.55
+  },
+  "values": [
+   {
+    "gunFlightMax": 0.4
+   },
+   {
+    "gunFlightMax": 0.7
+   },
+   {
+    "gunFlightMax": 0.9
+   }
+  ],
+  "note": "longest bullet flight we shoot at (s)"
+ },
+ {
+  "name": "gateK",
+  "group": "fire",
+  "base": {
+   "gateK": 1.0
+  },
+  "values": [
+   {
+    "gateK": 0.8
+   },
+   {
+    "gateK": 1.25
+   },
+   {
+    "gateK": 1.5
+   }
+  ],
+  "note": "gun aim gate width"
+ },
+ {
+  "name": "laserGateK",
+  "group": "fire",
+  "base": {
+   "laserGateK": 0.6
+  },
+  "values": [
+   {
+    "laserGateK": 0.4
+   },
+   {
+    "laserGateK": 0.8
+   },
+   {
+    "laserGateK": 1.0
+   }
+  ],
+  "note": "laser release gate width"
+ },
+ {
+  "name": "laserForceS",
+  "group": "fire",
+  "base": {
+   "laserForceS": 1.5
+  },
+  "values": [
+   {
+    "laserForceS": 0.5
+   },
+   {
+    "laserForceS": 1.0
+   },
+   {
+    "laserForceS": 2.5
+   }
+  ],
+  "note": "hold of a full charge before a forced release (s)"
+ },
+ {
+  "name": "reload",
+  "group": "fire",
+  "base": {
+   "reloadAmmo": 4,
+   "noReloadHp": 300
+  },
+  "values": [
+   {
+    "reloadAmmo": 2
+   },
+   {
+    "reloadAmmo": 6
+   },
+   {
+    "noReloadHp": 500
+   }
+  ],
+  "note": "early reload rule"
+ },
+ {
+  "name": "headAimGun",
+  "group": "fire",
+  "base": {
+   "headAimGun": false
+  },
+  "values": [
+   {
+    "headAimGun": true
+   }
+  ],
+  "note": "gun at the highest clear body point"
+ },
+ {
+  "name": "strafe",
+  "group": "evade",
+  "base": {
+   "strafeLo": 0.8,
+   "strafeHi": 1.6
+  },
+  "values": [
+   {
+    "strafeLo": 0.45,
+    "strafeHi": 1.15
+   },
+   {
+    "strafeLo": 0.6,
+    "strafeHi": 1.3
+   },
+   {
+    "strafeLo": 1.1,
+    "strafeHi": 2.2
+   }
+  ],
+  "note": "jink period range (s); fast = official preset"
+ },
+ {
+  "name": "dodgeHorizon",
+  "group": "evade",
+  "base": {
+   "dodgeHorizon": 0.9
+  },
+  "values": [
+   {
+    "dodgeHorizon": 0.6
+   },
+   {
+    "dodgeHorizon": 1.2
+   }
+  ],
+  "note": "bullet dodge look-ahead (s)"
+ },
+ {
+  "name": "dodgeWeight",
+  "group": "evade",
+  "base": {
+   "dodgeWeight": 0.9
+  },
+  "values": [
+   {
+    "dodgeWeight": 0.6
+   },
+   {
+    "dodgeWeight": 1.0
+   }
+  ],
+  "note": "bullet dodge weight"
+ },
+ {
+  "name": "laserReactRad",
+  "group": "evade",
+  "base": {
+   "laserReactRad": 0.25
+  },
+  "values": [
+   {
+    "laserReactRad": 0.15
+   },
+   {
+    "laserReactRad": 0.4
+   }
+  ],
+  "note": "aim cone that counts as a laser charging at us"
+ },
+ {
+  "name": "laserHide",
+  "group": "evade",
+  "base": {
+   "laserHideWalk": 6,
+   "laserHideBoost": 9
+  },
+  "values": [
+   {
+    "laserHideWalk": 0,
+    "laserHideBoost": 0
+   },
+   {
+    "laserHideWalk": 10,
+    "laserHideBoost": 15
+   },
+   {
+    "laserHideWalk": 14,
+    "laserHideBoost": 22
+   }
+  ],
+  "note": "reach of the beam-hide step (m); 0 = never hide from a charge"
+ },
+ {
+  "name": "boostSpend",
+  "group": "evade",
+  "base": {
+   "boostSpend": true,
+   "bsEnergy": 30,
+   "bsDodgeEnergy": 25,
+   "bsHurtS": 1.0
+  },
+  "values": [
+   {
+    "boostSpend": false
+   },
+   {
+    "bsEnergy": 15,
+    "bsDodgeEnergy": 10
+   },
+   {
+    "bsEnergy": 50,
+    "bsDodgeEnergy": 40
+   },
+   {
+    "bsHurtS": 2.5
+   }
+  ],
+  "note": "boost in FIGHT while charging / dodging / under fire"
+ },
+ {
+  "name": "wFinish",
+  "group": "target",
+  "base": {
+   "wFinish": 2.0
+  },
+  "values": [
+   {
+    "wFinish": 1.3
+   },
+   {
+    "wFinish": 3.0
+   },
+   {
+    "wFinish": 4.0
+   }
+  ],
+  "note": "weight of a finishable target"
+ },
+ {
+  "name": "wAttacker",
+  "group": "target",
+  "base": {
+   "wAttacker": 1.6
+  },
+  "values": [
+   {
+    "wAttacker": 1.0
+   },
+   {
+    "wAttacker": 2.4
+   }
+  ],
+  "note": "weight of the mech hitting us"
+ },
+ {
+  "name": "wNoLos",
+  "group": "target",
+  "base": {
+   "wNoLos": 0.5
+  },
+  "values": [
+   {
+    "wNoLos": 0.25
+   },
+   {
+    "wNoLos": 0.8
+   }
+  ],
+  "note": "weight of a target without a line"
+ },
+ {
+  "name": "keepTargetHpf",
+  "group": "target",
+  "base": {
+   "keepTargetHpf": 0.25
+  },
+  "values": [
+   {
+    "keepTargetHpf": 0.15
+   },
+   {
+    "keepTargetHpf": 0.4
+   }
+  ],
+  "note": "stay on a target under this hp fraction"
+ },
+ {
+  "name": "killSecureHits",
+  "group": "target",
+  "base": {
+   "killSecureHits": 3
+  },
+  "values": [
+   {
+    "killSecureHits": 2
+   },
+   {
+    "killSecureHits": 5
+   }
+  ],
+  "note": "finishable = hp within this many gun hits"
+ },
+ {
+  "name": "focusAdd",
+  "group": "target",
+  "base": {
+   "focusAdd": false
+  },
+  "values": [
+   {
+    "focusAdd": true
+   }
+  ],
+  "note": "additive focus cost (official preset focus add)"
+ },
+ {
+  "name": "chase",
+  "group": "target",
+  "base": {
+   "chaseHpf": 0.5,
+   "chaseS": 6
+  },
+  "values": [
+   {
+    "chaseHpf": 0.3,
+    "chaseS": 3
+   },
+   {
+    "chaseHpf": 0.7,
+    "chaseS": 10
+   }
+  ],
+  "note": "chase a target that broke the line"
+ },
+ {
+  "name": "finTtk",
+  "group": "target",
+  "base": {
+   "finTtk": false
+  },
+  "values": [
+   {
+    "finTtk": true
+   }
+  ],
+  "note": "FINa: finish by time-to-kill (official preset finish ttk)"
+ },
+ {
+  "name": "aggr",
+  "group": "engage",
+  "base": {
+   "aggrHpf": 0.7,
+   "h50SeekHpf": 0.7
+  },
+  "values": [
+   {
+    "aggrHpf": 0.5,
+    "h50SeekHpf": 0.5
+   },
+   {
+    "aggrHpf": 0.6,
+    "h50SeekHpf": 0.6
+   },
+   {
+    "aggrHpf": 0.85,
+    "h50SeekHpf": 0.85
+   }
+  ],
+  "note": "start / seek fights from this hp fraction (any70f)"
+ },
+ {
+  "name": "earlyOpenS",
+  "group": "engage",
+  "base": {
+   "earlyOpenS": 20
+  },
+  "values": [
+   {
+    "earlyOpenS": 0
+   },
+   {
+    "earlyOpenS": 10
+   },
+   {
+    "earlyOpenS": 35
+   }
+  ],
+  "note": "opening guard (s)"
+ },
+ {
+  "name": "eng",
+  "group": "engage",
+  "base": {
+   "engNearR": 60,
+   "engAimR": 190
+  },
+  "values": [
+   {
+    "engNearR": 40
+   },
+   {
+    "engNearR": 90
+   },
+   {
+    "engAimR": 120
+   },
+   {
+    "engAimR": 240
+   }
+  ],
+  "note": "engaged-candidate clause radii (m)"
+ },
+ {
+  "name": "seek",
+  "group": "engage",
+  "base": {
+   "seekOn": true,
+   "h50CrowdR": 60,
+   "h50SeekFromS": 20,
+   "h50ArriveLaser": 125,
+   "h50ArriveGun": 90
+  },
+  "values": [
+   {
+    "seekOn": false
+   },
+   {
+    "h50CrowdR": 120
+   },
+   {
+    "h50SeekFromS": 40
+   },
+   {
+    "h50ArriveLaser": 150,
+    "h50ArriveGun": 110
+   }
+  ],
+  "note": "prey seek"
+ },
+ {
+  "name": "farmHp",
+  "group": "engage",
+  "base": {
+   "farmHp": 0.9
+  },
+  "values": [
+   {
+    "farmHp": 0.5
+   },
+   {
+    "farmHp": 0.7
+   }
+  ],
+  "note": "farm crates / drones above this hp fraction"
+ },
+ {
+  "name": "lcGate",
+  "group": "survive",
+  "base": {
+   "lcCoverS": 0,
+   "lcLowHpf": 0
+  },
+  "values": [
+   {
+    "lcLowHpf": 0.1
+   },
+   {
+    "lcCoverS": 1.0,
+    "lcLowHpf": 0.05
+   },
+   {
+    "lcCoverS": 1.5,
+    "lcLowHpf": 0.1
+   },
+   {
+    "lcCoverS": 1.5,
+    "lcLowHpf": 0.25
+   }
+  ],
+  "note": "LOSING retreat gate; base = never. Values 3, 4 = official FSL10 (5.35) and FSLC (5.29)"
+ },
+ {
+  "name": "loseThr",
+  "group": "survive",
+  "base": {
+   "lose1Hpf": 0.35,
+   "lose2Hpf": 0.5,
+   "lose3Hpf": 0.6
+  },
+  "values": [
+   {
+    "lose1Hpf": 0.2,
+    "lose2Hpf": 0.25,
+    "lose3Hpf": 0.3
+   },
+   {
+    "lose1Hpf": 0.45,
+    "lose2Hpf": 0.65,
+    "lose3Hpf": 0.8
+   }
+  ],
+  "note": "LOSING thresholds; INERT at the base (lcGate never): live only together with an lcGate value"
+ },
+ {
+  "name": "finish",
+  "group": "survive",
+  "base": {
+   "finishHpf": 0.2,
+   "finishThreats": 2
+  },
+  "values": [
+   {
+    "finishHpf": 0.3
+   },
+   {
+    "finishThreats": 3
+   },
+   {
+    "finishHpf": 0.35,
+    "finishThreats": 4
+   }
+  ],
+  "note": "finish override of LOSING; mostly inert at the base"
+ },
+ {
+  "name": "lastStand",
+  "group": "survive",
+  "base": {
+   "lastStandHpf": 0.25,
+   "lastStandAttackers": 2
+  },
+  "values": [
+   {
+    "lastStandHpf": 0.35
+   },
+   {
+    "lastStandHpf": 0.15
+   },
+   {
+    "lastStandAttackers": 1
+   }
+  ],
+  "note": "doomed -> FIGHT rule"
+ },
+ {
+  "name": "healEnterHp",
+  "group": "survive",
+  "base": {
+   "healEnterHp": 0.55
+  },
+  "values": [
+   {
+    "healEnterHp": 0.3
+   },
+   {
+    "healEnterHp": 0.4
+   },
+   {
+    "healEnterHp": 0.7
+   }
+  ],
+  "note": "HEAL out of contact below this; 0.40 = official FHE40 (5.29)"
+ },
+ {
+  "name": "healExit",
+  "group": "survive",
+  "base": {
+   "healExit": 0.7
+  },
+  "values": [
+   {
+    "healExit": 0.55
+   },
+   {
+    "healExit": 0.85
+   },
+   {
+    "healExit": 1.0
+   }
+  ],
+  "note": "leave HEAL at this hp fraction"
+ },
+ {
+  "name": "grab",
+  "group": "econ",
+  "base": {
+   "grabCubeHi": 70,
+   "grabCubeLo": 40,
+   "grabHpf": 0.5
+  },
+  "values": [
+   {
+    "grabCubeHi": 40,
+    "grabCubeLo": 20
+   },
+   {
+    "grabCubeHi": 110,
+    "grabCubeLo": 70
+   }
+  ],
+  "note": "cube grab radius in a fight (m)"
+ },
+ {
+  "name": "grabLaserWide",
+  "group": "econ",
+  "base": {
+   "grabLaserWide": false
+  },
+  "values": [
+   {
+    "grabLaserWide": true
+   }
+  ],
+  "note": "LG wide (official K7LG: -9 kills)"
+ },
+ {
+  "name": "upgradeOrder",
+  "group": "econ",
+  "base": {
+   "upgradeOrder": [
+    "plating",
+    "armor",
+    "nanites",
+    "laser_damage",
+    "laser_charge",
+    "lightning_efficiency",
+    "gun_damage",
+    "gun_rate",
+    "lightning_range",
+    "lightning_chain",
+    "gyros",
+    "servos",
+    "gun_mag",
+    "capacitor",
+    "reactor",
+    "jets",
+    "gun_velocity",
+    "sensors",
+    "mortar_damage",
+    "mortar_splash",
+    "mortar_rate",
+    "laser_pierce"
+   ]
+  },
+  "values": [
+   {
+    "upgradeOrder": [
+     "plating",
+     "armor",
+     "servos",
+     "nanites",
+     "laser_damage",
+     "laser_charge",
+     "jets",
+     "lightning_efficiency",
+     "gun_damage",
+     "gun_rate",
+     "lightning_range",
+     "lightning_chain",
+     "gyros",
+     "gun_mag",
+     "capacitor",
+     "reactor",
+     "gun_velocity",
+     "sensors",
+     "mortar_damage",
+     "mortar_splash",
+     "mortar_rate",
+     "laser_pierce"
+    ]
+   },
+   {
+    "upgradeOrder": [
+     "laser_damage",
+     "laser_charge",
+     "gun_damage",
+     "gun_rate",
+     "plating",
+     "armor",
+     "nanites",
+     "lightning_efficiency",
+     "lightning_range",
+     "lightning_chain",
+     "gyros",
+     "servos",
+     "gun_mag",
+     "capacitor",
+     "reactor",
+     "jets",
+     "gun_velocity",
+     "sensors",
+     "mortar_damage",
+     "mortar_splash",
+     "mortar_rate",
+     "laser_pierce"
+    ]
+   },
+   {
+    "upgradeOrder": [
+     "nanites",
+     "plating",
+     "armor",
+     "laser_damage",
+     "laser_charge",
+     "lightning_efficiency",
+     "gun_damage",
+     "gun_rate",
+     "lightning_range",
+     "lightning_chain",
+     "gyros",
+     "servos",
+     "gun_mag",
+     "capacitor",
+     "reactor",
+     "jets",
+     "gun_velocity",
+     "sensors",
+     "mortar_damage",
+     "mortar_splash",
+     "mortar_rate",
+     "laser_pierce"
+    ]
+   },
+   {
+    "upgradeOrder": [
+     "gun_damage",
+     "gun_rate",
+     "plating",
+     "armor",
+     "nanites",
+     "laser_damage",
+     "laser_charge",
+     "lightning_efficiency",
+     "lightning_range",
+     "lightning_chain",
+     "gyros",
+     "servos",
+     "gun_mag",
+     "capacitor",
+     "reactor",
+     "jets",
+     "gun_velocity",
+     "sensors",
+     "mortar_damage",
+     "mortar_splash",
+     "mortar_rate",
+     "laser_pierce"
+    ]
+   }
+  ],
+  "note": "upgrade pick order: speed (official preset), damage first, regen first, gun first"
+ }
+]

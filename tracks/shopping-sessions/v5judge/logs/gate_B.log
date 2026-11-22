@@ -1,0 +1,11 @@
+binary B 83ce6665da9cfdd905bbf8f3e5d4c6df4a4e723ba6ccbf6d6fd367d0f082856d
+fixtures NCPU=1: 0/36 fixtures passed
+fixtures NCPU=4: 0/36 fixtures passed
+dev5_n1 NCPU=1 : exit=0 stdout=0 MATCH / MATCH
+dev5_n3 NCPU=3 : exit=0 stdout=0 MATCH / MATCH
+dev5_n4 NCPU=4 : exit=0 stdout=0 MATCH / MATCH
+dev5_n8 NCPU=8 : exit=0 stdout=0 MATCH / MATCH
+dev5_slow_n4 NCPU=4 SESSIONS_PATH=slow: exit=0 stdout=0 MATCH / MATCH
+dev5 rerun into non-empty NCPU=4 (files before 13 after 15): exit=0 stdout=0 MATCH / MATCH
+dev4_n1 NCPU=1 : exit=0 stdout=0 MATCH / MATCH
+dev4_n4 NCPU=4 : exit=0 stdout=0 MATCH / MATCH

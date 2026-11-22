@@ -1,0 +1,78 @@
+[
+ {
+  "name": "giddy_601c7a6",
+  "repo": "justnau/giddygiddyboy-mech-royale",
+  "repo_url": "https://github.com/justnau/giddygiddyboy-mech-royale",
+  "commit": "601c7a666c97a3115a8852bba2411123c4081123",
+  "language": "go",
+  "official_score": 6.06,
+  "score_link_confidence": "high",
+  "score_evidence": "Board giddygiddyboy 6.06 at 15:50:19 UTC, 12 s after the push of 601c7a6 (15:50:07); Kanyaraasi pinned the identical strategy files (same blob hashes) at 16:13 and reached exactly 6.06 at 16:28:03.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/giddy_601c7a6",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh giddy_601c7a6",
+  "files_copied": [
+   "mechbot"
+  ],
+  "binary_sha256": "eb92de69773b8af89b645c186286bdd0f240d90298bf7119f109dc3c779463b4",
+  "smoke_test": {
+   "result": "PASS",
+   "ready_ms": 186,
+   "announced_name": "giddygiddyboy",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.7,
+    "p99": 1.1,
+    "max": 2.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Go, standard library only; binary built from the commit's sources (go.mod, cmd/bot/main.go, mech/*.go only) with the Dockerfile's own go build line (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags '-s -w' ./cmd/bot), offline (GOPROXY=off, GOTOOLCHAIN=local) inside run.sh as uid 65534 with a writable copy under /tmp; local Go 1.24.7 instead of the Dockerfile's 1.26.1, so the copy's go.mod directive was lowered from 1.26 to 1.24 (no other change). Only the binary is installed; the map is read at run time from hello.map.dir (/srv/mech-sparring/_arena). Build entry and temporary files removed afterwards."
+ },
+ {
+  "name": "giddy_07d69fe",
+  "repo": "justnau/giddygiddyboy-mech-royale",
+  "repo_url": "https://github.com/justnau/giddygiddyboy-mech-royale",
+  "commit": "07d69feca8c7824bb06145e34009604feb31a88f",
+  "language": "go",
+  "official_score": 5.54,
+  "score_link_confidence": "high",
+  "score_evidence": "Board giddygiddyboy 5.54 at 07:37:13 UTC, 16 s after the push of 07d69fe (07:36:57); the next pushes came 17-31 s after the score.",
+  "status": "runnable",
+  "dir": "/srv/mech-sparring/giddy_07d69fe",
+  "entry_argv": [
+   "./mechbot"
+  ],
+  "entry_command": "./mechbot",
+  "proc": "/srv/mech-sparring/run.sh giddy_07d69fe",
+  "files_copied": [
+   "mechbot"
+  ],
+  "binary_sha256": "bb5163dd3bf6ef873fa1a0e4fbbae17c870f8711515482e7f182095f090f2917",
+  "smoke_test": {
+   "result": "PASS",
+   "ready_ms": 210,
+   "announced_name": "giddygiddyboy",
+   "observations": 300,
+   "answered_in_time": 300,
+   "budget_ms": 50,
+   "missed": 0,
+   "answer_ms": {
+    "p50": 0.3,
+    "p90": 0.6,
+    "p99": 1.2,
+    "max": 2.1
+   },
+   "debug_drawings": 0
+  },
+  "notes": "Go, standard library only; binary built from the commit's sources (go.mod, cmd/bot/main.go, mech/*.go only) with the Dockerfile's own go build line (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags '-s -w' ./cmd/bot), offline (GOPROXY=off, GOTOOLCHAIN=local) inside run.sh as uid 65534 with a writable copy under /tmp; local Go 1.24.7 instead of the Dockerfile's 1.26.1, so the copy's go.mod directive was lowered from 1.26 to 1.24 (no other change). Only the binary is installed; the map is read at run time from hello.map.dir (/srv/mech-sparring/_arena). Build entry and temporary files removed afterwards."
+ }
+]

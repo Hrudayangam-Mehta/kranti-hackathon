@@ -1,0 +1,17 @@
+fixtures A NCPU=1: 36/36 fixtures passed (FAIL lines: 0)
+fixtures A NCPU=4: 36/36 fixtures passed (FAIL lines: 0)
+fixtures B NCPU=1: 36/36 fixtures passed (FAIL lines: 0)
+fixtures B NCPU=4: 36/36 fixtures passed (FAIL lines: 0)
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/runs/ab_A vs rel17 p20m5: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 39 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/runs/ab_B vs rel17 p20m5: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 40 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 4 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL
+A p20m5 NCPU=2 fresh: exit=0 stdout=0
+/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5judge/runs/A_p20m5_n2 vs rel17 p20m5: MATCH / MATCH
+user_daily: rows 2250361 vs 2250361, files 37 vs 35, sorted-row sha256 00dfcaa9344a58e7 vs 00dfcaa9344a58e7: IDENTICAL
+campaign_daily: rows 28014 vs 28014, files 2 vs 2, sorted-row sha256 00e55ea7bbfb92ef vs 00e55ea7bbfb92ef: IDENTICAL
+ROWDIFF IDENTICAL

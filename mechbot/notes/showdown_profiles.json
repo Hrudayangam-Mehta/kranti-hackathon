@@ -1,0 +1,1820 @@
+{
+ "generated_from": {
+  "showdown_stats": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/tools/evidence/out/showdown_stats.json",
+  "leaderboard": "/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/mechbot/../web/mech_leaderboard_now.json"
+ },
+ "sources_relative_to_intel": [
+  "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl",
+  "dmclaughlin-bit__mech-bot/coord/learnings.md",
+  "dmclaughlin-bit__mech-bot/research/intake/diego-match-data-1129.md",
+  "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md",
+  "moonriver0922__wgsrobot/experiments/README.md",
+  "moonriver0922__wgsrobot/experiments/official-runs.md",
+  "_triage/raw/bd_docs_RESULTS.md",
+  "_triage/readme/devakchow_team-kanyaraasi-mech-royale.md",
+  "LanceHuang245__mech-royale/README.md",
+  "LanceHuang245__mech-royale/bot.py (switch defaults line 21; dodge about lines 470-500; target choice 762-784; movement 912-1000); same thresholds in moonriver0922__wgsrobot/bot.py lines 504, 784, 926-932, 998-1010, which is pinned to the older commit",
+  "varchaskukreja__TTUN/mech-royale/bot/bot.ts (main branch: lines 113-127, 403-417, 698-706)",
+  "varchaskukreja__TTUN__branches/b7e9a6d_bot.ts (5.19 entry: target choice about lines 182-200, fight movement 350-400)",
+  "VivekRnx__bob-the-builder-2026/README.md",
+  "_triage/readme/Th3r0n_mech-royale-bot.md"
+ ],
+ "sample_sizes": {
+  "complete_showdowns_with_winner_rows": 7,
+  "mech_rows_inside_group_aggregates": 84,
+  "showdowns_in_second_source": 11,
+  "matches_in_csv_summary": {
+   "total": 13,
+   "showdown": 8,
+   "public": 5
+  },
+  "per_mech_rows_published_for_non_winners": 0
+ },
+ "winner_rows": [
+  {
+   "alive_seconds": 326.5,
+   "centre_dist_over_radius": 0.39,
+   "crates_opened": 2,
+   "cubes_peak": 34,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 3135,
+   "dmg_out": 9847,
+   "drone_kills": 0,
+   "drops_captured": 3,
+   "end_weapons": [
+    "lightning",
+    "laser"
+   ],
+   "hp_frac_at_r70": 0.98,
+   "match": "2026-11-20T21-00:594232844",
+   "mean_gun_hit_range_m": 88.12,
+   "mean_hp_frac": 0.93,
+   "mean_nearest_enemy_m": 151.99,
+   "mech_kills": 5,
+   "pct_dmg_gun": 21.81,
+   "pct_dmg_laser": 72.21,
+   "pct_dmg_lightning": 5.97,
+   "pct_dmg_mortar": 0.0,
+   "pct_gun_hits_beyond_100m": 44.74,
+   "pct_hits_on_wounded": 43.33,
+   "pct_hits_third_party": 0.0,
+   "pct_hold_behind_building": 87.16,
+   "pct_hold_in_open": 0.46,
+   "pct_time_air": 0.34,
+   "pct_time_boost": 6.86,
+   "pct_time_near_building": 63.91,
+   "pct_time_not_firing": 68.32,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 9.8,
+   "t_first_pickup": 12.15,
+   "t_laser_pickup": 12.15,
+   "team": "Mustikas",
+   "upgrade_timeline": [
+    [
+     9.85,
+     "capacitor"
+    ],
+    [
+     33.65,
+     "gyros"
+    ],
+    [
+     35.65,
+     "laser_damage"
+    ],
+    [
+     99.55,
+     "laser_damage"
+    ],
+    [
+     149.65,
+     "nanites"
+    ],
+    [
+     149.85,
+     "plating"
+    ],
+    [
+     150.35,
+     "sensors"
+    ]
+   ],
+   "upgrades_count": 7
+  },
+  {
+   "alive_seconds": 149.1,
+   "centre_dist_over_radius": 0.43,
+   "crates_opened": 2,
+   "cubes_peak": 24,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 1577,
+   "dmg_out": 6022,
+   "drone_kills": 2,
+   "drops_captured": 0,
+   "end_weapons": [
+    "lightning",
+    "laser"
+   ],
+   "match": "2026-11-20T21-00:4038484795",
+   "mean_gun_hit_range_m": 87.48,
+   "mean_hp_frac": 0.93,
+   "mean_nearest_enemy_m": 159.17,
+   "mech_kills": 5,
+   "pct_dmg_gun": 10.46,
+   "pct_dmg_laser": 83.83,
+   "pct_dmg_lightning": 5.71,
+   "pct_dmg_mortar": 0.0,
+   "pct_gun_hits_beyond_100m": 20.0,
+   "pct_hits_on_wounded": 53.57,
+   "pct_hits_third_party": 42.86,
+   "pct_hold_behind_building": 100.0,
+   "pct_hold_in_open": 0.0,
+   "pct_time_air": 0.0,
+   "pct_time_boost": 11.07,
+   "pct_time_near_building": 40.27,
+   "pct_time_not_firing": 2.62,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 16.4,
+   "t_first_pickup": 4.05,
+   "t_laser_pickup": 4.05,
+   "team": "AT",
+   "upgrade_timeline": [
+    [
+     16.45,
+     "servos"
+    ],
+    [
+     22.35,
+     "laser_damage"
+    ],
+    [
+     34.85,
+     "capacitor"
+    ],
+    [
+     82.85,
+     "armor"
+    ],
+    [
+     83.25,
+     "nanites"
+    ],
+    [
+     95.65,
+     "laser_damage"
+    ]
+   ],
+   "upgrades_count": 6
+  },
+  {
+   "alive_seconds": 135.4,
+   "centre_dist_over_radius": 0.47,
+   "crates_opened": 3,
+   "cubes_peak": 15,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 1008,
+   "dmg_out": 6456,
+   "drone_kills": 2,
+   "drops_captured": 0,
+   "end_weapons": [
+    "lightning",
+    "laser"
+   ],
+   "match": "2026-11-20T22-00:2991384837",
+   "mean_gun_hit_range_m": 130.6,
+   "mean_hp_frac": 0.94,
+   "mean_nearest_enemy_m": 215.65,
+   "mech_kills": 5,
+   "pct_dmg_gun": 23.96,
+   "pct_dmg_laser": 76.04,
+   "pct_dmg_lightning": 0.0,
+   "pct_dmg_mortar": 0.0,
+   "pct_gun_hits_beyond_100m": 69.23,
+   "pct_hits_on_wounded": 30.77,
+   "pct_hits_third_party": 7.69,
+   "pct_hold_behind_building": 100.0,
+   "pct_hold_in_open": 0.0,
+   "pct_time_air": 0.0,
+   "pct_time_boost": 11.82,
+   "pct_time_near_building": 10.29,
+   "pct_time_not_firing": 3.7,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 13.45,
+   "t_first_pickup": 3.45,
+   "t_laser_pickup": 3.45,
+   "team": "Mustikas",
+   "upgrade_timeline": [
+    [
+     13.55,
+     "sensors"
+    ],
+    [
+     16.55,
+     "nanites"
+    ],
+    [
+     64.05,
+     "armor"
+    ],
+    [
+     67.25,
+     "plating"
+    ],
+    [
+     134.65,
+     "laser_charge"
+    ]
+   ],
+   "upgrades_count": 5
+  },
+  {
+   "alive_seconds": 276.6,
+   "centre_dist_over_radius": 0.34,
+   "crates_opened": 2,
+   "cubes_peak": 19,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 4776,
+   "dmg_out": 7156,
+   "drone_kills": 1,
+   "drops_captured": 2,
+   "end_weapons": [
+    "laser",
+    "lightning"
+   ],
+   "match": "2026-11-20T22-00:1652839862",
+   "mean_hp_frac": 0.77,
+   "mean_nearest_enemy_m": 165.03,
+   "mech_kills": 3,
+   "pct_dmg_gun": 0.0,
+   "pct_dmg_laser": 73.24,
+   "pct_dmg_lightning": 26.76,
+   "pct_dmg_mortar": 0.0,
+   "pct_hits_on_wounded": 50.0,
+   "pct_hits_third_party": 2.63,
+   "pct_hold_behind_building": 97.03,
+   "pct_hold_in_open": 2.97,
+   "pct_time_air": 7.01,
+   "pct_time_boost": 13.92,
+   "pct_time_near_building": 75.09,
+   "pct_time_not_firing": 46.47,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 11.0,
+   "t_first_pickup": 4.75,
+   "t_laser_pickup": 12.35,
+   "team": "BackwardsDeployeds",
+   "upgrade_timeline": [
+    [
+     11.05,
+     "plating"
+    ],
+    [
+     25.35,
+     "plating"
+    ],
+    [
+     143.95,
+     "laser_charge"
+    ],
+    [
+     144.25,
+     "armor"
+    ],
+    [
+     168.05,
+     "laser_charge"
+    ]
+   ],
+   "upgrades_count": 5
+  },
+  {
+   "alive_seconds": 140.6,
+   "centre_dist_over_radius": 0.56,
+   "crates_opened": 1,
+   "cubes_peak": 35,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 1896,
+   "dmg_out": 2150,
+   "drone_kills": 4,
+   "drops_captured": 0,
+   "end_weapons": [
+    "laser",
+    "lightning"
+   ],
+   "match": "2026-11-20T22-00:2395294401",
+   "mean_hp_frac": 0.91,
+   "mean_nearest_enemy_m": 175.98,
+   "mech_kills": 1,
+   "pct_dmg_gun": 0.0,
+   "pct_dmg_laser": 85.21,
+   "pct_dmg_lightning": 14.79,
+   "pct_dmg_mortar": 0.0,
+   "pct_hits_on_wounded": 57.14,
+   "pct_hits_third_party": 14.29,
+   "pct_hold_behind_building": 100.0,
+   "pct_hold_in_open": 0.0,
+   "pct_time_air": 6.97,
+   "pct_time_boost": 8.75,
+   "pct_time_near_building": 31.21,
+   "pct_time_not_firing": 13.31,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 7.7,
+   "t_first_pickup": 20.05,
+   "t_laser_pickup": 62.65,
+   "team": "AT",
+   "upgrade_timeline": [
+    [
+     7.75,
+     "gun_mag"
+    ],
+    [
+     15.45,
+     "servos"
+    ],
+    [
+     32.75,
+     "plating"
+    ],
+    [
+     71.65,
+     "laser_damage"
+    ],
+    [
+     137.05,
+     "servos"
+    ],
+    [
+     137.25,
+     "lightning_efficiency"
+    ],
+    [
+     137.45,
+     "lightning_range"
+    ]
+   ],
+   "upgrades_count": 7
+  },
+  {
+   "alive_seconds": 238.0,
+   "centre_dist_over_radius": 0.47,
+   "crates_opened": 1,
+   "cubes_peak": 23,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 2544,
+   "dmg_out": 5894,
+   "drone_kills": 0,
+   "drops_captured": 1,
+   "end_weapons": [
+    "gun",
+    "laser"
+   ],
+   "match": "2026-11-20T22-00:1430010706",
+   "mean_gun_hit_range_m": 116.18,
+   "mean_hp_frac": 0.93,
+   "mean_nearest_enemy_m": 248.45,
+   "mech_kills": 4,
+   "pct_dmg_gun": 34.02,
+   "pct_dmg_laser": 65.98,
+   "pct_dmg_lightning": 0.0,
+   "pct_dmg_mortar": 0.0,
+   "pct_gun_hits_beyond_100m": 50.0,
+   "pct_hits_on_wounded": 46.81,
+   "pct_hits_third_party": 0.0,
+   "pct_hold_behind_building": 98.46,
+   "pct_hold_in_open": 1.54,
+   "pct_time_air": 7.14,
+   "pct_time_boost": 11.05,
+   "pct_time_near_building": 12.61,
+   "pct_time_not_firing": 31.23,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 6.8,
+   "t_first_pickup": 4.35,
+   "t_laser_pickup": 7.65,
+   "team": "TigerTown27",
+   "upgrade_timeline": [
+    [
+     6.85,
+     "armor"
+    ],
+    [
+     73.45,
+     "armor"
+    ],
+    [
+     98.95,
+     "gun_damage"
+    ],
+    [
+     116.05,
+     "capacitor"
+    ],
+    [
+     121.85,
+     "capacitor"
+    ],
+    [
+     235.25,
+     "laser_damage"
+    ]
+   ],
+   "upgrades_count": 6
+  },
+  {
+   "alive_seconds": 294.5,
+   "centre_dist_over_radius": 0.44,
+   "crates_opened": 1,
+   "cubes_peak": 31,
+   "death_by_kind": null,
+   "death_weapon": null,
+   "dmg_in": 4216,
+   "dmg_out": 6037,
+   "drone_kills": 1,
+   "drops_captured": 1,
+   "end_weapons": [
+    "laser",
+    "lightning"
+   ],
+   "match": "2026-11-20T23-00:45805298",
+   "mean_gun_hit_range_m": 88.56,
+   "mean_hp_frac": 0.88,
+   "mean_nearest_enemy_m": 190.01,
+   "mech_kills": 2,
+   "pct_dmg_gun": 15.7,
+   "pct_dmg_laser": 31.72,
+   "pct_dmg_lightning": 52.58,
+   "pct_dmg_mortar": 0.0,
+   "pct_gun_hits_beyond_100m": 25.0,
+   "pct_hits_on_wounded": 44.62,
+   "pct_hits_third_party": 9.23,
+   "pct_hold_behind_building": 92.02,
+   "pct_hold_in_open": 0.0,
+   "pct_time_air": 0.0,
+   "pct_time_boost": 11.31,
+   "pct_time_near_building": 69.15,
+   "pct_time_not_firing": 59.75,
+   "pct_time_outside": 0.0,
+   "place": 1,
+   "t_first_cube": 35.8,
+   "t_first_pickup": 59.65,
+   "t_laser_pickup": 66.75,
+   "team": "404 Competition Not Found",
+   "upgrade_timeline": [
+    [
+     35.85,
+     "plating"
+    ],
+    [
+     59.95,
+     "plating"
+    ],
+    [
+     66.05,
+     "plating"
+    ],
+    [
+     71.35,
+     "laser_damage"
+    ],
+    [
+     71.65,
+     "armor"
+    ],
+    [
+     71.95,
+     "armor"
+    ],
+    [
+     224.85,
+     "armor"
+    ]
+   ],
+   "upgrades_count": 7
+  }
+ ],
+ "placement_groups": {
+  "alive_seconds": {
+   "place_1": {
+    "max": 326.5,
+    "mean": 222.96,
+    "median": 238.0,
+    "min": 135.4,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 326.4,
+    "mean": 181.17,
+    "median": 151.7,
+    "min": 97.6,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 88.7,
+    "mean": 26.54,
+    "median": 21.45,
+    "min": 6.1,
+    "n": 56
+   }
+  },
+  "centre_dist_over_radius": {
+   "place_1": {
+    "max": 0.56,
+    "mean": 0.45,
+    "median": 0.44,
+    "min": 0.34,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 0.93,
+    "mean": 0.53,
+    "median": 0.52,
+    "min": 0.22,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 0.74,
+    "mean": 0.48,
+    "median": 0.48,
+    "min": 0.13,
+    "n": 56
+   }
+  },
+  "crates_opened": {
+   "place_1": {
+    "max": 3,
+    "mean": 1.71,
+    "median": 2,
+    "min": 1,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 9,
+    "mean": 2.24,
+    "median": 2,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 4,
+    "mean": 0.41,
+    "median": 0.0,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "cubes_peak": {
+   "place_1": {
+    "max": 35,
+    "mean": 25.86,
+    "median": 24,
+    "min": 15,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 26,
+    "mean": 9.1,
+    "median": 5,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 5,
+    "mean": 0.66,
+    "median": 0.0,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "dmg_in": {
+   "place_1": {
+    "max": 4776,
+    "mean": 2736.0,
+    "median": 2544,
+    "min": 1008,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 8922,
+    "mean": 3681.67,
+    "median": 3402,
+    "min": 1400,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 2127,
+    "mean": 1506.23,
+    "median": 1400.0,
+    "min": 1400,
+    "n": 56
+   }
+  },
+  "dmg_out": {
+   "place_1": {
+    "max": 9847,
+    "mean": 6223.14,
+    "median": 6037,
+    "min": 2150,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 10104,
+    "mean": 4064.67,
+    "median": 3501,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 3500,
+    "mean": 792.86,
+    "median": 653.5,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "drone_kills": {
+   "place_1": {
+    "max": 4,
+    "mean": 1.43,
+    "median": 1,
+    "min": 0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 3,
+    "mean": 0.71,
+    "median": 1,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 2,
+    "mean": 0.21,
+    "median": 0.0,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "drops_captured": {
+   "place_1": {
+    "max": 3,
+    "mean": 1.0,
+    "median": 1,
+    "min": 0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 1,
+    "mean": 0.1,
+    "median": 0,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "hp_frac_at_r70": {
+   "place_1": {
+    "max": 0.97,
+    "mean": 0.97,
+    "median": 0.97,
+    "min": 0.97,
+    "n": 1
+   },
+   "places_2_to_4": {
+    "max": 0.68,
+    "mean": 0.68,
+    "median": 0.68,
+    "min": 0.68,
+    "n": 1
+   }
+  },
+  "mean_gun_hit_range_m": {
+   "place_1": {
+    "max": 130.6,
+    "mean": 102.19,
+    "median": 88.56,
+    "min": 87.48,
+    "n": 5
+   },
+   "places_2_to_4": {
+    "max": 171.01,
+    "mean": 94.25,
+    "median": 85.88,
+    "min": 62.04,
+    "n": 19
+   },
+   "places_9_to_16": {
+    "max": 192.92,
+    "mean": 102.77,
+    "median": 104.92,
+    "min": 37.56,
+    "n": 51
+   }
+  },
+  "mean_hp_frac": {
+   "place_1": {
+    "max": 0.94,
+    "mean": 0.9,
+    "median": 0.93,
+    "min": 0.77,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 0.98,
+    "mean": 0.83,
+    "median": 0.83,
+    "min": 0.58,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 0.95,
+    "mean": 0.73,
+    "median": 0.73,
+    "min": 0.47,
+    "n": 56
+   }
+  },
+  "mean_nearest_enemy_m": {
+   "place_1": {
+    "max": 248.45,
+    "mean": 186.61,
+    "median": 175.97,
+    "min": 152.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 222.99,
+    "mean": 153.68,
+    "median": 144.14,
+    "min": 109.6,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 169.69,
+    "mean": 113.66,
+    "median": 109.38,
+    "min": 74.39,
+    "n": 56
+   }
+  },
+  "mech_kills": {
+   "place_1": {
+    "max": 5,
+    "mean": 3.57,
+    "median": 4,
+    "min": 1,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 5,
+    "mean": 1.91,
+    "median": 2,
+    "min": 0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 3,
+    "mean": 0.25,
+    "median": 0.0,
+    "min": 0,
+    "n": 56
+   }
+  },
+  "pct_dmg_gun": {
+   "place_1": {
+    "max": 34.02,
+    "mean": 15.14,
+    "median": 15.7,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 100.0,
+    "mean": 49.47,
+    "median": 41.23,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 80.83,
+    "median": 100.0,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_dmg_laser": {
+   "place_1": {
+    "max": 85.21,
+    "mean": 69.75,
+    "median": 73.24,
+    "min": 31.72,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 83.97,
+    "mean": 45.92,
+    "median": 57.7,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 17.68,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_dmg_lightning": {
+   "place_1": {
+    "max": 52.58,
+    "mean": 15.12,
+    "median": 5.97,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 36.24,
+    "mean": 4.61,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_dmg_mortar": {
+   "place_1": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 47.06,
+    "mean": 1.5,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_gun_hits_beyond_100m": {
+   "place_1": {
+    "max": 69.23,
+    "mean": 41.79,
+    "median": 44.74,
+    "min": 20.0,
+    "n": 5
+   },
+   "places_2_to_4": {
+    "max": 100.0,
+    "mean": 43.84,
+    "median": 40.82,
+    "min": 0.0,
+    "n": 19
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 48.78,
+    "median": 44.44,
+    "min": 0.0,
+    "n": 51
+   }
+  },
+  "pct_hits_on_wounded": {
+   "place_1": {
+    "max": 57.14,
+    "mean": 46.61,
+    "median": 46.81,
+    "min": 30.77,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 57.14,
+    "mean": 37.14,
+    "median": 39.9,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 24.68,
+    "median": 28.57,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_hits_third_party": {
+   "place_1": {
+    "max": 42.86,
+    "mean": 10.96,
+    "median": 7.69,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 40.62,
+    "mean": 5.32,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 20
+   },
+   "places_9_to_16": {
+    "max": 85.71,
+    "mean": 16.07,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 52
+   }
+  },
+  "pct_hold_behind_building": {
+   "place_1": {
+    "max": 100.0,
+    "mean": 96.38,
+    "median": 98.46,
+    "min": 87.16,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 100.0,
+    "mean": 79.09,
+    "median": 84.0,
+    "min": 20.0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 49.67,
+    "median": 61.29,
+    "min": 0.0,
+    "n": 31
+   }
+  },
+  "pct_hold_in_open": {
+   "place_1": {
+    "max": 2.97,
+    "mean": 0.71,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 66.67,
+    "mean": 15.38,
+    "median": 1.03,
+    "min": 0.0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 39.49,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 31
+   }
+  },
+  "pct_time_air": {
+   "place_1": {
+    "max": 7.14,
+    "mean": 3.07,
+    "median": 0.34,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 14.78,
+    "mean": 3.73,
+    "median": 1.62,
+    "min": 0.0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 56.85,
+    "mean": 3.39,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 56
+   }
+  },
+  "pct_time_boost": {
+   "place_1": {
+    "max": 13.92,
+    "mean": 10.68,
+    "median": 11.07,
+    "min": 6.86,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 28.73,
+    "mean": 11.08,
+    "median": 11.93,
+    "min": 0.21,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 67.42,
+    "mean": 25.03,
+    "median": 23.78,
+    "min": 0.0,
+    "n": 56
+   }
+  },
+  "pct_time_near_building": {
+   "place_1": {
+    "max": 75.09,
+    "mean": 43.22,
+    "median": 40.27,
+    "min": 10.29,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 100.0,
+    "mean": 52.84,
+    "median": 51.11,
+    "min": 0.0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 100.0,
+    "mean": 32.6,
+    "median": 30.71,
+    "min": 0.0,
+    "n": 56
+   }
+  },
+  "pct_time_not_firing": {
+   "place_1": {
+    "max": 68.32,
+    "mean": 32.2,
+    "median": 31.23,
+    "min": 2.62,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 93.44,
+    "mean": 38.16,
+    "median": 28.76,
+    "min": 5.31,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 92.13,
+    "mean": 24.41,
+    "median": 14.01,
+    "min": 1.07,
+    "n": 56
+   }
+  },
+  "pct_time_outside": {
+   "place_1": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 20.96,
+    "mean": 1.05,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 21
+   },
+   "places_9_to_16": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "n": 56
+   }
+  },
+  "t_first_cube": {
+   "place_1": {
+    "max": 35.8,
+    "mean": 14.42,
+    "median": 11.0,
+    "min": 6.8,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 123.9,
+    "mean": 27.07,
+    "median": 14.25,
+    "min": 3.85,
+    "n": 19
+   },
+   "places_9_to_16": {
+    "max": 33.15,
+    "mean": 12.7,
+    "median": 7.6,
+    "min": 4.25,
+    "n": 14
+   }
+  },
+  "t_first_pickup": {
+   "place_1": {
+    "max": 59.65,
+    "mean": 15.49,
+    "median": 4.75,
+    "min": 3.45,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 104.85,
+    "mean": 19.73,
+    "median": 10.25,
+    "min": 2.05,
+    "n": 17
+   },
+   "places_9_to_16": {
+    "max": 28.85,
+    "mean": 8.33,
+    "median": 7.05,
+    "min": 1.15,
+    "n": 31
+   }
+  },
+  "t_laser_pickup": {
+   "place_1": {
+    "max": 66.75,
+    "mean": 24.15,
+    "median": 12.15,
+    "min": 3.45,
+    "n": 7
+   },
+   "places_2_to_4": {
+    "max": 104.85,
+    "mean": 25.84,
+    "median": 21.85,
+    "min": 2.25,
+    "n": 15
+   },
+   "places_9_to_16": {
+    "max": 25.95,
+    "mean": 8.76,
+    "median": 6.75,
+    "min": 3.75,
+    "n": 18
+   }
+  }
+ },
+ "archetypes": {
+  "laser_standoff_farmer": {
+   "members_seen": [
+    "AT",
+    "Mustikas",
+    "BackwardsDeployeds",
+    "TigerTown27 (gun+laser variant)"
+   ],
+   "members_inferred_from_repo": [
+    "Kanyaraasi",
+    "Wolverines and r1ver once they hold a laser"
+   ],
+   "signature": "laser in weapon list by 4-15 s (worst case 60 s); charging flag cycles about every 2.4 s; speed at or below walk; keeps 150-250 m from others; cube count 6+ by 100 s and 15-35 late",
+   "counter_rule": "If a visible mech is charging and its aim yaw is within 0.25 rad of the bearing to us, sidestep at boost to the nearest building edge; never stop in open sight of a laser carrier; fight it only from a corner, inside 40 m with lightning (2 s laser short), or as a third party when it is below half HP. When we fire a laser at one, charge with the aim 0.3 rad off the target, then swing on and release within one decision (the public bots dodge only while the aim is on them).",
+   "risk_if_wrong": "Low: over-avoiding a harmless mech costs farming time only."
+  },
+  "lightning_closer": {
+   "members_seen": [
+    "404 Competition Not Found"
+   ],
+   "members_inferred_from_repo": [
+    "Wolverines and r1ver whenever they hold lightning",
+    "Kanyaraasi and BackwardsDeployeds inside 60 m"
+   ],
+   "signature": "lightning in weapon list and range to us shrinking below 60 m; max_hp well above 1400 early (hull upgrades); late first pickup (about 60 s)",
+   "counter_rule": "Hold more than 50 m (60 m if its max_hp shows many upgrades) and back along cover while firing laser or gun; never let a lightning carrier inside 45 m unless we also hold lightning and more HP.",
+   "risk_if_wrong": "Medium: backing away can push us into a third mech or the zone edge; check the retreat lane first."
+  },
+  "sight_triggered_brawler": {
+   "members_seen": [
+    "Wolverines",
+    "BobBuildIt (placement only)"
+   ],
+   "members_inferred_from_repo": [
+    "r1ver",
+    "Kanyaraasi and BackwardsDeployeds before they hold a laser"
+   ],
+   "signature": "torso turns to us and gun fire starts as soon as we are mutually visible, at any range to 230 m; strafes sideways with direction flips (every 0.35-1.05 s in one public family, 1.0-2.6 s in the other); settles near 70-85 m with gun, 110 m with laser, 28 m with lightning; walks to cubes mid-fight",
+   "counter_rule": "Do not trade in the open: break line of sight for 5 s (target memory is 4 s in one family) and it returns to looting; punish from a corner when it walks to a cube or when another mech engages it; it runs to cover below 35-38% HP.",
+   "risk_if_wrong": "Low: if it is actually a free-for-all-aware build it will not shoot first and nothing is lost."
+  },
+  "boost_rusher": {
+   "members_seen": [
+    "314159265"
+   ],
+   "members_inferred_from_repo": [],
+   "signature": "ground speed near 19.5 m/s for a third or more of the time, closing on a mech, gun only during the first 30 s",
+   "counter_rule": "Stay behind a corner facing its approach and burst it on arrival (it arrives with little energy); never flee across open ground; collect its cubes only if nobody else is within 150 m.",
+   "risk_if_wrong": "High if it carries lightning (240 damage/s inside 45 m): read the weapon list first and keep 50 m if lightning is shown."
+  },
+  "quiet_hider": {
+   "members_seen": [
+    "Bob the builder (not top 16 now)"
+   ],
+   "members_inferred_from_repo": [
+    "Wolverines main-branch build",
+    "BingBU"
+   ],
+   "signature": "stationary or under 5 m/s behind a building at 0.5-0.6 of the next circle radius; holds fire; fewer than 10 cubes at 3 minutes",
+   "counter_rule": "Leave it alone and out-farm it; pass at more than 55 m with torso facing it, HP above 55% and no laser charging (the public restraint rules trigger inside 35-55 m, on targets under 45-55% HP, on chargers and on turned backs); kill it when the circle forces it to move and we lead by 10+ cubes.",
+   "risk_if_wrong": "Medium: a motionless mech may be a laser carrier waiting; the charging rule above covers that case."
+  },
+  "expert_house_bot": {
+   "members_seen": [
+    "House 2 (organiser bot that fills empty seats)"
+   ],
+   "members_inferred_from_repo": [],
+   "signature": "not identifiable from the observation alone; behaves like a competent mid-range fighter that farms (17 cubes)",
+   "counter_rule": "Treat like a sight-triggered brawler: no open trades, break sight, third-party only.",
+   "risk_if_wrong": "Low."
+  }
+ },
+ "teams_top16": {
+  "AT": {
+   "practice_rank": 3,
+   "practice_score": 5.52,
+   "best_entry_utc": "2026-11-21T03:43:50Z",
+   "archetype": "laser_standoff_farmer",
+   "n_matches": {
+    "winner_rows_in_7_recorded_matches": 2,
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [
+    1,
+    1
+   ],
+   "mean_place": 9.0,
+   "loadout": "laser + lightning (both wins); laser 84-85% of damage",
+   "habits": [
+    "takes a laser fast when one is near (4 s) but still won with a 63 s laser",
+    "fires almost all the time (not firing only 3% and 13% of the match): shoots drones, crates and far targets",
+    "stays 159-176 m from the nearest mech, boosts 9-11% of the time, never holds still in the open",
+    "54-57% of its hits land on mechs already below half HP; 43% of hits were third-party in one win",
+    "farms hard: 24 and 35 cubes, 2 and 4 drones, no supply drops; both wins were over in 141-149 s",
+    "boom or bust: 2 wins but about 9th on average over up to 11 showdowns"
+   ],
+   "limitations": [
+    "constant firing gives its position away (laser shot carries 380 m, gun 320 m)",
+    "its laser is telegraphed by the charging flag and blocked by buildings",
+    "early deaths are common when the opening goes wrong (mean about 9th despite two wins)",
+    "no supply drops taken, so a drop holder can out-heal it"
+   ],
+   "signature": "laser (+lightning) carrier firing continuously from 150+ m, low speed, cube count climbing fast (10-15 per minute in its wins)",
+   "counter": "Use its noise to keep a building between us; apply the charging-laser rule; in the first 90 s do nothing that draws its fire; late, close through cover to under 40 m with lightning or leave it to others.",
+   "risk_if_read_wrong": "If it is a newer, quieter build the noise cue disappears; the charging rule still applies.",
+   "evidence_level": "match-observed (2 wins) + second-hand average",
+   "sources": [
+    "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl",
+    "dmclaughlin-bit__mech-bot/coord/learnings.md",
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md"
+   ],
+   "version_staleness": "Recorded wins are from the 02:00 and 03:00 UTC showdowns; its best entry is from 03:43 UTC, so today's bot is newer."
+  },
+  "TigerTown27": {
+   "practice_rank": 5,
+   "practice_score": 5.31,
+   "best_entry_utc": "2026-11-21T05:04:39Z",
+   "archetype": "laser_standoff_farmer",
+   "n_matches": {
+    "winner_rows_in_7_recorded_matches": 1
+   },
+   "places": [
+    1
+   ],
+   "mean_place": null,
+   "loadout": "gun + laser (laser 66%, gun 34% of damage)",
+   "habits": [
+    "laser at 8 s, first cube at 7 s",
+    "stays very far: 248 m mean to the nearest mech; mean gun-hit range 116 m, half beyond 100 m",
+    "only 13% of the time near a building, airborne 7%",
+    "armour first (x2), then gun damage and energy; 23 cubes; 1 drop; 4 kills in 238 s"
+   ],
+   "limitations": [
+    "spends most time away from buildings, so a peeking laser from cover out-trades it",
+    "no lightning: nothing to stop a lightning carrier that gets inside 45 m",
+    "single match: could be an outlier"
+   ],
+   "signature": "gun+laser carrier at 200+ m, in open ground, occasional jumps",
+   "counter": "Fight only from a corner (peek, fire, hide); or close under cover with lightning; otherwise stay out of its sight lines.",
+   "risk_if_read_wrong": "If it actually uses cover well, peeking duels are even; disengage when HP drops below 55%.",
+   "evidence_level": "match-observed (1 win)",
+   "sources": [
+    "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl"
+   ],
+   "version_staleness": "Recorded win is from the 03:00 UTC showdown; best entry is from 05:04 UTC, so today's bot is newer."
+  },
+  "BackwardsDeployeds": {
+   "practice_rank": 11,
+   "practice_score": 5.06,
+   "best_entry_utc": "2026-11-21T04:17:54Z",
+   "archetype": "laser_standoff_farmer",
+   "n_matches": {
+    "winner_rows_in_7_recorded_matches": 1
+   },
+   "places": [
+    1
+   ],
+   "mean_place": null,
+   "loadout": "laser + lightning (laser 73%, lightning 27%, gun 0%)",
+   "habits": [
+    "first pickup at 5 s, laser at 12 s",
+    "hugs buildings (75% of the time within 12 m of one), 97% of holds behind a building",
+    "takes the most damage of all recorded winners (4776) and has the lowest mean HP (77%): it trades and regenerates",
+    "hull upgrades first (x2), 19 cubes, 2 supply drops, 3 kills in 277 s",
+    "at that time it most likely ran a public Python controller with every optional switch off (its 4.75 entry): that controller targets any mech it can see (nearest, weakest and current target preferred), fights near 110 m with a laser, closes to 28 m when it holds lightning and the target is inside 60 m, and strafes with a possible direction flip only every 1.0-2.6 s",
+    "that controller runs to cover below 38% HP, with three mechs threatening (two if below 60% HP), under more than 110 damage/s, when hit by an unseen mech, or when it has no laser and sees a laser carrier 70-240 m away"
+   ],
+   "limitations": [
+    "shoots everything it sees, so it trades HP and gives its position away",
+    "slow strafe rhythm makes gun lead easy",
+    "sidesteps a charging laser only when the aim line passes within about 7 m plus 3% of the range: charge off-axis, then swing on",
+    "while it has no laser, any visible laser carrier 70-240 m away sends it to cover (with no cover and above half HP it instead rushes that carrier to about 22 m)"
+   ],
+   "signature": "laser+lightning carrier hugging walls about 110 m from its target, strafing in long arcs, charging flag often on",
+   "counter": "Never trade with it across open ground; fight from a corner with the off-axis laser charge, stay beyond 60 m unless we want the lightning brawl, and third-party it when it is trading; do not carry a mortar near it.",
+   "risk_if_read_wrong": "The current entry is a compiled payload we cannot read; if its behaviour changed, the range numbers no longer hold, so keep cover anyway.",
+   "evidence_level": "match-observed (1 win) + repo-inferred",
+   "sources": [
+    "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl",
+    "_triage/raw/bd_docs_RESULTS.md",
+    "LanceHuang245__mech-royale/README.md",
+    "LanceHuang245__mech-royale/bot.py (switch defaults line 21; dodge about lines 470-500; target choice 762-784; movement 912-1000); same thresholds in moonriver0922__wgsrobot/bot.py lines 504, 784, 926-932, 998-1010, which is pinned to the older commit"
+   ],
+   "version_staleness": "Recorded win is from the 03:00 UTC showdown (4.75 entry of 02:45 UTC); best entry is now 5.06 from 04:17 UTC."
+  },
+  "404 Competition Not Found": {
+   "practice_rank": 14,
+   "practice_score": 5.02,
+   "best_entry_utc": "2026-11-21T04:28:27Z",
+   "archetype": "lightning_closer",
+   "n_matches": {
+    "winner_rows_in_7_recorded_matches": 1
+   },
+   "places": [
+    1
+   ],
+   "mean_place": null,
+   "loadout": "laser + lightning (lightning 53%, laser 32%, gun 16%)",
+   "habits": [
+    "slow start: first cube at 36 s, first pickup at 60 s, laser at 67 s",
+    "three hull upgrades first, then laser damage and armour x3",
+    "soaks damage (4216 taken) behind cover (69% near buildings) and wins late (295 s) with 31 cubes and 1 drop",
+    "not firing 60% of the time"
+   ],
+   "limitations": [
+    "gun-only and cube-less for the first minute",
+    "must get inside 45 m to do most of its damage",
+    "single match"
+   ],
+   "signature": "mech with max_hp far above the cube-count norm (stacked hull), lightning in the list, closing through cover",
+   "counter": "Kite it: stay beyond 50 m, hit with laser as it crosses gaps, give ground along cover; it is weakest before 60 s.",
+   "risk_if_read_wrong": "If the read is wrong and it is a pure laser user, backing away in the open is the worst move: back only along cover.",
+   "evidence_level": "match-observed (1 win)",
+   "sources": [
+    "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl"
+   ],
+   "version_staleness": "Recorded win is from the 04:00 UTC showdown; best entry is from 04:28 UTC, so today's bot may be newer."
+  },
+  "Wolverines": {
+   "practice_rank": 7,
+   "practice_score": 5.19,
+   "best_entry_utc": "2026-11-21T00:57:15Z",
+   "archetype": "sight_triggered_brawler",
+   "n_matches": {
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [],
+   "mean_place": 6.0,
+   "loadout": "prefers laser, then lightning; never drops the gun (public source)",
+   "habits": [
+    "about 6th on average: best of the then top-4 practice teams",
+    "the 5.19 entry has no free-for-all mode: any mech seen in the last 4 s is a target (nearest, weaker and whoever hit it preferred)",
+    "holds about 70 m with gun and 110 m with laser, but closes to 28 m whenever it holds lightning; random strafe flips every 0.35-1.05 s",
+    "retreats to cover when below 35% HP against a healthier target, or below 55% with two mechs inside 160 m, or below 80% with three",
+    "keeps a laser charged until aligned; walks to cubes within 70 m even mid-fight when above half HP; heals standing still out of sight",
+    "a newer main-branch build adds a free-for-all mode: hides from mechs it will not fight, fights only when hit in the last 4 s, inside 35 m, with 4 or fewer alive, or against targets under 45% HP inside 120 m"
+   ],
+   "limitations": [
+    "the best-scoring entry fights everything it sees, so it bleeds HP to every passer-by",
+    "loses a target after 4 s without sight",
+    "cube detours are predictable",
+    "hull-first upgrades leave damage low"
+   ],
+   "signature": "opens fire on first sight at long range, strafes with short random flips, drifts toward cubes during a fight",
+   "counter": "Break sight for 5 s instead of trading; ambush from a corner on its cube path; third-party when it is below 55% with two mechs near (it is about to run); never show under 45% HP within 120 m of the newer build.",
+   "risk_if_read_wrong": "If the team switches its final entry to the hiding build, treat it as a quiet hider.",
+   "evidence_level": "second-hand average + repo-inferred",
+   "sources": [
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md",
+    "moonriver0922__wgsrobot/experiments/README.md",
+    "varchaskukreja__TTUN/mech-royale/bot/bot.ts (main branch: lines 113-127, 403-417, 698-706)",
+    "varchaskukreja__TTUN__branches/b7e9a6d_bot.ts (5.19 entry: target choice about lines 182-200, fight movement 350-400)"
+   ],
+   "version_staleness": "Best entry is from 00:57 UTC, before every recorded showdown, so recorded behaviour should match the current entry."
+  },
+  "r1ver": {
+   "practice_rank": 9,
+   "practice_score": 5.1,
+   "best_entry_utc": "2026-11-21T03:01:48Z",
+   "archetype": "sight_triggered_brawler",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "same family as Wolverines (laser, then lightning)",
+   "habits": [
+    "its 5.10 entry is a derivative of the Wolverines 5.19 source with a different cube-pile choice and a ground-path check",
+    "its own local free-for-all tests showed no gain over the base (swapped-spawn means equal or slightly lower)"
+   ],
+   "limitations": [
+    "inherits every limitation of the Wolverines 5.19 entry, including no free-for-all mode"
+   ],
+   "signature": "as Wolverines",
+   "counter": "As Wolverines.",
+   "risk_if_read_wrong": "As Wolverines.",
+   "evidence_level": "repo-inferred only",
+   "sources": [
+    "moonriver0922__wgsrobot/experiments/README.md",
+    "moonriver0922__wgsrobot/experiments/official-runs.md",
+    "varchaskukreja__TTUN__branches/b7e9a6d_bot.ts (5.19 entry: target choice about lines 182-200, fight movement 350-400)"
+   ],
+   "version_staleness": "Never seen in a recorded showdown."
+  },
+  "Kanyaraasi": {
+   "practice_rank": 8,
+   "practice_score": 5.19,
+   "best_entry_utc": "2026-11-21T05:05:46Z",
+   "archetype": "laser_standoff_farmer",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "laser + lightning preferred, gun fallback, never mortar (public source)",
+   "habits": [
+    "packages the same public Python controller as the recorded BackwardsDeployeds winner with every optional switch off, plus one change: when below 38% HP with lightning and a healthy mech inside 40 m it keeps retreating instead of standing to fight"
+   ],
+   "limitations": [
+    "same as BackwardsDeployeds: shoots on sight, slow strafe rhythm, narrow laser sidestep, driven to cover by a far laser when it has none"
+   ],
+   "signature": "as BackwardsDeployeds",
+   "counter": "As BackwardsDeployeds.",
+   "risk_if_read_wrong": "Its 05:05 UTC entry may differ from the published description.",
+   "evidence_level": "repo-inferred only",
+   "sources": [
+    "_triage/readme/devakchow_team-kanyaraasi-mech-royale.md",
+    "LanceHuang245__mech-royale/README.md",
+    "LanceHuang245__mech-royale/bot.py (switch defaults line 21; dodge about lines 470-500; target choice 762-784; movement 912-1000); same thresholds in moonriver0922__wgsrobot/bot.py lines 504, 784, 926-932, 998-1010, which is pinned to the older commit"
+   ],
+   "version_staleness": "Never seen in a recorded showdown; README describes an unscored hypothesis."
+  },
+  "BobBuildIt": {
+   "practice_rank": 6,
+   "practice_score": 5.27,
+   "best_entry_utc": "2026-11-21T03:03:29Z",
+   "archetype": "sight_triggered_brawler",
+   "n_matches": {
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [],
+   "mean_place": 8.0,
+   "loadout": "unknown",
+   "habits": [
+    "was practice number 1 at the time yet averaged about 8th in showdowns, close to the 8.5 of a random mech"
+   ],
+   "limitations": [
+    "practice strength did not carry over to free-for-all"
+   ],
+   "signature": "unknown; assumed to shoot on sight like other practice-tuned bots",
+   "counter": "Default rules: no open trades, break sight, third-party only.",
+   "risk_if_read_wrong": "Archetype is a guess from placement alone.",
+   "evidence_level": "second-hand average only",
+   "sources": [
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md"
+   ],
+   "version_staleness": "Best entry is from 03:03 UTC; no public repository identified."
+  },
+  "314159265": {
+   "practice_rank": 16,
+   "practice_score": 4.92,
+   "best_entry_utc": "2026-11-21T02:10:49Z",
+   "archetype": "boost_rusher",
+   "n_matches": {
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [],
+   "mean_place": 12.0,
+   "loadout": "unknown (dies before a loadout forms)",
+   "habits": [
+    "boosts 41% of the time",
+    "lives about 36 s on average",
+    "about 12th on average"
+   ],
+   "limitations": [
+    "out of energy on arrival",
+    "starting gun only",
+    "dies in the opening"
+   ],
+   "signature": "mech at boost speed for long stretches heading straight for another mech in the first 30 s",
+   "counter": "Corner ambush; do not run; take the two-plus cubes it drops only if nobody else is near.",
+   "risk_if_read_wrong": "If it holds lightning, keep 50 m and use cover instead.",
+   "evidence_level": "second-hand summary",
+   "sources": [
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md"
+   ],
+   "version_staleness": "Best entry is from 02:10 UTC, so the summary probably describes the current bot."
+  },
+  "A-bot LLC": {
+   "practice_rank": 1,
+   "practice_score": 5.58,
+   "best_entry_utc": "2026-11-21T03:37:53Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "scorpion": {
+   "practice_rank": 2,
+   "practice_score": 5.58,
+   "best_entry_utc": "2026-11-21T05:17:03Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "tigerbyte": {
+   "practice_rank": 4,
+   "practice_score": 5.33,
+   "best_entry_utc": "2026-11-21T04:58:47Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "Mahalas": {
+   "practice_rank": 10,
+   "practice_score": 5.08,
+   "best_entry_utc": "2026-11-21T04:44:49Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "ImagineLosing": {
+   "practice_rank": 12,
+   "practice_score": 5.04,
+   "best_entry_utc": "2026-11-21T02:30:59Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "RN SUS": {
+   "practice_rank": 15,
+   "practice_score": 4.96,
+   "best_entry_utc": "2026-11-21T04:53:59Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "No recorded free-for-all match and no identified public repository."
+   ],
+   "signature": "none",
+   "counter": "Default rules (opening survival, charging-laser rule, wounded rule).",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [],
+   "version_staleness": "Not covered by any evidence in the intel folder."
+  },
+  "not even close": {
+   "practice_rank": 13,
+   "practice_score": 5.02,
+   "best_entry_utc": "2026-11-21T04:21:19Z",
+   "archetype": "unknown",
+   "n_matches": {
+    "recorded": 0
+   },
+   "places": [],
+   "mean_place": null,
+   "loadout": "unknown",
+   "habits": [],
+   "limitations": [
+    "only a five-line README is available"
+   ],
+   "signature": "none",
+   "counter": "Default rules.",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "none",
+   "sources": [
+    "_triage/readme/Th3r0n_mech-royale-bot.md"
+   ],
+   "version_staleness": "Not seen in a recorded showdown."
+  }
+ },
+ "teams_other_seen": {
+  "Mustikas": {
+   "practice_rank": 21,
+   "practice_score": 4.75,
+   "best_entry_utc": "2026-11-21T01:23:19Z",
+   "archetype": "laser_standoff_farmer",
+   "n_matches": {
+    "winner_rows_in_7_recorded_matches": 2
+   },
+   "places": [
+    1,
+    1
+   ],
+   "mean_place": null,
+   "loadout": "laser + lightning (laser 72-76%, gun 22-24%, lightning 0-6%)",
+   "habits": [
+    "laser at 3-12 s",
+    "long win (327 s): all three supply drops, 34 cubes, quiet 68% of the time, 64% near buildings, 97.5% HP at the 70 m circle",
+    "short win (135 s): fired almost constantly, 216 m from the nearest mech, gun hits at 131 m mean",
+    "5 kills in each win"
+   ],
+   "limitations": [
+    "no information on its losses",
+    "depends on finding a laser in the first seconds"
+   ],
+   "signature": "laser carrier within 15 s, far from everyone, walks to every supply drop",
+   "counter": "Do not contest a drop it is already holding unless it is below half HP; apply the charging rule.",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "match-observed (2 wins)",
+   "sources": [
+    "dmclaughlin-bit__mech-bot/pipeline/data/evidence.jsonl",
+    "dmclaughlin-bit__mech-bot/coord/learnings.md"
+   ],
+   "version_staleness": "Best entry is from 01:23 UTC, before both recorded wins: recorded behaviour should be current. Now rank 21, outside the top 16."
+  },
+  "Bob the builder": {
+   "practice_rank": null,
+   "practice_score": null,
+   "best_entry_utc": null,
+   "archetype": "quiet_hider",
+   "n_matches": {
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [],
+   "mean_place": 4.8,
+   "loadout": "unknown; a likely public source prefers laser, then mortar, then lightning",
+   "habits": [
+    "stands still 74% of the time",
+    "lives about 3 minutes",
+    "about 4.8th on average with only 9.5 cubes"
+   ],
+   "limitations": [
+    "under-farmed for the final duels",
+    "standing targets are easy for a charged laser once found"
+   ],
+   "signature": "motionless mech behind cover with few cubes",
+   "counter": "Leave alone early; out-farm; finish late.",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "second-hand summary; repo link unverified",
+   "sources": [
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md",
+    "VivekRnx__bob-the-builder-2026/README.md"
+   ],
+   "version_staleness": "Team name not on the current top-50 list under this spelling."
+  },
+  "House 2 (expert house bot)": {
+   "practice_rank": null,
+   "practice_score": null,
+   "best_entry_utc": null,
+   "archetype": "expert_house_bot",
+   "n_matches": {
+    "showdowns_summarised_by_second_source": 11
+   },
+   "places": [],
+   "mean_place": 4.2,
+   "loadout": "unknown",
+   "habits": [
+    "about 4.2th on average with 17 cubes; such bots fill empty seats in the final"
+   ],
+   "limitations": [],
+   "signature": "not identifiable",
+   "counter": "Default rules.",
+   "risk_if_read_wrong": "n/a",
+   "evidence_level": "second-hand summary",
+   "sources": [
+    "Achintya-Lakshmanan__mech-royale-bot/docs/REPORT.md"
+   ],
+   "version_staleness": "n/a"
+  }
+ },
+ "counter_rules": [
+  "Opening: for the first 90 s start no fight, keep every mech beyond 60 m (aim for 150 m), boost only to break sight.",
+  "Charging laser: charging flag plus aim within 0.25 rad of our bearing means sidestep at boost to a building edge; inside 40 m with lightning, zap instead.",
+  "Economy: farm only with the nearest known mech beyond 150 m; pace about 7 cubes a minute (6 by 60 s, 15 by 150 s, 25 by 250 s); take a drop only uncontested.",
+  "Wounded rule: never be visible below 55% HP; shoot first only at targets below 50% HP that someone else is already fighting.",
+  "Read the weapon list: lightning closing means keep 50 m; gun-only booster means corner ambush; shoot-on-sight means break sight for 5 s; motionless quiet mech means pass beyond 55 m facing it.",
+  "Our own laser: charge with the aim 0.3 rad off the target, swing on and release inside one decision; public bots dodge only while a charging aim points at them."
+ ],
+ "not_covered": [
+  "No per-mech data for anyone except the 7 recorded winners; places 5-8 are missing even from the aggregates.",
+  "No per-team cause of death, killer, range or attacker count in any showdown record.",
+  "Never seen: A-bot LLC, scorpion, tigerbyte, Kanyaraasi, r1ver, Mahalas, ImagineLosing, not even close, RN SUS.",
+  "AT, TigerTown27, BackwardsDeployeds, 404 Competition Not Found and BobBuildIt have best entries newer than their recorded matches.",
+  "Showdowns were top-16-of-the-hour exhibitions; qualifier and final seeds, seat fill and expert house bots may differ."
+ ]
+}

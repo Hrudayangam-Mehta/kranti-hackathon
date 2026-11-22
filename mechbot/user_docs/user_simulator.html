@@ -1,0 +1,3194 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mech Royale — Tactical Simulator, Bot Arena &amp; Swarm Lab (mechfight/1)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            void: '#070a10',
+            panel: '#0e1420',
+            card: '#141c2c',
+            line: '#223049',
+            radar: '#38bdf8',
+            zone: '#f59e0b',
+            danger: '#f43f5e',
+            safe: '#10b981',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #070a10; }
+    ::-webkit-scrollbar-thumb { background: #223049; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #33486e; }
+    .glass {
+      background: linear-gradient(155deg, rgba(20, 28, 44, 0.92), rgba(11, 16, 26, 0.96));
+      backdrop-filter: blur(10px);
+    }
+    canvas#arena-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #080c14;
+    }
+    input[type="range"] {
+      accent-color: #38bdf8;
+    }
+  </style>
+</head>
+<body class="bg-void text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- Toast Notification Stack (No alert/confirm) -->
+  <div id="toast-root" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full px-4 sm:px-0 pointer-events-none"></div>
+
+  <!-- Top Navigation & Status Header -->
+  <header class="sticky top-0 z-40 border-b border-line bg-panel/95 backdrop-blur-md">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 via-cyan-500 to-amber-400 p-[2px] shadow-lg shadow-sky-500/20 shrink-0">
+          <div class="w-full h-full bg-void rounded-[10px] flex items-center justify-center font-mono font-extrabold text-sm text-sky-300">
+            M1
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-base sm:text-lg font-black tracking-tight text-white">
+              MECH ROYALE <span class="text-sky-400">SIMULATION LAB</span>
+            </h1>
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/35">mechfight/1</span>
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/35">OSU OVAL &bull; 50ms CAP</span>
+          </div>
+          <p class="text-[11px] sm:text-xs text-slate-400">Placement Optimization &bull; World-Model Belief State &bull; 7-Agent Swarm &bull; 1v15 Practice &amp; 16-Way FFA Benchmarks</p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-wrap text-xs font-mono">
+        <div class="px-3 py-1.5 rounded-xl bg-card border border-line flex items-center gap-2">
+          <span class="text-slate-400">Metric:</span>
+          <span class="text-amber-300 font-bold">mean(16 &minus; place)</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-xl bg-card border border-line flex items-center gap-2">
+          <span class="text-slate-400">Starter Baseline:</span>
+          <span class="text-rose-300 font-bold">1.15 pts</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="header-best-score" class="text-emerald-300 font-bold">Best Sim: --</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workspace Tabs -->
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 border-t border-line/60">
+      <nav class="flex items-center gap-1 overflow-x-auto" aria-label="Simulation Tabs">
+        <button onclick="switchTab('arena')" data-tab="arena" class="tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors">
+          1. Live Tactical Arena
+        </button>
+        <button onclick="switchTab('tournament')" data-tab="tournament" class="tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors">
+          2. Multi-Match Tournament &amp; Gauntlet
+        </button>
+        <button onclick="switchTab('tuner')" data-tab="tuner" class="tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors">
+          3. Swarm Arbiter Lab &amp; Ablations
+        </button>
+        <button onclick="switchTab('export')" data-tab="export" class="tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors">
+          4. Export Python Bot &amp; Dockerfile
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-5 space-y-5">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: LIVE TACTICAL ARENA SIMULATOR                                -->
+    <!-- =================================================================== -->
+    <section id="tab-arena" class="tab-panel space-y-4">
+      <!-- Top Control Toolbar -->
+      <div class="glass border border-line rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Mode Selector -->
+          <select id="sim-mode-select" onchange="resetLiveMatch()" class="bg-void border border-line rounded-xl px-3 py-2 text-xs font-semibold text-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400">
+            <option value="ffa">Mode: 16-Mech Free-For-All (Qualifying / Final)</option>
+            <option value="practice">Mode: Practice 1 vs 15 House Squad (4E/4M/4H/3X)</option>
+          </select>
+
+          <!-- Focal Bot Archetype Selector -->
+          <select id="sim-hero-select" onchange="resetLiveMatch()" class="bg-void border border-line rounded-xl px-3 py-2 text-xs font-semibold text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400">
+            <option value="SwarmArbiter">Hero Bot (Slot 0): SwarmArbiter (Dossier Flagship)</option>
+            <option value="CustomTuned">Hero Bot (Slot 0): CustomTuned (Your Lab Weights)</option>
+            <option value="ZoneGhost">Hero Bot (Slot 0): ZoneGhost (Stealth Rat)</option>
+            <option value="DropAmbusher">Hero Bot (Slot 0): DropAmbusher (3rd-Party)</option>
+            <option value="KiteSniper">Hero Bot (Slot 0): KiteSniper (Rooftop Laser/Mortar)</option>
+            <option value="TriangleBrawler">Hero Bot (Slot 0): TriangleBrawler (Aggro Duelist)</option>
+            <option value="StarterBot">Hero Bot (Slot 0): StarterBot (1.15 Baseline)</option>
+          </select>
+
+          <!-- Playback Controls -->
+          <button id="btn-play-pause" onclick="togglePlayPause()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-void font-extrabold text-xs transition-colors">
+            ▶ Play Match
+          </button>
+          <button onclick="stepSingleDecision()" class="px-3 py-2 rounded-xl bg-card hover:bg-slate-800 border border-line text-xs font-semibold text-slate-200">
+            +0.1s Step
+          </button>
+          <button onclick="resetLiveMatch(true)" class="px-3 py-2 rounded-xl bg-card hover:bg-slate-800 border border-line text-xs font-semibold text-amber-300">
+            ↻ New Seed
+          </button>
+        </div>
+
+        <!-- Speed & Overlay Toggles -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <div class="flex items-center bg-void border border-line rounded-xl p-1 font-mono">
+            <button onclick="setSimSpeed(1)" data-spd="1" class="spd-btn px-2 py-1 rounded-lg bg-sky-500/20 text-sky-300 font-bold">1x</button>
+            <button onclick="setSimSpeed(2)" data-spd="2" class="spd-btn px-2 py-1 rounded-lg text-slate-400 hover:text-white">2x</button>
+            <button onclick="setSimSpeed(5)" data-spd="5" class="spd-btn px-2 py-1 rounded-lg text-slate-400 hover:text-white">5x</button>
+            <button onclick="setSimSpeed(12)" data-spd="12" class="spd-btn px-2 py-1 rounded-lg text-slate-400 hover:text-white">12x</button>
+          </div>
+
+          <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-card border border-line cursor-pointer select-none">
+            <input id="ov-heatmap" type="checkbox" checked class="accent-rose-400" />
+            <span class="text-slate-300">Threat Heatmap</span>
+          </label>
+          <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-card border border-line cursor-pointer select-none">
+            <input id="ov-vision" type="checkbox" checked class="accent-sky-400" />
+            <span class="text-slate-300">Vision &amp; Sounds</span>
+          </label>
+          <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-card border border-line cursor-pointer select-none">
+            <input id="ov-beliefs" type="checkbox" checked class="accent-amber-400" />
+            <span class="text-slate-300">Beliefs &amp; Plans</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Main Split: Tactical Canvas (Left 8 Cols) + Live Telemetry Inspector (Right 4 Cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+        <!-- Arena Viewport -->
+        <div class="lg:col-span-8 glass border border-line rounded-2xl p-3 space-y-2.5">
+          <!-- Match HUD Strip -->
+          <div class="flex flex-wrap items-center justify-between gap-2 px-1 text-xs font-mono">
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-slate-400">TIME: <strong id="hud-time" class="text-white">0.0s</strong></span>
+              <span class="text-slate-400">TICK: <strong id="hud-tick" class="text-sky-300">0</strong></span>
+              <span class="text-slate-400">ALIVE: <strong id="hud-alive" class="text-emerald-300">16 / 16</strong></span>
+              <span class="text-slate-400">ZONE DPS: <strong id="hud-zone-dps" class="text-amber-300">20/s</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-slate-400">SEED: <strong id="hud-seed" class="text-slate-200">#1042</strong></span>
+              <span class="text-slate-400">BOT LATENCY: <strong id="hud-latency" class="text-emerald-400">0.24 ms</strong> / 50ms</span>
+            </div>
+          </div>
+
+          <!-- Responsive Canvas Container -->
+          <div id="arena-container" class="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-line bg-void cursor-crosshair">
+            <canvas id="arena-canvas"></canvas>
+            <!-- Legend Pill -->
+            <div class="absolute bottom-2.5 left-2.5 right-2.5 pointer-events-none flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono bg-void/80 border border-line/80 rounded-xl px-3 py-1.5 backdrop-blur-sm">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span>Inspected Bot</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>Enemy / House Squad</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block"></span>Cube / Drop</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600/80 inline-block"></span>Trees (Block Vision Only)</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-slate-500 inline-block"></span>Buildings / Rooftops</span>
+              </div>
+              <span class="text-slate-400">Click any mech on map to inspect its Belief State</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Telemetry & Agent Swarm Inspector -->
+        <div class="lg:col-span-4 space-y-3.5">
+          <!-- Inspected Mech Status Card -->
+          <div class="glass border border-line rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <div class="text-[10px] font-mono uppercase text-sky-400 font-bold">World-Model Inspector</div>
+                <h3 id="insp-name" class="text-sm sm:text-base font-extrabold text-white">Slot 0 — SwarmArbiter</h3>
+              </div>
+              <span id="insp-status-badge" class="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">ALIVE</span>
+            </div>
+
+            <!-- HP & Energy Bars -->
+            <div class="space-y-2 text-xs font-mono">
+              <div>
+                <div class="flex justify-between mb-1"><span class="text-slate-400">HP (+4%/cube)</span><span id="insp-hp-txt" class="text-emerald-300 font-bold">1400 / 1400</span></div>
+                <div class="w-full h-2 rounded-full bg-void overflow-hidden border border-line">
+                  <div id="insp-hp-bar" class="h-full bg-emerald-400 transition-all duration-100" style="width: 100%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span class="text-slate-400">ENERGY (Boost / Jet / Arc)</span><span id="insp-en-txt" class="text-sky-300 font-bold">100 / 100</span></div>
+                <div class="w-full h-2 rounded-full bg-void overflow-hidden border border-line">
+                  <div id="insp-en-bar" class="h-full bg-sky-400 transition-all duration-100" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tactical Stats Grid -->
+            <div class="grid grid-cols-3 gap-2 text-center font-mono text-[11px]">
+              <div class="p-2 rounded-xl bg-void border border-line">
+                <div class="text-slate-400 text-[10px]">CUBES</div>
+                <div id="insp-cubes" class="text-amber-300 font-extrabold text-sm">0</div>
+              </div>
+              <div class="p-2 rounded-xl bg-void border border-line">
+                <div class="text-slate-400 text-[10px]">KILLS</div>
+                <div id="insp-kills" class="text-rose-300 font-extrabold text-sm">0</div>
+              </div>
+              <div class="p-2 rounded-xl bg-void border border-line">
+                <div class="text-slate-400 text-[10px]">ALT (Z)</div>
+                <div id="insp-z" class="text-sky-300 font-extrabold text-sm">0.0m</div>
+              </div>
+            </div>
+
+            <!-- Loadout & Active Intent -->
+            <div class="p-2.5 rounded-xl bg-void border border-line text-xs space-y-1.5 font-mono">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Weapons:</span>
+                <span id="insp-weapons" class="text-white font-bold">[gun, empty]</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Upgrades:</span>
+                <span id="insp-upgrades" class="text-emerald-300 truncate max-w-[180px]">none</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Active Intent:</span>
+                <span id="insp-intent" class="text-amber-300 font-bold">INITIALIZING</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7-Agent Swarm Utility Arbiter Telemetry -->
+          <div class="glass border border-line rounded-2xl p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">7-Agent Utility Arbitration</h3>
+              <span id="insp-belief-count" class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/15 text-sky-300">0 Beliefs</span>
+            </div>
+            <div id="agent-bars-container" class="space-y-1.5 text-[11px] font-mono">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Live Combat & Protocol Event Feed -->
+          <div class="glass border border-line rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Match Event &amp; Kill Feed</h3>
+              <span class="text-[10px] font-mono text-slate-500">Laser&gt;Mortar&gt;Light&gt;Laser</span>
+            </div>
+            <div id="live-event-log" class="h-36 overflow-y-auto space-y-1 font-mono text-[11px] pr-1">
+              <div class="text-slate-500">Press ▶ Play Match to start lockstep simulation...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact Live Roster Table (All 16 Mechs) -->
+      <div class="glass border border-line rounded-2xl p-4 overflow-x-auto">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">16-Mech Live Standings (Click any row to inspect)</h3>
+          <span class="text-[11px] text-slate-400">Rear Armor = &times;1.5 dmg &bull; Cook-off = +60% Laser vs Mortar &bull; Short = Lightning cancels Laser</span>
+        </div>
+        <div id="live-roster-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 text-[11px] font-mono">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: MULTI-MATCH TOURNAMENT & PRACTICE GAUNTLET RUNNER            -->
+    <!-- =================================================================== -->
+    <section id="tab-tournament" class="tab-panel hidden space-y-5">
+      <div class="glass border border-line rounded-2xl p-5 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-lg sm:text-xl font-black text-white">Headless Multi-Match Benchmark &amp; Tactical Evaluation</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+              Run rapid deterministic batches using the official scoring formula <code class="text-amber-300 font-bold">mean(16 &minus; place)</code>. Compare all 7 tactics in <strong>16-Way Free-For-All (Final Series)</strong> or test every bot individually against the <strong>48-Match 1v15 Coordinated House Squad Practice Gauntlet</strong>.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <select id="bench-mode" class="bg-void border border-line rounded-xl px-3 py-2 text-xs font-semibold text-sky-300">
+              <option value="ffa">16-Way FFA Tournament (All Archetypes)</option>
+              <option value="practice_all">1v15 House Squad Gauntlet (Test All 7 Bots)</option>
+            </select>
+            <select id="bench-matches" class="bg-void border border-line rounded-xl px-3 py-2 text-xs font-semibold text-amber-300">
+              <option value="16">16 Matches (Qualifying Round)</option>
+              <option value="32" selected>32 Matches (Fast Benchmark)</option>
+              <option value="48">48 Matches (Official Practice Run)</option>
+              <option value="64">64 Matches (Official Final Series)</option>
+            </select>
+            <button id="btn-run-bench" onclick="runTournamentBenchmark()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-void font-black text-xs shadow-lg shadow-sky-500/20">
+              ⚡ Run Headless Benchmark
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span id="bench-status" class="text-slate-300">Ready — click "Run Headless Benchmark" to evaluate tactics across randomized OSU seeds.</span>
+            <span id="bench-progress-txt" class="text-amber-300 font-bold">0%</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-void border border-line overflow-hidden">
+            <div id="bench-progress-bar" class="h-full bg-gradient-to-r from-sky-400 via-emerald-400 to-amber-400 transition-all duration-150" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard & Visual Bar Comparison -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Left 8 Cols: Official Scoring Table -->
+        <div class="lg:col-span-8 glass border border-line rounded-2xl p-5 overflow-x-auto">
+          <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+            <h3 class="text-sm font-bold text-white">Tactical Benchmark Leaderboard</h3>
+            <span class="text-[11px] font-mono text-slate-400">Placement Points (0–15) &bull; Higher is Better</span>
+          </div>
+          <table class="w-full text-left border-collapse min-w-[640px] text-xs font-mono">
+            <thead>
+              <tr class="border-b border-line text-[10px] uppercase text-slate-400">
+                <th class="py-2 pr-3">Rank</th>
+                <th class="py-2 pr-3">Bot Archetype</th>
+                <th class="py-2 pr-3 text-right">Score (16&minus;Place)</th>
+                <th class="py-2 pr-3 text-right">Avg Place</th>
+                <th class="py-2 pr-3 text-right">Win %</th>
+                <th class="py-2 pr-3 text-right">Top-4 %</th>
+                <th class="py-2 pr-3 text-right">Avg Kills</th>
+                <th class="py-2 pr-3 text-right">Avg Cubes</th>
+                <th class="py-2 text-right">Avg ms/Tick</th>
+              </tr>
+            </thead>
+            <tbody id="bench-leaderboard-body" class="divide-y divide-line/60">
+              <tr>
+                <td colspan="9" class="py-8 text-center text-slate-500">Run a benchmark above to populate multi-match statistics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Right 4 Cols: Strategic Takeaways & Distribution -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass border border-line rounded-2xl p-5 space-y-3">
+            <h3 class="text-sm font-bold text-white">Score Distribution (Placement Points)</h3>
+            <div id="bench-bars-chart" class="space-y-2.5 text-xs font-mono">
+              <p class="text-slate-500">Visual score comparison appears here after simulation.</p>
+            </div>
+          </div>
+
+          <div class="glass border border-line rounded-2xl p-5 space-y-2.5">
+            <h3 class="text-sm font-bold text-amber-300">Automated Strategy &amp; Ablation Insights</h3>
+            <div id="bench-insights" class="text-xs text-slate-300 leading-relaxed space-y-2">
+              <p>Run either the <strong>16-Way FFA</strong> or <strong>1v15 House Squad Gauntlet</strong> to verify the Dossier's core thesis: survival-first utility arbitration with early zone rotation and rear-armor discipline beats raw kill chasing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: SWARM ARBITER LAB & ABLATION TUNER                           -->
+    <!-- =================================================================== -->
+    <section id="tab-tuner" class="tab-panel hidden space-y-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Left 7 Cols: Interactive 7-Agent Weight Sliders & Feature Switches -->
+        <div class="lg:col-span-7 glass border border-line rounded-2xl p-5 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-black text-white">CustomTuned Bot — 7-Agent Utility &amp; Ablation Lab</h2>
+              <p class="text-xs text-slate-400">Tune weights &amp; toggle protocol modules, then test <strong>CustomTuned</strong> live in Tab 1 or head-to-head in Tab 2.</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="applyPresetWeights('balanced')" class="px-2.5 py-1.5 rounded-xl bg-sky-500/15 border border-sky-500/35 text-sky-300 text-xs font-bold">Dossier Default</button>
+              <button onclick="applyPresetWeights('practice_kite')" class="px-2.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/35 text-amber-300 text-xs font-bold">1v15 Anti-Squad</button>
+              <button onclick="applyPresetWeights('endgame_hunter')" class="px-2.5 py-1.5 rounded-xl bg-rose-500/15 border border-rose-500/35 text-rose-300 text-xs font-bold">Endgame Predator</button>
+            </div>
+          </div>
+
+          <!-- Sliders Grid -->
+          <div id="tuner-sliders" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Protocol Exploitation Ablation Toggles -->
+          <div class="pt-3 border-t border-line space-y-2.5">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">Protocol Ablation Switches (Toggle ON/OFF to Measure Impact)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-sound" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Sound Bearing Fusion</div>
+                  <div class="text-[11px] text-slate-400">Updates threat heatmap &amp; faces incoming sound spikes.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-rear" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Rear-Armor Facing Discipline</div>
+                  <div class="text-[11px] text-slate-400">Snaps torso toward damage bearing to block &times;1.5 rear mult.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-triangle" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Weapon Triangle Counter-Pick</div>
+                  <div class="text-[11px] text-slate-400">Laser&gt;Mortar (+60% cookoff), Mortar&gt;Lightning, Lightning&gt;Laser.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-stealth" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Silent Walk (&lt;5 m/s) Near Threats</div>
+                  <div class="text-[11px] text-slate-400">Caps move vector length to avoid emitting 40m step audio.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-earlyzone" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Next-Circle Early Forecasting</div>
+                  <div class="text-[11px] text-slate-400">Pre-rotates to <code>next_center</code> before shrink begins.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-xl bg-void border border-line cursor-pointer">
+                <input id="ab-laserdodge" type="checkbox" checked onchange="syncCustomConfig()" class="mt-0.5 accent-sky-400" />
+                <div>
+                  <div class="font-bold text-white">Charging-Laser Strafe Dodge</div>
+                  <div class="text-[11px] text-slate-400">Boost-strafes perpendicular when visible enemy has <code>charging: true</code>.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5 pt-2">
+            <button onclick="testCustomInArena()" class="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-void font-extrabold text-xs">
+              ▶ Watch CustomTuned Live in Arena
+            </button>
+            <button onclick="runAblationSuite()" id="btn-ablation" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-void font-extrabold text-xs">
+              🧪 Run 6-Factor Ablation Study (16 Matches Each)
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Ablation Results & Dossier Reference -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="glass border border-line rounded-2xl p-5 space-y-3">
+            <h3 class="text-sm font-bold text-white">Ablation Study Results (Delta vs Full SwarmArbiter)</h3>
+            <p class="text-xs text-slate-400">Measures exact placement point loss when disabling each protocol module one at a time across identical seeds.</p>
+            <div id="ablation-results" class="space-y-2 text-xs font-mono">
+              <div class="p-4 rounded-xl bg-void border border-line text-slate-500 text-center">
+                Click "Run 6-Factor Ablation Study" to quantify each module's contribution.
+              </div>
+            </div>
+          </div>
+
+          <div class="glass border border-line rounded-2xl p-5 space-y-2.5 text-xs">
+            <h3 class="text-sm font-bold text-sky-300">Protocol Exploitation Cheat Sheet (mechfight/1)</h3>
+            <ul class="space-y-1.5 text-slate-300 list-disc pl-4 leading-relaxed">
+              <li><strong>50ms Wall-Time Margin:</strong> Keep median decision latency under <code>8ms</code> (1 CPU, 512MB RAM, no swap). Never run heavy neural/LLM loops per tick.</li>
+              <li><strong>Trees Don't Block Shots:</strong> Fire blind into foliage along recent sound bearings or 5-second memory tracks!</li>
+              <li><strong>1v15 Practice vs 16-Way FFA:</strong> House bots share vision &amp; hunt weakest-first without fighting each other. Don't overfit exclusively to passive camping—Practice rewards kiting &amp; thinning weak Easy bots, while Finals reward third-partying and late-zone survival.</li>
+              <li><strong>Cube Size Tradeoff:</strong> Stats cap at <code>10 cubes</code> (+40% HP &amp; Dmg), but hitbox radius grows +5% per cube <em>uncapped</em>. Avoid risky cube grabs past 10 cubes!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: EXPORT PRODUCTION PYTHON BOT + DOCKERFILE                    -->
+    <!-- =================================================================== -->
+    <section id="tab-export" class="tab-panel hidden space-y-5">
+      <div class="glass border border-line rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-black text-white">Production <code class="text-sky-400">mechfight/1</code> Python Bot &amp; Sandbox Dockerfile</h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Automatically injects your tuned <strong>CustomTuned</strong> Swarm Arbiter weights &amp; ablation flags from Tab 3. Pure Python 3.13 stdlib (&lt; 2ms/tick), unprivileged <code>uid 65534</code> &amp; read-only disk compliant, ready for <code>check/check.py</code>.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="copyExportCode('bot')" class="px-3.5 py-2 rounded-xl bg-card hover:bg-slate-800 border border-line text-xs font-bold text-white">Copy bot.py</button>
+          <button onclick="downloadFile('swarm_bot.py', buildPythonBotCode(), 'text/x-python')" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-void font-extrabold text-xs">⬇ Download swarm_bot.py</button>
+          <button onclick="downloadFile('Dockerfile', buildDockerfileCode(), 'text/plain')" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-void font-extrabold text-xs">⬇ Download Dockerfile</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-8 glass border border-line rounded-2xl p-4 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-sky-300 font-bold">swarm_bot.py (Zero External Dependencies • Lockstep Stdin/Stdout)</span>
+            <span class="text-slate-400">Synced with Tab 3 Weights</span>
+          </div>
+          <pre id="export-bot-code" class="bg-void border border-line rounded-xl p-4 text-[11px] font-mono text-slate-200 overflow-x-auto max-h-[540px] leading-relaxed"></pre>
+        </div>
+
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass border border-line rounded-2xl p-4 space-y-2">
+            <div class="text-xs font-mono text-amber-300 font-bold">Dockerfile (linux/amd64 • uid 65534 Safe)</div>
+            <pre id="export-docker-code" class="bg-void border border-line rounded-xl p-3.5 text-[11px] font-mono text-slate-200 overflow-x-auto leading-relaxed"></pre>
+          </div>
+
+          <div class="glass border border-line rounded-2xl p-4 space-y-2.5 text-xs">
+            <div class="font-bold text-emerald-300 font-mono">Conformance Verification Command</div>
+            <pre class="bg-void border border-line rounded-xl p-3 text-[10.5px] font-mono text-slate-300 overflow-x-auto leading-relaxed">docker build -t mech-swarm .
+python3 check/check.py --map-dir /arena -- \
+  docker run --rm -i --network none \
+  --cpus 1 --memory 512m --read-only \
+  --tmpfs /tmp:rw,size=64m \
+  --user 65534:65534 \
+  -v "$PWD/arena:/arena:ro" mech-swarm</pre>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Always flush stdout on every line, write logs only to <code>stderr</code>, and pin the Python base tag (<code>python:3.13.2-slim</code>) so the Finalist rebuild is deterministic.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. PROTOCOL CONSTANTS & OSU CAMPUS MAP GEOMETRY (mechfight/1 faithful)
+    // =========================================================================
+    const MAP_W = 800; // meters (-400..+400 east/west)
+    const MAP_H = 600; // meters (-300..+300 north/south)
+    const DT = 0.1;    // 10 decisions per match-second (2 sim ticks = 0.1s)
+    const MAX_MATCH_T = 390; // ~6.5 min match cap
+
+    // Weapons table matching protocol.md §7
+    const WEAPONS = {
+      gun:       { damage: 45,  cooldown: 0.24, speed: 252, range: 230, mag: 12, reload: 2.4, spread: 0.012 },
+      mortar:    { damage: 200, splash: 160, splashRadius: 14, cooldown: 1.8, speed: 72, gravity: 22, range: 235, knock: 16, energyDrain: 45 },
+      laser:     { damage: 315, minFrac: 0.35, chargeTime: 0.75, minCharge: 0.15, holdS: 2.0, cooldown: 1.65, range: 280, cookoffMult: 1.6 },
+      lightning: { damage: 60,  cooldown: 0.25, range: 45, coneRad: (30 * Math.PI) / 180, chain: 2, chainRange: 14, energyCost: 3, shortS: 2.0 }
+    };
+
+    const UPGRADE_THRESHOLDS = [1, 3, 6, 10, 15, 21];
+    const ZONE_PHASES = [
+      { holdEnd: 45,  shrinkEnd: 95,  r: 440, nextR: 300, dps: 20 },
+      { holdEnd: 120, shrinkEnd: 165, r: 300, nextR: 195, dps: 35 },
+      { holdEnd: 190, shrinkEnd: 230, r: 195, nextR: 115, dps: 60 },
+      { holdEnd: 250, shrinkEnd: 285, r: 115, nextR: 58,  dps: 100 },
+      { holdEnd: 300, shrinkEnd: 330, r: 58,  nextR: 18,  dps: 160 },
+      { holdEnd: 340, shrinkEnd: 375, r: 18,  nextR: 0,   dps: 260 }
+    ];
+
+    // Stylized Ohio State Campus buildings (Ohio Stadium, Thompson Library, Oval Halls, Bridges)
+    const BUILDINGS = [
+      // Ohio Stadium Horseshoe (NW quadrant)
+      { id: 'stadium_n', name: 'Ohio Stadium N', x: -310, y: -230, w: 150, h: 36, base: 0, top: 34, kind: 'stadium' },
+      { id: 'stadium_w', name: 'Ohio Stadium W', x: -310, y: -194, w: 38,  h: 118, base: 0, top: 34, kind: 'stadium' },
+      { id: 'stadium_e', name: 'Ohio Stadium E', x: -198, y: -194, w: 38,  h: 118, base: 0, top: 34, kind: 'stadium' },
+      // Thompson Library (West of The Oval)
+      { id: 'thompson',  name: 'Thompson Lib',   x: -115, y: -55,  w: 64,  h: 110, base: 0, top: 28, kind: 'building' },
+      // Academic Buildings Framing The Oval
+      { id: 'univ_hall', name: 'University Hall',x: -10,  y: -175, w: 96,  h: 44,  base: 0, top: 22, kind: 'building' },
+      { id: 'derby',     name: 'Derby Hall',     x: 130,  y: -165, w: 85,  h: 46,  base: 0, top: 20, kind: 'building' },
+      { id: 'wexner',    name: 'Wexner Ctr',     x: 245,  y: -95,  w: 68,  h: 92,  base: 0, top: 24, kind: 'building' },
+      { id: 'orton',     name: 'Orton Hall',     x: 120,  y: 115,  w: 84,  h: 48,  base: 0, top: 26, kind: 'building' },
+      { id: 'hagel',     name: 'Hagerty Hall',   x: 235,  y: 90,   w: 76,  h: 64,  base: 0, top: 20, kind: 'building' },
+      { id: 'pomerene',  name: 'Pomerene Hall',  x: -155, y: 125,  w: 82,  h: 46,  base: 0, top: 18, kind: 'building' },
+      { id: 'rpac',      name: 'RPAC Rec Ctr',   x: -315, y: 85,   w: 108, h: 78,  base: 0, top: 22, kind: 'building' },
+      // Walk-under Campus Skybridge (base: 11m > mech height 9m!)
+      { id: 'bridge_1',  name: 'Skybridge',      x: -51,  y: -12,  w: 62,  h: 22,  base: 11, top: 16, kind: 'bridge' }
+    ];
+
+    // Campus Trees (block vision through dense crowns, do NOT block shots!)
+    const TREES = [
+      { x: 40, y: -40, r: 22 }, { x: 85, y: -25, r: 24 }, { x: 145, y: -45, r: 20 },
+      { x: 55, y: 38, r: 22 },  { x: 112, y: 32, r: 25 }, { x: 170, y: 20, r: 21 },
+      { x: -18, y: 78, r: 20 }, { x: 35, y: 92, r: 19 },  { x: -75, y: 110, r: 22 },
+      { x: -210, y: 20, r: 23 },{ x: -140, y: -155, r: 21},{ x: 205, y: -10, r: 18 },
+      { x: 280, y: 20, r: 20 }, { x: -245, y: 195, r: 24 },{ x: 75, y: -115, r: 19 }
+    ];
+
+    // Archetype definitions
+    const ARCHETYPES = {
+      SwarmArbiter:    { label: 'SwarmArbiter',    color: '#38bdf8', desc: 'Dossier 7-Agent survival planner: early zone, threat heatmap, sound fusion, triangle counters, rear guard.' },
+      CustomTuned:     { label: 'CustomTuned',     color: '#22d3ee', desc: 'Your custom-weighted Swarm Arbiter & ablation config from Tab 3.' },
+      ZoneGhost:       { label: 'ZoneGhost',       color: '#10b981', desc: 'Stealth survivalist: silent walks (<5m/s), early next-zone cover, only fights in Top 3 or self-defense.' },
+      DropAmbusher:    { label: 'DropAmbusher',    color: '#f59e0b', desc: 'Supply-drop game-theorist: camps drop perimeters from cover, ambushes low-HP contestants.' },
+      KiteSniper:      { label: 'KiteSniper',      color: '#a78bfa', desc: 'Vertical artillery: jets onto rooftops, lobs Mortars over buildings & charges Laser sightlines.' },
+      TriangleBrawler: { label: 'TriangleBrawler', color: '#fb7185', desc: 'High-aggro duelist: farms NPCs & kills aggressively for 10 cubes (tests Kills vs Placement).' },
+      StarterBot:      { label: 'StarterBot',      color: '#94a3b8', desc: 'Simple baseline (~1.15 pts): runs at nearest seen target firing arm gun; naive zone return.' }
+    };
+
+    // Custom Tunable Config (Synced with Tab 3 & Tab 4 Export)
+    const CUSTOM_CONFIG = {
+      weights: {
+        survival: 1.45,
+        zone:     1.35,
+        threat:   1.30,
+        combat:   0.85,
+        weapon:   1.05,
+        loot:     0.95,
+        ambush:   1.10,
+        rooftop:  0.70
+      },
+      ablations: {
+        sound:      true,
+        rear:       true,
+        triangle:   true,
+        stealth:    true,
+        earlyzone:  true,
+        laserdodge: true
+      }
+    };
+
+    // =========================================================================
+    // 2. FAST DETERMINISTIC PRNG & GEOMETRY / LOS HELPERS
+    // =========================================================================
+    function createRng(seed) {
+      let s = (seed >>> 0) || 1;
+      return function () {
+        s = (s + 0x6D2B79F5) >>> 0;
+        let t = Math.imul(s ^ (s >>> 15), 1 | s);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+    function dist2(ax, ay, bx, by) { const dx = ax - bx, dy = ay - by; return dx * dx + dy * dy; }
+    function dist(ax, ay, bx, by) { return Math.hypot(ax - bx, ay - by); }
+    function wrapAngle(a) {
+      while (a > Math.PI) a -= Math.PI * 2;
+      while (a < -Math.PI) a += Math.PI * 2;
+      return a;
+    }
+
+    // Ray vs AABB 2D intersection for buildings
+    function segmentIntersectsRect(x1, y1, x2, y2, rx, ry, rw, rh) {
+      let t0 = 0, t1 = 1;
+      const dx = x2 - x1, dy = y2 - y1;
+      const checks = [
+        [-dx, x1 - rx], [dx, rx + rw - x1],
+        [-dy, y1 - ry], [dy, ry + rh - y1]
+      ];
+      for (let i = 0; i < 4; i++) {
+        const p = checks[i][0], q = checks[i][1];
+        if (Math.abs(p) < 1e-8) {
+          if (q < 0) return false;
+        } else {
+          const r = q / p;
+          if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
+          else { if (r < t0) return false; if (r < t1) t1 = r; }
+        }
+      }
+      return t0 <= t1;
+    }
+
+    // Line-of-sight check: buildings block shots & sight (unless observer & target are above roof); trees block sight only
+    function hasLineOfSight(ax, ay, az, bx, by, bz, checkTrees) {
+      const eyeA = az + 8;
+      const eyeB = bz + 4.5;
+      for (let i = 0; i < BUILDINGS.length; i++) {
+        const b = BUILDINGS[i];
+        if (b.kind === 'bridge' && eyeA < b.base && eyeB < b.base) continue; // shoot/see under bridges!
+        if (eyeA > b.top && eyeB > b.top) continue; // rooftop clear sightline
+        if (segmentIntersectsRect(ax, ay, bx, by, b.x, b.y, b.w, b.h)) return false;
+      }
+      if (checkTrees) {
+        let canopyHits = 0;
+        const d2 = dist2(ax, ay, bx, by);
+        if (d2 > 45 * 45) { // proximity 45m ignores canopy!
+          const len = Math.sqrt(d2);
+          const ux = (bx - ax) / len, uy = (by - ay) / len;
+          for (let i = 0; i < TREES.length; i++) {
+            const tr = TREES[i];
+            const proj = (tr.x - ax) * ux + (tr.y - ay) * uy;
+            if (proj <= 0 || proj >= len) continue;
+            const px = ax + ux * proj, py = ay + uy * proj;
+            if (dist2(px, py, tr.x, tr.y) < tr.r * tr.r) {
+              canopyHits++;
+              if (canopyHits >= 2) return false;
+            }
+          }
+        }
+      }
+      return true;
+    }
+
+    function buildingAtPoint(x, y) {
+      for (let i = 0; i < BUILDINGS.length; i++) {
+        const b = BUILDINGS[i];
+        if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return b;
+      }
+      return null;
+    }
+
+    function pointInSolidBuilding(x, y, z, pad = 2.5) {
+      for (let i = 0; i < BUILDINGS.length; i++) {
+        const b = BUILDINGS[i];
+        if (x + pad > b.x && x - pad < b.x + b.w && y + pad > b.y && y - pad < b.y + b.h) {
+          if (b.kind === 'bridge' && z + 9 <= b.base) continue;
+          if (z < b.top - 0.5) return b;
+        }
+      }
+      return null;
+    }
+
+    // =========================================================================
+    // 3. MECH ROYALE ENGINE (Full mechfight/1 Rules Simulation)
+    // =========================================================================
+    class MechRoyaleMatch {
+      constructor(seed, mode = 'ffa', heroArchetype = 'SwarmArbiter', customOverride = null) {
+        this.seed = seed;
+        this.rng = createRng(seed);
+        this.mode = mode; // 'ffa' or 'practice'
+        this.heroArchetype = heroArchetype;
+        this.customConfig = customOverride || CUSTOM_CONFIG;
+
+        this.tick = 0;
+        this.t = 0;
+        this.done = false;
+        this.eventsLog = [];
+        this.projectiles = [];
+        this.mortars = [];
+        this.beams = []; // { by, kind, ax, ay, bx, by, tEnd }
+        this.sounds = []; // recent sounds emitted this tick
+        this.crates = [];
+        this.cubes = [];
+        this.pickups = [];
+        this.npcs = [];
+        this.drops = [];
+        this.dropSchedule = [55, 125, 195];
+        this.nextId = 1000;
+
+        // Zone state
+        this.zonePhaseIdx = 0;
+        this.zone = this.initZone();
+
+        // House squad shared intelligence (Practice Mode)
+        this.houseSharedSpot = null;
+
+        this.mechs = [];
+        this.spawnWorld();
+      }
+
+      initZone() {
+        const c1x = (this.rng() - 0.5) * 140;
+        const c1y = (this.rng() - 0.5) * 110;
+        const p0 = ZONE_PHASES[0];
+        return {
+          cx: 0, cy: 0, r: p0.r,
+          startCx: 0, startCy: 0, startR: p0.r,
+          nextCx: c1x, nextCy: c1y, nextR: p0.nextR,
+          shrinkStart: p0.holdEnd, shrinkEnd: p0.shrinkEnd, dps: p0.dps
+        };
+      }
+
+      findOpenPoint(margin = 35, allowRoof = false) {
+        for (let tries = 0; tries < 80; tries++) {
+          const x = (this.rng() * 2 - 1) * (MAP_W / 2 - margin);
+          const y = (this.rng() * 2 - 1) * (MAP_H / 2 - margin);
+          const b = pointInSolidBuilding(x, y, 0, 5);
+          if (!b) return { x, y, z: 0 };
+          if (allowRoof && b.kind !== 'bridge') return { x, y, z: b.top };
+        }
+        return { x: 0, y: 0, z: 0 };
+      }
+
+      spawnWorld() {
+        // 1. Spawn 16 Mechs
+        const ffaPool = [
+          this.heroArchetype,
+          'SwarmArbiter', 'ZoneGhost', 'DropAmbusher', 'KiteSniper', 'TriangleBrawler', 'StarterBot',
+          'SwarmArbiter', 'ZoneGhost', 'DropAmbusher', 'KiteSniper', 'TriangleBrawler', 'StarterBot',
+          'DropAmbusher', 'KiteSniper', 'TriangleBrawler'
+        ];
+        const houseTiers = [
+          'Easy', 'Easy', 'Easy', 'Easy',
+          'Medium', 'Medium', 'Medium', 'Medium',
+          'Hard', 'Hard', 'Hard', 'Hard',
+          'Expert', 'Expert', 'Expert'
+        ];
+
+        for (let i = 0; i < 16; i++) {
+          const angle = (i / 16) * Math.PI * 2 + this.rng() * 0.25;
+          const rad = 215 + this.rng() * 115;
+          let sx = clamp(Math.cos(angle) * rad, -MAP_W / 2 + 25, MAP_W / 2 - 25);
+          let sy = clamp(Math.sin(angle) * rad, -MAP_H / 2 + 25, MAP_H / 2 - 25);
+          if (pointInSolidBuilding(sx, sy, 0, 4)) {
+            const p = this.findOpenPoint(40, false);
+            sx = p.x; sy = p.y;
+          }
+
+          let archetype = ffaPool[i];
+          let team = i; // FFA = individual
+          let houseTier = null;
+          if (this.mode === 'practice') {
+            if (i === 0) {
+              archetype = this.heroArchetype;
+              team = 0;
+            } else {
+              archetype = 'HouseBot';
+              houseTier = houseTiers[i - 1];
+              team = 1; // Shared squad!
+            }
+          }
+
+          const mech = {
+            id: i,
+            name: houseTier ? `House-${houseTier}-${i}` : `${archetype}-${i}`,
+            archetype,
+            houseTier,
+            team,
+            color: houseTier
+              ? (houseTier === 'Expert' ? '#ef4444' : houseTier === 'Hard' ? '#f97316' : houseTier === 'Medium' ? '#facc15' : '#94a3b8')
+              : (ARCHETYPES[archetype]?.color || '#38bdf8'),
+            x: sx, y: sy, z: 0,
+            vx: 0, vy: 0, vz: 0,
+            aimYaw: Math.atan2(-sy, -sx),
+            cmdAimYaw: Math.atan2(-sy, -sx),
+            grounded: true,
+            hp: 1400, maxHp: 1400,
+            energy: 100, maxEnergy: 100,
+            lastSpendT: -10, lastCombatT: -10,
+            cubes: 0, kills: 0, dmgDealt: 0, dmgTaken: 0, rearHitsTaken: 0,
+            alive: true, place: 1, deathTick: null,
+            upgrades: [],
+            armorMult: 1.0,
+            gunRateMult: 1.0,
+            sensorBonus: 0,
+            speedMult: 1.0,
+            weapons: [
+              { kind: 'gun', cooldown: 0, ammo: 12, reload: 0, charge: 0, equipLock: 0 },
+              null
+            ],
+            shortUntil: 0,
+            stepSoundTimer: 0,
+            lastEvents: [],
+            // Bot internal world-model memory & telemetry
+            brain: new BotBrain(i, archetype, houseTier, this.customConfig),
+            lastIntent: 'SPAWN',
+            lastUtilities: {},
+            lastDecisionMs: 0,
+            totalDecisionMs: 0,
+            decisionCount: 0
+          };
+          this.mechs.push(mech);
+        }
+
+        // 2. Spawn 24 Crates (quarter on rooftops)
+        for (let i = 0; i < 24; i++) {
+          const p = this.findOpenPoint(35, i % 4 === 0);
+          this.crates.push({ id: this.nextId++, x: p.x, y: p.y, z: p.z, hp: 300 });
+        }
+
+        // 3. Spawn 30 Ground/Roof Weapon Pickups (mortar, laser, lightning 1:1:1)
+        const kinds = ['mortar', 'laser', 'lightning'];
+        for (let i = 0; i < 30; i++) {
+          const p = this.findOpenPoint(35, i % 4 === 0);
+          this.pickups.push({ id: this.nextId++, kind: kinds[i % 3], x: p.x, y: p.y, z: p.z });
+        }
+
+        // 4. Spawn 10 NPC Drones (350 HP, drop 2 cubes)
+        for (let i = 0; i < 10; i++) {
+          const p = this.findOpenPoint(55, false);
+          this.npcs.push({
+            id: 100 + i, homeX: p.x, homeY: p.y, x: p.x, y: p.y, z: 0,
+            hp: 350, maxHp: 350, cooldown: 0, targetId: null
+          });
+        }
+      }
+
+      logEvent(text, tone = 'slate') {
+        this.eventsLog.unshift({ t: this.t.toFixed(1), text, tone });
+        if (this.eventsLog.length > 60) this.eventsLog.pop();
+      }
+
+      updateZone() {
+        const z = this.zone;
+        if (this.t >= z.shrinkStart && this.t <= z.shrinkEnd) {
+          const frac = (this.t - z.shrinkStart) / Math.max(0.01, z.shrinkEnd - z.shrinkStart);
+          z.cx = z.startCx + (z.nextCx - z.startCx) * frac;
+          z.cy = z.startCy + (z.nextCy - z.startCy) * frac;
+          z.r = z.startR + (z.nextR - z.startR) * frac;
+        } else if (this.t > z.shrinkEnd && this.zonePhaseIdx < ZONE_PHASES.length - 1) {
+          z.cx = z.nextCx; z.cy = z.nextCy; z.r = z.nextR;
+          this.zonePhaseIdx++;
+          const np = ZONE_PHASES[this.zonePhaseIdx];
+          z.startCx = z.cx; z.startCy = z.cy; z.startR = z.r;
+          // Next circle strictly inside current circle
+          const maxShift = Math.max(0, z.r - np.nextR - 8);
+          const ang = this.rng() * Math.PI * 2;
+          const shift = this.rng() * maxShift * 0.65;
+          z.nextCx = clamp(z.cx + Math.cos(ang) * shift, -MAP_W / 2 + 50, MAP_W / 2 - 50);
+          z.nextCy = clamp(z.cy + Math.sin(ang) * shift, -MAP_H / 2 + 50, MAP_H / 2 - 50);
+          z.nextR = np.nextR;
+          z.shrinkStart = np.holdEnd;
+          z.shrinkEnd = np.shrinkEnd;
+          z.dps = np.dps;
+        }
+      }
+
+      updateSupplyDrops() {
+        // Call scheduled drops
+        while (this.dropSchedule.length > 0 && this.t >= this.dropSchedule[0]) {
+          this.dropSchedule.shift();
+          const ang = this.rng() * Math.PI * 2;
+          const rad = this.rng() * Math.max(20, this.zone.nextR * 0.65);
+          let dx = clamp(this.zone.nextCx + Math.cos(ang) * rad, -MAP_W / 2 + 40, MAP_W / 2 - 40);
+          let dy = clamp(this.zone.nextCy + Math.sin(ang) * rad, -MAP_H / 2 + 40, MAP_H / 2 - 40);
+          if (pointInSolidBuilding(dx, dy, 0, 10)) {
+            const p = this.findOpenPoint(60, false);
+            dx = p.x; dy = p.y;
+          }
+          this.drops.push({
+            id: 20000 + this.nextId++, x: dx, y: dy, radius: 10,
+            landsIn: 20, captureS: 4.0, progress: 0, holder: null
+          });
+          this.logEvent(`Supply Drop inbound at (${Math.round(dx)}, ${Math.round(dy)})`, 'amber');
+        }
+
+        // Update active drops
+        for (let i = this.drops.length - 1; i >= 0; i--) {
+          const d = this.drops[i];
+          if (d.landsIn > 0) {
+            d.landsIn = Math.max(0, d.landsIn - DT);
+            if (d.landsIn === 0) {
+              this.emitSound('drop', d.x, d.y, -1, 600);
+            }
+            continue;
+          }
+          const inside = [];
+          for (const m of this.mechs) {
+            if (!m.alive || m.z > 4) continue;
+            if (dist2(m.x, m.y, d.x, d.y) <= d.radius * d.radius) inside.push(m);
+          }
+          if (inside.length === 1) {
+            const cap = inside[0];
+            if (d.holder === cap.id) {
+              d.progress += DT;
+            } else {
+              d.holder = cap.id;
+              d.progress = DT;
+            }
+            if (d.progress >= d.captureS) {
+              this.giveCubes(cap, 3);
+              cap.hp = cap.maxHp;
+              cap.energy = cap.maxEnergy;
+              this.logEvent(`${cap.name} captured Supply Drop (+3 cubes, full HP)`, 'emerald');
+              this.drops.splice(i, 1);
+            }
+          } else if (inside.length === 0) {
+            d.holder = null;
+            d.progress = 0;
+          }
+          // if >= 2 inside, capture clock freezes (protocol.md §7)
+        }
+      }
+
+      emitSound(kind, x, y, sourceId, range) {
+        this.sounds.push({ kind, x, y, sourceId, range });
+      }
+
+      giveCubes(mech, count) {
+        for (let c = 0; c < count; c++) {
+          mech.cubes++;
+          if (mech.cubes <= 10) {
+            const oldMax = mech.maxHp;
+            mech.maxHp = Math.round(1400 * (1 + 0.04 * mech.cubes));
+            mech.hp = Math.min(mech.maxHp, mech.hp + (mech.maxHp - oldMax));
+          }
+          if (UPGRADE_THRESHOLDS.includes(mech.cubes)) {
+            this.applySmartUpgrade(mech);
+          }
+        }
+      }
+
+      applySmartUpgrade(mech) {
+        // Survival-first archetypes prioritize armor & sensors; brawlers prioritize rate
+        const isSurvival = mech.archetype === 'SwarmArbiter' || mech.archetype === 'CustomTuned' || mech.archetype === 'ZoneGhost';
+        if (isSurvival && mech.armorMult > 0.78) {
+          mech.armorMult *= 0.92;
+          mech.upgrades.push('armor');
+        } else if (isSurvival && mech.sensorBonus < 30) {
+          mech.sensorBonus += 20;
+          mech.upgrades.push('sensors');
+        } else if (mech.speedMult < 1.24) {
+          mech.speedMult *= 1.10;
+          mech.upgrades.push('thrusters');
+        } else {
+          mech.gunRateMult *= 1.15;
+          mech.upgrades.push('gun_rate');
+        }
+      }
+
+      cubeDmgMult(mech) {
+        return 1 + 0.04 * Math.min(mech.cubes, 10);
+      }
+
+      applyDamage(victim, amount, weapon, attacker, originX, originY, effectTag = null) {
+        if (!victim.alive) return;
+        let dmg = amount;
+        let isRear = false;
+
+        if (weapon !== 'zone') {
+          dmg *= victim.armorMult;
+          const incomingYaw = Math.atan2(originY - victim.y, originX - victim.x);
+          const diff = Math.abs(wrapAngle(incomingYaw - victim.aimYaw));
+          if (diff > Math.PI / 2) {
+            dmg *= 1.5; // Rear armor ×1.5 multiplier!
+            isRear = true;
+            victim.rearHitsTaken++;
+          }
+        }
+
+        victim.hp -= dmg;
+        victim.dmgTaken += dmg;
+        victim.lastCombatT = this.t;
+        if (attacker) {
+          attacker.dmgDealt += dmg;
+          attacker.lastCombatT = this.t;
+        }
+
+        const bearing = weapon === 'zone' ? null : Math.atan2(originY - victim.y, originX - victim.x);
+        victim.lastEvents.push({
+          type: 'damaged', amount: dmg, weapon, bearing,
+          by: attacker ? attacker.id : null, rear: isRear, effect: effectTag
+        });
+
+        if (victim.hp <= 0) {
+          victim.hp = 0;
+          victim.alive = false;
+          victim.deathTick = this.tick;
+          if (attacker) {
+            attacker.kills++;
+            this.logEvent(`${attacker.name} eliminated ${victim.name} (${weapon}${isRear ? ' REAR' : ''})`, attacker.id === 0 ? 'sky' : 'rose');
+          } else {
+            this.logEvent(`${victim.name} fell to the ${weapon}`, 'amber');
+          }
+          // Drop all cubes + 2
+          const dropCubes = victim.cubes + 2;
+          for (let k = 0; k < Math.min(dropCubes, 6); k++) {
+            const ang = this.rng() * Math.PI * 2;
+            this.cubes.push({ id: this.nextId++, x: victim.x + Math.cos(ang) * 4, y: victim.y + Math.sin(ang) * 4, z: victim.z, val: k === 0 ? Math.max(1, dropCubes - 5) : 1 });
+          }
+          // Drop non-gun weapons
+          for (const w of victim.weapons) {
+            if (w && w.kind !== 'gun') {
+              this.pickups.push({ id: this.nextId++, kind: w.kind, x: victim.x + (this.rng() - 0.5) * 6, y: victim.y + (this.rng() - 0.5) * 6, z: victim.z });
+            }
+          }
+          this.emitSound('death', victim.x, victim.y, victim.id, 600);
+        }
+      }
+
+      buildObsFor(mech, aliveCount) {
+        const proxR = 45 + mech.sensorBonus;
+        const visR = 200 + mech.sensorBonus;
+        const halfFov = (60 * Math.PI) / 180; // 120° wedge
+
+        const visibleMechs = [];
+        for (const other of this.mechs) {
+          if (!other.alive || other.id === mech.id) continue;
+          const d = dist(mech.x, mech.y, other.x, other.y);
+          let seen = false;
+          if (d <= proxR && hasLineOfSight(mech.x, mech.y, mech.z, other.x, other.y, other.z, false)) {
+            seen = true;
+          } else if (d <= visR) {
+            const ang = Math.atan2(other.y - mech.y, other.x - mech.x);
+            if (Math.abs(wrapAngle(ang - mech.aimYaw)) <= halfFov &&
+                hasLineOfSight(mech.x, mech.y, mech.z, other.x, other.y, other.z, true)) {
+              seen = true;
+            }
+          }
+          // 5s memory tracking (protocol.md §8)
+          if (seen) {
+            mech.brain.lastSeenTick[other.id] = this.t;
+          } else if (mech.brain.lastSeenTick[other.id] !== undefined && (this.t - mech.brain.lastSeenTick[other.id]) <= 5.0) {
+            seen = true;
+          }
+
+          if (seen) {
+            visibleMechs.push({
+              id: other.id, team: other.team, x: other.x, y: other.y, z: other.z,
+              vx: other.vx, vy: other.vy, aimYaw: other.aimYaw,
+              hp: other.hp, maxHp: other.maxHp, cubes: other.cubes,
+              weapons: other.weapons.filter(Boolean).map(w => w.kind),
+              charging: other.weapons.some(w => w && w.kind === 'laser' && w.charge > 0)
+            });
+            // House bots share vision of player (Slot 0)
+            if (this.mode === 'practice' && mech.team === 1 && other.id === 0) {
+              this.houseSharedSpot = { x: other.x, y: other.y, z: other.z, t: this.t };
+            }
+          }
+        }
+
+        // Visible NPCs, crates, cubes, pickups
+        const visNpcs = this.npcs.filter(n => dist(mech.x, mech.y, n.x, n.y) <= visR && hasLineOfSight(mech.x, mech.y, mech.z, n.x, n.y, n.z, true));
+        const visCrates = this.crates.filter(c => dist(mech.x, mech.y, c.x, c.y) <= 130);
+        const visCubes = this.cubes.filter(c => dist(mech.x, mech.y, c.x, c.y) <= 120);
+        const visPickups = this.pickups.filter(p => dist(mech.x, mech.y, p.x, p.y) <= 140);
+
+        // Sounds heard this tick with Gaussian bearing noise (~7 deg)
+        const noiseRad = mech.sensorBonus > 0 ? 0.06 : 0.12;
+        const heardSounds = [];
+        for (const s of this.sounds) {
+          if (s.sourceId === mech.id) continue;
+          const d = dist(mech.x, mech.y, s.x, s.y);
+          if (d <= s.range) {
+            const bearing = wrapAngle(Math.atan2(s.y - mech.y, s.x - mech.x) + (this.rng() - 0.5) * 2 * noiseRad);
+            heardSounds.push({
+              kind: s.kind, bearing,
+              distBand: d < 60 ? 'near' : (d < 160 ? 'mid' : 'far')
+            });
+          }
+        }
+
+        const inZone = dist(mech.x, mech.y, this.zone.cx, this.zone.cy) <= this.zone.r;
+        return {
+          tick: this.tick, t: this.t, alive: aliveCount,
+          mode: this.mode,
+          self: mech,
+          inZone,
+          mechs: visibleMechs,
+          npcs: visNpcs,
+          crates: visCrates,
+          cubes: visCubes,
+          pickups: visPickups,
+          sounds: heardSounds,
+          events: mech.lastEvents,
+          drops: this.drops,
+          zone: this.zone,
+          houseSharedSpot: this.mode === 'practice' && mech.team === 1 ? this.houseSharedSpot : null,
+          houseAliveEnemies: this.mode === 'practice' ? this.mechs.filter(m => m.team === 1 && m.alive) : []
+        };
+      }
+
+      step() {
+        if (this.done) return;
+        this.tick += 2;
+        this.t = +(this.t + DT).toFixed(2);
+        this.updateZone();
+        this.updateSupplyDrops();
+
+        const aliveMechs = this.mechs.filter(m => m.alive);
+        const aliveCount = aliveMechs.length;
+
+        // End conditions
+        if (aliveCount <= 1 || this.t >= MAX_MATCH_T || (this.mode === 'practice' && !this.mechs[0].alive)) {
+          this.finalizePlacements();
+          this.done = true;
+          return;
+        }
+
+        // 1. Collect actions from all alive bots
+        const actions = new Map();
+        for (const m of aliveMechs) {
+          const obs = this.buildObsFor(m, aliveCount);
+          const t0 = performance.now();
+          const act = m.brain.decide(obs, this.rng);
+          const dtMs = performance.now() - t0;
+          m.lastDecisionMs = dtMs;
+          m.totalDecisionMs += dtMs;
+          m.decisionCount++;
+          m.lastEvents = [];
+          actions.set(m.id, act);
+        }
+        this.sounds = []; // clear sounds for next tick emissions
+
+        // 2. Apply movement, torso aim slew, pickups, and weapons
+        for (const m of aliveMechs) {
+          const act = actions.get(m.id);
+          if (!act) continue;
+
+          // Slew torso aim (turn_rate = 4.0 rad/s)
+          const desiredYaw = act.aimYaw !== undefined ? act.aimYaw : m.aimYaw;
+          const diffYaw = wrapAngle(desiredYaw - m.aimYaw);
+          const maxTurn = 4.0 * DT;
+          m.aimYaw = wrapAngle(m.aimYaw + clamp(diffYaw, -maxTurn, maxTurn));
+
+          // Laser charging slows movement by 50%
+          const isCharging = m.weapons.some(w => w && w.kind === 'laser' && w.charge > 0);
+          const mx = act.move ? act.move[0] : 0;
+          const my = act.move ? act.move[1] : 0;
+          const mLen = Math.hypot(mx, my);
+          const normLen = Math.min(1, mLen);
+          const ux = mLen > 1e-4 ? mx / mLen : 0;
+          const uy = mLen > 1e-4 ? my / mLen : 0;
+
+          let speed = (11.7 * m.speedMult) * normLen;
+          if (act.boost && m.grounded && mLen > 0.1 && m.energy >= 2.5) {
+            speed = (19.5 * m.speedMult) * normLen;
+            m.energy = Math.max(0, m.energy - 18 * DT);
+            m.lastSpendT = this.t;
+            if (this.tick % 6 === 0) this.emitSound('boost', m.x, m.y, m.id, 90);
+          }
+          if (isCharging) speed *= 0.5;
+
+          // Jump & Jet onto rooftops
+          if (act.jump && m.grounded) {
+            m.vz = 15.5;
+            m.grounded = false;
+          }
+          if (act.boost && !m.grounded && m.energy >= 3) {
+            m.vz = Math.min(16, m.vz + 38 * DT);
+            m.energy = Math.max(0, m.energy - 22 * DT);
+            m.lastSpendT = this.t;
+            if (this.tick % 6 === 0) this.emitSound('jet', m.x, m.y, m.id, 90);
+          }
+
+          // Horizontal acceleration
+          const accel = m.grounded ? 58.5 : 14;
+          const targetVx = ux * speed, targetVy = uy * speed;
+          m.vx += clamp(targetVx - m.vx, -accel * DT, accel * DT);
+          m.vy += clamp(targetVy - m.vy, -accel * DT, accel * DT);
+
+          // Try horizontal move with wall sliding
+          const nx = clamp(m.x + m.vx * DT, -MAP_W / 2 + 6, MAP_W / 2 - 6);
+          const ny = clamp(m.y + m.vy * DT, -MAP_H / 2 + 6, MAP_H / 2 - 6);
+          if (!pointInSolidBuilding(nx, m.y, m.z, 2.5)) m.x = nx; else m.vx = 0;
+          if (!pointInSolidBuilding(m.x, ny, m.z, 2.5)) m.y = ny; else m.vy = 0;
+
+          // Vertical gravity & rooftop landing
+          const bUnder = buildingAtPoint(m.x, m.y);
+          const floorZ = (bUnder && bUnder.kind !== 'bridge' && m.z >= bUnder.top - 1.5) ? bUnder.top : 0;
+          if (!m.grounded || m.z > floorZ) {
+            m.vz -= 22 * DT;
+            m.z += m.vz * DT;
+            if (m.z <= floorZ) {
+              m.z = floorZ;
+              m.vz = 0;
+              m.grounded = true;
+            }
+          } else {
+            m.z = floorZ;
+            m.grounded = true;
+          }
+
+          // Step sound (> 5 m/s)
+          const horizSpd = Math.hypot(m.vx, m.vy);
+          if (m.grounded && horizSpd > 5.0) {
+            m.stepSoundTimer += DT;
+            if (m.stepSoundTimer >= 0.6) {
+              m.stepSoundTimer = 0;
+              this.emitSound('step', m.x, m.y, m.id, 40);
+            }
+          }
+
+          // Energy regen
+          if (this.t - m.lastSpendT >= 1.2) {
+            m.energy = Math.min(m.maxEnergy, m.energy + 20 * DT);
+          }
+
+          // Zone DPS or HP regen
+          const inZone = dist(m.x, m.y, this.zone.cx, this.zone.cy) <= this.zone.r;
+          if (!inZone) {
+            this.applyDamage(m, this.zone.dps * DT, 'zone', null, this.zone.cx, this.zone.cy);
+          } else if (this.t - m.lastCombatT >= 5.0 && m.hp < m.maxHp) {
+            m.hp = Math.min(m.maxHp, m.hp + 45 * DT);
+          }
+
+          if (!m.alive) continue;
+
+          // Auto-collect nearby cubes (radius 4.5m)
+          for (let ci = this.cubes.length - 1; ci >= 0; ci--) {
+            const c = this.cubes[ci];
+            if (dist2(m.x, m.y, c.x, c.y) <= 24 && Math.abs(m.z - c.z) <= 5) {
+              this.giveCubes(m, c.val || 1);
+              this.cubes.splice(ci, 1);
+            }
+          }
+
+          // Explicit weapon pickup
+          if (act.takeId) {
+            const pi = this.pickups.findIndex(p => p.id === act.takeId);
+            if (pi >= 0) {
+              const p = this.pickups[pi];
+              if (dist2(m.x, m.y, p.x, p.y) <= 36 && !m.weapons.some(w => w && w.kind === p.kind)) {
+                const slot = m.weapons[1] === null ? 1 : (act.dropSlot !== undefined ? act.dropSlot : 1);
+                const old = m.weapons[slot];
+                if (!old || old.kind !== 'laser' || old.charge === 0) {
+                  if (old && old.kind !== 'gun') {
+                    this.pickups.push({ id: this.nextId++, kind: old.kind, x: m.x, y: m.y, z: m.z });
+                  }
+                  m.weapons[slot] = { kind: p.kind, cooldown: 1.0, ammo: 12, reload: 0, charge: 0, equipLock: 1.0 };
+                  this.pickups.splice(pi, 1);
+                }
+              }
+            }
+          }
+
+          // Process weapons
+          for (let s = 0; s < 2; s++) {
+            const w = m.weapons[s];
+            if (!w) continue;
+            if (w.cooldown > 0) w.cooldown = Math.max(0, w.cooldown - DT);
+            if (w.reload > 0) {
+              w.reload = Math.max(0, w.reload - DT);
+              if (w.reload === 0) w.ammo = WEAPONS.gun.mag;
+            }
+            const wantFire = act.fire && act.fire[s];
+            this.handleWeaponFire(m, w, wantFire, act.mortarDist || 100);
+          }
+        }
+
+        // 3. Step projectiles, mortars, NPCs, beams
+        this.stepProjectiles();
+        this.stepMortars();
+        this.stepNpcs();
+        this.beams = this.beams.filter(b => b.tEnd > this.t);
+
+        // Separate overlapping mechs
+        for (let i = 0; i < aliveMechs.length; i++) {
+          for (let j = i + 1; j < aliveMechs.length; j++) {
+            const a = aliveMechs[i], b = aliveMechs[j];
+            if (!a.alive || !b.alive || Math.abs(a.z - b.z) > 6) continue;
+            const d = dist(a.x, a.y, b.x, b.y);
+            if (d > 0.01 && d < 6) {
+              const push = (6 - d) * 0.5;
+              const ux = (b.x - a.x) / d, uy = (b.y - a.y) / d;
+              a.x -= ux * push; a.y -= uy * push;
+              b.x += ux * push; b.y += uy * push;
+            }
+          }
+        }
+      }
+
+      handleWeaponFire(m, w, wantFire, mortarDist) {
+        const mult = this.cubeDmgMult(m);
+        if (w.kind === 'gun') {
+          if (wantFire && w.cooldown <= 0 && w.reload <= 0) {
+            if (w.ammo <= 0) { w.reload = WEAPONS.gun.reload; this.emitSound('reload', m.x, m.y, m.id, 60); return; }
+            w.ammo--;
+            w.cooldown = WEAPONS.gun.cooldown / m.gunRateMult;
+            const spread = (this.rng() - 0.5) * 2 * WEAPONS.gun.spread;
+            const yaw = m.aimYaw + spread;
+            this.projectiles.push({
+              ownerId: m.id, team: m.team, kind: 'gun',
+              x: m.x + Math.cos(yaw) * 3.5, y: m.y + Math.sin(yaw) * 3.5, z: m.z + 7,
+              vx: Math.cos(yaw) * WEAPONS.gun.speed, vy: Math.sin(yaw) * WEAPONS.gun.speed,
+              dmg: WEAPONS.gun.damage * mult, life: WEAPONS.gun.range / WEAPONS.gun.speed
+            });
+            this.emitSound('gun', m.x, m.y, m.id, 320);
+            if (w.ammo === 0) { w.reload = WEAPONS.gun.reload; this.emitSound('reload', m.x, m.y, m.id, 60); }
+          }
+        } else if (w.kind === 'lightning') {
+          if (wantFire && w.cooldown <= 0 && m.energy >= WEAPONS.lightning.energyCost) {
+            w.cooldown = WEAPONS.lightning.cooldown;
+            m.energy -= WEAPONS.lightning.energyCost;
+            m.lastSpendT = this.t;
+            this.emitSound('lightning', m.x, m.y, m.id, 160);
+
+            // Find nearest target within 45m & 30° cone with LOS
+            let best = null, bestD = WEAPONS.lightning.range;
+            const candidates = [...this.mechs.filter(o => o.alive && o.id !== m.id && o.team !== m.team), ...this.npcs, ...this.crates];
+            for (const c of candidates) {
+              const d = dist(m.x, m.y, c.x, c.y);
+              if (d > bestD) continue;
+              const ang = Math.atan2(c.y - m.y, c.x - m.x);
+              if (Math.abs(wrapAngle(ang - m.aimYaw)) <= WEAPONS.lightning.coneRad &&
+                  hasLineOfSight(m.x, m.y, m.z, c.x, c.y, c.z || 0, false)) {
+                bestD = d; best = c;
+              }
+            }
+            if (best) {
+              this.beams.push({ by: m.id, kind: 'lightning', ax: m.x, ay: m.y, bx: best.x, by: best.y, tEnd: this.t + 0.22 });
+              if (best.archetype !== undefined) {
+                // Short circuit enemy laser!
+                for (const ew of best.weapons) {
+                  if (ew && ew.kind === 'laser') { ew.charge = 0; best.shortUntil = this.t + WEAPONS.lightning.shortS; }
+                }
+                this.applyDamage(best, WEAPONS.lightning.damage * mult, 'lightning', m, m.x, m.y, 'short');
+              } else {
+                this.damageObject(best, WEAPONS.lightning.damage * mult, m);
+              }
+            }
+          }
+        } else if (w.kind === 'laser') {
+          if (this.t < m.shortUntil) { w.charge = 0; return; }
+          if (wantFire && w.cooldown <= 0) {
+            w.charge += DT;
+            if (this.tick % 4 === 0) this.emitSound('laser_charge', m.x, m.y, m.id, 140);
+            if (w.charge >= WEAPONS.laser.chargeTime + WEAPONS.laser.holdS) {
+              this.fireLaserBeam(m, w, mult);
+            }
+          } else if (!wantFire && w.charge >= WEAPONS.laser.minCharge) {
+            this.fireLaserBeam(m, w, mult);
+          } else if (!wantFire) {
+            w.charge = 0;
+          }
+        } else if (w.kind === 'mortar') {
+          if (wantFire && w.cooldown <= 0) {
+            w.cooldown = WEAPONS.mortar.cooldown;
+            const d = clamp(mortarDist, 28, WEAPONS.mortar.range);
+            const tx = clamp(m.x + Math.cos(m.aimYaw) * d, -MAP_W / 2 + 10, MAP_W / 2 - 10);
+            const ty = clamp(m.y + Math.sin(m.aimYaw) * d, -MAP_H / 2 + 10, MAP_H / 2 - 10);
+            const flight = clamp(d / 55, 0.55, 2.4);
+            this.mortars.push({
+              ownerId: m.id, team: m.team,
+              sx: m.x, sy: m.y, tx, ty,
+              tStart: this.t, tHit: this.t + flight,
+              dmg: WEAPONS.mortar.damage * mult, splash: WEAPONS.mortar.splash * mult
+            });
+            this.emitSound('mortar', m.x, m.y, m.id, 420);
+          }
+        }
+      }
+
+      fireLaserBeam(m, w, mult) {
+        const frac = clamp(w.charge / WEAPONS.laser.chargeTime, 0, 1);
+        const baseDmg = WEAPONS.laser.damage * (WEAPONS.laser.minFrac + (1 - WEAPONS.laser.minFrac) * frac) * mult;
+        w.charge = 0;
+        w.cooldown = WEAPONS.laser.cooldown;
+        this.emitSound('laser', m.x, m.y, m.id, 380);
+
+        const maxR = WEAPONS.laser.range;
+        let endX = m.x + Math.cos(m.aimYaw) * maxR;
+        let endY = m.y + Math.sin(m.aimYaw) * maxR;
+
+        // Raymarch hitscan for building wall or target
+        const steps = 56;
+        const dx = (endX - m.x) / steps, dy = (endY - m.y) / steps;
+        let hitMech = null;
+        for (let i = 1; i <= steps; i++) {
+          const px = m.x + dx * i, py = m.y + dy * i;
+          if (pointInSolidBuilding(px, py, m.z + 6, 0.4)) {
+            endX = px; endY = py; break;
+          }
+          for (const other of this.mechs) {
+            if (!other.alive || other.id === m.id || other.team === m.team) continue;
+            if (dist2(px, py, other.x, other.y) <= 22) {
+              hitMech = other; endX = other.x; endY = other.y; break;
+            }
+          }
+          if (hitMech) break;
+        }
+
+        this.beams.push({ by: m.id, kind: 'laser', ax: m.x, ay: m.y, bx: endX, by: endY, tEnd: this.t + 0.3 });
+        if (hitMech) {
+          const holdsMortar = hitMech.weapons.some(ew => ew && ew.kind === 'mortar');
+          const finalDmg = holdsMortar ? baseDmg * WEAPONS.laser.cookoffMult : baseDmg;
+          this.applyDamage(hitMech, finalDmg, 'laser', m, m.x, m.y, holdsMortar ? 'cookoff' : null);
+        }
+      }
+
+      damageObject(obj, dmg, attacker) {
+        obj.hp -= dmg;
+        if (obj.hp <= 0) {
+          const isNpc = obj.homeX !== undefined;
+          if (isNpc) {
+            const idx = this.npcs.indexOf(obj);
+            if (idx >= 0) this.npcs.splice(idx, 1);
+            this.cubes.push({ id: this.nextId++, x: obj.x - 2, y: obj.y, z: 0, val: 1 });
+            this.cubes.push({ id: this.nextId++, x: obj.x + 2, y: obj.y, z: 0, val: 1 });
+          } else {
+            const idx = this.crates.indexOf(obj);
+            if (idx >= 0) this.crates.splice(idx, 1);
+            this.cubes.push({ id: this.nextId++, x: obj.x, y: obj.y, z: obj.z, val: 1 });
+            if (this.rng() < 0.5) {
+              const kinds = ['mortar', 'laser', 'lightning'];
+              this.pickups.push({ id: this.nextId++, kind: kinds[Math.floor(this.rng() * 3)], x: obj.x + 2, y: obj.y, z: obj.z });
+            }
+            this.emitSound('crate', obj.x, obj.y, attacker ? attacker.id : -1, 220);
+          }
+        }
+      }
+
+      stepProjectiles() {
+        for (let i = this.projectiles.length - 1; i >= 0; i--) {
+          const p = this.projectiles[i];
+          const nx = p.x + p.vx * DT, ny = p.y + p.vy * DT;
+          p.life -= DT;
+          if (p.life <= 0 || Math.abs(nx) > MAP_W / 2 || Math.abs(ny) > MAP_H / 2) {
+            this.projectiles.splice(i, 1); continue;
+          }
+          // Check building hit (mid-step + end-step)
+          if (pointInSolidBuilding((p.x + nx) * 0.5, (p.y + ny) * 0.5, p.z, 0.2) || pointInSolidBuilding(nx, ny, p.z, 0.2)) {
+            this.projectiles.splice(i, 1); continue;
+          }
+          let hit = false;
+          const owner = p.ownerId >= 0 ? this.mechs[p.ownerId] : null;
+          // Check mech hits
+          for (const m of this.mechs) {
+            if (!m.alive || m.id === p.ownerId || (p.team !== -1 && m.team === p.team)) continue;
+            const rHit = 3.2 * (1 + 0.05 * m.cubes);
+            if (dist2(nx, ny, m.x, m.y) <= rHit * rHit + 16) {
+              this.applyDamage(m, p.dmg, p.kind, owner, p.x, p.y);
+              hit = true; break;
+            }
+          }
+          if (!hit && p.ownerId >= 0) {
+            for (const n of this.npcs) {
+              if (dist2(nx, ny, n.x, n.y) <= 22) {
+                n.targetId = p.ownerId;
+                this.damageObject(n, p.dmg, owner);
+                hit = true; break;
+              }
+            }
+          }
+          if (!hit && p.ownerId >= 0) {
+            for (const c of this.crates) {
+              if (dist2(nx, ny, c.x, c.y) <= 20) {
+                this.damageObject(c, p.dmg, owner);
+                hit = true; break;
+              }
+            }
+          }
+          if (hit) this.projectiles.splice(i, 1);
+          else { p.x = nx; p.y = ny; }
+        }
+      }
+
+      stepMortars() {
+        for (let i = this.mortars.length - 1; i >= 0; i--) {
+          const sh = this.mortars[i];
+          if (this.t >= sh.tHit) {
+            this.emitSound('explosion', sh.tx, sh.ty, sh.ownerId, 420);
+            const owner = this.mechs[sh.ownerId];
+            for (const m of this.mechs) {
+              if (!m.alive) continue;
+              const d = dist(m.x, m.y, sh.tx, sh.ty);
+              if (d <= WEAPONS.mortar.splashRadius && hasLineOfSight(sh.tx, sh.ty, 1, m.x, m.y, m.z, false)) {
+                const falloff = 1 - 0.7 * (d / WEAPONS.mortar.splashRadius);
+                let dmg = (d < 4 ? sh.dmg : sh.splash * falloff);
+                if (m.id === sh.ownerId) dmg *= 0.5;
+                else if (m.team === sh.team) continue;
+                // Concussion knockback & energy drain
+                const ang = Math.atan2(m.y - sh.ty, m.x - sh.tx);
+                m.vx += Math.cos(ang) * WEAPONS.mortar.knock * falloff;
+                m.vy += Math.sin(ang) * WEAPONS.mortar.knock * falloff;
+                m.energy = Math.max(0, m.energy - WEAPONS.mortar.energyDrain * falloff);
+                this.applyDamage(m, dmg, 'mortar', owner, sh.tx, sh.ty, 'concuss');
+              }
+            }
+            this.mortars.splice(i, 1);
+          }
+        }
+      }
+
+      stepNpcs() {
+        for (const n of this.npcs) {
+          if (n.cooldown > 0) n.cooldown = Math.max(0, n.cooldown - DT);
+          let target = n.targetId !== null ? this.mechs[n.targetId] : null;
+          if (target && (!target.alive || dist(n.x, n.y, target.x, target.y) > 90 || dist(n.x, n.y, n.homeX, n.homeY) > 60)) {
+            target = null; n.targetId = null;
+          }
+          if (!target && dist(n.x, n.y, n.homeX, n.homeY) <= 32) {
+            for (const m of this.mechs) {
+              if (m.alive && dist(n.x, n.y, m.x, m.y) <= 45 && hasLineOfSight(n.x, n.y, 0, m.x, m.y, m.z, false)) {
+                target = m; n.targetId = m.id; break;
+              }
+            }
+          }
+          if (target) {
+            const ang = Math.atan2(target.y - n.y, target.x - n.x);
+            n.x += Math.cos(ang) * 5 * DT; n.y += Math.sin(ang) * 5 * DT;
+            if (n.cooldown <= 0) {
+              n.cooldown = 1.0;
+              this.projectiles.push({
+                ownerId: -1, team: -1, kind: 'npc',
+                x: n.x, y: n.y, z: 3,
+                vx: Math.cos(ang) * 90, vy: Math.sin(ang) * 90,
+                dmg: 25, life: 1.5
+              });
+              this.emitSound('npc_gun', n.x, n.y, -1, 200);
+            }
+          } else {
+            const dHome = dist(n.x, n.y, n.homeX, n.homeY);
+            if (dHome > 4) {
+              const ang = Math.atan2(n.homeY - n.y, n.homeX - n.x);
+              n.x += Math.cos(ang) * 4 * DT; n.y += Math.sin(ang) * 4 * DT;
+            }
+          }
+        }
+      }
+
+      finalizePlacements() {
+        // Alive ranked by HP desc; dead ranked by deathTick desc (same tick shares place!)
+        const sorted = [...this.mechs].sort((a, b) => {
+          if (a.alive !== b.alive) return a.alive ? -1 : 1;
+          if (a.alive) return b.hp - a.hp;
+          return b.deathTick - a.deathTick;
+        });
+        for (let i = 0; i < sorted.length; i++) {
+          if (i > 0 && !sorted[i].alive && !sorted[i - 1].alive && sorted[i].deathTick === sorted[i - 1].deathTick) {
+            sorted[i].place = sorted[i - 1].place;
+          } else {
+            sorted[i].place = i + 1;
+          }
+        }
+      }
+    }
+
+    // =========================================================================
+    // 4. WORLD MODEL, BELIEF STATE, THREAT HEATMAP & 7-AGENT SWARM ARBITER
+    // =========================================================================
+    class BotBrain {
+      constructor(id, archetype, houseTier, customConfig) {
+        this.id = id;
+        this.archetype = archetype;
+        this.houseTier = houseTier;
+        this.customConfig = customConfig;
+        this.lastSeenTick = {};
+        // Persistent Belief State: enemyId -> { x, y, vx, vy, hp, weapons, charging, t, conf }
+        this.beliefs = new Map();
+        // Sound hypotheses: [{ x, y, t, kind, conf }]
+        this.soundHyps = [];
+        // Threat Heatmap grid (20x15 cells of 40m x 40m)
+        this.gridCols = 20;
+        this.gridRows = 15;
+        this.heatmap = new Float32Array(20 * 15);
+        this.strafeSign = (id % 2 === 0 ? 1 : -1);
+        this.roamAngle = (id * 1.7) % (Math.PI * 2);
+      }
+
+      updateWorldModel(obs, useSound) {
+        const me = obs.self;
+        // 1. Decay beliefs & remove stale (> 14s)
+        for (const [eid, b] of this.beliefs.entries()) {
+          const age = obs.t - b.t;
+          if (age > 14) { this.beliefs.delete(eid); continue; }
+          b.conf = Math.exp(-age / 5.5);
+          // Dead-reckoning prediction
+          b.px = clamp(b.x + b.vx * Math.min(age, 2.5), -MAP_W / 2 + 10, MAP_W / 2 - 10);
+          b.py = clamp(b.y + b.vy * Math.min(age, 2.5), -MAP_H / 2 + 10, MAP_H / 2 - 10);
+        }
+
+        // 2. Fuse visible mechs
+        for (const em of obs.mechs) {
+          if (em.team === me.team) continue;
+          this.beliefs.set(em.id, {
+            id: em.id, x: em.x, y: em.y, px: em.x, py: em.y, z: em.z,
+            vx: em.vx, vy: em.vy, hp: em.hp, maxHp: em.maxHp, cubes: em.cubes,
+            weapons: em.weapons, charging: em.charging, aimYaw: em.aimYaw,
+            t: obs.t, conf: 1.0, visible: true
+          });
+        }
+
+        // 3. Fuse sound intelligence into hypotheses
+        this.soundHyps = this.soundHyps.filter(s => (obs.t - s.t) < 6.0);
+        if (useSound) {
+          for (const s of obs.sounds) {
+            if (s.kind === 'drop' || s.kind === 'death') continue;
+            const estDist = s.distBand === 'near' ? 35 : (s.distBand === 'mid' ? 105 : 210);
+            const sx = clamp(me.x + Math.cos(s.bearing) * estDist, -MAP_W / 2 + 15, MAP_W / 2 - 15);
+            const sy = clamp(me.y + Math.sin(s.bearing) * estDist, -MAP_H / 2 + 15, MAP_H / 2 - 15);
+            this.soundHyps.push({ x: sx, y: sy, t: obs.t, kind: s.kind, bearing: s.bearing, conf: s.distBand === 'near' ? 0.85 : 0.45 });
+          }
+          if (this.soundHyps.length > 18) this.soundHyps.splice(0, this.soundHyps.length - 18);
+        }
+
+        // 4. Rebuild Spatial Threat Heatmap (every 3rd decision tick for < 0.3ms budget)
+        if (obs.tick % 6 === 0) {
+          this.heatmap.fill(0);
+          const cw = MAP_W / this.gridCols, ch = MAP_H / this.gridRows;
+          for (let r = 0; r < this.gridRows; r++) {
+            const cy = -MAP_H / 2 + (r + 0.5) * ch;
+            for (let c = 0; c < this.gridCols; c++) {
+              const cx = -MAP_W / 2 + (c + 0.5) * cw;
+              let risk = 0;
+              // Outside current/next zone penalty
+              const dz = dist(cx, cy, obs.zone.cx, obs.zone.cy);
+              if (dz > obs.zone.r - 12) risk += 1.6;
+              else if (dist(cx, cy, obs.zone.nextCx, obs.zone.nextCy) > obs.zone.nextR) risk += 0.35;
+
+              // Enemy belief risk
+              for (const b of this.beliefs.values()) {
+                const d = dist(cx, cy, b.px, b.py);
+                if (d < 160) risk += b.conf * Math.exp(-d / 65) * (1 + b.cubes * 0.06);
+              }
+              // Sound risk
+              for (const sh of this.soundHyps) {
+                const d = dist(cx, cy, sh.x, sh.y);
+                if (d < 100) risk += sh.conf * Math.exp(-d / 45) * 0.45;
+              }
+              // Active supply drop convergence risk
+              for (const dr of obs.drops) {
+                if (dr.landsIn < 8 && dist(cx, cy, dr.x, dr.y) < 60) risk += 0.55;
+              }
+              this.heatmap[r * this.gridCols + c] = Math.min(3.0, risk);
+            }
+          }
+        }
+      }
+
+      sampleThreat(x, y) {
+        const c = clamp(Math.floor((x + MAP_W / 2) / (MAP_W / this.gridCols)), 0, this.gridCols - 1);
+        const r = clamp(Math.floor((y + MAP_H / 2) / (MAP_H / this.gridRows)), 0, this.gridRows - 1);
+        return this.heatmap[r * this.gridCols + c];
+      }
+
+      // Compute Weapon Triangle Matchup Advantage (-1..+1)
+      weaponAdvantage(myWeapons, enemyWeapons) {
+        const has = (arr, k) => arr.includes(k);
+        let score = 0;
+        if (has(myWeapons, 'laser') && has(enemyWeapons, 'mortar')) score += 0.65;
+        if (has(myWeapons, 'mortar') && has(enemyWeapons, 'lightning')) score += 0.55;
+        if (has(myWeapons, 'lightning') && has(enemyWeapons, 'laser')) score += 0.65;
+        if (has(enemyWeapons, 'laser') && has(myWeapons, 'mortar')) score -= 0.65;
+        if (has(enemyWeapons, 'mortar') && has(myWeapons, 'lightning')) score -= 0.50;
+        if (has(enemyWeapons, 'lightning') && has(myWeapons, 'laser')) score -= 0.65;
+        return score;
+      }
+
+      decide(obs, rng) {
+        const me = obs.self;
+        if (this.archetype === 'HouseBot') return this.decideHouseBot(obs, rng);
+        if (this.archetype === 'StarterBot') return this.decideStarterBot(obs);
+
+        // Select configuration based on archetype
+        const cfg = this.getArchetypeProfile();
+        this.updateWorldModel(obs, cfg.ablations.sound);
+
+        // Check immediate damage bearing (Rear Armor Discipline!)
+        let urgentDamageBearing = null;
+        for (const ev of obs.events) {
+          if (ev.type === 'damaged' && ev.bearing !== null) urgentDamageBearing = ev.bearing;
+        }
+
+        // Gather visible threats
+        const enemies = obs.mechs.filter(e => e.team !== me.team);
+        let nearestEnemy = null, nearestDist = 9999;
+        for (const e of enemies) {
+          const d = dist(me.x, me.y, e.x, e.y);
+          if (d < nearestDist) { nearestDist = d; nearestEnemy = e; }
+        }
+
+        // Evaluate 7 Sub-Agent Utilities
+        const hpFrac = me.hp / me.maxHp;
+        const dZone = dist(me.x, me.y, obs.zone.cx, obs.zone.cy);
+        const dNextZone = dist(me.x, me.y, obs.zone.nextCx, obs.zone.nextCy);
+        const timeToShrink = Math.max(0, obs.zone.shrinkStart - obs.t);
+
+        // 1. Survival Agent
+        const localThreat = this.sampleThreat(me.x, me.y);
+        const uSurvival = cfg.weights.survival * (
+          (hpFrac < 0.55 ? (1 - hpFrac) * 1.65 : 0.15) +
+          (enemies.length >= 2 ? 0.55 : 0) +
+          localThreat * 0.28
+        );
+
+        // 2. Zone Agent (Forecast next_center early!)
+        const zoneUrgency = !obs.inZone ? 2.8 :
+          (dZone > obs.zone.r - 35 ? 1.55 :
+          (cfg.ablations.earlyzone && dNextZone > obs.zone.nextR * 0.85 && timeToShrink < 24 ? 1.05 : 0.12));
+        const uZone = cfg.weights.zone * zoneUrgency;
+
+        // 3. Threat / Cover Agent (Dodging charging lasers or high local threat)
+        const chargingLaserThreat = enemies.find(e => e.charging && dist(me.x, me.y, e.x, e.y) < 260);
+        const uThreat = cfg.weights.threat * ((chargingLaserThreat && cfg.ablations.laserdodge) ? 1.8 : localThreat * 0.35);
+
+        // 4. Combat Agent (Asymmetric Doctrine: only fight with advantage, low-HP, rear exposure, or endgame)
+        let bestTarget = null, bestCombatScore = 0;
+        const myKinds = me.weapons.filter(Boolean).map(w => w.kind);
+        for (const e of enemies) {
+          const d = dist(me.x, me.y, e.x, e.y);
+          if (d > 240) continue;
+          const eHpFrac = e.hp / e.maxHp;
+          const triAdv = cfg.ablations.triangle ? this.weaponAdvantage(myKinds, e.weapons) : 0;
+          // Is enemy facing away (rear armor opportunity!)?
+          const toMe = Math.atan2(me.y - e.y, me.x - e.x);
+          const rearExpose = Math.abs(wrapAngle(toMe - e.aimYaw)) > Math.PI / 2 ? 0.45 : 0;
+          const endgameBonus = obs.alive <= 4 ? 0.65 : (obs.mode === 'practice' && d < 120 ? 0.55 : 0);
+          const hpAdv = (hpFrac - eHpFrac) * 0.9;
+          const score = Math.max(0, 0.35 + hpAdv + triAdv + rearExpose + endgameBonus + (eHpFrac < 0.35 ? 0.65 : 0) - (enemies.length > 1 ? 0.35 : 0));
+          if (score > bestCombatScore) { bestCombatScore = score; bestTarget = e; }
+        }
+        const uCombat = cfg.weights.combat * bestCombatScore;
+
+        // 5. Weapon Pickup Agent
+        let bestPickup = null, uWeapon = 0;
+        const hasSecondary = me.weapons[1] !== null;
+        if (!hasSecondary || this.archetype === 'KiteSniper' || this.archetype === 'TriangleBrawler') {
+          for (const p of obs.pickups) {
+            if (myKinds.includes(p.kind)) continue;
+            const d = dist(me.x, me.y, p.x, p.y);
+            if (d > 130) continue;
+            let pref = p.kind === 'laser' ? 1.0 : (p.kind === 'mortar' ? 0.9 : 0.82);
+            if (this.archetype === 'KiteSniper' && (p.kind === 'laser' || p.kind === 'mortar')) pref = 1.3;
+            const sc = (pref * (1 - d / 160)) * (hasSecondary ? 0.35 : 1.15);
+            if (sc > uWeapon) { uWeapon = sc; bestPickup = p; }
+          }
+        }
+        uWeapon *= cfg.weights.weapon;
+
+        // 6. Loot Agent (Safe cubes, crates, NPCs — stop chasing cubes past 10 cap!)
+        let bestLoot = null, bestLootKind = null, uLoot = 0;
+        const needCubes = me.cubes < 10 ? 1.0 : 0.15;
+        for (const c of obs.cubes) {
+          const d = dist(me.x, me.y, c.x, c.y);
+          const sc = needCubes * (1.15 - d / 130) - this.sampleThreat(c.x, c.y) * 0.4;
+          if (sc > uLoot) { uLoot = sc; bestLoot = c; bestLootKind = 'cube'; }
+        }
+        if (obs.alive > 4 && enemies.length === 0) {
+          for (const cr of obs.crates) {
+            const d = dist(me.x, me.y, cr.x, cr.y);
+            const sc = needCubes * (0.8 - d / 145) - this.sampleThreat(cr.x, cr.y) * 0.45;
+            if (sc > uLoot) { uLoot = sc; bestLoot = cr; bestLootKind = 'crate'; }
+          }
+          if (me.cubes < 6 && hpFrac > 0.72) {
+            for (const n of obs.npcs) {
+              const d = dist(me.x, me.y, n.x, n.y);
+              const sc = needCubes * (0.72 - d / 150) - this.sampleThreat(n.x, n.y) * 0.5;
+              if (sc > uLoot) { uLoot = sc; bestLoot = n; bestLootKind = 'npc'; }
+            }
+          }
+        }
+        uLoot *= cfg.weights.loot;
+
+        // 7. Ambush / Supply Drop Agent
+        let bestDrop = null, uAmbush = 0;
+        for (const dr of obs.drops) {
+          const d = dist(me.x, me.y, dr.x, dr.y);
+          if (d < 230 && dr.landsIn < 18) {
+            const dropRisk = this.sampleThreat(dr.x, dr.y);
+            const sc = (hpFrac > 0.65 ? 1.1 : 0.4) * (1 - d / 260) * (dropRisk < 1.1 ? 1.0 : 0.6);
+            if (sc > uAmbush) { uAmbush = sc; bestDrop = dr; }
+          }
+        }
+        uAmbush *= cfg.weights.ambush;
+
+        // Record live telemetry for UI
+        me.lastUtilities = {
+          Survival: +uSurvival.toFixed(2),
+          Zone:     +uZone.toFixed(2),
+          Threat:   +uThreat.toFixed(2),
+          Combat:   +uCombat.toFixed(2),
+          Weapon:   +uWeapon.toFixed(2),
+          Loot:     +uLoot.toFixed(2),
+          Ambush:   +uAmbush.toFixed(2)
+        };
+
+        // Meta-Controller Utility Arbitration
+        let move = [0, 0];
+        let boost = false;
+        let jump = false;
+        let aimYaw = me.aimYaw;
+        let fire = [false, false];
+        let takeId = null;
+        let mortarDist = 100;
+
+        // Choose winning directive
+        const maxU = Math.max(uSurvival, uZone, uThreat, uCombat, uWeapon, uLoot, uAmbush);
+
+        if (maxU === uZone) {
+          me.lastIntent = 'ZONE_ROTATE';
+          const tgt = this.findSafestPointNear(obs.zone.nextCx, obs.zone.nextCy, Math.max(15, obs.zone.nextR * 0.6));
+          move = this.steerAroundBuildings(me, tgt.x, tgt.y);
+          boost = !obs.inZone || (dZone > obs.zone.r - 28 && me.energy > 35);
+        } else if (maxU === uThreat && chargingLaserThreat && cfg.ablations.laserdodge) {
+          me.lastIntent = 'DODGE_LASER';
+          const perp = chargingLaserThreat.aimYaw + (Math.PI / 2) * this.strafeSign;
+          move = [Math.cos(perp), Math.sin(perp)];
+          boost = me.energy > 25;
+        } else if (maxU === uSurvival) {
+          me.lastIntent = 'SURVIVE_EVADE';
+          const safeSpot = this.findSafestNeighbor(me, obs);
+          move = this.steerAroundBuildings(me, safeSpot.x, safeSpot.y);
+          boost = nearestDist < 75 && me.energy > 30;
+          // KiteSniper / Rooftop retreat: jump+jet onto nearby building roof!
+          if (cfg.weights.rooftop > 0.6 && me.energy > 45 && this.nearClimbableBuilding(me)) {
+            jump = me.grounded; boost = true;
+          }
+        } else if (maxU === uAmbush && bestDrop) {
+          const dDrop = dist(me.x, me.y, bestDrop.x, bestDrop.y);
+          if (bestDrop.landsIn === 0 && enemies.length === 0) {
+            me.lastIntent = 'CAPTURE_DROP';
+            move = dDrop > 4 ? this.steerAroundBuildings(me, bestDrop.x, bestDrop.y) : [0, 0];
+            boost = dDrop > 25 && me.energy > 40;
+          } else {
+            me.lastIntent = 'AMBUSH_DROP';
+            // Hold perimeter 32m away from drop for third-party ambush
+            const ang = Math.atan2(me.y - bestDrop.y, me.x - bestDrop.x);
+            const ax = bestDrop.x + Math.cos(ang) * 32, ay = bestDrop.y + Math.sin(ang) * 32;
+            move = dist(me.x, me.y, ax, ay) > 8 ? this.steerAroundBuildings(me, ax, ay) : [0, 0];
+          }
+        } else if (maxU === uWeapon && bestPickup) {
+          me.lastIntent = `LOOT_${bestPickup.kind.toUpperCase()}`;
+          move = this.steerAroundBuildings(me, bestPickup.x, bestPickup.y);
+          if (dist(me.x, me.y, bestPickup.x, bestPickup.y) <= 5.5) takeId = bestPickup.id;
+        } else if (maxU === uLoot && bestLoot) {
+          me.lastIntent = `FARM_${bestLootKind.toUpperCase()}`;
+          const dL = dist(me.x, me.y, bestLoot.x, bestLoot.y);
+          if (bestLootKind === 'cube') {
+            move = this.steerAroundBuildings(me, bestLoot.x, bestLoot.y);
+          } else {
+            // Stand 28m away and break crate / NPC
+            move = dL > 30 ? this.steerAroundBuildings(me, bestLoot.x, bestLoot.y) : [0, 0];
+            aimYaw = Math.atan2(bestLoot.y - me.y, bestLoot.x - me.x);
+            if (dL < 95 && Math.abs(wrapAngle(aimYaw - me.aimYaw)) < 0.25) fire[0] = true;
+          }
+        } else if (bestTarget) {
+          me.lastIntent = `ENGAGE_${bestTarget.id}`;
+          const dT = dist(me.x, me.y, bestTarget.x, bestTarget.y);
+          // Desired range depends on best weapon
+          const prefRange = myKinds.includes('lightning') && bestTarget.weapons.includes('laser') ? 32 :
+                            (myKinds.includes('laser') ? 135 : 75);
+          const toTarget = Math.atan2(bestTarget.y - me.y, bestTarget.x - me.x);
+          if (obs.tick % 30 === 0) this.strafeSign *= -1;
+          const radial = dT > prefRange + 15 ? 0.65 : (dT < prefRange - 15 ? -0.65 : 0);
+          const strafeAng = toTarget + (Math.PI / 2) * this.strafeSign;
+          const mx = Math.cos(toTarget) * radial + Math.cos(strafeAng) * 0.75;
+          const my = Math.sin(toTarget) * radial + Math.sin(strafeAng) * 0.75;
+          move = this.steerAroundBuildings(me, me.x + mx * 30, me.y + my * 30);
+          boost = dT < 55 && me.energy > 45;
+        } else {
+          me.lastIntent = 'PATROL_SAFE';
+          const safe = this.findSafestPointNear(obs.zone.nextCx, obs.zone.nextCy, Math.max(25, obs.zone.nextR * 0.65));
+          move = this.steerAroundBuildings(me, safe.x, safe.y);
+        }
+
+        // Silent-walk discipline (< 5 m/s) when stealth enabled & near enemies while not boosting
+        if (cfg.ablations.stealth && !boost && enemies.length === 0 && this.soundHyps.some(s => dist(me.x, me.y, s.x, s.y) < 65)) {
+          move = [move[0] * 0.38, move[1] * 0.38];
+        }
+
+        // Independent Torso Aiming & Opportunistic Firing (Legs independent of Torso!)
+        const fireTarget = bestTarget || nearestEnemy;
+        if (fireTarget) {
+          const dF = dist(me.x, me.y, fireTarget.x, fireTarget.y);
+          const leadT = Math.min(0.6, dF / 252);
+          const lx = fireTarget.x + fireTarget.vx * leadT;
+          const ly = fireTarget.y + fireTarget.vy * leadT;
+          aimYaw = Math.atan2(ly - me.y, lx - me.x);
+          mortarDist = dF;
+          const losClear = hasLineOfSight(me.x, me.y, me.z, fireTarget.x, fireTarget.y, fireTarget.z || 0, false);
+          const aimedOk = Math.abs(wrapAngle(aimYaw - me.aimYaw)) < 0.28;
+
+          for (let s = 0; s < 2; s++) {
+            const w = me.weapons[s];
+            if (!w) continue;
+            if (w.kind === 'lightning' && dF <= 44 && losClear && Math.abs(wrapAngle(aimYaw - me.aimYaw)) < 0.45) {
+              fire[s] = true;
+            } else if (w.kind === 'laser' && dF <= 265 && losClear) {
+              // Hold charge until 0.65s+ AND aimed cleanly, then release!
+              if (w.charge >= 0.62 && aimedOk) fire[s] = false;
+              else if (w.cooldown <= 0 && (uCombat > 0.35 || hpFrac > 0.45)) fire[s] = true;
+            } else if (w.kind === 'mortar' && dF >= 34 && dF <= 225 && aimedOk) {
+              // Mortar lobs OVER buildings!
+              fire[s] = true;
+            } else if (w.kind === 'gun' && dF <= 215 && losClear && aimedOk) {
+              fire[s] = true;
+            }
+          }
+        } else if (cfg.ablations.rear && urgentDamageBearing !== null) {
+          // Snap torso toward rear attacker to block ×1.5 rear multiplier immediately!
+          aimYaw = urgentDamageBearing;
+          me.lastIntent = 'GUARD_REAR';
+        } else if (cfg.ablations.sound && this.soundHyps.length > 0) {
+          // Scan toward most recent nearby sound
+          aimYaw = this.soundHyps[this.soundHyps.length - 1].bearing;
+        } else {
+          // Sweep scanner cone
+          aimYaw = wrapAngle(me.aimYaw + 0.22);
+        }
+
+        // Grab adjacent weapon pickup opportunistically even during other intents
+        if (!takeId && me.weapons[1] === null) {
+          const closeP = obs.pickups.find(p => dist(me.x, me.y, p.x, p.y) <= 5.5 && !myKinds.includes(p.kind));
+          if (closeP) takeId = closeP.id;
+        }
+
+        return { move, boost, jump, aimYaw, fire, takeId, mortarDist };
+      }
+
+      getArchetypeProfile() {
+        if (this.archetype === 'CustomTuned') return this.customConfig;
+        const fullAb = { sound: true, rear: true, triangle: true, stealth: true, earlyzone: true, laserdodge: true };
+        switch (this.archetype) {
+          case 'ZoneGhost':
+            return { weights: { survival: 1.85, zone: 1.75, threat: 1.65, combat: 0.30, weapon: 0.65, loot: 0.85, ambush: 0.25, rooftop: 0.5 }, ablations: fullAb };
+          case 'DropAmbusher':
+            return { weights: { survival: 1.15, zone: 1.15, threat: 1.05, combat: 1.05, weapon: 1.15, loot: 0.90, ambush: 1.85, rooftop: 0.5 }, ablations: fullAb };
+          case 'KiteSniper':
+            return { weights: { survival: 1.20, zone: 1.15, threat: 1.25, combat: 1.15, weapon: 1.35, loot: 0.80, ambush: 0.70, rooftop: 1.5 }, ablations: fullAb };
+          case 'TriangleBrawler':
+            return { weights: { survival: 0.55, zone: 0.90, threat: 0.50, combat: 1.80, weapon: 1.40, loot: 1.25, ambush: 1.10, rooftop: 0.3 }, ablations: { ...fullAb, stealth: false } };
+          default: // SwarmArbiter Flagship
+            return { weights: { survival: 1.45, zone: 1.35, threat: 1.30, combat: 0.85, weapon: 1.05, loot: 0.95, ambush: 1.10, rooftop: 0.7 }, ablations: fullAb };
+        }
+      }
+
+      // Simple StarterBot (~1.15 baseline reference)
+      decideStarterBot(obs) {
+        const me = obs.self;
+        me.lastUtilities = { Survival: 0.2, Zone: 0.5, Combat: 0.9, Loot: 0.2 };
+        const enemies = obs.mechs.filter(e => e.team !== me.team);
+        let move = [0, 0], aimYaw = wrapAngle(me.aimYaw + 0.18), fire = [false, false];
+        if (!obs.inZone || dist(me.x, me.y, obs.zone.cx, obs.zone.cy) > obs.zone.r - 20) {
+          me.lastIntent = 'ZONE_RETURN';
+          move = this.steerAroundBuildings(me, obs.zone.cx, obs.zone.cy);
+        } else if (enemies.length > 0) {
+          me.lastIntent = 'CHASE_GUN';
+          const e = enemies[0];
+          move = this.steerAroundBuildings(me, e.x, e.y);
+          aimYaw = Math.atan2(e.y - me.y, e.x - me.x);
+          fire[0] = dist(me.x, me.y, e.x, e.y) < 180;
+        } else {
+          me.lastIntent = 'WANDER';
+          move = this.steerAroundBuildings(me, obs.zone.cx, obs.zone.cy);
+        }
+        return { move, boost: false, jump: false, aimYaw, fire, takeId: null };
+      }
+
+      // Coordinated House Squad AI (Practice Mode: 4 Easy, 4 Med, 4 Hard, 3 Expert)
+      // Shares vision, never fights each other, hunts player weakest-first!
+      decideHouseBot(obs, rng) {
+        const me = obs.self;
+        const tierOrder = { Easy: 1, Medium: 2, Hard: 3, Expert: 4 };
+        const myRank = tierOrder[this.houseTier] || 1;
+        const squad = obs.houseAliveEnemies;
+        const killedCount = 15 - squad.length;
+        // Weakest-first wave escalation: 1 early, more as thinned out, all late!
+        const activeHunters = Math.min(15, 1 + Math.floor(obs.t / 35) + killedCount * 2);
+        const sortedSquad = [...squad].sort((a, b) => (tierOrder[a.houseTier] - tierOrder[b.houseTier]) || (a.id - b.id));
+        const mySlotInWave = sortedSquad.findIndex(m => m.id === me.id);
+        const isHunting = mySlotInWave >= 0 && mySlotInWave < activeHunters;
+
+        const targetPlayer = obs.mechs.find(m => m.id === 0) || (obs.houseSharedSpot && (obs.t - obs.houseSharedSpot.t) < 8 ? obs.houseSharedSpot : null);
+        let move = [0, 0], boost = false, aimYaw = wrapAngle(me.aimYaw + 0.18), fire = [false, false];
+
+        // Zone safety (Easy bots react slower to zone)
+        const zoneMargin = myRank === 1 ? -5 : (myRank === 2 ? 12 : 30);
+        if (dist(me.x, me.y, obs.zone.cx, obs.zone.cy) > obs.zone.r - zoneMargin) {
+          me.lastIntent = `SQUAD_ZONE(${this.houseTier})`;
+          move = this.steerAroundBuildings(me, obs.zone.nextCx, obs.zone.nextCy);
+          boost = myRank >= 3 && me.energy > 40;
+        } else if (isHunting && targetPlayer) {
+          me.lastIntent = `HUNT_PLAYER(${this.houseTier})`;
+          const d = dist(me.x, me.y, targetPlayer.x, targetPlayer.y);
+          move = d > (myRank >= 3 ? 65 : 35) ? this.steerAroundBuildings(me, targetPlayer.x, targetPlayer.y) : [0, 0];
+          boost = myRank >= 3 && d > 90 && me.energy > 45;
+          const aimJitter = (4 - myRank) * 0.08;
+          aimYaw = Math.atan2(targetPlayer.y - me.y, targetPlayer.x - me.x) + (rng() - 0.5) * aimJitter;
+          if (d < 190 && hasLineOfSight(me.x, me.y, me.z, targetPlayer.x, targetPlayer.y, targetPlayer.z || 0, false)) {
+            fire[0] = true;
+            if (me.weapons[1]) fire[1] = true;
+          }
+        } else {
+          me.lastIntent = `HOLD_SQUAD(${this.houseTier})`;
+          const ang = (me.id * 0.8) + obs.t * 0.04;
+          const hx = obs.zone.nextCx + Math.cos(ang) * Math.min(obs.zone.nextR * 0.7, 130);
+          const hy = obs.zone.nextCy + Math.sin(ang) * Math.min(obs.zone.nextR * 0.7, 130);
+          move = dist(me.x, me.y, hx, hy) > 15 ? this.steerAroundBuildings(me, hx, hy) : [0, 0];
+        }
+        return { move, boost, jump: false, aimYaw, fire, takeId: null };
+      }
+
+      steerAroundBuildings(me, tx, ty) {
+        const baseAng = Math.atan2(ty - me.y, tx - me.x);
+        const offsets = [0, 0.45, -0.45, 0.95, -0.95, 1.5, -1.5, Math.PI];
+        for (const off of offsets) {
+          const a = baseAng + off;
+          const px = me.x + Math.cos(a) * 16, py = me.y + Math.sin(a) * 16;
+          if (!pointInSolidBuilding(px, py, me.z, 3.0) && Math.abs(px) < MAP_W / 2 - 10 && Math.abs(py) < MAP_H / 2 - 10) {
+            return [Math.cos(a), Math.sin(a)];
+          }
+        }
+        return [Math.cos(baseAng), Math.sin(baseAng)];
+      }
+
+      nearClimbableBuilding(me) {
+        for (const b of BUILDINGS) {
+          if (b.kind === 'bridge') continue;
+          const cx = clamp(me.x, b.x, b.x + b.w), cy = clamp(me.y, b.y, b.y + b.h);
+          if (dist(me.x, me.y, cx, cy) < 12) return true;
+        }
+        return false;
+      }
+
+      findSafestNeighbor(me, obs) {
+        let bestX = obs.zone.nextCx, bestY = obs.zone.nextCy, bestScore = 9999;
+        for (let k = 0; k < 10; k++) {
+          const a = (k / 10) * Math.PI * 2;
+          const px = clamp(me.x + Math.cos(a) * 65, -MAP_W / 2 + 20, MAP_W / 2 - 20);
+          const py = clamp(me.y + Math.sin(a) * 65, -MAP_H / 2 + 20, MAP_H / 2 - 20);
+          if (pointInSolidBuilding(px, py, me.z, 4)) continue;
+          const score = this.sampleThreat(px, py) + (dist(px, py, obs.zone.nextCx, obs.zone.nextCy) / 220);
+          if (score < bestScore) { bestScore = score; bestX = px; bestY = py; }
+        }
+        return { x: bestX, y: bestY };
+      }
+
+      findSafestPointNear(cx, cy, rad) {
+        let bestX = cx, bestY = cy, bestScore = 9999;
+        for (let k = 0; k < 8; k++) {
+          const a = (k / 8) * Math.PI * 2;
+          const px = clamp(cx + Math.cos(a) * rad * 0.55, -MAP_W / 2 + 25, MAP_W / 2 - 25);
+          const py = clamp(cy + Math.sin(a) * rad * 0.55, -MAP_H / 2 + 25, MAP_H / 2 - 25);
+          if (pointInSolidBuilding(px, py, 0, 5)) continue;
+          const sc = this.sampleThreat(px, py);
+          if (sc < bestScore) { bestScore = sc; bestX = px; bestY = py; }
+        }
+        return { x: bestX, y: bestY };
+      }
+    }
+
+    // =========================================================================
+    // 5. LIVE ARENA RENDERER & UI CONTROLLER
+    // =========================================================================
+    let liveMatch = null;
+    let isPlaying = false;
+    let simSpeed = 1;
+    let inspectedMechId = 0;
+    let liveSeed = 1042;
+    let accumTime = 0;
+    let lastFrameTs = 0;
+    let bestObservedScore = 0;
+
+    function showToast(msg, tone = 'sky') {
+      const root = document.getElementById('toast-root');
+      const colors = {
+        sky: 'bg-sky-500/20 border-sky-400/50 text-sky-200',
+        emerald: 'bg-emerald-500/20 border-emerald-400/50 text-emerald-200',
+        amber: 'bg-amber-500/20 border-amber-400/50 text-amber-200',
+        rose: 'bg-rose-500/20 border-rose-400/50 text-rose-200'
+      };
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto px-3.5 py-2.5 rounded-xl border text-xs font-semibold backdrop-blur-md shadow-xl transition-all ${colors[tone] || colors.sky}`;
+      el.textContent = msg;
+      root.appendChild(el);
+      setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 250); }, 2800);
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      const active = document.getElementById(`tab-${tabId}`);
+      if (active) active.classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        const on = b.dataset.tab === tabId;
+        b.className = on
+          ? 'tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-sky-400 text-sky-300 transition-colors'
+          : 'tab-btn shrink-0 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white transition-colors';
+      });
+      if (tabId === 'arena') resizeCanvas();
+      if (tabId === 'export') refreshExportCode();
+    }
+
+    function resizeCanvas() {
+      const container = document.getElementById('arena-container');
+      const canvas = document.getElementById('arena-canvas');
+      if (!container || !canvas) return;
+      const rect = container.getBoundingClientRect();
+      if (rect.width < 10) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      if (liveMatch) renderArena();
+    }
+
+    function resetLiveMatch(newSeed = false) {
+      if (newSeed) liveSeed = Math.floor(1000 + Math.random() * 9000);
+      const mode = document.getElementById('sim-mode-select').value;
+      const hero = document.getElementById('sim-hero-select').value;
+      liveMatch = new MechRoyaleMatch(liveSeed, mode, hero, CUSTOM_CONFIG);
+      inspectedMechId = 0;
+      document.getElementById('hud-seed').textContent = `#${liveSeed}`;
+      renderArena();
+      updateLiveInspector();
+    }
+
+    function togglePlayPause() {
+      if (liveMatch && liveMatch.done) resetLiveMatch(true);
+      isPlaying = !isPlaying;
+      const btn = document.getElementById('btn-play-pause');
+      btn.textContent = isPlaying ? '⏸ Pause' : '▶ Play Match';
+      btn.className = isPlaying
+        ? 'px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-void font-extrabold text-xs transition-colors'
+        : 'px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-void font-extrabold text-xs transition-colors';
+    }
+
+    function setSimSpeed(spd) {
+      simSpeed = spd;
+      document.querySelectorAll('.spd-btn').forEach(b => {
+        const on = Number(b.dataset.spd) === spd;
+        b.className = on
+          ? 'spd-btn px-2 py-1 rounded-lg bg-sky-500/20 text-sky-300 font-bold'
+          : 'spd-btn px-2 py-1 rounded-lg text-slate-400 hover:text-white';
+      });
+    }
+
+    function stepSingleDecision() {
+      if (!liveMatch || liveMatch.done) return;
+      liveMatch.step();
+      renderArena();
+      updateLiveInspector();
+    }
+
+    function worldToCanvas(wx, wy, w, h) {
+      return [((wx + MAP_W / 2) / MAP_W) * w, ((wy + MAP_H / 2) / MAP_H) * h];
+    }
+
+    function renderArena() {
+      const canvas = document.getElementById('arena-canvas');
+      if (!canvas || !liveMatch) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      const sx = W / MAP_W, sy = H / MAP_H;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#090e18';
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle campus grid
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.045)';
+      ctx.lineWidth = 1;
+      for (let gx = -400; gx <= 400; gx += 40) {
+        const x = (gx + MAP_W / 2) * sx;
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let gy = -300; gy <= 300; gy += 40) {
+        const y = (gy + MAP_H / 2) * sy;
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      // The Oval lawn visual cue
+      ctx.save();
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.06)';
+      ctx.beginPath();
+      ctx.ellipse((70 + MAP_W / 2) * sx, (0 + MAP_H / 2) * sy, 125 * sx, 72 * sy, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      const insp = liveMatch.mechs[inspectedMechId] || liveMatch.mechs[0];
+
+      // 1. Optional Threat Heatmap Overlay (from Inspected Bot's World Model)
+      if (document.getElementById('ov-heatmap').checked && insp) {
+        const b = insp.brain;
+        const cw = W / b.gridCols, ch = H / b.gridRows;
+        for (let r = 0; r < b.gridRows; r++) {
+          for (let c = 0; c < b.gridCols; c++) {
+            const val = b.heatmap[r * b.gridCols + c];
+            if (val > 0.2) {
+              ctx.fillStyle = `rgba(244, 63, 94, ${Math.min(0.42, val * 0.16)})`;
+              ctx.fillRect(c * cw, r * ch, cw, ch);
+            }
+          }
+        }
+      }
+
+      // 2. Buildings (Ohio Stadium, Thompson Lib, Academic Halls, Bridge)
+      for (const b of BUILDINGS) {
+        const [x, y] = worldToCanvas(b.x, b.y, W, H);
+        ctx.fillStyle = b.kind === 'bridge' ? 'rgba(99, 102, 241, 0.35)' : (b.kind === 'stadium' ? '#24324a' : '#1b263b');
+        ctx.strokeStyle = b.kind === 'bridge' ? '#818cf8' : '#3b5073';
+        ctx.lineWidth = 1.5;
+        ctx.fillRect(x, y, b.w * sx, b.h * sy);
+        ctx.strokeRect(x, y, b.w * sx, b.h * sy);
+        ctx.fillStyle = 'rgba(148, 163, 184, 0.65)';
+        ctx.font = `${Math.max(9, Math.round(9 * sx))}px JetBrains Mono, monospace`;
+        ctx.fillText(b.name, x + 4, y + 12 * sy);
+      }
+
+      // 3. Trees (soft green canopy)
+      for (const tr of TREES) {
+        const [x, y] = worldToCanvas(tr.x, tr.y, W, H);
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.20)';
+        ctx.strokeStyle = 'rgba(52, 211, 153, 0.32)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(x, y, tr.r * sx, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+      }
+
+      // 4. Current & Next Zone Circles
+      const z = liveMatch.zone;
+      const [zx, zy] = worldToCanvas(z.cx, z.cy, W, H);
+      const [nzx, nzy] = worldToCanvas(z.nextCx, z.nextCy, W, H);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath(); ctx.arc(zx, zy, z.r * sx, 0, Math.PI * 2); ctx.stroke();
+
+      ctx.save();
+      ctx.setLineDash([6, 5]);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(nzx, nzy, z.nextR * sx, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      // 5. Crates, Cubes, Pickups, NPCs, Supply Drops
+      ctx.fillStyle = '#92400e';
+      for (const cr of liveMatch.crates) {
+        const [x, y] = worldToCanvas(cr.x, cr.y, W, H);
+        ctx.fillRect(x - 3, y - 3, 6, 6);
+      }
+      ctx.fillStyle = '#fbbf24';
+      for (const cb of liveMatch.cubes) {
+        const [x, y] = worldToCanvas(cb.x, cb.y, W, H);
+        ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
+      }
+      for (const pk of liveMatch.pickups) {
+        const [x, y] = worldToCanvas(pk.x, pk.y, W, H);
+        ctx.fillStyle = pk.kind === 'laser' ? '#f43f5e' : (pk.kind === 'mortar' ? '#f97316' : '#38bdf8');
+        ctx.beginPath(); ctx.arc(x, y, 3.2, 0, Math.PI * 2); ctx.fill();
+      }
+      for (const np of liveMatch.npcs) {
+        const [x, y] = worldToCanvas(np.x, np.y, W, H);
+        ctx.fillStyle = '#c084fc';
+        ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill();
+      }
+      for (const dr of liveMatch.drops) {
+        const [x, y] = worldToCanvas(dr.x, dr.y, W, H);
+        ctx.strokeStyle = dr.landsIn > 0 ? 'rgba(251, 191, 36, 0.55)' : '#10b981';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(x, y, dr.radius * sx, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 10px JetBrains Mono';
+        ctx.fillText(dr.landsIn > 0 ? `DROP ${Math.ceil(dr.landsIn)}s` : `CAP ${Math.round((dr.progress / dr.captureS) * 100)}%`, x - 24, y - dr.radius * sx - 4);
+      }
+
+      // 6. Inspected Bot Vision Cone & Sound Bearings
+      if (document.getElementById('ov-vision').checked && insp && insp.alive) {
+        const [ix, iy] = worldToCanvas(insp.x, insp.y, W, H);
+        const visR = (200 + insp.sensorBonus) * sx;
+        const proxR = (45 + insp.sensorBonus) * sx;
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.09)';
+        ctx.beginPath();
+        ctx.moveTo(ix, iy);
+        ctx.arc(ix, iy, visR, insp.aimYaw - Math.PI / 3, insp.aimYaw + Math.PI / 3);
+        ctx.closePath(); ctx.fill();
+
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(ix, iy, proxR, 0, Math.PI * 2); ctx.stroke();
+
+        // Sound hypotheses
+        for (const sh of insp.brain.soundHyps) {
+          const [hx, hy] = worldToCanvas(sh.x, sh.y, W, H);
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+          ctx.beginPath(); ctx.moveTo(ix, iy); ctx.lineTo(hx, hy); ctx.stroke();
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.75)';
+          ctx.beginPath(); ctx.arc(hx, hy, 4, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+
+      // 7. Belief State Ghost Markers
+      if (document.getElementById('ov-beliefs').checked && insp) {
+        for (const b of insp.brain.beliefs.values()) {
+          const [bx, by] = worldToCanvas(b.px, b.py, W, H);
+          ctx.strokeStyle = `rgba(244, 63, 94, ${b.conf})`;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(bx - 7, by - 7, 14, 14);
+        }
+      }
+
+      // 8. Beams, Projectiles & Mortars
+      for (const bm of liveMatch.beams) {
+        const [ax, ay] = worldToCanvas(bm.ax, bm.ay, W, H);
+        const [bx, by] = worldToCanvas(bm.bx, bm.by, W, H);
+        ctx.strokeStyle = bm.kind === 'laser' ? '#fb7185' : '#38bdf8';
+        ctx.lineWidth = bm.kind === 'laser' ? 3 : 2;
+        ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+      }
+      for (const pr of liveMatch.projectiles) {
+        const [px, py] = worldToCanvas(pr.x, pr.y, W, H);
+        ctx.fillStyle = pr.kind === 'npc' ? '#d8b4fe' : '#fde047';
+        ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI * 2); ctx.fill();
+      }
+      for (const sh of liveMatch.mortars) {
+        const frac = clamp((liveMatch.t - sh.tStart) / Math.max(0.01, sh.tHit - sh.tStart), 0, 1);
+        const mx = sh.sx + (sh.tx - sh.sx) * frac, my = sh.sy + (sh.ty - sh.sy) * frac;
+        const [x, y] = worldToCanvas(mx, my, W, H);
+        const [tx, ty] = worldToCanvas(sh.tx, sh.ty, W, H);
+        ctx.strokeStyle = 'rgba(249, 115, 22, 0.4)';
+        ctx.beginPath(); ctx.arc(tx, ty, WEAPONS.mortar.splashRadius * sx, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = '#fb923c';
+        ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // 9. Mechs
+      for (const m of liveMatch.mechs) {
+        if (!m.alive) continue;
+        const [x, y] = worldToCanvas(m.x, m.y, W, H);
+        const rad = (5.5 + m.cubes * 0.25) * Math.max(0.85, sx * 0.9);
+        const isSel = m.id === inspectedMechId;
+
+        if (isSel) {
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath(); ctx.arc(x, y, rad + 4, 0, Math.PI * 2); ctx.stroke();
+        }
+
+        // Body circle
+        ctx.fillStyle = m.color;
+        ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
+
+        // Aim barrel direction
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(m.aimYaw) * (rad + 7), y + Math.sin(m.aimYaw) * (rad + 7));
+        ctx.stroke();
+
+        // Laser charging ring
+        if (m.weapons.some(w => w && w.kind === 'laser' && w.charge > 0)) {
+          ctx.strokeStyle = '#fb7185';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(x, y, rad + 7, 0, Math.PI * 2); ctx.stroke();
+        }
+
+        // Tiny HP bar above mech
+        const bw = 22;
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(x - bw / 2, y - rad - 8, bw, 3.5);
+        ctx.fillStyle = m.hp / m.maxHp > 0.4 ? '#10b981' : '#f43f5e';
+        ctx.fillRect(x - bw / 2, y - rad - 8, bw * clamp(m.hp / m.maxHp, 0, 1), 3.5);
+
+        // Slot number
+        ctx.fillStyle = '#070a10';
+        ctx.font = 'bold 9px JetBrains Mono';
+        ctx.textAlign = 'center';
+        ctx.fillText(String(m.id), x, y + 3);
+        ctx.textAlign = 'start';
+      }
+    }
+
+    function updateLiveInspector() {
+      if (!liveMatch) return;
+      const aliveCount = liveMatch.mechs.filter(m => m.alive).length;
+      document.getElementById('hud-time').textContent = `${liveMatch.t.toFixed(1)}s`;
+      document.getElementById('hud-tick').textContent = String(liveMatch.tick);
+      document.getElementById('hud-alive').textContent = `${aliveCount} / 16`;
+      document.getElementById('hud-zone-dps').textContent = `${liveMatch.zone.dps}/s`;
+
+      const m = liveMatch.mechs[inspectedMechId] || liveMatch.mechs[0];
+      document.getElementById('hud-latency').textContent = `${m.lastDecisionMs.toFixed(2)} ms`;
+      document.getElementById('insp-name').textContent = `Slot ${m.id} — ${m.name}`;
+      const badge = document.getElementById('insp-status-badge');
+      if (m.alive) {
+        badge.textContent = `ALIVE (Est #${aliveCount})`;
+        badge.className = 'text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+      } else {
+        badge.textContent = `PLACE #${m.place} (${16 - m.place} pts)`;
+        badge.className = 'text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30';
+      }
+
+      document.getElementById('insp-hp-txt').textContent = `${Math.round(m.hp)} / ${m.maxHp}`;
+      document.getElementById('insp-hp-bar').style.width = `${clamp((m.hp / m.maxHp) * 100, 0, 100)}%`;
+      document.getElementById('insp-en-txt').textContent = `${Math.round(m.energy)} / ${m.maxEnergy}`;
+      document.getElementById('insp-en-bar').style.width = `${clamp((m.energy / m.maxEnergy) * 100, 0, 100)}%`;
+      document.getElementById('insp-cubes').textContent = String(m.cubes);
+      document.getElementById('insp-kills').textContent = String(m.kills);
+      document.getElementById('insp-z').textContent = `${m.z.toFixed(1)}m`;
+      document.getElementById('insp-weapons').textContent = `[${m.weapons.map(w => w ? w.kind : 'empty').join(', ')}]`;
+      document.getElementById('insp-upgrades').textContent = m.upgrades.length ? m.upgrades.join(', ') : 'none';
+      document.getElementById('insp-intent').textContent = m.lastIntent;
+      document.getElementById('insp-belief-count').textContent = `${m.brain.beliefs.size} Beliefs / ${m.brain.soundHyps.length} Sounds`;
+
+      // Render 7-Agent utility bars
+      const uEntries = Object.entries(m.lastUtilities);
+      const barsEl = document.getElementById('agent-bars-container');
+      const maxVal = Math.max(1.5, ...uEntries.map(([, v]) => v));
+      barsEl.innerHTML = uEntries.map(([name, val]) => {
+        const pct = clamp((val / maxVal) * 100, 0, 100);
+        const top = val === Math.max(...uEntries.map(([, x]) => x)) && val > 0;
+        return `
+          <div>
+            <div class="flex justify-between"><span class="${top ? 'text-amber-300 font-bold' : 'text-slate-400'}">${name}</span><span class="${top ? 'text-amber-300 font-bold' : 'text-slate-300'}">${val.toFixed(2)}</span></div>
+            <div class="w-full h-1.5 rounded-full bg-void overflow-hidden"><div class="h-full ${top ? 'bg-amber-400' : 'bg-sky-500/70'}" style="width:${pct}%"></div></div>
+          </div>`;
+      }).join('');
+
+      // Event feed
+      const logEl = document.getElementById('live-event-log');
+      logEl.innerHTML = liveMatch.eventsLog.slice(0, 22).map(ev => {
+        const c = ev.tone === 'sky' ? 'text-sky-300' : (ev.tone === 'rose' ? 'text-rose-300' : (ev.tone === 'emerald' ? 'text-emerald-300' : 'text-amber-300'));
+        return `<div class="leading-snug"><span class="text-slate-500">[${ev.t}s]</span> <span class="${c}">${ev.text}</span></div>`;
+      }).join('') || '<div class="text-slate-500">No combat events yet...</div>';
+
+      // 16-Mech Roster
+      const rosterEl = document.getElementById('live-roster-grid');
+      rosterEl.innerHTML = liveMatch.mechs.map(rm => {
+        const sel = rm.id === inspectedMechId;
+        return `
+          <button onclick="inspectMech(${rm.id})" class="text-left p-2 rounded-xl border transition-colors ${sel ? 'bg-sky-500/20 border-sky-400' : 'bg-void border-line hover:border-slate-500'} ${rm.alive ? '' : 'opacity-45'}">
+            <div class="flex items-center justify-between">
+              <span class="font-bold truncate" style="color:${rm.color}">#${rm.id} ${rm.houseTier || rm.archetype.slice(0, 8)}</span>
+              <span class="text-[10px] ${rm.alive ? 'text-emerald-300' : 'text-rose-400'}">${rm.alive ? Math.round(rm.hp) : 'P' + rm.place}</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">K:${rm.kills} C:${rm.cubes}</div>
+          </button>`;
+      }).join('');
+    }
+
+    function inspectMech(id) {
+      inspectedMechId = id;
+      renderArena();
+      updateLiveInspector();
+    }
+
+    // Main animation loop
+    function animationLoop(ts) {
+      if (!lastFrameTs) lastFrameTs = ts;
+      const elapsed = Math.min(0.1, (ts - lastFrameTs) / 1000);
+      lastFrameTs = ts;
+
+      if (isPlaying && liveMatch && !liveMatch.done) {
+        accumTime += elapsed * simSpeed;
+        let steps = 0;
+        while (accumTime >= DT && steps < 18 && !liveMatch.done) {
+          liveMatch.step();
+          accumTime -= DT;
+          steps++;
+        }
+        renderArena();
+        updateLiveInspector();
+        if (liveMatch.done) {
+          isPlaying = false;
+          const btn = document.getElementById('btn-play-pause');
+          btn.textContent = '▶ Replay New Seed';
+          btn.className = 'px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-void font-extrabold text-xs transition-colors';
+          const hero = liveMatch.mechs[0];
+          const pts = 16 - hero.place;
+          showToast(`Match finished! ${hero.name} placed #${hero.place} (${pts} pts, ${hero.kills} kills)`, pts >= 12 ? 'emerald' : 'amber');
+        }
+      }
+      requestAnimationFrame(animationLoop);
+    }
+
+    // =========================================================================
+    // 6. HEADLESS MULTI-MATCH TOURNAMENT & ABLATION ENGINE (TAB 2 & TAB 3)
+    // =========================================================================
+    function runHeadlessMatch(seed, mode, heroArchetype, customOverride = null) {
+      const m = new MechRoyaleMatch(seed, mode, heroArchetype, customOverride);
+      while (!m.done) m.step();
+      return m;
+    }
+
+    let benchRunning = false;
+    function runTournamentBenchmark() {
+      if (benchRunning) return;
+      benchRunning = true;
+      const mode = document.getElementById('bench-mode').value;
+      const totalMatches = Number(document.getElementById('bench-matches').value);
+      const btn = document.getElementById('btn-run-bench');
+      btn.disabled = true;
+      btn.textContent = 'Running...';
+
+      const archList = Object.keys(ARCHETYPES);
+      const stats = {};
+      for (const a of archList) {
+        stats[a] = { name: a, pts: 0, placeSum: 0, wins: 0, top4: 0, kills: 0, cubes: 0, msSum: 0, decCount: 0, n: 0 };
+      }
+
+      const jobs = [];
+      if (mode === 'ffa') {
+        for (let i = 0; i < totalMatches; i++) jobs.push({ seed: 5000 + i * 37, mode: 'ffa', hero: 'CustomTuned' });
+      } else {
+        // Test every bot archetype individually against the 1v15 House Squad on identical seeds!
+        for (const a of archList) {
+          for (let i = 0; i < totalMatches; i++) jobs.push({ seed: 9000 + i * 41, mode: 'practice', hero: a });
+        }
+      }
+
+      let idx = 0;
+      const totalJobs = jobs.length;
+
+      function processChunk() {
+        const chunkEnd = Math.min(idx + 3, totalJobs);
+        for (; idx < chunkEnd; idx++) {
+          const j = jobs[idx];
+          const res = runHeadlessMatch(j.seed, j.mode, j.hero, CUSTOM_CONFIG);
+          if (j.mode === 'ffa') {
+            for (const mech of res.mechs) {
+              const s = stats[mech.archetype];
+              if (!s) continue;
+              s.pts += (16 - mech.place);
+              s.placeSum += mech.place;
+              if (mech.place === 1) s.wins++;
+              if (mech.place <= 4) s.top4++;
+              s.kills += mech.kills;
+              s.cubes += mech.cubes;
+              s.msSum += mech.totalDecisionMs;
+              s.decCount += mech.decisionCount;
+              s.n++;
+            }
+          } else {
+            const hero = res.mechs[0];
+            const s = stats[j.hero];
+            s.pts += (16 - hero.place);
+            s.placeSum += hero.place;
+            if (hero.place === 1) s.wins++;
+            if (hero.place <= 4) s.top4++;
+            s.kills += hero.kills;
+            s.cubes += hero.cubes;
+            s.msSum += hero.totalDecisionMs;
+            s.decCount += hero.decisionCount;
+            s.n++;
+          }
+        }
+
+        const pct = Math.round((idx / totalJobs) * 100);
+        document.getElementById('bench-progress-bar').style.width = `${pct}%`;
+        document.getElementById('bench-progress-txt').textContent = `${pct}% (${idx}/${totalJobs})`;
+        document.getElementById('bench-status').textContent = idx < totalJobs
+          ? `Simulating match ${idx + 1} of ${totalJobs}...`
+          : `Completed ${totalJobs} deterministic matches (${mode === 'ffa' ? '16-Way FFA' : '1v15 House Squad Gauntlet'})!`;
+
+        if (idx < totalJobs) {
+          setTimeout(processChunk, 0);
+        } else {
+          renderBenchmarkResults(stats, mode, totalMatches);
+          benchRunning = false;
+          btn.disabled = false;
+          btn.textContent = '⚡ Run Headless Benchmark';
+        }
+      }
+      processChunk();
+    }
+
+    function renderBenchmarkResults(stats, mode, totalMatches) {
+      const rows = Object.values(stats)
+        .filter(s => s.n > 0)
+        .map(s => ({
+          ...s,
+          meanPts: s.pts / s.n,
+          avgPlace: s.placeSum / s.n,
+          winRate: (s.wins / s.n) * 100,
+          top4Rate: (s.top4 / s.n) * 100,
+          avgKills: s.kills / s.n,
+          avgCubes: s.cubes / s.n,
+          avgMs: s.decCount > 0 ? (s.msSum / s.decCount) : 0
+        }))
+        .sort((a, b) => b.meanPts - a.meanPts);
+
+      if (rows.length > 0 && rows[0].meanPts > bestObservedScore) {
+        bestObservedScore = rows[0].meanPts;
+        document.getElementById('header-best-score').textContent = `Best Sim: ${bestObservedScore.toFixed(2)} pts (${rows[0].name})`;
+      }
+
+      const tbody = document.getElementById('bench-leaderboard-body');
+      tbody.innerHTML = rows.map((r, i) => `
+        <tr class="${i === 0 ? 'bg-emerald-500/10' : 'hover:bg-white/5'}">
+          <td class="py-2.5 pr-3 font-extrabold ${i === 0 ? 'text-amber-300' : 'text-slate-400'}">#${i + 1}</td>
+          <td class="py-2.5 pr-3">
+            <span class="font-bold" style="color:${ARCHETYPES[r.name].color}">${r.name}</span>
+          </td>
+          <td class="py-2.5 pr-3 text-right font-extrabold text-white">${r.meanPts.toFixed(2)}</td>
+          <td class="py-2.5 pr-3 text-right text-slate-300">${r.avgPlace.toFixed(2)}</td>
+          <td class="py-2.5 pr-3 text-right text-emerald-300">${r.winRate.toFixed(1)}%</td>
+          <td class="py-2.5 pr-3 text-right text-sky-300">${r.top4Rate.toFixed(1)}%</td>
+          <td class="py-2.5 pr-3 text-right text-rose-300">${r.avgKills.toFixed(2)}</td>
+          <td class="py-2.5 pr-3 text-right text-amber-300">${r.avgCubes.toFixed(2)}</td>
+          <td class="py-2.5 text-right text-emerald-400">${r.avgMs.toFixed(2)} ms</td>
+        </tr>`).join('');
+
+      const barsEl = document.getElementById('bench-bars-chart');
+      barsEl.innerHTML = rows.map(r => {
+        const pct = clamp((r.meanPts / 15) * 100, 2, 100);
+        return `
+          <div>
+            <div class="flex justify-between mb-1">
+              <span style="color:${ARCHETYPES[r.name].color}" class="font-bold">${r.name}</span>
+              <span class="text-white font-bold">${r.meanPts.toFixed(2)} / 15</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-void border border-line overflow-hidden">
+              <div class="h-full rounded-full" style="width:${pct}%; background:${ARCHETYPES[r.name].color}"></div>
+            </div>
+          </div>`;
+      }).join('');
+
+      const top = rows[0];
+      const starter = rows.find(r => r.name === 'StarterBot');
+      const brawler = rows.find(r => r.name === 'TriangleBrawler');
+      document.getElementById('bench-insights').innerHTML = `
+        <p><strong class="text-emerald-300">Winner: ${top.name}</strong> averaged <strong class="text-white">${top.meanPts.toFixed(2)} placement pts</strong> (Avg Place #${top.avgPlace.toFixed(2)}, Top-4 Rate ${top.top4Rate.toFixed(0)}%) at <strong class="text-sky-300">${top.avgMs.toFixed(2)} ms/decision</strong> (well inside the 50ms budget).</p>
+        ${starter ? `<p><strong class="text-amber-300">Lift vs StarterBot:</strong> +${(top.meanPts - starter.meanPts).toFixed(2)} pts/match over the naive baseline (${starter.meanPts.toFixed(2)} pts).</p>` : ''}
+        ${brawler ? `<p><strong class="text-sky-300">Placement vs Kills Check:</strong> <code>TriangleBrawler</code> averaged ${brawler.avgKills.toFixed(2)} kills/match for ${brawler.meanPts.toFixed(2)} pts, validating whether aggressive duels or survival-first arbitration dominates in <strong>${mode === 'ffa' ? '16-Way FFA' : '1v15 Practice'}</strong>.</p>` : ''}
+      `;
+      showToast(`Benchmark complete! #1: ${top.name} (${top.meanPts.toFixed(2)} pts)`, 'emerald');
+    }
+
+    // 6-Factor Ablation Runner (Tab 3)
+    function runAblationSuite() {
+      const btn = document.getElementById('btn-ablation');
+      btn.disabled = true;
+      btn.textContent = 'Running Ablations...';
+      const out = document.getElementById('ablation-results');
+      out.innerHTML = '<div class="p-4 rounded-xl bg-void border border-line text-sky-300 text-center">Running 7 configurations &times; 16 identical FFA seeds...</div>';
+
+      const factors = [
+        { key: null,         label: 'FULL CustomTuned (Baseline)' },
+        { key: 'earlyzone',  label: 'No Next-Circle Forecasting' },
+        { key: 'rear',       label: 'No Rear-Armor Facing Guard' },
+        { key: 'triangle',   label: 'No Weapon Triangle Scoring' },
+        { key: 'sound',      label: 'No Sound Bearing Fusion' },
+        { key: 'laserdodge', label: 'No Charging-Laser Strafe' },
+        { key: 'stealth',    label: 'No Silent Walk (<5 m/s)' }
+      ];
+      const matchesPerFactor = 16;
+      const results = [];
+      let fi = 0;
+
+      function stepFactor() {
+        const f = factors[fi];
+        const cfgCopy = {
+          weights: { ...CUSTOM_CONFIG.weights },
+          ablations: { ...CUSTOM_CONFIG.ablations }
+        };
+        if (f.key) cfgCopy.ablations[f.key] = false;
+        let pts = 0;
+        for (let s = 0; s < matchesPerFactor; s++) {
+          const m = runHeadlessMatch(7700 + s * 19, 'ffa', 'CustomTuned', cfgCopy);
+          pts += (16 - m.mechs[0].place);
+        }
+        results.push({ label: f.label, key: f.key, mean: pts / matchesPerFactor });
+        fi++;
+        if (fi < factors.length) {
+          setTimeout(stepFactor, 0);
+        } else {
+          const base = results[0].mean;
+          out.innerHTML = results.map((r, i) => {
+            const delta = r.mean - base;
+            const dTxt = i === 0 ? 'BASE' : (delta >= 0 ? `+${delta.toFixed(2)}` : delta.toFixed(2));
+            const tone = i === 0 ? 'text-sky-300' : (delta < -0.2 ? 'text-rose-400' : 'text-emerald-300');
+            return `
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-void border border-line">
+                <span class="${i === 0 ? 'font-bold text-white' : 'text-slate-300'}">${r.label}</span>
+                <div class="flex items-center gap-3">
+                  <span class="text-white font-bold">${r.mean.toFixed(2)} pts</span>
+                  <span class="px-2 py-0.5 rounded bg-card border border-line font-bold ${tone}">${dTxt}</span>
+                </div>
+              </div>`;
+          }).join('');
+          btn.disabled = false;
+          btn.textContent = '🧪 Run 6-Factor Ablation Study (16 Matches Each)';
+          showToast('Ablation study completed across identical seeds!', 'emerald');
+        }
+      }
+      stepFactor();
+    }
+
+    // =========================================================================
+    // 7. TUNER UI & PRODUCTION PYTHON BOT EXPORTER (TAB 3 & TAB 4)
+    // =========================================================================
+    const SLIDER_META = [
+      { key: 'survival', label: 'Survival Agent Weight', hint: 'Evade when HP < 55% or outnumbered' },
+      { key: 'zone',     label: 'Zone Agent Weight',     hint: 'Early rotation toward next_center' },
+      { key: 'threat',   label: 'Threat Agent Weight',   hint: 'Heatmap avoidance & laser dodge' },
+      { key: 'combat',   label: 'Combat Agent Weight',   hint: 'Asymmetric duels & third-party' },
+      { key: 'weapon',   label: 'Weapon Agent Weight',   hint: 'Secondary pickup & triangle fill' },
+      { key: 'loot',     label: 'Loot Agent Weight',     hint: 'Safe cubes, crates & NPC drones' },
+      { key: 'ambush',   label: 'Ambush Agent Weight',   hint: 'Supply drop perimeter camping' },
+      { key: 'rooftop',  label: 'Rooftop Jet Weight',    hint: 'High-ground elevation retreats' }
+    ];
+
+    function renderTunerSliders() {
+      const el = document.getElementById('tuner-sliders');
+      el.innerHTML = SLIDER_META.map(s => `
+        <div class="p-3 rounded-xl bg-void border border-line space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold text-white">${s.label}</span>
+            <span id="val-${s.key}" class="text-sky-300 font-bold">${CUSTOM_CONFIG.weights[s.key].toFixed(2)}</span>
+          </div>
+          <input type="range" min="0" max="2.5" step="0.05" value="${CUSTOM_CONFIG.weights[s.key]}"
+            oninput="updateWeight('${s.key}', this.value)" class="w-full" />
+          <div class="text-[11px] text-slate-400">${s.hint}</div>
+        </div>`).join('');
+    }
+
+    function updateWeight(key, val) {
+      CUSTOM_CONFIG.weights[key] = parseFloat(val);
+      const lbl = document.getElementById(`val-${key}`);
+      if (lbl) lbl.textContent = CUSTOM_CONFIG.weights[key].toFixed(2);
+    }
+
+    function syncCustomConfig() {
+      CUSTOM_CONFIG.ablations.sound = document.getElementById('ab-sound').checked;
+      CUSTOM_CONFIG.ablations.rear = document.getElementById('ab-rear').checked;
+      CUSTOM_CONFIG.ablations.triangle = document.getElementById('ab-triangle').checked;
+      CUSTOM_CONFIG.ablations.stealth = document.getElementById('ab-stealth').checked;
+      CUSTOM_CONFIG.ablations.earlyzone = document.getElementById('ab-earlyzone').checked;
+      CUSTOM_CONFIG.ablations.laserdodge = document.getElementById('ab-laserdodge').checked;
+    }
+
+    function applyPresetWeights(preset) {
+      const presets = {
+        balanced:       { survival: 1.45, zone: 1.35, threat: 1.30, combat: 0.85, weapon: 1.05, loot: 0.95, ambush: 1.10, rooftop: 0.70 },
+        practice_kite:  { survival: 1.75, zone: 1.40, threat: 1.45, combat: 1.05, weapon: 1.25, loot: 1.15, ambush: 0.55, rooftop: 1.20 },
+        endgame_hunter: { survival: 1.15, zone: 1.20, threat: 1.10, combat: 1.40, weapon: 1.30, loot: 1.00, ambush: 1.55, rooftop: 0.95 }
+      };
+      Object.assign(CUSTOM_CONFIG.weights, presets[preset] || presets.balanced);
+      renderTunerSliders();
+      showToast(`Applied "${preset}" Swarm Arbiter preset!`, 'sky');
+    }
+
+    function testCustomInArena() {
+      document.getElementById('sim-hero-select').value = 'CustomTuned';
+      switchTab('arena');
+      resetLiveMatch(true);
+      if (!isPlaying) togglePlayPause();
+    }
+
+    function buildPythonBotCode() {
+      const w = CUSTOM_CONFIG.weights;
+      const a = CUSTOM_CONFIG.ablations;
+      return `#!/usr/bin/env python3
+"""
+Mech Royale SwarmArbiter Bot (mechfight/1 protocol)
+Generated from Mech Royale Simulation Lab — Pure Python 3.13 stdlib (<2ms/tick).
+Survival-first placement optimizer with World-Model belief tracking, sound fusion,
+rear-armor facing discipline, weapon-triangle scoring, and early zone forecasting.
+"""
+import json
+import math
+import sys
+
+# Tuned 7-Agent Utility Weights (Synced from Swarm Lab)
+WEIGHTS = {
+    "survival": ${w.survival.toFixed(2)},
+    "zone":     ${w.zone.toFixed(2)},
+    "threat":   ${w.threat.toFixed(2)},
+    "combat":   ${w.combat.toFixed(2)},
+    "weapon":   ${w.weapon.toFixed(2)},
+    "loot":     ${w.loot.toFixed(2)},
+    "ambush":   ${w.ambush.toFixed(2)},
+}
+
+# Protocol Exploitation Toggles
+USE_SOUND_FUSION = ${a.sound ? 'True' : 'False'}
+USE_REAR_GUARD   = ${a.rear ? 'True' : 'False'}
+USE_TRIANGLE     = ${a.triangle ? 'True' : 'False'}
+USE_STEALTH_WALK = ${a.stealth ? 'True' : 'False'}
+USE_EARLY_ZONE   = ${a.earlyzone ? 'True' : 'False'}
+USE_LASER_DODGE  = ${a.laserdodge ? 'True' : 'False'}
+
+
+def wrap_angle(a: float) -> float:
+    return (a + math.pi) % (2.0 * math.pi) - math.pi
+
+
+def dist2d(ax: float, ay: float, bx: float, by: float) -> float:
+    return math.hypot(ax - bx, ay - by)
+
+
+def weapon_advantage(my_kinds: set, enemy_kinds: set) -> float:
+    score = 0.0
+    if "laser" in my_kinds and "mortar" in enemy_kinds:
+        score += 0.65
+    if "mortar" in my_kinds and "lightning" in enemy_kinds:
+        score += 0.55
+    if "lightning" in my_kinds and "laser" in enemy_kinds:
+        score += 0.65
+    if "laser" in enemy_kinds and "mortar" in my_kinds:
+        score -= 0.65
+    if "mortar" in enemy_kinds and "lightning" in my_kinds:
+        score -= 0.50
+    if "lightning" in enemy_kinds and "laser" in my_kinds:
+        score -= 0.65
+    return score
+
+
+class SwarmArbiterBot:
+    def __init__(self):
+        self.beliefs = {}     # enemy_id -> {x, y, vx, vy, t, hp, weapons}
+        self.sounds = []      # recent heard sounds
+        self.strafe = 1.0
+        self.config = {}
+
+    def pick_upgrade(self, offer: dict) -> int:
+        priority = ["armor", "sensors", "regen", "speed", "laser", "gun_rate", "energy"]
+        choices = offer.get("choices", [])
+        for pref in priority:
+            for idx, ch in enumerate(choices):
+                if pref in ch.get("id", ""):
+                    return idx
+        return 0
+
+    def step(self, obs: dict) -> dict:
+        t = obs["t"]
+        tick = obs["tick"]
+        me = obs["self"]
+        mx, my, mz = me["pos"]
+        my_yaw = me["aim"][0]
+        hp_frac = me["hp"] / max(1.0, me["max_hp"])
+        zone = obs["zone"]
+        alive = obs["alive"]
+
+        # 1. Update Belief State & Sound Fusion
+        self.beliefs = {k: v for k, v in self.beliefs.items() if t - v["t"] <= 12.0}
+        enemies = [m for m in obs.get("mechs", []) if m.get("kind") == "mech"]
+        for e in enemies:
+            self.beliefs[e["id"]] = {
+                "x": e["pos"][0], "y": e["pos"][1], "z": e["pos"][2],
+                "vx": e["vel"][0], "vy": e["vel"][1],
+                "hp": e.get("hp", 1000), "max_hp": e.get("max_hp", 1400),
+                "weapons": set(e.get("weapons", [])),
+                "charging": e.get("charging", False),
+                "aim_yaw": e["aim"][0], "t": t
+            }
+
+        self.sounds = [s for s in self.sounds if t - s["t"] <= 5.0]
+        if USE_SOUND_FUSION:
+            for s in obs.get("sounds", []):
+                if s["kind"] not in ("drop", "death"):
+                    self.sounds.append({"bearing": s["bearing"], "dist": s["dist"], "t": t})
+
+        # Urgent rear-armor damage check
+        rear_bearing = None
+        for ev in obs.get("events", []):
+            if ev.get("type") == "damaged" and ev.get("bearing") is not None:
+                rear_bearing = ev["bearing"]
+
+        # 2. Compute 7-Agent Utilities
+        zcx, zcy = zone["center"]
+        ncx, ncy = zone["next_center"]
+        d_zone = dist2d(mx, my, zcx, zcy)
+        d_next = dist2d(mx, my, ncx, ncy)
+        time_to_shrink = max(0.0, zone["shrink_start"] - t)
+
+        u_zone = WEIGHTS["zone"] * (
+            2.8 if not me["in_zone"]
+            else (1.55 if d_zone > zone["radius"] - 35.0
+            else (1.05 if (USE_EARLY_ZONE and d_next > zone["next_radius"] * 0.85 and time_to_shrink < 25.0) else 0.12))
+        )
+        u_survival = WEIGHTS["survival"] * (
+            ((1.0 - hp_frac) * 1.65 if hp_frac < 0.55 else 0.15)
+            + (0.55 if len(enemies) >= 2 else 0.0)
+        )
+
+        laser_threat = next((e for e in enemies if e.get("charging")), None)
+        u_threat = WEIGHTS["threat"] * (1.85 if (USE_LASER_DODGE and laser_threat) else 0.15)
+
+        my_weapons = me["weapons"]
+        my_kinds = {w["kind"] for w in my_weapons if w is not None}
+
+        best_target, best_c = None, 0.0
+        for e in enemies:
+            d = dist2d(mx, my, e["pos"][0], e["pos"][1])
+            if d > 240.0:
+                continue
+            ehp = e.get("hp", 1000) / max(1.0, e.get("max_hp", 1400))
+            tri = weapon_advantage(my_kinds, set(e.get("weapons", []))) if USE_TRIANGLE else 0.0
+            to_me = math.atan2(my - e["pos"][1], mx - e["pos"][0])
+            rear_opp = 0.45 if abs(wrap_angle(to_me - e["aim"][0])) > math.pi / 2.0 else 0.0
+            sc = max(0.0, 0.35 + (hp_frac - ehp) * 0.9 + tri + rear_opp + (0.65 if alive <= 4 else 0.0))
+            if sc > best_c:
+                best_c, best_target = sc, e
+        u_combat = WEIGHTS["combat"] * best_c
+
+        # Weapon pickup & Loot utilities
+        best_pickup, u_weapon = None, 0.0
+        if my_weapons[1] is None:
+            for p in obs.get("pickups", []):
+                if p["kind"] in my_kinds:
+                    continue
+                d = dist2d(mx, my, p["pos"][0], p["pos"][1])
+                sc = WEIGHTS["weapon"] * max(0.0, 1.15 - d / 140.0)
+                if sc > u_weapon:
+                    u_weapon, best_pickup = sc, p
+
+        best_cube, u_loot = None, 0.0
+        cube_scale = 1.0 if me["cubes"] < 10 else 0.15
+        for c in obs.get("cubes", []):
+            d = dist2d(mx, my, c["pos"][0], c["pos"][1])
+            sc = WEIGHTS["loot"] * cube_scale * max(0.0, 1.15 - d / 130.0)
+            if sc > u_loot:
+                u_loot, best_cube = sc, c
+
+        best_drop, u_ambush = None, 0.0
+        for dr in obs.get("drops", []):
+            d = dist2d(mx, my, dr["pos"][0], dr["pos"][1])
+            if d < 230.0 and dr["lands_in"] < 18.0:
+                sc = WEIGHTS["ambush"] * (1.0 - d / 260.0) * (1.0 if hp_frac > 0.65 else 0.4)
+                if sc > u_ambush:
+                    u_ambush, best_drop = sc, dr
+
+        # 3. Utility Arbitration -> Action
+        move = [0.0, 0.0]
+        boost = False
+        aim = [my_yaw, 0.0]
+        fire = [False, False]
+        take_id = None
+
+        top_u = max(u_zone, u_threat, u_survival, u_ambush, u_weapon, u_loot, u_combat)
+        if top_u == u_zone:
+            ang = math.atan2(ncy - my, ncx - mx)
+            move = [math.cos(ang), math.sin(ang)]
+            boost = (not me["in_zone"]) or (d_zone > zone["radius"] - 25.0 and me["energy"] > 35.0)
+        elif top_u == u_threat and laser_threat:
+            perp = laser_threat["aim"][0] + (math.pi / 2.0) * self.strafe
+            move = [math.cos(perp), math.sin(perp)]
+            boost = me["energy"] > 25.0
+        elif top_u == u_survival and enemies:
+            e0 = enemies[0]
+            away = math.atan2(my - e0["pos"][1], mx - e0["pos"][0])
+            move = [math.cos(away), math.sin(away)]
+            boost = me["energy"] > 30.0
+        elif top_u == u_ambush and best_drop:
+            dx, dy = best_drop["pos"][0] - mx, best_drop["pos"][1] - my
+            d = math.hypot(dx, dy)
+            if d > (4.0 if best_drop["lands_in"] == 0 and not enemies else 32.0):
+                move = [dx / max(1e-5, d), dy / max(1e-5, d)]
+        elif top_u == u_weapon and best_pickup:
+            dx, dy = best_pickup["pos"][0] - mx, best_pickup["pos"][1] - my
+            d = math.hypot(dx, dy)
+            if d > 1.0:
+                move = [dx / d, dy / d]
+            if d <= 3.9:
+                take_id = best_pickup["id"]
+        elif top_u == u_loot and best_cube:
+            dx, dy = best_cube["pos"][0] - mx, best_cube["pos"][1] - my
+            d = math.hypot(dx, dy)
+            if d > 1.0:
+                move = [dx / d, dy / d]
+        elif best_target:
+            if tick % 30 == 0:
+                self.strafe *= -1.0
+            ang = math.atan2(best_target["pos"][1] - my, best_target["pos"][0] - mx)
+            strafe_ang = ang + (math.pi / 2.0) * self.strafe
+            move = [math.cos(strafe_ang), math.sin(strafe_ang)]
+
+        # Silent walk (< 5 m/s) near heard sounds
+        if USE_STEALTH_WALK and not boost and not enemies and any(s["dist"] == "near" for s in self.sounds):
+            move = [move[0] * 0.38, move[1] * 0.38]
+
+        # 4. Independent Torso Aim & Firing
+        if best_target:
+            ex, ey, ez = best_target["pos"]
+            evx, evy = best_target["vel"][0], best_target["vel"][1]
+            d = dist2d(mx, my, ex, ey)
+            lead = min(0.55, d / 252.0)
+            lx, ly = ex + evx * lead, ey + evy * lead
+            yaw = math.atan2(ly - my, lx - mx)
+            pitch = math.atan2((ez + 4.5) - (mz + 7.0), max(1.0, d))
+            aim = [yaw, max(-0.8, min(0.8, pitch))]
+            aligned = abs(wrap_angle(yaw - my_yaw)) < 0.25
+            for s, w in enumerate(my_weapons):
+                if not w:
+                    continue
+                k = w["kind"]
+                if k == "lightning" and d <= 44.0 and aligned:
+                    fire[s] = True
+                elif k == "laser" and d <= 265.0:
+                    fire[s] = not (w.get("charge", 0.0) >= 0.65 and aligned)
+                elif k == "mortar" and 35.0 <= d <= 220.0 and aligned:
+                    # Ballistic pitch for v=72, g=22
+                    sin2t = min(0.98, (d * 22.0) / (72.0 * 72.0))
+                    aim[1] = 0.5 * math.asin(sin2t)
+                    fire[s] = True
+                elif k == "gun" and d <= 220.0 and aligned:
+                    fire[s] = True
+        elif USE_REAR_GUARD and rear_bearing is not None:
+            aim = [rear_bearing, 0.0]
+        elif USE_SOUND_FUSION and self.sounds:
+            aim = [self.sounds[-1]["bearing"], 0.0]
+        else:
+            aim = [wrap_angle(my_yaw + 0.25), 0.0]
+
+        act = {"tick": tick, "move": move, "boost": boost, "jump": False, "aim": aim, "fire": fire}
+        if take_id is not None:
+            act["take"] = take_id
+        if obs.get("offer"):
+            act["pick"] = self.pick_upgrade(obs["offer"])
+        return act
+
+
+def main():
+    bot = SwarmArbiterBot()
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        msg = json.loads(line)
+        mtype = msg.get("type")
+        if mtype == "hello":
+            bot.config = msg.get("config", {})
+            sys.stdout.write(json.dumps({"type": "ready", "name": "SwarmArbiter-v2"}) + "\\n")
+            sys.stdout.flush()
+        elif mtype == "obs":
+            act = bot.step(msg)
+            sys.stdout.write(json.dumps(act) + "\\n")
+            sys.stdout.flush()
+        elif mtype == "end":
+            break
+
+
+if __name__ == "__main__":
+    main()
+`;
+    }
+
+    function buildDockerfileCode() {
+      return `# Pinned Python 3.13 slim for reproducible Finalist rebuilds
+FROM python:3.13.2-slim
+WORKDIR /bot
+COPY swarm_bot.py /bot/swarm_bot.py
+# Unbuffered stdout (-u) & unprivileged uid 65534 compatible
+ENTRYPOINT ["python3", "-u", "/bot/swarm_bot.py"]
+`;
+    }
+
+    function refreshExportCode() {
+      document.getElementById('export-bot-code').textContent = buildPythonBotCode();
+      document.getElementById('export-docker-code').textContent = buildDockerfileCode();
+    }
+
+    function copyExportCode(kind) {
+      const text = kind === 'bot' ? buildPythonBotCode() : buildDockerfileCode();
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      showToast(`Copied ${kind === 'bot' ? 'swarm_bot.py' : 'Dockerfile'} to clipboard!`, 'emerald');
+    }
+
+    function downloadFile(filename, content, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      showToast(`Downloaded ${filename}`, 'sky');
+    }
+
+    // =========================================================================
+    // 8. INITIALIZATION & CANVAS CLICK-TO-INSPECT
+    // =========================================================================
+    window.onload = function () {
+      try {
+        switchTab('arena');
+        renderTunerSliders();
+        refreshExportCode();
+        resetLiveMatch(false);
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Click on canvas to inspect nearest mech
+        const canvas = document.getElementById('arena-canvas');
+        canvas.addEventListener('click', (ev) => {
+          if (!liveMatch) return;
+          const rect = canvas.getBoundingClientRect();
+          const wx = ((ev.clientX - rect.left) / rect.width) * MAP_W - MAP_W / 2;
+          const wy = ((ev.clientY - rect.top) / rect.height) * MAP_H - MAP_H / 2;
+          let bestId = inspectedMechId, bestD = 38;
+          for (const m of liveMatch.mechs) {
+            const d = dist(wx, wy, m.x, m.y);
+            if (d < bestD) { bestD = d; bestId = m.id; }
+          }
+          inspectMech(bestId);
+        });
+
+        requestAnimationFrame(animationLoop);
+      } catch (err) {
+        console.error('Initialization error:', err);
+        showToast('Simulation initialization error — check console.', 'rose');
+      }
+    };
+  </script>
+</body>
+</html>

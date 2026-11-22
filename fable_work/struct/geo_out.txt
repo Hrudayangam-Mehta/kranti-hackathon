@@ -1,0 +1,95 @@
+load ms 932 nav 534 361 components 95 main 0
+
+A. replay: grounded frames on a structure (>4 m above terrain), off-nav = standing where the nav grid has no cell at that height
+  0 expert     grounded 780  elevated 0%  max 0.0 m  offNav 0%
+  1 hard       grounded 337  elevated 0%  max 0.0 m  offNav 0%
+  2 brawler    grounded 1300  elevated 0%  max 0.0 m  offNav 1%
+  3 sniper     grounded 1430  elevated 4%  max 7.9 m  offNav 6%
+  4 thirdparty grounded 725  elevated 1%  max 4.2 m  offNav 4%
+  5 farmer     grounded 1185  elevated 4%  max 6.8 m  offNav 8%
+  6 expert     grounded 851  elevated 24%  max 12.9 m  offNav 25%
+  7 hard       grounded 839  elevated 1%  max 14.0 m  offNav 2%
+  8 medium     grounded 1167  elevated 0%  max 0.0 m  offNav 3%
+  9 brawler    grounded 1808  elevated 1%  max 9.3 m  offNav 4%
+  10 sniper     grounded 600  elevated 0%  max 0.0 m  offNav 0%
+  11 thirdparty grounded 494  elevated 0%  max 0.0 m  offNav 0%
+  12 farmer     grounded 1157  elevated 9%  max 11.9 m  offNav 13%
+  13 expert     grounded 489  elevated 0%  max 0.0 m  offNav 3%
+  14 hard       grounded 732  elevated 0%  max 0.0 m  offNav 1%
+  15 medium     grounded 496  elevated 0%  max 0.0 m  offNav 5%
+  mech-on-mech hits [count, damage]: {"lowlow":[239,19089.22999999999],"hiVictim":[161,11702.609999999991],"hiShooter":[76,4112.710000000001]}
+
+B. roofs: 176 prism tops >= 6 m above terrain; 84 with a point >= 6 m from every edge and area >= 300 m2
+  height 6-15 m: 31 roofs, area 43676 m2
+  height 15-25 m: 45 roofs, area 90048 m2
+  height 25-40 m: 6 roofs, area 6440 m2
+  height 40-59 m: 0 roofs, area 0 m2
+  height 59-999 m: 2 roofs, area 2492 m2
+
+C. exposure: 14013 ground shooter cells (6 m lattice, main component). Line = shooter muzzle (level+7) to our body centre (feet+4.5) with shotClear.
+  GROUND baseline (400 random cells):
+    line fraction within 230 m     : p10 0.172 p50 0.673 p90 0.926 mean 0.587
+    hit-weighted fraction          : p10 0.127 p50 0.408 p90 0.569 mean 0.367
+    line fraction within 100 m     : p10 0.472 p50 0.930 p90 1.000 mean 0.824
+    line fraction within 60 m      : p10 0.779 p50 1.000 p90 1.000 mean 0.932
+  ROOF perches (centre point of 82 usable roofs with height <= 55 m):
+    line fraction within 230 m     : p10 0.119 p50 0.285 p90 0.584 mean 0.315
+    hit-weighted fraction          : p10 0.064 p50 0.159 p90 0.297 mean 0.172
+    line fraction within 100 m     : p10 0.102 p50 0.356 p90 0.673 mean 0.364
+    line fraction within 60 m      : p10 0.000 p50 0.243 p90 0.716 mean 0.296
+    nearest ground cell with a line: p10 18.111 p50 38.210 p90 72.691 mean 41.831  roofs with NO ground line at all: 0
+  best 15 perches by hit-weighted exposure  [x y z | H area setback climb | frac wfrac near100 near60 minR]
+    197 234 18.0 | H 14 area 568 set 9 climb 14.2 | 0.024 0.023 0.175 0.324 23
+    191 284 25.2 | H 22 area 3472 set 17 climb 21.5 | 0.037 0.024 0.016 0.000 93
+    263 308 30.2 | H 27 area 2552 set 16 climb 26.4 | 0.100 0.037 0.013 0.000 93
+    221 300 18.1 | H 15 area 1452 set 10 climb 14.1 | 0.046 0.039 0.163 0.282 32
+    31 252 13.6 | H 13 area 4412 set 17 climb 11.8 | 0.070 0.043 0.154 0.072 51
+    -45 336 17.4 | H 19 area 4488 set 17 climb 16.3 | 0.141 0.045 0.000 0.000 108
+    55 206 36.8 | H 35 area 1452 set 13 climb 34.2 | 0.145 0.055 0.010 0.000 98
+    -121 -216 7.6 | H 8 area 556 set 16 climb 7.7 | 0.102 0.063 0.189 0.284 29
+    117 358 13.1 | H 11 area 1040 set 12 climb 10.3 | 0.071 0.064 0.268 0.284 25
+    279 196 20.6 | H 16 area 1376 set 10 climb 16.0 | 0.119 0.066 0.146 0.035 29
+    -107 -230 9.4 | H 10 area 340 set 12 climb 9.5 | 0.128 0.073 0.184 0.250 38
+    229 196 28.3 | H 24 area 1040 set 12 climb 24.3 | 0.164 0.074 0.063 0.000 74
+    273 228 24.3 | H 20 area 1944 set 17 climb 19.3 | 0.148 0.075 0.071 0.000 65
+    117 188 16.0 | H 12 area 2908 set 12 climb 11.9 | 0.135 0.076 0.211 0.188 37
+    111 -150 25.7 | H 21 area 4672 set 17 climb 19.7 | 0.206 0.078 0.029 0.000 88
+  good perches (hit-weighted exposure <= 0.03 and climb <= 45 m): 2; distance from a random ground cell to the nearest: p50 410 m p90 680 m
+    good perches within 560 m of the start centre: 2
+    good perches within 380 m of the start centre: 1
+    good perches within 240 m of the start centre: 0
+    good perches within 140 m of the start centre: 0
+  EDGE stance (3 m from the roof edge, 4 sides of the 40 best perches):
+    line fraction within 230 m     : p10 0.013 p50 0.049 p90 0.114 mean 0.052
+    hit-weighted fraction          : p10 0.012 p50 0.045 p90 0.078 mean 0.041
+    line fraction within 60 m      : p10 0.117 p50 0.336 p90 0.593 mean 0.329
+
+D. ground cells scanned 3504 (24 m lattice subset). Lowest hit-weighted exposure:
+    -19 136 wallDist 6.0 | frac 0.014 wfrac 0.014 near100 0.085 near60 0.244
+    -19 142 wallDist 5.1 | frac 0.018 wfrac 0.018 near100 0.112 near60 0.299
+    467 28 wallDist 4.5 | frac 0.021 wfrac 0.018 near100 0.064 near60 0.145
+    41 184 wallDist 3.2 | frac 0.019 wfrac 0.018 near100 0.130 near60 0.245
+    -55 196 wallDist 3.7 | frac 0.023 wfrac 0.021 near100 0.106 near60 0.340
+    23 178 wallDist 4.9 | frac 0.025 wfrac 0.024 near100 0.161 near60 0.438
+    449 40 wallDist 7.5 | frac 0.042 wfrac 0.025 near100 0.072 near60 0.252
+    23 190 wallDist 8.5 | frac 0.027 wfrac 0.026 near100 0.183 near60 0.550
+    155 190 wallDist 6.8 | frac 0.029 wfrac 0.028 near100 0.166 near60 0.616
+    161 166 wallDist 7.9 | frac 0.034 wfrac 0.029 near100 0.169 near60 0.558
+    419 28 wallDist 3.3 | frac 0.051 wfrac 0.029 near100 0.089 near60 0.209
+    23 196 wallDist 7.6 | frac 0.030 wfrac 0.030 near100 0.202 near60 0.614
+    share of ground cells with hit-weighted exposure <= 0.03: 0.004  <= 0.05: 0.013
+
+  pockets (ground components other than main, >= 25 cells): 12
+    comp 16 cells 10033 (40132 m2) centre -277,131 mean height over terrain 0.0 | frac 0.000 wfrac 0.000 near60 0.000 minR Infinity | exit climb 3.7 hop 13
+    comp 44 cells 209 (836 m2) centre -181,132 mean height over terrain 4.5 | frac 0.002 wfrac 0.000 near60 0.000 minR 210 | exit climb 6.7 hop 12
+    comp 64 cells 138 (552 m2) centre 202,210 mean height over terrain -0.0 | frac 0.000 wfrac 0.000 near60 0.000 minR Infinity | exit climb 20.6 hop 13
+    comp 60 cells 114 (456 m2) centre -373,147 mean height over terrain 9.6 | frac 0.376 wfrac 0.202 near60 0.031 minR 56 | exit climb 1.5 hop 10
+    comp 80 cells 97 (388 m2) centre -261,257 mean height over terrain 3.5 | frac 0.207 wfrac 0.108 near60 0.000 minR 84 | exit climb 3.6 hop 12
+    comp 14 cells 58 (232 m2) centre -330,2 mean height over terrain 2.0 | frac 0.589 wfrac 0.301 near60 0.432 minR 31 | exit climb 1.7 hop 8
+    comp 12 cells 50 (200 m2) centre -250,-8 mean height over terrain 1.9 | frac 0.605 wfrac 0.313 near60 0.564 minR 24 | exit climb 1.5 hop 4
+    comp 91 cells 45 (180 m2) centre 118,304 mean height over terrain -0.0 | frac 0.038 wfrac 0.036 near60 0.287 minR 31 | exit climb 6.1 hop 26
+    comp 4 cells 41 (164 m2) centre 532,-208 mean height over terrain -0.0 | frac 0.000 wfrac 0.000 near60 0.000 minR Infinity | exit climb 18.5 hop 24
+    comp 11 cells 35 (140 m2) centre -289,-6 mean height over terrain 6.7 | frac 0.121 wfrac 0.040 near60 0.000 minR 117 | exit climb 6.3 hop 6
+    comp 47 cells 32 (128 m2) centre -361,52 mean height over terrain 3.2 | frac 0.411 wfrac 0.229 near60 0.417 minR 22 | exit climb 1.5 hop 6
+    comp 35 cells 31 (124 m2) centre -207,37 mean height over terrain 2.1 | frac 0.309 wfrac 0.187 near60 0.534 minR 22 | exit climb 1.5 hop 4
+total ms 9260

@@ -1,0 +1,9 @@
+replace b'debug:!1,warmup:!0,rehearseN:800,rehearseFfaN:800,rngSalt:1540483477,salt:0,fuseMs:30,latency:0.1,tickS:0.05,gunRangeFrac:0.97,gateMin:0.004,gateBody:0.3,gateK:1,readyCd:0.1,gunFlightMax:0.55,steadyS:0.6,steadyDv:2,ladder:[0,2,3.6],revWindow:2,revCount:2,revLeadScale:0.5,revMinPerp:3,velEma:0.5,reloadAmmo:4,reloadQuiet:0.4,noReloadHp:300,laserRangeFrac:0.93,laserFullFrac:0.97,laserGateK:0.6,laserF' 
+   => b'debug:!1,warmup:!0,rehearseN:800,rehearseFfaN:800,rngSalt:1540483477,salt:0,fuseMs:30,latency:0.1,tickS:0.05,gunRangeFrac:0.97,gateMin:0.004,gateBody:0.3,gateK:1,readyCd:0.1,gunFlightMax:0.55,steadyS:0.6,steadyDv:2,ladder:[0,2,3.6],revWindow:2,revCount:2,revLeadScale:0.5,revMinPerp:3,velEma:0.5,reloadAmmo:4,reloadQuiet:0.4,noReloadHp:300,laserRangeFrac:0.93,laserFullFrac:0.97,laserGateK:0.6,laserF'
+replace b'if(l<o.pulseUntil)if(_()||B())o.pulseUntil=-1,o.pulseEndT=l;' 
+   => b'if(o.pulseUntil>=0)if(l>=o.pulseUntil)o.pulseUntil=-1,o.pulseCapT=l;else if(_()||B())o.pulseUntil=-1,o.pulseEndT=l;'
+replace b'if(M&&e.hide.state==="found"&&e.tCover<=n.h50CoverS&&!_()&&!B()&&!e.lastStand)o.pulseUntil=l+n.h50PulseMax,o.pulseT0=l,e.h50Pulse=!0,e.counters.h50Pulses=(e.counters.h50Pulses||0)+1}' 
+   => b'if(M&&l-o.pulseCapT>=n.h50PulseGapS&&e.hide.state==="found"&&e.tCover<=n.h50CoverS&&!_()&&!B()&&!e.lastStand)o.pulseUntil=l+n.h50PulseMax,o.pulseT0=l,e.h50Pulse=!0,e.counters.h50Pulses=(e.counters.h50Pulses||0)+1}'
+replace b'on:!1,seekOk:!1,commit:null,commitT:-99,lines:0,IN:0,pulseUntil:-1,pulseT0:-99,pulseEndT:-99,killT:-1,killX:0,killY:0,killDist:1e9}' 
+   => b'on:!1,seekOk:!1,commit:null,commitT:-99,lines:0,IN:0,pulseUntil:-1,pulseT0:-99,pulseEndT:-99,pulseCapT:-99,killT:-1,killX:0,killY:0,killDist:1e9}'
+hunks 4 sizes 216925 217040

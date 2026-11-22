@@ -1,0 +1,20 @@
+r0 rel15   p20m     warm n2 wall  19.506 cpu   6.554 (u 4.82 s 1.73) rss 2664M majflt 686 in 28MB laps setup=18 parse=12365 dedup=15733 people=19441 write=19449 psi 95 st 0 [warm: resident 465977/469253 pages = 99.30%]
+r0 rel15   p20m5s   warm n2 wall  15.604 cpu   5.913 (u 4.63 s 1.28) rss 2740M majflt 5747 in 599MB laps setup=27 parse=10430 dedup=12984 people=15589 write=15589 psi 95 st 0 [warm: resident 201772/469284 pages = 43.00%]
+r0 rel15   p20m5    warm n2 wall  33.671 cpu  13.469 (u 11.37 s 2.10) rss 3175M majflt 1034 in 122MB laps setup=10 parse=27138 dedup=29845 people=33498 write=33506 psi 95 st 0 [warm: resident 355665/510529 pages = 69.67%]
+r0 rel17   p20m     warm n2 wall  15.229 cpu   5.747 (u 4.16 s 1.59) rss 972M majflt 33 in 2MB laps setup=40 dedup=12716 people=15172 write=15173 psi 98 st 0 [warm: resident 469253/469253 pages = 100.00%]
+r0 rel17   p20m5s   warm n2 wall  16.028 cpu   6.045 (u 4.42 s 1.62) rss 1019M majflt 5 in 0MB laps setup=11 dedup=12982 people=16006 write=16007 psi 98 st 0 [warm: resident 469284/469284 pages = 100.00%]
+r0 rel17   p20m5    warm n2 wall  47.589 cpu  14.133 (u 12.04 s 2.09) rss 1477M majflt 2254 in 256MB laps setup=25 dedup=44122 people=47448 psi 96 st 256 [warm: resident 510529/510529 pages = 100.00%]
+FAIL rel17 256 0 lane F off: no key candidate passed
+setup        25.3 ms
+links      3223.4 ms on one thread
+dedup     44122.3 ms
+people    47448.2 ms
+error: /tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5model/run/ab_decomp/out/user_daily/part-00034.parquet: No such file or directory (os error 2)
+
+r0 rel15_n1 p20m     warm n1 wall  18.521 cpu   6.169 (u 4.56 s 1.61) rss 2737M majflt 29 in 2MB laps setup=46 parse=13122 dedup=16422 people=18468 write=18472 psi 98 st 0 [warm: resident 469253/469253 pages = 100.00%]
+r0 rel15_n1 p20m5    warm n1 wall  57.064 cpu  15.062 (u 12.61 s 2.45) rss 1761M majflt 14403 in 1897MB laps setup=14 parse=49876 dedup=53589 people=56937 write=56940 psi 95 st 0 [warm: resident 493945/510529 pages = 96.75%]
+r1 rel15_n1 p20m5    warm n1 wall  37.025 cpu  13.554 (u 11.42 s 2.14) rss 2325M majflt 4750 in 451MB laps setup=14 parse=32774 dedup=35104 people=36906 write=36912 psi 95 st 0 [warm: resident 510122/510529 pages = 99.92%]
+r1 rel15_n1 p20m     warm n1 wall  11.482 cpu   6.070 (u 4.36 s 1.71) rss 2735M majflt 16 in 0MB laps setup=10 parse=8261 dedup=9784 people=11462 write=11462 psi 96 st 0 [warm: resident 469253/469253 pages = 100.00%]
+r1 rel17   p20m5    warm n2 wall  31.392 cpu  15.539 (u 12.94 s 2.60) rss 1512M majflt 16125 in 1800MB laps setup=17 dedup=29958 people=31319 write=31319 psi 94 st 0 [warm: resident 510529/510529 pages = 100.00%]
+r1 rel17   p20m5s   warm n2 wall  15.829 cpu   6.136 (u 4.50 s 1.63) rss 1041M majflt 11454 in 1189MB laps setup=14 dedup=14773 people=15809 write=15813 psi 93 st 0 [warm: resident 469284/469284 pages = 100.00%]
+r1 rel17   p20m     warm n2 wall   8.165 cpu   5.761 (u 3.93 s 1.83) rss 992M majflt 4 in 0MB laps setup=7 dedup=6244 people=8089 write=8089 psi 86 st 0 [warm: resident 469253/469253 pages = 100.00%]
