@@ -1,7 +1,8 @@
+use std::collections::HashMap;
 use std::path::Path;
 
 use super::id::{Domain, Key};
-use super::parquet::{self, put_i32, put_i64, put_str, Column, Kind};
+use super::parquet::{self, put_i32, put_i64, put_str, Column, Dictionary, Kind};
 use crate::input::Result;
 
 #[derive(Default)]
@@ -13,6 +14,42 @@ pub struct Part {
     revenue: Vec<u64>,
     top: Vec<u8>,
     pub cells: Vec<[u64; 4]>,
+}
+
+fn user_dictionary(persons: &[Key], domain: &Domain) -> Option<Dictionary> {
+    if persons.len() < 32 {
+        return None;
+    }
+    let runs = 1 + persons.windows(2).filter(|w| w[0] != w[1]).count();
+    if runs > persons.len() / 2 {
+        return None;
+    }
+    let mut lookup: HashMap<(u64, u64), u32> = HashMap::with_capacity(runs);
+    let mut values = Vec::with_capacity(runs * 16);
+    let mut indices = Vec::with_capacity(persons.len());
+    let mut at = 0;
+    while at < persons.len() {
+        let key = persons[at];
+        let mut end = at + 1;
+        while end < persons.len() && persons[end] == key {
+            end += 1;
+        }
+        let index = if let Some(&index) = lookup.get(&(key.hi, key.lo)) {
+            index
+        } else {
+            let index = u32::try_from(lookup.len()).ok()?;
+            let offset = values.len();
+            values.extend_from_slice(&[0; 4]);
+            domain.bytes_of(key, &mut values);
+            let len = u32::try_from(values.len() - offset - 4).ok()?;
+            values[offset..offset + 4].copy_from_slice(&len.to_le_bytes());
+            lookup.insert((key.hi, key.lo), index);
+            index
+        };
+        indices.resize(end, index);
+        at = end;
+    }
+    Some(Dictionary { values, count: lookup.len() as u32, indices })
 }
 
 impl Part {
@@ -60,6 +97,7 @@ pub fn user_part(
 ) -> Result<()> {
     let base = range.start;
     let rows = range.len();
+    let dictionary = user_dictionary(&part.persons[range], domain);
     let names = |a: usize, b: usize, out: &mut Vec<u8>, _: &mut Vec<u8>| {
         for &person in &part.persons[base + a..base + b] {
             let at = out.len();
@@ -100,12 +138,12 @@ pub fn user_part(
         }
     };
     let columns = [
-        Column { name: "user_id", kind: Kind::Str, fill: &names },
-        Column { name: "day", kind: Kind::Date, fill: &days },
-        Column { name: "sessions", kind: Kind::I32, fill: &sessions },
-        Column { name: "events", kind: Kind::I32, fill: &events },
-        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
-        Column { name: "top_category", kind: Kind::OptStr, fill: &top },
+        Column { name: "user_id", kind: Kind::Str, fill: &names, dictionary: dictionary.as_ref() },
+        Column { name: "day", kind: Kind::Date, fill: &days, dictionary: None },
+        Column { name: "sessions", kind: Kind::I32, fill: &sessions, dictionary: None },
+        Column { name: "events", kind: Kind::I32, fill: &events, dictionary: None },
+        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue, dictionary: None },
+        Column { name: "top_category", kind: Kind::OptStr, fill: &top, dictionary: None },
     ];
     parquet::write(&dir.join(format!("part-{id:05}.parquet")), &columns, rows)
 }
@@ -187,13 +225,13 @@ pub fn campaign_table(
         }
     };
     let columns = [
-        Column { name: "campaign_id", kind: Kind::Str, fill: &ids_col },
-        Column { name: "channel", kind: Kind::Str, fill: &channel_col },
-        Column { name: "day", kind: Kind::Date, fill: &day_col },
-        Column { name: "sessions", kind: Kind::I32, fill: &sessions },
-        Column { name: "purchasing_sessions", kind: Kind::I32, fill: &purchasing },
-        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue },
-        Column { name: "assisted_sessions", kind: Kind::I32, fill: &assisted },
+        Column { name: "campaign_id", kind: Kind::Str, fill: &ids_col, dictionary: None },
+        Column { name: "channel", kind: Kind::Str, fill: &channel_col, dictionary: None },
+        Column { name: "day", kind: Kind::Date, fill: &day_col, dictionary: None },
+        Column { name: "sessions", kind: Kind::I32, fill: &sessions, dictionary: None },
+        Column { name: "purchasing_sessions", kind: Kind::I32, fill: &purchasing, dictionary: None },
+        Column { name: "revenue_cents", kind: Kind::I64, fill: &revenue, dictionary: None },
+        Column { name: "assisted_sessions", kind: Kind::I32, fill: &assisted, dictionary: None },
     ];
     parquet::write(&dir.join(format!("part-{file:05}.parquet")), &columns, rows.len())?;
     Ok(sums)

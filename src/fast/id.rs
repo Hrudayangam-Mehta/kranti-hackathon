@@ -19,6 +19,19 @@ const fn powers() -> [u64; 13] {
 
 pub const POW36: [u64; 13] = powers();
 
+const fn short_bases() -> [u64; 13] {
+    let mut bases = [0u64; 13];
+    bases[1] = 1;
+    let mut n = 2;
+    while n <= 12 {
+        bases[n] = bases[n - 1] + POW36[n - 1];
+        n += 1;
+    }
+    bases
+}
+
+pub const SHORT_BASE: [u64; 13] = short_bases();
+
 const fn digit_values() -> [u8; 256] {
     let mut table = [0xffu8; 256];
     let mut b = 0usize;
@@ -73,12 +86,12 @@ pub fn short_scalar(rest: &[u8]) -> Option<u64> {
     }
     let mut rank = 0u64;
     let mut bad = 0u8;
-    for (i, &b) in rest.iter().enumerate() {
+    for &b in rest {
         let d = DIGIT[b as usize];
         bad |= d;
-        rank += u64::from(d & 63) * POW36[11 - i];
+        rank = rank * 36 + u64::from(d & 63);
     }
-    (bad & 0xc0 == 0).then_some(rank + n as u64)
+    (bad & 0xc0 == 0).then_some(rank + SHORT_BASE[n])
 }
 
 #[inline(always)]
@@ -98,12 +111,42 @@ pub fn long_scalar(rest: &[u8]) -> Option<(u64, u64)> {
 
 #[inline(always)]
 pub fn short_rank(lo: u64) -> u64 {
-    lo - lo % 36
+    let n = short_len(lo);
+    (lo - SHORT_BASE[n]) * POW36[12 - n]
 }
 
 #[inline(always)]
 pub fn short_len(lo: u64) -> usize {
-    (lo % 36) as usize
+    if lo < SHORT_BASE[6] {
+        if lo < SHORT_BASE[3] {
+            if lo < SHORT_BASE[2] { 1 } else { 2 }
+        } else if lo < SHORT_BASE[5] {
+            if lo < SHORT_BASE[4] { 3 } else { 4 }
+        } else {
+            5
+        }
+    } else if lo < SHORT_BASE[9] {
+        if lo < SHORT_BASE[7] { 6 } else if lo < SHORT_BASE[8] { 7 } else { 8 }
+    } else if lo < SHORT_BASE[10] {
+        9
+    } else if lo < SHORT_BASE[11] {
+        10
+    } else {
+        11
+    }
+}
+
+#[inline(always)]
+fn short_cmp(a: u64, b: u64) -> Ordering {
+    let na = short_len(a);
+    let nb = short_len(b);
+    if na == nb {
+        a.cmp(&b)
+    } else {
+        let ra = (a - SHORT_BASE[na]) * POW36[12 - na] + na as u64;
+        let rb = (b - SHORT_BASE[nb]) * POW36[12 - nb] + nb as u64;
+        ra.cmp(&rb)
+    }
 }
 
 fn long_rank12(hi: u64) -> u64 {
@@ -200,7 +243,7 @@ impl Domain {
     #[inline]
     pub fn cmp(&self, a: Key, b: Key) -> Ordering {
         if a.hi == 0 && b.hi == 0 {
-            return a.lo.cmp(&b.lo);
+            return short_cmp(a.lo, b.lo);
         }
         self.cmp_wide(a, b)
     }
@@ -231,7 +274,7 @@ impl Domain {
                     Ordering::Less
                 }
             }
-            (true, true) => a.lo.cmp(&b.lo),
+            (true, true) => short_cmp(a.lo, b.lo),
         }
     }
 }
@@ -376,7 +419,7 @@ mod tests {
     fn classes() {
         let d = Domain::with_prefix(b'u');
         assert_eq!(d.exact(b"u0"), Some(Key { hi: 0, lo: 1 }));
-        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: POW36[11] + 1 }));
+        assert_eq!(d.exact(b"u1"), Some(Key { hi: 0, lo: 2 }));
         assert!(d.exact(b"u").is_none());
         assert!(d.exact(b"x1").is_none());
         assert!(d.exact(b"u000000000000").is_none());

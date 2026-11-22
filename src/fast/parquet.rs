@@ -20,6 +20,13 @@ pub struct Column<'a> {
     pub name: &'a str,
     pub kind: Kind,
     pub fill: &'a (dyn Fn(usize, usize, &mut Vec<u8>, &mut Vec<u8>) + Sync),
+    pub dictionary: Option<&'a Dictionary>,
+}
+
+pub struct Dictionary {
+    pub values: Vec<u8>,
+    pub count: u32,
+    pub indices: Vec<u32>,
 }
 
 struct Thrift {
@@ -108,6 +115,8 @@ impl Thrift {
 
 struct Chunk {
     offset: usize,
+    data_offset: usize,
+    dictionary: bool,
     size: usize,
     values: usize,
 }
@@ -136,6 +145,28 @@ fn bit_pack(defs: &[u8], out: &mut Vec<u8>) {
     }
 }
 
+fn dictionary_indices(indices: &[u32], count: u32, out: &mut Vec<u8>) {
+    let bits = (u32::BITS - (count - 1).leading_zeros()).max(1);
+    let bytes = bits.div_ceil(8) as usize;
+    out.push(bits as u8);
+    let mut at = 0;
+    while at < indices.len() {
+        let value = indices[at];
+        let mut end = at + 1;
+        while end < indices.len() && indices[end] == value {
+            end += 1;
+        }
+        let mut run = ((end - at) as u64) << 1;
+        while run >= 0x80 {
+            out.push(run as u8 | 0x80);
+            run >>= 7;
+        }
+        out.push(run as u8);
+        out.extend_from_slice(&value.to_le_bytes()[..bytes]);
+        at = end;
+    }
+}
+
 pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
     let mut file: Vec<u8> = Vec::with_capacity(rows * 48 + 4096);
     file.extend_from_slice(b"PAR1");
@@ -146,12 +177,32 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
     if rows > 0 {
         for column in columns {
             let offset = file.len();
+            if let Some(dictionary) = column.dictionary {
+                assert!(column.kind == Kind::Str && dictionary.count > 0);
+                assert_eq!(dictionary.indices.len(), rows);
+                let mut header = Thrift::new();
+                header.i32(1, 2);
+                header.i32(2, dictionary.values.len() as i32);
+                header.i32(3, dictionary.values.len() as i32);
+                header.begin(7);
+                header.i32(1, dictionary.count as i32);
+                header.i32(2, 0);
+                header.end();
+                header.out.push(0);
+                file.extend_from_slice(&header.out);
+                file.extend_from_slice(&dictionary.values);
+            }
+            let data_offset = file.len();
             let mut start = 0;
             while start < rows {
                 let end = (start + PAGE_ROWS).min(rows);
                 values.clear();
                 defs.clear();
-                (column.fill)(start, end, &mut values, &mut defs);
+                if let Some(dictionary) = column.dictionary {
+                    dictionary_indices(&dictionary.indices[start..end], dictionary.count, &mut values);
+                } else {
+                    (column.fill)(start, end, &mut values, &mut defs);
+                }
                 levels.clear();
                 if column.kind == Kind::OptStr {
                     let mut packed = Vec::with_capacity(defs.len() / 8 + 16);
@@ -166,7 +217,7 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
                 header.i32(3, size as i32);
                 header.begin(5);
                 header.i32(1, (end - start) as i32);
-                header.i32(2, 0);
+                header.i32(2, if column.dictionary.is_some() { 8 } else { 0 });
                 header.i32(3, 3);
                 header.i32(4, 3);
                 header.end();
@@ -178,6 +229,8 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
             }
             chunks.push(Chunk {
                 offset,
+                data_offset,
+                dictionary: column.dictionary.is_some(),
                 size: file.len() - offset,
                 values: rows,
             });
@@ -225,16 +278,22 @@ pub fn encode(columns: &[Column], rows: usize) -> Vec<u8> {
             meta.i64(2, chunk.offset as i64);
             meta.begin(3);
             meta.i32(1, physical(column.kind));
-            meta.list(2, 5, 2);
+            meta.list(2, 5, if chunk.dictionary { 3 } else { 2 });
             meta.list_i32(0);
             meta.list_i32(3);
+            if chunk.dictionary {
+                meta.list_i32(8);
+            }
             meta.list(3, 8, 1);
             meta.list_binary(column.name.as_bytes());
             meta.i32(4, 0);
             meta.i64(5, chunk.values as i64);
             meta.i64(6, chunk.size as i64);
             meta.i64(7, chunk.size as i64);
-            meta.i64(9, chunk.offset as i64);
+            meta.i64(9, chunk.data_offset as i64);
+            if chunk.dictionary {
+                meta.i64(11, chunk.offset as i64);
+            }
             meta.end();
             meta.end();
         }

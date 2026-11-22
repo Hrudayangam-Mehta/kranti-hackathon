@@ -37,6 +37,8 @@ const INVALID: u32 = u32::MAX;
 const VIEW: u32 = u32::from_le_bytes(*b"view");
 const CART: u32 = u32::from_le_bytes(*b"cart");
 const PURCHASE: u64 = u64::from_le_bytes(*b"purchase");
+const CODE_MASK: u64 = (1 << 42) - 1;
+const TIME_MASK: u64 = (1 << 22) - 1;
 
 #[derive(Clone, Copy)]
 #[repr(C)]
@@ -51,28 +53,210 @@ pub struct EventRec {
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct EventSmall {
-    event: u64,
-    user: u64,
-    ingest: i64,
-    ts: u32,
-    payload: u32,
+    lo: u64,
+    hi: u64,
+}
+
+#[inline(always)]
+fn short_code(key: Key) -> Option<u64> {
+    (key.hi == 0 && key.lo <= CODE_MASK).then_some(key.lo)
+}
+
+#[inline(always)]
+fn short_key(code: u64) -> Key {
+    Key { hi: 0, lo: code }
+}
+
+impl EventSmall {
+    #[inline(always)]
+    fn new(rec: &EventRec, base: i64) -> Option<Self> {
+        if rec.payload != 0 || (rec.event.hi | rec.user.hi) != 0 {
+            return None;
+        }
+        let ingest = rec.ingest.checked_sub(base)?;
+        if ingest < 0 || ingest % 1000 != 0 {
+            return None;
+        }
+        let ingest = (ingest / 1000) as u64;
+        if ingest > TIME_MASK {
+            return None;
+        }
+        let ts = if rec.ts == INVALID {
+            TIME_MASK
+        } else {
+            if rec.ts % 1000 != 0 {
+                return None;
+            }
+            let seconds = u64::from(rec.ts / 1000);
+            if seconds >= TIME_MASK {
+                return None;
+            }
+            seconds
+        };
+        let event = short_code(rec.event)?;
+        let user = short_code(rec.user)?;
+        if event == 0 {
+            return None;
+        }
+        Some(EventSmall {
+            lo: event | (user & TIME_MASK) << 42,
+            hi: user >> 22 | ingest << 20 | ts << 42,
+        })
+    }
+
+    #[inline(always)]
+    fn event(self) -> Key {
+        short_key(self.lo & CODE_MASK)
+    }
+
+    #[inline(always)]
+    fn user(self) -> Key {
+        short_key(self.lo >> 42 | (self.hi & (CODE_MASK >> 22)) << 22)
+    }
+
+    #[inline(always)]
+    fn ingest(self, base: i64) -> i64 {
+        base + (((self.hi >> 20) & TIME_MASK) * 1000) as i64
+    }
+
+    #[inline(always)]
+    fn ts(self) -> u32 {
+        let value = self.hi >> 42;
+        if value == TIME_MASK { INVALID } else { value as u32 * 1000 }
+    }
+}
+
+#[derive(Clone, Copy)]
+struct Candidate {
+    ptr: *const u8,
+}
+
+impl Candidate {
+    #[inline(always)]
+    fn small(rec: &EventSmall) -> Self {
+        Candidate { ptr: rec as *const EventSmall as *const u8 }
+    }
+
+    #[inline(always)]
+    fn wide(rec: &EventRec) -> Self {
+        Candidate { ptr: (rec as *const EventRec as *const u8).map_addr(|addr| addr | 1) }
+    }
+
+    #[inline(always)]
+    fn event(self) -> Key {
+        let ptr = self.ptr.map_addr(|addr| addr & !3);
+        unsafe {
+            if self.ptr.addr() & 1 == 0 {
+                (*(ptr as *const EventSmall)).event()
+            } else {
+                (*(ptr as *const EventRec)).event
+            }
+        }
+    }
+
+    #[inline(always)]
+    fn ingest(self, base: i64) -> i64 {
+        let ptr = self.ptr.map_addr(|addr| addr & !3);
+        unsafe {
+            if self.ptr.addr() & 1 == 0 {
+                (*(ptr as *const EventSmall)).ingest(base)
+            } else {
+                (*(ptr as *const EventRec)).ingest
+            }
+        }
+    }
+
+    #[inline(always)]
+    fn discard(&mut self) {
+        self.ptr = self.ptr.map_addr(|addr| addr | 2);
+    }
+
+    #[inline(always)]
+    fn value(self) -> Option<(Key, u32, u32)> {
+        if self.ptr.addr() & 2 != 0 {
+            return None;
+        }
+        let ptr = self.ptr.map_addr(|addr| addr & !3);
+        unsafe {
+            if self.ptr.addr() & 1 == 0 {
+                let rec = &*(ptr as *const EventSmall);
+                let ts = rec.ts();
+                (ts != INVALID).then_some((rec.user(), ts, 0))
+            } else {
+                let rec = &*(ptr as *const EventRec);
+                (rec.ts != INVALID).then_some((rec.user, rec.ts, rec.payload))
+            }
+        }
+    }
 }
 
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct PersonSmall {
-    person: u64,
-    ts: u32,
-    payload: u32,
+    value: u64,
+}
+
+impl PersonSmall {
+    #[inline(always)]
+    fn new(person: Key, ts: u32, payload: u32) -> Option<Self> {
+        if payload != 0 || person.hi != 0 || person.lo > CODE_MASK || ts % 1000 != 0
+            || u64::from(ts / 1000) > TIME_MASK {
+            return None;
+        }
+        Some(PersonSmall { value: person.lo | u64::from(ts / 1000) << 42 })
+    }
+
+    #[inline(always)]
+    fn person(self) -> Key {
+        Key { hi: 0, lo: self.value & CODE_MASK }
+    }
+
+    #[inline(always)]
+    fn ts(self) -> u32 {
+        (self.value >> 42) as u32 * 1000
+    }
 }
 
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct ClickSmall {
-    person: u64,
-    click: u64,
-    ts: u32,
-    campaign: u32,
+    lo: u64,
+    hi: u64,
+}
+
+impl ClickSmall {
+    #[inline(always)]
+    fn new(rec: &ClickRec) -> Option<Self> {
+        if (rec.person.hi | rec.click.hi) != 0 || rec.person.lo > CODE_MASK || rec.click.lo > CODE_MASK
+            || rec.ts % 1000 != 0 || u64::from(rec.ts / 1000) > TIME_MASK
+            || u64::from(rec.campaign) > TIME_MASK {
+            return None;
+        }
+        Some(ClickSmall {
+            lo: rec.person.lo | (rec.click.lo & TIME_MASK) << 42,
+            hi: rec.click.lo >> 22 | u64::from(rec.ts / 1000) << 20 | u64::from(rec.campaign) << 42,
+        })
+    }
+
+    #[inline(always)]
+    fn person(self) -> Key {
+        Key { hi: 0, lo: self.lo & CODE_MASK }
+    }
+
+    #[inline(always)]
+    fn click(self) -> Key {
+        Key { hi: 0, lo: self.lo >> 42 | (self.hi & (CODE_MASK >> 22)) << 22 }
+    }
+
+    #[inline(always)]
+    fn ts(self) -> u32 {
+        ((self.hi >> 20) & TIME_MASK) as u32 * 1000
+    }
+
+    #[inline(always)]
+    fn campaign(self) -> u32 {
+        (self.hi >> 42) as u32
+    }
 }
 
 pub struct Pair<A: Copy, B: Copy> {
@@ -119,7 +303,7 @@ pub struct ClickRec {
     campaign: u32,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 struct LocalClick {
     ts: u32,
     campaign: u32,
@@ -420,6 +604,9 @@ pub fn run(config: &Config) -> Result<Outcome> {
     mark("domains");
     let first_day = ws.div_euclid(DAY_MS);
     let last_day = (we - 1).div_euclid(DAY_MS);
+    let p1_bits = bits_for(est_events, 48 << 10);
+    let p2_bits = bits_for(est_events, 24 << 10);
+    let block = block_for(event_bytes / 77, 1 << p2_bits, threads, 64);
     let ctx = Ctx {
         calendar: Calendar::around(ws),
         ws,
@@ -429,11 +616,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
         unknown,
         campaigns: SmallMap::new(&campaign_entries),
         organic,
-        p1_bits: bits_for(est_events, 12 << 10),
-        p2_bits: bits_for(est_events, 12 << 10),
-        p1_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
-        click_block: block_for(click_bytes / 47, 1 << bits_for(est_events, 12 << 10), threads, 32),
-        p2_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
+        p1_bits,
+        p2_bits,
+        p1_block: block,
+        click_block: block_for(click_bytes / 47, 1 << p2_bits, threads, 32),
+        p2_block: block,
         first_day,
         days: (last_day - first_day + 1) as usize,
         day_shift: cws - first_day * DAY_MS,
@@ -513,12 +700,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 warm_heap();
                 let mut tr = trace::Trace::new(tracing, started);
                 let mut arena = Arena::new();
-                let mut p1: Option<Copies> = Some(Pair::new(1 << ctx.p1_bits, ctx.p1_block, ctx.p1_block * 2 / 3));
-                let mut clicks: Option<Clicks> = Some(Pair::new(1 << ctx.p2_bits, ctx.click_block, ctx.click_block / 2));
+                let mut p1: Option<Copies> = Some(Pair::new(1 << ctx.p1_bits, ctx.p1_block, ctx.p1_block / 3));
+                let mut clicks: Option<Clicks> = Some(Pair::new(1 << ctx.p2_bits, ctx.click_block * 3 / 2, ctx.click_block / 2));
                 let mut copies = 0usize;
                 let mut click_count = 0usize;
-                let mut p2: Persons = Pair::new(1 << ctx.p2_bits, ctx.p2_block, ctx.p2_block * 2 / 3);
-                let mut buf: Vec<EventRec> = Vec::new();
+                let mut p2: Persons = Pair::new(1 << ctx.p2_bits, ctx.p2_block * 2, ctx.p2_block * 2 / 3);
+                let mut buf: Vec<Candidate> = Vec::new();
                 let mut table: Vec<u32> = Vec::new();
                 let mut once: Vec<u64> = Vec::new();
                 let mut twice: Vec<u64> = Vec::new();
@@ -966,14 +1153,7 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
                 }
             }
             let part = part_of(event, ctx.p1_bits);
-            if (event.hi | rec.user.hi) == 0 {
-                let small = EventSmall {
-                    event: event.lo,
-                    user: rec.user.lo,
-                    ingest: rec.ingest,
-                    ts: rec.ts,
-                    payload: rec.payload,
-                };
+            if let Some(small) = EventSmall::new(&rec, ctx.cws) {
                 self.sink.a.push(self.arena, part, small);
             } else {
                 self.sink.b.push(self.arena, part, rec);
@@ -1026,13 +1206,7 @@ impl<K: Kernel> ClickLines<'_, K> {
     fn resolve(&mut self, mut rec: ClickRec) {
         rec.person = self.people.name_of(rec.person);
         let part = part_of(rec.person, self.ctx.p2_bits);
-        if (rec.person.hi | rec.click.hi) == 0 {
-            let small = ClickSmall {
-                person: rec.person.lo,
-                click: rec.click.lo,
-                ts: rec.ts,
-                campaign: rec.campaign,
-            };
+        if let Some(small) = ClickSmall::new(&rec) {
             self.sink.a.push(self.arena, part, small);
         } else {
             self.sink.b.push(self.arena, part, rec);
@@ -1151,8 +1325,8 @@ impl Emit<'_> {
     fn resolve(&mut self, user: Key, ts: u32, payload: u32, out: &mut Persons, arena: &mut Arena) {
         let person = self.people.name_of(user);
         let part = part_of(person, self.bits);
-        if person.hi == 0 {
-            out.a.push(arena, part, PersonSmall { person: person.lo, ts, payload });
+        if let Some(rec) = PersonSmall::new(person, ts, payload) {
+            out.a.push(arena, part, rec);
         } else {
             out.b.push(arena, part, PersonRec { person, ts, payload });
         }
@@ -1175,13 +1349,13 @@ fn dedup(
     q: usize,
     once: &mut Vec<u64>,
     twice: &mut Vec<u64>,
-    cand: &mut Vec<EventRec>,
+    cand: &mut Vec<Candidate>,
     table: &mut Vec<u32>,
     arena: &mut Arena,
     out: &mut Persons,
 ) -> usize {
     let n: usize = sinks.iter().map(|s| s.len(q)).sum();
-    let piece = ctx.p2_block * std::mem::size_of::<PersonSmall>();
+    let piece = out.a.block_bytes();
     if n == 0 {
         return 0;
     }
@@ -1196,7 +1370,7 @@ fn dedup(
     for sink in sinks {
         for slice in sink.a.slices(q) {
             for r in slice {
-                let h = Key { hi: 0, lo: r.event }.hash();
+                let h = r.event().hash();
                 mark(once, twice, (h >> sshift) as usize & smask);
             }
         }
@@ -1218,38 +1392,22 @@ fn dedup(
     for sink in sinks {
         for slice in sink.a.slices(q) {
             for r in slice {
-                let event = Key { hi: 0, lo: r.event };
+                let event = r.event();
                 if marked(twice, (event.hash() >> sshift) as usize & smask) {
-                    cand.push(EventRec {
-                        event,
-                        user: Key { hi: 0, lo: r.user },
-                        ingest: r.ingest,
-                        ts: r.ts,
-                        payload: r.payload,
-                    });
-                } else if r.ts != INVALID {
-                    emit.push(Key { hi: 0, lo: r.user }, r.ts, r.payload, out, arena);
+                    cand.push(Candidate::small(r));
+                } else if r.ts() != INVALID {
+                    emit.push(r.user(), r.ts(), 0, out, arena);
                 }
             }
         }
         for slice in sink.b.slices(q) {
             for r in slice {
                 if marked(twice, (r.event.hash() >> sshift) as usize & smask) {
-                    cand.push(*r);
+                    cand.push(Candidate::wide(r));
                 } else if r.ts != INVALID {
                     emit.push(r.user, r.ts, r.payload, out, arena);
                 }
             }
-        }
-    }
-    for sink in sinks {
-        let bytes = sink.a.block_bytes();
-        for block in sink.a.blocks(q) {
-            arena.recycle(block, bytes, piece);
-        }
-        let bytes = sink.b.block_bytes();
-        for block in sink.b.blocks(q) {
-            arena.recycle(block, bytes, piece);
         }
     }
     let m = cand.len();
@@ -1261,7 +1419,7 @@ fn dedup(
         table.resize(size, u32::MAX);
         let shift = 64 - ctx.p1_bits - tbits;
         for i in 0..m {
-            let key = cand[i].event;
+            let key = cand[i].event();
             let mut slot = ((key.hash() >> shift) as usize) & mask;
             loop {
                 let entry = unsafe { table.get_unchecked_mut(slot) };
@@ -1270,12 +1428,12 @@ fn dedup(
                     break;
                 }
                 let j = *entry as usize;
-                if unsafe { cand.get_unchecked(j) }.event == key {
-                    if cand[i].ingest < cand[j].ingest {
-                        cand[j].ts = INVALID;
+                if unsafe { cand.get_unchecked(j) }.event() == key {
+                    if cand[i].ingest(ctx.cws) < cand[j].ingest(ctx.cws) {
+                        cand[j].discard();
                         *entry = i as u32;
                     } else {
-                        cand[i].ts = INVALID;
+                        cand[i].discard();
                     }
                     break;
                 }
@@ -1283,12 +1441,23 @@ fn dedup(
             }
         }
         for rec in cand.iter() {
-            if rec.ts != INVALID {
-                emit.push(rec.user, rec.ts, rec.payload, out, arena);
+            if let Some((user, ts, payload)) = rec.value() {
+                emit.push(user, ts, payload, out, arena);
             }
         }
     }
     emit.flush(out, arena);
+    cand.clear();
+    for sink in sinks {
+        let bytes = sink.a.block_bytes();
+        for block in sink.a.blocks(q) {
+            arena.recycle(block, bytes, piece);
+        }
+        let bytes = sink.b.block_bytes();
+        for block in sink.b.blocks(q) {
+            arena.recycle(block, bytes, piece);
+        }
+    }
     emit.winners
 }
 
@@ -1348,6 +1517,22 @@ fn radix_by_ts<T: Copy + Default>(data: &mut Vec<T>, spare: &mut Vec<T>, low: u3
     }
 }
 
+#[derive(Clone, Copy)]
+struct SessionBin {
+    min: u32,
+    max: u32,
+    count: u64,
+    session: u32,
+}
+
+#[derive(Clone, Copy)]
+struct BinSession {
+    start: u32,
+    day: u32,
+    events: u64,
+    revenue: u64,
+}
+
 struct Worker {
     click_ids: Domain,
     organic: u32,
@@ -1363,15 +1548,23 @@ struct Worker {
     counts: Vec<u32>,
     click_counts: Vec<u32>,
     recs: Vec<Rec>,
-    spare: Vec<Rec>,
     click_recs: Vec<ClickTmp>,
-    click_spare: Vec<ClickTmp>,
+    click_spare: Vec<LocalClick>,
+    click_sort: Vec<LocalClick>,
     sorted: Vec<u64>,
     local_clicks: Vec<LocalClick>,
     in_window: Vec<u32>,
     active_at: Vec<u32>,
     active: Vec<u32>,
     category_sums: Vec<(u32, u64)>,
+    bins: Vec<SessionBin>,
+    bin_purchases: Vec<u64>,
+    bin_sessions: Vec<BinSession>,
+    bin_categories: Vec<u64>,
+    bin_touched: Vec<usize>,
+    bin_best: Vec<(u64, u8)>,
+    occupied_bins: Vec<u32>,
+    bin_threshold: usize,
 }
 
 impl Worker {
@@ -1392,15 +1585,23 @@ impl Worker {
             counts: Vec::new(),
             click_counts: Vec::new(),
             recs: Vec::new(),
-            spare: Vec::new(),
             click_recs: Vec::new(),
             click_spare: Vec::new(),
+            click_sort: Vec::new(),
             sorted: Vec::new(),
             local_clicks: Vec::new(),
             in_window: vec![0; campaigns],
             active_at: vec![0; campaigns],
             active: Vec::new(),
             category_sums: Vec::new(),
+            bins: vec![SessionBin { min: 0, max: 0, count: 0, session: 0 }; ((ctx.we - ctx.cws) as usize).div_ceil(GAP_MS as usize)],
+            bin_purchases: Vec::new(),
+            bin_sessions: Vec::new(),
+            bin_categories: vec![0; ctx.days * 256],
+            bin_touched: Vec::new(),
+            bin_best: vec![(0, u8::MAX); ctx.days],
+            occupied_bins: Vec::new(),
+            bin_threshold: std::env::var("SESSIONS_BIN_THRESHOLD").ok().and_then(|x| x.parse().ok()).unwrap_or(8),
         }
     }
 
@@ -1432,8 +1633,6 @@ impl Worker {
         self.persons.clear();
         self.counts.clear();
         self.recs.clear();
-        let mut low = u32::MAX;
-        let mut high = 0u32;
         macro_rules! add_event {
             ($key:expr, $ts:expr, $payload:expr) => {{
                 let key: Key = $key;
@@ -1460,8 +1659,6 @@ impl Worker {
                     slot = (slot + 1) & mask;
                 };
                 unsafe { *self.counts.get_unchecked_mut(id as usize) += 1 };
-                low = low.min($ts);
-                high = high.max($ts);
                 self.recs.push(Rec {
                     ts: $ts,
                     payload: $payload,
@@ -1472,7 +1669,7 @@ impl Worker {
         for sink in events {
             for slice in sink.a.slices(p) {
                 for rec in slice {
-                    add_event!(Key { hi: 0, lo: rec.person }, rec.ts, rec.payload);
+                    add_event!(rec.person(), rec.ts(), 0);
                 }
             }
             for slice in sink.b.slices(p) {
@@ -1481,7 +1678,6 @@ impl Worker {
                 }
             }
         }
-        radix_by_ts(&mut self.recs, &mut self.spare, low, high, |r| r.ts);
         let persons = self.persons.len();
         let mut offsets: Vec<u32> = Vec::with_capacity(persons + 1);
         let mut acc = 0u32;
@@ -1504,8 +1700,6 @@ impl Worker {
         self.click_counts.clear();
         self.click_counts.resize(persons, 0);
         self.click_recs.clear();
-        let mut low = u32::MAX;
-        let mut high = 0u32;
         macro_rules! add_click {
             ($key:expr, $click:expr, $ts:expr, $campaign:expr) => {{
                 let key: Key = $key;
@@ -1519,8 +1713,6 @@ impl Worker {
                 };
                 if id != u32::MAX {
                     unsafe { *self.click_counts.get_unchecked_mut(id as usize) += 1 };
-                    low = low.min($ts);
-                    high = high.max($ts);
                     self.click_recs.push(ClickTmp {
                         ts: $ts,
                         id,
@@ -1533,7 +1725,8 @@ impl Worker {
         for sink in clicks {
             for slice in sink.a.slices(p) {
                 for rec in slice {
-                    add_click!(Key { hi: 0, lo: rec.person }, Key { hi: 0, lo: rec.click }, rec.ts, rec.campaign);
+                    let ts = rec.ts();
+                    add_click!(rec.person(), rec.click(), ts, rec.campaign());
                 }
             }
             for slice in sink.b.slices(p) {
@@ -1542,7 +1735,6 @@ impl Worker {
                 }
             }
         }
-        radix_by_ts(&mut self.click_recs, &mut self.click_spare, low, high, |r| r.ts);
         let mut click_offsets: Vec<u32> = Vec::with_capacity(persons + 1);
         let mut acc = 0u32;
         for &c in &self.click_counts {
@@ -1574,17 +1766,32 @@ impl Worker {
             }
         }
         for id in 0..persons {
-            let (first, last) = (click_offsets[id] as usize, click_offsets[id + 1] as usize);
-            let mut i = first + 1;
-            while i < last {
-                if self.local_clicks[i].ts == self.local_clicks[i - 1].ts {
+            let first = click_offsets[id] as usize;
+            let last = click_offsets[id + 1] as usize;
+            if last - first <= 4 {
+                continue;
+            }
+            let domain = self.click_ids;
+            let group = &mut self.local_clicks[first..last];
+            if group.len() <= 64 {
+                group.sort_unstable_by(|a, b| a.ts.cmp(&b.ts).then_with(|| domain.cmp(b.click, a.click)));
+                continue;
+            }
+            self.click_sort.clear();
+            self.click_sort.extend_from_slice(group);
+            let low = group.iter().map(|r| r.ts).min().unwrap();
+            let high = group.iter().map(|r| r.ts).max().unwrap();
+            radix_by_ts(&mut self.click_sort, &mut self.click_spare, low, high, |r| r.ts);
+            group.copy_from_slice(&self.click_sort);
+            let mut i = 1;
+            while i < group.len() {
+                if group[i].ts == group[i - 1].ts {
                     let start = i - 1;
                     let mut end = i + 1;
-                    while end < last && self.local_clicks[end].ts == self.local_clicks[start].ts {
+                    while end < group.len() && group[end].ts == group[start].ts {
                         end += 1;
                     }
-                    let domain = self.click_ids;
-                    self.local_clicks[start..end].sort_unstable_by(|a, b| domain.cmp(b.click, a.click));
+                    group[start..end].sort_unstable_by(|a, b| domain.cmp(b.click, a.click));
                     i = end;
                 } else {
                     i += 1;
@@ -1595,7 +1802,12 @@ impl Worker {
             let er = offsets[id] as usize..offsets[id + 1] as usize;
             let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
             let name = self.persons[id];
-            self.person(name, er, cr);
+            if er.len() <= self.bin_threshold {
+                self.sorted[er.clone()].sort_unstable();
+                self.person(name, er, cr);
+            } else {
+                self.person_bins(name, er, cr);
+            }
         }
     }
 
@@ -1617,10 +1829,183 @@ impl Worker {
         }
     }
 
+    fn person_bins(&mut self, person: Key, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {
+        self.bin_purchases.clear();
+        self.bin_sessions.clear();
+        self.occupied_bins.clear();
+        for &value in &self.sorted[events] {
+            let ts = (value >> 32) as u32;
+            let b = ts / GAP_MS;
+            let bin = &mut self.bins[b as usize];
+            if bin.count == 0 {
+                self.occupied_bins.push(b);
+                bin.min = ts;
+                bin.max = ts;
+            } else {
+                bin.min = bin.min.min(ts);
+                bin.max = bin.max.max(ts);
+            }
+            bin.count += 1;
+            if value as u32 & 0x00ff_ffff != 0 {
+                self.bin_purchases.push(value);
+            }
+        }
+        self.occupied_bins.sort_unstable();
+        let mut i = 0usize;
+        while i < self.occupied_bins.len() {
+            let start = self.bins[self.occupied_bins[i] as usize].min;
+            let day = ((i64::from(start) + self.day_shift) / DAY_MS) as u32;
+            let session = self.bin_sessions.len() as u32;
+            let mut last = start;
+            let mut events_in = 0u64;
+            while i < self.occupied_bins.len() {
+                let b = self.occupied_bins[i] as usize;
+                let bin = &mut self.bins[b];
+                if bin.min - last > GAP_MS {
+                    break;
+                }
+                last = bin.max;
+                events_in += bin.count;
+                bin.session = session;
+                bin.count = 0;
+                i += 1;
+            }
+            self.bin_sessions.push(BinSession { start, day, events: events_in, revenue: 0 });
+        }
+        for &value in &self.bin_purchases {
+            let ts = (value >> 32) as u32;
+            let payload = value as u32;
+            let price = u64::from(payload & 0x00ff_ffff);
+            let category = (payload >> 24) as u8;
+            let session = self.bins[(ts / GAP_MS) as usize].session as usize;
+            let session = &mut self.bin_sessions[session];
+            session.revenue += price;
+            let day = session.day as usize;
+            let at = day * 256 + usize::from(category);
+            let sum = &mut self.bin_categories[at];
+            if *sum == 0 {
+                self.bin_touched.push(at);
+            }
+            *sum += price;
+            let best = &mut self.bin_best[day];
+            if *sum > best.0 || (*sum == best.0 && category < best.1) {
+                *best = (*sum, category);
+            }
+        }
+        let mut low = clicks.start;
+        let mut high = clicks.start;
+        let mut row_day = usize::MAX;
+        let mut row = [0u64; 3];
+        for i in 0..self.bin_sessions.len() {
+            let session = self.bin_sessions[i];
+            let start = session.start;
+            let day = session.day as usize;
+            let revenue = session.revenue;
+            if day != row_day {
+                if row_day != usize::MAX {
+                    self.finish_bin_row(person, row_day, row);
+                }
+                row_day = day;
+                row = [0; 3];
+            }
+            self.credit_session(start, day, revenue, &clicks, &mut low, &mut high);
+            row[0] += 1;
+            row[1] += session.events;
+            row[2] += revenue;
+        }
+        if row_day != usize::MAX {
+            self.finish_bin_row(person, row_day, row);
+        }
+        for at in self.bin_touched.drain(..) {
+            self.bin_categories[at] = 0;
+        }
+        for &c in &self.active {
+            self.in_window[c as usize] = 0;
+        }
+        self.active.clear();
+    }
+
+    #[inline]
+    fn credit_session(
+        &mut self,
+        start: u32,
+        day: usize,
+        revenue: u64,
+        clicks: &std::ops::Range<usize>,
+        low: &mut usize,
+        high: &mut usize,
+    ) {
+        let direct = clicks.len() <= 4;
+        let credited = if direct {
+            let mut best: Option<LocalClick> = None;
+            for i in clicks.start..clicks.end {
+                let click = self.local_clicks[i];
+                if click.ts > start || start - click.ts > WEEK_MS as u32 {
+                    continue;
+                }
+                let campaign = click.campaign as usize;
+                if self.in_window[campaign] == 0 {
+                    self.in_window[campaign] = 1;
+                    self.active.push(click.campaign);
+                }
+                if best.map_or(true, |old| click.ts > old.ts ||
+                    (click.ts == old.ts && self.click_ids.cmp(click.click, old.click).is_lt())) {
+                    best = Some(click);
+                }
+            }
+            best.map_or(self.organic, |click| click.campaign)
+        } else {
+            while *high < clicks.end && self.local_clicks[*high].ts <= start {
+                let c = self.local_clicks[*high].campaign as usize;
+                self.in_window[c] += 1;
+                if self.in_window[c] == 1 {
+                    self.active_at[c] = self.active.len() as u32;
+                    self.active.push(c as u32);
+                }
+                *high += 1;
+            }
+            while *low < *high && start - self.local_clicks[*low].ts > WEEK_MS as u32 {
+                let c = self.local_clicks[*low].campaign as usize;
+                self.in_window[c] -= 1;
+                if self.in_window[c] == 0 {
+                    let at = self.active_at[c] as usize;
+                    self.active.swap_remove(at);
+                    if let Some(&moved) = self.active.get(at) {
+                        self.active_at[moved as usize] = at as u32;
+                    }
+                }
+                *low += 1;
+            }
+            if *low < *high { self.local_clicks[*high - 1].campaign } else { self.organic }
+        };
+        let row_base = day * self.campaigns;
+        let cell = &mut self.credit[row_base + credited as usize];
+        cell[0] += 1;
+        if revenue > 0 {
+            cell[1] += 1;
+            cell[2] += revenue;
+        }
+        let assist = &mut self.assist[row_base..row_base + self.campaigns];
+        for &c in &self.active {
+            unsafe { *assist.get_unchecked_mut(c as usize) += 1 };
+        }
+        if direct {
+            for &c in &self.active {
+                self.in_window[c as usize] = 0;
+            }
+            self.active.clear();
+        }
+    }
+
+    fn finish_bin_row(&mut self, person: Key, day: usize, row: [u64; 3]) {
+        let top = self.bin_best[day].1;
+        self.bin_best[day] = (0, u8::MAX);
+        self.rows.push(person, day as u32, row, top);
+    }
+
     fn person(&mut self, person: Key, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {
         let mut low = clicks.start;
         let mut high = clicks.start;
-        let click_end = clicks.end;
         let mut i = events.start;
         let end = events.end;
         let mut row_day = usize::MAX;
@@ -1657,43 +2042,7 @@ impl Worker {
                 }
                 i += 1;
             }
-            while high < click_end && self.local_clicks[high].ts <= start {
-                let c = self.local_clicks[high].campaign as usize;
-                self.in_window[c] += 1;
-                if self.in_window[c] == 1 {
-                    self.active_at[c] = self.active.len() as u32;
-                    self.active.push(c as u32);
-                }
-                high += 1;
-            }
-            while low < high && start - self.local_clicks[low].ts > WEEK_MS as u32 {
-                let c = self.local_clicks[low].campaign as usize;
-                self.in_window[c] -= 1;
-                if self.in_window[c] == 0 {
-                    let at = self.active_at[c] as usize;
-                    self.active.swap_remove(at);
-                    if let Some(&moved) = self.active.get(at) {
-                        self.active_at[moved as usize] = at as u32;
-                    }
-                }
-                low += 1;
-            }
-            let credited = if low < high {
-                self.local_clicks[high - 1].campaign
-            } else {
-                self.organic
-            };
-            let row_base = day * self.campaigns;
-            let cell = &mut self.credit[row_base + credited as usize];
-            cell[0] += 1;
-            if revenue > 0 {
-                cell[1] += 1;
-                cell[2] += revenue;
-            }
-            let assist = &mut self.assist[row_base..row_base + self.campaigns];
-            for &c in &self.active {
-                unsafe { *assist.get_unchecked_mut(c as usize) += 1 };
-            }
+            self.credit_session(start, day, revenue, &clicks, &mut low, &mut high);
             row[0] += 1;
             row[1] += events_in;
             row[2] += revenue;
@@ -1715,5 +2064,250 @@ impl Worker {
             .map_or(u8::MAX, |&(c, _)| c as u8);
         self.category_sums.clear();
         self.rows.push(person, day as u32, row, top);
+    }
+}
+
+#[cfg(test)]
+mod compact_tests {
+    use super::*;
+
+    fn text(mut value: u64) -> Vec<u8> {
+        let mut out = Vec::new();
+        loop {
+            let digit = (value % 36) as u8;
+            out.push(if digit < 10 { b'0' + digit } else { b'a' + digit - 10 });
+            value /= 36;
+            if value == 0 {
+                break;
+            }
+        }
+        out.reverse();
+        out
+    }
+
+    fn check_code(domain: Domain, value: u64) {
+        let mut bytes = Vec::new();
+        if domain.plen != 0 {
+            bytes.push(domain.prefix);
+        }
+        bytes.extend(text(value));
+        let key = domain.encode(&bytes);
+        let code = short_code(key);
+        assert_eq!(code.is_some(), key.hi == 0 && key.lo <= CODE_MASK, "{bytes:?}");
+        if let Some(code) = code {
+            let restored = short_key(code);
+            assert_eq!(key, restored);
+            let mut output = Vec::new();
+            domain.bytes_of(restored, &mut output);
+            assert_eq!(bytes, output);
+        }
+    }
+
+    #[test]
+    fn exact_key_roundtrip() {
+        let domains = [Domain::bare(), Domain::with_prefix(b'e'), Domain::with_prefix(b'$')];
+        let mut boundaries = vec![0, 1, 35, 36, CODE_MASK - 2, CODE_MASK - 1, CODE_MASK, CODE_MASK + 1];
+        for &power in &id::POW36[1..=9] {
+            boundaries.extend([power - 1, power, power + 1]);
+        }
+        for domain in domains {
+            for &value in &boundaries {
+                check_code(domain, value);
+            }
+            let mut state = 0x71ce_089d_6b25_f3a1u64;
+            for _ in 0..20_000 {
+                state ^= state << 13;
+                state ^= state >> 7;
+                state ^= state << 17;
+                check_code(domain, state & CODE_MASK);
+            }
+        }
+        assert_eq!(short_code(Key::default()), Some(0));
+        assert_eq!(short_key(0), Key::default());
+    }
+
+    #[test]
+    fn exact_key_fallbacks() {
+        let d = Domain::with_prefix(b'e');
+        for bytes in [
+            b"e00000000000".as_slice(), b"eA", b"e-1", b"e1_2",
+            b"x123", b"e0123456789abcdef0123456789abcdef", b"ezzzzzzzzzzz", b"e",
+        ] {
+            assert!(short_code(d.encode(bytes)).is_none(), "{bytes:?}");
+        }
+        for bytes in [b"e0".as_slice(), b"e00", b"e01", b"e00000001"] {
+            let key = d.encode(bytes);
+            assert_eq!(short_key(short_code(key).unwrap()), key);
+        }
+    }
+
+    #[test]
+    fn exact_record_roundtrip() {
+        let d = Domain::with_prefix(b'u');
+        let bases = [i64::MIN + 10_000, -1_000_000, 0, 1_830_123_456_789];
+        let offsets = [-1000, -1, 0, 1, 999, 1000, 1001, 4_294_967_000, TIME_MASK as i64 * 1000,
+            TIME_MASK as i64 * 1000 + 1, (TIME_MASK as i64 + 1) * 1000];
+        let times = [0, 1, 999, 1000, 1001, 1_800_000, (TIME_MASK as u32 - 1) * 1000,
+            TIME_MASK as u32 * 1000 - 1, TIME_MASK as u32 * 1000, TIME_MASK as u32 * 1000 + 1,
+            (TIME_MASK as u32 + 1) * 1000, 4_294_967_000, INVALID];
+        for base in bases {
+            for offset in offsets {
+                let Some(ingest) = base.checked_add(offset) else { continue };
+                for ts in times {
+                    let rec = EventRec { event: d.encode(b"uabc123"), user: d.encode(b"uz9"), ingest, ts, payload: 0 };
+                    let small = EventSmall::new(&rec, base);
+                    let exact = offset >= 0 && offset % 1000 == 0 && offset / 1000 <= TIME_MASK as i64
+                        && (ts == INVALID || (ts % 1000 == 0 && u64::from(ts / 1000) < TIME_MASK));
+                    assert_eq!(small.is_some(), exact, "{base} {offset} {ts}");
+                    if let Some(small) = small {
+                        assert_eq!(small.event(), rec.event);
+                        assert_eq!(small.user(), rec.user);
+                        assert_eq!(small.ingest(base), rec.ingest);
+                        assert_eq!(small.ts(), rec.ts);
+                    }
+                }
+            }
+        }
+        assert_eq!(std::mem::size_of::<EventSmall>(), 16);
+        assert_eq!(std::mem::size_of::<Candidate>(), 8);
+        assert!(std::mem::align_of::<EventSmall>() >= 4);
+        assert!(std::mem::align_of::<EventRec>() >= 4);
+    }
+
+    #[test]
+    fn exact_record_fallbacks() {
+        let d = Domain::with_prefix(b'u');
+        let base = 1_830_000_000_123;
+        let original = EventRec { event: d.encode(b"u0"), user: d.encode(b"u1"), ingest: base + 1000, ts: 1000, payload: 0 };
+        assert!(EventSmall::new(&original, base).is_some());
+        let mut rec = original;
+        rec.payload = 1;
+        assert!(EventSmall::new(&rec, base).is_none());
+        rec = original;
+        rec.event = d.encode(b"u01");
+        assert_eq!(EventSmall::new(&rec, base).unwrap().event(), rec.event);
+        rec = original;
+        rec.user = d.encode(b"u0123456789abcdef0123456789abcdef");
+        assert!(EventSmall::new(&rec, base).is_none());
+        rec = original;
+        rec.ingest = i64::MIN;
+        assert!(EventSmall::new(&rec, i64::MAX).is_none());
+        rec.ingest = i64::MAX;
+        assert!(EventSmall::new(&rec, i64::MIN).is_none());
+        rec = original;
+        rec.user = Key::default();
+        rec.ts = INVALID;
+        let small = EventSmall::new(&rec, base).unwrap();
+        assert_eq!(small.user(), Key::default());
+        assert_eq!(small.ts(), INVALID);
+    }
+
+    #[test]
+    fn candidate_tags_preserve_records() {
+        let d = Domain::with_prefix(b'u');
+        let original = EventRec { event: d.encode(b"u123"), user: d.encode(b"u456"), ingest: 1000, ts: 2000, payload: 0 };
+        let packed = EventSmall::new(&original, 0).unwrap();
+        let wide = EventRec { ingest: 1001, payload: 17, ..original };
+        for (mut candidate, source) in [(Candidate::small(&packed), original), (Candidate::wide(&wide), wide)] {
+            assert_eq!(candidate.event(), source.event);
+            assert_eq!(candidate.ingest(0), source.ingest);
+            assert_eq!(candidate.value(), Some((source.user, source.ts, source.payload)));
+            candidate.discard();
+            assert!(candidate.value().is_none());
+            assert_eq!(candidate.event(), source.event);
+            assert_eq!(candidate.ingest(0), source.ingest);
+        }
+    }
+
+    #[test]
+    fn exact_click_roundtrip() {
+        let d = Domain::with_prefix(b'u');
+        let c = Domain::with_prefix(b'c');
+        let people = [d.encode(b"u0"), d.encode(b"u00"), Key { hi: 0, lo: CODE_MASK },
+            Key { hi: 0, lo: CODE_MASK + 1 }, d.encode(b"u0123456789abcdef0123456789abcdef"), d.encode(b"U1")];
+        let clicks = [c.encode(b"c0"), c.encode(b"c00"), Key { hi: 0, lo: CODE_MASK },
+            Key { hi: 0, lo: CODE_MASK + 1 }, c.encode(b"c0123456789abcdef0123456789abcdef"), c.encode(b"C1")];
+        let times = [0, 1, 999, 1000, 1001, 1_800_000, (TIME_MASK as u32 - 1) * 1000,
+            TIME_MASK as u32 * 1000 - 1, TIME_MASK as u32 * 1000, TIME_MASK as u32 * 1000 + 1,
+            (TIME_MASK as u32 + 1) * 1000, 4_294_967_000, INVALID];
+        let campaigns = [0, 1, TIME_MASK as u32 - 1, TIME_MASK as u32, TIME_MASK as u32 + 1];
+        for person in people {
+            for click in clicks {
+                for ts in times {
+                    for campaign in campaigns {
+                        let rec = ClickRec { person, click, ts, campaign };
+                        let packed = ClickSmall::new(&rec);
+                        let exact = person.hi == 0 && click.hi == 0 && person.lo <= CODE_MASK && click.lo <= CODE_MASK
+                            && ts % 1000 == 0 && u64::from(ts / 1000) <= TIME_MASK && u64::from(campaign) <= TIME_MASK;
+                        assert_eq!(packed.is_some(), exact);
+                        if let Some(packed) = packed {
+                            assert_eq!(packed.person(), person);
+                            assert_eq!(packed.click(), click);
+                            assert_eq!(packed.ts(), ts);
+                            assert_eq!(packed.campaign(), campaign);
+                        }
+                    }
+                }
+            }
+        }
+        assert_eq!(std::mem::size_of::<ClickSmall>(), 16);
+    }
+
+    #[test]
+    fn exact_click_order() {
+        let domain = Domain::with_prefix(b'c');
+        let person = Domain::with_prefix(b'u').encode(b"u00");
+        let names: Vec<&[u8]> = vec![b"c2", b"c10", b"c010", b"c0", b"c000", b"c0a", b"c00a", b"c001",
+            b"c00000000000", b"c0123456789abcdef0123456789abcdef"];
+        let mut restored = Vec::new();
+        for name in &names {
+            let rec = ClickRec { person, click: domain.encode(name), ts: 1000, campaign: 7 };
+            restored.push(ClickSmall::new(&rec).map_or(rec.click, |packed| packed.click()));
+        }
+        for a in 0..names.len() {
+            for b in 0..names.len() {
+                assert_eq!(domain.cmp(restored[a], restored[b]), names[a].cmp(names[b]));
+            }
+        }
+    }
+
+    #[test]
+    fn exact_person_roundtrip() {
+        let d = Domain::with_prefix(b'u');
+        let people = [d.encode(b"u0"), d.encode(b"u00"), Key { hi: 0, lo: CODE_MASK },
+            Key { hi: 0, lo: CODE_MASK + 1 }, d.encode(b"u0123456789abcdef0123456789abcdef"), d.encode(b"U1")];
+        let times = [0, 1, 999, 1000, 1001, 1_800_000, (TIME_MASK as u32 - 1) * 1000,
+            TIME_MASK as u32 * 1000 - 1, TIME_MASK as u32 * 1000, TIME_MASK as u32 * 1000 + 1,
+            (TIME_MASK as u32 + 1) * 1000, 4_294_967_000, INVALID];
+        for person in people {
+            for ts in times {
+                for payload in [0, 1, 1 << 24, u32::MAX] {
+                    let packed = PersonSmall::new(person, ts, payload);
+                    let exact = payload == 0 && person.hi == 0 && person.lo <= CODE_MASK && ts % 1000 == 0
+                        && u64::from(ts / 1000) <= TIME_MASK;
+                    assert_eq!(packed.is_some(), exact);
+                    if let Some(packed) = packed {
+                        assert_eq!(packed.person(), person);
+                        assert_eq!(packed.ts(), ts);
+                    }
+                }
+            }
+        }
+        assert_eq!(std::mem::size_of::<PersonSmall>(), 8);
+    }
+
+    #[test]
+    fn equal_recycle_pieces() {
+        for block in (24..=504).step_by(24) {
+            let common_out = Sink::<PersonSmall>::new(1, block * 2);
+            let general_out = Sink::<PersonRec>::new(1, block * 2 / 3);
+            let common_in = Sink::<EventSmall>::new(1, block);
+            let general_in = Sink::<EventRec>::new(1, block / 3);
+            let bytes = common_out.block_bytes();
+            assert_eq!(bytes % 64, 0);
+            assert_eq!(bytes, general_out.block_bytes());
+            assert_eq!(bytes, common_in.block_bytes());
+            assert_eq!(bytes, general_in.block_bytes());
+        }
     }
 }

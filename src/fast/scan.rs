@@ -109,11 +109,12 @@ unsafe fn short_avx2(p: *const u8, len: usize) -> Option<u64> {
         _mm_or_si128(_mm_and_si128(is_d, d), _mm_and_si128(is_l, _mm_add_epi8(l, _mm_set1_epi8(10)))),
         inside,
     );
+    let value = _mm_shuffle_epi8(value, _mm_add_epi8(iota, _mm_set1_epi8(len as i8 - 12)));
     let pairs = _mm_maddubs_epi16(value, _mm_set1_epi16(0x0124));
     let quads = _mm_madd_epi16(pairs, _mm_set1_epi32(0x0001_0510));
     let q01 = _mm_cvtsi128_si64(quads) as u64;
     let q2 = _mm_extract_epi32::<2>(quads) as u32 as u64;
-    Some((q01 & 0xffff_ffff) * id::POW36[8] + (q01 >> 32) * id::POW36[4] + q2 + len as u64)
+    Some((q01 & 0xffff_ffff) * id::POW36[8] + (q01 >> 32) * id::POW36[4] + q2 + id::SHORT_BASE[len])
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -854,10 +855,10 @@ mod tests {
         }
         let max = b"zzzzzzzzzzz\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
         unsafe {
-            assert_eq!(Scalar::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
+            assert_eq!(Scalar::short(max.as_ptr(), 11), Some(id::SHORT_BASE[11] + id::POW36[11] - 1));
             #[cfg(target_arch = "x86_64")]
             if std::is_x86_feature_detected!("avx2") {
-                assert_eq!(Avx2::short(max.as_ptr(), 11), Some(id::POW36[12] - 36 + 11));
+                assert_eq!(Avx2::short(max.as_ptr(), 11), Some(id::SHORT_BASE[11] + id::POW36[11] - 1));
                 assert_eq!(Avx2::short(max.as_ptr(), 12), None);
                 assert_eq!(Avx2::short(max.as_ptr(), 0), None);
                 let hex = b"ffffffffffffffff0000000000000001";
