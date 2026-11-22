@@ -1,0 +1,2018 @@
+[
+  {
+    "case": "empty",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.00831917900359258,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0017947899978025816,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0025699550024000928,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0029930090022389777,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.001478702004533261,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002214583000750281,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.001529888999357354,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.003741878994333092,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004007940005976707,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004471540996746626,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.002185498997278046,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "dedup_before_validation",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0021041369982413016,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0019543300004443154,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002964294995763339,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.008920296997530386,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004269484998076223,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0021832759957760572,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "csv_and_nulls",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002426202998321969,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.00191738400462782,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002619613995193504,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004137146002904046,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004212068997730967,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0018798030068865046,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "session_boundaries",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0020750770054291934,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0015055029944051057,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0027080479994765483,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0036481380011537112,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0043675240012817085,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0017348390028928407,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "seven_day_clicks",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002241232999949716,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0021417339958134107,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.00282185500691412,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.003873877998557873,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004729330001282506,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0020610209976439364,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "mixed_shape_tie_ids",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.004176895999989938,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002750692001427524,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.003115823994448874,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004455665999557823,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004305649999878369,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.003141012006381061,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_link_chain",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.00307818700093776,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0037371719954535365,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0019450159961706959,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004539522997220047,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004489908998948522,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0022451690019806847,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_order_and_unknown",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002542998998251278,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.001730331998260226,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002752936001343187,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0034687570005189627,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0067509919972508214,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0017055849966709502,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "leap_offsets",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0025442810001550242,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002004795998800546,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0022246680018724874,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0034018410005955957,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0031533610017504543,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0020024030018248595,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "one_session_three_days",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0020864489997620694,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0019906160014215857,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0026201450018561445,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004865695002081338,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.00486540500423871,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.002638592995936051,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "long_lines_and_zero_digits",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002363938998314552,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002447776001645252,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0029160620033508167,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.005054701003246009,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0054210939997574314,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0022507169996970333,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "all_input_filenames",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0026621689976309426,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002148694002244156,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0031059690008987673,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0032021240040194243,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.005223765998380259,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.002674117000424303,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "category_fallback",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0029003189993090928,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0029789079999318346,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0033347139979014173,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.002457801005220972,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.003978485998231918,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0026272970062564127,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "window_fallback",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0024186009977711365,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.001874390000011772,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0024878760013962165,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0033431270057917573,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0035328980011399835,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.003511920993332751,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "page_boundary_end",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.004218307993141934,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0027871070051332936,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0027950099974987097,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004423959006089717,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.006123653998656664,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.00271736199647421,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_17",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0028995669999858364,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002443788995151408,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002713861998927314,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.004371775001345668,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004542046997812577,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.003349676997459028,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_31",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.00305490199389169,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0029130670009180903,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0030076500042923726,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.003923732998373453,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.006163315003504977,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0027314129984006286,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_53",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0029173039947636425,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0029907849966548383,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002335384997422807,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0039445450020139106,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0052811229979852214,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0030034740047995,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_101",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0029018200002610683,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.003017486000317149,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0029906549971201457,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.00452549199690111,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004712014000688214,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0030484620001516305,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "random_2028",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.003362636001838837,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002056924997305032,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.0021462610020535067,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.003388254997844342,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.007030754000879824,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0017822199952206574,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_ingest_and_lanes",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002001762004510965,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.005868951004231349,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.004919566999888048,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0037994859958416782,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004544281000562478,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.06998664700222434,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_chunk_boundaries",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.07022987399977865,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.002611481999338139,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002213091000157874,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.005364700002246536,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.0044798830058425665,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0025835800042841583,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_exact_hash_collisions",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.002401215002464596,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "1",
+    "repeat": 0,
+    "seconds": 0.0025244409989682026,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "1",
+    "repeat": 1,
+    "seconds": 0.002552302998083178,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "8",
+    "repeat": 0,
+    "seconds": 0.0038701420053257607,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "8",
+    "repeat": 1,
+    "seconds": 0.004424449005455244,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "1:scalar",
+    "repeat": 0,
+    "seconds": 0.0024461719949613325,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  },
+  {
+    "case": "compact_mixed_component_canonicals",
+    "mode": "1:scalar",
+    "repeat": 1,
+    "seconds": 0.0028588260029209778,
+    "exit": 0,
+    "stdout_bytes": 0,
+    "bin_threshold": "default",
+    "readers": [
+      "pyarrow",
+      "duckdb"
+    ],
+    "passed": true
+  }
+]

@@ -1,0 +1,155 @@
+{
+  "frozen_utc": "2026-11-22T08:35:37.042330+00:00",
+  "parent": "099e7e392a863346575d7ef45bb9af3432544329",
+  "runtime": "Bun 1.4.4",
+  "state": "source frozen; targeted conformance passed; bounded strict two-round twelve-process diagnostic passed; initial burst latency outlier retained",
+  "no_official_score": true,
+  "mortar_arc_included": false,
+  "candidates": [
+    {
+      "candidate": "mech-pressure-cycle",
+      "tree": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle",
+      "policy": "push",
+      "weaponCycle": true,
+      "weaponVariety": false,
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js",
+      "bundle_sha256": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+      "bundle_bytes": 269496,
+      "source_manifest_sha256": "f4b1924ebdda8c632c78532125bf541bcaabd1b6d700820b44d4851a8430d250",
+      "sources": {
+        "bot/bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "bot/lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "bot/lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "bot/lib/brain.js": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+        "bot/lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "bot/lib/economy.js": "db9a988ca1134ba7de3b4be2cc29734b07d56280705bf136625a7b80fe5e18f0",
+        "bot/lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "bot/lib/firecontrol.js": "628087cf29166d2412359c7993bc74643250ff9d85aa74024b8395fedbdab6b7",
+        "bot/lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "bot/lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "bot/lib/mover.js": "3a1ebe1fca55e1c80dfbc858d5e57e3aad5313d281d0ef5a39b0a693ad1da49f",
+        "bot/lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "bot/lib/params.js": "f4af581a38c6cf40bd8c936e6f4f2cd47c8a91effa5c94108c11f456b6f89ad5",
+        "bot/lib/pressure.js": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+        "bot/lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+        "bot/lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "bot/lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+        "bot/lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "bot/lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "bot/lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "bot/lib/weapon_policy.js": "84e082f5fccd68e395756191538ac922e289f5e31449bc622415a343136ab8c2",
+        "bot/lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "patch": "/workspace/scratch/bde29dc281e6/panel/mech/mech-pressure-cycle.patch",
+      "patch_sha256": "a13ac1517731412fbfa3f547545b998114b0a9e9622c80bffc91787657e40e7b",
+      "readme_identical_to_capture": true,
+      "prof_identical_to_capture": true
+    },
+    {
+      "candidate": "mech-burst-cycle",
+      "tree": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle",
+      "policy": "burst",
+      "weaponCycle": true,
+      "weaponVariety": true,
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js",
+      "bundle_sha256": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+      "bundle_bytes": 269497,
+      "source_manifest_sha256": "33c64e0a81f773e7ff85a2e19e1036fdb558dbbc6881b469983db02edfc83f0e",
+      "sources": {
+        "bot/bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "bot/lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "bot/lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "bot/lib/brain.js": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+        "bot/lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "bot/lib/economy.js": "db9a988ca1134ba7de3b4be2cc29734b07d56280705bf136625a7b80fe5e18f0",
+        "bot/lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "bot/lib/firecontrol.js": "628087cf29166d2412359c7993bc74643250ff9d85aa74024b8395fedbdab6b7",
+        "bot/lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "bot/lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "bot/lib/mover.js": "3a1ebe1fca55e1c80dfbc858d5e57e3aad5313d281d0ef5a39b0a693ad1da49f",
+        "bot/lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "bot/lib/params.js": "55f5cd755f3801d17c1c42486ea4ea38eafa22e72b64a8949fa2420a4f7b0d07",
+        "bot/lib/pressure.js": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+        "bot/lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+        "bot/lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "bot/lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+        "bot/lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "bot/lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "bot/lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "bot/lib/weapon_policy.js": "84e082f5fccd68e395756191538ac922e289f5e31449bc622415a343136ab8c2",
+        "bot/lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "patch": "/workspace/scratch/bde29dc281e6/panel/mech/mech-burst-cycle.patch",
+      "patch_sha256": "3e7b55b20401e531432ef5fb4561fce6c8d78acb47402f06220d347e3e6b0e3f",
+      "readme_identical_to_capture": true,
+      "prof_identical_to_capture": true
+    }
+  ],
+  "gates": {
+    "pressure-cycle-macro-cases.json": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-cycle-macro-cases.json",
+      "sha256": "1076b81f52ed7e0c202fdef07edb07a90bb40472a9a8ac6b686a57e616ae4410"
+    },
+    "burst-cycle-macro-cases.json": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/burst-cycle-macro-cases.json",
+      "sha256": "eddc108c1123369143b743e9d772a9487b5a2da61c47e5ea717b21a3df46db35"
+    },
+    "pressure-integration-cases.json": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-integration-cases.json",
+      "sha256": "39dff4c2a2a8654e372ad4526c147d82873e5b6fdc4330dfeda271263253404b"
+    },
+    "pressure-replay-stress.json": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-replay-stress.json",
+      "sha256": "021d9500584389e39c467b8f09b5e14aaaf667d524da6493622c69bdba5b7a05"
+    },
+    "pressure-integrated-protocol-results.json": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-integrated-protocol-results.json",
+      "sha256": "7745905a037f87af6920f5fd126c08388efba2ce62bb506aa23991d3a42c4669"
+    }
+  },
+  "counts": {
+    "macro_per_candidate": 34,
+    "integration_cases_total": 22,
+    "disabled_feature_identity_decisions_per_candidate": 5100,
+    "enabled_stress_decisions_per_candidate": 2400,
+    "official_protocol_observations_per_candidate": 300,
+    "controller_owner_cases": 48
+  },
+  "latency_evidence": {
+    "strict_receipt": "/workspace/scratch/bde29dc281e6/panel/mech/final-validation/strict-diagnostic/results.json",
+    "strict_receipt_sha256": "13c37111cb8d0a3d08988f97a851ebc9918bcdd6ef734618d395b0a82629bad7",
+    "planned_processes": 12,
+    "all_planned_runs_completed": true,
+    "all_strict_accept": true,
+    "initial_burst_official_run": {
+      "observations": 300,
+      "in_time": 298,
+      "late": 2,
+      "max_ms": 243.3,
+      "retained": true,
+      "cause": "unresolved"
+    },
+    "contact_max_ms": {
+      "pressure-cycle": [
+        8.17,
+        5.23
+      ],
+      "burst-cycle": [
+        6.12,
+        7.84
+      ],
+      "capture": [
+        20.62,
+        10.04
+      ]
+    },
+    "limitations": "Single-core affinity with Dockerfile engine flags; no Docker/cgroup enforcement or official-score prediction."
+  },
+  "contact_fixture": {
+    "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-contact-stream.jsonl.gz",
+    "sha256": "409fa491361d4c2defcb0e155ffe30d3a0bc1b1f839c5d585ea26b9189a091c5",
+    "metadata": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-contact-stream.json",
+    "pressure_legs_returned_each": 300,
+    "zone_urgent_each": 0
+  }
+}

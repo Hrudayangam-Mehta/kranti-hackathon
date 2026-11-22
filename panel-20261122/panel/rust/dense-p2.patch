@@ -1,0 +1,114 @@
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -189,9 +189,27 @@
+ #[derive(Clone, Copy)]
+ #[repr(C)]
+ pub struct PersonSmall {
+-    person: u64,
+-    ts: u32,
+-    payload: u32,
++    value: u64,
++}
++
++impl PersonSmall {
++    #[inline(always)]
++    fn new(person: Key, ts: u32, payload: u32) -> Option<Self> {
++        if payload != 0 || person.hi != 0 || person.lo > CODE_MASK || ts % 1000 != 0 {
++            return None;
++        }
++        Some(PersonSmall { value: person.lo | u64::from(ts / 1000) << 41 })
++    }
++
++    #[inline(always)]
++    fn person(self) -> Key {
++        Key { hi: 0, lo: self.value & CODE_MASK }
++    }
++
++    #[inline(always)]
++    fn ts(self) -> u32 {
++        (self.value >> 41) as u32 * 1000
++    }
+ }
+ 
+ #[derive(Clone, Copy)]
+@@ -677,7 +695,7 @@
+                 let mut clicks: Option<Clicks> = Some(Pair::new(1 << ctx.p2_bits, ctx.click_block * 3 / 2, ctx.click_block / 2));
+                 let mut copies = 0usize;
+                 let mut click_count = 0usize;
+-                let mut p2: Persons = Pair::new(1 << ctx.p2_bits, ctx.p2_block, ctx.p2_block * 2 / 3);
++                let mut p2: Persons = Pair::new(1 << ctx.p2_bits, ctx.p2_block * 2, ctx.p2_block * 2 / 3);
+                 let mut buf: Vec<Candidate> = Vec::new();
+                 let mut table: Vec<u32> = Vec::new();
+                 let mut once: Vec<u64> = Vec::new();
+@@ -1298,8 +1316,8 @@
+     fn resolve(&mut self, user: Key, ts: u32, payload: u32, out: &mut Persons, arena: &mut Arena) {
+         let person = self.people.name_of(user);
+         let part = part_of(person, self.bits);
+-        if person.hi == 0 {
+-            out.a.push(arena, part, PersonSmall { person: person.lo, ts, payload });
++        if let Some(rec) = PersonSmall::new(person, ts, payload) {
++            out.a.push(arena, part, rec);
+         } else {
+             out.b.push(arena, part, PersonRec { person, ts, payload });
+         }
+@@ -1328,7 +1346,7 @@
+     out: &mut Persons,
+ ) -> usize {
+     let n: usize = sinks.iter().map(|s| s.len(q)).sum();
+-    let piece = ctx.p2_block * std::mem::size_of::<PersonSmall>();
++    let piece = out.a.block_bytes();
+     if n == 0 {
+         return 0;
+     }
+@@ -1640,7 +1658,7 @@
+         for sink in events {
+             for slice in sink.a.slices(p) {
+                 for rec in slice {
+-                    add_event!(Key { hi: 0, lo: rec.person }, rec.ts, rec.payload);
++                    add_event!(rec.person(), rec.ts(), 0);
+                 }
+             }
+             for slice in sink.b.slices(p) {
+@@ -2229,4 +2247,41 @@
+             }
+         }
+     }
+-}
++
++    #[test]
++    fn exact_person_roundtrip() {
++        let d = Domain::with_prefix(b'u');
++        let people = [d.encode(b"u0"), d.encode(b"u00"), Key { hi: 0, lo: CODE_MASK },
++            Key { hi: 0, lo: CODE_MASK + 1 }, d.encode(b"u0123456789abcdef0123456789abcdef"), d.encode(b"U1")];
++        let times = [0, 1, 999, 1000, 1001, 1_800_000, 4_294_967_000, INVALID];
++        for person in people {
++            for ts in times {
++                for payload in [0, 1, 1 << 24, u32::MAX] {
++                    let packed = PersonSmall::new(person, ts, payload);
++                    let exact = payload == 0 && person.hi == 0 && person.lo <= CODE_MASK && ts % 1000 == 0;
++                    assert_eq!(packed.is_some(), exact);
++                    if let Some(packed) = packed {
++                        assert_eq!(packed.person(), person);
++                        assert_eq!(packed.ts(), ts);
++                    }
++                }
++            }
++        }
++        assert_eq!(std::mem::size_of::<PersonSmall>(), 8);
++    }
++
++    #[test]
++    fn equal_recycle_pieces() {
++        for block in (24..=504).step_by(24) {
++            let common_out = Sink::<PersonSmall>::new(1, block * 2);
++            let general_out = Sink::<PersonRec>::new(1, block * 2 / 3);
++            let common_in = Sink::<EventSmall>::new(1, block);
++            let general_in = Sink::<EventRec>::new(1, block / 3);
++            let bytes = common_out.block_bytes();
++            assert_eq!(bytes % 64, 0);
++            assert_eq!(bytes, general_out.block_bytes());
++            assert_eq!(bytes, common_in.block_bytes());
++            assert_eq!(bytes, general_in.block_bytes());
++        }
++    }
++}

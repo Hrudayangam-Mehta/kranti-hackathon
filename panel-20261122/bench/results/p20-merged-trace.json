@@ -1,0 +1,137 @@
+{
+  "label": "p20-merged-trace",
+  "data": "/workspace/scratch/bde29dc281e6/data/p20-seed7",
+  "threads": 8,
+  "rounds": 1,
+  "trace": true,
+  "started_utc": "2026-11-22T07:55:21Z",
+  "manifest": {
+    "window_start": "2027-12-11T00:00:00Z",
+    "window_end": "2027-12-25T00:00:00Z"
+  },
+  "binaries": {
+    "baseline-c": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/baseline-c",
+      "sha256": "d591c3e135460fdad26a07c0ec5f1930a52f6f5e13ab9708aab7bc00e61d492d"
+    },
+    "p2": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-p2",
+      "sha256": "79888b8da6f0ca2a9c050d941d608a92dffbd7879858c1e1e972129e23ecd9cf"
+    },
+    "merged": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-final",
+      "sha256": "2fe9e2935a44eecc7665a400265d63544bc97b8967a4a0ea85313a93c39ea7cd"
+    },
+    "team67": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/team67",
+      "sha256": "ae2892a75952b0a213f7c6190156b342b33cecd02d541ad9de2d02fa184f330c"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "baseline-c",
+      "exit": 0,
+      "wall_s": 2.0111865170038072,
+      "user_s": 6.348969,
+      "sys_s": 2.438706,
+      "cpu_s": 8.787675,
+      "maxrss_kib": 1491452,
+      "minor_faults": 103992,
+      "major_faults": 518,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-merged-trace-baseline-c"
+    },
+    {
+      "round": 0,
+      "binary": "p2",
+      "exit": 0,
+      "wall_s": 1.0444875169996521,
+      "user_s": 5.020825,
+      "sys_s": 0.835185,
+      "cpu_s": 5.85601,
+      "maxrss_kib": 1115488,
+      "minor_faults": 96515,
+      "major_faults": 326,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-merged-trace-p2"
+    },
+    {
+      "round": 0,
+      "binary": "merged",
+      "exit": 0,
+      "wall_s": 0.7629811969964067,
+      "user_s": 4.446401,
+      "sys_s": 0.542001,
+      "cpu_s": 4.988402,
+      "maxrss_kib": 1102724,
+      "minor_faults": 95992,
+      "major_faults": 17,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-merged-trace-merged"
+    },
+    {
+      "round": 0,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 0.2946788920016843,
+      "user_s": 1.6047259999999999,
+      "sys_s": 0.352815,
+      "cpu_s": 1.957541,
+      "maxrss_kib": 1107928,
+      "minor_faults": 27280,
+      "major_faults": 3,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-merged-trace-team67"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "summary": {
+    "baseline-c": {
+      "wall_s": 2.0111865170038072,
+      "cpu_s": 8.787675,
+      "user_s": 6.348969,
+      "sys_s": 2.438706,
+      "maxrss_kib": 1491452,
+      "successful_runs": 1,
+      "failed_runs": 0
+    },
+    "p2": {
+      "wall_s": 1.0444875169996521,
+      "cpu_s": 5.85601,
+      "user_s": 5.020825,
+      "sys_s": 0.835185,
+      "maxrss_kib": 1115488,
+      "successful_runs": 1,
+      "failed_runs": 0
+    },
+    "merged": {
+      "wall_s": 0.7629811969964067,
+      "cpu_s": 4.988402,
+      "user_s": 4.446401,
+      "sys_s": 0.542001,
+      "maxrss_kib": 1102724,
+      "successful_runs": 1,
+      "failed_runs": 0
+    },
+    "team67": {
+      "wall_s": 0.2946788920016843,
+      "cpu_s": 1.957541,
+      "user_s": 1.6047259999999999,
+      "sys_s": 0.352815,
+      "maxrss_kib": 1107928,
+      "successful_runs": 1,
+      "failed_runs": 0
+    }
+  }
+}

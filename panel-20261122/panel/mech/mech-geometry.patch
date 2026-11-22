@@ -1,0 +1,52 @@
+--- /workspace/scratch/bde29dc281e6/handoff/.cache/ws/variants7/P26_all/bot/lib/firecontrol.js	2026-11-22 02:18:04.751897337 -0500
++++ /workspace/scratch/bde29dc281e6/experiments/mech-geometry/bot/lib/firecontrol.js	2026-11-22 02:33:22.896258297 -0500
+@@ -15,6 +15,7 @@
+   const GUN_RUNGS = LASER_RUNGS.filter((f) => f <= P.gunLadderTop + 1e-9).sort((a, b) => b - a).concat(LASER_RUNGS.filter((f) => f > P.gunLadderTop + 1e-9).sort((a, b) => a - b))
+   if (GUN_RUNGS.length === 0) GUN_RUNGS.push(0.5)
+   const rel = { t: 0, id: -1, tl: 0, frac: 0.5, yaw: 0, pitch: 0, pyaw: 0, ppitch: 0, settled: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, n: 0 }
++  const geometry = () => B.p26on === true && !!B.hunt && B.hunt.firewall()
+ 
+   function predictSelf(tl) {
+     const me = B.me, cmd = B.cmd
+@@ -93,6 +94,7 @@
+     if (!w) return true
+     const me = B.me, off = me.radius + 0.5, c = Math.cos(pitch)
+     const mx = ps.x + c * Math.cos(yaw) * off, my = ps.y + c * Math.sin(yaw) * off, mz = ps.z + me.muzzleH + Math.sin(pitch) * off
++    if (geometry() && !w.shotClear(ps.x, ps.y, ps.z + me.muzzleH, mx, my, mz)) return false
+     // stop a little short of the target point so the target's own ground contact does not count
+     const dx = tx - mx, dy = ty - my, dz = tz - mz, d = Math.hypot(dx, dy, dz)
+     if (d < 1) return true
+@@ -153,6 +155,7 @@
+     predictSelf(tl)
+     out.fire[0] = false; out.fire[1] = false; out.reload = false
+     const p6 = B.p26on === true                         // practice profile p26 (lib/prof.js): shot target, crate shots, rungs, reload
++    const exact = geometry()
+     let tgt = p6 ? B.prof.fireTarget() : B.target
+     const hold = B.holdFire
+     B.aimKind = 'none'
+@@ -248,15 +251,20 @@
+         const rungs = p6 ? B.prof.rungs : P.headAimOn === true ? LASER_RUNGS : MID
+         let frac = rungs[0], lzc = tgt.z + tgt.height * frac + zAir
+         const lyaw = Math.atan2(ldy, ldx)
+-        let lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
++        const firstPitch = Math.atan2(lzc - sz, lh)
++        let lpitch = exact ? firstPitch : clamp(firstPitch, me.minPitch, me.maxPitch)
+         let lR = Math.hypot(lh, lzc - sz)
+-        const inRange = lR <= (p6 ? lz.range - 5 : lz.range * P.laserRangeFrac)
++        const inRange = exact ? rungs.some((f) => {
++          const dz = tgt.z + tgt.height * f + zAir - sz, p = Math.atan2(dz, lh)
++          return p >= me.minPitch && p <= me.maxPitch && Math.hypot(lh, dz) <= lz.range - 5
++        }) : lR <= (p6 ? lz.range - 5 : lz.range * P.laserRangeFrac)
+         const charge = lz.charge
+         if (charge > 0 || wasHolding) {
+-          let clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          let clear = inRange && (!exact || (lpitch >= me.minPitch && lpitch <= me.maxPitch && lR <= lz.range - 5)) && muzzleClear(lyaw, lpitch, lx, ly, lzc)
+           for (let k = 1; k < rungs.length && inRange && !clear; k++) {
+-            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, pt = clamp(Math.atan2(z - sz, lh), me.minPitch, me.maxPitch)
+-            if (muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = Math.hypot(lh, z - sz) }
++            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, raw = Math.atan2(z - sz, lh)
++            const pt = exact ? raw : clamp(raw, me.minPitch, me.maxPitch), range = Math.hypot(lh, z - sz)
++            if ((!exact || (pt >= me.minPitch && pt <= me.maxPitch && range <= lz.range - 5)) && muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = range }
+           }
+           const cyaw = AC ? wrapPi(lyaw - AC.yaw()) : lyaw, cpitch = AC ? clamp(lpitch - AC.pitch(), me.minPitch, me.maxPitch) : lpitch
+           const full = charge >= P.laserFullFrac * lz.full

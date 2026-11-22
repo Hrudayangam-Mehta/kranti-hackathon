@@ -1,0 +1,2233 @@
+{
+  "baseline_commit": "3417f9965d2bfc3133ddf7d43cd86bcef6dbd79b",
+  "scope": "Named declarations, two-space class/object methods and named top-level/factory arrows. Inline callbacks are represented by their parent function; this is an inventory, not a formal proof.",
+  "modules": [
+    {
+      "file": "bot.js",
+      "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+      "role": "JSONL protocol, fallback/sanitizer, dynamic initialization, newest-observation handling and process exit.",
+      "review": "Unchanged; both candidate bundles pass the official 300-observation checker.",
+      "named_functions": [
+        {
+          "name": "log",
+          "line": 13,
+          "kind": "named arrow"
+        },
+        {
+          "name": "send",
+          "line": 14,
+          "kind": "named arrow"
+        },
+        {
+          "name": "fallbackAct",
+          "line": 30,
+          "kind": "function"
+        },
+        {
+          "name": "num",
+          "line": 70,
+          "kind": "named arrow"
+        },
+        {
+          "name": "r4",
+          "line": 71,
+          "kind": "named arrow"
+        },
+        {
+          "name": "sanitize",
+          "line": 73,
+          "kind": "function"
+        },
+        {
+          "name": "init",
+          "line": 100,
+          "kind": "function"
+        },
+        {
+          "name": "decide",
+          "line": 126,
+          "kind": "function"
+        },
+        {
+          "name": "handle",
+          "line": 160,
+          "kind": "function"
+        },
+        {
+          "name": "pump",
+          "line": 185,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/aim.js",
+      "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+      "role": "Pure ballistics, angular arithmetic, body gates and deterministic RNG.",
+      "review": "Unchanged; numerical/source review. Gun intercept solves the muzzle-offset quadratic. No numerical reimplementation was needed for the current candidate.",
+      "named_functions": [
+        {
+          "name": "wrapPi",
+          "line": 10,
+          "kind": "function"
+        },
+        {
+          "name": "angDiff",
+          "line": 17,
+          "kind": "function"
+        },
+        {
+          "name": "clamp",
+          "line": 21,
+          "kind": "function"
+        },
+        {
+          "name": "intercept",
+          "line": 32,
+          "kind": "function"
+        },
+        {
+          "name": "aimAt",
+          "line": 56,
+          "kind": "function"
+        },
+        {
+          "name": "mortarSolve",
+          "line": 68,
+          "kind": "function"
+        },
+        {
+          "name": "shellImpact",
+          "line": 98,
+          "kind": "function"
+        },
+        {
+          "name": "closestApproach",
+          "line": 119,
+          "kind": "function"
+        },
+        {
+          "name": "slewTime",
+          "line": 129,
+          "kind": "function"
+        },
+        {
+          "name": "onTarget",
+          "line": 137,
+          "kind": "function"
+        },
+        {
+          "name": "dirOf",
+          "line": 144,
+          "kind": "function"
+        },
+        {
+          "name": "laserFrac",
+          "line": 154,
+          "kind": "function"
+        },
+        {
+          "name": "makeRng",
+          "line": 159,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/aimcal.js",
+      "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+      "role": "Bounded online aim/latency calibration from observed releases and hits.",
+      "review": "Unchanged; effects remain guarded by existing parameters. These estimates are not calibrated match-win probabilities.",
+      "named_functions": [
+        {
+          "name": "ok3",
+          "line": 15,
+          "kind": "named arrow"
+        },
+        {
+          "name": "makeAimCal",
+          "line": 17,
+          "kind": "function"
+        },
+        {
+          "name": "onRelease",
+          "line": 22,
+          "kind": "function"
+        },
+        {
+          "name": "yaw",
+          "line": 23,
+          "kind": "named arrow"
+        },
+        {
+          "name": "pitch",
+          "line": 24,
+          "kind": "named arrow"
+        },
+        {
+          "name": "lat",
+          "line": 25,
+          "kind": "named arrow"
+        },
+        {
+          "name": "sense",
+          "line": 27,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/brain.js",
+      "sha256": "ab30fc1c6346b9871b3f65504549bc3ce30fc6942e8ab2e56f4c6a92fb776a8c",
+      "role": "Config normalization, startup, state construction, stage arbitration, leg priorities, exception safety and action output.",
+      "review": "Unchanged; full action replay/stress gate. Environment classification is updated in stance after the earlier p26 firewall decision; this preexisting one-decision ordering remains a documented follow-up.",
+      "named_functions": [
+        {
+          "name": "isObj",
+          "line": 49,
+          "kind": "named arrow"
+        },
+        {
+          "name": "mergeNum",
+          "line": 50,
+          "kind": "function"
+        },
+        {
+          "name": "normalizeConfig",
+          "line": 55,
+          "kind": "function"
+        },
+        {
+          "name": "warmBodies",
+          "line": 70,
+          "kind": "function"
+        },
+        {
+          "name": "warmUp",
+          "line": 84,
+          "kind": "function"
+        },
+        {
+          "name": "wp",
+          "line": 105,
+          "kind": "named arrow"
+        },
+        {
+          "name": "saltHash",
+          "line": 136,
+          "kind": "function"
+        },
+        {
+          "name": "anchorToConfig",
+          "line": 152,
+          "kind": "function"
+        },
+        {
+          "name": "has",
+          "line": 153,
+          "kind": "named arrow"
+        },
+        {
+          "name": "set",
+          "line": 154,
+          "kind": "named arrow"
+        },
+        {
+          "name": "createBrain",
+          "line": 182,
+          "kind": "function"
+        },
+        {
+          "name": "now",
+          "line": 271,
+          "kind": "named arrow"
+        },
+        {
+          "name": "fuse",
+          "line": 278,
+          "kind": "function"
+        },
+        {
+          "name": "evalMaybe",
+          "line": 284,
+          "kind": "function"
+        },
+        {
+          "name": "nearCalm",
+          "line": 294,
+          "kind": "function"
+        },
+        {
+          "name": "counterAdvice",
+          "line": 304,
+          "kind": "function"
+        },
+        {
+          "name": "postLegs",
+          "line": 325,
+          "kind": "function"
+        },
+        {
+          "name": "holdLegs",
+          "line": 357,
+          "kind": "function"
+        },
+        {
+          "name": "retreatLegs",
+          "line": 402,
+          "kind": "function"
+        },
+        {
+          "name": "fightLegs",
+          "line": 446,
+          "kind": "function"
+        },
+        {
+          "name": "applyVetoes",
+          "line": 544,
+          "kind": "function"
+        },
+        {
+          "name": "legs",
+          "line": 550,
+          "kind": "function"
+        },
+        {
+          "name": "finishLegs",
+          "line": 595,
+          "kind": "function"
+        },
+        {
+          "name": "stage",
+          "line": 606,
+          "kind": "function"
+        },
+        {
+          "name": "build",
+          "line": 610,
+          "kind": "function"
+        },
+        {
+          "name": "chargeHold",
+          "line": 632,
+          "kind": "function"
+        },
+        {
+          "name": "act",
+          "line": 637,
+          "kind": "function"
+        },
+        {
+          "name": "debugState",
+          "line": 691,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/counters.js",
+      "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+      "role": "Bounded behavior features, heuristic archetypes and FFA-only advice.",
+      "review": "Unchanged; protected by forced-FFA identity. Confidence labels are heuristic scores, not statistical probabilities.",
+      "named_functions": [
+        {
+          "name": "num",
+          "line": 148,
+          "kind": "named arrow"
+        },
+        {
+          "name": "fin",
+          "line": 149,
+          "kind": "named arrow"
+        },
+        {
+          "name": "vec",
+          "line": 150,
+          "kind": "function"
+        },
+        {
+          "name": "ramp",
+          "line": 155,
+          "kind": "function"
+        },
+        {
+          "name": "wrapPi",
+          "line": 160,
+          "kind": "function"
+        },
+        {
+          "name": "clamp",
+          "line": 164,
+          "kind": "named arrow"
+        },
+        {
+          "name": "newSlot",
+          "line": 166,
+          "kind": "function"
+        },
+        {
+          "name": "newAdvice",
+          "line": 195,
+          "kind": "function"
+        },
+        {
+          "name": "createCounters",
+          "line": 201,
+          "kind": "function"
+        },
+        {
+          "name": "slotOf",
+          "line": 226,
+          "kind": "named arrow"
+        },
+        {
+          "name": "slotFor",
+          "line": 227,
+          "kind": "function"
+        },
+        {
+          "name": "update",
+          "line": 235,
+          "kind": "function"
+        },
+        {
+          "name": "step",
+          "line": 239,
+          "kind": "function"
+        },
+        {
+          "name": "observe",
+          "line": 351,
+          "kind": "function"
+        },
+        {
+          "name": "rate",
+          "line": 483,
+          "kind": "named arrow"
+        },
+        {
+          "name": "features",
+          "line": 484,
+          "kind": "function"
+        },
+        {
+          "name": "score",
+          "line": 504,
+          "kind": "function"
+        },
+        {
+          "name": "classify",
+          "line": 578,
+          "kind": "function"
+        },
+        {
+          "name": "liveConf",
+          "line": 601,
+          "kind": "function"
+        },
+        {
+          "name": "archetypeOf",
+          "line": 607,
+          "kind": "function"
+        },
+        {
+          "name": "ctxBool",
+          "line": 617,
+          "kind": "function"
+        },
+        {
+          "name": "ctxNum",
+          "line": 618,
+          "kind": "function"
+        },
+        {
+          "name": "neutralBand",
+          "line": 620,
+          "kind": "function"
+        },
+        {
+          "name": "fillNeutral",
+          "line": 627,
+          "kind": "function"
+        },
+        {
+          "name": "counter",
+          "line": 637,
+          "kind": "function"
+        },
+        {
+          "name": "adviceFor",
+          "line": 710,
+          "kind": "function"
+        },
+        {
+          "name": "threatRank",
+          "line": 751,
+          "kind": "function"
+        },
+        {
+          "name": "debugState",
+          "line": 787,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/economy.js",
+      "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2",
+      "role": "Weapon desirability, loot/grab/drop planning, movement, pickup/drop actions and upgrade selection.",
+      "review": "Unchanged; P26 delegates economic goals to prof.js. pathEst is an approximate multiplier, not a shortest-path proof.",
+      "named_functions": [
+        {
+          "name": "rankOf",
+          "line": 8,
+          "kind": "named arrow"
+        },
+        {
+          "name": "makeEconomy",
+          "line": 10,
+          "kind": "function"
+        },
+        {
+          "name": "wantPickup",
+          "line": 17,
+          "kind": "function"
+        },
+        {
+          "name": "reachable",
+          "line": 45,
+          "kind": "function"
+        },
+        {
+          "name": "nearDrone",
+          "line": 56,
+          "kind": "function"
+        },
+        {
+          "name": "pathEst",
+          "line": 61,
+          "kind": "function"
+        },
+        {
+          "name": "nearestMechD",
+          "line": 65,
+          "kind": "function"
+        },
+        {
+          "name": "ffaBlocked",
+          "line": 76,
+          "kind": "function"
+        },
+        {
+          "name": "chooseLoot",
+          "line": 90,
+          "kind": "function"
+        },
+        {
+          "name": "cubesWanted",
+          "line": 154,
+          "kind": "function"
+        },
+        {
+          "name": "isKillCube",
+          "line": 161,
+          "kind": "function"
+        },
+        {
+          "name": "killReachOk",
+          "line": 172,
+          "kind": "function"
+        },
+        {
+          "name": "chooseGrab",
+          "line": 179,
+          "kind": "function"
+        },
+        {
+          "name": "chooseDrop",
+          "line": 223,
+          "kind": "function"
+        },
+        {
+          "name": "update",
+          "line": 253,
+          "kind": "function"
+        },
+        {
+          "name": "lootStillThere",
+          "line": 261,
+          "kind": "function"
+        },
+        {
+          "name": "lootLegs",
+          "line": 268,
+          "kind": "function"
+        },
+        {
+          "name": "grabLegs",
+          "line": 301,
+          "kind": "function"
+        },
+        {
+          "name": "dropLegs",
+          "line": 317,
+          "kind": "function"
+        },
+        {
+          "name": "hands",
+          "line": 324,
+          "kind": "function"
+        },
+        {
+          "name": "pick",
+          "line": 340,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/ffa.js",
+      "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+      "role": "Final free-for-all timing, threat/duel/counter rules, exposure breaks and end-zone positioning.",
+      "review": "Unchanged; all named functions covered by inventory and the protected FFA action-stream gate, not individually proved.",
+      "named_functions": [
+        {
+          "name": "makeFfa",
+          "line": 22,
+          "kind": "function"
+        },
+        {
+          "name": "on",
+          "line": 28,
+          "kind": "named arrow"
+        },
+        {
+          "name": "chargeTime",
+          "line": 31,
+          "kind": "function"
+        },
+        {
+          "name": "hideLeft",
+          "line": 39,
+          "kind": "function"
+        },
+        {
+          "name": "hideReach",
+          "line": 51,
+          "kind": "function"
+        },
+        {
+          "name": "laserReady",
+          "line": 60,
+          "kind": "function"
+        },
+        {
+          "name": "peekRef",
+          "line": 61,
+          "kind": "function"
+        },
+        {
+          "name": "peekOpen",
+          "line": 62,
+          "kind": "function"
+        },
+        {
+          "name": "peekIn",
+          "line": 75,
+          "kind": "function"
+        },
+        {
+          "name": "prox",
+          "line": 83,
+          "kind": "function"
+        },
+        {
+          "name": "offAim",
+          "line": 85,
+          "kind": "function"
+        },
+        {
+          "name": "othersNear",
+          "line": 86,
+          "kind": "function"
+        },
+        {
+          "name": "readIs",
+          "line": 95,
+          "kind": "function"
+        },
+        {
+          "name": "isHider",
+          "line": 100,
+          "kind": "named arrow"
+        },
+        {
+          "name": "isRusher",
+          "line": 101,
+          "kind": "named arrow"
+        },
+        {
+          "name": "reverser",
+          "line": 104,
+          "kind": "function"
+        },
+        {
+          "name": "update",
+          "line": 117,
+          "kind": "function"
+        },
+        {
+          "name": "nominalDps",
+          "line": 176,
+          "kind": "function"
+        },
+        {
+          "name": "twoUpdate",
+          "line": 189,
+          "kind": "function"
+        },
+        {
+          "name": "closeOpening",
+          "line": 199,
+          "kind": "function"
+        },
+        {
+          "name": "duelP",
+          "line": 217,
+          "kind": "function"
+        },
+        {
+          "name": "gateOk",
+          "line": 222,
+          "kind": "function"
+        },
+        {
+          "name": "exitT",
+          "line": 227,
+          "kind": "function"
+        },
+        {
+          "name": "finalPick",
+          "line": 234,
+          "kind": "function"
+        },
+        {
+          "name": "pointSide",
+          "line": 251,
+          "kind": "function"
+        },
+        {
+          "name": "gatePost",
+          "line": 269,
+          "kind": "function"
+        },
+        {
+          "name": "firstShotOk",
+          "line": 287,
+          "kind": "function"
+        },
+        {
+          "name": "breakUpdate",
+          "line": 319,
+          "kind": "function"
+        },
+        {
+          "name": "threatsForBreak",
+          "line": 374,
+          "kind": "function"
+        },
+        {
+          "name": "hiddenAt",
+          "line": 384,
+          "kind": "function"
+        },
+        {
+          "name": "fillCand",
+          "line": 393,
+          "kind": "function"
+        },
+        {
+          "name": "settleStep",
+          "line": 407,
+          "kind": "function"
+        },
+        {
+          "name": "relocStep",
+          "line": 420,
+          "kind": "function"
+        },
+        {
+          "name": "breakLegs",
+          "line": 441,
+          "kind": "function"
+        },
+        {
+          "name": "lightLegs",
+          "line": 481,
+          "kind": "function"
+        },
+        {
+          "name": "beamHideLegs",
+          "line": 511,
+          "kind": "function"
+        },
+        {
+          "name": "boostVeto",
+          "line": 524,
+          "kind": "function"
+        },
+        {
+          "name": "raceOn",
+          "line": 532,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/firecontrol.js",
+      "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb",
+      "role": "Predicted shooter/target positions, torso slew, line checks, weapon gates, laser ownership and reload.",
+      "review": "Geometry candidate changes muzzleClear and run only. Other functions remain byte-identical.",
+      "named_functions": [
+        {
+          "name": "makeFireControl",
+          "line": 6,
+          "kind": "function"
+        },
+        {
+          "name": "predictSelf",
+          "line": 19,
+          "kind": "function"
+        },
+        {
+          "name": "airZ",
+          "line": 42,
+          "kind": "function"
+        },
+        {
+          "name": "gunLatency",
+          "line": 53,
+          "kind": "function"
+        },
+        {
+          "name": "gunSolve",
+          "line": 56,
+          "kind": "function"
+        },
+        {
+          "name": "muzzleClear",
+          "line": 91,
+          "kind": "function"
+        },
+        {
+          "name": "predYaw",
+          "line": 104,
+          "kind": "function"
+        },
+        {
+          "name": "predPitch",
+          "line": 105,
+          "kind": "function"
+        },
+        {
+          "name": "scan",
+          "line": 107,
+          "kind": "function"
+        },
+        {
+          "name": "pitchTo",
+          "line": 142,
+          "kind": "function"
+        },
+        {
+          "name": "ffaR",
+          "line": 147,
+          "kind": "named arrow"
+        },
+        {
+          "name": "run",
+          "line": 149,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/hunt.js",
+      "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+      "role": "Squad firewall, burst/TTK model, pursuit and sound/kill objectives.",
+      "review": "Unchanged; the firewall is preserved. TTK remains a model with uncertain hit rates and target armor.",
+      "named_functions": [
+        {
+          "name": "makeHunt",
+          "line": 16,
+          "kind": "function"
+        },
+        {
+          "name": "on",
+          "line": 19,
+          "kind": "named arrow"
+        },
+        {
+          "name": "firewall",
+          "line": 29,
+          "kind": "function"
+        },
+        {
+          "name": "laserIn",
+          "line": 33,
+          "kind": "named arrow"
+        },
+        {
+          "name": "lightZaps",
+          "line": 34,
+          "kind": "function"
+        },
+        {
+          "name": "gunOk",
+          "line": 39,
+          "kind": "function"
+        },
+        {
+          "name": "burst3",
+          "line": 44,
+          "kind": "function"
+        },
+        {
+          "name": "ttk",
+          "line": 57,
+          "kind": "function"
+        },
+        {
+          "name": "hitAt",
+          "line": 83,
+          "kind": "function"
+        },
+        {
+          "name": "reserveOk",
+          "line": 87,
+          "kind": "function"
+        },
+        {
+          "name": "readSounds",
+          "line": 93,
+          "kind": "function"
+        },
+        {
+          "name": "pre",
+          "line": 106,
+          "kind": "function"
+        },
+        {
+          "name": "post",
+          "line": 155,
+          "kind": "function"
+        },
+        {
+          "name": "loaded",
+          "line": 163,
+          "kind": "function"
+        },
+        {
+          "name": "spent",
+          "line": 167,
+          "kind": "function"
+        },
+        {
+          "name": "finishLine",
+          "line": 171,
+          "kind": "function"
+        },
+        {
+          "name": "killCube",
+          "line": 172,
+          "kind": "function"
+        },
+        {
+          "name": "pulseUpdate",
+          "line": 178,
+          "kind": "function"
+        },
+        {
+          "name": "preyOk",
+          "line": 206,
+          "kind": "function"
+        },
+        {
+          "name": "reachable",
+          "line": 209,
+          "kind": "function"
+        },
+        {
+          "name": "preyCostOf",
+          "line": 220,
+          "kind": "function"
+        },
+        {
+          "name": "updatePrey",
+          "line": 235,
+          "kind": "function"
+        },
+        {
+          "name": "soundGoal",
+          "line": 249,
+          "kind": "function"
+        },
+        {
+          "name": "ringGoal",
+          "line": 274,
+          "kind": "function"
+        },
+        {
+          "name": "seekLegs",
+          "line": 301,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/io.js",
+      "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+      "role": "Merge transient observation events when backlog is collapsed.",
+      "review": "Unchanged; official checker backlog/tick/exit checks apply.",
+      "named_functions": [
+        {
+          "name": "aged",
+          "line": 10,
+          "kind": "function"
+        },
+        {
+          "name": "mergeSkipped",
+          "line": 20,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/mover.js",
+      "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285",
+      "role": "Bounded path following, strafing, acceleration-aware bullet dodge, zone feasibility, hop/jet and stuck handling.",
+      "review": "Unchanged; source review. Hostile agents do not satisfy reciprocal avoidance assumptions. Final-scale movement efficacy is not inferred from protocol replay.",
+      "named_functions": [
+        {
+          "name": "makeMover",
+          "line": 10,
+          "kind": "function"
+        },
+        {
+          "name": "isAbandoned",
+          "line": 22,
+          "kind": "function"
+        },
+        {
+          "name": "plan",
+          "line": 25,
+          "kind": "function"
+        },
+        {
+          "name": "clampArena",
+          "line": 47,
+          "kind": "function"
+        },
+        {
+          "name": "moveTo",
+          "line": 57,
+          "kind": "function"
+        },
+        {
+          "name": "walkable",
+          "line": 95,
+          "kind": "function"
+        },
+        {
+          "name": "flip",
+          "line": 110,
+          "kind": "function"
+        },
+        {
+          "name": "standoff",
+          "line": 121,
+          "kind": "function"
+        },
+        {
+          "name": "bulletMiss",
+          "line": 165,
+          "kind": "function"
+        },
+        {
+          "name": "dodgeScore",
+          "line": 182,
+          "kind": "function"
+        },
+        {
+          "name": "bulletDodge",
+          "line": 194,
+          "kind": "function"
+        },
+        {
+          "name": "dodgeHeld",
+          "line": 238,
+          "kind": "function"
+        },
+        {
+          "name": "dodgeW",
+          "line": 240,
+          "kind": "function"
+        },
+        {
+          "name": "blend",
+          "line": 241,
+          "kind": "function"
+        },
+        {
+          "name": "zoneGoal",
+          "line": 252,
+          "kind": "function"
+        },
+        {
+          "name": "lateLeash",
+          "line": 298,
+          "kind": "function"
+        },
+        {
+          "name": "leashStrafe",
+          "line": 307,
+          "kind": "function"
+        },
+        {
+          "name": "hopPlanCfg",
+          "line": 321,
+          "kind": "function"
+        },
+        {
+          "name": "inPocket",
+          "line": 334,
+          "kind": "function"
+        },
+        {
+          "name": "zoneCheck",
+          "line": 342,
+          "kind": "function"
+        },
+        {
+          "name": "pocketExit",
+          "line": 389,
+          "kind": "function"
+        },
+        {
+          "name": "boostOk",
+          "line": 432,
+          "kind": "function"
+        },
+        {
+          "name": "zoneLegs",
+          "line": 439,
+          "kind": "function"
+        },
+        {
+          "name": "shellDodge",
+          "line": 449,
+          "kind": "function"
+        },
+        {
+          "name": "stuckCheck",
+          "line": 492,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/nav.js",
+      "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+      "role": "Terrain/clearance graph, body-size updates, component labeling, bounded A-star, line and hop queries.",
+      "review": "Unchanged spatial infrastructure; interface/source inspection and actual-map replay. No new formal geometry-equivalence claim.",
+      "named_functions": [
+        {
+          "name": "constructor",
+          "line": 34,
+          "kind": "method"
+        },
+        {
+          "name": "cx",
+          "line": 85,
+          "kind": "method"
+        },
+        {
+          "name": "cy",
+          "line": 86,
+          "kind": "method"
+        },
+        {
+          "name": "idx",
+          "line": 88,
+          "kind": "method"
+        },
+        {
+          "name": "cellX",
+          "line": 93,
+          "kind": "method"
+        },
+        {
+          "name": "cellY",
+          "line": 94,
+          "kind": "method"
+        },
+        {
+          "name": "_build",
+          "line": 99,
+          "kind": "method"
+        },
+        {
+          "name": "_buildGround",
+          "line": 113,
+          "kind": "method"
+        },
+        {
+          "name": "_buildCover",
+          "line": 139,
+          "kind": "method"
+        },
+        {
+          "name": "_blockedAt",
+          "line": 182,
+          "kind": "method"
+        },
+        {
+          "name": "_buildLevels",
+          "line": 193,
+          "kind": "method"
+        },
+        {
+          "name": "_buildRefLevels",
+          "line": 243,
+          "kind": "method"
+        },
+        {
+          "name": "_buildWalls",
+          "line": 273,
+          "kind": "method"
+        },
+        {
+          "name": "_edgePass",
+          "line": 321,
+          "kind": "method"
+        },
+        {
+          "name": "_buildSlopes",
+          "line": 348,
+          "kind": "method"
+        },
+        {
+          "name": "setBody",
+          "line": 416,
+          "kind": "method"
+        },
+        {
+          "name": "_label",
+          "line": 441,
+          "kind": "method"
+        },
+        {
+          "name": "passable",
+          "line": 479,
+          "kind": "method"
+        },
+        {
+          "name": "canStep",
+          "line": 485,
+          "kind": "method"
+        },
+        {
+          "name": "wallDistAt",
+          "line": 497,
+          "kind": "method"
+        },
+        {
+          "name": "levelAt",
+          "line": 510,
+          "kind": "method"
+        },
+        {
+          "name": "passableAt",
+          "line": 515,
+          "kind": "method"
+        },
+        {
+          "name": "nearestPassableIdx",
+          "line": 521,
+          "kind": "method"
+        },
+        {
+          "name": "nearestPassable",
+          "line": 543,
+          "kind": "method"
+        },
+        {
+          "name": "component",
+          "line": 553,
+          "kind": "method"
+        },
+        {
+          "name": "reachable",
+          "line": 574,
+          "kind": "method"
+        },
+        {
+          "name": "_line",
+          "line": 587,
+          "kind": "method"
+        },
+        {
+          "name": "walkLine",
+          "line": 637,
+          "kind": "method"
+        },
+        {
+          "name": "_search",
+          "line": 646,
+          "kind": "method"
+        },
+        {
+          "name": "findPath",
+          "line": 737,
+          "kind": "method"
+        },
+        {
+          "name": "pathLength",
+          "line": 852,
+          "kind": "method"
+        },
+        {
+          "name": "_hopCandidates",
+          "line": 865,
+          "kind": "method"
+        },
+        {
+          "name": "hopPlan",
+          "line": 917,
+          "kind": "method"
+        },
+        {
+          "name": "nextWaypoint",
+          "line": 956,
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "file": "lib/params.js",
+      "sha256": "492b8670c45fdc17d3c2e735095990ac8542a80d92067e67bdffa79187f043a9",
+      "role": "Defaults, named preset composition and override resolution.",
+      "review": "Unchanged. Actual P26_all SELECT enables prof:p26 and retains the all-ones salt table.",
+      "named_functions": [
+        {
+          "name": "resolveParams",
+          "line": 338,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/prof.js",
+      "sha256": "3f52586bc688978a4bcb1a6df179929339353755d2b96560ade007b1c68ba6dd",
+      "role": "P26 hostility, target/range/TTK heuristics, economy, mode and fire hooks.",
+      "review": "Capture candidate changes chooseDrop, chooseLoot, decideMode and adds dropPlan; other functions remain byte-identical.",
+      "named_functions": [
+        {
+          "name": "makeProf",
+          "line": 24,
+          "kind": "function"
+        },
+        {
+          "name": "cnt",
+          "line": 45,
+          "kind": "named arrow"
+        },
+        {
+          "name": "memOf",
+          "line": 47,
+          "kind": "function"
+        },
+        {
+          "name": "ign",
+          "line": 52,
+          "kind": "named arrow"
+        },
+        {
+          "name": "update",
+          "line": 58,
+          "kind": "function"
+        },
+        {
+          "name": "hostile",
+          "line": 91,
+          "kind": "function"
+        },
+        {
+          "name": "hitOwnCurve",
+          "line": 98,
+          "kind": "named arrow"
+        },
+        {
+          "name": "hitFoe",
+          "line": 99,
+          "kind": "named arrow"
+        },
+        {
+          "name": "hitOwn",
+          "line": 100,
+          "kind": "function"
+        },
+        {
+          "name": "ownDps",
+          "line": 107,
+          "kind": "function"
+        },
+        {
+          "name": "foeDps",
+          "line": 116,
+          "kind": "function"
+        },
+        {
+          "name": "prefRange",
+          "line": 127,
+          "kind": "function"
+        },
+        {
+          "name": "strength",
+          "line": 137,
+          "kind": "function"
+        },
+        {
+          "name": "legal",
+          "line": 144,
+          "kind": "function"
+        },
+        {
+          "name": "selectTarget",
+          "line": 152,
+          "kind": "function"
+        },
+        {
+          "name": "fireTarget",
+          "line": 228,
+          "kind": "function"
+        },
+        {
+          "name": "cubesWanted",
+          "line": 235,
+          "kind": "function"
+        },
+        {
+          "name": "mechNear",
+          "line": 242,
+          "kind": "function"
+        },
+        {
+          "name": "mechInView",
+          "line": 247,
+          "kind": "function"
+        },
+        {
+          "name": "pathOk",
+          "line": 253,
+          "kind": "function"
+        },
+        {
+          "name": "sameComp",
+          "line": 266,
+          "kind": "function"
+        },
+        {
+          "name": "chooseDrop",
+          "line": 276,
+          "kind": "function"
+        },
+        {
+          "name": "chooseGrab",
+          "line": 295,
+          "kind": "function"
+        },
+        {
+          "name": "chooseLoot",
+          "line": 326,
+          "kind": "function"
+        },
+        {
+          "name": "econUpdate",
+          "line": 374,
+          "kind": "function"
+        },
+        {
+          "name": "stillThere",
+          "line": 390,
+          "kind": "function"
+        },
+        {
+          "name": "decideMode",
+          "line": 399,
+          "kind": "function"
+        },
+        {
+          "name": "boostIf",
+          "line": 456,
+          "kind": "function"
+        },
+        {
+          "name": "legs",
+          "line": 457,
+          "kind": "function"
+        },
+        {
+          "name": "fightLegs",
+          "line": 487,
+          "kind": "function"
+        },
+        {
+          "name": "lootLegs",
+          "line": 508,
+          "kind": "function"
+        },
+        {
+          "name": "afterLegs",
+          "line": 543,
+          "kind": "function"
+        },
+        {
+          "name": "crateShot",
+          "line": 551,
+          "kind": "function"
+        },
+        {
+          "name": "wantReload",
+          "line": 574,
+          "kind": "function"
+        },
+        {
+          "name": "laserVeto",
+          "line": 585,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/scan.js",
+      "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+      "role": "Sector memory, late sweeping, look hints and rear-hit facing.",
+      "review": "Unchanged; full pipeline replay and crafted fire contexts protect interfaces.",
+      "named_functions": [
+        {
+          "name": "centre",
+          "line": 14,
+          "kind": "named arrow"
+        },
+        {
+          "name": "secOf",
+          "line": 15,
+          "kind": "named arrow"
+        },
+        {
+          "name": "makeScanner",
+          "line": 17,
+          "kind": "function"
+        },
+        {
+          "name": "half",
+          "line": 26,
+          "kind": "function"
+        },
+        {
+          "name": "sense",
+          "line": 28,
+          "kind": "function"
+        },
+        {
+          "name": "late",
+          "line": 54,
+          "kind": "function"
+        },
+        {
+          "name": "active",
+          "line": 58,
+          "kind": "function"
+        },
+        {
+          "name": "look",
+          "line": 61,
+          "kind": "function"
+        },
+        {
+          "name": "rearPick",
+          "line": 114,
+          "kind": "function"
+        },
+        {
+          "name": "reset",
+          "line": 124,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/senses.js",
+      "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+      "role": "Sanitized live self/track/event/beam/projectile/loot/drop/zone state and bounded rolling statistics.",
+      "review": "Unchanged; synthetic malformed observations and missing/bad configs exercise sanitation, low energy and zone boundaries.",
+      "named_functions": [
+        {
+          "name": "fnum",
+          "line": 7,
+          "kind": "named arrow"
+        },
+        {
+          "name": "cnum",
+          "line": 8,
+          "kind": "named arrow"
+        },
+        {
+          "name": "vecOk",
+          "line": 12,
+          "kind": "function"
+        },
+        {
+          "name": "newRing",
+          "line": 18,
+          "kind": "function"
+        },
+        {
+          "name": "ringPush",
+          "line": 19,
+          "kind": "function"
+        },
+        {
+          "name": "ringSum",
+          "line": 21,
+          "kind": "function"
+        },
+        {
+          "name": "newSelf",
+          "line": 29,
+          "kind": "function"
+        },
+        {
+          "name": "newTrack",
+          "line": 44,
+          "kind": "function"
+        },
+        {
+          "name": "senseSelf",
+          "line": 63,
+          "kind": "function"
+        },
+        {
+          "name": "senseTracks",
+          "line": 156,
+          "kind": "function"
+        },
+        {
+          "name": "senseEvents",
+          "line": 238,
+          "kind": "function"
+        },
+        {
+          "name": "senseBeams",
+          "line": 305,
+          "kind": "function"
+        },
+        {
+          "name": "laserBeamSeen",
+          "line": 327,
+          "kind": "function"
+        },
+        {
+          "name": "remember",
+          "line": 340,
+          "kind": "function"
+        },
+        {
+          "name": "forget",
+          "line": 358,
+          "kind": "function"
+        },
+        {
+          "name": "senseShells",
+          "line": 373,
+          "kind": "function"
+        },
+        {
+          "name": "attribute",
+          "line": 402,
+          "kind": "function"
+        },
+        {
+          "name": "senseSounds",
+          "line": 420,
+          "kind": "function"
+        },
+        {
+          "name": "senseZone",
+          "line": 438,
+          "kind": "function"
+        },
+        {
+          "name": "zoneSlack",
+          "line": 454,
+          "kind": "function"
+        },
+        {
+          "name": "timeUntilOutside",
+          "line": 465,
+          "kind": "function"
+        },
+        {
+          "name": "sense",
+          "line": 482,
+          "kind": "function"
+        },
+        {
+          "name": "byDist",
+          "line": 518,
+          "kind": "named arrow"
+        },
+        {
+          "name": "makeGunStat",
+          "line": 521,
+          "kind": "function"
+        },
+        {
+          "name": "band",
+          "line": 523,
+          "kind": "named arrow"
+        }
+      ]
+    },
+    {
+      "file": "lib/stance.js",
+      "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+      "role": "Environment latch, combat stance hysteresis, first-shot restraint, ambush and covered escape.",
+      "review": "Unchanged; forced-FFA identity required. Practice/final distinction remains a heuristic runtime classifier, not match-mode disclosure.",
+      "named_functions": [
+        {
+          "name": "makeStance",
+          "line": 11,
+          "kind": "function"
+        },
+        {
+          "name": "environment",
+          "line": 29,
+          "kind": "function"
+        },
+        {
+          "name": "advantage",
+          "line": 73,
+          "kind": "function"
+        },
+        {
+          "name": "chooseStance",
+          "line": 84,
+          "kind": "function"
+        },
+        {
+          "name": "setStance",
+          "line": 132,
+          "kind": "function"
+        },
+        {
+          "name": "applyStance",
+          "line": 137,
+          "kind": "function"
+        },
+        {
+          "name": "update",
+          "line": 169,
+          "kind": "function"
+        },
+        {
+          "name": "idleLegs",
+          "line": 176,
+          "kind": "function"
+        },
+        {
+          "name": "ambushUpdate",
+          "line": 190,
+          "kind": "function"
+        },
+        {
+          "name": "fightLegs",
+          "line": 222,
+          "kind": "function"
+        },
+        {
+          "name": "escapeLegs",
+          "line": 240,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/steal.js",
+      "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+      "role": "Observed farming/death/loot opportunities, capture races, third-party decisions and state cleanup.",
+      "review": "Unchanged; P26 uses only selected existing fire/economy hooks. No new opponent source was used.",
+      "named_functions": [
+        {
+          "name": "fin",
+          "line": 20,
+          "kind": "named arrow"
+        },
+        {
+          "name": "vec3",
+          "line": 21,
+          "kind": "named arrow"
+        },
+        {
+          "name": "makeSteal",
+          "line": 24,
+          "kind": "function"
+        },
+        {
+          "name": "sense",
+          "line": 39,
+          "kind": "function"
+        },
+        {
+          "name": "note",
+          "line": 109,
+          "kind": "function"
+        },
+        {
+          "name": "seesPoint",
+          "line": 127,
+          "kind": "function"
+        },
+        {
+          "name": "senseDeaths",
+          "line": 137,
+          "kind": "function"
+        },
+        {
+          "name": "mechNear",
+          "line": 177,
+          "kind": "function"
+        },
+        {
+          "name": "gateOn",
+          "line": 183,
+          "kind": "named arrow"
+        },
+        {
+          "name": "farmOk",
+          "line": 185,
+          "kind": "function"
+        },
+        {
+          "name": "crateFireOk",
+          "line": 193,
+          "kind": "function"
+        },
+        {
+          "name": "race",
+          "line": 197,
+          "kind": "function"
+        },
+        {
+          "name": "dropOk",
+          "line": 217,
+          "kind": "function"
+        },
+        {
+          "name": "deathItem",
+          "line": 243,
+          "kind": "function"
+        },
+        {
+          "name": "thirdParty",
+          "line": 267,
+          "kind": "function"
+        },
+        {
+          "name": "gatesOk",
+          "line": 277,
+          "kind": "function"
+        },
+        {
+          "name": "speedFor",
+          "line": 292,
+          "kind": "function"
+        },
+        {
+          "name": "choose",
+          "line": 298,
+          "kind": "function"
+        },
+        {
+          "name": "start",
+          "line": 338,
+          "kind": "function"
+        },
+        {
+          "name": "planSpot",
+          "line": 347,
+          "kind": "function"
+        },
+        {
+          "name": "stillValid",
+          "line": 386,
+          "kind": "function"
+        },
+        {
+          "name": "abandon",
+          "line": 394,
+          "kind": "function"
+        },
+        {
+          "name": "legs",
+          "line": 402,
+          "kind": "function"
+        },
+        {
+          "name": "keep",
+          "line": 457,
+          "kind": "function"
+        },
+        {
+          "name": "busyWith",
+          "line": 466,
+          "kind": "function"
+        },
+        {
+          "name": "beingShot",
+          "line": 471,
+          "kind": "function"
+        },
+        {
+          "name": "aimExplained",
+          "line": 477,
+          "kind": "function"
+        },
+        {
+          "name": "debug",
+          "line": 489,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/tactics.js",
+      "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+      "role": "Threat estimates, non-P26 targets/modes, finishing, hide search and position scoring.",
+      "review": "Unchanged; P26 bypasses some policy functions but shares assessment/position infrastructure. Incoming/outgoing rates remain estimates.",
+      "named_functions": [
+        {
+          "name": "rangeBin",
+          "line": 10,
+          "kind": "function"
+        },
+        {
+          "name": "assess",
+          "line": 16,
+          "kind": "function"
+        },
+        {
+          "name": "bandFor",
+          "line": 105,
+          "kind": "function"
+        },
+        {
+          "name": "ofAnswer",
+          "line": 128,
+          "kind": "function"
+        },
+        {
+          "name": "burstDamage",
+          "line": 134,
+          "kind": "function"
+        },
+        {
+          "name": "finUpdate",
+          "line": 151,
+          "kind": "function"
+        },
+        {
+          "name": "closingV",
+          "line": 179,
+          "kind": "function"
+        },
+        {
+          "name": "engaged",
+          "line": 184,
+          "kind": "function"
+        },
+        {
+          "name": "selectTarget",
+          "line": 202,
+          "kind": "function"
+        },
+        {
+          "name": "setTarget",
+          "line": 373,
+          "kind": "function"
+        },
+        {
+          "name": "losing",
+          "line": 391,
+          "kind": "function"
+        },
+        {
+          "name": "losingRaw",
+          "line": 406,
+          "kind": "function"
+        },
+        {
+          "name": "pulseLosing",
+          "line": 436,
+          "kind": "function"
+        },
+        {
+          "name": "decideMode",
+          "line": 453,
+          "kind": "function"
+        },
+        {
+          "name": "fillThreats",
+          "line": 512,
+          "kind": "function"
+        },
+        {
+          "name": "put",
+          "line": 538,
+          "kind": "function"
+        },
+        {
+          "name": "newThreats",
+          "line": 543,
+          "kind": "function"
+        },
+        {
+          "name": "inArena",
+          "line": 545,
+          "kind": "function"
+        },
+        {
+          "name": "exposure",
+          "line": 553,
+          "kind": "function"
+        },
+        {
+          "name": "makeHideSearch",
+          "line": 563,
+          "kind": "function"
+        },
+        {
+          "name": "start",
+          "line": 576,
+          "kind": "function"
+        },
+        {
+          "name": "isBad",
+          "line": 582,
+          "kind": "function"
+        },
+        {
+          "name": "markBad",
+          "line": 586,
+          "kind": "function"
+        },
+        {
+          "name": "hidden",
+          "line": 591,
+          "kind": "function"
+        },
+        {
+          "name": "awaySide",
+          "line": 601,
+          "kind": "function"
+        },
+        {
+          "name": "okStatic",
+          "line": 611,
+          "kind": "function"
+        },
+        {
+          "name": "run",
+          "line": 625,
+          "kind": "function"
+        },
+        {
+          "name": "maintain",
+          "line": 654,
+          "kind": "function"
+        },
+        {
+          "name": "makePosEval",
+          "line": 680,
+          "kind": "function"
+        },
+        {
+          "name": "evaluate",
+          "line": 688,
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "file": "lib/world.js",
+      "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43",
+      "role": "Map loading, terrain decoding, spatial indexing, collision/vision rays and terrain traversal.",
+      "review": "Unchanged; the new barrel-prefix gate reuses shotClear instead of introducing another geometry implementation.",
+      "named_functions": [
+        {
+          "name": "pointInEdges",
+          "line": 20,
+          "kind": "function"
+        },
+        {
+          "name": "pointInPrism2D",
+          "line": 33,
+          "kind": "function"
+        },
+        {
+          "name": "distToPrismEdge2D",
+          "line": 40,
+          "kind": "function"
+        },
+        {
+          "name": "toHeights",
+          "line": 56,
+          "kind": "function"
+        },
+        {
+          "name": "loadSync",
+          "line": 74,
+          "kind": "method"
+        },
+        {
+          "name": "constructor",
+          "line": 103,
+          "kind": "method"
+        },
+        {
+          "name": "_buildTerrainBlocks",
+          "line": 202,
+          "kind": "method"
+        },
+        {
+          "name": "_buildCSR",
+          "line": 226,
+          "kind": "method"
+        },
+        {
+          "name": "_cellOf",
+          "line": 243,
+          "kind": "method"
+        },
+        {
+          "name": "_nextStamp",
+          "line": 249,
+          "kind": "method"
+        },
+        {
+          "name": "ground",
+          "line": 259,
+          "kind": "method"
+        },
+        {
+          "name": "surfaceZ",
+          "line": 270,
+          "kind": "method"
+        },
+        {
+          "name": "surfacePrism",
+          "line": 285,
+          "kind": "method"
+        },
+        {
+          "name": "ceilingZ",
+          "line": 300,
+          "kind": "method"
+        },
+        {
+          "name": "prismAt",
+          "line": 315,
+          "kind": "method"
+        },
+        {
+          "name": "inSolid",
+          "line": 329,
+          "kind": "method"
+        },
+        {
+          "name": "bodyBlocked",
+          "line": 339,
+          "kind": "method"
+        },
+        {
+          "name": "rayShot",
+          "line": 374,
+          "kind": "method"
+        },
+        {
+          "name": "raySight",
+          "line": 377,
+          "kind": "method"
+        },
+        {
+          "name": "shotClear",
+          "line": 380,
+          "kind": "method"
+        },
+        {
+          "name": "canSee",
+          "line": 383,
+          "kind": "method"
+        },
+        {
+          "name": "sightClear",
+          "line": 386,
+          "kind": "method"
+        },
+        {
+          "name": "transmittance",
+          "line": 389,
+          "kind": "method"
+        },
+        {
+          "name": "_cast",
+          "line": 398,
+          "kind": "method"
+        },
+        {
+          "name": "canopyChord",
+          "line": 551,
+          "kind": "method"
+        },
+        {
+          "name": "_rayTerrain",
+          "line": 612,
+          "kind": "method"
+        }
+      ]
+    }
+  ],
+  "candidate_additions": [
+    {
+      "candidate": "mech-geometry",
+      "module": "lib/firecontrol.js",
+      "name": "geometry",
+      "kind": "named arrow",
+      "purpose": "Fresh geometry-only firewall at fire time"
+    },
+    {
+      "candidate": "mech-capture",
+      "module": "lib/prof.js",
+      "name": "dropPlan",
+      "kind": "function",
+      "purpose": "Exact observed holder/progress with known contest and conditional arrival plan"
+    }
+  ],
+  "validation_receipts": [
+    "decision-cases.json",
+    "replay-stress-results.json",
+    "protocol-results.json",
+    "latency-results.json"
+  ]
+}

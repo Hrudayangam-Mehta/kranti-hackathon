@@ -1,0 +1,24 @@
+{
+  "binary": "bench/bin/bins-flat",
+  "binary_sha256": "4d94bc67880dc41fd5ce2bae869528b278ab045808da68447061ffd217e7c52c",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "c1b9d4ca510ab53268f68fa79c9048ce3bf96839a13d24ab0e45ef0b66b854b7",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/bins-flat",
+    "root": "panel/database/flat-data",
+    "mode": [
+      "1",
+      "8"
+    ],
+    "report": "panel/database/flat-adversarial.json",
+    "only": "",
+    "repeat": false,
+    "bin_cases": true,
+    "large_output": false,
+    "purchase_cases": true,
+    "compact_cases": false,
+    "second_reader": true
+  }
+}

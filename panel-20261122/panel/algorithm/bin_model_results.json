@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "reference": "sort each person's event timestamps, split on gap > threshold",
+  "candidate": "half-open threshold-width bins; exact minimum/maximum boundary comparison",
+  "deterministic_cases": 13,
+  "deterministic_orders": 2,
+  "deterministic_day_origins": 3,
+  "exhaustive_small_cases": 19448,
+  "random_cases": 4000,
+  "random_seed": 2711305335,
+  "generated_events_in_deterministic_and_random_cases": 1420876,
+  "seconds": 7.794,
+  "limits": [
+    "Model verifies mathematics and payload membership, not the Rust unsafe indexing implementation.",
+    "Inputs already have canonical person identities and have completed event dedup/validation.",
+    "No claim about speed, allocation behavior, thread safety, or official scoring follows from this test."
+  ],
+  "script_sha256": "39158aed38fc1c89a62a088c56c92ddfae03320bc7686ac15bc6d3f7279de596"
+}

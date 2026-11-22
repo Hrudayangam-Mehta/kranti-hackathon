@@ -1,0 +1,199 @@
+--- a/src/fast/mod.rs
++++ b/src/fast/mod.rs
+@@ -1352,7 +1352,16 @@
+ struct SessionBin {
+     min: u32,
+     max: u32,
+-    head: u32,
++    count: u64,
++    session: u32,
++}
++
++#[derive(Clone, Copy)]
++struct BinSession {
++    start: u32,
++    day: u32,
++    events: u64,
++    revenue: u64,
+ }
+ 
+ struct Worker {
+@@ -1379,7 +1388,11 @@
+     active: Vec<u32>,
+     category_sums: Vec<(u32, u64)>,
+     bins: Vec<SessionBin>,
+-    bin_next: Vec<u32>,
++    bin_purchases: Vec<u64>,
++    bin_sessions: Vec<BinSession>,
++    bin_categories: Vec<u64>,
++    bin_touched: Vec<usize>,
++    bin_best: Vec<(u64, u8)>,
+     occupied_bins: Vec<u32>,
+     bin_threshold: usize,
+ }
+@@ -1410,8 +1423,12 @@
+             active_at: vec![0; campaigns],
+             active: Vec::new(),
+             category_sums: Vec::new(),
+-            bins: vec![SessionBin { min: 0, max: 0, head: INVALID }; ((ctx.we - ctx.cws) as usize).div_ceil(GAP_MS as usize)],
+-            bin_next: Vec::new(),
++            bins: vec![SessionBin { min: 0, max: 0, count: 0, session: 0 }; ((ctx.we - ctx.cws) as usize).div_ceil(GAP_MS as usize)],
++            bin_purchases: Vec::new(),
++            bin_sessions: Vec::new(),
++            bin_categories: vec![0; ctx.days * 256],
++            bin_touched: Vec::new(),
++            bin_best: vec![(0, u8::MAX); ctx.days],
+             occupied_bins: Vec::new(),
+             bin_threshold: std::env::var("SESSIONS_BIN_THRESHOLD").ok().and_then(|x| x.parse().ok()).unwrap_or(8),
+         }
+@@ -1631,13 +1648,14 @@
+     }
+ 
+     fn person_bins(&mut self, person: Key, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {
+-        self.bin_next.resize(events.len(), INVALID);
++        self.bin_purchases.clear();
++        self.bin_sessions.clear();
+         self.occupied_bins.clear();
+-        for (index, &value) in self.sorted[events.clone()].iter().enumerate() {
++        for &value in &self.sorted[events] {
+             let ts = (value >> 32) as u32;
+             let b = ts / GAP_MS;
+             let bin = &mut self.bins[b as usize];
+-            if bin.head == INVALID {
++            if bin.count == 0 {
+                 self.occupied_bins.push(b);
+                 bin.min = ts;
+                 bin.max = ts;
+@@ -1645,53 +1663,69 @@
+                 bin.min = bin.min.min(ts);
+                 bin.max = bin.max.max(ts);
+             }
+-            self.bin_next[index] = bin.head;
+-            bin.head = index as u32;
++            bin.count += 1;
++            if value as u32 & 0x00ff_ffff != 0 {
++                self.bin_purchases.push(value);
++            }
+         }
+         self.occupied_bins.sort_unstable();
++        let mut i = 0usize;
++        while i < self.occupied_bins.len() {
++            let start = self.bins[self.occupied_bins[i] as usize].min;
++            let day = ((i64::from(start) + self.day_shift) / DAY_MS) as u32;
++            let session = self.bin_sessions.len() as u32;
++            let mut last = start;
++            let mut events_in = 0u64;
++            while i < self.occupied_bins.len() {
++                let b = self.occupied_bins[i] as usize;
++                let bin = &mut self.bins[b];
++                if bin.min - last > GAP_MS {
++                    break;
++                }
++                last = bin.max;
++                events_in += bin.count;
++                bin.session = session;
++                bin.count = 0;
++                i += 1;
++            }
++            self.bin_sessions.push(BinSession { start, day, events: events_in, revenue: 0 });
++        }
++        for &value in &self.bin_purchases {
++            let ts = (value >> 32) as u32;
++            let payload = value as u32;
++            let price = u64::from(payload & 0x00ff_ffff);
++            let category = (payload >> 24) as u8;
++            let session = self.bins[(ts / GAP_MS) as usize].session as usize;
++            let session = &mut self.bin_sessions[session];
++            session.revenue += price;
++            let day = session.day as usize;
++            let at = day * 256 + usize::from(category);
++            let sum = &mut self.bin_categories[at];
++            if *sum == 0 {
++                self.bin_touched.push(at);
++            }
++            *sum += price;
++            let best = &mut self.bin_best[day];
++            if *sum > best.0 || (*sum == best.0 && category < best.1) {
++                *best = (*sum, category);
++            }
++        }
+         let mut low = clicks.start;
+         let mut high = clicks.start;
+         let click_end = clicks.end;
+-        let mut i = 0usize;
+         let mut row_day = usize::MAX;
+         let mut row = [0u64; 3];
+-        while i < self.occupied_bins.len() {
+-            let start = self.bins[self.occupied_bins[i] as usize].min;
+-            let day = ((i64::from(start) + self.day_shift) / DAY_MS) as usize;
++        for i in 0..self.bin_sessions.len() {
++            let session = self.bin_sessions[i];
++            let start = session.start;
++            let day = session.day as usize;
++            let revenue = session.revenue;
+             if day != row_day {
+                 if row_day != usize::MAX {
+-                    self.finish_row(person, row_day, row);
++                    self.finish_bin_row(person, row_day, row);
+                 }
+                 row_day = day;
+                 row = [0; 3];
+-            }
+-            let mut last = start;
+-            let mut events_in = 0u64;
+-            let mut revenue = 0u64;
+-            while i < self.occupied_bins.len() {
+-                let b = self.occupied_bins[i] as usize;
+-                let bin = self.bins[b];
+-                if bin.min - last > GAP_MS {
+-                    break;
+-                }
+-                last = bin.max;
+-                let mut at = bin.head;
+-                while at != INVALID {
+-                    let value = self.sorted[events.start + at as usize];
+-                    events_in += 1;
+-                    let price = (value & 0x00ff_ffff) as u32;
+-                    if price > 0 {
+-                        revenue += u64::from(price);
+-                        let category = ((value >> 24) & 0xff) as u32;
+-                        match self.category_sums.iter_mut().find(|(c, _)| *c == category) {
+-                            Some((_, sum)) => *sum += u64::from(price),
+-                            None => self.category_sums.push((category, u64::from(price))),
+-                        }
+-                    }
+-                    at = self.bin_next[at as usize];
+-                }
+-                self.bins[b].head = INVALID;
+-                i += 1;
+             }
+             while high < click_end && self.local_clicks[high].ts <= start {
+                 let c = self.local_clicks[high].campaign as usize;
+@@ -1731,16 +1765,25 @@
+                 unsafe { *assist.get_unchecked_mut(c as usize) += 1 };
+             }
+             row[0] += 1;
+-            row[1] += events_in;
++            row[1] += session.events;
+             row[2] += revenue;
+         }
+         if row_day != usize::MAX {
+-            self.finish_row(person, row_day, row);
++            self.finish_bin_row(person, row_day, row);
++        }
++        for at in self.bin_touched.drain(..) {
++            self.bin_categories[at] = 0;
+         }
+         for &c in &self.active {
+             self.in_window[c as usize] = 0;
+         }
+         self.active.clear();
++    }
++
++    fn finish_bin_row(&mut self, person: Key, day: usize, row: [u64; 3]) {
++        let top = self.bin_best[day].1;
++        self.bin_best[day] = (0, u8::MAX);
++        self.rows.push(person, day as u32, row, top);
+     }
+ 
+     fn person(&mut self, person: Key, events: std::ops::Range<usize>, clicks: std::ops::Range<usize>) {

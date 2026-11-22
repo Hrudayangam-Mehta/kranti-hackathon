@@ -1,0 +1,81 @@
+ref: user_daily 0 rows, campaign_daily 0 rows, sessions 0/0, diag {'ev_surviving': 0}
+{"case": "empty", "mode": "8", "repeat": 0, "seconds": 0.006324314999801572, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'events_parse_dropped': 1, 'ev_bad_ts': 1, 'ev_late': 1, 'ev_surviving': 4}
+{"case": "dedup_before_validation", "mode": "8", "repeat": 0, "seconds": 0.004654482996556908, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 2 rows, sessions 3/3, diag {'links_dropped': 2, 'events_parse_dropped': 3, 'ev_bad_user': 1, 'ev_bad_price': 2, 'ev_bad_product': 1, 'ev_bad_ts': 1, 'ev_bad_type': 1, 'ev_surviving': 3, 'clicks_parse_dropped': 1, 'ck_bad_campaign': 1, 'ck_bad_ts': 1}
+{"case": "csv_and_nulls", "mode": "8", "repeat": 0, "seconds": 0.006865236995508894, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 1 rows, sessions 3/3, diag {'ev_surviving': 6}
+{"case": "session_boundaries", "mode": "8", "repeat": 0, "seconds": 0.0047564989945385605, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 3 rows, sessions 2/2, diag {'ev_surviving': 2, 'ck_bad_ts': 1, 'ck_bad_campaign': 1}
+{"case": "seven_day_clicks", "mode": "8", "repeat": 0, "seconds": 0.003888286999426782, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 3 rows, sessions 1/1, diag {'ev_surviving': 1}
+{"case": "mixed_shape_tie_ids", "mode": "8", "repeat": 0, "seconds": 0.004028551004012115, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 2}
+{"case": "long_link_chain", "mode": "8", "repeat": 0, "seconds": 0.004071186005603522, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 1 rows, sessions 3/3, diag {'ev_surviving': 5}
+{"case": "category_order_and_unknown", "mode": "8", "repeat": 0, "seconds": 0.00340631900326116, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_bad_ts': 3, 'ev_surviving': 4}
+{"case": "leap_offsets", "mode": "8", "repeat": 0, "seconds": 0.003063121999730356, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 110}
+{"case": "one_session_three_days", "mode": "8", "repeat": 0, "seconds": 0.003815046002273448, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_bad_ts': 1, 'ev_bad_price': 1, 'ev_surviving': 2}
+{"case": "long_lines_and_zero_digits", "mode": "8", "repeat": 0, "seconds": 0.004085477004991844, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_surviving': 2}
+{"case": "all_input_filenames", "mode": "8", "repeat": 0, "seconds": 0.003795554999669548, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 270}
+{"case": "category_fallback", "mode": "8", "repeat": 0, "seconds": 0.003726891001861077, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 1}
+{"case": "window_fallback", "mode": "8", "repeat": 0, "seconds": 0.0028795420003007166, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'events_parse_dropped': 3982, 'ev_surviving': 1}
+{"case": "page_boundary_end", "mode": "8", "repeat": 0, "seconds": 0.003394626000954304, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 83 rows, campaign_daily 42 rows, sessions 126/126, diag {'ev_bad_type': 94, 'ev_bad_product': 67, 'ev_bad_ts': 25, 'ev_late': 43, 'ev_bad_price': 104, 'ev_bad_user': 38, 'ev_surviving': 129, 'ck_bad_campaign': 135, 'ck_bad_user': 24}
+{"case": "random_17", "mode": "8", "repeat": 0, "seconds": 0.003913275002560113, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 87 rows, campaign_daily 42 rows, sessions 137/137, diag {'ev_bad_ts': 28, 'ev_bad_price': 101, 'ev_bad_type': 82, 'ev_late': 41, 'ev_bad_product': 74, 'ev_bad_user': 34, 'ev_surviving': 140, 'ck_bad_campaign': 113, 'ck_bad_user': 20}
+{"case": "random_31", "mode": "8", "repeat": 0, "seconds": 0.004645850000088103, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 86 rows, campaign_daily 43 rows, sessions 134/134, diag {'ev_bad_price': 95, 'ev_bad_product': 81, 'ev_bad_type': 79, 'ev_bad_user': 36, 'ev_bad_ts': 27, 'ev_late': 43, 'ev_surviving': 139, 'ck_bad_campaign': 142, 'ck_bad_user': 13}
+{"case": "random_53", "mode": "8", "repeat": 0, "seconds": 0.004426685998623725, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 97 rows, campaign_daily 42 rows, sessions 144/144, diag {'ev_bad_type': 91, 'ev_bad_price': 87, 'ev_late': 55, 'ev_bad_user': 27, 'ev_bad_ts': 29, 'ev_bad_product': 64, 'ev_surviving': 147, 'ck_bad_campaign': 126, 'ck_bad_user': 26}
+{"case": "random_101", "mode": "8", "repeat": 0, "seconds": 0.004549613004201092, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 94 rows, campaign_daily 42 rows, sessions 149/149, diag {'ev_bad_type': 79, 'ev_bad_product': 78, 'ev_bad_price': 91, 'ev_bad_ts': 27, 'ev_bad_user': 30, 'ev_late': 44, 'ev_surviving': 151, 'ck_bad_campaign': 136, 'ck_bad_user': 30}
+{"case": "random_2028", "mode": "8", "repeat": 0, "seconds": 0.004056482997839339, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 7 rows, campaign_daily 6 rows, sessions 10/10, diag {'ev_surviving': 130}
+{"case": "bin_boundary_geometry", "mode": "8", "repeat": 0, "seconds": 0.004125829000258818, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 217 rows, campaign_daily 6 rows, sessions 3229/3229, diag {'ev_surviving': 9600}
+{"case": "bin_random_boundaries", "mode": "8", "repeat": 0, "seconds": 0.020403152993822005, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 4 rows, sessions 2/2, diag {'ev_surviving': 50000}
+{"case": "bin_shared_device_whale", "mode": "8", "repeat": 0, "seconds": 0.014706754998769611, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 70000 rows, campaign_daily 1 rows, sessions 70000/70000, diag {'ev_surviving': 70000}
+{"case": "parquet_multiple_pages", "mode": "8", "repeat": 0, "seconds": 0.014972859004046768, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 20000}
+{"case": "purchase_bins_no_purchases", "mode": "8", "repeat": 0, "seconds": 0.008221336000133306, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_surviving': 12000}
+{"case": "purchase_bins_all_purchases", "mode": "8", "repeat": 0, "seconds": 0.006765154997992795, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 8 rows, campaign_daily 2 rows, sessions 8/8, diag {'ev_bad_price': 480, 'ev_surviving': 1440}
+{"case": "purchase_bins_alternating_invalid", "mode": "8", "repeat": 0, "seconds": 0.0055918389989528805, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 6 rows, campaign_daily 1 rows, sessions 7/7, diag {'ev_bad_user': 1, 'ev_late': 1, 'ev_bad_ts': 1, 'ev_surviving': 10}
+{"case": "compact_ingest_and_lanes", "mode": "8", "repeat": 0, "seconds": 0.004117379998206161, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 1 rows, sessions 2/2, diag {'events_parse_dropped': 196324, 'ev_bad_ts': 1, 'ev_surviving': 2}
+{"case": "compact_chunk_boundaries", "mode": "8", "repeat": 0, "seconds": 0.007243397005368024, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 48 rows, campaign_daily 1 rows, sessions 48/48, diag {'ev_surviving': 48}
+{"case": "compact_exact_hash_collisions", "mode": "8", "repeat": 0, "seconds": 0.004034209996461868, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 7 rows, campaign_daily 1 rows, sessions 7/7, diag {'ev_surviving': 105}
+{"case": "compact_mixed_component_canonicals", "mode": "8", "repeat": 0, "seconds": 0.007414347004669253, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 16 rows, campaign_daily 1 rows, sessions 16/16, diag {'ev_surviving': 16}
+{"case": "compact16_id_boundaries", "mode": "8", "repeat": 0, "seconds": 0.006032503995811567, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 1 rows, sessions 4/4, diag {'ev_bad_ts': 1, 'ev_surviving': 9}
+{"case": "compact16_time_boundaries", "mode": "8", "repeat": 0, "seconds": 0.004180716998234857, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 8 rows, campaign_daily 3 rows, sessions 8/8, diag {'ev_surviving': 14}
+{"case": "dense_interval_ordering", "mode": "8", "repeat": 0, "seconds": 0.005139827000675723, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 24 rows, campaign_daily 8 rows, sessions 48/48, diag {'ev_surviving': 96}
+{"case": "adaptive_click_cardinalities", "mode": "8", "repeat": 0, "seconds": 0.004979741999704856, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 8 rows, campaign_daily 4 rows, sessions 16/16, diag {'ev_surviving': 16}
+{"case": "adaptive_duplicate_click_membership", "mode": "8", "repeat": 0, "seconds": 0.0058469580035307445, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 16 rows, campaign_daily 3 rows, sessions 64/64, diag {'ev_bad_ts': 32, 'ev_surviving': 19200}
+{"case": "p2_compact_and_general_blocks", "mode": "8", "repeat": 0, "seconds": 0.00872407499991823, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 70000 rows, campaign_daily 14 rows, sessions 70000/70000, diag {'ev_surviving': 70000}
+{"case": "dictionary_repeated_daily_ids", "mode": "8", "repeat": 0, "seconds": 0.015389189000416081, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 10 rows, campaign_daily 4 rows, sessions 16/16, diag {'ev_bad_ts': 2, 'ev_surviving': 29}
+{"case": "wide42_time_boundaries", "mode": "8", "repeat": 0, "seconds": 0.004789758997503668, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "fast_path_verified": true, "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 13 rows, campaign_daily 3 rows, sessions 13/13, diag {'ev_surviving': 26}
+{"case": "wide42_key_lane_boundaries", "mode": "8", "repeat": 0, "seconds": 0.0040198669958044775, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "fast_path_verified": true, "readers": ["pyarrow", "duckdb"], "passed": true}
+{"runs": 40, "passed": 40, "failed": 0, "report": "panel/database/wide42-quick.json"}

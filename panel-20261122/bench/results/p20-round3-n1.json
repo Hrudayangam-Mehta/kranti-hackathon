@@ -1,0 +1,128 @@
+{
+  "label": "p20-round3-n1",
+  "data": "/workspace/scratch/bde29dc281e6/data/p20-seed7",
+  "threads": 1,
+  "rounds": 3,
+  "trace": false,
+  "started_utc": "2026-11-22T06:57:55Z",
+  "manifest": {
+    "window_start": "2027-12-11T00:00:00Z",
+    "window_end": "2027-12-25T00:00:00Z"
+  },
+  "binaries": {
+    "baseline-c": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/baseline-c",
+      "sha256": "d591c3e135460fdad26a07c0ec5f1930a52f6f5e13ab9708aab7bc00e61d492d"
+    },
+    "bins-purchases": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/bins-purchases",
+      "sha256": "705b385b69761b85634ed4f5162e0636ddea049e5505875b758b3f0eb31b92a2"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "baseline-c",
+      "exit": 0,
+      "wall_s": 4.119916837000346,
+      "user_s": 3.551633,
+      "sys_s": 0.533042,
+      "cpu_s": 4.084675,
+      "maxrss_kib": 1186048,
+      "minor_faults": 58773,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-baseline-c"
+    },
+    {
+      "round": 0,
+      "binary": "bins-purchases",
+      "exit": 0,
+      "wall_s": 4.115465596005379,
+      "user_s": 3.645769,
+      "sys_s": 0.43195799999999995,
+      "cpu_s": 4.077727,
+      "maxrss_kib": 1182392,
+      "minor_faults": 57886,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-bins-purchases"
+    },
+    {
+      "round": 1,
+      "binary": "bins-purchases",
+      "exit": 0,
+      "wall_s": 3.8836197139971773,
+      "user_s": 3.521594,
+      "sys_s": 0.34552499999999997,
+      "cpu_s": 3.8671189999999998,
+      "maxrss_kib": 1182464,
+      "minor_faults": 57928,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-bins-purchases"
+    },
+    {
+      "round": 1,
+      "binary": "baseline-c",
+      "exit": 0,
+      "wall_s": 3.8632022599995253,
+      "user_s": 3.53425,
+      "sys_s": 0.302544,
+      "cpu_s": 3.8367940000000003,
+      "maxrss_kib": 1186000,
+      "minor_faults": 58820,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-baseline-c"
+    },
+    {
+      "round": 2,
+      "binary": "bins-purchases",
+      "exit": 0,
+      "wall_s": 4.148760377000144,
+      "user_s": 3.66692,
+      "sys_s": 0.43096399999999996,
+      "cpu_s": 4.0978840000000005,
+      "maxrss_kib": 1182504,
+      "minor_faults": 57928,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-bins-purchases"
+    },
+    {
+      "round": 2,
+      "binary": "baseline-c",
+      "exit": 0,
+      "wall_s": 3.9428682340003434,
+      "user_s": 3.501254,
+      "sys_s": 0.426002,
+      "cpu_s": 3.927256,
+      "maxrss_kib": 1185980,
+      "minor_faults": 58816,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-round3-n1-baseline-c"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0
+  ],
+  "summary": {
+    "baseline-c": {
+      "wall_s": 3.9428682340003434,
+      "cpu_s": 3.927256,
+      "user_s": 3.53425,
+      "sys_s": 0.426002,
+      "maxrss_kib": 1186000
+    },
+    "bins-purchases": {
+      "wall_s": 4.115465596005379,
+      "cpu_s": 4.077727,
+      "user_s": 3.645769,
+      "sys_s": 0.43096399999999996,
+      "maxrss_kib": 1182464
+    }
+  }
+}

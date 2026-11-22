@@ -1,0 +1,129 @@
+{
+  "label": "dev-initial",
+  "data": "/workspace/scratch/bde29dc281e6/data/dev1",
+  "threads": 8,
+  "rounds": 1,
+  "trace": false,
+  "started_utc": "2026-11-22T06:46:52Z",
+  "manifest": {
+    "window_start": "2027-12-09T00:00:00Z",
+    "window_end": "2027-12-23T00:00:00Z"
+  },
+  "binaries": {
+    "baseline-c": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/baseline-c",
+      "sha256": "d591c3e135460fdad26a07c0ec5f1930a52f6f5e13ab9708aab7bc00e61d492d"
+    },
+    "baseline-afix": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/baseline-afix",
+      "sha256": "64966808ad1e1b89e0f253c5a86f91da0a4c68ed73e438d2bcedb61323de2b12"
+    },
+    "round1": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/round1",
+      "sha256": "5e3717210a31298e18ae69be70f7f78ad51c917451bc00e9c73ae96a330830f1"
+    },
+    "team67": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/team67",
+      "sha256": "ae2892a75952b0a213f7c6190156b342b33cecd02d541ad9de2d02fa184f330c"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "baseline-c",
+      "exit": 0,
+      "wall_s": 0.31396994600072503,
+      "user_s": 0.874977,
+      "sys_s": 0.200682,
+      "cpu_s": 1.075659,
+      "maxrss_kib": 111712,
+      "minor_faults": 11016,
+      "major_faults": 131,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/dev-initial-baseline-c"
+    },
+    {
+      "round": 0,
+      "binary": "baseline-afix",
+      "exit": 0,
+      "wall_s": 0.1747785580009804,
+      "user_s": 0.253834,
+      "sys_s": 0.19862,
+      "cpu_s": 0.452454,
+      "maxrss_kib": 241504,
+      "minor_faults": 29738,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/dev-initial-baseline-afix"
+    },
+    {
+      "round": 0,
+      "binary": "round1",
+      "exit": 0,
+      "wall_s": 0.0765659750031773,
+      "user_s": 0.19374999999999998,
+      "sys_s": 0.065382,
+      "cpu_s": 0.259132,
+      "maxrss_kib": 116764,
+      "minor_faults": 10659,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/dev-initial-round1"
+    },
+    {
+      "round": 0,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 0.04628922400297597,
+      "user_s": 0.135396,
+      "sys_s": 0.080292,
+      "cpu_s": 0.215688,
+      "maxrss_kib": 329496,
+      "minor_faults": 2303,
+      "major_faults": 0,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/dev-initial-team67"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "summary": {
+    "baseline-c": {
+      "wall_s": 0.31396994600072503,
+      "cpu_s": 1.075659,
+      "user_s": 0.874977,
+      "sys_s": 0.200682,
+      "maxrss_kib": 111712
+    },
+    "baseline-afix": {
+      "wall_s": 0.1747785580009804,
+      "cpu_s": 0.452454,
+      "user_s": 0.253834,
+      "sys_s": 0.19862,
+      "maxrss_kib": 241504
+    },
+    "round1": {
+      "wall_s": 0.0765659750031773,
+      "cpu_s": 0.259132,
+      "user_s": 0.19374999999999998,
+      "sys_s": 0.065382,
+      "maxrss_kib": 116764
+    },
+    "team67": {
+      "wall_s": 0.04628922400297597,
+      "cpu_s": 0.215688,
+      "user_s": 0.135396,
+      "sys_s": 0.080292,
+      "maxrss_kib": 329496
+    }
+  }
+}

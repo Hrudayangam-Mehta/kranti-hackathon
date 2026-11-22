@@ -1,0 +1,25 @@
+{
+  "binary": "bench/bin/people",
+  "binary_sha256": "b86ec7acc631fdef6daf9a5350dd4bed9c2d084b05bfb6c0da02328f9b2953f8",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "c1b9d4ca510ab53268f68fa79c9048ce3bf96839a13d24ab0e45ef0b66b854b7",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/people",
+    "root": "panel/database/people-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar"
+    ],
+    "report": "panel/database/people-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "compact_cases": true,
+    "second_reader": true
+  }
+}

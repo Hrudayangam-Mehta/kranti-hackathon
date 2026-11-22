@@ -1,0 +1,4 @@
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_surviving': 2}
+{"case": "all_input_filenames", "mode": "1", "repeat": 0, "seconds": 0.00302212899987353, "exit": 0, "stdout_bytes": 0, "passed": false, "error": "{'table': 'user_daily', 'missing': [((' A', '2028-02-25', 1, 1, 500, 'alpha'), 1)], 'extra': []}"}
+{"case": "all_input_filenames", "mode": "1:slow", "repeat": 0, "seconds": 0.0023449259970220737, "exit": 0, "stdout_bytes": 0, "passed": false, "error": "{'table': 'user_daily', 'missing': [((' A', '2028-02-25', 1, 1, 500, 'alpha'), 1)], 'extra': []}"}
+{"runs": 2, "passed": 0, "failed": 2, "report": "panel/database/baseline-hidden-files.json"}

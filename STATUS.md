@@ -1,3 +1,5 @@
+> **New checkpoint:** See [PANEL_STATUS.md](PANEL_STATUS.md) for the published Shopping Rust and aggressive Mech commits, final tests and current picks. The material below is the preserved earlier handoff.
+
 # Status, roadmap and planned submissions (Sun 22 Nov 2026, ~07:00 UTC; cutoff 16:00 UTC)
 
 Read HANDOFF.md first for the method and rules. This file is the live to-do list.

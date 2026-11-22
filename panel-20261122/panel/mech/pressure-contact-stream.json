@@ -1,0 +1,627 @@
+{
+  "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-contact-stream.jsonl.gz",
+  "sha256": "409fa491361d4c2defcb0e155ffe30d3a0bc1b1f839c5d585ea26b9189a091c5",
+  "observations": 300,
+  "scope": "Counterfactual individually schema/map-checked observations, not a reactive simulation or claimed feasible complete match history. Empty upgrade lists retain unchanged live stats; the armed deadline enables pressure. Source-only audit wrappers count actual legs entry/return and final branch/phase; frozen bundles are unmodified.",
+  "position": {
+    "x": -349.38,
+    "y": -294.09,
+    "z": -5.579999923706055
+  },
+  "theta": 0.5235987755982988,
+  "contact_points": {
+    "25": {
+      "x": -327.38,
+      "y": -282.09,
+      "z": -5.480000019073486
+    },
+    "55": {
+      "x": -301.38,
+      "y": -266.09,
+      "z": -5.344699859619141
+    },
+    "78": {
+      "x": -281.38,
+      "y": -254.08999999999997,
+      "z": -5.335641860961914
+    },
+    "110": {
+      "x": -253.38,
+      "y": -238.08999999999997,
+      "z": -5.479658126831055
+    }
+  },
+  "dense_positions": [
+    {
+      "x": -331.38,
+      "y": -298.09,
+      "z": -5.5
+    },
+    {
+      "x": -335.38,
+      "y": -290.09,
+      "z": -5.519442081451416
+    },
+    {
+      "x": -339.38,
+      "y": -284.09,
+      "z": -5.53944206237793
+    },
+    {
+      "x": -343.38,
+      "y": -276.09,
+      "z": -5.543799877166748
+    },
+    {
+      "x": -323.38,
+      "y": -294.09,
+      "z": -5.460000038146973
+    },
+    {
+      "x": -327.38,
+      "y": -286.09,
+      "z": -5.46999979019165
+    },
+    {
+      "x": -331.38,
+      "y": -280.09,
+      "z": -5.484699726104736
+    },
+    {
+      "x": -335.38,
+      "y": -272.09,
+      "z": -5.490341663360596
+    },
+    {
+      "x": -317.38,
+      "y": -290.09,
+      "z": -5.420000076293945
+    },
+    {
+      "x": -321.38,
+      "y": -282.09,
+      "z": -5.433799743652344
+    },
+    {
+      "x": -325.38,
+      "y": -276.09,
+      "z": -5.463799953460693
+    },
+    {
+      "x": -329.38,
+      "y": -268.09,
+      "z": -5.460000038146973
+    },
+    {
+      "x": -311.38,
+      "y": -286.09,
+      "z": -5.399100303649902
+    },
+    {
+      "x": -315.38,
+      "y": -278.09,
+      "z": -5.40910005569458
+    },
+    {
+      "x": -319.38,
+      "y": -272.09,
+      "z": -5.41379976272583
+    }
+  ],
+  "geometry": {
+    "self_and_all_actors_nav_passable": true,
+    "feet_at_nav_level": true,
+    "inside_arena_margin": true,
+    "body_separation_m": 6,
+    "contact_rays_clear": true,
+    "combat_zone_centered": true
+  },
+  "reports": [
+    {
+      "candidate": "mech-capture",
+      "pressureLegsCalls": 0,
+      "pressureLegsReturns": 0,
+      "active": 0,
+      "zoneUrgent": 0,
+      "phases": {
+        "baseline": 300
+      },
+      "legs": {
+        "roam": 75,
+        "p26standoff": 180,
+        "hide": 2,
+        "retreat": 28,
+        "p26drop": 15
+      },
+      "modes": {
+        "HOLD": 75,
+        "FIGHT": 180,
+        "DISENGAGE": 30,
+        "DROP": 15
+      },
+      "aims": {
+        "scan": 34,
+        "gun": 195,
+        "laser": 30,
+        "preaim": 41
+      },
+      "per_scene": {
+        "seek": {
+          "decisions": 30,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 30
+          },
+          "legs": {
+            "roam": 30
+          },
+          "aims": {
+            "scan": 30
+          }
+        },
+        "close": {
+          "decisions": 45,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 45
+          },
+          "legs": {
+            "p26standoff": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "gun_fire": {
+          "decisions": 30,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 30
+          },
+          "legs": {
+            "p26standoff": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "laser_release": {
+          "decisions": 30,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 30
+          },
+          "legs": {
+            "p26standoff": 30
+          },
+          "aims": {
+            "laser": 30
+          }
+        },
+        "all_channels_recharging": {
+          "decisions": 45,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 45
+          },
+          "legs": {
+            "p26standoff": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "lightning_interrupt": {
+          "decisions": 30,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 30
+          },
+          "legs": {
+            "p26standoff": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "nearby_pickup": {
+          "decisions": 30,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 30
+          },
+          "legs": {
+            "hide": 2,
+            "retreat": 28
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "fifteen_charging_opponents": {
+          "decisions": 45,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 45
+          },
+          "legs": {
+            "roam": 45
+          },
+          "aims": {
+            "preaim": 41,
+            "scan": 4
+          }
+        },
+        "bounded_capture_finish": {
+          "decisions": 15,
+          "active": 0,
+          "zoneUrgent": 0,
+          "phases": {
+            "baseline": 15
+          },
+          "legs": {
+            "p26drop": 15
+          },
+          "aims": {
+            "gun": 15
+          }
+        }
+      }
+    },
+    {
+      "candidate": "mech-pressure-cycle",
+      "pressureLegsCalls": 300,
+      "pressureLegsReturns": 300,
+      "active": 300,
+      "zoneUrgent": 0,
+      "phases": {
+        "seek": 30,
+        "commit": 267,
+        "capture-finish": 3
+      },
+      "legs": {
+        "pressure-seek": 30,
+        "pressure-close": 120,
+        "pressure-fire": 147,
+        "pressure-capture-finish": 3
+      },
+      "modes": {
+        "HOLD": 30,
+        "FIGHT": 267,
+        "DROP": 3
+      },
+      "aims": {
+        "hint": 30,
+        "gun": 165,
+        "laser": 30,
+        "short": 75
+      },
+      "per_scene": {
+        "seek": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "seek": 30
+          },
+          "legs": {
+            "pressure-seek": 30
+          },
+          "aims": {
+            "hint": 30
+          }
+        },
+        "close": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 45
+          },
+          "legs": {
+            "pressure-close": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "gun_fire": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "laser_release": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-close": 30
+          },
+          "aims": {
+            "laser": 30
+          }
+        },
+        "all_channels_recharging": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 45
+          },
+          "legs": {
+            "pressure-close": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "lightning_interrupt": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "short": 30
+          }
+        },
+        "nearby_pickup": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "fifteen_charging_opponents": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 45
+          },
+          "legs": {
+            "pressure-fire": 45
+          },
+          "aims": {
+            "short": 45
+          }
+        },
+        "bounded_capture_finish": {
+          "decisions": 15,
+          "active": 15,
+          "zoneUrgent": 0,
+          "phases": {
+            "capture-finish": 3,
+            "commit": 12
+          },
+          "legs": {
+            "pressure-capture-finish": 3,
+            "pressure-fire": 12
+          },
+          "aims": {
+            "gun": 15
+          }
+        }
+      }
+    },
+    {
+      "candidate": "mech-burst-cycle",
+      "pressureLegsCalls": 300,
+      "pressureLegsReturns": 300,
+      "active": 300,
+      "zoneUrgent": 0,
+      "phases": {
+        "seek": 30,
+        "commit": 192,
+        "cycle": 75,
+        "capture-finish": 3
+      },
+      "legs": {
+        "pressure-seek": 30,
+        "pressure-close": 45,
+        "pressure-fire": 147,
+        "pressure-cycle": 75,
+        "pressure-capture-finish": 3
+      },
+      "modes": {
+        "HOLD": 30,
+        "FIGHT": 267,
+        "DROP": 3
+      },
+      "aims": {
+        "hint": 30,
+        "gun": 165,
+        "laser": 30,
+        "short": 75
+      },
+      "per_scene": {
+        "seek": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "seek": 30
+          },
+          "legs": {
+            "pressure-seek": 30
+          },
+          "aims": {
+            "hint": 30
+          }
+        },
+        "close": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 45
+          },
+          "legs": {
+            "pressure-close": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "gun_fire": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "laser_release": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "laser": 30
+          }
+        },
+        "all_channels_recharging": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "cycle": 45
+          },
+          "legs": {
+            "pressure-cycle": 45
+          },
+          "aims": {
+            "gun": 45
+          }
+        },
+        "lightning_interrupt": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 30
+          },
+          "legs": {
+            "pressure-fire": 30
+          },
+          "aims": {
+            "short": 30
+          }
+        },
+        "nearby_pickup": {
+          "decisions": 30,
+          "active": 30,
+          "zoneUrgent": 0,
+          "phases": {
+            "cycle": 30
+          },
+          "legs": {
+            "pressure-cycle": 30
+          },
+          "aims": {
+            "gun": 30
+          }
+        },
+        "fifteen_charging_opponents": {
+          "decisions": 45,
+          "active": 45,
+          "zoneUrgent": 0,
+          "phases": {
+            "commit": 45
+          },
+          "legs": {
+            "pressure-fire": 45
+          },
+          "aims": {
+            "short": 45
+          }
+        },
+        "bounded_capture_finish": {
+          "decisions": 15,
+          "active": 15,
+          "zoneUrgent": 0,
+          "phases": {
+            "capture-finish": 3,
+            "commit": 12
+          },
+          "legs": {
+            "pressure-capture-finish": 3,
+            "pressure-fire": 12
+          },
+          "aims": {
+            "gun": 15
+          }
+        }
+      }
+    }
+  ],
+  "diffs": {
+    "mech-pressure-cycle": {
+      "movement": 297,
+      "boost": 150,
+      "aim": 297,
+      "fire": 45,
+      "reload": 0
+    },
+    "mech-burst-cycle": {
+      "movement": 297,
+      "boost": 75,
+      "aim": 297,
+      "fire": 45,
+      "reload": 0
+    }
+  },
+  "schema_validation": {
+    "schema": "/workspace/scratch/bde29dc281e6/handoff/.cache/ws/mechbot/kit/mechfight.schema.json",
+    "schema_sha256": "134a617995240b25866b57dbe8eaf7786e9a2c09f6b980ad7964e88b63719ccf",
+    "observations_checked": 300,
+    "errors": []
+  },
+  "engine_state_limitations": [
+    "The centered synthetic zone phase/center differs from the hello schedule.",
+    "The nearby_pickup scene uses a synthetic laser cooldown of 3 seconds against a recorded base cooldown of 1.65 seconds.",
+    "Schema validity and map/body legality therefore do not establish that every full snapshot is reachable under the configured engine history. The fixture supports path/latency coverage only."
+  ]
+}

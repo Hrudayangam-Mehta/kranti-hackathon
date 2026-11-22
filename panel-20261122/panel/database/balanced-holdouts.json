@@ -1,0 +1,1990 @@
+{
+  "scope": "Reuse of independently computed complete medium-seed expectations; no reference regeneration and no official score claim.",
+  "started_utc": "2026-11-22T08:02:15.253253+00:00",
+  "binary": "/workspace/scratch/bde29dc281e6/bench/bin/dense-balanced",
+  "binary_sha256": "cd8e9e78e165236c2369629a03ae5e820fe1278bcaf309489471466d3c26b2e1",
+  "reference_receipt": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final.json",
+  "reference_receipt_sha256": "57b185e26111806503f3f5e3845516e5d3bbdb8f7ddc5f0d5ddd4d7dafc0d758",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "generator_sha256": "31778df307524a935e5a5849093994ef449d3340987741bd5ea1a2b824f0f6ec",
+  "runner_sha256": "8af339c0d3a8066f7b92b591372440a9a0bd73cdb50fc898b92177c9875a1764",
+  "modes": [
+    "8"
+  ],
+  "seeds": [
+    {
+      "seed": 249,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/campaign_daily/part-0.parquet": "0561c832680939dd7e31456c2d8efd675b107480aa84da8a3d51f38b0cd72bc7",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/user_daily/part-0.parquet": "d94551ed9751a3b8d6a39f56a8652de9599b63044f3430cf21e032d81d793b43"
+      },
+      "manifest": {
+        "window_start": "2028-02-16T00:00:00Z",
+        "window_end": "2028-03-01T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 100000,
+      "comparisons": [
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.06635836100031156,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:02:15.613713+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118768,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/user_daily/part-0.parquet",
+                    "bytes": 671527,
+                    "rows": 118768,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 109248,
+                    "rows": 3912,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 447372,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 10090,
+                    "rows": 294,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 58914,
+                    "rows": 2074,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 301442,
+                    "rows": 10975,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 449615,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 447040,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 50218,
+                    "rows": 1839,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 215487,
+                    "rows": 7790,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 447271,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 259622,
+                    "rows": 9506,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 14634,
+                    "rows": 458,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/user_daily/part-00012.parquet",
+                    "bytes": 447221,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181686,
+                "seconds": 0.42123890600487357
+              },
+              "campaign_daily": {
+                "matched_rows": 23884,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/campaign_daily/part-0.parquet",
+                    "bytes": 117063,
+                    "rows": 23884,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 260315,
+                    "rows": 5994,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 259478,
+                    "rows": 5937,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 267339,
+                    "rows": 5976,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-249/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 267660,
+                    "rows": 5977,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 180409,
+                "seconds": 0.08111802100029308
+              }
+            },
+            "equal": true,
+            "seconds": 0.53866472899972,
+            "maxrss_kib": 165228,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "seed": 355,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/campaign_daily/part-0.parquet": "f70c500d1ad90b7c5081b6811463a844fbeab7af562d40e16c2b4fdcc8a278ef",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/user_daily/part-0.parquet": "146955150e46544f0e230bc3c3a5bcb170587e19e1b6fcb97d8369c450602c70"
+      },
+      "manifest": {
+        "window_start": "2028-02-17T00:00:00Z",
+        "window_end": "2028-03-02T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 350000,
+      "comparisons": [
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.12463259200012544,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:02:16.762059+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118948,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/user_daily/part-0.parquet",
+                    "bytes": 669947,
+                    "rows": 118948,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 360473,
+                    "rows": 12998,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 67791,
+                    "rows": 2387,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 444505,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 446711,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 6128,
+                    "rows": 193,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 447236,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 412929,
+                    "rows": 15116,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 203242,
+                    "rows": 7425,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 15129,
+                    "rows": 480,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 444439,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 156819,
+                    "rows": 5660,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 250500,
+                    "rows": 9153,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1184279,
+                "seconds": 0.35007188499730546
+              },
+              "campaign_daily": {
+                "matched_rows": 27809,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/campaign_daily/part-0.parquet",
+                    "bytes": 139207,
+                    "rows": 27809,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 303282,
+                    "rows": 6984,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 303579,
+                    "rows": 6964,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 311382,
+                    "rows": 6961,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-355/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 307921,
+                    "rows": 6900,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 203669,
+                "seconds": 0.08271277099993313
+              }
+            },
+            "equal": true,
+            "seconds": 0.4695714359986596,
+            "maxrss_kib": 167432,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "seed": 1234,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/campaign_daily/part-0.parquet": "3f398aef46d3231d429c7777ca8c5ccaa177ea08f8a743de2a820144bc94b73e",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/user_daily/part-0.parquet": "3dff7e7a4c42e6e9948a5e35122f150c3a47cb36579f25adc8c918bf3b15c3d0"
+      },
+      "manifest": {
+        "window_start": "2025-12-12T00:00:00Z",
+        "window_end": "2025-12-26T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 800000,
+      "comparisons": [
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.0970887869989383,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:02:17.738834+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118580,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/user_daily/part-0.parquet",
+                    "bytes": 672325,
+                    "rows": 118580,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 111901,
+                    "rows": 3975,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 213126,
+                    "rows": 7724,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 62475,
+                    "rows": 2208,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 447926,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 405088,
+                    "rows": 14751,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 6834,
+                    "rows": 198,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 448665,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 450740,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 401465,
+                    "rows": 14592,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 13187,
+                    "rows": 412,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 448158,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 252823,
+                    "rows": 9184,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181343,
+                "seconds": 0.3598195719969226
+              },
+              "campaign_daily": {
+                "matched_rows": 28010,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/campaign_daily/part-0.parquet",
+                    "bytes": 144506,
+                    "rows": 28010,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 305111,
+                    "rows": 7012,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 306521,
+                    "rows": 7012,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 313655,
+                    "rows": 7014,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/balanced-holdout-data/seed-1234/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 311205,
+                    "rows": 6972,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 219269,
+                "seconds": 0.09277427099732449
+              }
+            },
+            "equal": true,
+            "seconds": 0.484830701003375,
+            "maxrss_kib": 167076,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "finished_utc": "2026-11-22T08:02:18.271148+00:00"
+}

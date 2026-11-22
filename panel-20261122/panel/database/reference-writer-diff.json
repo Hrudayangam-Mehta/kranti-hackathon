@@ -1,0 +1,177 @@
+{
+  "reference": "/workspace/scratch/bde29dc281e6/panel/database/reference-writer-check",
+  "candidate": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-category_order_and_unknown-1",
+  "duckdb": "2.0.1",
+  "pyarrow": "26.0.1",
+  "memory_limit": "64MB",
+  "threads": 1,
+  "batch_rows": 2048,
+  "method": "validated schemas, external total sort, exact streamed multiset merge",
+  "started_utc": "2026-11-22T07:21:47.518469+00:00",
+  "tables": {
+    "user_daily": {
+      "matched_rows": 3,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/reference-writer-check/user_daily/part-0.parquet",
+          "bytes": 1972,
+          "rows": 3,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-category_order_and_unknown-1/user_daily/part-00000.parquet",
+          "bytes": 562,
+          "rows": 3,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 1673,
+      "seconds": 0.028272814000956714
+    },
+    "campaign_daily": {
+      "matched_rows": 1,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/reference-writer-check/campaign_daily/part-0.parquet",
+          "bytes": 2354,
+          "rows": 1,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "purchasing_sessions",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int64"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-category_order_and_unknown-1/campaign_daily/part-00000.parquet",
+          "bytes": 614,
+          "rows": 1,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 1916,
+      "seconds": 0.00816644799488131
+    }
+  },
+  "equal": true,
+  "seconds": 0.0854369160006172,
+  "maxrss_kib": 119496,
+  "script_sha256": "05078c6e176dada93486ddeb98e485cf374587ea5207f4ef03e8340ce7614c62"
+}

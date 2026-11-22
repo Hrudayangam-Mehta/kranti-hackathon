@@ -1,0 +1,132 @@
+{
+  "label": "f60-dense-capacity-n8",
+  "data": "/workspace/scratch/bde29dc281e6/data/f60-seed61",
+  "threads": 8,
+  "rounds": 1,
+  "trace": false,
+  "started_utc": "2026-11-22T07:26:45Z",
+  "manifest": {
+    "window_start": "2028-02-05T00:00:00Z",
+    "window_end": "2028-02-19T00:00:00Z"
+  },
+  "binaries": {
+    "dense": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense",
+      "sha256": "b7228ddcb9c5625e0884cfb6dad2430afe36fc1d3661b8736fd2d5cf91e9f021"
+    },
+    "dense-clicks": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-clicks",
+      "sha256": "b7ae586ec7ce4c7a5fc206f620ecf3d5fb4f1d13aca2ce8d298fe241823c2562"
+    },
+    "dense-tight": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-tight",
+      "sha256": "15967d3db3a2aa7dc23b5d33e421c0a6eefa4ce2baba8a1bd3e953b2d5ffd653"
+    },
+    "team67": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/team67",
+      "sha256": "ae2892a75952b0a213f7c6190156b342b33cecd02d541ad9de2d02fa184f330c"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "dense",
+      "exit": -9,
+      "wall_s": 4.337444472999778,
+      "user_s": 14.924131,
+      "sys_s": 7.371622,
+      "cpu_s": 22.295752999999998,
+      "maxrss_kib": 3243852,
+      "minor_faults": 253524,
+      "major_faults": 3092,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense"
+    },
+    {
+      "round": 0,
+      "binary": "dense-clicks",
+      "exit": 0,
+      "wall_s": 3.43142199000431,
+      "user_s": 14.889352,
+      "sys_s": 2.886136,
+      "cpu_s": 17.775488,
+      "maxrss_kib": 3199036,
+      "minor_faults": 244143,
+      "major_faults": 1724,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-clicks"
+    },
+    {
+      "round": 0,
+      "binary": "dense-tight",
+      "exit": 0,
+      "wall_s": 3.1463080140019883,
+      "user_s": 15.780513,
+      "sys_s": 2.449756,
+      "cpu_s": 18.230269,
+      "maxrss_kib": 3101932,
+      "minor_faults": 230799,
+      "major_faults": 1687,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight"
+    },
+    {
+      "round": 0,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.0427296470006695,
+      "user_s": 5.725484,
+      "sys_s": 2.834751,
+      "cpu_s": 8.560234999999999,
+      "maxrss_kib": 2478848,
+      "minor_faults": 93958,
+      "major_faults": 1264,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "summary": {
+    "dense": {
+      "successful_runs": 0,
+      "failed_runs": 1
+    },
+    "dense-clicks": {
+      "wall_s": 3.43142199000431,
+      "cpu_s": 17.775488,
+      "user_s": 14.889352,
+      "sys_s": 2.886136,
+      "maxrss_kib": 3199036,
+      "successful_runs": 1,
+      "failed_runs": 0
+    },
+    "dense-tight": {
+      "wall_s": 3.1463080140019883,
+      "cpu_s": 18.230269,
+      "user_s": 15.780513,
+      "sys_s": 2.449756,
+      "maxrss_kib": 3101932,
+      "successful_runs": 1,
+      "failed_runs": 0
+    },
+    "team67": {
+      "wall_s": 2.0427296470006695,
+      "cpu_s": 8.560234999999999,
+      "user_s": 5.725484,
+      "sys_s": 2.834751,
+      "maxrss_kib": 2478848,
+      "successful_runs": 1,
+      "failed_runs": 0
+    }
+  }
+}

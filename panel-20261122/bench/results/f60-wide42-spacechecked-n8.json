@@ -1,0 +1,58 @@
+{
+  "label": "f60-wide42-spacechecked-n8",
+  "data": "/workspace/scratch/bde29dc281e6/data/f60-seed61",
+  "threads": 8,
+  "rounds": 1,
+  "trace": false,
+  "started_utc": "2026-11-22T08:23:43Z",
+  "manifest": {
+    "window_start": "2028-02-05T00:00:00Z",
+    "window_end": "2028-02-19T00:00:00Z"
+  },
+  "binaries": {
+    "wide42": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-wide42",
+      "sha256": "05518580abfc9a52e305e390401541f7f57fffbd740c3df9ead56fc86413a1ff"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "wide42",
+      "exit": 0,
+      "wall_s": 3.4025504769961117,
+      "user_s": 16.286215,
+      "sys_s": 3.660521,
+      "cpu_s": 19.946735999999998,
+      "maxrss_kib": 3039620,
+      "minor_faults": 217896,
+      "major_faults": 1619,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "release_output_cache_after_measurement": true,
+  "preserve_round_outputs": true,
+  "summary": {
+    "wide42": {
+      "wall_s": 3.4025504769961117,
+      "cpu_s": 19.946735999999998,
+      "user_s": 16.286215,
+      "sys_s": 3.660521,
+      "maxrss_kib": 3039620,
+      "successful_runs": 1,
+      "failed_runs": 0
+    }
+  }
+}

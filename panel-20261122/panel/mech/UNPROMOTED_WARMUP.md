@@ -1,0 +1,11 @@
+# Unpromoted active-policy warmup prototype
+
+The frozen release bundles remain `609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797` and `deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d`. Neither includes this prototype.
+
+Independent source inspection found a real coverage gap in the original rehearsal. Each of two separate scratch brains sees at most 800 synthetic decisions at `t=k*0.1`, ending at 79.9 seconds. Every observation has an empty upgrade list. The only pending-offer phase is before 60 seconds and has no secondary. Therefore none of the normal readiness, 60-second upgraded-gun, or 90-second armed paths can activate pressure. The existing four-second time cutoff can only reduce that coverage. The detailed independent proof is `warmup-source-audit.md` and its JSON receipt.
+
+Source-only trees `experiments/mech-pressure-warm` and `experiments/mech-burst-warm` retain the original two rehearsal brains unchanged, then propose up to two new 280-decision scratch passes in SQUAD and FFA starting at a synthetic time of 100 seconds. They reuse the existing observation phases, the existing four-second loop budget and final navigation-body restoration, and add diagnostic active-decision/leg counts. Each scratch brain owns its state and RNG; the actual brain is still constructed afterwards. This structure is designed to avoid gameplay-state leakage, but that property has **not** been verified by action-equivalence execution for the prototype.
+
+Only `bot/lib/brain.js` differs from each frozen control. The prototype has not been built, exercised, timed, or promoted. It has no release hash and must not replace the published candidate based on source reasoning alone. If resumed later, verify actual active-path counts, full action equality after startup with a real map, readiness well below the hello limit, and a bounded paired latency comparison before making a promotion decision.
+
+The coordinator stopped this optional ablation after the fixed twelve-process diagnostic passed for the original frozen pair. The earlier two late burst answers, including 243.3 ms maximum, remain in the evidence. The static warmup gap does not establish their cause.

@@ -1,0 +1,108 @@
+trace m setup:reference 3.565
+trace m setup:map 5.055
+trace m setup:chunks 5.079
+trace m setup:domains 23.802
+setup        59.7 ms
+trace m setup:dirs 64.523
+links       510.6 ms on one thread
+dedup       881.7 ms
+people     1045.4 ms
+surviving events 19562932, user_daily rows 2250361
+sessions 3417672 / 3417672, revenue 6637297766 / 6637297766, assisted 37032460 >= 2103032
+id prefixes: user Some('u'), event Some('e'), click Some('k')
+event copies 21581187, winners 19562932, clicks 5082862, linked 1199889, exotic 1133
+write      1045.4 ms
+trace t2 events 89.330 645.117 538.567 83
+trace t2 clicks 645.599 732.869 82.645 14
+trace t2 wait_events 734.984 734.984 0.000 1
+trace t2 unmap 112.444 733.681 21.471 27
+trace t2 dedup 734.985 880.368 145.248 531
+trace t2 bar_dedup 880.649 881.756 1.107 1
+trace t2 order 881.756 882.468 0.712 1
+trace t2 people 882.754 1036.819 139.334 706
+trace t2 user_write 918.282 1020.242 14.608 5
+trace t2 last_write 1036.819 1042.154 5.334 3
+trace t2 release 1042.154 1042.588 0.434 1
+trace t5 events 83.664 644.559 517.031 46
+trace t5 clicks 644.969 732.511 61.297 17
+trace t5 wait_events 733.362 733.362 0.000 1
+trace t5 unmap 113.486 718.890 63.017 27
+trace t5 dedup 733.363 881.213 147.791 242
+trace t5 bar_dedup 881.647 881.769 0.122 1
+trace t5 order 881.770 882.606 0.836 1
+trace t5 people 882.964 1038.798 139.833 231
+trace t5 user_write 970.776 986.712 15.936 1
+trace t5 campaign 1041.062 1042.464 1.403 1
+trace t5 last_write 1038.798 1040.833 2.035 1
+trace t5 wait_jobs 1040.834 1041.061 0.228 1
+trace t5 release 1042.465 1042.964 0.499 1
+trace t0 events 81.496 644.050 547.545 86
+trace t0 clicks 644.422 732.620 84.817 20
+trace t0 wait_events 733.375 733.375 0.000 1
+trace t0 unmap 94.469 696.988 16.785 17
+trace t0 dedup 733.376 880.468 146.967 628
+trace t0 bar_dedup 880.742 881.789 1.047 1
+trace t0 order 881.789 882.465 0.676 1
+trace t0 people 882.751 1038.082 135.196 598
+trace t0 user_write 934.743 1037.986 20.034 5
+trace t0 campaign 1041.944 1043.003 1.059 1
+trace t0 last_write 1038.082 1041.942 3.858 3
+trace t0 release 1043.003 1043.480 0.477 1
+trace t1 events 82.468 643.909 542.716 85
+trace t1 clicks 644.190 732.610 76.089 16
+trace t1 wait_events 733.298 733.299 0.000 1
+trace t1 unmap 92.847 713.025 21.043 23
+trace t1 dedup 733.300 880.472 147.044 591
+trace t1 bar_dedup 880.741 881.725 0.984 1
+trace t1 order 881.725 882.553 0.828 1
+trace t1 people 882.771 1036.839 127.637 632
+trace t1 user_write 924.629 1032.689 26.205 5
+trace t1 last_write 1036.839 1042.485 5.642 3
+trace t1 release 1042.486 1043.928 1.442 1
+trace t4 events 82.967 644.099 544.849 70
+trace t4 clicks 644.724 732.133 82.506 19
+trace t4 wait_events 733.593 733.593 0.000 1
+trace t4 unmap 95.945 725.851 19.847 28
+trace t4 dedup 733.594 880.580 146.869 612
+trace t4 bar_dedup 880.854 881.742 0.888 1
+trace t4 order 881.742 882.475 0.733 1
+trace t4 people 882.744 1036.929 135.923 601
+trace t4 user_write 937.195 1020.091 18.158 4
+trace t4 campaign 1041.448 1042.681 1.234 1
+trace t4 last_write 1036.930 1041.448 4.517 3
+trace t4 release 1042.682 1044.569 1.888 1
+trace t3 links 73.171 585.863 512.692 1
+trace t3 events 585.863 641.354 47.553 11
+trace t3 clicks 641.874 730.867 87.352 16
+trace t3 wait_events 731.950 731.950 0.000 1
+trace t3 unmap 590.593 715.786 8.399 10
+trace t3 dedup 731.951 880.390 148.319 625
+trace t3 bar_dedup 880.683 881.780 1.097 1
+trace t3 order 881.781 882.467 0.686 1
+trace t3 people 882.504 1036.881 138.779 628
+trace t3 user_write 922.232 1032.388 15.489 5
+trace t3 last_write 1036.881 1042.779 5.898 4
+trace t3 release 1042.782 1044.713 1.931 1
+trace t7 events 90.629 641.819 527.427 72
+trace t7 clicks 642.121 730.257 84.148 18
+trace t7 wait_events 731.035 731.036 0.000 1
+trace t7 unmap 112.749 699.951 24.070 19
+trace t7 dedup 731.036 880.484 149.302 613
+trace t7 bar_dedup 880.764 881.729 0.965 1
+trace t7 order 881.729 882.455 0.726 1
+trace t7 people 882.732 1036.907 141.677 470
+trace t7 user_write 966.890 1020.381 12.390 3
+trace t7 campaign 1041.994 1043.325 1.331 1
+trace t7 last_write 1036.907 1041.993 5.084 3
+trace t7 release 1043.325 1045.081 1.755 1
+trace t6 events 78.051 647.208 537.348 38
+trace t6 clicks 652.801 730.217 69.507 10
+trace t6 wait_events 735.289 735.289 0.000 1
+trace t6 unmap 98.986 727.715 44.259 24
+trace t6 dedup 735.289 880.551 145.201 254
+trace t6 bar_dedup 880.961 886.553 5.592 1
+trace t6 order 886.553 887.462 0.909 1
+trace t6 people 887.725 1042.486 137.876 238
+trace t6 user_write 975.147 1040.915 16.821 2
+trace t6 release 1042.486 1045.337 2.851 1
+trace m clock start 1795330120.323084 exit 1795330121.368590 at 1045.506

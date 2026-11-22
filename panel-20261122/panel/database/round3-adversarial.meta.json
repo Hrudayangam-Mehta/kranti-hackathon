@@ -1,0 +1,26 @@
+{
+  "binary": "bench/bin/bins-purchases",
+  "binary_sha256": "705b385b69761b85634ed4f5162e0636ddea049e5505875b758b3f0eb31b92a2",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "4436cb7d7bf7036225c1df51dc2f0988e4172219f8fe8207839dbc72d545b410",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/bins-purchases",
+    "root": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data",
+    "mode": [
+      "1",
+      "4",
+      "8",
+      "1:slow",
+      "1:scalar"
+    ],
+    "report": "panel/database/round3-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "second_reader": true
+  }
+}

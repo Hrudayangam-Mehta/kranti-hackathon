@@ -1,0 +1,157 @@
+{
+  "reviewed_utc": "2026-11-22T08:40:32.919093+00:00",
+  "method": "Static enumeration of the source warmup construction, not execution or latency measurement.",
+  "brain_source_sha256": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+  "pressure_source_sha256": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+  "params_source_sha256": "f4af581a38c6cf40bd8c936e6f4f2cd47c8a91effa5c94108c11f456b6f89ad5",
+  "rehearsals": [
+    {
+      "posture": "normal",
+      "configured_N": 800,
+      "max_observation_t": 79.9
+    },
+    {
+      "posture": "forced_FFA",
+      "configured_N": 800,
+      "max_observation_t": 79.9
+    }
+  ],
+  "phases_per_scratch_brain": [
+    {
+      "phase": 0,
+      "observations": 59,
+      "t_min": 0.0,
+      "t_max": 79.9,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 1,
+      "observations": 57,
+      "t_min": 5.7,
+      "t_max": 11.3,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 2,
+      "observations": 57,
+      "t_min": 11.4,
+      "t_max": 17.0,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 3,
+      "observations": 57,
+      "t_min": 17.1,
+      "t_max": 22.7,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 4,
+      "observations": 57,
+      "t_min": 22.8,
+      "t_max": 28.4,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 5,
+      "observations": 57,
+      "t_min": 28.5,
+      "t_max": 34.1,
+      "secondary": "laser",
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 6,
+      "observations": 57,
+      "t_min": 34.2,
+      "t_max": 39.8,
+      "secondary": "laser",
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 7,
+      "observations": 57,
+      "t_min": 39.9,
+      "t_max": 45.5,
+      "secondary": "lightning",
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 8,
+      "observations": 57,
+      "t_min": 45.6,
+      "t_max": 51.2,
+      "secondary": "mortar",
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 9,
+      "observations": 57,
+      "t_min": 51.3,
+      "t_max": 56.9,
+      "secondary": null,
+      "offer": true,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 10,
+      "observations": 57,
+      "t_min": 57.0,
+      "t_max": 62.6,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 11,
+      "observations": 57,
+      "t_min": 62.7,
+      "t_max": 68.3,
+      "secondary": "laser",
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 12,
+      "observations": 57,
+      "t_min": 68.4,
+      "t_max": 74.0,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    },
+    {
+      "phase": 13,
+      "observations": 57,
+      "t_min": 74.1,
+      "t_max": 79.7,
+      "secondary": null,
+      "offer": false,
+      "upgrades_count": 0
+    }
+  ],
+  "active_pressure_observations_upper_bound": 0,
+  "proof": [
+    "Each brain is newly constructed and its observation clock separately starts at zero.",
+    "Every observation explicitly supplies upgrades=[].",
+    "Only phase9 offers choices; phase9 has no secondary and its timestamps are51.3..56.9, before the60second upgraded-gun gate.",
+    "All laser/lightning phases have neither upgrades nor offers.",
+    "The90second armed deadline is never reached.",
+    "The4000ms shared wall cutoff can truncate the loop but cannot extend its observation clock."
+  ],
+  "causal_limit": "This establishes a missing warmup path, not the cause of a particular late response. A separate controlled runtime experiment is required."
+}

@@ -1,0 +1,38 @@
+{
+  "started_utc": "2026-11-22T08:27:38.286503+00:00",
+  "runtime": "Bun 1.4.4",
+  "cpu_affinity": [
+    0
+  ],
+  "runtime_flags": {
+    "BUN_JSC_useFTLJIT": "0",
+    "BUN_JSC_useConcurrentJIT": "1",
+    "BUN_JSC_useConcurrentGC": "0",
+    "BUN_JSC_numberOfGCMarkers": "1",
+    "BUN_JSC_numberOfBaselineCompilerThreads": "1",
+    "BUN_JSC_numberOfDFGCompilerThreads": "1",
+    "BUN_JSC_numberOfFTLCompilerThreads": "1",
+    "BUN_JSC_minNumberOfWorklistThreads": "1",
+    "BUN_JSC_maxNumberOfWorklistThreads": "1"
+  },
+  "context": "Official recorded-stream conformance, actual arena, no game simulation. Other panel CPU work was permitted; timing is not an isolated performance comparison.",
+  "results": [
+    {
+      "candidate": "cycle-ready",
+      "bundle_sha256": "4724000deec5698d65b37a06b984dd755a54419e2e0f4909e92c5b918d9cd752",
+      "exit": 0,
+      "wall_s": 2.199417463998543,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-cycle-ready/dist/bot.js\nready in 1995 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.8  p99 2.8  max 3.2  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 1010 ms, 24 body warm-ups\n[bot] init 1986 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=3.1ms\n"
+    },
+    {
+      "candidate": "cycle-varied",
+      "bundle_sha256": "40c5523703d086469b7d65a5ce4c6c487814a3d5acf6c712bb6e4ad7ceb9af78",
+      "exit": 0,
+      "wall_s": 2.0744754359984654,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-cycle-varied/dist/bot.js\nready in 1863 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.9  p99 2.7  max 3.9  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 877 ms, 24 body warm-ups\n[bot] init 1853 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=3.7ms\n"
+    }
+  ],
+  "finished_utc": "2026-11-22T08:27:42.561247+00:00"
+}

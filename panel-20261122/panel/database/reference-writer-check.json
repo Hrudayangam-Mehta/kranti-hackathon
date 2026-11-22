@@ -1,0 +1,92 @@
+{
+  "data": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/category_order_and_unknown",
+  "output": "/workspace/scratch/bde29dc281e6/panel/database/reference-writer-check",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "wrapper_sha256": "c46dc59a67d6347758e38fac220a0573f20153671b74ad594bb0b78e062d0bf1",
+  "manifest": {
+    "window_start": "2028-02-25T00:00:00Z",
+    "window_end": "2028-03-10T00:00:00Z"
+  },
+  "input_files": [
+    {
+      "path": "campaigns.csv",
+      "bytes": 52
+    },
+    {
+      "path": "clicks/part-0.csv",
+      "bytes": 31
+    },
+    {
+      "path": "clicks/part-1.csv",
+      "bytes": 32
+    },
+    {
+      "path": "clicks/part-2.csv",
+      "bytes": 31
+    },
+    {
+      "path": "clicks/part-3.csv",
+      "bytes": 32
+    },
+    {
+      "path": "clicks/part-4.csv",
+      "bytes": 31
+    },
+    {
+      "path": "events/part-0.csv",
+      "bytes": 120
+    },
+    {
+      "path": "events/part-1.csv",
+      "bytes": 121
+    },
+    {
+      "path": "events/part-2.csv",
+      "bytes": 124
+    },
+    {
+      "path": "events/part-3.csv",
+      "bytes": 121
+    },
+    {
+      "path": "events/part-4.csv",
+      "bytes": 113
+    },
+    {
+      "path": "links/part-0.csv",
+      "bytes": 19
+    },
+    {
+      "path": "links/part-1.csv",
+      "bytes": 20
+    },
+    {
+      "path": "links/part-2.csv",
+      "bytes": 19
+    },
+    {
+      "path": "links/part-3.csv",
+      "bytes": 20
+    },
+    {
+      "path": "links/part-4.csv",
+      "bytes": 19
+    },
+    {
+      "path": "products.csv",
+      "bytes": 30
+    }
+  ],
+  "rows": {
+    "user_daily": 3,
+    "campaign_daily": 1
+  },
+  "diagnostics": {
+    "ev_surviving": 5
+  },
+  "pyarrow": "26.0.1",
+  "writer_batch_rows": 8192,
+  "seconds": 0.26915412000380456,
+  "maxrss_kib": 119356
+}

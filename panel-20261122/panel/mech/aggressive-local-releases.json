@@ -1,0 +1,47 @@
+{
+  "created_utc": "2026-11-22T08:43:55.257747+00:00",
+  "releases": [
+    {
+      "candidate": "pressure-cycle",
+      "branch": "optimize/mech-pressure-cycle-v1",
+      "commit": "69ed1814707634fb4b5e5953082f3d67ac9e52f8",
+      "parent": "099e7e392a863346575d7ef45bb9af3432544329",
+      "bundle_sha256": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+      "files": [
+        "Dockerfile",
+        "LICENSE",
+        "README.md",
+        "bot.js"
+      ],
+      "changed_files": [
+        "bot.js"
+      ],
+      "tree_bytes": 271584,
+      "worktree": "/workspace/scratch/bde29dc281e6/mech-release-pressure-cycle",
+      "readme_unchanged": true,
+      "scan": "pass"
+    },
+    {
+      "candidate": "burst-cycle",
+      "branch": "optimize/mech-burst-cycle-v1",
+      "commit": "26f382eab378e1193ab9203bb4ec7e706c6780bf",
+      "parent": "099e7e392a863346575d7ef45bb9af3432544329",
+      "bundle_sha256": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+      "files": [
+        "Dockerfile",
+        "LICENSE",
+        "README.md",
+        "bot.js"
+      ],
+      "changed_files": [
+        "bot.js"
+      ],
+      "tree_bytes": 271585,
+      "worktree": "/workspace/scratch/bde29dc281e6/mech-release-burst-cycle",
+      "readme_unchanged": true,
+      "scan": "pass"
+    }
+  ],
+  "tests": "panel/mech/final-validation/strict-diagnostic/results.json",
+  "earlier_timing_outliers_retained": "panel/mech/final-validation/results.json"
+}

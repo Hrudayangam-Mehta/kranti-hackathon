@@ -1,0 +1,39 @@
+   Compiling sessions v0.1.0 (/workspace/scratch/bde29dc281e6/experiments/dense)
+    Finished `release` profile [optimized] target(s) in 14.01s
+     Running unittests src/main.rs (baseline-c/target/x86_64-unknown-linux-gnu/release/deps/sessions-27a1222eadf0bbfb)
+
+running 31 tests
+test csv::tests::chunking_covers_every_data_byte ... ok
+test csv::tests::dialect ... ok
+test events::tests::prices ... ok
+test fast::compact_tests::candidate_tags_preserve_records ... ok
+test fast::compact_tests::exact_key_fallbacks ... ok
+test fast::compact_tests::exact_key_roundtrip ... ok
+test fast::compact_tests::exact_record_fallbacks ... ok
+test fast::compact_tests::exact_record_roundtrip ... ok
+test fast::id::tests::classes ... ok
+test fast::id::tests::detection ... ok
+test fast::id::tests::exact_order_and_roundtrip ... ok
+test fast::keys::tests::order_and_roundtrip ... ok
+test fast::keys::tests::random_order ... ok
+test fast::keys::tests::small_map ... ok
+test fast::people::tests::names ... ok
+test fast::scan::tests::differential_files ... ok
+test fast::scan::tests::fixed_cases ... ok
+test fast::scan::tests::large_buffers ... ok
+test fast::scan::tests::random_lines ... ok
+test fast::scan::tests::simd_ids_match ... ok
+test fast::scan::tests::simd_pack_matches ... ok
+test fast::ts::tests::digit_words ... ok
+test fast::ts::tests::matches_reference ... ok
+test fast::ts::tests::random_matches_reference ... ok
+test links::tests::link_lines ... ok
+test links::tests::star_names_smallest_member ... ok
+test links::tests::transitive_names ... ok
+test manifest::tests::top_level_only ... ok
+test time::tests::bad_forms ... ok
+test time::tests::civil_days ... ok
+test time::tests::forms ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.00s
+

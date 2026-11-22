@@ -1,0 +1,31 @@
+{
+  "original_receipt_unchanged": "panel/mech/final-validation/results.json",
+  "release_status": "HOLD pending bounded diagnostic",
+  "correction": "Official checker PASS tolerates a small late fraction; the first summary conflated it with zero late answers.",
+  "official_counts": [
+    {
+      "candidate": "capture",
+      "observations": 300,
+      "in_time": 300,
+      "missed": 0,
+      "late": 0,
+      "strict_zero_late": true
+    },
+    {
+      "candidate": "pressure-cycle",
+      "observations": 300,
+      "in_time": 300,
+      "missed": 0,
+      "late": 0,
+      "strict_zero_late": true
+    },
+    {
+      "candidate": "burst-cycle",
+      "observations": 300,
+      "in_time": 298,
+      "missed": 2,
+      "late": 2,
+      "strict_zero_late": false
+    }
+  ]
+}

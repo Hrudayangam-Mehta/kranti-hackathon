@@ -1,0 +1,26 @@
+{
+  "binary": "bench/bin/dense",
+  "binary_sha256": "b7228ddcb9c5625e0884cfb6dad2430afe36fc1d3661b8736fd2d5cf91e9f021",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "466adbedd4e6e67a9fd385ca11a2db5ce8df8e349b683fda41af0389e8d58d51",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense",
+    "root": "panel/database/dense-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar",
+      "1:slow"
+    ],
+    "report": "panel/database/dense-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "compact_cases": true,
+    "second_reader": true
+  }
+}

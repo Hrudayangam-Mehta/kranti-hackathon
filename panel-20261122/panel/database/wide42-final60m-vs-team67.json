@@ -1,0 +1,3940 @@
+{
+  "reference": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67",
+  "candidate": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00",
+  "duckdb": "2.0.1",
+  "pyarrow": "26.0.1",
+  "memory_limit": "512MB",
+  "threads": 1,
+  "batch_rows": 2048,
+  "method": "validated schemas, external total sort, exact streamed multiset merge",
+  "started_utc": "2026-11-22T08:24:28.303698+00:00",
+  "tables": {
+    "user_daily": {
+      "matched_rows": 6629125,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-0.parquet",
+          "bytes": 20705651,
+          "rows": 1132256,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-1.parquet",
+          "bytes": 18919720,
+          "rows": 973607,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-2.parquet",
+          "bytes": 16729329,
+          "rows": 916243,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-3.parquet",
+          "bytes": 9734894,
+          "rows": 484624,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-4.parquet",
+          "bytes": 14950316,
+          "rows": 787028,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-5.parquet",
+          "bytes": 18576057,
+          "rows": 1017491,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-6.parquet",
+          "bytes": 8513503,
+          "rows": 413976,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/user_daily/part-7.parquet",
+          "bytes": 17248981,
+          "rows": 903900,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00000.parquet",
+          "bytes": 1828871,
+          "rows": 65685,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00001.parquet",
+          "bytes": 1822476,
+          "rows": 65664,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00002.parquet",
+          "bytes": 1843773,
+          "rows": 66382,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00003.parquet",
+          "bytes": 1828022,
+          "rows": 65836,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00004.parquet",
+          "bytes": 1863096,
+          "rows": 67182,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00005.parquet",
+          "bytes": 1832283,
+          "rows": 66186,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00006.parquet",
+          "bytes": 1843842,
+          "rows": 66386,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00007.parquet",
+          "bytes": 1820935,
+          "rows": 65583,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00008.parquet",
+          "bytes": 1842718,
+          "rows": 66301,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00009.parquet",
+          "bytes": 1859536,
+          "rows": 66988,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00010.parquet",
+          "bytes": 1862835,
+          "rows": 67036,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00011.parquet",
+          "bytes": 1845847,
+          "rows": 66381,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00012.parquet",
+          "bytes": 1818860,
+          "rows": 65726,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00013.parquet",
+          "bytes": 1848593,
+          "rows": 66592,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00014.parquet",
+          "bytes": 1855241,
+          "rows": 66988,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00015.parquet",
+          "bytes": 1845001,
+          "rows": 66368,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00016.parquet",
+          "bytes": 1839369,
+          "rows": 66208,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00017.parquet",
+          "bytes": 1816401,
+          "rows": 65553,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00018.parquet",
+          "bytes": 1820160,
+          "rows": 65769,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00019.parquet",
+          "bytes": 1857471,
+          "rows": 67038,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00020.parquet",
+          "bytes": 1846341,
+          "rows": 66495,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00021.parquet",
+          "bytes": 1855723,
+          "rows": 67038,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00022.parquet",
+          "bytes": 1826046,
+          "rows": 65996,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00023.parquet",
+          "bytes": 1814470,
+          "rows": 65605,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00024.parquet",
+          "bytes": 1838017,
+          "rows": 66307,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00025.parquet",
+          "bytes": 1835904,
+          "rows": 66180,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00026.parquet",
+          "bytes": 1856924,
+          "rows": 66896,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00027.parquet",
+          "bytes": 1853304,
+          "rows": 66792,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00028.parquet",
+          "bytes": 1843590,
+          "rows": 66577,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00029.parquet",
+          "bytes": 1816948,
+          "rows": 65564,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00030.parquet",
+          "bytes": 1832874,
+          "rows": 66196,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00031.parquet",
+          "bytes": 1832296,
+          "rows": 66055,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00032.parquet",
+          "bytes": 1859161,
+          "rows": 67148,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00033.parquet",
+          "bytes": 1845462,
+          "rows": 66652,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00034.parquet",
+          "bytes": 1834126,
+          "rows": 66094,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00035.parquet",
+          "bytes": 1860286,
+          "rows": 67031,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00036.parquet",
+          "bytes": 1832610,
+          "rows": 66160,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00037.parquet",
+          "bytes": 1850828,
+          "rows": 66836,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00038.parquet",
+          "bytes": 1828265,
+          "rows": 65951,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00039.parquet",
+          "bytes": 1826978,
+          "rows": 65848,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00040.parquet",
+          "bytes": 1837454,
+          "rows": 66534,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00041.parquet",
+          "bytes": 1851358,
+          "rows": 66705,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00042.parquet",
+          "bytes": 1843413,
+          "rows": 66472,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00043.parquet",
+          "bytes": 1838664,
+          "rows": 66292,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00044.parquet",
+          "bytes": 1825587,
+          "rows": 65791,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00045.parquet",
+          "bytes": 1836415,
+          "rows": 66236,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00046.parquet",
+          "bytes": 1839880,
+          "rows": 66285,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00047.parquet",
+          "bytes": 1821647,
+          "rows": 65655,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00048.parquet",
+          "bytes": 1860225,
+          "rows": 67107,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00049.parquet",
+          "bytes": 1828157,
+          "rows": 65936,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00050.parquet",
+          "bytes": 1845710,
+          "rows": 66533,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00051.parquet",
+          "bytes": 1820135,
+          "rows": 65755,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00052.parquet",
+          "bytes": 1835188,
+          "rows": 66322,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00053.parquet",
+          "bytes": 1818317,
+          "rows": 65547,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00054.parquet",
+          "bytes": 1834538,
+          "rows": 66064,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00055.parquet",
+          "bytes": 1822438,
+          "rows": 65773,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00056.parquet",
+          "bytes": 1836284,
+          "rows": 66324,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00057.parquet",
+          "bytes": 1853159,
+          "rows": 66819,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00058.parquet",
+          "bytes": 1847317,
+          "rows": 66526,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00059.parquet",
+          "bytes": 1840167,
+          "rows": 66467,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00060.parquet",
+          "bytes": 1833421,
+          "rows": 65996,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00061.parquet",
+          "bytes": 1836331,
+          "rows": 66124,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00062.parquet",
+          "bytes": 1855926,
+          "rows": 66910,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00063.parquet",
+          "bytes": 1857907,
+          "rows": 67041,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00064.parquet",
+          "bytes": 1845494,
+          "rows": 66608,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00065.parquet",
+          "bytes": 1837921,
+          "rows": 66240,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00066.parquet",
+          "bytes": 1847812,
+          "rows": 66651,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00067.parquet",
+          "bytes": 1841096,
+          "rows": 66324,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00068.parquet",
+          "bytes": 1823813,
+          "rows": 65849,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00069.parquet",
+          "bytes": 1857950,
+          "rows": 66940,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00070.parquet",
+          "bytes": 1825325,
+          "rows": 65746,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00071.parquet",
+          "bytes": 1834332,
+          "rows": 66039,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00072.parquet",
+          "bytes": 1845083,
+          "rows": 66401,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00073.parquet",
+          "bytes": 1838511,
+          "rows": 66082,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00074.parquet",
+          "bytes": 1843358,
+          "rows": 66391,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00075.parquet",
+          "bytes": 1818516,
+          "rows": 65630,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00076.parquet",
+          "bytes": 1834596,
+          "rows": 66220,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00077.parquet",
+          "bytes": 1844979,
+          "rows": 66356,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00078.parquet",
+          "bytes": 1853857,
+          "rows": 66815,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00079.parquet",
+          "bytes": 1845786,
+          "rows": 66374,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00080.parquet",
+          "bytes": 1824542,
+          "rows": 65589,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00081.parquet",
+          "bytes": 1841937,
+          "rows": 66352,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00082.parquet",
+          "bytes": 1835886,
+          "rows": 66043,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00083.parquet",
+          "bytes": 1822103,
+          "rows": 65543,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00084.parquet",
+          "bytes": 1835163,
+          "rows": 66092,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00085.parquet",
+          "bytes": 1823826,
+          "rows": 65667,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00086.parquet",
+          "bytes": 1858736,
+          "rows": 66837,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00087.parquet",
+          "bytes": 1848282,
+          "rows": 66357,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00088.parquet",
+          "bytes": 1862647,
+          "rows": 66935,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00089.parquet",
+          "bytes": 1834002,
+          "rows": 65905,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00090.parquet",
+          "bytes": 1869848,
+          "rows": 67046,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00091.parquet",
+          "bytes": 1826365,
+          "rows": 65710,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00092.parquet",
+          "bytes": 1834339,
+          "rows": 66049,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00093.parquet",
+          "bytes": 1838420,
+          "rows": 65993,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00094.parquet",
+          "bytes": 1840484,
+          "rows": 66104,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00095.parquet",
+          "bytes": 1849179,
+          "rows": 66460,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00096.parquet",
+          "bytes": 1827786,
+          "rows": 65673,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00097.parquet",
+          "bytes": 335966,
+          "rows": 11945,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00098.parquet",
+          "bytes": 192254,
+          "rows": 6833,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00099.parquet",
+          "bytes": 351490,
+          "rows": 12553,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00100.parquet",
+          "bytes": 237911,
+          "rows": 8490,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00101.parquet",
+          "bytes": 456572,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00102.parquet",
+          "bytes": 454057,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00103.parquet",
+          "bytes": 455465,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00104.parquet",
+          "bytes": 456755,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00105.parquet",
+          "bytes": 456305,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00106.parquet",
+          "bytes": 456865,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00107.parquet",
+          "bytes": 457190,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00108.parquet",
+          "bytes": 453616,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00109.parquet",
+          "bytes": 346137,
+          "rows": 12340,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00110.parquet",
+          "bytes": 454213,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/user_daily/part-00111.parquet",
+          "bytes": 151,
+          "rows": 0,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 64848436,
+      "seconds": 22.94666171699646
+    },
+    "campaign_daily": {
+      "matched_rows": 28014,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-final-n8-team67/campaign_daily/part-0.parquet",
+          "bytes": 1471310,
+          "rows": 28014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "purchasing_sessions",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int64"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/campaign_daily/part-00000.parquet",
+          "bytes": 304961,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/campaign_daily/part-00001.parquet",
+          "bytes": 306095,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/campaign_daily/part-00002.parquet",
+          "bytes": 312801,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-spacechecked-n8-wide42-r00/campaign_daily/part-00003.parquet",
+          "bytes": 311205,
+          "rows": 6972,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 480862,
+      "seconds": 0.12023075699835317
+    }
+  },
+  "equal": true,
+  "seconds": 23.121726749996014,
+  "maxrss_kib": 662588,
+  "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+}

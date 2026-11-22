@@ -1,0 +1,46 @@
+{
+  "context": "Official checker and inherited lockstep driver with p95 added; single CPU affinity0, pinned Bun1.4.4. No Docker/cgroup memory/read-only sandbox claim. No ranking.",
+  "started_utc": "2026-11-22T07:37:10.191916+00:00",
+  "cpu_affinity": [
+    0
+  ],
+  "runtime": "Bun 1.4.4",
+  "runtime_flags": {
+    "BUN_JSC_useFTLJIT": "0",
+    "BUN_JSC_useConcurrentJIT": "1",
+    "BUN_JSC_useConcurrentGC": "0",
+    "BUN_JSC_numberOfGCMarkers": "1",
+    "BUN_JSC_numberOfBaselineCompilerThreads": "1",
+    "BUN_JSC_numberOfDFGCompilerThreads": "1",
+    "BUN_JSC_numberOfFTLCompilerThreads": "1",
+    "BUN_JSC_minNumberOfWorklistThreads": "1",
+    "BUN_JSC_maxNumberOfWorklistThreads": "1"
+  },
+  "results": [
+    {
+      "candidate": "baseline",
+      "bundle_sha256": "fe7a9f6173a1e9a0615ee3a0ba277f1b1914c86c217007cf1e9203cc52af36aa",
+      "exit": 0,
+      "wall_s": 2.446266465994995,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/panel/mech/baseline-bundle.js\nready in 2217 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.8  p99 2.8  max 3.4  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 1071 ms, 24 body warm-ups\n[bot] init 2118 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.0ms\n"
+    },
+    {
+      "candidate": "mech-geometry",
+      "bundle_sha256": "a19a4364c40bf3008ef1cddb5d48324a913849066e3a76d9218fad390fbd4bab",
+      "exit": 0,
+      "wall_s": 2.0334571359999245,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-geometry/dist/bot.js\nready in 1812 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.9  p99 2.7  max 2.9  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 868 ms, 24 body warm-ups\n[bot] init 1797 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.6ms\n"
+    },
+    {
+      "candidate": "mech-capture",
+      "bundle_sha256": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+      "exit": 0,
+      "wall_s": 2.235339209997619,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\nready in 2029 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.8  p99 3.0  max 3.7  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 921 ms, 24 body warm-ups\n[bot] init 2017 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=2.9ms\n"
+    }
+  ],
+  "finished_utc": "2026-11-22T07:37:16.907332+00:00"
+}

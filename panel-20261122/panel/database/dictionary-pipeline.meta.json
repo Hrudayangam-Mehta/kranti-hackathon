@@ -1,0 +1,28 @@
+{
+  "binary": "bench/bin/dense-dict",
+  "binary_sha256": "9993c19ed8ad7c7b58586dd9241e967e20fb7b07b572db80d7f1379b5fe7b248",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "98a196ba42b854b5729ce94e1ae233cbba9d74e855fdd0414bf275c828ee4b0e",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-dict",
+    "root": "panel/database/dictionary-pipeline-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar"
+    ],
+    "report": "panel/database/dictionary-pipeline.json",
+    "only": "dictionary_",
+    "repeat": true,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "compact_cases": false,
+    "adaptive_cases": false,
+    "p2_cases": false,
+    "dictionary_cases": true,
+    "second_reader": true
+  }
+}

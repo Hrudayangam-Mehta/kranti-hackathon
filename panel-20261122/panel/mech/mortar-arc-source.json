@@ -1,0 +1,23 @@
+{
+  "base_tree": "/workspace/scratch/bde29dc281e6/experiments/mech-geometry/bot",
+  "candidate_tree": "/workspace/scratch/bde29dc281e6/experiments/mech-mortar-arc/bot",
+  "files": [
+    {
+      "path": "lib/firecontrol.js",
+      "sha256": "98a300fc9e3d992ebca0f0c2214f4e9ebfa4b3eed4457e6cf3105e1d4b5f4969",
+      "base_sha256": "59fc257de4f792191e35ec063f93eede202b9ff0c1e61942d504aea10112c2f7"
+    },
+    {
+      "path": "lib/mortar.js",
+      "sha256": "566edaf7332af1b7cee3e9139101a115a221beb214398b5d84323120d8550275",
+      "base_sha256": null
+    }
+  ],
+  "validation": {
+    "deterministic_cases": 18,
+    "passed": 18,
+    "harness": "panel/mech/mortar_arc_cases.mjs",
+    "result": "panel/mech/mortar-arc-cases.json",
+    "full_protocol": "pending coordinated CPU window"
+  }
+}

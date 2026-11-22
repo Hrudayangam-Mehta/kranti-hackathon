@@ -1,0 +1,429 @@
+{
+  "reference": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-1",
+  "candidate": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8",
+  "duckdb": "2.0.1",
+  "pyarrow": "26.0.1",
+  "memory_limit": "64MB",
+  "threads": 1,
+  "batch_rows": 2048,
+  "method": "validated schemas, external total sort, exact streamed multiset merge",
+  "started_utc": "2026-11-22T07:06:36.365375+00:00",
+  "tables": {
+    "user_daily": {
+      "matched_rows": 70000,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-1/user_daily/part-00000.parquet",
+          "bytes": 2117868,
+          "rows": 65652,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-1/user_daily/part-00001.parquet",
+          "bytes": 141015,
+          "rows": 4348,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00000.parquet",
+          "bytes": 318034,
+          "rows": 9859,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00001.parquet",
+          "bytes": 36774,
+          "rows": 1123,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00002.parquet",
+          "bytes": 37016,
+          "rows": 1120,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00003.parquet",
+          "bytes": 529395,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00004.parquet",
+          "bytes": 528273,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00005.parquet",
+          "bytes": 528848,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/user_daily/part-00006.parquet",
+          "bytes": 283151,
+          "rows": 8746,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 114402,
+      "seconds": 0.2827100220019929
+    },
+    "campaign_daily": {
+      "matched_rows": 1,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-1/campaign_daily/part-00000.parquet",
+          "bytes": 614,
+          "rows": 1,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/campaign_daily/part-00000.parquet",
+          "bytes": 187,
+          "rows": 0,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data/out-parquet_multiple_pages-8/campaign_daily/part-00003.parquet",
+          "bytes": 614,
+          "rows": 1,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 1958,
+      "seconds": 0.06677328999649035
+    }
+  },
+  "equal": true,
+  "seconds": 0.45606062399747316,
+  "maxrss_kib": 139284,
+  "script_sha256": "7041581c317795aca4632abc4ba8c55d487f1a810a28d03945911c3529056582"
+}

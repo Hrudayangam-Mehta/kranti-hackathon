@@ -1,0 +1,867 @@
+--- a/bot/lib/brain.js
++++ b/bot/lib/brain.js
+@@ -23,6 +23,8 @@
+ import { makeAimCal } from './aimcal.js'
+ import { makeHunt } from './hunt.js'
+ import { makeProf } from './prof.js'
++import { makePressure } from './pressure.js'
++import { makeWeaponPolicy } from './weapon_policy.js'
+ 
+ export { PARAMS, MODE }
+ 
+@@ -62,6 +64,7 @@
+       for (const wk of new Set([...Object.keys(DEF_CFG.weapons), ...Object.keys(gw)])) out.weapons[wk] = mergeNum(DEF_CFG.weapons[wk] || {}, gw[wk])
+     } else out[k] = mergeNum(DEF_CFG[k], c[k])
+   }
++  out.upgrades = Array.isArray(c.upgrades) ? c.upgrades : []
+   return out
+ }
+ 
+@@ -196,7 +199,7 @@
+   }
+ 
+   const B = {
+-    P, cfg, world, nav, log, rng: makeRng(seed),
++    P, cfg, world, nav, log, rng: makeRng(seed), rngSeed: seed,
+     tick: 0, deadline: 0, planTick: -1, bodyR: -1, arenaMargin: fnum(cfg.match.arena_margin, P.arenaMargin),
+     me: newSelf(cfg), tracks: new Map(), trackList: [], crates: new Map(), cubes: new Map(), pickups: new Map(), drops: [],
+     shells: new Map(), bullets: new Map(), heard: new Float32Array(12), badPickups: new Map(), attackers: new Set(), ourKills: new Set(), killDrops: [],
+@@ -245,6 +248,7 @@
+     },
+   }
+ 
++  B.weaponPolicy = makeWeaponPolicy(B)
+   const mover = makeMover(B)
+   const hideSearch = makeHideSearch(B)
+   const posEval = makePosEval(B)
+@@ -258,6 +262,9 @@
+   B.hunt = hunt
+   const prof = P.prof === 'p26' ? makeProf(B, mover, econ, hunt) : null
+   B.prof = prof
++  const pressure = makePressure(B, mover)
++  B.pressure = pressure
++  pressure.wrapProfile(prof)
+   const stance = makeStance(B, mover, hideSearch, posEval)
+   // pass 2b counter changes (addendum 6.2): C1 finish rail, C2 kiter ramp 70 / 100 m, C3 LASER_BRAWLER (off)
+   const cxPar = { ...(P.counterParams || {}), finOn: P.cxFinish === true, lbOn: P.cxBrawler === true }
+@@ -556,6 +563,10 @@
+     // a hop out of a pocket is finished whatever the mode
+     if (mover.hop.air && mover.pocketExit(B.zone.nx, B.zone.ny)) { B.legKind = 'hop'; B.noCharge = true; mover.stuckCheck(); return }
+     if (!(B.mode === MODE.ZONE && B.zoneMargin < 1) && mover.shellDodge()) { B.noCharge = true; B.legKind = 'dodge'; finishLegs(); return }
++    if (pressure.legs()) {
++      if (!(B.mode === MODE.ZONE && (!me.inZone || B.zoneMargin < 2))) mover.bulletDodge()
++      finishLegs(); return
++    }
+     if (B.env === 'FFA') {
+       // rule 1 outside FIGHT (hookup step 7 when the rules are off), rule 5 lightning keep
+       let hid = false
+@@ -595,11 +606,11 @@
+   function finishLegs() {
+     const cmd = B.cmd, me = B.me
+     // energy discipline: lightning needs the tank when an enemy is close (D2 / spec section 2)
+-    if (cmd.boost && me.lightning && B.nearestMech && B.nearestMech.dist < 60 && me.energy < P.lightReserve + 10 && !B.rush) cmd.boost = false
++    if (cmd.boost && me.lightning && B.nearestMech && B.nearestMech.dist < 60 && me.energy < (pressure.active() ? B.pressureEnergyReserve + 3 : P.lightReserve + 10) && !B.rush) cmd.boost = false
+     if (cmd.boost && me.energy < 2) cmd.boost = false
+     // in the air boost is the jet (protocol section 6): only the pocket hop and the stuck jet may use it
+     if (cmd.boost && !me.grounded && !B.wantJet) cmd.boost = false
+-    if (cmd.boost && B.env === 'FFA' && ffaM.boostVeto()) cmd.boost = false         // D11: boost rarely
++    if (cmd.boost && B.env === 'FFA' && !pressure.active() && ffaM.boostVeto()) cmd.boost = false         // D11: boost rarely
+     mover.stuckCheck()
+   }
+ 
+@@ -657,26 +668,30 @@
+         B.chargeAtMeT = ch
+         if (cx) counterAdvice(obs)
+         ffaM.update(obs)
+-        hunt.pre(obs)
+-        if (B.p26on) prof.selectTarget(); else selectTarget(B)
+-        hunt.post()
+-        finUpdate(B)                                     // R7a FIN (inert unless P.finTtk)
++        if (!pressure.active()) {
++          hunt.pre(obs)
++          if (B.p26on) prof.selectTarget(); else selectTarget(B)
++          hunt.post()
++          finUpdate(B)
++        }
++        pressure.update(obs)
+       })
+-      stage('econ', () => econ.update())
++      stage('econ', () => { if (!pressure.active()) econ.update() })
+       stage('zone', () => mover.zoneCheck())
+       stage('mode', () => {
++        if (pressure.active()) { pressure.mode(); return }
+         const heading = B.mode === MODE.HEAL || B.mode === MODE.DISENGAGE || B.legKind === 'beamhide'
+         hideSearch.maintain(heading)
+         if (B.hide.state === 'run' && !fuse()) hideSearch.run(P.hideRays)
+         if (B.p26on) prof.decideMode(); else decideMode(B)
+       })
+-      stage('stance', () => { stance.update(obs); applyVetoes() })
++      stage('stance', () => { stance.update(obs); applyVetoes(); pressure.mode() })
+       if (!stage('legs', legs)) { cmd.mx = pmx; cmd.my = pmy; cmd.boost = pb && B.me.grounded; cmd.jump = false }
+       if (!stage('fire', () => fc.run())) {
+         out.aim[0] = py; out.aim[1] = pp; out.fire[0] = false; out.fire[1] = false; out.reload = false
+         chargeHold(out.fire)                                       // R6 IO7: a laser charge stays held through the exception
+       }
+-      if (!stage('hands', () => { econ.hands(); econ.pick(obs) })) { out.take = -1; out.drop = -1; out.pick = -1 }
++      if (!stage('hands', () => { econ.hands(); econ.pick(obs); pressure.hands(obs) })) { out.take = -1; out.drop = -1; out.pick = -1 }
+       const a = build()
+       if (now() > B.deadline) B.counters.overruns++
+       return a
+@@ -694,7 +709,7 @@
+       goal: B.hasGoal ? [B.goalX, B.goalY] : null, hp: B.me.hp, counters: { ...B.counters },
+       leg: B.legKind, aim: B.aimKind, A: B.A, n1: B.n1, losing: B.losing, hide: B.hide.state, zoneMargin: B.zoneMargin,
+       errors: { ...B.errorsByStage }, gun: B.gunStat.dump(), F: stance.F ? stance.F() : 0, Q: stance.Q ? stance.Q() : 0,
+-      selected: P.selected, rehearsal: warmInfo,
++      selected: P.selected, rehearsal: warmInfo, pressure: pressure.debug(),
+       cx: P.debug && B.cx ? B.cx.debugState() : null, ffaBreak: B.ffaBreak, ffaBreaks: B.counters.ffaBreaks || 0,
+       steal: B.steal.debug(), scan: { ...B.scanner.stats }, cal: { ...B.aimcal.state }, openFarm: B.ofGate, openFarmEndT: B.ofEndT,
+       p26: B.p26 ? { on: B.p26on, phase: B.p26.phase, hold: B.p26.hold, fight: B.p26.fight, finishing: B.p26.finishing, latch: B.p26.latch, leg: B.p26.leg, ttk: B.p26.ttk, ttd: B.p26.ttd, shot: B.p26.shot ? B.p26.shot.id : null } : null,
+--- a/bot/lib/economy.js
++++ b/bot/lib/economy.js
+@@ -15,6 +15,10 @@
+ 
+   /** D7: do we want this pickup, and which slot would it replace (-1 = goes into the empty slot)? */
+   function wantPickup(kind) {
++    const fallback = basePickup(kind)
++    return B.weaponPolicy && B.weaponPolicy.on() ? B.weaponPolicy.pickup(kind, fallback) : fallback
++  }
++  function basePickup(kind) {
+     const me = B.me, w0 = me.weapons[0], w1 = me.weapons[1], t = me.t
+     if (typeof kind !== 'string') return null
+     if (B.p26on === true && kind === 'mortar') return null                 // practice profile p26: never a mortar
+@@ -324,11 +328,14 @@
+   function hands() {
+     const me = B.me, out = B.out, t = me.t
+     out.take = -1; out.drop = -1
++    const adaptive = B.weaponPolicy && B.weaponPolicy.on()
++    if (adaptive) B.weaponPolicy.preparePickups()
++    const limits = adaptive ? B.weaponPolicy.pickupLimits() : { range: P.takeReach, height: P.takeDz }
+     let bestD = Infinity
+     for (const p of B.pickups.values()) {
+       if (p.seen < t - 1.5) continue
+       const d = Math.hypot(p.x - me.x, p.y - me.y)
+-      if (d > P.takeReach || Math.abs(p.z - me.z) > P.takeDz || d >= bestD) continue
++      if (d > limits.range || Math.abs(p.z - me.z) > limits.height || d >= bestD) continue
+       if (B.badPickups.has(p.id) && t - B.badPickups.get(p.id) < 30) continue
+       const w = wantPickup(p.kind)
+       if (!w) continue
+--- a/bot/lib/firecontrol.js
++++ b/bot/lib/firecontrol.js
+@@ -15,6 +15,9 @@
+   const GUN_RUNGS = LASER_RUNGS.filter((f) => f <= P.gunLadderTop + 1e-9).sort((a, b) => b - a).concat(LASER_RUNGS.filter((f) => f > P.gunLadderTop + 1e-9).sort((a, b) => a - b))
+   if (GUN_RUNGS.length === 0) GUN_RUNGS.push(0.5)
+   const rel = { t: 0, id: -1, tl: 0, frac: 0.5, yaw: 0, pitch: 0, pyaw: 0, ppitch: 0, settled: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, n: 0 }
++  const policy = B.weaponPolicy
++  const cycling = () => !!policy && policy.on()
++  const geometry = cycling
+ 
+   function predictSelf(tl) {
+     const me = B.me, cmd = B.cmd
+@@ -89,10 +92,13 @@
+   }
+ 
+   function muzzleClear(yaw, pitch, tx, ty, tz) {
++    const me = B.me
++    if (geometry() && (pitch < me.minPitch || pitch > me.maxPitch)) return false
+     const w = B.world
+     if (!w) return true
+-    const me = B.me, off = me.radius + 0.5, c = Math.cos(pitch)
++    const off = me.radius + 0.5, c = Math.cos(pitch)
+     const mx = ps.x + c * Math.cos(yaw) * off, my = ps.y + c * Math.sin(yaw) * off, mz = ps.z + me.muzzleH + Math.sin(pitch) * off
++    if (geometry() && !w.shotClear(ps.x, ps.y, ps.z + me.muzzleH, mx, my, mz)) return false
+     // stop a little short of the target point so the target's own ground contact does not count
+     const dx = tx - mx, dy = ty - my, dz = tz - mz, d = Math.hypot(dx, dy, dz)
+     if (d < 1) return true
+@@ -101,8 +107,8 @@
+   }
+ 
+   /** Aim the torso will have when the shot leaves: current aim slewed toward the command for `tl`. */
+-  function predYaw(cmdYaw, tl) { const me = B.me; return wrapPi(me.yaw + clamp(angDiff(me.yaw, cmdYaw), -me.turnRate * tl, me.turnRate * tl)) }
+-  function predPitch(cmdPitch, tl) { const me = B.me; return me.pitch + clamp(clamp(cmdPitch, me.minPitch, me.maxPitch) - me.pitch, -me.pitchRate * tl, me.pitchRate * tl) }
++  function predYaw(cmdYaw, tl) { const me = B.me, rate = me.turnRate * (cycling() ? policy.turnMult() : 1); return wrapPi(me.yaw + clamp(angDiff(me.yaw, cmdYaw), -rate * tl, rate * tl)) }
++  function predPitch(cmdPitch, tl) { const me = B.me, rate = me.pitchRate * (cycling() ? policy.turnMult() : 1); return me.pitch + clamp(clamp(cmdPitch, me.minPitch, me.maxPitch) - me.pitch, -rate * tl, rate * tl) }
+ 
+   function scan() {
+     const me = B.me, t = me.t, out = B.out
+@@ -153,6 +159,8 @@
+     predictSelf(tl)
+     out.fire[0] = false; out.fire[1] = false; out.reload = false
+     const p6 = B.p26on === true                         // practice profile p26 (lib/prof.js): shot target, crate shots, rungs, reload
++    const adaptive = cycling()
++    const exact = geometry()
+     let tgt = p6 ? B.prof.fireTarget() : B.target
+     const hold = B.holdFire
+     B.aimKind = 'none'
+@@ -181,7 +189,7 @@
+       const o = tgt || shootObj
+       const R0 = Math.hypot(o.x - me.x, o.y - me.y, o.z - me.z)
+       // ---------------- gun (lead for the tick the shot really leaves on)
+-      let gunOk = false, gunFire = false, gunReady = false, gYaw = 0, gPitch = 0, yawGate = 0, pitGate = 0
++      let gunOk = false, gunFire = false, gunReady = false, gYaw = 0, gPitch = 0, gFlight = Infinity, yawGate = 0, pitGate = 0
+       const ioR = P.ioReload === true && !!g && g.reload > 0 && g.reload <= P.readyCd + 1e-6      // R6 IO4: the reload ends inside this window
+       const tlg = g ? gunLatency(ioR ? Math.max(g.cooldown, g.reload) : g.cooldown) : tl
+       if (g) predictSelf(tlg)
+@@ -219,12 +227,12 @@
+         const steady = !tgt || t - o.steadySince >= P.steadyS || (o.airborne && !(t - o.airT0 < 1.5 && o.vz >= 0))
+         let flightOk = sol.t <= P.gunFlightMax || steady
+         // FFA rule 6: the steady waiver reaches 0.8 s of flight; a sub-second reverser only under 0.3 s (laser otherwise)
+-        if (tgt && ffaR()) flightOk = B.ffa.reverser(tgt) ? sol.t <= P.ffaRevFlight : sol.t <= P.gunFlightMax || (steady && sol.t <= P.ffaSteadyFlight)
++        if (tgt && ffaR() && !B.pressureActive) flightOk = B.ffa.reverser(tgt) ? sol.t <= P.ffaRevFlight : sol.t <= P.gunFlightMax || (steady && sol.t <= P.ffaSteadyFlight)
+         if (!flightOk) B.counters.flightGated = (B.counters.flightGated || 0) + 1
+         gunReady = g.cooldown <= P.readyCd && ((g.ammo > 0 && g.reload <= 0) || ioR) && clear && !hold && sol.dist <= g.range * P.gunRangeFrac && flightOk
+         if (gunReady) {
+           const R = Math.max(1, sol.dist)
+-          gYaw = sol.yaw; gPitch = sol.pitch
++          gYaw = sol.yaw; gPitch = sol.pitch; gFlight = sol.t
+           yawGate = Math.max(P.gateMin, P.gateK * (o.radius + P.gateBody) / R - g.spread)
+           pitGate = Math.max(P.gateMin, P.gateK * (o.height * hFrac + P.gateBody) / R - g.spread)
+         }
+@@ -248,37 +256,45 @@
+         const rungs = p6 ? B.prof.rungs : P.headAimOn === true ? LASER_RUNGS : MID
+         let frac = rungs[0], lzc = tgt.z + tgt.height * frac + zAir
+         const lyaw = Math.atan2(ldy, ldx)
+-        let lpitch = clamp(Math.atan2(lzc - sz, lh), me.minPitch, me.maxPitch)
++        const firstPitch = Math.atan2(lzc - sz, lh)
++        let lpitch = exact ? firstPitch : clamp(firstPitch, me.minPitch, me.maxPitch)
+         let lR = Math.hypot(lh, lzc - sz)
+-        const inRange = lR <= (p6 ? lz.range - 5 : lz.range * P.laserRangeFrac)
++        const inRange = exact ? rungs.some((f) => {
++          const dz = tgt.z + tgt.height * f + zAir - sz, p = Math.atan2(dz, lh)
++          return p >= me.minPitch && p <= me.maxPitch && Math.hypot(lh, dz) <= lz.range - 5
++        }) : lR <= (p6 ? lz.range - 5 : lz.range * P.laserRangeFrac)
+         const charge = lz.charge
+         if (charge > 0 || wasHolding) {
+-          let clear = inRange && muzzleClear(lyaw, lpitch, lx, ly, lzc)
++          let clear = inRange && (!exact || (lpitch >= me.minPitch && lpitch <= me.maxPitch && lR <= lz.range - 5)) && muzzleClear(lyaw, lpitch, lx, ly, lzc)
+           for (let k = 1; k < rungs.length && inRange && !clear; k++) {
+-            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, pt = clamp(Math.atan2(z - sz, lh), me.minPitch, me.maxPitch)
+-            if (muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = Math.hypot(lh, z - sz) }
++            const f = rungs[k], z = tgt.z + tgt.height * f + zAir, raw = Math.atan2(z - sz, lh)
++            const pt = exact ? raw : clamp(raw, me.minPitch, me.maxPitch), range = Math.hypot(lh, z - sz)
++            if ((!exact || (pt >= me.minPitch && pt <= me.maxPitch && range <= lz.range - 5)) && muzzleClear(lyaw, pt, lx, ly, z)) { clear = true; frac = f; lzc = z; lpitch = pt; lR = range }
+           }
+           const cyaw = AC ? wrapPi(lyaw - AC.yaw()) : lyaw, cpitch = AC ? clamp(lpitch - AC.pitch(), me.minPitch, me.maxPitch) : lpitch
+           const full = charge >= P.laserFullFrac * lz.full
+           if (full) { if (lz.fullSince < 0) lz.fullSince = t } else lz.fullSince = -1
+-          const takeAim = charge >= P.laserTakeFrac * lz.full - 1e-6
++          const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
++          const killNow = charge >= (lz.st.min_charge || 0.15) && laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp
++          const takeAim = adaptive ? policy.laserAim(tgt, { yaw: cyaw, pitch: cpitch, clear, kill: killNow }, {
++            ready: gunReady, aligned: gunReady && Math.abs(angDiff(predYaw(gYaw, tlg), gYaw)) <= yawGate && Math.abs(predPitch(gPitch, tlg) - gPitch) <= pitGate,
++            delay: tlg, flight: gFlight,
++          }) : charge >= P.laserTakeFrac * lz.full - 1e-6
+           const cy = takeAim ? cyaw : out.aim[0], cp = takeAim ? cpitch : out.aim[1]
+           const ey = Math.abs(angDiff(predYaw(cy, tlz), cyaw)), ep = predPitch(cp, tlz) - cpitch
+           // pitch gate: the room above / below the chosen rung (at the 0.5 rung the pass 2a symmetric gate)
+           const gate = ey <= Math.atan2(tgt.radius * P.laserGateK, lR) && ep <= Math.atan2(tgt.height * (1 - frac) * P.laserGateK, lR) && -ep <= Math.atan2(tgt.height * frac * P.laserGateK, lR)
+-          const mult = me.dmgMult * (tgt.rearOn ? me.rearMult : 1) * (tgt.hasMortar ? 1 + lz.cookoff : 1)
+-          const killNow = charge >= (lz.st.min_charge || 0.15) && laserFrac(charge, lz.full, lz.minFrac) * lz.damage * mult >= tgt.hp
+-          if (takeAim || killNow) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
++          if (takeAim || (!adaptive && killNow)) { out.aim[0] = cyaw; out.aim[1] = cpitch; B.aimKind = 'laser' }
+           if (AC) { rel.t = t; rel.id = tgt.id; rel.tl = ltl; rel.frac = frac; rel.yaw = lyaw; rel.pitch = lpitch; rel.x = tgt.x; rel.y = tgt.y; rel.z = tgt.z; rel.vx = tgt.vx; rel.vy = tgt.vy }
+           if (gate && clear && (full || killNow)) laserRelease = true
+           else if (full && t - lz.fullSince >= P.laserForceS) laserRelease = true
+           else if (B.noCharge && charge < lz.full - 0.1) laserRelease = true      // the legs need full speed now
+           else laserKeep = true
+           if (hold && !killNow && !full && !B.noCharge) { laserKeep = true; laserRelease = false }
+-          if (!takeAim && !killNow && !tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw
++          if (!takeAim && !killNow && (!adaptive || !gunReady) && !tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw
+         } else if (!hold && !B.noCharge && lz.cooldown <= 0.11 && inRange && !(p6 && B.prof.laserVeto(tgt))) {
+           const expected = tgt.losOut || t - tgt.losOutT <= P.laserExpectS || B.peekSoon
+-          if (expected) { laserKeep = true; if (!tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw }
++          if (expected) { laserKeep = true; if ((!adaptive || !gunReady) && !tgt.npc && tgt.dist > P.ffaOffAxisMinD) offAxisYaw = lyaw }
+         }
+       }
+       // ---------------- mortar (lowest priority; shares the torso with the gun)
+@@ -301,6 +317,11 @@
+           }
+         }
+       }
++      if (adaptive && li && B.aimKind !== 'mortar') {
++        predictSelf(gunLatency(li.cooldown))
++        const hint = policy.interruptAim(tgt, laserRelease, { x: ps.x, y: ps.y, z: ps.z + me.muzzleH })
++        if (hint) { out.aim[0] = hint.yaw; out.aim[1] = hint.pitch; B.aimKind = 'short'; offAxisYaw = NaN }
++      }
+       // the gun fires only if the aim the torso will really have (under the final command) is inside its gate
+       if (g && gunReady) {
+         const ey = Math.abs(angDiff(predYaw(out.aim[0], tlg), gYaw)), ep = Math.abs(predPitch(out.aim[1], tlg) - gPitch)
+@@ -338,19 +359,27 @@
+     }
+     // ---------------- lightning: nearest mech inside the cone, no lead
+     if (li && !hold && li.cooldown <= P.readyCd + 0.05) {
+-      const need = B.killSecure ? P.lightMinEnergy : P.lightReserve
+-      if (me.energy >= need) {
+-        const half = p6 ? li.cone / 2 * P.pfLightConeK : li.cone / 2 - P.lightConeMarginDeg * Math.PI / 180
+-        const lRange = p6 ? li.range - 1 : li.range * P.lightRangeFrac
+-        const yawP = predYaw(out.aim[0], P.ioSlewGate === true ? gunLatency(li.cooldown) : tl)      // R6 IO3
+-        const L = B.trackList
+-        for (let k = 0; k < L.length; k++) {
+-          const tr = L[k]
+-          if (tr.dist > lRange) break
+-          if (!tr.listed || !tr.losOut) continue
+-          if (tr.npc && !(t - tr.lastDmgInT <= 3) && !(p6 && me.energy > P.pfLightEnergyNpc * me.maxEnergy)) continue
+-          if (p6 && !tr.npc && !B.prof.isLegal(tr)) continue
+-          if (Math.abs(angDiff(yawP, tr.bearing)) <= half) { out.fire[li.slot] = true; break }
++      if (adaptive) {
++        const delay = gunLatency(li.cooldown)
++        predictSelf(delay)
++        const yaw = predYaw(out.aim[0], delay), origin = { x: ps.x, y: ps.y, z: ps.z + me.muzzleH }
++        const first = policy.nearestLightning(yaw, origin)
++        if (policy.lightningAligned(first, yaw, origin) && policy.energyOk() && (first.crate ? !!shootObj && first.object.id === shootObj.id : policy.legal(first.object, tgt))) out.fire[li.slot] = true
++      } else {
++        const need = B.killSecure ? P.lightMinEnergy : P.lightReserve
++        if (me.energy >= need) {
++          const half = p6 ? li.cone / 2 * P.pfLightConeK : li.cone / 2 - P.lightConeMarginDeg * Math.PI / 180
++          const lRange = p6 ? li.range - 1 : li.range * P.lightRangeFrac
++          const yawP = predYaw(out.aim[0], P.ioSlewGate === true ? gunLatency(li.cooldown) : tl)      // R6 IO3
++          const L = B.trackList
++          for (let k = 0; k < L.length; k++) {
++            const tr = L[k]
++            if (tr.dist > lRange) break
++            if (!tr.listed || !tr.losOut) continue
++            if (tr.npc && !(t - tr.lastDmgInT <= 3) && !(p6 && me.energy > P.pfLightEnergyNpc * me.maxEnergy)) continue
++            if (p6 && !tr.npc && !B.prof.isLegal(tr)) continue
++            if (Math.abs(angDiff(yawP, tr.bearing)) <= half) { out.fire[li.slot] = true; break }
++          }
+         }
+       }
+     }
+--- a/bot/lib/mover.js
++++ b/bot/lib/mover.js
+@@ -214,7 +214,7 @@
+     const bl = Math.hypot(worst.vx, worst.vy) || 1, px = -worst.vy / bl, py = worst.vx / bl
+     const w = dodgeW()
+     let dx = 0, dy = 0, best = dodgeScore(vx0, vy0, rr)
+-    for (const sg of [1, -1]) {
++    for (const sg of B.weaponPolicy ? B.weaponPolicy.dodgeSides(worst.id) : [1, -1]) {
+       const sx = px * sg, sy = py * sg
+       if (!walkable(sx, sy, P.dodgeProbe)) continue
+       let bx = cmd.mx * (1 - w) + sx * w, by = cmd.my * (1 - w) + sy * w
+--- a/bot/lib/params.js
++++ b/bot/lib/params.js
+@@ -8,6 +8,9 @@
+ export const MODE = Object.freeze({ ZONE: 'ZONE', HEAL: 'HEAL', DISENGAGE: 'DISENGAGE', FIGHT: 'FIGHT', LOOT: 'LOOT', DROP: 'DROP', HOLD: 'HOLD' })
+ 
+ export const PARAMS = {
++  pressurePolicy: 'push',
++  weaponCycle: true,
++  weaponVariety: false,
+   debug: false,
+   warmup: true,             // start-up rehearsal (JIT) once per process inside createBrain, see brain.js
+   rehearseN: 800,           // synthetic decisions of the rehearsal (pass 2b: 400 -> 800, fewer compile pauses in the match)
+--- a/bot/lib/pressure.js
++++ b/bot/lib/pressure.js
+@@ -0,0 +1,263 @@
++import { MODE } from './params.js'
++import { setTarget } from './tactics.js'
++import { zoneSlack } from './senses.js'
++
++export function makePressure(B, mover) {
++  const P = B.P, burst = P.pressurePolicy === 'burst'
++  const enabled = burst || P.pressurePolicy === 'push'
++  const S = { on: false, since: -1, reason: '', phase: 'setup', target: null, shot: null, targetSince: -1, score: Infinity, range: 60, ttk: 99, burst: 0, support: 0, finish: false, waypoint: 0, seekX: 0, seekY: 0, seekUntil: -1, lastX: 0, lastY: 0, lastT: -99, capture: null, captureId: -1, captureUntil: -1 }
++  const threshold = Array.isArray(B.cfg.cubes.upgrade_thresholds) ? B.cfg.cubes.upgrade_thresholds.find((x) => Number.isFinite(x) && x > 0) ?? 1 : 1
++  const gunReady = (g) => !g ? Infinity : g.reload > 0 ? Math.max(g.cooldown, g.reload) : g.ammo > 0 ? g.cooldown : Math.max(g.cooldown, g.reloadS)
++  const laserReady = (lz) => !lz ? Infinity : lz.charge > 0 ? Math.max(0, lz.full - lz.charge) : lz.cooldown + lz.full
++  const active = () => S.on
++  const armorFactor = 1 - Math.max(0, Math.min(1, Number.isFinite(B.cfg.mech.armor) ? B.cfg.mech.armor : 0))
++
++  function legal(tr) {
++    return !!tr && !tr.npc && !tr.phantom && tr.hp > 0 && tr.conf >= 0.15 && B.me.t - tr.lastSeen <= 8
++  }
++
++  function rangeFor(tr) {
++    const me = B.me
++    let r = me.gun ? (burst ? 78 : 55) : me.laser ? (burst ? 100 : 78) : 55
++    if (me.lightning && me.energy >= me.lightning.energy * 2) r = Math.max(12, me.lightning.range * (burst ? 0.80 : 0.68))
++    else if (me.laser && !me.gun) r = Math.min(r, me.laser.range * 0.65)
++    else if (me.gun) r = Math.min(r, me.gun.range * 0.65)
++    if (tr.hasLightning && !me.lightning) r = Math.max(r, Math.min(65, (B.cfg.weapons.lightning.range || 45) + 9))
++    return Math.max(8, r)
++  }
++
++  function damageRate(tr, range) {
++    const me = B.me, g = me.gun, lz = me.laser, li = me.lightning
++    let d = 0
++    if (g && range <= g.range) d += g.damage * g.mag / Math.max(0.05, (g.mag - 1) * g.cd + g.reloadS) * B.gunStat.q(range)
++    if (lz && range <= lz.range) d += lz.damage * (tr.hasMortar ? 1 + lz.cookoff : 1) / Math.max(0.05, lz.cd + lz.full)
++    if (li && range <= li.range && me.energy >= li.energy) d += li.damage / Math.max(0.05, li.cd)
++    return Math.max(1, d * me.dmgMult * armorFactor)
++  }
++
++  function burstDamage(tr, range, horizon = 1.5) {
++    const me = B.me, g = me.gun, lz = me.laser, li = me.lightning
++    let d = 0
++    if (g && range <= g.range) {
++      const first = gunReady(g) + range / Math.max(1, g.speed)
++      if (first <= horizon) {
++        const ammo = g.reload > 0 || g.ammo <= 0 ? g.mag : g.ammo
++        const n = Math.min(ammo, 1 + Math.floor((horizon - first) / Math.max(0.01, g.cd)))
++        d += n * g.damage * B.gunStat.q(range)
++      }
++    }
++    if (lz && range <= lz.range && laserReady(lz) + P.latency <= horizon) d += lz.damage * (tr.hasMortar ? 1 + lz.cookoff : 1)
++    if (li && range <= li.range && li.cooldown <= horizon) {
++      const n = Math.min(Math.floor(me.energy / Math.max(0.01, li.energy)), 1 + Math.floor((horizon - li.cooldown) / Math.max(0.01, li.cd)))
++      d += Math.max(0, n) * li.damage
++    }
++    return d * me.dmgMult * armorFactor
++  }
++
++  function support(tr) {
++    let n = 0
++    const L = B.trackList
++    for (let i = 0; i < Math.min(L.length, 48); i++) {
++      const other = L[i]
++      if (other === tr || !legal(other)) continue
++      const d = Math.hypot(other.x - tr.x, other.y - tr.y)
++      if (d < 85) n += (1 - d / 85) * Math.max(0.25, other.conf)
++    }
++    return n
++  }
++
++  function select() {
++    const me = B.me, t = me.t, L = B.trackList, nav = B.nav
++    const component = nav ? nav.component(me.x, me.y) : -1
++    let best = null, bestScore = Infinity, bestRange = 60, bestTtk = 99, bestBurst = 0, bestSupport = 0, shot = null, shotScore = Infinity
++    for (let i = 0; i < Math.min(L.length, 48); i++) {
++      const tr = L[i]
++      if (!legal(tr)) continue
++      const range = rangeFor(tr), attackRange = Math.min(tr.dist, range)
++      const ttk = tr.hp / damageRate(tr, attackRange)
++      const hit = burstDamage(tr, attackRange), nearby = support(tr)
++      const approach = Math.max(0, tr.dist - range) / Math.max(1, me.walk)
++      const finish = tr.listed && tr.losOut && burstDamage(tr, tr.dist) >= tr.hp
++      const age = Math.max(0, t - tr.lastSeen)
++      let score = burst ? 2.4 * tr.hp / Math.max(1, hit) + 0.30 * approach + 1.1 * nearby : ttk + 0.40 * approach + 0.55 * nearby
++      score += age * 0.4 + (tr.losOut ? 0 : 1.2)
++      if (!tr.losOut && nav && component >= 0) {
++        const destination = nav.component(tr.x, tr.y)
++        if (destination >= 0 && destination !== component) score += 12
++      }
++      if (!tr.losOut && mover.isAbandoned(tr.x, tr.y)) score += 10
++      if (finish) score -= 3
++      if (tr === S.target) score -= t - S.targetSince < 1.2 ? 1.6 : 0.8
++      if (score < bestScore) { best = tr; bestScore = score; bestRange = range; bestTtk = ttk; bestBurst = hit; bestSupport = nearby }
++      if (tr.listed && tr.losOut) {
++        const fireScore = tr.hp / damageRate(tr, tr.dist) - (tr === S.target ? 0.5 : 0) - (finish ? 2 : 0)
++        if (fireScore < shotScore) { shot = tr; shotScore = fireScore }
++      }
++    }
++    if (best !== S.target) { S.targetSince = t; B.counters.pressureTargets = (B.counters.pressureTargets || 0) + (best ? 1 : 0) }
++    S.target = best; S.score = bestScore; S.range = bestRange; S.ttk = bestTtk; S.burst = bestBurst; S.support = bestSupport
++    S.shot = best && best.listed && best.losOut ? best : shot
++    S.finish = !!(S.shot && burstDamage(S.shot, S.shot.dist) >= S.shot.hp)
++    setTarget(B, S.shot || best)
++    if (best && best.listed) { S.lastX = best.x; S.lastY = best.y; S.lastT = t }
++    if (best) { best.finishable = S.finish && S.shot === best; best.secure = best.finishable }
++  }
++
++  function captureFinish() {
++    const me = B.me, t = me.t
++    S.capture = null
++    if (!me.inZone) return
++    for (const d of B.drops) {
++      const left = Math.max(0, d.captureS - d.progress)
++      if (d.holder !== me.id || d.landsIn > 0 || d.progress <= 0 || left > 0.600001 || Math.hypot(me.x - d.x, me.y - d.y) > d.radius) continue
++      if (zoneSlack(B, d.x, d.y, t + left + P.tickS) < 0) continue
++      let contested = false
++      for (const tr of B.trackList) if (!tr.npc && tr.listed && tr.hp > 0 && Math.hypot(tr.x - d.x, tr.y - d.y) <= d.radius) { contested = true; break }
++      if (contested) continue
++      if (S.captureId !== d.id) { S.captureId = d.id; S.captureUntil = t + left + 0.1 }
++      if (t > S.captureUntil) continue
++      S.capture = d
++      break
++    }
++  }
++
++  function update(obs) {
++    if (!enabled) return
++    const me = B.me, t = me.t
++    if (!S.on) {
++      const offer = obs && obs.offer
++      const pending = !!(offer && Array.isArray(offer.choices) && offer.choices.length > 0 && me.cubes >= threshold)
++      const upgraded = me.upgrades > 0 || pending
++      if ((me.laser || me.lightning) && upgraded) S.reason = 'secondary-and-upgrade'
++      else if (t >= 60 && me.gun && upgraded) S.reason = 'upgraded-gun-deadline'
++      else if (t >= 90 && (me.gun || me.laser || me.lightning || me.mortar)) S.reason = 'armed-deadline'
++      if (!S.reason) return
++      S.on = true; S.since = t; B.counters.pressureCommits = (B.counters.pressureCommits || 0) + 1
++    }
++    B.pressureActive = true
++    B.pressureEnergyReserve = me.lightning ? Math.max(me.lightning.energy, Math.min(8, 2 * me.lightning.energy)) : 0
++    select()
++    captureFinish()
++  }
++
++  function mode() {
++    if (!S.on) return
++    const t = B.me.t
++    B.holdFire = false; B.holdFirst = false; B.mustDisengage = false; B.losing = false; B.doomed = false
++    B.fightOk = true; B.finishing = S.finish; B.finish = S.finish; B.killSecure = S.finish
++    B.loot = null; B.grab = null; B.dropTask = S.capture; B.shootCrate = null; B.farmNpc = -1; B.idleWait = 0
++    B.stance = 'OFFENSIVE'
++    const want = B.zoneUrgent ? MODE.ZONE : S.capture ? MODE.DROP : S.target ? MODE.FIGHT : MODE.HOLD
++    if (B.mode !== want) { B.mode = want; B.modeSince = t; B.counters.modeSwitches++ }
++    S.phase = B.zoneUrgent ? 'zone' : S.capture ? 'capture-finish' : S.target ? 'commit' : 'seek'
++    if (B.p26) {
++      B.p26.shot = S.shot; B.p26.fight = true; B.p26.finishing = S.finish; B.p26.latch = false; B.p26.avoid = false
++      B.p26.grab = null; B.p26.leg = ''; B.p26.hold = S.range; B.p26.phase = 'pressure'
++    }
++  }
++
++  function allCooling() {
++    const me = B.me
++    const gun = gunReady(me.gun) > 0.35
++    const laser = laserReady(me.laser) > 0.5
++    const li = me.lightning
++    const light = !li || me.energy < li.energy || li.cooldown > 0.25 || !S.target || S.target.dist > li.range
++    return gun && laser && light
++  }
++
++  function seek() {
++    const me = B.me, t = me.t, z = B.zone
++    if (t - S.lastT < 12 && Math.hypot(me.x - S.lastX, me.y - S.lastY) > 10) {
++      mover.moveTo(S.lastX, S.lastY, 1, 4); B.lookHint = true; B.lookX = S.lastX; B.lookY = S.lastY
++      B.legKind = 'pressure-pursue'; return
++    }
++    if (t >= S.seekUntil || Math.hypot(me.x - S.seekX, me.y - S.seekY) < 8) {
++      let heard = -1, weight = 0.5
++      for (let i = 0; i < 12; i++) if (B.heard[i] > weight) { weight = B.heard[i]; heard = i }
++      if (heard >= 0) {
++        const a = -Math.PI + (heard + 0.5) * Math.PI / 6
++        S.seekX = me.x + 75 * Math.cos(a); S.seekY = me.y + 75 * Math.sin(a)
++      } else if (z.known) {
++        const a = S.waypoint++ * Math.PI / 3, r = Math.max(0, Math.min(90, z.nrEff * 0.45))
++        S.seekX = z.nx + r * Math.cos(a); S.seekY = z.ny + r * Math.sin(a)
++      } else {
++        const a = me.yaw + (S.waypoint++ % 3 - 1) * 0.7
++        S.seekX = me.x + 50 * Math.cos(a); S.seekY = me.y + 50 * Math.sin(a)
++      }
++      S.seekUntil = t + 3
++    }
++    mover.moveTo(S.seekX, S.seekY, 1, 4)
++    B.lookHint = true; B.lookX = S.seekX; B.lookY = S.seekY; B.legKind = 'pressure-seek'
++  }
++
++  function legs() {
++    if (!S.on) return false
++    const me = B.me, cmd = B.cmd, tr = S.target
++    if (B.zoneUrgent) {
++      mover.zoneLegs(); B.noCharge = B.zoneMargin < 3 || !me.inZone; B.legKind = 'pressure-zone'; return true
++    }
++    if (S.capture) { mover.moveTo(S.capture.x, S.capture.y, 1, 0.5); B.legKind = 'pressure-capture-finish'; return true }
++    if (!tr) { seek(); return true }
++    let range = S.range
++    if (burst && !S.finish && allCooling()) { S.phase = 'cycle'; range += Math.min(16, range * 0.2) }
++    B.rPrefNow = range
++    if (!tr.losOut || tr.dist > range + 7) {
++      mover.moveTo(tr.x, tr.y, 1, tr.losOut ? range : Math.min(12, range * 0.2))
++      B.legKind = 'pressure-close'
++    } else {
++      if (!mover.standoff(tr.x, tr.y, range, true, true, range - 5, range + 5, burst ? 0.8 : 0.4)) mover.moveTo(tr.x, tr.y, 1, Math.max(4, range - 8))
++      B.legKind = S.phase === 'cycle' ? 'pressure-cycle' : 'pressure-fire'
++    }
++    const reserve = B.pressureEnergyReserve || 0
++    if (me.grounded && me.energy > reserve + 5 && tr.dist > range + 10) cmd.boost = true
++    return true
++  }
++
++  function wantReload() {
++    const me = B.me, g = me.gun
++    if (!g || g.reload > 0 || g.ammo >= g.mag) return false
++    if (g.ammo <= 0) return true
++    if (B.out.fire[g.slot]) return false
++    if (!S.shot) return g.ammo <= g.mag / 2
++    return burst && g.ammo <= Math.max(1, Math.floor(g.mag / 6)) && me.laser && laserReady(me.laser) <= 0.2 && !S.finish
++  }
++
++  function hands(obs) {
++    if (!S.on) return
++    B.out.reload = wantReload()
++    const choices = obs && obs.offer && obs.offer.choices
++    if (!Array.isArray(choices) || choices.length === 0) return
++    const me = B.me
++    const order = burst ? ['laser_damage', 'laser_charge', 'lightning_efficiency', 'lightning_range', 'gun_damage', 'gyros', 'gun_velocity', 'gun_rate', 'gun_mag', 'lightning_chain', 'servos', 'plating', 'armor', 'capacitor', 'reactor', 'jets', 'sensors', 'nanites'] :
++      ['lightning_efficiency', 'laser_damage', 'gun_rate', 'gun_damage', 'laser_charge', 'lightning_range', 'gun_mag', 'gyros', 'servos', 'plating', 'armor', 'lightning_chain', 'reactor', 'capacitor', 'gun_velocity', 'jets', 'sensors', 'nanites']
++    let best = 0, score = Infinity
++    for (let i = 0; i < Math.min(3, choices.length); i++) {
++      const id = choices[i] && choices[i].id
++      if (typeof id !== 'string') continue
++      const at = order.indexOf(id)
++      let s = at < 0 ? 80 : at
++      if (id.startsWith('gun_') && !me.gun) s += 100
++      if (id.startsWith('laser_') && !me.laser) s += 100
++      if (id.startsWith('lightning_') && !me.lightning) s += 100
++      if (id.startsWith('mortar_') && !me.mortar) s += 100
++      if (s < score) { score = s; best = i }
++    }
++    B.out.pick = best
++  }
++
++  function wrapProfile(prof) {
++    if (!prof) return
++    const fireTarget = prof.fireTarget, isLegal = prof.isLegal, crateShot = prof.crateShot, reload = prof.wantReload, laserVeto = prof.laserVeto
++    prof.fireTarget = () => S.on ? S.shot || S.target : fireTarget()
++    prof.isLegal = (tr) => S.on ? legal(tr) : isLegal(tr)
++    prof.crateShot = () => S.on ? null : crateShot()
++    prof.wantReload = (object) => S.on ? wantReload() : reload(object)
++    prof.laserVeto = (target) => S.on ? false : laserVeto(target)
++  }
++
++  function debug() {
++    return { policy: P.pressurePolicy, active: S.on, since: S.since, reason: S.reason, phase: S.phase, target: S.target ? S.target.id : null, range: S.range, ttk: S.ttk, burst: S.burst, support: S.support, finish: S.finish }
++  }
++
++  return { active, update, mode, legs, hands, wrapProfile, legal, damageRate, burstDamage, rangeFor, allCooling, wantReload, debug, state: S }
++}
+--- a/bot/lib/weapon_policy.js
++++ b/bot/lib/weapon_policy.js
+@@ -0,0 +1,247 @@
++import { angDiff, clamp, makeRng, wrapPi } from './aim.js'
++
++const FORWARD = [1, -1], BACKWARD = [-1, 1]
++const value = (x, fallback) => Number.isFinite(x) ? x : fallback
++
++export function makeWeaponPolicy(B) {
++  const P = B.P, cfg = B.cfg
++  const rng = makeRng(((B.rngSeed || 0) ^ 0x31f78a29) >>> 0)
++  const pending = new Map(), answers = new Map(), dodge = new Map()
++  let cachedTick = -1, cachedTime = -1, cachedEnv = '', cachedTarget = -1, cachedZone = false, cachedPressure = false
++  let signature = '', lastEquip = -99, context = null
++  let armorAdd = 0, armorMul = 1
++  for (const upgrade of Array.isArray(cfg.upgrades) ? cfg.upgrades : []) {
++    const stacks = clamp(value(upgrade && upgrade.max, 0), 0, 20)
++    for (const effect of Array.isArray(upgrade && upgrade.effects) ? upgrade.effects : []) {
++      if (!effect || effect.path !== 'mech.armor') continue
++      armorAdd += Math.max(0, value(effect.add, 0)) * stacks
++      armorMul *= Math.max(1, value(effect.mul, 1)) ** stacks
++    }
++  }
++  const damageFloor = Math.max(0, 1 - (Math.max(0, value(cfg.mech.armor, 0)) + armorAdd) * armorMul)
++  const on = () => P.weaponCycle === true
++  const decisionS = () => P.tickS * Math.max(1, value(cfg.match.decide_every, 2))
++  const turnMult = () => B.me.laser && B.me.laser.charge > 0 ? clamp(value(B.me.laser.st.charge_turn_mult, 1), 0.05, 10) : 1
++  const reserve = () => B.pressureActive && Number.isFinite(B.pressureEnergyReserve)
++    ? Math.max(0, B.pressureEnergyReserve) : B.killSecure ? P.lightMinEnergy : P.lightReserve
++
++  function slew(yaw, pitch) {
++    const me = B.me, mult = turnMult()
++    return Math.max(Math.abs(angDiff(me.yaw, yaw)) / Math.max(0.01, me.turnRate * mult),
++      Math.abs(pitch - me.pitch) / Math.max(0.01, me.pitchRate * mult))
++  }
++
++  function laserAim(target, beam, gun) {
++    const me = B.me, lz = me.laser
++    if (!lz || (lz.charge <= 0 && lz.cooldown > P.tickS)) return false
++    const full = lz.charge >= P.laserFullFrac * lz.full
++    if (full) return true
++    if (!beam.clear) return false
++    const beamTurn = slew(beam.yaw, beam.pitch)
++    const chargeWait = lz.charge > 0 ? Math.max(0, lz.full - lz.charge) : lz.cooldown + lz.full
++    const beamEta = Math.max(beamTurn, beam.kill ? 0 : chargeWait)
++    const gunFinish = gun.ready && gun.aligned && me.gun &&
++      me.gun.damage * me.dmgMult * damageFloor >= target.hp && gun.delay + gun.flight + P.tickS < beamEta
++    if (gunFinish) return false
++    if (beam.kill) return true
++    return !gun.ready || chargeWait <= beamTurn + decisionS() + P.tickS
++  }
++
++  function energyOk() {
++    const me = B.me, li = me.lightning
++    if (!li) return false
++    const window = decisionS()
++    const pulses = 1 + Math.floor(Math.max(0, window - li.cooldown - 1e-9) / Math.max(0.01, li.cd))
++    const move = B.cmd.boost ? window * Math.max(0, value(me.grounded ? cfg.mech.boost_drain : cfg.mech.jet_drain, me.grounded ? 17 : 15)) : 0
++    const floor = Math.max(reserve(), B.zoneUrgent ? P.boostReserve : 0)
++    return me.energy - pulses * li.energy - move >= floor
++  }
++
++  function legal(tr, target) {
++    if (!tr || B.holdFire) return false
++    const me = B.me, p6 = B.p26on && B.hunt && B.hunt.firewall()
++    if (tr.npc) return me.t - tr.lastDmgInT <= 3 || tr === target || (p6 && me.energy > P.pfLightEnergyNpc * me.maxEnergy)
++    if (B.pressureActive) return true
++    if (p6) return B.prof.isLegal(tr)
++    return tr === target || tr === B.target || tr.hostile || me.t - tr.lastDmgInT <= 3
++  }
++
++  function nearestLightning(yaw, origin) {
++    const me = B.me, li = me.lightning
++    if (!li) return null
++    let best = null, distance = li.range
++    const blockerAngle = Math.min(Math.PI, li.cone)
++    const consider = (object, z, crate) => {
++      const dx = object.x - origin.x, dy = object.y - origin.y, dz = z - origin.z
++      const d = Math.hypot(dx, dy, dz)
++      if (d > distance + 1e-6 || Math.abs(angDiff(yaw, Math.atan2(dy, dx))) > blockerAngle) return
++      if (B.world && !B.world.shotClear(origin.x, origin.y, origin.z, object.x, object.y, z)) return
++      if (best && Math.abs(d - distance) <= 1e-6 && object.id !== best.object.id) best.ambiguous = true
++      else if (d < distance || !best) {
++        distance = d; best = { object, crate, distance: d, ambiguous: false }
++      }
++    }
++    for (const tr of B.trackList) if (tr.listed && tr.hp > 0) consider(tr, tr.z + tr.height * 0.5, false)
++    for (const c of B.crates.values()) if (me.t - c.seen <= 0.5 && c.hp !== 0) consider(c, c.z + (cfg.crates.height || 2.4) * 0.5, true)
++    return best
++  }
++
++  function lightningAligned(first, yaw, origin) {
++    if (!first || first.ambiguous) return false
++    const li = B.me.lightning, angle = Math.max(0, li.cone / 2 - P.lightConeMarginDeg * Math.PI / 180)
++    return first.distance <= li.range - 1 && Math.abs(angDiff(yaw, Math.atan2(first.object.y - origin.y, first.object.x - origin.x))) <= angle
++  }
++
++  function interruptAim(target, committedBeam, origin) {
++    const me = B.me, li = me.lightning, lz = me.laser
++    if (!on() || !li || B.holdFire || committedBeam || li.cooldown > P.readyCd || !energyOk()) return null
++    if (lz && lz.charge >= P.laserFullFrac * lz.full) return null
++    const delay = P.tickS * Math.max(1, Math.ceil(li.cooldown / P.tickS - 1e-6))
++    let best = null, bestEta = Infinity
++    for (const tr of B.trackList) {
++      if (tr.npc || !tr.listed || !tr.charging || !tr.hasLaser || !legal(tr, target)) continue
++      if (!(tr.aimAtMe || me.t - tr.lastDmgInT <= 1.5)) continue
++      const yaw = Math.atan2(tr.y - origin.y, tr.x - origin.x)
++      const pitch = Math.atan2(tr.z + tr.height * 0.5 - origin.z, Math.hypot(tr.x - origin.x, tr.y - origin.y))
++      if (pitch < me.minPitch || pitch > me.maxPitch) continue
++      const actual = wrapPi(me.yaw + clamp(angDiff(me.yaw, yaw), -me.turnRate * turnMult() * delay, me.turnRate * turnMult() * delay))
++      const first = nearestLightning(actual, origin)
++      if (!first || first.crate || first.object !== tr || !lightningAligned(first, actual, origin)) continue
++      const eta = slew(yaw, pitch)
++      if (eta < bestEta) { bestEta = eta; best = { yaw, pitch, target: tr } }
++    }
++    return best
++  }
++
++  function refresh() {
++    const me = B.me, targetId = B.target ? B.target.id : -1
++    const sig = me.weapons.map((w) => w ? w.kind : '-').join(':')
++    if (sig !== signature) {
++      if (signature) lastEquip = me.t
++      signature = sig; pending.clear(); answers.clear(); cachedTick = -1
++    }
++    if (cachedTick === B.tick && cachedTime === me.t && cachedEnv === B.env && cachedTarget === targetId && cachedZone === B.zoneUrgent && cachedPressure === !!B.pressureActive) return
++    if (cachedTarget !== targetId || cachedEnv !== B.env) pending.clear()
++    cachedTick = B.tick; cachedTime = me.t; cachedEnv = B.env; cachedTarget = targetId; cachedZone = B.zoneUrgent; cachedPressure = !!B.pressureActive
++    answers.clear()
++    context = B.target && B.target.listed && B.target.hp > 0 ? B.target : null
++    if (!context) for (const tr of B.trackList) {
++      if (!tr.npc && tr.listed && tr.hp > 0 && (tr.hostile || me.t - tr.lastDmgInT <= 3 || tr.aimAtMe)) { context = tr; break }
++    }
++  }
++
++  function capacity(kind, held, tr) {
++    const me = B.me, base = cfg.weapons[kind] || {}, st = held ? held.st : base
++    const read = (key, fallback) => Math.max(0, value(st[key], value(base[key], fallback)))
++    const horizon = 4, range = held ? held.range : read('range', 0)
++    if (!tr.losOut || tr.dist > range - 1) return 0
++    const damage = (held ? held.damage : read('damage', 0)) * me.dmgMult
++    const cd = Math.max(0.01, held ? held.cd : read('cooldown', 1))
++    const equip = held ? 0 : Math.max(value(cfg.loot.equip_s, 1), cd)
++    const pitch = Math.atan2(tr.z + tr.height * 0.5 - me.z - me.muzzleH, Math.hypot(tr.x - me.x, tr.y - me.y))
++    if (pitch < me.minPitch || pitch > me.maxPitch) return 0
++    const turn = slew(tr.bearing, pitch)
++    if (kind === 'gun') {
++      const mag = Math.max(1, held ? held.mag : read('mag', 12)), reload = held ? held.reloadS : read('reload', 2.4)
++      let ammo = held ? held.ammo : mag, wait = Math.max(equip, held ? Math.max(held.cooldown, held.reload) : 0)
++      if (!held) wait += reload // Pickup metadata does not reveal a dropped gun's remaining ammunition.
++      if (held && held.reload > 0) ammo = mag
++      if (ammo <= 0) { ammo = mag; wait = Math.max(wait, reload) }
++      const travel = tr.dist / Math.max(5, held ? held.speed : read('speed', 252))
++      wait = Math.max(wait, turn) + travel
++      if (wait > horizon) return 0
++      let shots = Math.min(ammo, 1 + Math.floor((horizon - wait) / cd))
++      if (shots === ammo) {
++        const next = wait + (ammo - 1) * cd + Math.max(reload, cd)
++        if (next <= horizon) shots += Math.min(mag, 1 + Math.floor((horizon - next) / cd))
++      }
++      const spread = held ? held.spread : read('spread_deg', 0.6) * Math.PI / 180
++      const fit = Math.min(1, (tr.radius + 0.3) / Math.max(0.1, tr.dist * Math.max(spread, 0.001)))
++      return shots * damage * fit * (tr.revs >= P.revCount ? 0.7 : 1)
++    }
++    if (kind === 'laser') {
++      const full = Math.max(0.01, held ? held.full : read('charge', 0.75))
++      const charge = held ? held.charge : 0
++      const wait = Math.max(turn, Math.max(equip, held && charge <= 0 ? held.cooldown : 0) + Math.max(0, full - charge))
++      if (wait > horizon) return 0
++      const shots = 1 + Math.floor((horizon - wait) / (full + cd))
++      let score = shots * damage * (tr.hasMortar ? 1 + read('cookoff', 0.6) : 1)
++      if (tr.hasLightning) {
++        const lostTravel = me.walk * (1 - me.chargeMoveMult) * Math.max(0, full - charge) * shots
++        score /= 1 + lostTravel / Math.max(5, tr.dist - value(cfg.weapons.lightning.range, 45))
++      }
++      return score
++    }
++    if (kind === 'lightning') {
++      const wait = Math.max(turn, equip, held ? held.cooldown : 0)
++      if (wait > horizon) return 0
++      const cost = Math.max(0.01, held ? held.energy : read('energy', 3))
++      const shots = Math.min(1 + Math.floor((horizon - wait) / cd), Math.floor(Math.max(0, me.energy - reserve()) / cost))
++      return shots * damage + (shots > 0 && tr.hasLaser && tr.charging ? damage : 0)
++    }
++    return 0
++  }
++
++  function pickup(kind, fallback) {
++    if (!on() || !['gun', 'laser', 'lightning'].includes(kind)) return fallback
++    refresh()
++    if (answers.has(kind)) return answers.get(kind)
++    const me = B.me
++    let result = null
++    if (me.weapons.some((w) => w && w.kind === kind)) { pending.delete(kind); answers.set(kind, null); return null }
++    if (me.weapons.some((w) => !w)) { pending.delete(kind); result = fallback }
++    else if (me.t - lastEquip < 4) pending.delete(kind)
++    else if (!context) {
++      pending.delete(kind)
++      const slot = fallback && fallback.drop
++      if ((slot === 0 || slot === 1) && !(me.weapons[slot].kind === 'laser' && me.weapons[slot].charge > 0)) result = fallback
++    } else if (!B.zoneUrgent && (B.pressureActive || !B.mustDisengage) && (B.pressureActive || !(me.hpf < 0.3 && me.t - me.lastHurtT <= 3))) {
++      const gain = capacity(kind, null, context)
++      let slot = -1, bestGain = 0
++      for (let i = 0; i < 2; i++) {
++        const w = me.weapons[i]
++        if (!w || (w.kind === 'laser' && w.charge > 0) || (!B.pressureActive && B.env !== 'FFA' && w.kind === 'gun')) continue
++        const old = capacity(w.kind, w, context), advantage = gain - old * 1.25 - 60
++        if (advantage > bestGain) { bestGain = advantage; slot = i }
++      }
++      if (slot >= 0) {
++        let entry = pending.get(kind)
++        if (!entry || entry.slot !== slot || entry.target !== context.id || me.t - entry.last > Math.max(0.3, decisionS() * 2.1)) {
++          entry = { slot, target: context.id, since: me.t, last: me.t }; pending.set(kind, entry)
++        }
++        entry.last = me.t
++        if (me.t - entry.since + 1e-6 >= (B.pressureActive ? decisionS() : 0.5)) result = { drop: slot }
++      } else pending.delete(kind)
++    } else pending.delete(kind)
++    answers.set(kind, result)
++    return result
++  }
++
++  function pickupLimits() {
++    return { range: Math.max(0, Math.min(value(P.takeReach, 3.6), value(cfg.loot.pickup_radius, 4))),
++      height: Math.max(0, Math.min(value(P.takeDz, 3.8), 4)) }
++  }
++
++  function preparePickups() {
++    if (!on() || !B.pressureActive || B.me.weapons.some(w => !w)) return
++    refresh()
++    if (!context) return
++    const me = B.me, limits = pickupLimits()
++    const nearby = limits.range + Math.max(me.walk, me.boostSpeed) * Math.max(0.5, 2.1 * decisionS())
++    for (const p of B.pickups.values()) {
++      if (me.t - p.seen > 1.5 || Math.abs(p.z - me.z) > limits.height || Math.hypot(p.x - me.x, p.y - me.y) > nearby) continue
++      pickup(p.kind, null)
++    }
++  }
++
++  function dodgeSides(id) {
++    if (!on() || P.weaponVariety !== true) return FORWARD
++    if (!dodge.has(id)) {
++      if (dodge.size >= 64) dodge.delete(dodge.keys().next().value)
++      dodge.set(id, rng() < 0.5 ? FORWARD : BACKWARD)
++    }
++    return dodge.get(id)
++  }
++
++  return { on, turnMult, slew, laserAim, energyOk, legal, nearestLightning, lightningAligned, interruptAim, capacity, pickup, pickupLimits, preparePickups, dodgeSides }
++}

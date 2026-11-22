@@ -1,0 +1,27 @@
+{
+  "binary": "bench/bin/compact",
+  "binary_sha256": "e1a487911743df2f77e9314632bec8159b6b0ad8518d4f7c60a004268035bf7c",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "c1b9d4ca510ab53268f68fa79c9048ce3bf96839a13d24ab0e45ef0b66b854b7",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/compact",
+    "root": "panel/database/compact-data",
+    "mode": [
+      "1",
+      "4",
+      "8",
+      "1:scalar",
+      "1:slow"
+    ],
+    "report": "panel/database/compact-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "compact_cases": true,
+    "second_reader": true
+  }
+}

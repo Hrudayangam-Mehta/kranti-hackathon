@@ -1,0 +1,307 @@
+ref: user_daily 0 rows, campaign_daily 0 rows, sessions 0/0, diag {'ev_surviving': 0}
+{"case": "empty", "mode": "1", "repeat": 0, "seconds": 0.0020293339985073544, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "1", "repeat": 1, "seconds": 0.002165274003345985, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "8", "repeat": 0, "seconds": 0.0026178120024269447, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "8", "repeat": 1, "seconds": 0.01665959299862152, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "1:scalar", "repeat": 0, "seconds": 0.0016880789989954792, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "1:scalar", "repeat": 1, "seconds": 0.004484574994421564, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "1:slow", "repeat": 0, "seconds": 0.0022165069967741147, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "empty", "mode": "1:slow", "repeat": 1, "seconds": 0.0029537890004576184, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'events_parse_dropped': 1, 'ev_bad_ts': 1, 'ev_late': 1, 'ev_surviving': 4}
+{"case": "dedup_before_validation", "mode": "1", "repeat": 0, "seconds": 0.002903563996369485, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "1", "repeat": 1, "seconds": 0.0030205209986888804, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "8", "repeat": 0, "seconds": 0.0047278179990826175, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "8", "repeat": 1, "seconds": 0.008298979999381118, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "1:scalar", "repeat": 0, "seconds": 0.0029621729991049506, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "1:scalar", "repeat": 1, "seconds": 0.0034747360041365027, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "1:slow", "repeat": 0, "seconds": 0.0021608920069411397, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dedup_before_validation", "mode": "1:slow", "repeat": 1, "seconds": 0.0049297030054731295, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 2 rows, sessions 3/3, diag {'links_dropped': 2, 'events_parse_dropped': 3, 'ev_bad_user': 1, 'ev_bad_price': 2, 'ev_bad_product': 1, 'ev_bad_ts': 1, 'ev_bad_type': 1, 'ev_surviving': 3, 'clicks_parse_dropped': 1, 'ck_bad_campaign': 1, 'ck_bad_ts': 1}
+{"case": "csv_and_nulls", "mode": "1", "repeat": 0, "seconds": 0.0025142619997495785, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "1", "repeat": 1, "seconds": 0.002976484000100754, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "8", "repeat": 0, "seconds": 0.007824143001926132, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "8", "repeat": 1, "seconds": 0.005569568995269947, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "1:scalar", "repeat": 0, "seconds": 0.003195575001882389, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "1:scalar", "repeat": 1, "seconds": 0.0034737250025500543, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "1:slow", "repeat": 0, "seconds": 0.0023362869978882372, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "csv_and_nulls", "mode": "1:slow", "repeat": 1, "seconds": 0.0031309859987231903, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 1 rows, sessions 3/3, diag {'ev_surviving': 6}
+{"case": "session_boundaries", "mode": "1", "repeat": 0, "seconds": 0.002312221004103776, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "1", "repeat": 1, "seconds": 0.0025748979969648644, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "8", "repeat": 0, "seconds": 0.0030144810007186607, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "8", "repeat": 1, "seconds": 0.0038366829976439476, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "1:scalar", "repeat": 0, "seconds": 0.001874530003988184, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "1:scalar", "repeat": 1, "seconds": 0.0031930110053508542, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "1:slow", "repeat": 0, "seconds": 0.0017727969971019775, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "session_boundaries", "mode": "1:slow", "repeat": 1, "seconds": 0.004149914995650761, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 3 rows, sessions 2/2, diag {'ev_surviving': 2, 'ck_bad_ts': 1, 'ck_bad_campaign': 1}
+{"case": "seven_day_clicks", "mode": "1", "repeat": 0, "seconds": 0.0024115810010698624, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "1", "repeat": 1, "seconds": 0.006071857002098113, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "8", "repeat": 0, "seconds": 0.014523618003295269, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "8", "repeat": 1, "seconds": 0.004945067994412966, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "1:scalar", "repeat": 0, "seconds": 0.0023538269961136393, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "1:scalar", "repeat": 1, "seconds": 0.003450513002462685, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "1:slow", "repeat": 0, "seconds": 0.0022808749999967404, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "seven_day_clicks", "mode": "1:slow", "repeat": 1, "seconds": 0.0036935340031050146, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 3 rows, sessions 1/1, diag {'ev_surviving': 1}
+{"case": "mixed_shape_tie_ids", "mode": "1", "repeat": 0, "seconds": 0.0020608589984476566, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "1", "repeat": 1, "seconds": 0.0032567970047239214, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "8", "repeat": 0, "seconds": 0.004433114001585636, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "8", "repeat": 1, "seconds": 0.011724928001058288, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "1:scalar", "repeat": 0, "seconds": 0.007048580999253318, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "1:scalar", "repeat": 1, "seconds": 0.002748430000792723, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "1:slow", "repeat": 0, "seconds": 0.0030093489986029454, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "mixed_shape_tie_ids", "mode": "1:slow", "repeat": 1, "seconds": 0.003313953995530028, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 2}
+{"case": "long_link_chain", "mode": "1", "repeat": 0, "seconds": 0.010239215996989515, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "1", "repeat": 1, "seconds": 0.0032492249956703745, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "8", "repeat": 0, "seconds": 0.0038766340003348887, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "8", "repeat": 1, "seconds": 0.004443540005013347, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "1:scalar", "repeat": 0, "seconds": 0.0024805610009934753, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "1:scalar", "repeat": 1, "seconds": 0.006853864004369825, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "1:slow", "repeat": 0, "seconds": 0.0024591880064690486, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_link_chain", "mode": "1:slow", "repeat": 1, "seconds": 0.0033021760027622804, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 1 rows, sessions 3/3, diag {'ev_surviving': 5}
+{"case": "category_order_and_unknown", "mode": "1", "repeat": 0, "seconds": 0.0018596119989524595, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "1", "repeat": 1, "seconds": 0.002601144995423965, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "8", "repeat": 0, "seconds": 0.0030728659985470586, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "8", "repeat": 1, "seconds": 0.005587785002717283, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "1:scalar", "repeat": 0, "seconds": 0.002062751998892054, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "1:scalar", "repeat": 1, "seconds": 0.0025046570008271374, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "1:slow", "repeat": 0, "seconds": 0.002164167002774775, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_order_and_unknown", "mode": "1:slow", "repeat": 1, "seconds": 0.004123922000871971, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_bad_ts': 3, 'ev_surviving': 4}
+{"case": "leap_offsets", "mode": "1", "repeat": 0, "seconds": 0.0019227579978178255, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "1", "repeat": 1, "seconds": 0.0029800539996358566, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "8", "repeat": 0, "seconds": 0.003596436006773729, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "8", "repeat": 1, "seconds": 0.00353536300099222, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "1:scalar", "repeat": 0, "seconds": 0.0018949959994642995, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "1:scalar", "repeat": 1, "seconds": 0.002557248000812251, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "1:slow", "repeat": 0, "seconds": 0.0027304719988023862, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "leap_offsets", "mode": "1:slow", "repeat": 1, "seconds": 0.002486249002686236, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 110}
+{"case": "one_session_three_days", "mode": "1", "repeat": 0, "seconds": 0.0023197949994937517, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "1", "repeat": 1, "seconds": 0.0026058820003527217, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "8", "repeat": 0, "seconds": 0.004599457999574952, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "8", "repeat": 1, "seconds": 0.005195118996198289, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "1:scalar", "repeat": 0, "seconds": 0.0022326909966068342, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "1:scalar", "repeat": 1, "seconds": 0.0026603949954733253, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "1:slow", "repeat": 0, "seconds": 0.0026871559966821223, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "one_session_three_days", "mode": "1:slow", "repeat": 1, "seconds": 0.0030208960015443154, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_bad_ts': 1, 'ev_bad_price': 1, 'ev_surviving': 2}
+{"case": "long_lines_and_zero_digits", "mode": "1", "repeat": 0, "seconds": 0.002142434001143556, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "1", "repeat": 1, "seconds": 0.0028090929990867153, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "8", "repeat": 0, "seconds": 0.003924848002498038, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "8", "repeat": 1, "seconds": 0.0040567590040154755, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "1:scalar", "repeat": 0, "seconds": 0.002893030999985058, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "1:scalar", "repeat": 1, "seconds": 0.0028738520049955696, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "1:slow", "repeat": 0, "seconds": 0.0028269299946259707, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "long_lines_and_zero_digits", "mode": "1:slow", "repeat": 1, "seconds": 0.003566209001292009, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_surviving': 2}
+{"case": "all_input_filenames", "mode": "1", "repeat": 0, "seconds": 0.0025243079944630153, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "1", "repeat": 1, "seconds": 0.0027140669990330935, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "8", "repeat": 0, "seconds": 0.0040936360019259155, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "8", "repeat": 1, "seconds": 0.004616264006472193, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "1:scalar", "repeat": 0, "seconds": 0.0026749780008685775, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "1:scalar", "repeat": 1, "seconds": 0.0027107819987577386, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "1:slow", "repeat": 0, "seconds": 0.0019011959957424551, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "all_input_filenames", "mode": "1:slow", "repeat": 1, "seconds": 0.003346092998981476, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 270}
+{"case": "category_fallback", "mode": "1", "repeat": 0, "seconds": 0.0030915940005797893, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "1", "repeat": 1, "seconds": 0.0032516890059923753, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "8", "repeat": 0, "seconds": 0.0045808200011379085, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "8", "repeat": 1, "seconds": 0.004302004002965987, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "1:scalar", "repeat": 0, "seconds": 0.002803012997901533, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "1:scalar", "repeat": 1, "seconds": 0.003079696005443111, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "1:slow", "repeat": 0, "seconds": 0.0021291040029609576, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "category_fallback", "mode": "1:slow", "repeat": 1, "seconds": 0.002806919001159258, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 1}
+{"case": "window_fallback", "mode": "1", "repeat": 0, "seconds": 0.0023840939975343645, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "1", "repeat": 1, "seconds": 0.0022121299989521503, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "8", "repeat": 0, "seconds": 0.0024971660022856668, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "8", "repeat": 1, "seconds": 0.003108420001808554, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "1:scalar", "repeat": 0, "seconds": 0.002172499996959232, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "1:scalar", "repeat": 1, "seconds": 0.001914695996674709, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "1:slow", "repeat": 0, "seconds": 0.002304712004843168, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "window_fallback", "mode": "1:slow", "repeat": 1, "seconds": 0.0026341449993196875, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'events_parse_dropped': 3982, 'ev_surviving': 1}
+{"case": "page_boundary_end", "mode": "1", "repeat": 0, "seconds": 0.0021182769996812567, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "1", "repeat": 1, "seconds": 0.0021169449973967858, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "8", "repeat": 0, "seconds": 0.003247052001825068, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "8", "repeat": 1, "seconds": 0.0037779630001750775, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "1:scalar", "repeat": 0, "seconds": 0.003621873998781666, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "1:scalar", "repeat": 1, "seconds": 0.003901481999491807, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "1:slow", "repeat": 0, "seconds": 0.002197167996200733, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "page_boundary_end", "mode": "1:slow", "repeat": 1, "seconds": 0.03540502200485207, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 83 rows, campaign_daily 42 rows, sessions 126/126, diag {'ev_bad_type': 94, 'ev_bad_product': 67, 'ev_bad_ts': 25, 'ev_late': 43, 'ev_bad_price': 104, 'ev_bad_user': 38, 'ev_surviving': 129, 'ck_bad_campaign': 135, 'ck_bad_user': 24}
+{"case": "random_17", "mode": "1", "repeat": 0, "seconds": 0.0036043180007254705, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "1", "repeat": 1, "seconds": 0.0027013680009986274, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "8", "repeat": 0, "seconds": 0.004926036999677308, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "8", "repeat": 1, "seconds": 0.004780725997989066, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "1:scalar", "repeat": 0, "seconds": 0.002763873002550099, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "1:scalar", "repeat": 1, "seconds": 0.003353204003360588, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "1:slow", "repeat": 0, "seconds": 0.0027186340012121946, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_17", "mode": "1:slow", "repeat": 1, "seconds": 0.004436739000084344, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 87 rows, campaign_daily 42 rows, sessions 137/137, diag {'ev_bad_ts': 28, 'ev_bad_price': 101, 'ev_bad_type': 82, 'ev_late': 41, 'ev_bad_product': 74, 'ev_bad_user': 34, 'ev_surviving': 140, 'ck_bad_campaign': 113, 'ck_bad_user': 20}
+{"case": "random_31", "mode": "1", "repeat": 0, "seconds": 0.0028997219997108914, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "1", "repeat": 1, "seconds": 0.003033845998288598, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "8", "repeat": 0, "seconds": 0.004803689997061156, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "8", "repeat": 1, "seconds": 0.004423539001436438, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "1:scalar", "repeat": 0, "seconds": 0.0030345470004249364, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "1:scalar", "repeat": 1, "seconds": 0.003050430997973308, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "1:slow", "repeat": 0, "seconds": 0.0027759919976233505, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_31", "mode": "1:slow", "repeat": 1, "seconds": 0.003138045001833234, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 86 rows, campaign_daily 43 rows, sessions 134/134, diag {'ev_bad_price': 95, 'ev_bad_product': 81, 'ev_bad_type': 79, 'ev_bad_user': 36, 'ev_bad_ts': 27, 'ev_late': 43, 'ev_surviving': 139, 'ck_bad_campaign': 142, 'ck_bad_user': 13}
+{"case": "random_53", "mode": "1", "repeat": 0, "seconds": 0.002826178999384865, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "1", "repeat": 1, "seconds": 0.0026086660000146367, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "8", "repeat": 0, "seconds": 0.004966638996847905, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "8", "repeat": 1, "seconds": 0.004260621004505083, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "1:scalar", "repeat": 0, "seconds": 0.002965621999464929, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "1:scalar", "repeat": 1, "seconds": 0.0028578979981830344, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "1:slow", "repeat": 0, "seconds": 0.0026105790020665154, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_53", "mode": "1:slow", "repeat": 1, "seconds": 0.0030589149973820895, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 97 rows, campaign_daily 42 rows, sessions 144/144, diag {'ev_bad_type': 91, 'ev_bad_price': 87, 'ev_late': 55, 'ev_bad_user': 27, 'ev_bad_ts': 29, 'ev_bad_product': 64, 'ev_surviving': 147, 'ck_bad_campaign': 126, 'ck_bad_user': 26}
+{"case": "random_101", "mode": "1", "repeat": 0, "seconds": 0.002716951996262651, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "1", "repeat": 1, "seconds": 0.0028492940036812797, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "8", "repeat": 0, "seconds": 0.004338450002251193, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "8", "repeat": 1, "seconds": 0.004109620000235736, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "1:scalar", "repeat": 0, "seconds": 0.0030433899955824018, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "1:scalar", "repeat": 1, "seconds": 0.0029196510004112497, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "1:slow", "repeat": 0, "seconds": 0.002552079997258261, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_101", "mode": "1:slow", "repeat": 1, "seconds": 0.0030466449970845133, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 94 rows, campaign_daily 42 rows, sessions 149/149, diag {'ev_bad_type': 79, 'ev_bad_product': 78, 'ev_bad_price': 91, 'ev_bad_ts': 27, 'ev_bad_user': 30, 'ev_late': 44, 'ev_surviving': 151, 'ck_bad_campaign': 136, 'ck_bad_user': 30}
+{"case": "random_2028", "mode": "1", "repeat": 0, "seconds": 0.003322937998746056, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "1", "repeat": 1, "seconds": 0.0032028440036810935, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "8", "repeat": 0, "seconds": 0.0045318759948713705, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "8", "repeat": 1, "seconds": 0.0051553279990912415, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "1:scalar", "repeat": 0, "seconds": 0.0028913290007039905, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "1:scalar", "repeat": 1, "seconds": 0.0030072459994698875, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "1:slow", "repeat": 0, "seconds": 0.0025186089987982996, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "random_2028", "mode": "1:slow", "repeat": 1, "seconds": 0.0028648279985645786, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 7 rows, campaign_daily 6 rows, sessions 10/10, diag {'ev_surviving': 130}
+{"case": "bin_boundary_geometry", "mode": "1", "repeat": 0, "seconds": 0.00225172199861845, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "1", "repeat": 1, "seconds": 0.0027110720038763247, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "8", "repeat": 0, "seconds": 0.004062999003508594, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "8", "repeat": 1, "seconds": 0.00909400699310936, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "1:scalar", "repeat": 0, "seconds": 0.0024861299971234985, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "1:scalar", "repeat": 1, "seconds": 0.003172938995703589, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "1:slow", "repeat": 0, "seconds": 0.0026813080039573833, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_boundary_geometry", "mode": "1:slow", "repeat": 1, "seconds": 0.002986703999340534, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 217 rows, campaign_daily 6 rows, sessions 3229/3229, diag {'ev_surviving': 9600}
+{"case": "bin_random_boundaries", "mode": "1", "repeat": 0, "seconds": 0.006991274996835273, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "1", "repeat": 1, "seconds": 0.006723291000525933, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "8", "repeat": 0, "seconds": 0.005833876995893661, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "8", "repeat": 1, "seconds": 0.006013858997903299, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "1:scalar", "repeat": 0, "seconds": 0.008116643999528605, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "1:scalar", "repeat": 1, "seconds": 0.008647214999655262, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "1:slow", "repeat": 0, "seconds": 0.007068972001434304, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_random_boundaries", "mode": "1:slow", "repeat": 1, "seconds": 0.007244287000503391, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 4 rows, sessions 2/2, diag {'ev_surviving': 50000}
+{"case": "bin_shared_device_whale", "mode": "1", "repeat": 0, "seconds": 0.012126259003707673, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "1", "repeat": 1, "seconds": 0.01051519600150641, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "8", "repeat": 0, "seconds": 0.012591942002472933, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "8", "repeat": 1, "seconds": 0.013514263999240939, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "1:scalar", "repeat": 0, "seconds": 0.01800771400303347, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "1:scalar", "repeat": 1, "seconds": 0.02523105799627956, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "1:slow", "repeat": 0, "seconds": 0.03728040699934354, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "bin_shared_device_whale", "mode": "1:slow", "repeat": 1, "seconds": 0.028034426999511197, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 70000 rows, campaign_daily 1 rows, sessions 70000/70000, diag {'ev_surviving': 70000}
+{"case": "parquet_multiple_pages", "mode": "1", "repeat": 0, "seconds": 0.03607611900224583, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "1", "repeat": 1, "seconds": 0.02247131800686475, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "8", "repeat": 0, "seconds": 0.009402571005921345, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "8", "repeat": 1, "seconds": 0.011899753997568041, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "1:scalar", "repeat": 0, "seconds": 0.02775198200106388, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "1:scalar", "repeat": 1, "seconds": 0.024962995004898403, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "1:slow", "repeat": 0, "seconds": 0.04854063100356143, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "parquet_multiple_pages", "mode": "1:slow", "repeat": 1, "seconds": 0.04276432899496285, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 1 rows, campaign_daily 1 rows, sessions 1/1, diag {'ev_surviving': 20000}
+{"case": "purchase_bins_no_purchases", "mode": "1", "repeat": 0, "seconds": 0.004369937996671069, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "1", "repeat": 1, "seconds": 0.003925693003111519, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "8", "repeat": 0, "seconds": 0.00577757599967299, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "8", "repeat": 1, "seconds": 0.007348210994678084, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "1:scalar", "repeat": 0, "seconds": 0.010267646001011599, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "1:scalar", "repeat": 1, "seconds": 0.011076103000959847, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "1:slow", "repeat": 0, "seconds": 0.010822887998074293, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_no_purchases", "mode": "1:slow", "repeat": 1, "seconds": 0.010369568997703027, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 2 rows, sessions 2/2, diag {'ev_surviving': 12000}
+{"case": "purchase_bins_all_purchases", "mode": "1", "repeat": 0, "seconds": 0.003934025997295976, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "1", "repeat": 1, "seconds": 0.003679870002088137, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "8", "repeat": 0, "seconds": 0.006138564000139013, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "8", "repeat": 1, "seconds": 0.005359009999665432, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "1:scalar", "repeat": 0, "seconds": 0.005057952002971433, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "1:scalar", "repeat": 1, "seconds": 0.00558062700292794, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "1:slow", "repeat": 0, "seconds": 0.006760077994840685, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_all_purchases", "mode": "1:slow", "repeat": 1, "seconds": 0.00781905600160826, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 8 rows, campaign_daily 2 rows, sessions 8/8, diag {'ev_bad_price': 480, 'ev_surviving': 1440}
+{"case": "purchase_bins_alternating_invalid", "mode": "1", "repeat": 0, "seconds": 0.003221592996851541, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "1", "repeat": 1, "seconds": 0.0033462920036981814, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "8", "repeat": 0, "seconds": 0.005132767000759486, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "8", "repeat": 1, "seconds": 0.005134017003001645, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "1:scalar", "repeat": 0, "seconds": 0.0034338850018684752, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "1:scalar", "repeat": 1, "seconds": 0.003408405995287467, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "1:slow", "repeat": 0, "seconds": 0.002945293999800924, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "purchase_bins_alternating_invalid", "mode": "1:slow", "repeat": 1, "seconds": 0.003458762999798637, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 6 rows, campaign_daily 1 rows, sessions 7/7, diag {'ev_bad_user': 1, 'ev_late': 1, 'ev_bad_ts': 1, 'ev_surviving': 10}
+{"case": "compact_ingest_and_lanes", "mode": "1", "repeat": 0, "seconds": 0.002094391005812213, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "1", "repeat": 1, "seconds": 0.0018400139961158857, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "8", "repeat": 0, "seconds": 0.0045807780043105595, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "8", "repeat": 1, "seconds": 0.003976530002546497, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "1:scalar", "repeat": 0, "seconds": 0.0020089610043214634, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "1:scalar", "repeat": 1, "seconds": 0.002027598995482549, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "1:slow", "repeat": 0, "seconds": 0.0028309300032560714, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_ingest_and_lanes", "mode": "1:slow", "repeat": 1, "seconds": 0.0026476720013306476, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 2 rows, campaign_daily 1 rows, sessions 2/2, diag {'events_parse_dropped': 196324, 'ev_bad_ts': 1, 'ev_surviving': 2}
+{"case": "compact_chunk_boundaries", "mode": "1", "repeat": 0, "seconds": 0.005236913995759096, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "1", "repeat": 1, "seconds": 0.00562896000337787, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "8", "repeat": 0, "seconds": 0.004088368994416669, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "8", "repeat": 1, "seconds": 0.004373571995529346, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "1:scalar", "repeat": 0, "seconds": 0.07413836100022309, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "1:scalar", "repeat": 1, "seconds": 0.08374113099853275, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "1:slow", "repeat": 0, "seconds": 0.003003893005370628, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_chunk_boundaries", "mode": "1:slow", "repeat": 1, "seconds": 0.0036033329961355776, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 48 rows, campaign_daily 1 rows, sessions 48/48, diag {'ev_surviving': 48}
+{"case": "compact_exact_hash_collisions", "mode": "1", "repeat": 0, "seconds": 0.002641901999595575, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "1", "repeat": 1, "seconds": 0.0026173959995503537, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "8", "repeat": 0, "seconds": 0.0039344850010820664, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "8", "repeat": 1, "seconds": 0.0034368999986327253, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "1:scalar", "repeat": 0, "seconds": 0.0024232710056821816, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "1:scalar", "repeat": 1, "seconds": 0.003163825997035019, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "1:slow", "repeat": 0, "seconds": 0.0026186169998254627, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_exact_hash_collisions", "mode": "1:slow", "repeat": 1, "seconds": 0.0022003819976816885, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 7 rows, campaign_daily 1 rows, sessions 7/7, diag {'ev_surviving': 105}
+{"case": "compact_mixed_component_canonicals", "mode": "1", "repeat": 0, "seconds": 0.005783254004199989, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "1", "repeat": 1, "seconds": 0.0040221690069301985, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "8", "repeat": 0, "seconds": 0.004351709998445585, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "8", "repeat": 1, "seconds": 0.004944840999087319, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "1:scalar", "repeat": 0, "seconds": 0.0025114740055869333, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "1:scalar", "repeat": 1, "seconds": 0.0033884669974213466, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "1:slow", "repeat": 0, "seconds": 0.0021234349987935275, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact_mixed_component_canonicals", "mode": "1:slow", "repeat": 1, "seconds": 0.003003721998538822, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 16 rows, campaign_daily 1 rows, sessions 16/16, diag {'ev_surviving': 16}
+{"case": "compact16_id_boundaries", "mode": "1", "repeat": 0, "seconds": 0.0017920519967447035, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "1", "repeat": 1, "seconds": 0.0025404580010217614, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "8", "repeat": 0, "seconds": 0.0032942229954642244, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "8", "repeat": 1, "seconds": 0.004706107996753417, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "1:scalar", "repeat": 0, "seconds": 0.001853034998930525, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "1:scalar", "repeat": 1, "seconds": 0.0027099060025648214, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "1:slow", "repeat": 0, "seconds": 0.0021206199962762184, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_id_boundaries", "mode": "1:slow", "repeat": 1, "seconds": 0.00439675799862016, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 3 rows, campaign_daily 1 rows, sessions 4/4, diag {'ev_bad_ts': 1, 'ev_surviving': 9}
+{"case": "compact16_time_boundaries", "mode": "1", "repeat": 0, "seconds": 0.0021667609980795532, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "1", "repeat": 1, "seconds": 0.002560259003075771, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "8", "repeat": 0, "seconds": 0.0037077910019434057, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "8", "repeat": 1, "seconds": 0.004086067005118821, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "1:scalar", "repeat": 0, "seconds": 0.0027118190046167, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "1:scalar", "repeat": 1, "seconds": 0.01081867799803149, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "1:slow", "repeat": 0, "seconds": 0.0024400559996138327, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "compact16_time_boundaries", "mode": "1:slow", "repeat": 1, "seconds": 0.0034554239973658696, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+ref: user_daily 8 rows, campaign_daily 3 rows, sessions 8/8, diag {'ev_surviving': 14}
+{"case": "dense_interval_ordering", "mode": "1", "repeat": 0, "seconds": 0.003333843000291381, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "1", "repeat": 1, "seconds": 0.004004522998002358, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "8", "repeat": 0, "seconds": 0.005295276998367626, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "8", "repeat": 1, "seconds": 0.0053217930035316385, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "1:scalar", "repeat": 0, "seconds": 0.0027722099985112436, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "1:scalar", "repeat": 1, "seconds": 0.0034731150008155964, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "1:slow", "repeat": 0, "seconds": 0.0023968709938344546, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dense_interval_ordering", "mode": "1:slow", "repeat": 1, "seconds": 0.002947747998405248, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"runs": 272, "passed": 272, "failed": 0, "report": "panel/database/dense-adversarial.json"}

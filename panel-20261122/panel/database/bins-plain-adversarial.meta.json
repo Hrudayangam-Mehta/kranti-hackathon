@@ -1,0 +1,25 @@
+{
+  "binary": "bench/bin/bins-plain",
+  "binary_sha256": "59d0ed1f37553de7e39dc5ac7411d20c84f36abdadbc6eeb388c4a28ec34f107",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "4436cb7d7bf7036225c1df51dc2f0988e4172219f8fe8207839dbc72d545b410",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/bins-plain",
+    "root": "/workspace/scratch/bde29dc281e6/panel/database/adversarial-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar",
+      "1:slow"
+    ],
+    "report": "panel/database/bins-plain-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "second_reader": true
+  }
+}

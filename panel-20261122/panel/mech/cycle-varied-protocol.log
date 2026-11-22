@@ -1,0 +1,12 @@
+bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-cycle-varied/dist/bot.js
+ready in 1863 ms: name 'aegis-16'
+observations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)
+answer time ms: p50 0.3  p90 0.9  p99 2.7  max 3.9  (this machine, not the 1-CPU match container)
+answers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)
+PASS
+
+STDERR
+[bot] brain rehearsal 877 ms, 24 body warm-ups
+[bot] init 1853 ms world=true nav=true brain=true
+[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0
+[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=3.7ms

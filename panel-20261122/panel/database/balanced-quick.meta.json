@@ -1,0 +1,26 @@
+{
+  "binary": "bench/bin/dense-balanced",
+  "binary_sha256": "cd8e9e78e165236c2369629a03ae5e820fe1278bcaf309489471466d3c26b2e1",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "98a196ba42b854b5729ce94e1ae233cbba9d74e855fdd0414bf275c828ee4b0e",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-balanced",
+    "root": "panel/database/balanced-quick-data",
+    "mode": [
+      "8"
+    ],
+    "report": "panel/database/balanced-quick.json",
+    "only": "",
+    "repeat": false,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "compact_cases": true,
+    "adaptive_cases": true,
+    "p2_cases": true,
+    "dictionary_cases": true,
+    "second_reader": true
+  }
+}

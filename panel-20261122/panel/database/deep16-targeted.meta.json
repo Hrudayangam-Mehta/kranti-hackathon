@@ -1,0 +1,25 @@
+{
+  "binary": "bench/bin/deep16",
+  "binary_sha256": "d06c32cdde76aa1b572b9a4b090928af5f9324d7a4280e89dbfb06a7c97fbdb1",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "466adbedd4e6e67a9fd385ca11a2db5ce8df8e349b683fda41af0389e8d58d51",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/deep16",
+    "root": "panel/database/deep16-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar"
+    ],
+    "report": "panel/database/deep16-targeted.json",
+    "only": "compact",
+    "repeat": false,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "compact_cases": true,
+    "second_reader": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Fresh official-generator medium datasets, unchanged independent Python semantics, exact schema/multiset comparisons; not official scores or a 60M semantic proof.",
+  "started_utc": "2026-11-22T07:56:38.217222+00:00",
+  "binary": "/workspace/scratch/bde29dc281e6/bench/bin/dense-final",
+  "binary_sha256": "2fe9e2935a44eecc7665a400265d63544bc97b8967a4a0ea85313a93c39ea7cd",
+  "generator": "/workspace/scratch/bde29dc281e6/kit/generator/target/release/generate",
+  "generator_sha256": "31778df307524a935e5a5849093994ef449d3340987741bd5ea1a2b824f0f6ec",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "wrapper_sha256": "c46dc59a67d6347758e38fac220a0573f20153671b74ad594bb0b78e062d0bf1",
+  "comparator_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044",
+  "runner_sha256": "648c0a0349cc63f5ef98e62dfdc3aabac4792b6a47fd2489a99f6ad86a96ee39",
+  "modes": [
+    "1",
+    "8"
+  ],
+  "seeds": [
+    {
+      "seed": 249,
+      "requested_events": 1000000,
+      "requested_clicks": 100000,
+      "comparisons": [],
+      "passed": false
+    }
+  ],
+  "passed": false,
+  "error": "[Errno 2] No such file or directory: '/usr/bin/time'",
+  "finished_utc": "2026-11-22T07:56:38.229330+00:00"
+}

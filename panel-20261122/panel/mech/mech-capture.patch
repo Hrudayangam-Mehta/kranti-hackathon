@@ -1,0 +1,71 @@
+--- /workspace/scratch/bde29dc281e6/handoff/.cache/ws/variants7/P26_all/bot/lib/prof.js	2026-11-22 02:18:04.751897337 -0500
++++ /workspace/scratch/bde29dc281e6/experiments/mech-capture/bot/lib/prof.js	2026-11-22 02:33:23.100263525 -0500
+@@ -271,13 +271,35 @@
+     let q = nav.passableAt(x, y) ? { x, y } : nav.nearestPassable(x, y, 8)
+     return !!q && nav.component(q.x, q.y) === c
+   }
+-  /** Supply drop (3.13): below full health, the nearest drop within 200 m (straight) inside the next circle that has
+-   *  landed or lands no more than 3 s after we arrive. No contest check, no health margin. */
++  function dropPlan(d) {
++    const me = B.me, dist = Math.hypot(d.x - me.x, d.y - me.y)
++    const inside = dist <= d.radius, owned = d.holder === me.id && inside
++    let occupants = inside ? 1 : 0
++    for (const tr of B.trackList) if (!tr.npc && tr.listed && tr.hp > 0 && Math.hypot(tr.x - d.x, tr.y - d.y) <= d.radius) occupants++
++    const contested = occupants > 1, ours = owned && !contested
++    const fastest = Math.max(1, me.walk, me.boostSpeed, me.speed)
++    const earliest = Math.max(0, dist - d.radius) / fastest
++    if (d.holder >= 0 && d.holder !== me.id && d.landsIn <= 0 && d.progress > 0) {
++      const holder = B.tracks.get(d.holder)
++      const finishHolder = S.finishing && B.target && B.target.id === d.holder
++      if (!finishHolder && occupants === 1 && holder && holder.listed && Math.hypot(holder.vx, holder.vy) < 1 &&
++        earliest > Math.max(0, d.captureS - d.progress) + 2 * P.tickS) return null
++    }
++    const path = Math.max(dist, econ.pathEst(d.x, d.y))
++    const arrive = owned ? 0 : Math.max(0, path - Math.max(0, d.radius - 2)) / Math.max(1, me.walk)
++    const wait = Math.max(arrive, d.landsIn)
++    const left = Math.max(0, d.captureS - (owned ? d.progress : 0))
++    if (zoneSlack(B, d.x, d.y, me.t + wait + left + P.tickS) < 0) return null
++    return { x: d.x, y: d.y, dist, radius: d.radius, landsIn: d.landsIn, id: d.id, holder: d.holder,
++      captureS: d.captureS, progress: d.progress, completion: contested ? Infinity : wait + left, owned, contested, ours }
++  }
++
+   function chooseDrop() {
+     const me = B.me, z = B.zone
+     let best = null
+-    if (me.hp < me.maxHp - 0.5) for (let k = 0; k < B.drops.length; k++) {
++    for (let k = 0; k < B.drops.length; k++) {
+       const d = B.drops[k]
++      if (me.hp >= me.maxHp - 0.5 && d.holder !== me.id) continue
+       const dist = Math.hypot(d.x - me.x, d.y - me.y)
+       if (dist > P.pfDropR) continue
+       if (z.known && Math.hypot(d.x - z.nx, d.y - z.ny) > z.nr) continue
+@@ -285,7 +307,8 @@
+       const tArr = dist / me.walk
+       // the arrival test chooses a drop; once chosen it is kept (walking / boosting at it would otherwise make it "too early")
+       if (d.landsIn > tArr + P.pfDropLate && !(B.dropTask && B.dropTask.id === d.id)) continue
+-      if (!best || dist < best.dist) best = { x: d.x, y: d.y, dist, radius: d.radius, landsIn: d.landsIn, id: d.id }
++      const plan = dropPlan(d)
++      if (plan && (!best || (plan.ours && !best.ours) || (plan.ours === best.ours && plan.completion < best.completion))) best = plan
+     }
+     B.dropTask = best
+     if (best && best.id !== S.dropId) { S.dropId = best.id; cnt('pfDropTasks') }
+@@ -355,7 +378,7 @@
+     }
+     for (let k = 0; k < B.drops.length; k++) {
+       const d = B.drops[k], dist = Math.hypot(d.x - me.x, d.y - me.y)
+-      if (dist / me.walk > d.landsIn + P.pfDropWait || !sameComp(d.x, d.y)) continue
++      if (dist / me.walk > d.landsIn + P.pfDropWait || !sameComp(d.x, d.y) || !dropPlan(d)) continue
+       consider('s:' + d.id, 'drop', { id: d.id, x: d.x, y: d.y, z: me.z }, d.holder >= 0 && d.holder !== me.id ? P.pfDropHeldV : P.pfDropV, dist * 1.1)
+     }
+     if (S.phase === 'open' && me.hpf > P.pfHuntHpf) for (const [id, m] of mem) {
+@@ -422,9 +445,9 @@
+     S.leg = ''
+     let want
+     if (B.zoneUrgent) want = MODE.ZONE
++    else if (S.finishing && tgt && !(B.dropTask && B.dropTask.ours)) { want = MODE.FIGHT; cnt('pfFinish') }
+     else if (B.dropTask) { want = MODE.DROP; S.leg = 'drop'; cnt('pfDrop') }
+     else if (S.grab) { want = MODE.LOOT; S.leg = 'grab'; cnt('pfGrab') }
+-    else if (S.finishing && tgt) { want = MODE.FIGHT; cnt('pfFinish') }
+     else if (S.latch) { want = MODE.DISENGAGE; cnt('pfLatchDec') }
+     else if (S.avoid) { want = MODE.DISENGAGE; cnt('pfAvoid') }
+     else if (tgt && S.fight) { want = MODE.FIGHT; cnt('pfFight') }

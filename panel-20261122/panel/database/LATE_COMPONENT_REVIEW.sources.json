@@ -1,0 +1,289 @@
+{
+  "scope": "Candidate source pin; selection and final full gate remain coordinator decisions. Twelve general modules are unchanged from the original complete review; dictionary writer updates are reviewed in LATE_COMPONENT_REVIEW.md.",
+  "candidate": "experiments/dense-final",
+  "original_review_comparison": [
+    {
+      "path": "src/csv.rs",
+      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e",
+      "same_as_original_review": true,
+      "original_sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e"
+    },
+    {
+      "path": "src/time.rs",
+      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3",
+      "same_as_original_review": true,
+      "original_sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3"
+    },
+    {
+      "path": "src/links.rs",
+      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b",
+      "same_as_original_review": true,
+      "original_sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b"
+    },
+    {
+      "path": "src/events.rs",
+      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0",
+      "same_as_original_review": true,
+      "original_sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0"
+    },
+    {
+      "path": "src/clicks.rs",
+      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0",
+      "same_as_original_review": true,
+      "original_sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0"
+    },
+    {
+      "path": "src/sessions.rs",
+      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3",
+      "same_as_original_review": true,
+      "original_sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3"
+    },
+    {
+      "path": "src/input.rs",
+      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113",
+      "same_as_original_review": true,
+      "original_sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113"
+    },
+    {
+      "path": "src/manifest.rs",
+      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590",
+      "same_as_original_review": true,
+      "original_sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590"
+    },
+    {
+      "path": "src/output.rs",
+      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8",
+      "same_as_original_review": true,
+      "original_sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8"
+    },
+    {
+      "path": "src/slow.rs",
+      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e",
+      "same_as_original_review": true,
+      "original_sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e"
+    },
+    {
+      "path": "src/hash.rs",
+      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8",
+      "same_as_original_review": true,
+      "original_sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8"
+    },
+    {
+      "path": "src/main.rs",
+      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37",
+      "same_as_original_review": true,
+      "original_sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37"
+    },
+    {
+      "path": "src/fast/write.rs",
+      "sha256": "5dc7c88c1fcb7f9c8a7bce9ff3ce97093f4740065daaa19f1479db7a700ffab7",
+      "same_as_original_review": false,
+      "original_sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5"
+    },
+    {
+      "path": "src/fast/parquet.rs",
+      "sha256": "29ab5cae5d9598108b46861c826e31b4e3b727b526dfb1a13f5c89fb1a671b6e",
+      "same_as_original_review": false,
+      "original_sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c"
+    }
+  ],
+  "additional_sources": {
+    "experiments/dense-p2/src/fast/mod.rs": "29b45f12c866d0081acbc0093b758cec3d4a2757c0b32a1d35e6bf79489ed478",
+    "experiments/dense-adaptive/src/fast/mod.rs": "79d5f2e23d49182c8702fad1a9ab0a96787fef3baab37d5fafc89841a0e2170b",
+    "experiments/dense-final/src/fast/mod.rs": "329437f5a2e0c2527e4c653d4ef67399653f6d082bfd64e5c1f34c03be36750e",
+    "experiments/dense-final/src/fast/id.rs": "558d24946bf72537d2cf29ac8d52389bc615e66e3166aa23ace6f6d0b00da104",
+    "experiments/dense-final/src/fast/scan.rs": "d14d6b913f6210c00f1ce7db6cff6fe5391d1a482125f22eaa6f7c88f9ec191f",
+    "experiments/dense-final/src/fast/people.rs": "224be9934fb5952dcd1f8e0a7fcef2e4865bd316695a111cdaaabe2bcd38a42a"
+  },
+  "receipts": {
+    "combined-adversarial": {
+      "binary": "bench/bin/dense-combined",
+      "binary_sha256": "79faa0356191e80df116c7cbc99da863280161eead572bc8392c5846f3de515b",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "475e35b8f316e3bce57f6672f2467434423b1d4cc1784874165b440431dd2970",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-combined",
+        "root": "panel/database/combined-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar",
+          "1:slow"
+        ],
+        "report": "panel/database/combined-adversarial.json",
+        "only": "",
+        "repeat": true,
+        "bin_cases": true,
+        "large_output": true,
+        "purchase_cases": true,
+        "compact_cases": true,
+        "adaptive_cases": true,
+        "second_reader": true
+      }
+    },
+    "adaptive-adversarial": {
+      "binary": "bench/bin/dense-adaptive",
+      "binary_sha256": "889b5fd794a3bd2159969ef690501e3197b443dc854b0e9a8a828bb313d92507",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-adaptive",
+        "root": "panel/database/adaptive-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar"
+        ],
+        "report": "panel/database/adaptive-adversarial.json",
+        "only": "",
+        "repeat": true,
+        "bin_cases": true,
+        "large_output": true,
+        "purchase_cases": true,
+        "compact_cases": true,
+        "adaptive_cases": true,
+        "p2_cases": false,
+        "second_reader": true
+      }
+    },
+    "p2-blocks-targeted": {
+      "binary": "bench/bin/dense-p2",
+      "binary_sha256": "79888b8da6f0ca2a9c050d941d608a92dffbd7879858c1e1e972129e23ecd9cf",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-p2",
+        "root": "panel/database/p2-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar"
+        ],
+        "report": "panel/database/p2-blocks-targeted.json",
+        "only": "p2_",
+        "repeat": true,
+        "bin_cases": false,
+        "large_output": false,
+        "purchase_cases": false,
+        "compact_cases": false,
+        "adaptive_cases": false,
+        "p2_cases": true,
+        "second_reader": true
+      }
+    },
+    "p2-compact-targeted": {
+      "binary": "bench/bin/dense-p2",
+      "binary_sha256": "79888b8da6f0ca2a9c050d941d608a92dffbd7879858c1e1e972129e23ecd9cf",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-p2",
+        "root": "panel/database/p2-compact-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar"
+        ],
+        "report": "panel/database/p2-compact-targeted.json",
+        "only": "compact",
+        "repeat": false,
+        "bin_cases": false,
+        "large_output": false,
+        "purchase_cases": false,
+        "compact_cases": true,
+        "adaptive_cases": false,
+        "p2_cases": false,
+        "second_reader": true
+      }
+    },
+    "p2-bins-targeted": {
+      "binary": "bench/bin/dense-p2",
+      "binary_sha256": "79888b8da6f0ca2a9c050d941d608a92dffbd7879858c1e1e972129e23ecd9cf",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-p2",
+        "root": "panel/database/p2-bins-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar"
+        ],
+        "report": "panel/database/p2-bins-targeted.json",
+        "only": "bin",
+        "repeat": false,
+        "bin_cases": true,
+        "large_output": false,
+        "purchase_cases": true,
+        "compact_cases": false,
+        "adaptive_cases": false,
+        "p2_cases": false,
+        "second_reader": true
+      }
+    },
+    "dictionary-pipeline": {
+      "binary": "bench/bin/dense-dict",
+      "binary_sha256": "9993c19ed8ad7c7b58586dd9241e967e20fb7b07b572db80d7f1379b5fe7b248",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "98a196ba42b854b5729ce94e1ae233cbba9d74e855fdd0414bf275c828ee4b0e",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-dict",
+        "root": "panel/database/dictionary-pipeline-data",
+        "mode": [
+          "1",
+          "8",
+          "1:scalar"
+        ],
+        "report": "panel/database/dictionary-pipeline.json",
+        "only": "dictionary_",
+        "repeat": true,
+        "bin_cases": false,
+        "large_output": false,
+        "purchase_cases": false,
+        "compact_cases": false,
+        "adaptive_cases": false,
+        "p2_cases": false,
+        "dictionary_cases": true,
+        "second_reader": true
+      }
+    },
+    "final-quick": {
+      "binary": "bench/bin/dense-final",
+      "binary_sha256": "2fe9e2935a44eecc7665a400265d63544bc97b8967a4a0ea85313a93c39ea7cd",
+      "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+      "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+      "harness_sha256": "98a196ba42b854b5729ce94e1ae233cbba9d74e855fdd0414bf275c828ee4b0e",
+      "arguments": {
+        "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+        "binary": "bench/bin/dense-final",
+        "root": "panel/database/final-quick-data",
+        "mode": [
+          "8"
+        ],
+        "report": "panel/database/final-quick.json",
+        "only": "",
+        "repeat": false,
+        "bin_cases": true,
+        "large_output": true,
+        "purchase_cases": true,
+        "compact_cases": true,
+        "adaptive_cases": true,
+        "p2_cases": true,
+        "dictionary_cases": true,
+        "second_reader": true
+      }
+    }
+  }
+}

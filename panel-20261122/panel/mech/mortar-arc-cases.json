@@ -1,0 +1,141 @@
+{
+  "candidate": "/workspace/scratch/bde29dc281e6/experiments/mech-mortar-arc/bot",
+  "kind": "bounded deterministic module and fire-control cases, no engine parity or ranking claim",
+  "count": 18,
+  "passed": 18,
+  "results": [
+    {
+      "name": "single_parametric_clock_at_steep_pitch",
+      "passed": true,
+      "ray_calls": 9,
+      "old_drop_m": 1.8311872987212623,
+      "consistent_drop_m": 0.3055555555555555
+    },
+    {
+      "name": "barrel_prefix_obstruction",
+      "passed": true
+    },
+    {
+      "name": "obstruction_beyond_legacy_near_segment",
+      "passed": true
+    },
+    {
+      "name": "clear_above_low_obstacle",
+      "passed": true
+    },
+    {
+      "name": "overhead_obstruction",
+      "passed": true
+    },
+    {
+      "name": "arbitrary_yaw_preserves_parametric_path",
+      "passed": true
+    },
+    {
+      "name": "default_solved_ground_impact_remains_clear",
+      "passed": true,
+      "flight_s": 1.355151456811091,
+      "pitch": 0.10660224704794362
+    },
+    {
+      "name": "ttl_boundary",
+      "passed": true
+    },
+    {
+      "name": "bounded_budget_rejects_excessive_path",
+      "passed": true
+    },
+    {
+      "name": "upgraded_default_ttl_path_fits_budget",
+      "passed": true,
+      "ray_calls": 62
+    },
+    {
+      "name": "finite_and_positive_input_guards",
+      "passed": true
+    },
+    {
+      "name": "self_blast_includes_body_and_strict_boundary",
+      "passed": true
+    },
+    {
+      "name": "self_velocity_projection_detects_approach",
+      "passed": true
+    },
+    {
+      "name": "self_invalid_inputs_fail_closed",
+      "passed": true
+    },
+    {
+      "name": "integrated_clear_mortar_fire_preserved",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          -0.043179070654132144
+        ],
+        "aimKind": "mortar"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          -0.043179070654132144
+        ],
+        "aimKind": "mortar"
+      }
+    },
+    {
+      "name": "integrated_far_wall_blocks_previously_allowed_shot",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          -0.043179070654132144
+        ],
+        "aimKind": "mortar"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          -0.04164257909858842
+        ],
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "integrated_raw_pitch_below_limit_not_owned_by_mortar",
+      "passed": true,
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          -0.7
+        ],
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "no_mortar_action_identity",
+      "passed": true
+    }
+  ]
+}

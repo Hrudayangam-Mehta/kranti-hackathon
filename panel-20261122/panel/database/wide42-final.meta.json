@@ -1,0 +1,30 @@
+{
+  "binary": "bench/bin/dense-wide42",
+  "binary_sha256": "05518580abfc9a52e305e390401541f7f57fffbd740c3df9ead56fc86413a1ff",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "6105eecad6666ad8ce86725202b0b0ded9cbcfe4967bb1e33fbd820461a336cd",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-wide42",
+    "root": "panel/database/wide42-final-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar",
+      "1:slow"
+    ],
+    "report": "panel/database/wide42-final.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "compact_cases": true,
+    "adaptive_cases": true,
+    "p2_cases": true,
+    "dictionary_cases": true,
+    "wide42_cases": true,
+    "second_reader": true
+  }
+}

@@ -1,3 +1,5 @@
+> **New checkpoint:** See [PANEL_STATUS.md](PANEL_STATUS.md) for the published Shopping Rust and aggressive Mech commits, final tests and current picks. The material below is the preserved earlier handoff.
+
 # Handoff: buildathon work state (written Sun 22 Nov 2026, ~06:15 UTC; cutoff 16:00 UTC Sun = 11:00 AM EST)
 
 Read this first. It is written for an AI assistant (or a person) continuing the work. Everything below is on this branch (`handoff`, an orphan branch of the submission repository): a snapshot of the working

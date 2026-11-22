@@ -1,0 +1,213 @@
+{
+  "files": [
+    {
+      "path": "src/csv.rs",
+      "sha256": "6c6f300b0f62c8bcb97c637b656ae607a8f665abb0ef326b96a6fed674c58c8e",
+      "production_functions": [
+        "fields",
+        "unquote",
+        "lines",
+        "data_chunks",
+        "rows"
+      ],
+      "count": 5
+    },
+    {
+      "path": "src/time.rs",
+      "sha256": "5f81ae637c37ec207e3306ab86d8f59e1f5fbae6124fa3d020b369b6972a69a3",
+      "production_functions": [
+        "parse_timestamp",
+        "parse_epoch_millis",
+        "parse_date_time",
+        "digits",
+        "is_leap_year",
+        "days_in_month",
+        "days_from_civil",
+        "day_of"
+      ],
+      "count": 8
+    },
+    {
+      "path": "src/links.rs",
+      "sha256": "5ac62e447c7c5d2f5cf991c561683d0274d6dedbedade06d8294bfaaeaa4c45b",
+      "production_functions": [
+        "from_link_files",
+        "from_pairs",
+        "name_of",
+        "linked_ids",
+        "find"
+      ],
+      "count": 5
+    },
+    {
+      "path": "src/events.rs",
+      "sha256": "989dc52444e7ad2437f0917f0f3754f48a871ab439ca9776391cf4b3e885d9c0",
+      "production_functions": [
+        "parse_line",
+        "validate",
+        "parse_price",
+        "dedup_and_route"
+      ],
+      "count": 4
+    },
+    {
+      "path": "src/clicks.rs",
+      "sha256": "45f0fbae214bd021fa49e14e61e73b26436d9a93537d5f8bf3d3ef5f33b0f1e0",
+      "production_functions": [
+        "parse_line"
+      ],
+      "count": 1
+    },
+    {
+      "path": "src/sessions.rs",
+      "sha256": "a53266d7d3de162b054ac1f58c86f5d9f5dd4fd9c2ad77ff149fec2bdac84dd3",
+      "production_functions": [
+        "new",
+        "cell",
+        "add",
+        "new",
+        "process_bucket",
+        "process_person",
+        "add_category",
+        "finish_day",
+        "attribute",
+        "enter",
+        "leave",
+        "clear_window"
+      ],
+      "count": 12
+    },
+    {
+      "path": "src/input.rs",
+      "sha256": "99dcd1ddc3b63fabc1644b5060728c97aa074c53342bdb661eef9955b95f4113",
+      "production_functions": [
+        "read",
+        "read_file",
+        "csv_files",
+        "from_manifest",
+        "contains_event",
+        "contains_click",
+        "manifest_time",
+        "parse",
+        "category_of",
+        "parse",
+        "index_of",
+        "count_with_organic",
+        "id",
+        "channel"
+      ],
+      "count": 14
+    },
+    {
+      "path": "src/manifest.rs",
+      "sha256": "dfd3416cd7ba2294c871ab40cba86e56c90e2d58dc85fa1cb7e409908dda0590",
+      "production_functions": [
+        "top_level_string",
+        "peek",
+        "next",
+        "expect",
+        "space",
+        "hex4",
+        "string",
+        "skip_value"
+      ],
+      "count": 8
+    },
+    {
+      "path": "src/output.rs",
+      "sha256": "188e26a9f792f91e9d65296b5f6e045c84dc631cf7f0d9e2078c4bd6ae00d1a8",
+      "production_functions": [
+        "strings",
+        "optional_strings",
+        "dates",
+        "integers",
+        "create_table_dir",
+        "write_table",
+        "column_len"
+      ],
+      "count": 7
+    },
+    {
+      "path": "src/slow.rs",
+      "sha256": "6bdb973398767bdbc70fd6c721a48a16ce2a9f8e32d69c7cde7941bc8532538e",
+      "production_functions": [
+        "new",
+        "lap",
+        "run",
+        "write_outputs",
+        "report",
+        "bucket_bits",
+        "chunk_target",
+        "work_units",
+        "empty_buckets",
+        "transpose",
+        "concat"
+      ],
+      "count": 11
+    },
+    {
+      "path": "src/hash.rs",
+      "sha256": "3d16a120e9a82c9227d9fc7f5243d3d7fe33a69d80f7be82e67f1f876366e4c8",
+      "production_functions": [
+        "add",
+        "write",
+        "write_u8",
+        "write_usize",
+        "finish",
+        "new_map",
+        "bucket_of"
+      ],
+      "count": 7
+    },
+    {
+      "path": "src/main.rs",
+      "sha256": "950cc7392ed45c44614cc53175b00c7b038d57568ccfc2a81cbe20ea7c127c37",
+      "production_functions": [
+        "from_env",
+        "main"
+      ],
+      "count": 2
+    },
+    {
+      "path": "src/fast/write.rs",
+      "sha256": "9558b2239bd208edb91d1f5613bfa45d9ace8586e3baf691aa7b5af14dd87cd5",
+      "production_functions": [
+        "len",
+        "clear",
+        "totals",
+        "push",
+        "user_part",
+        "campaign_table",
+        "report"
+      ],
+      "count": 7
+    },
+    {
+      "path": "src/fast/parquet.rs",
+      "sha256": "39380f94e5fdf1e9778a1afaef538f372487a9ce4e567fb8bf9bd5a7c3ff834c",
+      "production_functions": [
+        "new",
+        "varint",
+        "field",
+        "i32",
+        "i64",
+        "binary",
+        "begin",
+        "open",
+        "end",
+        "list",
+        "list_i32",
+        "list_binary",
+        "physical",
+        "bit_pack",
+        "encode",
+        "write",
+        "put_i32",
+        "put_i64",
+        "put_str"
+      ],
+      "count": 19
+    }
+  ],
+  "total_functions": 110
+}

@@ -1,0 +1,2695 @@
+{
+  "scope": "Reuse of independently computed complete medium-seed expectations; no reference regeneration and no official score claim.",
+  "started_utc": "2026-11-22T08:17:54.832643+00:00",
+  "binary": "/workspace/scratch/bde29dc281e6/bench/bin/dense-wide42",
+  "binary_sha256": "05518580abfc9a52e305e390401541f7f57fffbd740c3df9ead56fc86413a1ff",
+  "reference_receipt": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final.json",
+  "reference_receipt_sha256": "57b185e26111806503f3f5e3845516e5d3bbdb8f7ddc5f0d5ddd4d7dafc0d758",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "generator_sha256": "31778df307524a935e5a5849093994ef449d3340987741bd5ea1a2b824f0f6ec",
+  "runner_sha256": "8af339c0d3a8066f7b92b591372440a9a0bd73cdb50fc898b92177c9875a1764",
+  "modes": [
+    "1",
+    "8"
+  ],
+  "seeds": [
+    {
+      "seed": 249,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/campaign_daily/part-0.parquet": "0561c832680939dd7e31456c2d8efd675b107480aa84da8a3d51f38b0cd72bc7",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/user_daily/part-0.parquet": "d94551ed9751a3b8d6a39f56a8652de9599b63044f3430cf21e032d81d793b43"
+      },
+      "manifest": {
+        "window_start": "2028-02-16T00:00:00Z",
+        "window_end": "2028-03-01T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 100000,
+      "comparisons": [
+        {
+          "mode": "1",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.23501532599766506,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-1",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:17:55.593503+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118768,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/user_daily/part-0.parquet",
+                    "bytes": 671527,
+                    "rows": 118768,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-1/user_daily/part-00000.parquet",
+                    "bytes": 1820810,
+                    "rows": 66496,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-1/user_daily/part-00001.parquet",
+                    "bytes": 1431501,
+                    "rows": 52272,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181686,
+                "seconds": 0.5039433209967683
+              },
+              "campaign_daily": {
+                "matched_rows": 23884,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/campaign_daily/part-0.parquet",
+                    "bytes": 117063,
+                    "rows": 23884,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-1/campaign_daily/part-00000.parquet",
+                    "bytes": 1052838,
+                    "rows": 23884,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 180409,
+                "seconds": 0.09144619600556325
+              }
+            },
+            "equal": true,
+            "seconds": 1.0365022490004776,
+            "maxrss_kib": 163936,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        },
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.07621791999554262,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:17:56.948701+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118768,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/user_daily/part-0.parquet",
+                    "bytes": 671527,
+                    "rows": 118768,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 11715,
+                    "rows": 366,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 111375,
+                    "rows": 3994,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 445942,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 446575,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 106684,
+                    "rows": 3788,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 167931,
+                    "rows": 6033,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 446597,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 447574,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 319665,
+                    "rows": 11699,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 50668,
+                    "rows": 1805,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 450187,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 252890,
+                    "rows": 9163,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181686,
+                "seconds": 0.43040999899676535
+              },
+              "campaign_daily": {
+                "matched_rows": 23884,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-249/reference/campaign_daily/part-0.parquet",
+                    "bytes": 117063,
+                    "rows": 23884,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 260315,
+                    "rows": 5994,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 259478,
+                    "rows": 5937,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 267339,
+                    "rows": 5976,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-249/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 267660,
+                    "rows": 5977,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 180409,
+                "seconds": 0.08140316700155381
+              }
+            },
+            "equal": true,
+            "seconds": 0.5738814700016519,
+            "maxrss_kib": 165008,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "seed": 355,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/campaign_daily/part-0.parquet": "f70c500d1ad90b7c5081b6811463a844fbeab7af562d40e16c2b4fdcc8a278ef",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/user_daily/part-0.parquet": "146955150e46544f0e230bc3c3a5bcb170587e19e1b6fcb97d8369c450602c70"
+      },
+      "manifest": {
+        "window_start": "2028-02-17T00:00:00Z",
+        "window_end": "2028-03-02T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 350000,
+      "comparisons": [
+        {
+          "mode": "1",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.33558702200389234,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-1",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:17:58.389776+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118948,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/user_daily/part-0.parquet",
+                    "bytes": 669947,
+                    "rows": 118948,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-1/user_daily/part-00000.parquet",
+                    "bytes": 1826016,
+                    "rows": 66806,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-1/user_daily/part-00001.parquet",
+                    "bytes": 1424569,
+                    "rows": 52142,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1184279,
+                "seconds": 0.4311965919987415
+              },
+              "campaign_daily": {
+                "matched_rows": 27809,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/campaign_daily/part-0.parquet",
+                    "bytes": 139207,
+                    "rows": 27809,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-1/campaign_daily/part-00000.parquet",
+                    "bytes": 1224212,
+                    "rows": 27809,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 203669,
+                "seconds": 0.08259696300228825
+              }
+            },
+            "equal": true,
+            "seconds": 0.5611906479971367,
+            "maxrss_kib": 165308,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        },
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.062387484998907894,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:17:59.248879+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118948,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/user_daily/part-0.parquet",
+                    "bytes": 669947,
+                    "rows": 118948,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 117927,
+                    "rows": 4230,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 15233,
+                    "rows": 476,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 19722,
+                    "rows": 652,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 51528,
+                    "rows": 1858,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 448111,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 445209,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 160003,
+                    "rows": 5859,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 446570,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 446413,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 14777,
+                    "rows": 468,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 387683,
+                    "rows": 14095,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 446782,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/user_daily/part-00012.parquet",
+                    "bytes": 256135,
+                    "rows": 9390,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1184279,
+                "seconds": 0.43825241000013193
+              },
+              "campaign_daily": {
+                "matched_rows": 27809,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-355/reference/campaign_daily/part-0.parquet",
+                    "bytes": 139207,
+                    "rows": 27809,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 303282,
+                    "rows": 6984,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 303579,
+                    "rows": 6964,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 311382,
+                    "rows": 6961,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-355/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 307921,
+                    "rows": 6900,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 203669,
+                "seconds": 0.09873520499968436
+              }
+            },
+            "equal": true,
+            "seconds": 0.5747050380014116,
+            "maxrss_kib": 164676,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "seed": 1234,
+      "data": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/input",
+      "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference",
+      "expected_sha256": {
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/campaign_daily/part-0.parquet": "3f398aef46d3231d429c7777ca8c5ccaa177ea08f8a743de2a820144bc94b73e",
+        "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/user_daily/part-0.parquet": "3dff7e7a4c42e6e9948a5e35122f150c3a47cb36579f25adc8c918bf3b15c3d0"
+      },
+      "manifest": {
+        "window_start": "2025-12-12T00:00:00Z",
+        "window_end": "2025-12-26T00:00:00Z"
+      },
+      "requested_events": 1000000,
+      "requested_clicks": 800000,
+      "comparisons": [
+        {
+          "mode": "1",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.34916783700464293,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-1",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:18:00.887470+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118580,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/user_daily/part-0.parquet",
+                    "bytes": 672325,
+                    "rows": 118580,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-1/user_daily/part-00000.parquet",
+                    "bytes": 1819918,
+                    "rows": 66223,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-1/user_daily/part-00001.parquet",
+                    "bytes": 1437132,
+                    "rows": 52357,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181343,
+                "seconds": 0.39594697899883613
+              },
+              "campaign_daily": {
+                "matched_rows": 28010,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/campaign_daily/part-0.parquet",
+                    "bytes": 144506,
+                    "rows": 28010,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-1/campaign_daily/part-00000.parquet",
+                    "bytes": 1234540,
+                    "rows": 28010,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 219269,
+                "seconds": 0.0967828639986692
+              }
+            },
+            "equal": true,
+            "seconds": 0.5391999009952997,
+            "maxrss_kib": 165928,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        },
+        {
+          "mode": "8",
+          "exit": 0,
+          "stdout_bytes": 0,
+          "wall_seconds": 0.07510271399951307,
+          "comparison": {
+            "reference": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference",
+            "candidate": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8",
+            "duckdb": "2.0.1",
+            "pyarrow": "26.0.1",
+            "memory_limit": "256MB",
+            "threads": 1,
+            "batch_rows": 2048,
+            "method": "validated schemas, external total sort, exact streamed multiset merge",
+            "started_utc": "2026-11-22T08:18:01.727167+00:00",
+            "tables": {
+              "user_daily": {
+                "matched_rows": 118580,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/user_daily/part-0.parquet",
+                    "bytes": 672325,
+                    "rows": 118580,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "events",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00000.parquet",
+                    "bytes": 8244,
+                    "rows": 236,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00001.parquet",
+                    "bytes": 65054,
+                    "rows": 2269,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00002.parquet",
+                    "bytes": 65156,
+                    "rows": 2318,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00003.parquet",
+                    "bytes": 448105,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00004.parquet",
+                    "bytes": 448453,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00005.parquet",
+                    "bytes": 448527,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00006.parquet",
+                    "bytes": 204908,
+                    "rows": 7387,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00007.parquet",
+                    "bytes": 4469,
+                    "rows": 122,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00008.parquet",
+                    "bytes": 452122,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00009.parquet",
+                    "bytes": 1867,
+                    "rows": 34,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00010.parquet",
+                    "bytes": 6876,
+                    "rows": 199,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00011.parquet",
+                    "bytes": 210934,
+                    "rows": 7711,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00012.parquet",
+                    "bytes": 448098,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/user_daily/part-00013.parquet",
+                    "bytes": 450910,
+                    "rows": 16384,
+                    "schema": [
+                      [
+                        "user_id",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "events",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "top_category",
+                        "string"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 1181343,
+                "seconds": 0.3700230870017549
+              },
+              "campaign_daily": {
+                "matched_rows": 28010,
+                "missing_rows": 0,
+                "extra_rows": 0,
+                "missing_examples": [],
+                "extra_examples": [],
+                "equal": true,
+                "reference_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/fresh-final-data-v2/seed-1234/reference/campaign_daily/part-0.parquet",
+                    "bytes": 144506,
+                    "rows": 28010,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int64"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int64"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int64"
+                      ]
+                    ]
+                  }
+                ],
+                "candidate_files": [
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/campaign_daily/part-00000.parquet",
+                    "bytes": 305111,
+                    "rows": 7012,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/campaign_daily/part-00001.parquet",
+                    "bytes": 306521,
+                    "rows": 7012,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/campaign_daily/part-00002.parquet",
+                    "bytes": 313655,
+                    "rows": 7014,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  },
+                  {
+                    "path": "/workspace/scratch/bde29dc281e6/panel/database/wide42-holdout-data/seed-1234/candidate-8/campaign_daily/part-00003.parquet",
+                    "bytes": 311205,
+                    "rows": 6972,
+                    "schema": [
+                      [
+                        "campaign_id",
+                        "string"
+                      ],
+                      [
+                        "channel",
+                        "string"
+                      ],
+                      [
+                        "day",
+                        "date32[day]"
+                      ],
+                      [
+                        "sessions",
+                        "int32"
+                      ],
+                      [
+                        "purchasing_sessions",
+                        "int32"
+                      ],
+                      [
+                        "revenue_cents",
+                        "int64"
+                      ],
+                      [
+                        "assisted_sessions",
+                        "int32"
+                      ]
+                    ]
+                  }
+                ],
+                "canonical_bytes": 219269,
+                "seconds": 0.25866169200162403
+              }
+            },
+            "equal": true,
+            "seconds": 0.6752224489973742,
+            "maxrss_kib": 169052,
+            "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+          }
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "finished_utc": "2026-11-22T08:18:02.499936+00:00"
+}

@@ -1,0 +1,3971 @@
+{
+  "reference": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67",
+  "candidate": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight",
+  "duckdb": "2.0.1",
+  "pyarrow": "26.0.1",
+  "memory_limit": "512MB",
+  "threads": 1,
+  "batch_rows": 2048,
+  "method": "validated schemas, external total sort, exact streamed multiset merge",
+  "started_utc": "2026-11-22T07:34:02.356291+00:00",
+  "tables": {
+    "user_daily": {
+      "matched_rows": 6629125,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-0.parquet",
+          "bytes": 16415093,
+          "rows": 896973,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-1.parquet",
+          "bytes": 15426816,
+          "rows": 791899,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-2.parquet",
+          "bytes": 13188911,
+          "rows": 731113,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-3.parquet",
+          "bytes": 16982422,
+          "rows": 889924,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-4.parquet",
+          "bytes": 13555940,
+          "rows": 682102,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-5.parquet",
+          "bytes": 16904603,
+          "rows": 887762,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-6.parquet",
+          "bytes": 14957880,
+          "rows": 823897,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/user_daily/part-7.parquet",
+          "bytes": 18047187,
+          "rows": 925455,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00000.parquet",
+          "bytes": 2515690,
+          "rows": 65613,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00001.parquet",
+          "bytes": 2522205,
+          "rows": 65901,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00002.parquet",
+          "bytes": 2518120,
+          "rows": 65845,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00003.parquet",
+          "bytes": 2518463,
+          "rows": 65803,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00004.parquet",
+          "bytes": 2541307,
+          "rows": 66372,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00005.parquet",
+          "bytes": 2517047,
+          "rows": 65811,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00006.parquet",
+          "bytes": 2527571,
+          "rows": 66047,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00007.parquet",
+          "bytes": 2522659,
+          "rows": 66012,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00008.parquet",
+          "bytes": 2511097,
+          "rows": 65588,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00009.parquet",
+          "bytes": 2542654,
+          "rows": 66411,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00010.parquet",
+          "bytes": 2536708,
+          "rows": 66449,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00011.parquet",
+          "bytes": 2528974,
+          "rows": 66235,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00012.parquet",
+          "bytes": 2530025,
+          "rows": 66150,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00013.parquet",
+          "bytes": 2520041,
+          "rows": 66033,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00014.parquet",
+          "bytes": 2528256,
+          "rows": 66313,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00015.parquet",
+          "bytes": 2543111,
+          "rows": 66358,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00016.parquet",
+          "bytes": 2516239,
+          "rows": 65782,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00017.parquet",
+          "bytes": 2515490,
+          "rows": 65657,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00018.parquet",
+          "bytes": 2508059,
+          "rows": 65646,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00019.parquet",
+          "bytes": 2508774,
+          "rows": 65603,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00020.parquet",
+          "bytes": 2526697,
+          "rows": 65982,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00021.parquet",
+          "bytes": 2532801,
+          "rows": 66266,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00022.parquet",
+          "bytes": 2523778,
+          "rows": 65853,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00023.parquet",
+          "bytes": 2522469,
+          "rows": 66132,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00024.parquet",
+          "bytes": 2537514,
+          "rows": 66448,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00025.parquet",
+          "bytes": 2518957,
+          "rows": 66135,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00026.parquet",
+          "bytes": 2531880,
+          "rows": 66383,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00027.parquet",
+          "bytes": 2527554,
+          "rows": 66259,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00028.parquet",
+          "bytes": 2516324,
+          "rows": 65958,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00029.parquet",
+          "bytes": 2531299,
+          "rows": 66410,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00030.parquet",
+          "bytes": 2501600,
+          "rows": 65648,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00031.parquet",
+          "bytes": 2501455,
+          "rows": 65545,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00032.parquet",
+          "bytes": 2534822,
+          "rows": 66377,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00033.parquet",
+          "bytes": 2529534,
+          "rows": 66303,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00034.parquet",
+          "bytes": 2532315,
+          "rows": 66239,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00035.parquet",
+          "bytes": 2505578,
+          "rows": 65639,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00036.parquet",
+          "bytes": 2513489,
+          "rows": 66038,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00037.parquet",
+          "bytes": 2518563,
+          "rows": 66112,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00038.parquet",
+          "bytes": 2527572,
+          "rows": 66323,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00039.parquet",
+          "bytes": 2506032,
+          "rows": 65620,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00040.parquet",
+          "bytes": 2518053,
+          "rows": 66019,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00041.parquet",
+          "bytes": 2518743,
+          "rows": 66029,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00042.parquet",
+          "bytes": 2516685,
+          "rows": 66024,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00043.parquet",
+          "bytes": 2504639,
+          "rows": 65631,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00044.parquet",
+          "bytes": 2511665,
+          "rows": 65815,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00045.parquet",
+          "bytes": 2513089,
+          "rows": 66163,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00046.parquet",
+          "bytes": 2522605,
+          "rows": 66240,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00047.parquet",
+          "bytes": 2509199,
+          "rows": 65803,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00048.parquet",
+          "bytes": 2502887,
+          "rows": 65631,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00049.parquet",
+          "bytes": 2524466,
+          "rows": 66288,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00050.parquet",
+          "bytes": 2509101,
+          "rows": 65991,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00051.parquet",
+          "bytes": 2512745,
+          "rows": 65982,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00052.parquet",
+          "bytes": 2500704,
+          "rows": 65875,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00053.parquet",
+          "bytes": 2500915,
+          "rows": 66050,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00054.parquet",
+          "bytes": 2500586,
+          "rows": 65874,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00055.parquet",
+          "bytes": 2518313,
+          "rows": 66151,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00056.parquet",
+          "bytes": 2527780,
+          "rows": 66368,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00057.parquet",
+          "bytes": 2511984,
+          "rows": 66147,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00058.parquet",
+          "bytes": 2482450,
+          "rows": 65608,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00059.parquet",
+          "bytes": 2505667,
+          "rows": 66101,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00060.parquet",
+          "bytes": 2493239,
+          "rows": 65597,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00061.parquet",
+          "bytes": 2506675,
+          "rows": 65841,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00062.parquet",
+          "bytes": 2524067,
+          "rows": 66255,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00063.parquet",
+          "bytes": 2498751,
+          "rows": 65743,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00064.parquet",
+          "bytes": 2505466,
+          "rows": 65855,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00065.parquet",
+          "bytes": 2493903,
+          "rows": 65746,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00066.parquet",
+          "bytes": 2523596,
+          "rows": 66334,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00067.parquet",
+          "bytes": 2496343,
+          "rows": 65679,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00068.parquet",
+          "bytes": 2504919,
+          "rows": 66112,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00069.parquet",
+          "bytes": 2503726,
+          "rows": 66017,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00070.parquet",
+          "bytes": 2497521,
+          "rows": 65870,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00071.parquet",
+          "bytes": 2519739,
+          "rows": 65980,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00072.parquet",
+          "bytes": 2495522,
+          "rows": 65867,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00073.parquet",
+          "bytes": 2504410,
+          "rows": 65917,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00074.parquet",
+          "bytes": 2510500,
+          "rows": 66102,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00075.parquet",
+          "bytes": 2514757,
+          "rows": 66298,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00076.parquet",
+          "bytes": 2505044,
+          "rows": 66034,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00077.parquet",
+          "bytes": 2505311,
+          "rows": 65828,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00078.parquet",
+          "bytes": 2496512,
+          "rows": 65791,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00079.parquet",
+          "bytes": 2505038,
+          "rows": 65975,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00080.parquet",
+          "bytes": 2511234,
+          "rows": 66088,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00081.parquet",
+          "bytes": 2496729,
+          "rows": 65698,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00082.parquet",
+          "bytes": 2497730,
+          "rows": 65611,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00083.parquet",
+          "bytes": 2500992,
+          "rows": 65708,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00084.parquet",
+          "bytes": 2519077,
+          "rows": 66212,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00085.parquet",
+          "bytes": 2501278,
+          "rows": 65915,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00086.parquet",
+          "bytes": 2487327,
+          "rows": 65713,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00087.parquet",
+          "bytes": 2500935,
+          "rows": 66109,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00088.parquet",
+          "bytes": 2508811,
+          "rows": 65866,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00089.parquet",
+          "bytes": 2488050,
+          "rows": 65565,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00090.parquet",
+          "bytes": 2513675,
+          "rows": 66179,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00091.parquet",
+          "bytes": 2500716,
+          "rows": 65766,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00092.parquet",
+          "bytes": 2490610,
+          "rows": 65567,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00093.parquet",
+          "bytes": 2483490,
+          "rows": 65632,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00094.parquet",
+          "bytes": 2486220,
+          "rows": 65632,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00095.parquet",
+          "bytes": 2499212,
+          "rows": 65922,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00096.parquet",
+          "bytes": 2504882,
+          "rows": 65897,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00097.parquet",
+          "bytes": 368204,
+          "rows": 9747,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00098.parquet",
+          "bytes": 620847,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00099.parquet",
+          "bytes": 413685,
+          "rows": 10792,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00100.parquet",
+          "bytes": 576448,
+          "rows": 15188,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00101.parquet",
+          "bytes": 619240,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00102.parquet",
+          "bytes": 622427,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00103.parquet",
+          "bytes": 621270,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00104.parquet",
+          "bytes": 619468,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00105.parquet",
+          "bytes": 419884,
+          "rows": 11077,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00106.parquet",
+          "bytes": 620364,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00107.parquet",
+          "bytes": 624492,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00108.parquet",
+          "bytes": 618572,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00109.parquet",
+          "bytes": 619914,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00110.parquet",
+          "bytes": 474014,
+          "rows": 12427,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00111.parquet",
+          "bytes": 267468,
+          "rows": 7044,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/user_daily/part-00112.parquet",
+          "bytes": 620588,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 64848436,
+      "seconds": 29.567401059997792
+    },
+    "campaign_daily": {
+      "matched_rows": 28014,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-team67/campaign_daily/part-0.parquet",
+          "bytes": 1471310,
+          "rows": 28014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "purchasing_sessions",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int64"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/campaign_daily/part-00000.parquet",
+          "bytes": 304961,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/campaign_daily/part-00001.parquet",
+          "bytes": 306095,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/campaign_daily/part-00002.parquet",
+          "bytes": 312801,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-dense-capacity-n8-dense-tight/campaign_daily/part-00003.parquet",
+          "bytes": 311205,
+          "rows": 6972,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 480862,
+      "seconds": 0.12368773199705174
+    }
+  },
+  "equal": true,
+  "seconds": 29.786495084001217,
+  "maxrss_kib": 664624,
+  "script_sha256": "4153f74fd2f8327f787837eb61d2a1ffb7de93b43d5335b20f91733120848044"
+}

@@ -1,0 +1,67 @@
+{
+  "label": "f60-wide42-final-n8",
+  "data": "/workspace/scratch/bde29dc281e6/data/f60-seed61",
+  "threads": 8,
+  "rounds": 3,
+  "trace": false,
+  "started_utc": "2026-11-22T08:23:01Z",
+  "manifest": {
+    "window_start": "2028-02-05T00:00:00Z",
+    "window_end": "2028-02-19T00:00:00Z"
+  },
+  "binaries": {
+    "wide42": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/dense-wide42",
+      "sha256": "05518580abfc9a52e305e390401541f7f57fffbd740c3df9ead56fc86413a1ff"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "wide42",
+      "exit": -9,
+      "wall_s": 6.035030332997849,
+      "user_s": 9.046425,
+      "sys_s": 12.524044,
+      "cpu_s": 21.570469,
+      "maxrss_kib": 2372400,
+      "minor_faults": 178429,
+      "major_faults": 2895,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-final-n8-wide42-r00"
+    },
+    {
+      "round": 1,
+      "binary": "wide42",
+      "exit": 1,
+      "wall_s": 0.14918000900070183,
+      "user_s": 0.011852,
+      "sys_s": 0.031703999999999996,
+      "cpu_s": 0.043556,
+      "maxrss_kib": 16000,
+      "minor_faults": 1229,
+      "major_faults": 34,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-wide42-final-n8-wide42-r01"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "release_output_cache_after_measurement": true,
+  "preserve_round_outputs": true,
+  "harness_status": "aborted_before_round_2_output_directory_creation_ENOSPC",
+  "rounds_completed": 2,
+  "not_run_rounds": [
+    2
+  ],
+  "all_run_failures_retained": true
+}

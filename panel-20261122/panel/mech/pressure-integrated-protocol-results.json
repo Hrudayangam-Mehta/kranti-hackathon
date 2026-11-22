@@ -1,0 +1,22 @@
+{
+  "finished_utc": "2026-11-22T08:33:54.598527+00:00",
+  "context": "Official checker, real kit map, Bun1.4.4 Dockerfile engine flags, CPU affinity0. Concurrent panel source/test activity: timings are contaminated and establish conformance only. No Docker/cgroup enforcement or match ranking claim.",
+  "results": [
+    {
+      "candidate": "mech-pressure-cycle",
+      "bundle_sha256": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+      "exit": 0,
+      "wall_s": 2.1828206249992945,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js\nready in 1881 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.4  p90 1.0  p99 4.7  max 30.7  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 922 ms, 24 body warm-ups\n[bot] init 1859 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=28.6ms\n"
+    },
+    {
+      "candidate": "mech-burst-cycle",
+      "bundle_sha256": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+      "exit": 0,
+      "wall_s": 2.1046773139969446,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js\nready in 1854 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.4  p90 0.9  p99 3.7  max 11.6  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 897 ms, 24 body warm-ups\n[bot] init 1832 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=10.0ms\n"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "checks": [
+    {
+      "case": "partition_order_integer_width",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 3,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "duplicate_multiplicity",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 3,
+          "missing_rows": 0,
+          "extra_rows": 1,
+          "equal": false
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "missing_row",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 2,
+          "missing_rows": 1,
+          "extra_rows": 0,
+          "equal": false
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "changed_revenue",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 2,
+          "missing_rows": 1,
+          "extra_rows": 1,
+          "equal": false
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "null_is_not_empty",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 2,
+          "missing_rows": 1,
+          "extra_rows": 1,
+          "equal": false
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "date_schema",
+      "passed": true,
+      "error": "/tmp/comparator-selftest-53uhc58w/date_schema/user_daily/part-0.parquet: day must be date, got string",
+      "result": null
+    },
+    {
+      "case": "required_null",
+      "passed": true,
+      "error": "user_daily: 1 rows contain nulls in required columns",
+      "result": null
+    },
+    {
+      "case": "wrong_column_name",
+      "passed": true,
+      "error": "/tmp/comparator-selftest-53uhc58w/wrong_column_name/user_daily/part-0.parquet: wrong/duplicate column names: ['wrong', 'day', 'sessions', 'events', 'revenue_cents', 'top_category']",
+      "result": null
+    },
+    {
+      "case": "dictionary_string",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 3,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    },
+    {
+      "case": "symlink_output_directory",
+      "passed": true,
+      "error": "expected an output directory: /tmp/comparator-selftest-53uhc58w/symlink_output_directory/user_daily",
+      "result": null
+    },
+    {
+      "case": "mixed_unsigned_above_i64",
+      "passed": true,
+      "error": null,
+      "result": {
+        "user_daily": {
+          "matched_rows": 3,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        },
+        "campaign_daily": {
+          "matched_rows": 1,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "equal": true
+        }
+      }
+    }
+  ],
+  "passed": 11,
+  "total": 11
+}

@@ -1,0 +1,27 @@
+{
+  "binary": "bench/bin/dense-adaptive",
+  "binary_sha256": "889b5fd794a3bd2159969ef690501e3197b443dc854b0e9a8a828bb313d92507",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-adaptive",
+    "root": "panel/database/adaptive-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar"
+    ],
+    "report": "panel/database/adaptive-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "compact_cases": true,
+    "adaptive_cases": true,
+    "p2_cases": false,
+    "second_reader": true
+  }
+}

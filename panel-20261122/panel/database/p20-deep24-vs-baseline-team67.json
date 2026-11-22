@@ -1,0 +1,1832 @@
+{
+  "reference": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c",
+  "candidate": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67",
+  "duckdb": "2.0.1",
+  "pyarrow": "26.0.1",
+  "memory_limit": "512MB",
+  "threads": 1,
+  "batch_rows": 2048,
+  "method": "validated schemas, external total sort, exact streamed multiset merge",
+  "started_utc": "2026-11-22T07:18:26.748169+00:00",
+  "tables": {
+    "user_daily": {
+      "matched_rows": 2250361,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00000.parquet",
+          "bytes": 2529153,
+          "rows": 65812,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00001.parquet",
+          "bytes": 2523247,
+          "rows": 65839,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00002.parquet",
+          "bytes": 2519998,
+          "rows": 65922,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00003.parquet",
+          "bytes": 2523421,
+          "rows": 65810,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00004.parquet",
+          "bytes": 2539648,
+          "rows": 65849,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00005.parquet",
+          "bytes": 2522377,
+          "rows": 65571,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00006.parquet",
+          "bytes": 2523938,
+          "rows": 65854,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00007.parquet",
+          "bytes": 2515778,
+          "rows": 65801,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00008.parquet",
+          "bytes": 2529305,
+          "rows": 65970,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00009.parquet",
+          "bytes": 2511084,
+          "rows": 65653,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00010.parquet",
+          "bytes": 2513187,
+          "rows": 65948,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00011.parquet",
+          "bytes": 2510475,
+          "rows": 65821,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00012.parquet",
+          "bytes": 2514089,
+          "rows": 65861,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00013.parquet",
+          "bytes": 2512158,
+          "rows": 65739,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00014.parquet",
+          "bytes": 2508482,
+          "rows": 65746,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00015.parquet",
+          "bytes": 2507434,
+          "rows": 65940,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00016.parquet",
+          "bytes": 2524339,
+          "rows": 65994,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00017.parquet",
+          "bytes": 2519367,
+          "rows": 65839,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00018.parquet",
+          "bytes": 2510851,
+          "rows": 65938,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00019.parquet",
+          "bytes": 2514628,
+          "rows": 66020,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00020.parquet",
+          "bytes": 2508515,
+          "rows": 65987,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00021.parquet",
+          "bytes": 2511962,
+          "rows": 65928,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00022.parquet",
+          "bytes": 2494153,
+          "rows": 65824,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00023.parquet",
+          "bytes": 2505199,
+          "rows": 65870,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00024.parquet",
+          "bytes": 2503439,
+          "rows": 65960,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00025.parquet",
+          "bytes": 2500911,
+          "rows": 65843,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00026.parquet",
+          "bytes": 2506762,
+          "rows": 65961,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00027.parquet",
+          "bytes": 2500434,
+          "rows": 65829,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00028.parquet",
+          "bytes": 2497149,
+          "rows": 65624,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00029.parquet",
+          "bytes": 2502029,
+          "rows": 65763,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00030.parquet",
+          "bytes": 2498412,
+          "rows": 65632,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00031.parquet",
+          "bytes": 2484519,
+          "rows": 65553,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00032.parquet",
+          "bytes": 106011,
+          "rows": 2772,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00033.parquet",
+          "bytes": 541765,
+          "rows": 14259,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00034.parquet",
+          "bytes": 231300,
+          "rows": 6055,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00035.parquet",
+          "bytes": 548727,
+          "rows": 14574,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00036.parquet",
+          "bytes": 40799,
+          "rows": 1035,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00037.parquet",
+          "bytes": 254953,
+          "rows": 6661,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00038.parquet",
+          "bytes": 621163,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00039.parquet",
+          "bytes": 620292,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00040.parquet",
+          "bytes": 621779,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00041.parquet",
+          "bytes": 621312,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00042.parquet",
+          "bytes": 618976,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/user_daily/part-00043.parquet",
+          "bytes": 617917,
+          "rows": 16384,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "events",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-0.parquet",
+          "bytes": 6068023,
+          "rows": 324259,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-1.parquet",
+          "bytes": 2820995,
+          "rows": 162409,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-2.parquet",
+          "bytes": 3736215,
+          "rows": 214227,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-3.parquet",
+          "bytes": 6649812,
+          "rows": 375551,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-4.parquet",
+          "bytes": 5863936,
+          "rows": 313204,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-5.parquet",
+          "bytes": 3473559,
+          "rows": 198391,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-6.parquet",
+          "bytes": 6028674,
+          "rows": 338779,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/user_daily/part-7.parquet",
+          "bytes": 6085220,
+          "rows": 323541,
+          "schema": [
+            [
+              "user_id",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "events",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "top_category",
+              "string"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 22214338,
+      "seconds": 7.286982413002988
+    },
+    "campaign_daily": {
+      "matched_rows": 28014,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "missing_examples": [],
+      "extra_examples": [],
+      "equal": true,
+      "reference_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/campaign_daily/part-00000.parquet",
+          "bytes": 305087,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/campaign_daily/part-00001.parquet",
+          "bytes": 307271,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/campaign_daily/part-00002.parquet",
+          "bytes": 313095,
+          "rows": 7014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        },
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-baseline-c/campaign_daily/part-00003.parquet",
+          "bytes": 311751,
+          "rows": 6972,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int32"
+            ],
+            [
+              "purchasing_sessions",
+              "int32"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int32"
+            ]
+          ]
+        }
+      ],
+      "candidate_files": [
+        {
+          "path": "/workspace/scratch/bde29dc281e6/bench/outputs/p20-deep24-n8-team67/campaign_daily/part-0.parquet",
+          "bytes": 1409635,
+          "rows": 28014,
+          "schema": [
+            [
+              "campaign_id",
+              "string"
+            ],
+            [
+              "channel",
+              "string"
+            ],
+            [
+              "day",
+              "date32[day]"
+            ],
+            [
+              "sessions",
+              "int64"
+            ],
+            [
+              "purchasing_sessions",
+              "int64"
+            ],
+            [
+              "revenue_cents",
+              "int64"
+            ],
+            [
+              "assisted_sessions",
+              "int64"
+            ]
+          ]
+        }
+      ],
+      "canonical_bytes": 408476,
+      "seconds": 0.15319253400230082
+    }
+  },
+  "equal": true,
+  "seconds": 7.490533368996694,
+  "maxrss_kib": 564628,
+  "script_sha256": "05078c6e176dada93486ddeb98e485cf374587ea5207f4ef03e8340ce7614c62"
+}

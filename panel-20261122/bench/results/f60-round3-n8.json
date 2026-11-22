@@ -1,0 +1,184 @@
+{
+  "label": "f60-round3-n8",
+  "data": "/workspace/scratch/bde29dc281e6/data/f60-seed61",
+  "threads": 8,
+  "rounds": 3,
+  "trace": false,
+  "started_utc": "2026-11-22T06:59:11Z",
+  "manifest": {
+    "window_start": "2028-02-05T00:00:00Z",
+    "window_end": "2028-02-19T00:00:00Z"
+  },
+  "binaries": {
+    "baseline-c": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/baseline-c",
+      "sha256": "d591c3e135460fdad26a07c0ec5f1930a52f6f5e13ab9708aab7bc00e61d492d"
+    },
+    "bins-plain": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/bins-plain",
+      "sha256": "59d0ed1f37553de7e39dc5ac7411d20c84f36abdadbc6eeb388c4a28ec34f107"
+    },
+    "team67": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/team67",
+      "sha256": "ae2892a75952b0a213f7c6190156b342b33cecd02d541ad9de2d02fa184f330c"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "baseline-c",
+      "exit": -9,
+      "wall_s": 35.19384037100099,
+      "user_s": 11.62867,
+      "sys_s": 186.052546,
+      "cpu_s": 197.681216,
+      "maxrss_kib": 3591936,
+      "minor_faults": 234413,
+      "major_faults": 10302,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-baseline-c"
+    },
+    {
+      "round": 0,
+      "binary": "bins-plain",
+      "exit": -9,
+      "wall_s": 3.2487338240025565,
+      "user_s": 11.555511,
+      "sys_s": 5.868736,
+      "cpu_s": 17.424247,
+      "maxrss_kib": 3568940,
+      "minor_faults": 175400,
+      "major_faults": 2476,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-bins-plain"
+    },
+    {
+      "round": 0,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.1921991810013424,
+      "user_s": 6.470759,
+      "sys_s": 2.590868,
+      "cpu_s": 9.061627,
+      "maxrss_kib": 2485480,
+      "minor_faults": 94068,
+      "major_faults": 1218,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-team67"
+    },
+    {
+      "round": 1,
+      "binary": "bins-plain",
+      "exit": -9,
+      "wall_s": 2.359425431001,
+      "user_s": 9.504207,
+      "sys_s": 3.359747,
+      "cpu_s": 12.863954,
+      "maxrss_kib": 3553836,
+      "minor_faults": 173763,
+      "major_faults": 1640,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-bins-plain"
+    },
+    {
+      "round": 1,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.4476994490032666,
+      "user_s": 7.082454,
+      "sys_s": 2.958043,
+      "cpu_s": 10.040497,
+      "maxrss_kib": 2498208,
+      "minor_faults": 91328,
+      "major_faults": 1193,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-team67"
+    },
+    {
+      "round": 1,
+      "binary": "baseline-c",
+      "exit": -9,
+      "wall_s": 68.33992026399937,
+      "user_s": 10.137645,
+      "sys_s": 376.720719,
+      "cpu_s": 386.858364,
+      "maxrss_kib": 3579940,
+      "minor_faults": 188245,
+      "major_faults": 20867,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-baseline-c"
+    },
+    {
+      "round": 2,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.402347169998393,
+      "user_s": 7.744853,
+      "sys_s": 1.934044,
+      "cpu_s": 9.678897,
+      "maxrss_kib": 2504724,
+      "minor_faults": 77013,
+      "major_faults": 978,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-team67"
+    },
+    {
+      "round": 2,
+      "binary": "baseline-c",
+      "exit": -9,
+      "wall_s": 3.6772961960014072,
+      "user_s": 10.351216,
+      "sys_s": 9.085568,
+      "cpu_s": 19.436784000000003,
+      "maxrss_kib": 3582612,
+      "minor_faults": 187888,
+      "major_faults": 8131,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-baseline-c"
+    },
+    {
+      "round": 2,
+      "binary": "bins-plain",
+      "exit": -9,
+      "wall_s": 1.7305263160014874,
+      "user_s": 8.19047,
+      "sys_s": 1.929636,
+      "cpu_s": 10.120106,
+      "maxrss_kib": 3584948,
+      "minor_faults": 178661,
+      "major_faults": 1632,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-round3-n8-bins-plain"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "summary": {
+    "baseline-c": {
+      "successful_runs": 0,
+      "failed_runs": 3
+    },
+    "bins-plain": {
+      "successful_runs": 0,
+      "failed_runs": 3
+    },
+    "team67": {
+      "wall_s": 2.402347169998393,
+      "cpu_s": 9.678897,
+      "user_s": 7.082454,
+      "sys_s": 2.590868,
+      "maxrss_kib": 2498208,
+      "successful_runs": 3,
+      "failed_runs": 0
+    }
+  }
+}

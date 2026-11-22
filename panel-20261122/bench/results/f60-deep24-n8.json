@@ -1,0 +1,184 @@
+{
+  "label": "f60-deep24-n8",
+  "data": "/workspace/scratch/bde29dc281e6/data/f60-seed61",
+  "threads": 8,
+  "rounds": 3,
+  "trace": false,
+  "started_utc": "2026-11-22T07:14:32Z",
+  "manifest": {
+    "window_start": "2028-02-05T00:00:00Z",
+    "window_end": "2028-02-19T00:00:00Z"
+  },
+  "binaries": {
+    "compact": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/compact",
+      "sha256": "e1a487911743df2f77e9314632bec8159b6b0ad8518d4f7c60a004268035bf7c"
+    },
+    "deep24": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/deep24",
+      "sha256": "608188acbe5278e53a8bbcb51c331d968f0dc79e847238745a570e1a6c031ec1"
+    },
+    "team67": {
+      "path": "/workspace/scratch/bde29dc281e6/bench/bin/team67",
+      "sha256": "ae2892a75952b0a213f7c6190156b342b33cecd02d541ad9de2d02fa184f330c"
+    }
+  },
+  "runs": [
+    {
+      "round": 0,
+      "binary": "compact",
+      "exit": -9,
+      "wall_s": 20.252697973999602,
+      "user_s": 10.61748,
+      "sys_s": 101.89009,
+      "cpu_s": 112.50757,
+      "maxrss_kib": 2801748,
+      "minor_faults": 187797,
+      "major_faults": 12418,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-compact"
+    },
+    {
+      "round": 0,
+      "binary": "deep24",
+      "exit": -9,
+      "wall_s": 23.155599543999415,
+      "user_s": 11.438304,
+      "sys_s": 131.539243,
+      "cpu_s": 142.977547,
+      "maxrss_kib": 3036664,
+      "minor_faults": 214936,
+      "major_faults": 7016,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-deep24"
+    },
+    {
+      "round": 0,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.3472300759967766,
+      "user_s": 6.597122,
+      "sys_s": 2.649553,
+      "cpu_s": 9.246675,
+      "maxrss_kib": 2445568,
+      "minor_faults": 98120,
+      "major_faults": 1154,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-team67"
+    },
+    {
+      "round": 1,
+      "binary": "deep24",
+      "exit": -9,
+      "wall_s": 2.39640937600052,
+      "user_s": 10.164888,
+      "sys_s": 3.046542,
+      "cpu_s": 13.21143,
+      "maxrss_kib": 3041424,
+      "minor_faults": 172650,
+      "major_faults": 1880,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-deep24"
+    },
+    {
+      "round": 1,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.225553279997257,
+      "user_s": 6.43258,
+      "sys_s": 2.611341,
+      "cpu_s": 9.043921,
+      "maxrss_kib": 2485296,
+      "minor_faults": 96850,
+      "major_faults": 1249,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-team67"
+    },
+    {
+      "round": 1,
+      "binary": "compact",
+      "exit": -9,
+      "wall_s": 8.08636636799929,
+      "user_s": 11.635255,
+      "sys_s": 33.808655,
+      "cpu_s": 45.44391,
+      "maxrss_kib": 3038240,
+      "minor_faults": 173640,
+      "major_faults": 4035,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-compact"
+    },
+    {
+      "round": 2,
+      "binary": "team67",
+      "exit": 0,
+      "wall_s": 2.245718158999807,
+      "user_s": 6.769601,
+      "sys_s": 2.510607,
+      "cpu_s": 9.280208,
+      "maxrss_kib": 2469708,
+      "minor_faults": 91904,
+      "major_faults": 1140,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-team67"
+    },
+    {
+      "round": 2,
+      "binary": "compact",
+      "exit": -9,
+      "wall_s": 5.7675535430025775,
+      "user_s": 10.580814,
+      "sys_s": 20.695076,
+      "cpu_s": 31.27589,
+      "maxrss_kib": 3020928,
+      "minor_faults": 171185,
+      "major_faults": 5964,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-compact"
+    },
+    {
+      "round": 2,
+      "binary": "deep24",
+      "exit": -9,
+      "wall_s": 7.331831935000082,
+      "user_s": 9.513945,
+      "sys_s": 33.198392,
+      "cpu_s": 42.712337,
+      "maxrss_kib": 3036336,
+      "minor_faults": 167846,
+      "major_faults": 3342,
+      "stdout_bytes": 0,
+      "output": "/workspace/scratch/bde29dc281e6/bench/outputs/f60-deep24-n8-deep24"
+    }
+  ],
+  "cache_policy": "OS-managed page cache; no privileged cache flush; rotating interleaving",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "summary": {
+    "compact": {
+      "successful_runs": 0,
+      "failed_runs": 3
+    },
+    "deep24": {
+      "successful_runs": 0,
+      "failed_runs": 3
+    },
+    "team67": {
+      "wall_s": 2.245718158999807,
+      "cpu_s": 9.246675,
+      "user_s": 6.597122,
+      "sys_s": 2.611341,
+      "maxrss_kib": 2469708,
+      "successful_runs": 3,
+      "failed_runs": 0
+    }
+  }
+}

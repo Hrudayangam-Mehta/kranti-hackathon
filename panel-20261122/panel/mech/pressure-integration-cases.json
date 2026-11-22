@@ -1,0 +1,183 @@
+{
+  "purpose": "Integration contracts, capture identity controls, legal in-contact swaps, reserve-aware firing and finite all-mode combat actions; no match ranking.",
+  "count": 22,
+  "passed": 22,
+  "results": [
+    {
+      "name": "mech-pressure-cycle_both_features_off_capture_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-pressure-cycle_cycle_off_pure_macro_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-pressure-cycle_macro_off_cycle_control_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-pressure-cycle_empty_slot_pickup_survives_commit_economy_bypass",
+      "passed": true,
+      "action": {
+        "move": [
+          -0.3713906763541037,
+          -0.9284766908852592
+        ],
+        "boost": false,
+        "aim": [
+          0.005419760296053067,
+          -0.09945255075828881
+        ],
+        "fire": [
+          true,
+          false
+        ],
+        "take": 8001
+      }
+    },
+    {
+      "name": "mech-pressure-cycle_contextual_full_slot_swap_survives_commit",
+      "passed": true,
+      "first_swap_decision": 1,
+      "action": {
+        "move": [
+          -0.3713906763541037,
+          -0.9284766908852592
+        ],
+        "boost": false,
+        "aim": [
+          0.005419760296053067,
+          -0.09945255075828881
+        ],
+        "fire": [
+          true,
+          false
+        ],
+        "take": 8002,
+        "drop": 1
+      }
+    },
+    {
+      "name": "mech-pressure-cycle_pickup_reach_and_vertical_constraints",
+      "passed": true
+    },
+    {
+      "name": "mech-pressure-cycle_charging_slot_is_never_dropped",
+      "passed": true
+    },
+    {
+      "name": "mech-pressure-cycle_clear_selected_target_can_start_charge_despite_other_closing_lightning",
+      "passed": true
+    },
+    {
+      "name": "mech-pressure-cycle_pressure_reserve_reaches_lightning_firing_gate",
+      "passed": true
+    },
+    {
+      "name": "mech-pressure-cycle_burst_band_retreating_reverser_has_a_viable_gun_shot",
+      "passed": true,
+      "selected_range": 78,
+      "retreat_speed": 10,
+      "active_fires": true,
+      "capture_suppresses": true,
+      "base_accuracy_gate_retained": true
+    },
+    {
+      "name": "mech-pressure-cycle_committed_low_health_stress_keeps_finite_combat",
+      "passed": true,
+      "decisions": 80,
+      "sha256": "aa7c3df35abd3deb878c5e4e6077c6461a0c8a362ed611caebc9802215750911"
+    },
+    {
+      "name": "mech-burst-cycle_both_features_off_capture_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-burst-cycle_cycle_off_pure_macro_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-burst-cycle_macro_off_cycle_control_identity",
+      "passed": true,
+      "decisions": 300
+    },
+    {
+      "name": "mech-burst-cycle_empty_slot_pickup_survives_commit_economy_bypass",
+      "passed": true,
+      "action": {
+        "move": [
+          -0.6246950475544243,
+          -0.7808688094430303
+        ],
+        "boost": false,
+        "aim": [
+          0.0045514179895476126,
+          -0.09930710681156515
+        ],
+        "fire": [
+          true,
+          false
+        ],
+        "take": 8001
+      }
+    },
+    {
+      "name": "mech-burst-cycle_contextual_full_slot_swap_survives_commit",
+      "passed": true,
+      "first_swap_decision": 1,
+      "action": {
+        "move": [
+          -0.6246950475544243,
+          -0.7808688094430303
+        ],
+        "boost": false,
+        "aim": [
+          0.0045514179895476126,
+          -0.09930710681156515
+        ],
+        "fire": [
+          true,
+          false
+        ],
+        "take": 8002,
+        "drop": 1
+      }
+    },
+    {
+      "name": "mech-burst-cycle_pickup_reach_and_vertical_constraints",
+      "passed": true
+    },
+    {
+      "name": "mech-burst-cycle_charging_slot_is_never_dropped",
+      "passed": true
+    },
+    {
+      "name": "mech-burst-cycle_clear_selected_target_can_start_charge_despite_other_closing_lightning",
+      "passed": true
+    },
+    {
+      "name": "mech-burst-cycle_pressure_reserve_reaches_lightning_firing_gate",
+      "passed": true
+    },
+    {
+      "name": "mech-burst-cycle_burst_band_retreating_reverser_has_a_viable_gun_shot",
+      "passed": true,
+      "selected_range": 78,
+      "retreat_speed": 10,
+      "active_fires": true,
+      "capture_suppresses": true,
+      "base_accuracy_gate_retained": true
+    },
+    {
+      "name": "mech-burst-cycle_committed_low_health_stress_keeps_finite_combat",
+      "passed": true,
+      "decisions": 80,
+      "sha256": "5f7acb94f71d017da1f1d09237db491623f59ff7ae874a32daa7633bf4c741e6"
+    }
+  ]
+}

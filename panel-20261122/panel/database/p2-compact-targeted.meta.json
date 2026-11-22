@@ -1,0 +1,27 @@
+{
+  "binary": "bench/bin/dense-p2",
+  "binary_sha256": "79888b8da6f0ca2a9c050d941d608a92dffbd7879858c1e1e972129e23ecd9cf",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "e41d99840fdeee370a5bfad50ba00b91eccb84fa3f50fd62fd9988518c203365",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-p2",
+    "root": "panel/database/p2-compact-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar"
+    ],
+    "report": "panel/database/p2-compact-targeted.json",
+    "only": "compact",
+    "repeat": false,
+    "bin_cases": false,
+    "large_output": false,
+    "purchase_cases": false,
+    "compact_cases": true,
+    "adaptive_cases": false,
+    "p2_cases": false,
+    "second_reader": true
+  }
+}

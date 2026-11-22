@@ -1,0 +1,69 @@
+--- a/bot/lib/firecontrol.js
++++ b/bot/lib/firecontrol.js
+@@ -2,6 +2,7 @@
+ // release, lightning, mortar, reload discipline and the torso policy when there is nothing to shoot.
+ 
+ import { angDiff, clamp, intercept, laserFrac, mortarSolve, wrapPi } from './aim.js'
++import { mortarArcClear, mortarSelfClear } from './mortar.js'
+ 
+ export function makeFireControl(B) {
+   const P = B.P
+@@ -295,15 +296,19 @@
+         const blind = !tgt.losOut && t - tgt.lastSeen <= P.mortarSeenS
+         if (gunBusy || blind) {
+           const tspd = Math.hypot(tgt.vx, tgt.vy)
+-          const m = mortarSolve(ps.x, ps.y, ps.z + me.height + 0.5, tgt.x, tgt.y, tgt.z, tgt.vx, tgt.vy, mo.speed, mo.gravity, me.radius + 0.5, false)
+-          if (m && (tspd < 1 || m.t <= P.mortarMaxFlight) && Math.hypot(m.x - me.x, m.y - me.y) > mo.splashR + P.mortarSelfMargin && m.pitch <= me.maxPitch) {
+-            const c = Math.cos(m.pitch), a = P.mortarArcCheck
+-            const tz0 = ps.z + me.height + 0.5
+-            const arcClear = !B.world || B.world.shotClear(ps.x, ps.y, tz0, ps.x + c * Math.cos(m.yaw) * a, ps.y + c * Math.sin(m.yaw) * a, tz0 + Math.sin(m.pitch) * a - 0.5 * mo.gravity * (a / (mo.speed * c)) ** 2)
+-            if (arcClear && !laserRelease && !(lz && lz.charge > 0)) {
++          const tlm = P.ioSlewGate === true ? gunLatency(mo.cooldown) : tl
++          predictSelf(tlm)
++          const mx = ps.x, my = ps.y, mz = ps.z + me.height + 0.5, offset = me.radius + 0.5
++          const m = mortarSolve(mx, my, mz, tgt.x, tgt.y, tgt.z, tgt.vx, tgt.vy, mo.speed, mo.gravity, offset, false)
++          if (m && (tspd < 1 || m.t <= P.mortarMaxFlight) && m.pitch >= me.minPitch && m.pitch <= me.maxPitch) {
++            const travel = (offset + mo.speed * m.t) * Math.cos(m.pitch)
++            const ix = mx + travel * Math.cos(m.yaw), iy = my + travel * Math.sin(m.yaw)
++            const ttl = mo.st.ttl ?? B.cfg.weapons.mortar.ttl ?? 7
++            const safe = mortarSelfClear(me.x, me.y, me.vx, me.vy, ix, iy, tlm + m.t, mo.splashR, me.radius, P.mortarSelfMargin)
++            const clear = safe && mortarArcClear(B.world, mx, my, mz, m.yaw, m.pitch, mo.speed, mo.gravity, offset, m.t, ttl)
++            if (clear && !laserRelease && !(lz && lz.charge > 0)) {
+               out.aim[0] = m.yaw; out.aim[1] = m.pitch; B.aimKind = 'mortar'
+               gunReady = false
+-              const tlm = P.ioSlewGate === true ? gunLatency(mo.cooldown) : tl          // R6 IO3
+               if (Math.abs(angDiff(predYaw(m.yaw, tlm), m.yaw)) < 0.02 && Math.abs(predPitch(m.pitch, tlm) - m.pitch) < 0.02) out.fire[mo.slot] = true
+             }
+           }
+--- /dev/null
++++ b/bot/lib/mortar.js
+@@ -0,0 +1,29 @@
++export function mortarArcClear(world, x, y, z, yaw, pitch, speed, gravity, offset, flight, ttl) {
++  const total = x + y + z + yaw + pitch + speed + gravity + offset + flight + ttl
++  if (!Number.isFinite(total) || speed <= 0 || gravity <= 0 || offset < 0 || flight <= 0 || ttl <= 0 || flight > ttl) return false
++  const c = Math.cos(pitch), ux = c * Math.cos(yaw), uy = c * Math.sin(yaw), uz = Math.sin(pitch)
++  const vx = speed * ux, vy = speed * uy, vz = speed * uz
++  const end = Math.max(0, flight - 1e-6)
++  const maxSpeed = Math.max(speed, Math.hypot(vx, vy, vz - gravity * end))
++  const n = Math.max(1, Math.ceil(end / 0.15), Math.ceil(end * maxSpeed / 12), Math.ceil(end / Math.sqrt(0.64 / gravity)))
++  if (n > 64) return false
++  if (!world) return true
++  const ox = x + offset * ux, oy = y + offset * uy, oz = z + offset * uz
++  if (!world.shotClear(x, y, z, ox, oy, oz)) return false
++  let px = ox, py = oy, pz = oz
++  for (let i = 1; i <= n; i++) {
++    const t = end * i / n
++    const qx = ox + vx * t, qy = oy + vy * t, qz = oz + vz * t - 0.5 * gravity * t * t
++    if (!world.shotClear(px, py, pz, qx, qy, qz)) return false
++    px = qx; py = qy; pz = qz
++  }
++  return true
++}
++
++export function mortarSelfClear(x, y, vx, vy, impactX, impactY, time, splash, radius, margin) {
++  const total = x + y + vx + vy + impactX + impactY + time + splash + radius + margin
++  if (!Number.isFinite(total) || time < 0 || splash < 0 || radius < 0 || margin < 0) return false
++  const safe = splash + radius + margin
++  return Math.hypot(impactX - x, impactY - y) > safe &&
++    Math.hypot(impactX - (x + vx * time), impactY - (y + vy * time)) > safe
++}

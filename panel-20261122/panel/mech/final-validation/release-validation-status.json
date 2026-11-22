@@ -1,0 +1,30 @@
+{
+  "recorded_utc": "2026-11-22T08:44:38.185342+00:00",
+  "supersedes_release_hold": "corrected-status.json",
+  "publication_gate_decision": "Parent approved publication of the unchanged two combined hashes after the predetermined diagnostic.",
+  "strict_diagnostic_receipt": "strict-diagnostic/results.json",
+  "strict_runs_planned": 12,
+  "strict_runs_completed": 12,
+  "strict_runs_passed": 12,
+  "bundles": {
+    "capture": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+    "pressure-cycle": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+    "burst-cycle": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d"
+  },
+  "original_outlier_retained": {
+    "receipt": "results.json",
+    "candidate": "burst-cycle",
+    "in_time": 298,
+    "observations": 300,
+    "missed": 2,
+    "late": 2,
+    "max_ms": 243.3,
+    "cause": "unestablished"
+  },
+  "limits": [
+    "The repeat does not erase the original two late answers.",
+    "Counterfactual contact snapshots are not reactive simulated gameplay.",
+    "Official placement gains and the 7.5 goal remain unmeasured.",
+    "The active-pressure warmup gap is documented and not promoted into these bundles."
+  ]
+}

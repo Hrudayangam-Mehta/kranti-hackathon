@@ -1,0 +1,205 @@
+{
+  "base": "capture variant, prof.js unchanged",
+  "runtime": "Bun1.4.4",
+  "bounded_policy_cases_passed": 29,
+  "candidates": [
+    {
+      "candidate": "mech-pressure",
+      "source": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure/bot",
+      "policy": "push",
+      "source_files": [
+        {
+          "path": "bot.js",
+          "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
+        },
+        {
+          "path": "lib/aim.js",
+          "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
+        },
+        {
+          "path": "lib/aimcal.js",
+          "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+        },
+        {
+          "path": "lib/brain.js",
+          "sha256": "e9b2b9ef5fa18c3b97024afbf906b931d491bbbb720d1eb31837587dacb9044f"
+        },
+        {
+          "path": "lib/counters.js",
+          "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+        },
+        {
+          "path": "lib/economy.js",
+          "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
+        },
+        {
+          "path": "lib/ffa.js",
+          "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+        },
+        {
+          "path": "lib/firecontrol.js",
+          "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb"
+        },
+        {
+          "path": "lib/hunt.js",
+          "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+        },
+        {
+          "path": "lib/io.js",
+          "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+        },
+        {
+          "path": "lib/mover.js",
+          "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+        },
+        {
+          "path": "lib/nav.js",
+          "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+        },
+        {
+          "path": "lib/params.js",
+          "sha256": "34f9fff0b131ec3dacc0c761d3eb8602fc794cd5cd7ba48cfad53bc0b3f9d713"
+        },
+        {
+          "path": "lib/pressure.js",
+          "sha256": "6563d459bcc816b176e1b3ee8354d7310449c71eb9630ac3f1ee606d0ce7425d"
+        },
+        {
+          "path": "lib/prof.js",
+          "sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51"
+        },
+        {
+          "path": "lib/scan.js",
+          "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+        },
+        {
+          "path": "lib/senses.js",
+          "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
+        },
+        {
+          "path": "lib/stance.js",
+          "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+        },
+        {
+          "path": "lib/steal.js",
+          "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+        },
+        {
+          "path": "lib/tactics.js",
+          "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+        },
+        {
+          "path": "lib/world.js",
+          "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+        }
+      ],
+      "bundle": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure/dist/bot.js",
+        "bytes": 260126,
+        "sha256": "99c206b558d3359315a04f33a5e9c210984c85c1999c5e8582077deb652a9125"
+      },
+      "patch": "/workspace/scratch/bde29dc281e6/panel/mech/mech-pressure.patch",
+      "readme_identical_to_capture": true
+    },
+    {
+      "candidate": "mech-burst-hunter",
+      "source": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-hunter/bot",
+      "policy": "burst",
+      "source_files": [
+        {
+          "path": "bot.js",
+          "sha256": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8"
+        },
+        {
+          "path": "lib/aim.js",
+          "sha256": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6"
+        },
+        {
+          "path": "lib/aimcal.js",
+          "sha256": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9"
+        },
+        {
+          "path": "lib/brain.js",
+          "sha256": "e9b2b9ef5fa18c3b97024afbf906b931d491bbbb720d1eb31837587dacb9044f"
+        },
+        {
+          "path": "lib/counters.js",
+          "sha256": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090"
+        },
+        {
+          "path": "lib/economy.js",
+          "sha256": "62b9b90f3428c1b583d52be1d2ff82fe4687a51d375fab1fa1ef00925ee2b4b2"
+        },
+        {
+          "path": "lib/ffa.js",
+          "sha256": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e"
+        },
+        {
+          "path": "lib/firecontrol.js",
+          "sha256": "b51dbe1a1df728a08a51ab601d54f9d088308c9c0e7e74faeb091c0d9a5a25eb"
+        },
+        {
+          "path": "lib/hunt.js",
+          "sha256": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef"
+        },
+        {
+          "path": "lib/io.js",
+          "sha256": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a"
+        },
+        {
+          "path": "lib/mover.js",
+          "sha256": "0dab3aeb5b06f19a945c8fb836dd2998ca1c7c00bf7c78b04108d05a6cd05285"
+        },
+        {
+          "path": "lib/nav.js",
+          "sha256": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783"
+        },
+        {
+          "path": "lib/params.js",
+          "sha256": "58895231e13bfcb5d56db0b003ae45ae32fbe057ed420d999b3786de6da70b9f"
+        },
+        {
+          "path": "lib/pressure.js",
+          "sha256": "6563d459bcc816b176e1b3ee8354d7310449c71eb9630ac3f1ee606d0ce7425d"
+        },
+        {
+          "path": "lib/prof.js",
+          "sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51"
+        },
+        {
+          "path": "lib/scan.js",
+          "sha256": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef"
+        },
+        {
+          "path": "lib/senses.js",
+          "sha256": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083"
+        },
+        {
+          "path": "lib/stance.js",
+          "sha256": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6"
+        },
+        {
+          "path": "lib/steal.js",
+          "sha256": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9"
+        },
+        {
+          "path": "lib/tactics.js",
+          "sha256": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff"
+        },
+        {
+          "path": "lib/world.js",
+          "sha256": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+        }
+      ],
+      "bundle": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-hunter/dist/bot.js",
+        "bytes": 260127,
+        "sha256": "91b5cc71caa4d83a7a027cfa63793efa9722e298888aa0a09bc0fc6084b38b10"
+      },
+      "patch": "/workspace/scratch/bde29dc281e6/panel/mech/mech-burst-hunter.patch",
+      "readme_identical_to_capture": true
+    }
+  ],
+  "status": "Historical pure macro bundle/source receipt superseded by pressure-integration-builds.json. Pure source controls have evolved after the historical bundles; do not publish those old dist bundles.",
+  "do_not_publish": true
+}

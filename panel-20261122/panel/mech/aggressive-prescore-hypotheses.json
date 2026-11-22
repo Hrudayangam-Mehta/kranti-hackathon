@@ -1,0 +1,26 @@
+{
+  "recorded_utc": "2026-11-22T08:44:18.523952+00:00",
+  "written_before_publication_and_official_scoring": true,
+  "baseline": {
+    "commit": "099e7e392a863346575d7ef45bb9af3432544329",
+    "owner_reported_score": 5.47
+  },
+  "target": 7.5,
+  "calibrated_score_forecast": null,
+  "reason": "No current reactive scoring simulator or per-match outcome distribution. Protocol and counterfactual tests cannot support a numerical placement forecast.",
+  "submission_order": [
+    "69ed1814707634fb4b5e5953082f3d67ac9e52f8",
+    "26f382eab378e1193ab9203bb4ec7e706c6780bf"
+  ],
+  "hypotheses": [
+    {
+      "commit": "69ed1814707634fb4b5e5953082f3d67ac9e52f8",
+      "claim": "After secondary weapon plus upgrade, commit sustained pressure, choose shorter modeled kill time and route, and opportunistically improve the carried pair. May remove passive lost opportunities; extra exposure can reduce placement."
+    },
+    {
+      "commit": "26f382eab378e1193ab9203bb4ec7e706c6780bf",
+      "claim": "Same mechanics and takeover, with burst-based target utility, short weapon-recovery spacing and bounded seeded dodge ties. May convert ready damage while avoiding idle exposure, but wider spacing can delay finishes."
+    }
+  ],
+  "selection": "Owner submits and compares official scores; no game-server or final-pick action performed."
+}

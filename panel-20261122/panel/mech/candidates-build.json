@@ -1,0 +1,47 @@
+{
+  "runtime": "Bun 1.4.4",
+  "baseline_commit": "3417f9965d2bfc3133ddf7d43cd86bcef6dbd79b",
+  "baseline_bundle_sha256": "fe7a9f6173a1e9a0615ee3a0ba277f1b1914c86c217007cf1e9203cc52af36aa",
+  "candidates": {
+    "mech-geometry": {
+      "source": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-geometry/bot/lib/firecontrol.js",
+        "sha256": "59fc257de4f792191e35ec063f93eede202b9ff0c1e61942d504aea10112c2f7",
+        "bytes": 24568
+      },
+      "bundle": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-geometry/dist/bot.js",
+        "sha256": "a19a4364c40bf3008ef1cddb5d48324a913849066e3a76d9218fad390fbd4bab",
+        "bytes": 250504
+      },
+      "patch": {
+        "path": "/workspace/scratch/bde29dc281e6/panel/mech/mech-geometry.patch",
+        "sha256": "a59c0a7b35855510980ee05e74c1747c2b4de7847e95e99d9f92ec1cea05572e",
+        "bytes": 3805
+      },
+      "changed_source_files": [
+        "lib/firecontrol.js"
+      ]
+    },
+    "mech-capture": {
+      "source": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-capture/bot/lib/prof.js",
+        "sha256": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+        "bytes": 34129
+      },
+      "bundle": {
+        "path": "/workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "sha256": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+        "bytes": 251278
+      },
+      "patch": {
+        "path": "/workspace/scratch/bde29dc281e6/panel/mech/mech-capture.patch",
+        "sha256": "a1309d548bafa1d2a09e5d9153d64711927aaeec8e7c9e590a38412025662ad5",
+        "bytes": 4478
+      },
+      "changed_source_files": [
+        "lib/prof.js"
+      ]
+    }
+  }
+}

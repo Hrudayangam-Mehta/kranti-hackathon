@@ -1,0 +1,97 @@
+{
+  "reviewed_utc": "2026-11-22T08:35:26.960932+00:00",
+  "reviewer_role": "independent database/backend correctness reviewer",
+  "decision": "Source accepted for the exact two frozen integrated bundles. Runtime/latency gate remains owned by the algorithm reviewer and must be attached separately before publication.",
+  "candidates": [
+    {
+      "name": "mech-pressure-cycle",
+      "source": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/bot",
+      "source_files_sha256": {
+        "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "lib/brain.js": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+        "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "lib/economy.js": "db9a988ca1134ba7de3b4be2cc29734b07d56280705bf136625a7b80fe5e18f0",
+        "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "lib/firecontrol.js": "628087cf29166d2412359c7993bc74643250ff9d85aa74024b8395fedbdab6b7",
+        "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "lib/mover.js": "3a1ebe1fca55e1c80dfbc858d5e57e3aad5313d281d0ef5a39b0a693ad1da49f",
+        "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "lib/params.js": "f4af581a38c6cf40bd8c936e6f4f2cd47c8a91effa5c94108c11f456b6f89ad5",
+        "lib/pressure.js": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+        "lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+        "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+        "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "lib/weapon_policy.js": "84e082f5fccd68e395756191538ac922e289f5e31449bc622415a343136ab8c2",
+        "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "source_manifest_sha256": "be81fe16b5e33fb6bd4e15c0358169b3bc1992d8777fe6f7ab33c747e6709716",
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js",
+      "bundle_sha256": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+      "bundle_bytes": 269496,
+      "accepted_source": true
+    },
+    {
+      "name": "mech-burst-cycle",
+      "source": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/bot",
+      "source_files_sha256": {
+        "bot.js": "52434280606ee29c5f81617167302d8e9b95d8acbca997f2d2b6c1176f9fb7d8",
+        "lib/aim.js": "e4423708379d37c38dba12cc9109faa5910d05461ba72e031ce5d541c0dcece6",
+        "lib/aimcal.js": "f5987dc4299ae77d9bb9fbf49e0ffe3eb624fa7c835f15878eda79a7ea42aed9",
+        "lib/brain.js": "c27e25cef4895e29695d596b5b8f1653b452b8937e291f8d7e1aa7617a923f2a",
+        "lib/counters.js": "b0b1c2d084e4ae9d9fe4c5c234913d05cdbe2979e6e4ea7517e417f86d805090",
+        "lib/economy.js": "db9a988ca1134ba7de3b4be2cc29734b07d56280705bf136625a7b80fe5e18f0",
+        "lib/ffa.js": "30a14db075593d7beb6439fef878b52e0ad7a6afb6e2f9d0f9b8ed2213f78c1e",
+        "lib/firecontrol.js": "628087cf29166d2412359c7993bc74643250ff9d85aa74024b8395fedbdab6b7",
+        "lib/hunt.js": "d55ea95b2d29bac906709e8e41eea515b3d57cc02a3e662233480d06e00609ef",
+        "lib/io.js": "eb08c715cf05440ca946dcf502a83950f1371c9b498037ab972f2983ffd4de6a",
+        "lib/mover.js": "3a1ebe1fca55e1c80dfbc858d5e57e3aad5313d281d0ef5a39b0a693ad1da49f",
+        "lib/nav.js": "940510d8c79fb9690a5741210a4f51f735210c4910d2f33793627b3b1c58e783",
+        "lib/params.js": "55f5cd755f3801d17c1c42486ea4ea38eafa22e72b64a8949fa2420a4f7b0d07",
+        "lib/pressure.js": "b5206c933040c9f3e09ec07f627d59e0aa2f31bea13211417eab03a320be68ea",
+        "lib/prof.js": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51",
+        "lib/scan.js": "0caa51bcaa44d02d0716c48725ec1bca3fdcdbb8a807cd4097f1c9423c6399ef",
+        "lib/senses.js": "bdf215cc315ffd94b64050dd3c648b3ec38b7646e1226cf7c16b2efc25c88083",
+        "lib/stance.js": "460f43437e2efa9a0f08d37d65d916712ad7e0e0b383abc9f4e438dc2bf206b6",
+        "lib/steal.js": "034ad428e982a93dbcec836af83b872876bd4cb3eede4fa70b2218185c9dfcf9",
+        "lib/tactics.js": "699b780e909fce110d5bebfa62e6205854982eb0f27357e881d4d2077dd286ff",
+        "lib/weapon_policy.js": "84e082f5fccd68e395756191538ac922e289f5e31449bc622415a343136ab8c2",
+        "lib/world.js": "def75aef4271ce8b810c296b8a44a69de4eea2bfd0dd13007fcf143c65da2e43"
+      },
+      "source_manifest_sha256": "b898c16baec233debaecaf442801419dc1e0555fbfaafe39e8f35b87d3b9c094",
+      "bundle": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js",
+      "bundle_sha256": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+      "bundle_bytes": 269497,
+      "accepted_source": true
+    }
+  ],
+  "candidate_source_differences": [
+    "lib/params.js"
+  ],
+  "hypotheses": {
+    "mech-pressure-cycle": "Sustained pressure after setup, readiness-aware weapon use, deterministic original dodge ordering.",
+    "mech-burst-cycle": "Same exact state/weapon correctness changes; wider burst ranges, recoil/reload recovery movement, and bounded seeded dodge variation."
+  },
+  "source_checked_findings": [
+    "Pressure latch overrides prior passive health/FFA mode holds after stance.",
+    "Old profile laser-avoidance predicate is bypassed only after commitment.",
+    "FFA-only gun flight caps are bypassed only after commitment; base accuracy and physical checks remain.",
+    "Final weapon/economy pair is copied together, with live pickup limits, pre-evaluation, charged-slot lock and equipment anti-thrash.",
+    "Pressure gun replacement applies in both SQUAD and FFA; empty slots can fill without a synthetic drop.",
+    "Known baseline armor scales pressure estimates; further enemy stats and HP uncertainty remain."
+  ],
+  "evidence_scope": "Source inspection and independently recomputed exact source/bundle hashes. Behavioral tests are implementation-author receipts, not rerun by this reviewer during the quiet latency window.",
+  "limitations": [
+    "No reactive engine-equivalence or official placement improvement follows from source and replay checks.",
+    "Gun/laser damage, finish and target rank are heuristic estimates; enemy armor upgrades and hidden HP/ammunition are not fully observed.",
+    "The inherited near/full-charge handling can delay full-speed escape until release/timeout despite noCharge.",
+    "The wider lightning blocker cone deliberately may reject extra shots.",
+    "The practice house squad and final FFA opponent distributions differ."
+  ],
+  "report": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-backend-review.md"
+}

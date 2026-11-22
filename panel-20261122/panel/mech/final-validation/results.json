@@ -1,0 +1,846 @@
+{
+  "started_utc": "2026-11-22T08:34:52.518079+00:00",
+  "cpu_affinity": [
+    0
+  ],
+  "runtime_flags": {
+    "BUN_JSC_useFTLJIT": "0",
+    "BUN_JSC_useConcurrentJIT": "1",
+    "BUN_JSC_useConcurrentGC": "0",
+    "BUN_JSC_numberOfGCMarkers": "1",
+    "BUN_JSC_numberOfBaselineCompilerThreads": "1",
+    "BUN_JSC_numberOfDFGCompilerThreads": "1",
+    "BUN_JSC_numberOfFTLCompilerThreads": "1",
+    "BUN_JSC_minNumberOfWorklistThreads": "1",
+    "BUN_JSC_maxNumberOfWorklistThreads": "1"
+  },
+  "runtime": "1.4.4",
+  "context": "Root-coordinated quiet agent window. One CPU affinity, real arena, normal bundled warmup and fuse. Recorded/scenario observations are nonreactive; this is protocol/latency evidence, not match ranking. No Docker/cgroup/read-only-sandbox claim.",
+  "bundles": {
+    "capture": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+      "sha256": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1",
+      "bytes": 251278
+    },
+    "pressure-cycle": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js",
+      "sha256": "609dad433c99b3ff1c086daedb014cbc524c1ffc51b7927eceb1b98ed9d95797",
+      "bytes": 269496
+    },
+    "burst-cycle": {
+      "path": "/workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js",
+      "sha256": "deb215812f7a8ef0786c1a98ab41a9b10d2d853f167aeb42d838a76c14e6ba1d",
+      "bytes": 269497
+    }
+  },
+  "streams": {
+    "official": {
+      "path": "/workspace/scratch/bde29dc281e6/handoff/.cache/ws/mechbot/kit/check/stream.jsonl.gz",
+      "sha256": "884a1bbb2afe288ea5b2d60ce20c74274ba37351ec31bf3334c160f13ec48a95"
+    },
+    "enabled": {
+      "path": "/workspace/scratch/bde29dc281e6/panel/mech/pressure-runtime-stream.jsonl.gz",
+      "sha256": "4b2bb6aa19d9de86bac924e841e0e38e51d68d8e91b34e00ef6c29fd62740979"
+    }
+  },
+  "protocol": [
+    {
+      "candidate": "capture",
+      "exit": 0,
+      "wall_s": 2.400197205999575,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js\nready in 2187 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.9  p99 3.0  max 3.8  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 1235 ms, 24 body warm-ups\n[bot] init 2164 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=3.7ms\n"
+    },
+    {
+      "candidate": "pressure-cycle",
+      "exit": 0,
+      "wall_s": 2.2342644140007906,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js\nready in 2017 ms: name 'aegis-16'\nobservations: 300  answered in time: 300  missed the 50 ms budget: 0 (0 came late)\nanswer time ms: p50 0.3  p90 0.9  p99 3.4  max 4.6  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 1078 ms, 24 body warm-ups\n[bot] init 2002 ms world=true nav=true brain=true\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=0 worst=4.4ms\n"
+    },
+    {
+      "candidate": "burst-cycle",
+      "exit": 0,
+      "wall_s": 2.99045054599992,
+      "output": "bot: /workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js\nready in 2200 ms: name 'aegis-16'\nobservations: 300  answered in time: 298  missed the 50 ms budget: 2 (2 came late)\nanswer time ms: p50 0.4  p90 3.3  p99 18.2  max 243.3  (this machine, not the 1-CPU match container)\nanswers to older queued observations (dropped): 0  wrong tick: 0  bad lines: 0  debug drawings: 0 (0 over the caps)\nPASS\n",
+      "stderr": "[bot] brain rehearsal 1231 ms, 24 body warm-ups\n[bot] init 2184 ms world=true nav=true brain=true\n[bot] slow tick 206: 78.6 ms\n[bot] slow tick 232: 227.3 ms\n[bot] env: FFA latched at t=24.9 foreign deaths=3 beam clues=0\n[bot] end place=13 kills=0 ticks=300 errors=0 slow=2 worst=227.3ms\n"
+    }
+  ],
+  "latency": [
+    {
+      "candidate": "capture",
+      "stream": "official",
+      "wall_s": 2.4728784449980594,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 76840,
+        "vmrss_kb_max": 74244,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2178.8,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 7.4,
+        "answered": 300,
+        "p50_ms": 0.35,
+        "p90_ms": 1.06,
+        "p95_ms": 1.77,
+        "p99_ms": 5.18,
+        "max_ms": 21.45,
+        "wall_s": 2.4,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "candidate": "pressure-cycle",
+      "stream": "official",
+      "wall_s": 2.6182470909989206,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 84920,
+        "vmrss_kb_max": 78796,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2112.7,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 6.5,
+        "answered": 300,
+        "p50_ms": 0.48,
+        "p90_ms": 4.11,
+        "p95_ms": 6.82,
+        "p99_ms": 12.68,
+        "max_ms": 17.49,
+        "wall_s": 2.6,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "candidate": "burst-cycle",
+      "stream": "official",
+      "wall_s": 2.4523566819989355,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 107,
+        "threads_max": 4,
+        "vmhwm_kb_max": 81200,
+        "vmrss_kb_max": 77488,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2088.4,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 5.3,
+        "answered": 300,
+        "p50_ms": 0.37,
+        "p90_ms": 1.81,
+        "p95_ms": 4.09,
+        "p99_ms": 9.17,
+        "max_ms": 13.65,
+        "wall_s": 2.4,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "candidate": "capture",
+      "stream": "enabled",
+      "wall_s": 2.5921889820019715,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-capture/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 109,
+        "threads_max": 4,
+        "vmhwm_kb_max": 77912,
+        "vmrss_kb_max": 74348,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2320.2,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "mi-scavenger": 1,
+          "JSCWarmUp": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 6.2,
+        "answered": 300,
+        "p50_ms": 0.31,
+        "p90_ms": 0.94,
+        "p95_ms": 2.38,
+        "p99_ms": 6.92,
+        "max_ms": 10.54,
+        "wall_s": 2.5,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "candidate": "pressure-cycle",
+      "stream": "enabled",
+      "wall_s": 2.718831402999058,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-pressure-cycle/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 109,
+        "threads_max": 4,
+        "vmhwm_kb_max": 79944,
+        "vmrss_kb_max": 76384,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2247.5,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 6.3,
+        "answered": 300,
+        "p50_ms": 0.35,
+        "p90_ms": 1.63,
+        "p95_ms": 3.48,
+        "p99_ms": 16.75,
+        "max_ms": 28.54,
+        "wall_s": 2.7,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "candidate": "burst-cycle",
+      "stream": "enabled",
+      "wall_s": 2.372189093999623,
+      "stats": {
+        "cmd": "/workspace/scratch/bde29dc281e6/tools/bun/bun-linux-x64/bun /workspace/scratch/bde29dc281e6/experiments/mech-burst-cycle/dist/bot.js",
+        "observations": 300,
+        "problems": [],
+        "stale_answers": 0,
+        "unsolicited": 0,
+        "bad_lines": 0,
+        "schema_errors": 0,
+        "debug_actions": 0,
+        "wrong_tick": 0,
+        "no_answer": 0,
+        "late": 0,
+        "max_line": 109,
+        "threads_max": 4,
+        "vmhwm_kb_max": 80908,
+        "vmrss_kb_max": 77772,
+        "backlog_tests": 0,
+        "stall_tests": 0,
+        "ready_ms": 2058.1,
+        "name": "aegis-16",
+        "skipped_by_design": 0,
+        "thread_names": {
+          "bun": 1,
+          "JITWorker": 1,
+          "JSCWarmUp": 1,
+          "mi-scavenger": 1
+        },
+        "exit_code": 0,
+        "exit_ms": 2.5,
+        "answered": 300,
+        "p50_ms": 0.31,
+        "p90_ms": 1.19,
+        "p95_ms": 3.44,
+        "p99_ms": 8.11,
+        "max_ms": 15.32,
+        "wall_s": 2.3,
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "action_comparisons": [
+    {
+      "candidate": "pressure-cycle",
+      "stream": "official",
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "candidate": "burst-cycle",
+      "stream": "official",
+      "decisions": 300,
+      "changed_decisions": 0,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 0,
+        "fire": 0,
+        "reload": 0,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": []
+    },
+    {
+      "candidate": "pressure-cycle",
+      "stream": "enabled",
+      "decisions": 300,
+      "changed_decisions": 126,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 117,
+        "fire": 16,
+        "reload": 3,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 39,
+          "tick": 2078,
+          "t": 103.9,
+          "capture": {
+            "tick": 2078,
+            "move": [
+              -0.528,
+              0.8493
+            ],
+            "boost": false,
+            "aim": [
+              1.0812,
+              -0.0061
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2078,
+            "move": [
+              -0.528,
+              0.8493
+            ],
+            "boost": false,
+            "aim": [
+              1.677,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 49,
+          "tick": 2098,
+          "t": 104.9,
+          "capture": {
+            "tick": 2098,
+            "move": [
+              -0.9384,
+              0.3455
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2098,
+            "move": [
+              -0.9384,
+              0.3455
+            ],
+            "boost": false,
+            "aim": [
+              0.8083,
+              0.0163
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "tick": 2104,
+          "t": 105.2,
+          "capture": {
+            "tick": 2104,
+            "move": [
+              -0.5916,
+              0.8062
+            ],
+            "boost": false,
+            "aim": [
+              0.8205,
+              -0.0095
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2104,
+            "move": [
+              -0.5916,
+              0.8062
+            ],
+            "boost": false,
+            "aim": [
+              0.8279,
+              0.0133
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "tick": 2106,
+          "t": 105.3,
+          "capture": {
+            "tick": 2106,
+            "move": [
+              -0.5897,
+              0.8076
+            ],
+            "boost": false,
+            "aim": [
+              0.8282,
+              -0.0086
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2106,
+            "move": [
+              -0.5897,
+              0.8076
+            ],
+            "boost": false,
+            "aim": [
+              0.8337,
+              0.014
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 55,
+          "tick": 2110,
+          "t": 105.5,
+          "capture": {
+            "tick": 2110,
+            "move": [
+              -0.5803,
+              0.8144
+            ],
+            "boost": false,
+            "aim": [
+              0.844,
+              -0.0056
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2110,
+            "move": [
+              -0.5803,
+              0.8144
+            ],
+            "boost": false,
+            "aim": [
+              0.8509,
+              0.0166
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 57,
+          "tick": 2114,
+          "t": 105.7,
+          "capture": {
+            "tick": 2114,
+            "move": [
+              -0.5702,
+              0.8215
+            ],
+            "boost": false,
+            "aim": [
+              0.87,
+              -0.0022
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2114,
+            "move": [
+              -0.5702,
+              0.8215
+            ],
+            "boost": false,
+            "aim": [
+              0.8816,
+              0.0196
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "burst-cycle",
+      "stream": "enabled",
+      "decisions": 300,
+      "changed_decisions": 127,
+      "changed_fields": {
+        "move": 0,
+        "boost": 0,
+        "aim": 117,
+        "fire": 16,
+        "reload": 4,
+        "pick": 0,
+        "take": 0,
+        "drop": 0
+      },
+      "examples": [
+        {
+          "index": 39,
+          "tick": 2078,
+          "t": 103.9,
+          "capture": {
+            "tick": 2078,
+            "move": [
+              -0.528,
+              0.8493
+            ],
+            "boost": false,
+            "aim": [
+              1.0812,
+              -0.0061
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2078,
+            "move": [
+              -0.528,
+              0.8493
+            ],
+            "boost": false,
+            "aim": [
+              1.677,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "index": 49,
+          "tick": 2098,
+          "t": 104.9,
+          "capture": {
+            "tick": 2098,
+            "move": [
+              -0.9384,
+              0.3455
+            ],
+            "boost": false,
+            "aim": [
+              2.3562,
+              0
+            ],
+            "fire": [
+              false,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2098,
+            "move": [
+              -0.9384,
+              0.3455
+            ],
+            "boost": false,
+            "aim": [
+              0.8083,
+              0.0163
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 52,
+          "tick": 2104,
+          "t": 105.2,
+          "capture": {
+            "tick": 2104,
+            "move": [
+              -0.5916,
+              0.8062
+            ],
+            "boost": false,
+            "aim": [
+              0.8205,
+              -0.0095
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2104,
+            "move": [
+              -0.5916,
+              0.8062
+            ],
+            "boost": false,
+            "aim": [
+              0.8279,
+              0.0133
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 53,
+          "tick": 2106,
+          "t": 105.3,
+          "capture": {
+            "tick": 2106,
+            "move": [
+              -0.5897,
+              0.8076
+            ],
+            "boost": false,
+            "aim": [
+              0.8282,
+              -0.0086
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2106,
+            "move": [
+              -0.5897,
+              0.8076
+            ],
+            "boost": false,
+            "aim": [
+              0.8337,
+              0.014
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 55,
+          "tick": 2110,
+          "t": 105.5,
+          "capture": {
+            "tick": 2110,
+            "move": [
+              -0.5803,
+              0.8144
+            ],
+            "boost": false,
+            "aim": [
+              0.844,
+              -0.0056
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2110,
+            "move": [
+              -0.5803,
+              0.8144
+            ],
+            "boost": false,
+            "aim": [
+              0.8509,
+              0.0166
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "index": 57,
+          "tick": 2114,
+          "t": 105.7,
+          "capture": {
+            "tick": 2114,
+            "move": [
+              -0.5702,
+              0.8215
+            ],
+            "boost": false,
+            "aim": [
+              0.87,
+              -0.0022
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          },
+          "candidate": {
+            "tick": 2114,
+            "move": [
+              -0.5702,
+              0.8215
+            ],
+            "boost": false,
+            "aim": [
+              0.8816,
+              0.0196
+            ],
+            "fire": [
+              true,
+              false
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-11-22T08:35:15.418105+00:00"
+}

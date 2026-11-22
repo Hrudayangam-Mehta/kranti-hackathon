@@ -1,0 +1,449 @@
+{
+  "purpose": "Crafted decision regressions; no match ranking or calibrated score prediction.",
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "name": "gun_clear_path_preserved",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "gun_wall_beyond_barrel_rejected",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "gun_wall_inside_barrel_rejected",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "geometry_inert_when_profile_disabled",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"env\":\"FFA\"},\"probe\":{\"wall\":2}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"env\":\"FFA\"},\"probe\":{\"laser\":true,\"x\":30,\"z\":30,\"maxPitch\":0.2}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"env\":\"FFA\"},\"probe\":{\"laser\":true,\"x\":274.7,\"z\":15}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.056909723501465996
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.056909723501465996
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"foreignDeaths\":1},\"probe\":{\"wall\":2}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      },
+      "candidate": {
+        "fire": [
+          true,
+          false
+        ],
+        "aim": [
+          0,
+          -0.02499479361892016
+        ],
+        "laserShots": 0,
+        "aimKind": "gun"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"foreignDeaths\":1},\"probe\":{\"laser\":true,\"x\":30,\"z\":30,\"maxPitch\":0.2}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "geometry_inert_on_stale_profile_{\"transition\":{\"foreignDeaths\":1},\"probe\":{\"laser\":true,\"x\":274.7,\"z\":15}}",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.056909723501465996
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.056909723501465996
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "laser_unreachable_elevation_held",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.2
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "laser_reachable_lower_rung_selected",
+      "passed": true,
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.1877619465135934
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "laser_lower_rung_enters_range",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          true
+        ],
+        "aim": [
+          0,
+          0.056909723501465996
+        ],
+        "laserShots": 0,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.038931902009426235
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "laser_clear_center_preserved",
+      "passed": true,
+      "baseline": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.006499908460653839
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      },
+      "candidate": {
+        "fire": [
+          false,
+          false
+        ],
+        "aim": [
+          0,
+          0.006499908460653839
+        ],
+        "laserShots": 1,
+        "aimKind": "laser"
+      }
+    },
+    {
+      "name": "stationary_holder_finishes_before_arrival",
+      "passed": true,
+      "baselineMode": "DROP",
+      "candidateMode": "HOLD"
+    },
+    {
+      "name": "capture_clock_frozen_by_two_mechs",
+      "passed": true,
+      "candidateMode": "DROP"
+    },
+    {
+      "name": "nearby_ring_still_contested",
+      "passed": true,
+      "candidateMode": "DROP"
+    },
+    {
+      "name": "unheld_drop_still_pursued",
+      "passed": true,
+      "candidateMode": "DROP"
+    },
+    {
+      "name": "own_capture_preserved_at_full_health",
+      "passed": true,
+      "baselineMode": "LOOT",
+      "candidateMode": "DROP"
+    },
+    {
+      "name": "near_finish_precedes_remote_drop",
+      "passed": true,
+      "baselineMode": "DROP",
+      "candidateMode": "FIGHT"
+    },
+    {
+      "name": "own_capture_not_abandoned_for_finish",
+      "passed": true,
+      "candidateMode": "DROP"
+    },
+    {
+      "name": "owned_contested_capture_allows_finish",
+      "passed": true,
+      "candidateMode": "FIGHT",
+      "progressRetained": 3.5,
+      "owned": true,
+      "contested": true
+    },
+    {
+      "name": "owned_capture_contest_leaves_and_reenters",
+      "passed": true,
+      "progressRetained": 3.8,
+      "finalMode": "FIGHT"
+    }
+  ],
+  "baseline_bundle_sha256": "fe7a9f6173a1e9a0615ee3a0ba277f1b1914c86c217007cf1e9203cc52af36aa",
+  "source_sha256": {
+    "mech-geometry": "59fc257de4f792191e35ec063f93eede202b9ff0c1e61942d504aea10112c2f7",
+    "mech-capture": "0ecedac9c020c8dc529a5c99e6f43259f42943ae981823aa40666147b1ddee51"
+  },
+  "bundle_sha256": {
+    "mech-geometry": "a19a4364c40bf3008ef1cddb5d48324a913849066e3a76d9218fad390fbd4bab",
+    "mech-capture": "db1062d364d7984a8dff42a06ff0e6522fbaba4b83be7d3113feec92b1f9f3e1"
+  },
+  "harness_sha256": "fc97ba626930857f1f6d9601b8c3ed6b7dd7296663c18ea00a6bd0d2e78a7f47"
+}

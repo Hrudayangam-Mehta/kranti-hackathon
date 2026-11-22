@@ -1,0 +1,8 @@
+ref: user_daily 70000 rows, campaign_daily 14 rows, sessions 70000/70000, diag {'ev_surviving': 70000}
+{"case": "dictionary_repeated_daily_ids", "mode": "1", "repeat": 0, "seconds": 0.02492644100129837, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dictionary_repeated_daily_ids", "mode": "1", "repeat": 1, "seconds": 0.05786483999690972, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dictionary_repeated_daily_ids", "mode": "8", "repeat": 0, "seconds": 0.021436393006297294, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dictionary_repeated_daily_ids", "mode": "8", "repeat": 1, "seconds": 0.010759229000541382, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dictionary_repeated_daily_ids", "mode": "1:scalar", "repeat": 0, "seconds": 0.030525510002917144, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"case": "dictionary_repeated_daily_ids", "mode": "1:scalar", "repeat": 1, "seconds": 0.04102166799566476, "exit": 0, "stdout_bytes": 0, "bin_threshold": "default", "readers": ["pyarrow", "duckdb"], "passed": true}
+{"runs": 6, "passed": 6, "failed": 0, "report": "panel/database/dictionary-pipeline.json"}

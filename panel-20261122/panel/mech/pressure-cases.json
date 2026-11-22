@@ -1,0 +1,145 @@
+{
+  "tree": "/workspace/scratch/bde29dc281e6/experiments/mech-pressure/bot",
+  "context": "bounded unit and full-brain policy fixtures, warmup disabled, no match ranking or engine equivalence claim",
+  "count": 34,
+  "passed": 34,
+  "results": [
+    {
+      "name": "no_upgrade_no_commit",
+      "passed": true
+    },
+    {
+      "name": "secondary_and_actual_upgrade_commits",
+      "passed": true
+    },
+    {
+      "name": "configured_threshold_requires_pending_offer",
+      "passed": true,
+      "configured_first_threshold": 1
+    },
+    {
+      "name": "upgraded_gun_deadline_boundary",
+      "passed": true
+    },
+    {
+      "name": "armed_deadline_boundary",
+      "passed": true
+    },
+    {
+      "name": "latch_persists_after_health_and_weapon_loss",
+      "passed": true
+    },
+    {
+      "name": "no_armed_weapon_does_not_force_commit",
+      "passed": true
+    },
+    {
+      "name": "after_setup_global_ffa_attack_is_explicit",
+      "passed": true
+    },
+    {
+      "name": "low_hp_and_many_supporters_never_veto_combat",
+      "passed": true
+    },
+    {
+      "name": "finishing_target_priority",
+      "passed": true
+    },
+    {
+      "name": "isolation_ranks_without_eliminating_supported_targets",
+      "passed": true
+    },
+    {
+      "name": "reachable_opponent_ranked_ahead_of_blocked_component",
+      "passed": true
+    },
+    {
+      "name": "target_hysteresis_keeps_near_equal_choice",
+      "passed": true
+    },
+    {
+      "name": "dead_npc_and_stale_candidates_excluded",
+      "passed": true
+    },
+    {
+      "name": "commit_discards_remote_loot_and_heal_modes",
+      "passed": true
+    },
+    {
+      "name": "near_complete_owned_capture_has_bounded_grace",
+      "passed": true
+    },
+    {
+      "name": "contested_or_distant_capture_does_not_divert_commit",
+      "passed": true
+    },
+    {
+      "name": "cooldown_and_reload_readiness_use_maximum",
+      "passed": true
+    },
+    {
+      "name": "immediate_zone_motion_retained",
+      "passed": true
+    },
+    {
+      "name": "no_enemy_means_active_search",
+      "passed": true
+    },
+    {
+      "name": "burst_variant_cycles_only_when_channels_recharge",
+      "passed": true
+    },
+    {
+      "name": "push_variant_does_not_cycle_when_channels_recharge",
+      "passed": true
+    },
+    {
+      "name": "pressure_energy_reserve_is_finite_and_observed",
+      "passed": true
+    },
+    {
+      "name": "gun_refill_time_affects_burst_estimate",
+      "passed": true
+    },
+    {
+      "name": "known_nonzero_base_armor_reduces_both_damage_estimates",
+      "passed": true
+    },
+    {
+      "name": "closing_lightning_tactical_charge_veto_is_bypassed_only_after_commit",
+      "passed": true
+    },
+    {
+      "name": "positive_ammo_fired_gun_is_not_manually_reloaded",
+      "passed": true
+    },
+    {
+      "name": "cooling_positive_ammo_gun_can_use_covered_reload",
+      "passed": true
+    },
+    {
+      "name": "empty_gun_refill_is_retained",
+      "passed": true
+    },
+    {
+      "name": "combat_upgrade_order_differs_by_hypothesis",
+      "passed": true
+    },
+    {
+      "name": "all_upgrade_choices_answered_with_valid_index",
+      "passed": true
+    },
+    {
+      "name": "feature_off_full_brain_action_identity",
+      "passed": true
+    },
+    {
+      "name": "before_setup_full_brain_action_identity",
+      "passed": true
+    },
+    {
+      "name": "committed_low_hp_full_brain_returns_finite_combat_actions",
+      "passed": true
+    }
+  ]
+}

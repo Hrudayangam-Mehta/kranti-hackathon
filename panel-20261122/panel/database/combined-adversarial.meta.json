@@ -1,0 +1,27 @@
+{
+  "binary": "bench/bin/dense-combined",
+  "binary_sha256": "79faa0356191e80df116c7cbc99da863280161eead572bc8392c5846f3de515b",
+  "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+  "reference_sha256": "73a7a68debe2cbfa3f4b4e3382f49528f662032602b2137067850e7f71cfa809",
+  "harness_sha256": "475e35b8f316e3bce57f6672f2467434423b1d4cc1784874165b440431dd2970",
+  "arguments": {
+    "reference": "/workspace/scratch/bde29dc281e6/handoff/tracks/shopping-sessions/verify/ref.py",
+    "binary": "bench/bin/dense-combined",
+    "root": "panel/database/combined-data",
+    "mode": [
+      "1",
+      "8",
+      "1:scalar",
+      "1:slow"
+    ],
+    "report": "panel/database/combined-adversarial.json",
+    "only": "",
+    "repeat": true,
+    "bin_cases": true,
+    "large_output": true,
+    "purchase_cases": true,
+    "compact_cases": true,
+    "adaptive_cases": true,
+    "second_reader": true
+  }
+}
