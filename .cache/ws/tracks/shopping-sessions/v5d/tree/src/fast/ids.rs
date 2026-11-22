@@ -583,6 +583,7 @@ impl KeyMap {
         map
     }
 
+    #[cfg(test)]
     pub fn get(&self, id: &[u8]) -> Option<u32> {
         if id.is_empty() {
             return None;

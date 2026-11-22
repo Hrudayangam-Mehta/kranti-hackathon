@@ -76,11 +76,11 @@ Score rule for every line: kills = 270 + d_slot. Record d_slot = round(48 x scor
 | Step | State | Where |
 |---|---|---|
 | afix (correct, 1.2422 s) | final pick | exp @ 8d0ea211277f |
-| Design C: shape-encoded exact keys + 16-byte records | building; verifier not passed yet | tracks/shopping-sessions/v5c (+ v5c_verify) |
-| Engineer D: serial time + 8-thread scaling on afix; huge-page probe | building | tracks/shopping-sessions/v5d (tree, tree_allhuge) |
+| Design C (c5): shape-encoded exact keys + compact records, on rel17 | VERIFIER PASS (no defect); pushed exp @ ad8526b3410bfb6b8b8febff35affe6bd5b42499; fresh-clone binary sha256 0b94a255...efe25 = verified c5. SUBMIT NEXT. Prediction 1.21 s +- 0.07 (local CPU 5.9-7.3 s vs rel17 12.3-13; slope 0.093 s per CPU-s from rel17 1.78 / A 1.22). Keep afix as pick unless C scores lower. | .cache/ws/tracks/shopping-sessions/v5c (ENGINEER_C.txt, VERIFIER_C.txt) |
+| Engineer D: serial time + 8-thread scaling on afix; huge-page probe | stopped unfinished at ~07:10 UTC to save credits (no result yet; partial tree + logs saved; resumable as workflow run wf_f3b12d6f-7a1 in the old session) | tracks/shopping-sessions/v5d (tree, tree_allhuge) |
 | Combine C records + D scheduling | not started | - |
 
-Next steps: finish C and D; run the full gate (HANDOFF.md section 3); measure interleaved CPU medians; push the faster passing
+Next steps: submit C (exp @ ad8526b); finish D; port C's keys onto afix's scheduling; run the full gate (HANDOFF.md section 3); measure interleaved CPU medians; push the faster passing
 build to exp with a written prediction (model: official ~= 0.69 + 0.08 x local CPU-s at NCPU 2). Target <= 4 CPU-s, no serial stage.
 Two submissions per hour; keep afix as the pick unless a new build scores lower AND passed the gate.
 

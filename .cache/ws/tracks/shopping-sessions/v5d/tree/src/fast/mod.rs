@@ -148,13 +148,14 @@ impl Ctx<'_> {
     }
 }
 
-fn build_reference(data: &Path) -> std::result::Result<Reference, Early> {
+fn build_reference(data: &Path, mark: &dyn Fn(&str)) -> std::result::Result<Reference, Early> {
     let read = |name: &str| -> std::result::Result<&'static [u8], Early> {
         let bytes = fs::read(data.join(name)).map_err(|e| Early::Error(format!("{name}: {e}").into()))?;
         Ok(Box::leak(bytes.into_boxed_slice()))
     };
     let products_file = read("products.csv")?;
     let campaigns_file = read("campaigns.csv")?;
+    mark("ref_read");
     let mut seen_categories: Vec<&'static [u8]> = vec![UNKNOWN_CATEGORY];
     let mut category_ids: crate::hash::FastMap<&'static [u8], u32> = crate::hash::new_map(64);
     category_ids.insert(UNKNOWN_CATEGORY, 0);
@@ -188,6 +189,9 @@ fn build_reference(data: &Path) -> std::result::Result<Reference, Early> {
         entry.1 = rank[entry.1 as usize];
     }
     let unknown = rank[0];
+    mark("ref_products_parsed");
+    let products = KeyMap::new(&product_entries);
+    mark("ref_products_map");
     let mut campaign_ids: Vec<&'static [u8]> = Vec::new();
     let mut campaign_channels: Vec<&'static [u8]> = Vec::new();
     let mut campaign_entries: Vec<(&'static [u8], u32)> = Vec::new();
@@ -202,11 +206,13 @@ fn build_reference(data: &Path) -> std::result::Result<Reference, Early> {
         }
     }
     let organic = campaign_ids.len() as u32;
+    let campaigns = KeyMap::new(&campaign_entries);
+    mark("ref_campaigns");
     Ok(Reference {
         categories,
         unknown,
-        products: KeyMap::new(&product_entries),
-        campaigns: KeyMap::new(&campaign_entries),
+        products,
+        campaigns,
         campaign_ids,
         campaign_channels,
         organic,
@@ -613,7 +619,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
                     let Some(&unit) = ctx.units.get(i) else { break };
                     match unit {
                         Unit::Reference => {
-                            let r = build_reference(ctx.data_dir);
+                            let r = build_reference(ctx.data_dir, &|name| {
+                                if tracing {
+                                    eprintln!("trace m setup:{name} {:.3}", started.elapsed().as_secs_f64() * 1e3);
+                                }
+                            });
                             if r.is_err() {
                                 bail.store(true, Ordering::Relaxed);
                             }

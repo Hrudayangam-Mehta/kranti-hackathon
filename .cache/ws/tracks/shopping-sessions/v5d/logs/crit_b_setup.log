@@ -1,0 +1,104 @@
+round 0 NCPU 8 a_teardown: exit 0 wall 5.085 user 6.710 sys 3.137 cpu 9.847 rss 3.43GB minflt 403708 stdout 0 exit_at 5070.214
+round 0 NCPU 8 b_setup: exit 0 wall 3.691 user 6.148 sys 1.126 cpu 7.275 rss 3.46GB minflt 405027 stdout 0 exit_at 3678.499
+round 0 NCPU 2 a_teardown: exit 0 wall 2.830 user 4.838 sys 0.701 cpu 5.539 rss 3.15GB minflt 330879 stdout 0 exit_at 2820.759
+round 0 NCPU 2 b_setup: exit 0 wall 2.906 user 4.758 sys 0.979 cpu 5.737 rss 3.17GB minflt 334889 stdout 0 exit_at 2898.659
+round 1 NCPU 8 b_setup: exit 0 wall 3.433 user 5.573 sys 1.236 cpu 6.809 rss 3.45GB minflt 401491 stdout 0 exit_at 3420.342
+round 1 NCPU 8 a_teardown: exit 0 wall 3.792 user 6.201 sys 1.212 cpu 7.414 rss 3.42GB minflt 401571 stdout 0 exit_at 3778.555
+round 1 NCPU 2 b_setup: exit 0 wall 2.851 user 4.859 sys 0.784 cpu 5.642 rss 3.15GB minflt 329760 stdout 0 exit_at 2842.264
+round 1 NCPU 2 a_teardown: exit 0 wall 2.782 user 4.622 sys 0.889 cpu 5.511 rss 3.15GB minflt 330587 stdout 0 exit_at 2773.492
+round 2 NCPU 8 a_teardown: exit 0 wall 3.658 user 5.858 sys 1.287 cpu 7.145 rss 3.43GB minflt 402711 stdout 0 exit_at 3644.309
+round 2 NCPU 8 b_setup: exit 0 wall 3.654 user 5.903 sys 1.274 cpu 7.178 rss 3.44GB minflt 404583 stdout 0 exit_at 3639.574
+round 2 NCPU 2 a_teardown: exit 0 wall 2.863 user 4.965 sys 0.668 cpu 5.633 rss 3.17GB minflt 333622 stdout 0 exit_at 2853.966
+round 2 NCPU 2 b_setup: exit 0 wall 3.005 user 4.960 sys 0.984 cpu 5.945 rss 3.16GB minflt 331278 stdout 0 exit_at 2997.53
+
+SUMMARY NCPU 8 a_teardown n=3/3: wall 3.792 cpu 7.414 user 6.201 sys 1.287 exit_at 3778.6 ms rss 3.43GB
+  stage          first     last    span     busy      cpu     sys thr busy/span
+  links           14.9   1181.2  1166.3   1169.3    253.9    53.8   1      1.00
+  events          14.9   2414.1  2399.1  15862.1   3031.3   854.0   8      6.61
+  clicks        2116.8   2412.3   295.5   2193.5    484.5    75.7   8      7.42
+  bar_parse     2404.3   2424.7    20.5     84.7     11.7     5.1   8      4.14
+  merge         2414.2   2551.5   137.3   1055.2    258.1    10.1   8      7.68
+  bar_merge     2550.4   2564.7    14.4     59.3      5.4     0.8   8      4.12
+  persons       2551.5   2583.4    31.9    148.3     32.8     0.0   8      4.65
+  reclick       2569.9   2631.8    61.9    397.4     81.4    18.1   8      6.42
+  wait_events   2617.9   2631.8    13.9      0.0      0.0     0.0   8      0.00
+  dedup         2617.9   3035.8   417.9   3244.9    800.5    32.6   8      7.76
+  bar_dedup     3034.2   3060.8    26.6     56.3      5.3     0.4   8      2.12
+  unmap         3036.0   3123.7    87.7    136.6      1.2    28.8   8      1.56
+  order         3047.3   3124.2    76.9     15.6      4.0     0.0   8      0.20
+  people        3048.2   3741.3   693.1   4467.5    988.2    84.1   8      6.45
+  user_write    3266.8   3726.5   459.7    831.3    136.9    50.1   8      1.81
+  last_write    3729.0   3753.5    24.5     87.6      5.7    18.6   7      3.57
+  campaign      3741.3   3742.9     1.6      5.5      0.0     0.0   2      3.31
+  release       3742.9   3778.4    35.4    175.9      0.6    47.9   8      4.96
+  wait_jobs     4319.0   4339.9    20.9     70.3      5.8     1.0   7      3.36
+  marks: setup:reference=4.2 setup:reference2=4.2 setup:map=5.7 setup:chunks=5.7 setup:reserve=5.7 setup:ctx=14.4 setup:dirs=14.5
+
+SUMMARY NCPU 8 b_setup n=3/3: wall 3.654 cpu 7.178 user 5.903 sys 1.236 exit_at 3639.6 ms rss 3.45GB
+  stage          first     last    span     busy      cpu     sys thr busy/span
+  links            2.0   1088.1  1086.1   1086.1    242.1    27.6   1      1.00
+  events           5.7   2230.9  2225.2  14427.9   2818.0   721.5   8      6.48
+  clicks        1912.7   2229.4   316.7   2379.8    466.1   130.2   8      7.51
+  bar_parse     2216.9   2249.5    32.5    174.8     11.1     3.4   8      5.37
+  merge         2231.0   2360.8   129.9    994.6    252.5    11.2   8      7.66
+  bar_merge     2359.7   2378.5    18.8     59.0      6.6     1.2   8      3.13
+  persons       2360.9   2400.3    39.4    156.8     35.1     0.0   8      3.98
+  reclick       2377.3   2468.3    91.0    422.5     92.5    11.9   8      4.64
+  wait_events   2421.3   2468.3    47.0      0.0      0.0     0.0   8      0.00
+  dedup         2422.2   2890.4   468.3   3558.3    862.5    31.3   8      7.60
+  bar_dedup     2889.7   2902.5    12.8     51.7      6.7     0.8   8      4.04
+  unmap         2890.6   2945.2    54.6    113.0      0.5    21.3   8      2.07
+  order         2893.8   2945.5    51.7      3.3      0.0     0.0   8      0.06
+  people        2905.4   3602.7   697.3   4057.0    951.7    69.3   8      5.82
+  user_write    3094.4   3598.5   504.1    697.8    127.8    47.8   8      1.38
+  last_write    3594.8   3618.6    23.8     10.8      1.7     1.0   8      0.45
+  wait_jobs     3599.0   3614.6    15.6     67.2      7.8     1.3   6      4.30
+  campaign      3602.7   3604.6     1.9      2.5      0.0     0.0   2      1.28
+  release       3605.2   3639.3    34.1    159.1      0.6    47.4   8      4.66
+  marks: setup:map=1.3 setup:chunks=1.4 setup:reserve=1.4 setup:ctx=1.4 setup:dirs=1.5 setup:refs=11.1
+
+SUMMARY NCPU 2 a_teardown n=3/3: wall 2.830 cpu 5.539 user 4.838 sys 0.701 exit_at 2820.8 ms rss 3.15GB
+  stage          first     last    span     busy      cpu     sys thr busy/span
+  links           12.6    254.8   242.2    242.8    188.3    35.6   1      1.00
+  events          12.7   1808.9  1796.2   2923.1   2518.0   352.5   2      1.63
+  clicks        1583.3   1806.9   223.6    418.4    355.8    54.8   2      1.87
+  bar_parse     1807.7   1809.0     1.3      1.3      2.3     0.4   2      1.03
+  merge         1808.9   1876.3    67.4    131.6    123.8    15.6   2      1.95
+  bar_merge     1876.2   1876.4     0.2      0.3      1.5     0.3   2      1.46
+  persons       1876.4   1888.3    11.9     22.3     21.7     0.0   2      1.88
+  reclick       1888.0   1932.5    44.5     97.0     83.3    11.6   2      2.18
+  wait_events   1932.4   1932.5     0.1      0.0      0.0     0.0   2      0.00
+  dedup         1932.6   2262.6   330.0    710.8    685.0    28.2   2      2.15
+  bar_dedup     2262.6   2262.9     0.2      0.2      0.2     0.0   2      1.08
+  unmap         2262.8   2287.5    24.7     39.7      0.0    34.4   2      1.61
+  order         2276.5   2287.7    11.1      0.4      0.0     0.0   2      0.03
+  people        2276.7   2792.5   515.8    777.5    756.5    21.3   2      1.51
+  user_write    2350.0   2792.0   442.0    230.4    116.1   107.9   2      0.52
+  last_write    2783.0   2793.4    10.4      4.9      0.0     0.8   2      0.47
+  wait_jobs     2784.0   2792.6     8.6      8.6      2.3     0.3   1      1.00
+  campaign      2792.5   2793.5     1.0      1.6      0.0     0.0   1      1.70
+  release       2793.4   2820.6    27.2     50.5      0.0    43.9   2      1.86
+  marks: setup:reference=3.5 setup:reference2=3.6 setup:map=4.9 setup:chunks=4.9 setup:reserve=4.9 setup:ctx=12.1 setup:dirs=12.2
+
+SUMMARY NCPU 2 b_setup n=3/3: wall 2.906 cpu 5.737 user 4.859 sys 0.979 exit_at 2898.7 ms rss 3.16GB
+  stage          first     last    span     busy      cpu     sys thr busy/span
+  links            1.9    243.5   241.6    241.8    194.9    47.8   1      1.00
+  events           9.5   1800.9  1791.5   2898.5   2557.0   381.1   2      1.62
+  clicks        1574.9   1799.0   224.1    432.4    374.0    62.8   2      1.93
+  bar_parse     1800.2   1801.0     0.8      2.9      2.0     0.3   2      3.51
+  merge         1801.0   1891.0    90.0    127.2    104.5    15.9   2      1.41
+  bar_merge     1890.8   1891.1     0.3      0.2      1.2     0.3   2      0.71
+  persons       1891.1   1903.6    12.6     22.8     20.5     0.0   2      1.81
+  reclick       1901.2   1953.0    51.7     91.1     77.4    15.7   2      1.76
+  wait_events   1943.0   1953.0    10.0      0.0      0.0     0.0   2      0.00
+  dedup         1943.2   2323.7   380.5    684.5    633.8    28.5   2      1.80
+  bar_dedup     2323.8   2323.8     0.0      0.2      1.6     0.1   2      7.69
+  unmap         2323.8   2352.0    28.2     39.2      0.0    39.3   2      1.39
+  order         2338.2   2352.2    14.0      0.4      0.0     0.0   2      0.03
+  people        2338.5   2873.0   534.4    758.7    740.7    54.4   2      1.42
+  user_write    2437.5   2871.5   434.0    358.8    109.2   246.9   2      0.83
+  wait_jobs     2819.4   2820.1     0.7      0.7      1.5     0.2   1      1.00
+  last_write    2872.8   2874.5     1.8      1.1      0.0     0.0   2      0.61
+  campaign      2873.0   2873.9     0.9      1.6      0.0     0.0   2      1.74
+  release       2873.9   2898.5    24.6     47.4      0.1    41.7   2      1.92
+  marks: setup:map=1.3 setup:chunks=1.3 setup:reserve=1.3 setup:ctx=1.3 setup:dirs=1.4 setup:refs=9.4

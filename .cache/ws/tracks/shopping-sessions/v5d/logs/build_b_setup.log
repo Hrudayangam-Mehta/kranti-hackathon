@@ -1,0 +1,14 @@
+   Compiling sessions v0.1.0 (/tmp/claude-0/-home-user-yang-mills-workbench/c2b3cfae-3f5d-5b6f-8fe6-a6e757d1bb60/scratchpad/tracks/shopping-sessions/v5d/tree)
+warning: method `get` is never used
+   --> src/fast/ids.rs:586:12
+    |
+522 | impl KeyMap {
+    | ----------- method in this implementation
+...
+586 |     pub fn get(&self, id: &[u8]) -> Option<u32> {
+    |            ^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `sessions` (bin "sessions") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 23.52s
