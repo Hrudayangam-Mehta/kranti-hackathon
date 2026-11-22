@@ -555,6 +555,9 @@ impl KeyMap {
     }
 
     pub fn get(&self, id: &[u8]) -> Option<u32> {
+        if id.is_empty() {
+            return None;
+        }
         if id.len() <= SHORT_MAX {
             let k = short_key_of(id);
             self.get_short(&k)
@@ -565,6 +568,9 @@ impl KeyMap {
 
     #[inline(always)]
     pub unsafe fn get_field(&self, p: *const u8, len: usize) -> Option<u32> {
+        if len == 0 {
+            return None;
+        }
         if len <= SHORT_MAX {
             let k = short_key(p, len);
             self.get_short(&k)
