@@ -1,3 +1,4 @@
+pub mod ident;
 pub mod keys;
 pub mod parquet;
 pub mod people;
@@ -93,6 +94,7 @@ struct Ctx<'a> {
     days: usize,
     day_shift: i64,
     link_files: &'a [&'static [u8]],
+    decoder: Option<ident::Decoder>,
     units: Vec<Unit>,
     mapped: Vec<&'static [u8]>,
 }
@@ -189,7 +191,47 @@ fn bits_for(records: usize, per_part: usize) -> u32 {
 struct Stats {
     event_copies: AtomicUsize,
     winners: AtomicUsize,
+    lane_f: AtomicUsize,
     clicks: AtomicUsize,
+}
+
+fn env_u64(name: &str) -> Option<u64> {
+    let text = std::env::var(name).ok()?;
+    let text = text.trim();
+    match text.strip_prefix("0x") {
+        Some(hex) => u64::from_str_radix(hex, 16).ok(),
+        None => text.parse().ok(),
+    }
+}
+
+fn choose_decoder(event_files: &[&'static [u8]], link_files: &[&'static [u8]], event_bytes: usize) -> Option<ident::Decoder> {
+    if std::env::var("SESSIONS_LANE").is_ok_and(|v| v == "G") {
+        eprintln!("lane F off: SESSIONS_LANE=G");
+        return None;
+    }
+    let gcap = env_u64("SESSIONS_TEST_GCAP").unwrap_or((event_bytes / 60 / 30 * 2 + 1024) as u64).clamp(1, 1 << 31);
+    let started = Instant::now();
+    let key = match env_u64("SESSIONS_TEST_USER_KEY") {
+        Some(key) => Ok(key & ident::MASK),
+        None => ident::recover(event_files, link_files, gcap),
+    };
+    match key {
+        Ok(key) => {
+            eprintln!(
+                "lane F on: user key {key:#012x}, person cap {gcap}, {:.1} ms",
+                started.elapsed().as_secs_f64() * 1e3
+            );
+            Some(ident::Decoder {
+                key,
+                gcap,
+                twist: std::env::var("SESSIONS_TEST_TWIST").is_ok_and(|v| v == "1"),
+            })
+        }
+        Err(reason) => {
+            eprintln!("lane F off: {reason}");
+            None
+        }
+    }
 }
 
 pub fn run(config: &Config) -> Result<Outcome> {
@@ -282,6 +324,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
     units.extend(click_chunks.iter().map(|&(f, s, e)| Unit::Clicks(f, s, e)));
 
     let est_events = event_bytes / 60 + 1;
+    let decoder = choose_decoder(&event_files, &link_files, event_bytes);
     let first_day = ws.div_euclid(DAY_MS);
     let last_day = (we - 1).div_euclid(DAY_MS);
     let ctx = Ctx {
@@ -302,6 +345,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
         days: (last_day - first_day + 1) as usize,
         day_shift: cws - first_day * DAY_MS,
         link_files: &link_files,
+        decoder,
         units,
         mapped: event_files
             .iter()
@@ -328,6 +372,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
     let stats = Stats {
         event_copies: AtomicUsize::new(0),
         winners: AtomicUsize::new(0),
+        lane_f: AtomicUsize::new(0),
         clicks: AtomicUsize::new(0),
     };
     let user_dir = config.output_dir.join("user_daily");
@@ -372,7 +417,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
                     match unit {
                         Unit::Links => {
                             let t0 = Instant::now();
-                            let built = build_people(ctx.link_files);
+                            let built = build_people(ctx.link_files, ctx.decoder);
                             let _ = people.set(built);
                             links_done.store(true, Ordering::Release);
                             eprintln!("links    {:>8.1} ms on one thread", t0.elapsed().as_secs_f64() * 1e3);
@@ -414,6 +459,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 let mut buf: Vec<EventRec> = Vec::new();
                 let mut table: Vec<(u64, u32)> = Vec::new();
                 let mut winners = 0usize;
+                let mut lane_f = 0usize;
                 let unmaps = ctx.mapped.len();
                 loop {
                     let q = dedup_queue.fetch_add(1, Ordering::Relaxed);
@@ -426,9 +472,12 @@ pub fn run(config: &Config) -> Result<Outcome> {
                     if q >= 1 << ctx.p1_bits {
                         break;
                     }
-                    winners += dedup(ctx, people, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
+                    let (w, f) = dedup(ctx, people, &all_p1, q, &mut buf, &mut table, &mut arena, &mut p2);
+                    winners += w;
+                    lane_f += f;
                 }
                 stats.winners.fetch_add(winners, Ordering::Relaxed);
+                stats.lane_f.fetch_add(lane_f, Ordering::Relaxed);
                 p2.finish(&mut arena);
                 let _ = p2_sinks[id].set(p2);
                 if barrier.wait().is_leader() {
@@ -455,7 +504,7 @@ pub fn run(config: &Config) -> Result<Outcome> {
                 loop {
                     let i = person_queue.fetch_add(1, Ordering::Relaxed);
                     let Some(&p) = order.get(i) else { break };
-                    worker.partition(ctx, &all_p2, &all_clicks, p);
+                    worker.partition(ctx, people, &all_p2, &all_clicks, p);
                     if worker.rows.len() >= FLUSH_ROWS {
                         let file = file_counter.fetch_add(1, Ordering::Relaxed);
                         if let Err(e) = write::user_part(user_dir, file, &worker.rows, categories, ctx.first_day) {
@@ -519,10 +568,17 @@ pub fn run(config: &Config) -> Result<Outcome> {
     if let Some(e) = failure.into_inner().unwrap() {
         return Err(e.into());
     }
+    let winners = stats.winners.load(Ordering::Relaxed);
+    let lane_f = stats.lane_f.load(Ordering::Relaxed);
+    let lane_g_share = if winners == 0 { 0.0 } else { 100.0 * (winners - lane_f) as f64 / winners as f64 };
+    eprintln!(
+        "lane F winners {lane_f}, lane G share {lane_g_share:.2}%{}",
+        if ctx.decoder.is_some() && lane_g_share > 10.0 { " (above 10%)" } else { "" }
+    );
     eprintln!(
         "event copies {}, winners {}, clicks {}, linked {}, exotic {}",
         stats.event_copies.load(Ordering::Relaxed),
-        stats.winners.load(Ordering::Relaxed),
+        winners,
         stats.clicks.load(Ordering::Relaxed),
         people.get().map_or(0, |p| p.linked()),
         keys::exotic_count()
@@ -547,47 +603,155 @@ unsafe fn lookup_k<K: Kernel>(field: &[u8]) -> Option<u64> {
     }
 }
 
-fn build_people(files: &[&'static [u8]]) -> People {
-    let mut pairs: Vec<(u64, u64)> = Vec::new();
+#[inline(always)]
+unsafe fn user_k<K: Kernel>(decoder: Option<&ident::Decoder>, field: &[u8]) -> u64 {
+    if let Some(d) = decoder {
+        if let Some(tagged) = K::mixed(field.as_ptr(), field.len()).and_then(|x| d.lane_of_mixed(x)) {
+            return tagged;
+        }
+    }
+    intern_k::<K>(field)
+}
+
+#[inline(always)]
+fn prefetch_user(people: &People, user: u64) {
+    if user & ident::TAG != 0 {
+        prefetch(people.info_ptr((user & ident::MASK) >> 9));
+    } else {
+        prefetch(people.slot_ptr(user));
+    }
+}
+
+#[inline(always)]
+fn resolve(people: &People, user: u64) -> u64 {
+    if user & ident::TAG != 0 {
+        let v = user & ident::MASK;
+        let g = v >> 9;
+        let word = people.info[g as usize];
+        if word & 15 == ident::ODD {
+            match people.decoder {
+                Some(d) => people.name_of(d.packed_of(v)),
+                None => unreachable!(),
+            }
+        } else {
+            ident::FKEY | g << 4 | ident::rep(word, v & 511)
+        }
+    } else {
+        people.name_of(user)
+    }
+}
+
+struct LinkSets {
+    pairs: Vec<(u64, u64)>,
+    regular: Vec<u64>,
+    odd: Vec<u64>,
+}
+
+fn build_people(files: &[&'static [u8]], decoder: Option<ident::Decoder>) -> People {
+    let mut sets = LinkSets {
+        pairs: Vec::new(),
+        regular: Vec::new(),
+        odd: decoder.map_or(Vec::new(), |d| vec![0u64; (d.gcap as usize).div_ceil(64)]),
+    };
     let mut scratch = Scratch::new();
+    let started = Instant::now();
     for &file in files {
         for (start, end) in csv::data_chunks(file, usize::MAX) {
             let body = &file[start..end];
             #[cfg(target_arch = "x86_64")]
             if scan::has_avx2() {
-                unsafe { link_pairs_avx2(body, &mut scratch, &mut pairs) };
+                unsafe { link_pairs_avx2(body, &mut scratch, &mut sets, decoder.as_ref()) };
                 continue;
             }
-            unsafe { link_pairs::<Scalar>(body, &mut scratch, &mut pairs) };
+            unsafe { link_pairs::<Scalar>(body, &mut scratch, &mut sets, decoder.as_ref()) };
         }
     }
-    People::build(&pairs)
+    let LinkSets { mut pairs, regular, odd } = sets;
+    let mut info: Vec<u64> = Vec::new();
+    if let Some(d) = decoder {
+        info = vec![0u64; d.gcap as usize];
+        for &r in &regular {
+            let g = (r >> 8) as usize;
+            info[g] = ident::union(info[g], (r >> 4) & 15, r & 15);
+        }
+        for &r in &regular {
+            let g = r >> 8;
+            if odd[(g >> 6) as usize] >> (g & 63) & 1 == 1 {
+                let base = g * 512;
+                pairs.push((d.packed_of(base + ((r >> 4) & 15)), d.packed_of(base + (r & 15))));
+            } else {
+                info[g as usize] = ident::compress(info[g as usize]);
+            }
+        }
+        for (w, &bits) in odd.iter().enumerate() {
+            let mut bits = bits;
+            while bits != 0 {
+                let g = w * 64 + bits.trailing_zeros() as usize;
+                info[g] = ident::ODD;
+                bits &= bits - 1;
+            }
+        }
+        eprintln!(
+            "links    split and merged in {:.1} ms; lane F {} lines, general {} lines, odd persons {}",
+            started.elapsed().as_secs_f64() * 1e3,
+            regular.len(),
+            pairs.len(),
+            odd.iter().map(|b| b.count_ones() as usize).sum::<usize>()
+        );
+    }
+    let mut people = People::build(&pairs);
+    people.info = info;
+    people.decoder = decoder;
+    people
 }
 
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
-unsafe fn link_pairs_avx2(body: &[u8], scratch: &mut Scratch, pairs: &mut Vec<(u64, u64)>) {
-    link_pairs::<Avx2>(body, scratch, pairs)
+unsafe fn link_pairs_avx2(body: &[u8], scratch: &mut Scratch, sets: &mut LinkSets, decoder: Option<&ident::Decoder>) {
+    link_pairs::<Avx2>(body, scratch, sets, decoder)
 }
 
 struct LinkLines<'a, K> {
-    pairs: &'a mut Vec<(u64, u64)>,
+    sets: &'a mut LinkSets,
+    decoder: Option<&'a ident::Decoder>,
     kernel: std::marker::PhantomData<K>,
 }
 
 impl<K: Kernel> Lines<2> for LinkLines<'_, K> {
     #[inline(always)]
     fn line(&mut self, f: &[&[u8]; 2]) {
-        if !f[0].is_empty() && !f[1].is_empty() {
-            unsafe { self.pairs.push((intern_k::<K>(f[0]), intern_k::<K>(f[1]))) };
+        if f[0].is_empty() || f[1].is_empty() {
+            return;
+        }
+        unsafe {
+            let Some(d) = self.decoder else {
+                self.sets.pairs.push((intern_k::<K>(f[0]), intern_k::<K>(f[1])));
+                return;
+            };
+            let va = K::mixed(f[0].as_ptr(), f[0].len()).map(|x| d.of_mixed(x));
+            let vb = K::mixed(f[1].as_ptr(), f[1].len()).map(|x| d.of_mixed(x));
+            if let (Some(a), Some(b)) = (va, vb) {
+                if a >> 9 == b >> 9 && d.in_lane(a) && d.in_lane(b) {
+                    self.sets.regular.push((a >> 9) << 8 | (a & 15) << 4 | (b & 15));
+                    return;
+                }
+            }
+            for v in [va, vb].into_iter().flatten() {
+                let g = v >> 9;
+                if g < d.gcap {
+                    self.sets.odd[(g >> 6) as usize] |= 1 << (g & 63);
+                }
+            }
+            self.sets.pairs.push((intern_k::<K>(f[0]), intern_k::<K>(f[1])));
         }
     }
 }
 
 #[inline(always)]
-unsafe fn link_pairs<K: Kernel>(body: &[u8], scratch: &mut Scratch, pairs: &mut Vec<(u64, u64)>) {
+unsafe fn link_pairs<K: Kernel>(body: &[u8], scratch: &mut Scratch, sets: &mut LinkSets, decoder: Option<&ident::Decoder>) {
     let mut lines = LinkLines::<K> {
-        pairs,
+        sets,
+        decoder,
         kernel: std::marker::PhantomData,
     };
     scan::scan::<2, K, _>(body, scratch, &mut lines);
@@ -665,7 +829,7 @@ impl<K: Kernel> Lines<7> for EventLines<'_, K> {
                                 } else {
                                     0
                                 };
-                                rec.user = intern_k::<K>(user);
+                                rec.user = user_k::<K>(ctx.decoder.as_ref(), user);
                                 rec.ts = (t - ctx.cws) as u32;
                                 rec.payload = price | category << 24;
                             }
@@ -743,11 +907,11 @@ impl<K: Kernel> ClickLines<'_, K> {
     fn flush(&mut self) {
         let bits = self.ctx.p2_bits;
         for rec in &self.batch[..self.pending] {
-            prefetch(self.people.slot_ptr(rec.person));
+            prefetch_user(self.people, rec.person);
         }
         for i in 0..self.pending {
             let mut rec = self.batch[i];
-            rec.person = self.people.name_of(rec.person);
+            rec.person = resolve(self.people, rec.person);
             self.sink.push(self.arena, part_of(rec.person, H2, bits), rec);
         }
         self.pending = 0;
@@ -770,7 +934,7 @@ impl<K: Kernel> Lines<4> for ClickLines<'_, K> {
             }
             let Some(campaign) = lookup_k::<K>(f[2]).and_then(|k| ctx.campaigns.get(k)) else { return };
             self.batch[self.pending] = ClickRec {
-                person: intern_k::<K>(user),
+                person: user_k::<K>(ctx.decoder.as_ref(), user),
                 click: intern_k::<K>(click_id),
                 ts: (t - ctx.cws) as u32,
                 campaign,
@@ -823,7 +987,7 @@ fn dedup(
     table: &mut Vec<(u64, u32)>,
     arena: &mut Arena,
     out: &mut Sink<PersonRec>,
-) -> usize {
+) -> (usize, usize) {
     buf.clear();
     for sink in sinks {
         for slice in sink.slices(q) {
@@ -839,7 +1003,7 @@ fn dedup(
     }
     let n = buf.len();
     if n == 0 {
-        return 0;
+        return (0, 0);
     }
     let size = (n * 2).next_power_of_two().max(16);
     let tbits = size.trailing_zeros();
@@ -873,15 +1037,19 @@ fn dedup(
     let mut pending: [(u64, u32, u32); BATCH] = [(0, 0, 0); BATCH];
     let mut count = 0usize;
     let mut winners = 0usize;
+    let mut lane_f = 0usize;
     let bits = ctx.p2_bits;
     let flush = |pending: &[(u64, u32, u32)], out: &mut Sink<PersonRec>, arena: &mut Arena| {
         for &(user, _, _) in pending {
-            prefetch(people.slot_ptr(user));
+            prefetch_user(people, user);
         }
+        let mut fkeys = 0usize;
         for &(user, ts, payload) in pending {
-            let person = people.name_of(user);
+            let person = resolve(people, user);
+            fkeys += (person & ident::FKEY != 0) as usize;
             out.push(arena, part_of(person, H2, bits), PersonRec { person, ts, payload });
         }
+        fkeys
     };
     for rec in buf.iter() {
         if rec.event != 0 && rec.ts != INVALID {
@@ -889,13 +1057,13 @@ fn dedup(
             count += 1;
             winners += 1;
             if count == BATCH {
-                flush(&pending, out, arena);
+                lane_f += flush(&pending, out, arena);
                 count = 0;
             }
         }
     }
-    flush(&pending[..count], out, arena);
-    winners
+    lane_f += flush(&pending[..count], out, arena);
+    (winners, lane_f)
 }
 
 #[derive(Clone, Copy, Default)]
@@ -1021,7 +1189,7 @@ impl Worker {
         self.rows
     }
 
-    fn partition(&mut self, ctx: &Ctx, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
+    fn partition(&mut self, ctx: &Ctx, people: &People, events: &[&Sink<PersonRec>], clicks: &[&Sink<ClickRec>], p: usize) {
         let n: usize = events.iter().map(|s| s.len(p)).sum();
         if n == 0 {
             return;
@@ -1177,7 +1345,12 @@ impl Worker {
         for id in 0..persons {
             let er = offsets[id] as usize..offsets[id + 1] as usize;
             let cr = click_offsets[id] as usize..click_offsets[id + 1] as usize;
-            self.person(self.persons[id], er, cr);
+            let key = self.persons[id];
+            let name = match people.decoder {
+                Some(d) if key & ident::FKEY != 0 => ident::person_name(&d, &people.info, key),
+                _ => key,
+            };
+            self.person(name, er, cr);
         }
     }
 

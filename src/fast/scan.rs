@@ -1,6 +1,7 @@
 #[cfg(target_arch = "x86_64")]
 use std::arch::x86_64::*;
 
+use super::ident;
 use super::keys;
 use crate::csv;
 
@@ -22,6 +23,7 @@ impl<const N: usize, F: FnMut(&[&[u8]; N])> Lines<N> for F {
 pub trait Kernel {
     unsafe fn masks(p: *const u8) -> (u64, u64, u64);
     unsafe fn pack(p: *const u8, len: usize) -> Option<u64>;
+    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64>;
 }
 
 pub struct Scalar;
@@ -45,6 +47,11 @@ impl Kernel for Scalar {
     unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
         keys::pack(std::slice::from_raw_parts(p, len))
     }
+
+    #[inline(always)]
+    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
+        keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value(k, len))
+    }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -61,6 +68,57 @@ impl Kernel for Avx2 {
     unsafe fn pack(p: *const u8, len: usize) -> Option<u64> {
         pack_avx2(p, len)
     }
+
+    #[inline(always)]
+    unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
+        mixed_avx2(p, len)
+    }
+}
+
+const fn align_table() -> [[u8; 16]; 10] {
+    let mut table = [[0x80u8; 16]; 10];
+    let mut len = 2;
+    while len < 10 {
+        let mut j = 9 - len;
+        while j < 8 {
+            table[len][j] = (j + len - 8) as u8;
+            j += 1;
+        }
+        len += 1;
+    }
+    table
+}
+
+static ALIGN: [[u8; 16]; 10] = align_table();
+
+#[cfg(target_arch = "x86_64")]
+#[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
+#[inline]
+unsafe fn mixed_avx2(p: *const u8, len: usize) -> Option<u64> {
+    if len.wrapping_sub(2) > 7 || *p != b'u' || (len > 2 && *p.add(1) == b'0') {
+        return None;
+    }
+    let v = _mm_loadu_si128(p as *const __m128i);
+    let iota = _mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+    let inside = _mm_cmpgt_epi8(_mm_set1_epi8(len as i8), iota);
+    let d = _mm_sub_epi8(v, _mm_set1_epi8(b'0' as i8));
+    let is_d = _mm_cmpeq_epi8(_mm_min_epu8(d, _mm_set1_epi8(9)), d);
+    let l = _mm_sub_epi8(v, _mm_set1_epi8(b'a' as i8));
+    let is_l = _mm_cmpeq_epi8(_mm_min_epu8(l, _mm_set1_epi8(25)), l);
+    let valid = _mm_or_si128(is_d, is_l);
+    if _mm_movemask_epi8(_mm_andnot_si128(valid, inside)) != 0 {
+        return None;
+    }
+    let value = _mm_or_si128(
+        _mm_and_si128(is_d, d),
+        _mm_and_si128(is_l, _mm_add_epi8(l, _mm_set1_epi8(10))),
+    );
+    let aligned = _mm_shuffle_epi8(value, _mm_loadu_si128(ALIGN[len].as_ptr() as *const __m128i));
+    let pairs = _mm_maddubs_epi16(aligned, _mm_set1_epi16(0x0124));
+    let quads = _mm_madd_epi16(pairs, _mm_set1_epi32(0x0001_0510));
+    let q = _mm_cvtsi128_si64(quads) as u64;
+    let x = (q & 0xffff_ffff) * 1_679_616 + (q >> 32);
+    (x <= ident::MASK).then_some(x)
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -506,6 +564,65 @@ mod tests {
                 if std::is_x86_feature_detected!("avx2") {
                     assert_eq!(Avx2::pack(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
                 }
+            }
+        }
+    }
+
+    #[test]
+    fn simd_mixed_matches() {
+        let mut state = 91u64;
+        let mut next = move || {
+            state ^= state << 13;
+            state ^= state >> 7;
+            state ^= state << 17;
+            state
+        };
+        let alphabet = b"0123456789abcdefghijklmnopqrstuvwxyzAZ_u ";
+        for round in 0..400_000 {
+            let len = (next() % 12) as usize;
+            let mut buf = [0u8; 32];
+            for b in buf.iter_mut() {
+                *b = alphabet[(next() % 36) as usize];
+            }
+            if round % 3 != 0 {
+                buf[0] = b'u';
+            }
+            if round % 7 == 0 {
+                buf[(next() % 12) as usize] = alphabet[36 + (next() % 5) as usize];
+            }
+            if round % 11 == 0 {
+                buf[1] = b'0';
+            }
+            if round % 13 == 0 {
+                buf[len.min(31)] = (next() % 256) as u8;
+            }
+            let expected = keys::pack(&buf[..len]).and_then(|k| ident::mixed_value(k, len));
+            unsafe {
+                assert_eq!(Scalar::mixed(buf.as_ptr(), len), expected);
+                #[cfg(target_arch = "x86_64")]
+                if std::is_x86_feature_detected!("avx2") {
+                    assert_eq!(Avx2::mixed(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
+                }
+            }
+        }
+        let mut max = b"u".to_vec();
+        let mut x = ident::MASK;
+        let mut digits = Vec::new();
+        while x > 0 {
+            digits.push(b"0123456789abcdefghijklmnopqrstuvwxyz"[(x % 36) as usize]);
+            x /= 36;
+        }
+        digits.reverse();
+        max.extend_from_slice(&digits);
+        max.resize(32, 0);
+        unsafe {
+            assert_eq!(Scalar::mixed(max.as_ptr(), 9), Some(ident::MASK));
+            #[cfg(target_arch = "x86_64")]
+            if std::is_x86_feature_detected!("avx2") {
+                assert_eq!(Avx2::mixed(max.as_ptr(), 9), Some(ident::MASK));
+                assert_eq!(Avx2::mixed(b"uzzzzzzzz\0\0\0\0\0\0\0".as_ptr(), 9), None);
+                assert_eq!(Avx2::mixed(b"u0\0\0\0\0\0\0\0\0\0\0\0\0\0\0".as_ptr(), 2), Some(0));
+                assert_eq!(Avx2::mixed(b"u00\0\0\0\0\0\0\0\0\0\0\0\0\0".as_ptr(), 3), None);
             }
         }
     }

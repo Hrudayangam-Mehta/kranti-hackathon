@@ -5,6 +5,8 @@ pub struct People {
     mask: usize,
     slots: &'static mut [[u64; 2]],
     linked: usize,
+    pub info: Vec<u64>,
+    pub decoder: Option<super::ident::Decoder>,
 }
 
 #[inline(always)]
@@ -38,6 +40,8 @@ impl People {
             mask: size - 1,
             slots: unsafe { std::slice::from_raw_parts_mut(memory as *mut [u64; 2], size) },
             linked: 0,
+            info: Vec::new(),
+            decoder: None,
         };
         let mut node_key: Vec<u64> = Vec::with_capacity(pairs.len() + 16);
         let mut parent: Vec<u32> = Vec::with_capacity(pairs.len() + 16);
@@ -99,6 +103,11 @@ impl People {
     #[inline(always)]
     pub fn slot_ptr(&self, key: u64) -> *const [u64; 2] {
         unsafe { self.slots.as_ptr().add(self.home(key)) }
+    }
+
+    #[inline(always)]
+    pub fn info_ptr(&self, g: u64) -> *const u64 {
+        self.info.as_ptr().wrapping_add(g as usize)
     }
 
     #[inline(always)]
