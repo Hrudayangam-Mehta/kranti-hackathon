@@ -24,6 +24,7 @@ pub trait Kernel {
     unsafe fn masks(p: *const u8) -> (u64, u64, u64);
     unsafe fn pack(p: *const u8, len: usize) -> Option<u64>;
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64>;
+    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64>;
 }
 
 pub struct Scalar;
@@ -52,6 +53,11 @@ impl Kernel for Scalar {
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
         keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value(k, len))
     }
+
+    #[inline(always)]
+    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64> {
+        keys::pack(std::slice::from_raw_parts(p, len)).and_then(|k| ident::mixed_value_code(k, len, ident::E_CODE))
+    }
 }
 
 #[cfg(target_arch = "x86_64")]
@@ -71,7 +77,12 @@ impl Kernel for Avx2 {
 
     #[inline(always)]
     unsafe fn mixed(p: *const u8, len: usize) -> Option<u64> {
-        mixed_avx2(p, len)
+        mixed_avx2(p, len, b'u')
+    }
+
+    #[inline(always)]
+    unsafe fn mixed_e(p: *const u8, len: usize) -> Option<u64> {
+        mixed_avx2(p, len, b'e')
     }
 }
 
@@ -94,8 +105,8 @@ static ALIGN: [[u8; 16]; 10] = align_table();
 #[cfg(target_arch = "x86_64")]
 #[target_feature(enable = "avx2,bmi1,bmi2,popcnt")]
 #[inline]
-unsafe fn mixed_avx2(p: *const u8, len: usize) -> Option<u64> {
-    if len.wrapping_sub(2) > 7 || *p != b'u' || (len > 2 && *p.add(1) == b'0') {
+unsafe fn mixed_avx2(p: *const u8, len: usize, prefix: u8) -> Option<u64> {
+    if len.wrapping_sub(2) > 7 || *p != prefix || (len > 2 && *p.add(1) == b'0') {
         return None;
     }
     let v = _mm_loadu_si128(p as *const __m128i);
@@ -602,6 +613,17 @@ mod tests {
                 #[cfg(target_arch = "x86_64")]
                 if std::is_x86_feature_detected!("avx2") {
                     assert_eq!(Avx2::mixed(buf.as_ptr(), len), expected, "{:?}", &buf[..len]);
+                }
+            }
+            if buf[0] == b'u' && round % 2 == 0 {
+                buf[0] = b'e';
+            }
+            let expected_e = keys::pack(&buf[..len]).and_then(|k| ident::mixed_value_code(k, len, ident::E_CODE));
+            unsafe {
+                assert_eq!(Scalar::mixed_e(buf.as_ptr(), len), expected_e);
+                #[cfg(target_arch = "x86_64")]
+                if std::is_x86_feature_detected!("avx2") {
+                    assert_eq!(Avx2::mixed_e(buf.as_ptr(), len), expected_e, "{:?}", &buf[..len]);
                 }
             }
         }

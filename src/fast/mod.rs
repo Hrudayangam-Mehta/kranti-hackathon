@@ -1,3 +1,4 @@
+pub mod bucket;
 pub mod ident;
 pub mod keys;
 pub mod parquet;
@@ -325,10 +326,19 @@ pub fn run(config: &Config) -> Result<Outcome> {
 
     let est_events = event_bytes / 60 + 1;
     let decoder = choose_decoder(&event_files, &link_files, event_bytes);
+    let calendar = Calendar::around(ws);
+    let f2 = decoder
+        .as_ref()
+        .and_then(|d| bucket::choose(&event_files, d, &calendar, (ws, we, cws), event_bytes, organic));
     let first_day = ws.div_euclid(DAY_MS);
     let last_day = (we - 1).div_euclid(DAY_MS);
+    let (p1_bits, p2_bits) = match f2 {
+        Some(_) => (4, bits_for(est_events / 16, 12 << 10)),
+        None => (bits_for(est_events, 12 << 10), bits_for(est_events, 12 << 10)),
+    };
+    let lane_g = if f2.is_some() { 16 } else { 1 };
     let ctx = Ctx {
-        calendar: Calendar::around(ws),
+        calendar,
         ws,
         we,
         cws,
@@ -336,11 +346,11 @@ pub fn run(config: &Config) -> Result<Outcome> {
         unknown,
         campaigns: SmallMap::new(&campaign_entries),
         organic,
-        p1_bits: bits_for(est_events, 12 << 10),
-        p2_bits: bits_for(est_events, 12 << 10),
-        p1_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
-        click_block: block_for(click_bytes / 47, 1 << bits_for(est_events, 12 << 10), threads, 32),
-        p2_block: block_for(event_bytes / 77, 1 << bits_for(est_events, 12 << 10), threads, 64),
+        p1_bits,
+        p2_bits,
+        p1_block: block_for(event_bytes / 77 / lane_g, 1 << p1_bits, threads, 64),
+        click_block: block_for(click_bytes / 47 / lane_g, 1 << p2_bits, threads, 32),
+        p2_block: block_for(event_bytes / 77 / lane_g, 1 << p2_bits, threads, 64),
         first_day,
         days: (last_day - first_day + 1) as usize,
         day_shift: cws - first_day * DAY_MS,
@@ -356,6 +366,19 @@ pub fn run(config: &Config) -> Result<Outcome> {
             .collect(),
     };
     lap("setup");
+    if let Some(f2) = &f2 {
+        return bucket::run_f2(
+            config,
+            &ctx,
+            f2,
+            &categories,
+            &campaign_ids,
+            &campaign_channels,
+            started,
+            est_events,
+            click_bytes,
+        );
+    }
 
     let people: OnceLock<People> = OnceLock::new();
     let links_done = AtomicBool::new(false);
