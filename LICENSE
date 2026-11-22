@@ -19,3 +19,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Third-party library acknowledgments
+
+parquet 60.1.0 — Apache-2.0 — https://crates.io/crates/parquet
+rayon 1.12.0 — MIT or Apache-2.0 — https://crates.io/crates/rayon
+libc 0.2.191 — MIT or Apache-2.0 — https://crates.io/crates/libc
+
+Transitive dependencies are pinned in Cargo.lock. The build image is
+rust:1.97.0-slim-bookworm, pinned by digest in Dockerfile.
+Built with AI assistance.
