@@ -1,0 +1,9 @@
+event_id,user_id,ts,ingest_ts,event_type,product_id,price_cents
+e1,kept_exact,1791021600000,2026-10-04T10:00:00Z,view,p1,
+e2,drop_1ms,1791021599999,2026-10-04T10:00:00Z,view,p1,
+e3,kept_1ms,1791021600001,2026-10-04T10:00:00Z,view,p1,
+e4,kept_before,1791021600000,2026-09-30T10:00:00Z,view,p1,
+e5,drop_1s,1791021600000,2026-10-04T10:00:01Z,view,p1,
+e6,kept_f2,2026-10-03T12:00:00+02:00,2026-10-04T10:00:00Z,view,p1,
+e7,drop_f2,2026-10-03T11:59:59+02:00,2026-10-04T10:00:00Z,view,p1,
+e8,drop_days,1791021600000,2026-10-08T10:00:00Z,view,p1,
